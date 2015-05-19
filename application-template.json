@@ -161,7 +161,7 @@
               "execNewPod": {
                 "containerName": "django",
                 "command": [
-                  "./manage.py migrate"
+                  "./scripts/pre_deploy.sh"
                 ]
               }
             }
