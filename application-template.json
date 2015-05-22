@@ -160,14 +160,6 @@
                     "value": "${APP_MODULE}"
                   },
                   {
-                    "name": "DJANGO_ADMIN_USER",
-                    "value": "${DJANGO_SECRET_KEY}"
-                  },
-                  {
-                    "name": "DJANGO_ADMIN_PASSWORD",
-                    "value": "${DJANGO_SECRET_KEY}"
-                  },
-                  {
                     "name": "DJANGO_SECRET_KEY",
                     "value": "${DJANGO_SECRET_KEY}"
                   },
@@ -277,16 +269,6 @@
       "name": "APP_MODULE",
       "description": "Python dotted path to your Django WSGI application",
       "value": "project.wsgi"
-    },
-    {
-      "name": "DJANGO_ADMIN_USER",
-      "description": "User name for Django Admin interface",
-      "value": "admin"
-    },
-    {
-      "name": "DJANGO_ADMIN_PASSWORD",
-      "description": "Password for Django Admin interface",
-      "value": "admin"
     },
     {
       "name": "DJANGO_SECRET_KEY",
