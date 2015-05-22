@@ -173,8 +173,16 @@
                     "value": "${DJANGO_SECRET_KEY}"
                   },
                   {
-                    "name": "DATABASE_URL",
-                    "value": "postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@$DATABASE_SERVICE_HOST:$DATABASE_SERVICE_PORT/${DATABASE_NAME}"
+                    "name": "DATABASE_USER",
+                    "value": "${DATABASE_USER}"
+                  },
+                  {
+                    "name": "DATABASE_PASSWORD",
+                    "value": "${DATABASE_PASSWORD}"
+                  },
+                  {
+                    "name": "DATABASE_NAME",
+                    "value": "${DATABASE_NAME}"
                   }
                 ]
               }

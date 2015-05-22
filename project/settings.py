@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -80,11 +79,24 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///'+os.path.join(BASE_DIR, 'db.sqlite3')
-    )
-}
+if os.getenv("DATABASE_SERVICE_HOST"):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.getenv("DATABASE_NAME"),
+            'USER': os.getenv("DATABASE_USER"),
+            'PASSWORD': os.getenv("DATABASE_PASSWORD"),
+            'HOST': os.getenv("DATABASE_SERVICE_HOST"),
+            'PORT': os.getenv("DATABASE_SERVICE_PORT"),
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Internationalization
