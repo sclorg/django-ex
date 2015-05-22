@@ -2,7 +2,7 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "Django Quickstart",
+    "name": "django-quickstart",
     "annotations": {
       "description": "This is a Django application template that uses PostgreSQL for data storage.",
       "tags": "instant-app,python,django,postgresql",
