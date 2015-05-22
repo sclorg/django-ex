@@ -147,6 +147,12 @@
           "name": "${FRONTEND_SERVICE_NAME}"
         },
         "template": {
+          "metadata": {
+            "name": "${FRONTEND_SERVICE_NAME}",
+            "labels": {
+              "name": "${FRONTEND_SERVICE_NAME}"
+            }
+          },
           "spec": {
             "containers": [
               {
@@ -203,6 +209,12 @@
           "name": "${DATABASE_SERVICE_NAME}"
         },
         "template": {
+          "metadata": {
+            "name": "${DATABASE_SERVICE_NAME}",
+            "labels": {
+              "name": "${DATABASE_SERVICE_NAME}"
+            }
+          },
           "spec": {
             "containers": [
               {
