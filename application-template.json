@@ -81,12 +81,14 @@
           "type": "Source",
           "SourceStrategy": {
             "from": {
+              "kind": "ImageStream",
               "name": "python-33-centos7"
             }
           }
         },
         "output": {
           "to": {
+            "kind": "ImageStream",
             "name": "django-quickstart"
           }
         },
