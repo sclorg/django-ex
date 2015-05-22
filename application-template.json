@@ -94,16 +94,17 @@
         },
         "triggers": [
           {
-            "type": "ImageChange"
+            "type": "imageChange",
+            "imageChange": {}
           },
           {
-            "type": "GitHub",
+            "type": "github",
             "github": {
               "secret": "secret123"
             }
           },
           {
-            "type": "Generic",
+            "type": "generic",
             "generic": {
               "secret": "secret123"
             }
