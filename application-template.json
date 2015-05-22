@@ -1,267 +1,260 @@
 {
   "kind": "Template",
-  "apiVersion": "v1beta1",
-  "labels": {
-    "template": "django-app-template-sti"
-  },
+  "apiVersion": "v1",
   "metadata": {
-    "name": "django-app",
+    "name": "Django Quickstart",
     "annotations": {
-      "description": "This is a Django application template for OpenShift",
-      "tags": "python,django,postgres",
+      "description": "This is a Django application template that uses PostgreSQL for data storage.",
+      "tags": "instant-app,python,django,postgresql",
       "iconClass" : "icon-python"
     }
   },
-  "items": [
+  "labels": {
+    "template": "django-quickstart-sti"
+  },
+  "objects": [
     {
       "kind": "Service",
-      "id": "web",
-      "apiVersion": "v1beta1",
-      "port": 80,
-      "containerPort": 8080,
-      "selector": {
-        "name": "web"
-      },
+      "apiVersion": "v1",
       "metadata": {
+        "name": "${FRONTEND_SERVICE_NAME}",
         "annotations": {
           "description": "Exposes and load balances the Django app instances."
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "web",
+            "port": 5432,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "name": "${FRONTEND_SERVICE_NAME}"
         }
       }
     },
     {
       "kind": "Service",
-      "id": "database",
-      "apiVersion": "v1beta1",
-      "port": 5432,
-      "containerPort": 5432,
-      "selector": {
-        "name": "database"
-      },
+      "apiVersion": "v1",
       "metadata": {
+        "name": "${DATABASE_SERVICE_NAME}",
         "annotations": {
           "description": "Exposes the PostgreSQL database server."
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "postgresql",
+            "port": 5432,
+            "targetPort": 5432
+          }
+        ],
+        "selector": {
+          "name": "${DATABASE_SERVICE_NAME}"
         }
       }
     },
     {
       "kind": "BuildConfig",
-      "apiVersion": "v1beta1",
+      "apiVersion": "v1",
       "metadata": {
-        "name": "django-app",
+        "name": "django-quickstart",
         "labels": {
-          "name": "django-app"
-       },
-       "annotations": {
-         "description": "Defines how to build the Django app."
-       }
-      },
-      "parameters": {
-        "strategy": {
-          "type": "STI",
-          "stiStrategy": {
-            "image": "openshift/python-33-centos7"
-          }
+          "name": "django-quickstart"
         },
+        "annotations": {
+          "description": "Defines how to build the Django app."
+        }
+      },
+      "spec": {
         "source": {
           "type": "Git",
           "git": {
-            "uri": "${PROJECT_REPO}"
+            "uri": "${GIT_REPOSITORY}"
+          },
+          "contextDir": "${CONTEXT_DIR}"
+        },
+        "strategy": {
+          "type": "Source",
+          "SourceStrategy": {
+            "from": {
+              "name": "python-33-centos7"
+            }
           }
         },
         "output": {
           "to": {
-            "name": "django-app"
-          }
-        }
-      },
-      "triggers": [
-        {
-          "type": "imageChange",
-          "imageChange": {
-            "from": {
-              "name": "python-33-centos7"
-            },
-            "image": "openshift/python-33-centos7",
-            "tag": "latest"
+            "name": "django-quickstart"
           }
         },
-        {
-          "type": "github",
-          "github": {
-            "secret": "secret123"
+        "triggers": [
+          {
+            "type": "ImageChange"
+          },
+          {
+            "type": "GitHub",
+            "github": {
+              "secret": "secret123"
+            }
+          },
+          {
+            "type": "Generic",
+            "generic": {
+              "secret": "secret123"
+            }
           }
-        },
-        {
-          "type": "generic",
-          "generic": {
-            "secret": "secret123"
-          }
-        }
-      ]
+        ]
+      }
     },
     {
       "kind": "DeploymentConfig",
-      "apiVersion": "v1beta1",
+      "apiVersion": "v1",
       "metadata": {
-        "name": "web",
+        "name": "${FRONTEND_SERVICE_NAME}",
         "labels": {
-          "name": "web"
+          "name": "${FRONTEND_SERVICE_NAME}"
         },
         "annotations": {
           "description": "Defines how to deploy the Django app."
         }
       },
-      "template": {
-        "controllerTemplate": {
-          "replicaSelector": {
-            "name": "web"
-          },
-          "replicas": 1,
-          "podTemplate": {
-            "labels": {
-              "name": "web"
-            },
-            "desiredState": {
-              "manifest": {
-                "version": "v1beta1",
-                "containers": [
+      "spec": {
+        "strategy": {
+          "type": "Rolling"
+        },
+        "triggers": [
+          {
+            "type": "ImageChange",
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "django-quickstart"
+              ],
+              "from": {
+                "name": "django-quickstart"
+              }
+            }
+          }
+        ],
+        "replicas": 2,
+        "selector": {
+          "name": "${FRONTEND_SERVICE_NAME}"
+        },
+        "template": {
+          "spec": {
+            "containers": [
+              {
+                "name": "django-quickstart",
+                "image": "django-quickstart",
+                "ports": [
                   {
-                    "name": "django",
-                    "image": "django-app",
-                    "ports": [
-                      {
-                        "containerPort": 8080
-                      }
-                    ],
-                    "env": [
-                      {
-                        "name": "APP_MODULE",
-                        "value": "${APP_MODULE}"
-                      },
-                      {
-                        "name": "DJANGO_SECRET_KEY",
-                        "value": "${DJANGO_SECRET_KEY}"
-                      },
-                      {
-                        "name": "DATABASE_URL",
-                        "value": "postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@$DATABASE_SERVICE_HOST:$DATABASE_SERVICE_PORT/${DATABASE_NAME}"
-                      }
-                    ]
+                    "containerPort": 8080
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "APP_MODULE",
+                    "value": "${APP_MODULE}"
+                  },
+                  {
+                    "name": "DJANGO_ADMIN_USER",
+                    "value": "${DJANGO_SECRET_KEY}"
+                  },
+                  {
+                    "name": "DJANGO_ADMIN_PASSWORD",
+                    "value": "${DJANGO_SECRET_KEY}"
+                  },
+                  {
+                    "name": "DJANGO_SECRET_KEY",
+                    "value": "${DJANGO_SECRET_KEY}"
+                  },
+                  {
+                    "name": "DATABASE_URL",
+                    "value": "postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@$DATABASE_SERVICE_HOST:$DATABASE_SERVICE_PORT/${DATABASE_NAME}"
                   }
                 ]
               }
-            }
-          }
-        },
-        "strategy": {
-          "type": "Recreate",
-          "recreateParams": {
-            "pre": {
-              "failurePolicy": "Abort",
-              "execNewPod": {
-                "containerName": "django",
-                "command": [
-                  "./scripts/pre_deploy.sh"
-                ]
-              }
-            }
+            ]
           }
         }
-      },
-      "triggers": [
-        {
-          "type": "ImageChange",
-          "imageChangeParams": {
-            "automatic": true,
-            "containerNames": [
-              "django"
-            ],
-            "from": {
-              "name": "django-app"
-            },
-            "tag": "latest"
-          }
-        }
-      ]
+      }
     },
     {
       "kind": "DeploymentConfig",
-      "apiVersion": "v1beta1",
+      "apiVersion": "v1",
       "metadata": {
-        "name": "database",
+        "name": "${DATABASE_SERVICE_NAME}",
+        "labels": {
+          "name": "${DATABASE_SERVICE_NAME}"
+        },
         "annotations": {
           "description": "Defines how to deploy the database."
         }
       },
-      "template": {
-        "controllerTemplate": {
-          "replicaSelector": {
-            "name": "database"
-          },
-          "replicas": 1,
-          "podTemplate": {
-            "labels": {
-              "name": "database"
-            },
-            "desiredState": {
-              "manifest": {
-                "version": "v1beta1",
-                "containers": [
+      "spec": {
+        "strategy": {
+          "type": "Recreate"
+        },
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "${DATABASE_SERVICE_NAME}"
+        },
+        "template": {
+          "spec": {
+            "containers": [
+              {
+                "name": "postgresql",
+                "image": "openshift/postgresql-92-centos7",
+                "ports": [
                   {
-                    "name": "database",
-                    "image": "openshift/postgresql-92-centos7",
-                    "ports": [
-                      {
-                        "containerPort": 5432
-                      }
-                    ],
-                    "env": [
-                      {
-                        "name": "POSTGRESQL_USER",
-                        "value": "${DATABASE_USER}"
-                      },
-                      {
-                        "name": "POSTGRESQL_PASSWORD",
-                        "value": "${DATABASE_PASSWORD}"
-                      },
-                      {
-                        "name": "POSTGRESQL_DATABASE",
-                        "value": "${DATABASE_NAME}"
-                      }
-                    ]
+                    "containerPort": 5432
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "POSTGRESQL_USER",
+                    "value": "${DATABASE_USER}"
+                  },
+                  {
+                    "name": "POSTGRESQL_PASSWORD",
+                    "value": "${DATABASE_PASSWORD}"
+                  },
+                  {
+                    "name": "POSTGRESQL_DATABASE",
+                    "value": "${DATABASE_NAME}"
                   }
                 ]
               }
-            }
+            ]
           }
-        },
-        "strategy": {
-          "type": "Recreate"
-        }
-      },
-      "triggers": [
-        {
-          "type": "ConfigChange"
-        }
-      ]
-    },
-    {
-      "kind": "ImageStream",
-      "apiVersion": "v1beta1",
-      "metadata": {
-        "name": "django-app",
-        "annotations": {
-          "description": "Augments the Docker registry, keeps track of image changes for the Django app."
         }
       }
     },
     {
       "kind": "ImageStream",
-      "apiVersion": "v1beta1",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "django-quickstart",
+        "annotations": {
+          "description": "Keeps track of changes in the Django app image."
+        }
+      }
+    },
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
       "metadata": {
         "name": "python-33-centos7",
         "annotations": {
-          "description": "Augments the Docker registry, keeps track of image changes for Python base image."
+          "description": "Keeps track of changes in the Python base image."
         }
       },
       "spec": {
@@ -271,18 +264,33 @@
   ],
   "parameters": [
     {
+      "name": "GIT_REPOSITORY",
       "description": "Change this to match your project's Git repository",
-      "name": "PROJECT_REPO",
       "value": "git://github.com/rhcarvalho/openshift-django-quickstart.git"
     },
     {
-      "description": "Django WSGI application",
+      "name": "CONTEXT_DIR",
+      "description": "Change this to the relative path to your project if it is not in the root of your repository",
+      "value": ""
+    },
+    {
       "name": "APP_MODULE",
+      "description": "Python dotted path to your Django WSGI application",
       "value": "project.wsgi"
     },
     {
-      "description": "Django secret key",
+      "name": "DJANGO_ADMIN_USER",
+      "description": "User name for Django Admin interface",
+      "value": "admin"
+    },
+    {
+      "name": "DJANGO_ADMIN_PASSWORD",
+      "description": "Password for Django Admin interface",
+      "value": "admin"
+    },
+    {
       "name": "DJANGO_SECRET_KEY",
+      "description": "Django secret key",
       "generate": "expression",
       "from": "[\\w]{50}"
     },
@@ -294,13 +302,23 @@
     {
       "description": "Database user name",
       "name": "DATABASE_USER",
-      "value": "admin"
+      "value": "django"
     },
     {
       "description": "Database user password",
       "name": "DATABASE_PASSWORD",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{16}"
+    },
+    {
+      "description": "Frontend service name (Django)",
+      "name": "FRONTEND_SERVICE_NAME",
+      "value": "web"
+    },
+    {
+      "description": "Database service name (PostgreSQL)",
+      "name": "DATABASE_SERVICE_NAME",
+      "value": "database"
     }
   ]
 }
