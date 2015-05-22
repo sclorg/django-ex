@@ -169,6 +169,10 @@
                     "value": "${APP_MODULE}"
                   },
                   {
+                    "name": "APP_CONFIG",
+                    "value": "${APP_CONFIG}"
+                  },
+                  {
                     "name": "DJANGO_SECRET_KEY",
                     "value": "${DJANGO_SECRET_KEY}"
                   },
@@ -292,6 +296,11 @@
       "name": "APP_MODULE",
       "description": "Python dotted path to your Django WSGI application",
       "value": "project.wsgi"
+    },
+    {
+      "name": "APP_CONFIG",
+      "description": "Relative path to Gunicorn configuration file (optional)",
+      "value": "gunicorn_conf.py"
     },
     {
       "name": "DJANGO_SECRET_KEY",
