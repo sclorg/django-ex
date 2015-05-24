@@ -120,15 +120,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-
-# Django Debug Toolbar settings
-
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'project.settings.show_debug_toolbar',
-}
-
-def show_debug_toolbar(request):
-    if request.is_ajax():
-        return False
-    return bool(DEBUG)
