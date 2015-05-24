@@ -11,15 +11,19 @@ You can use this as a starting point to build your own application.
 
 2. Fork this repo and clone your fork:
 
-    git clone https://github.com/rhcarvalho/openshift-django-quickstart.git
+    `git clone https://github.com/rhcarvalho/openshift-django-quickstart.git`
 
 3. Install dependencies:
 
-    pip install -r requirements.txt
+    `pip install -r requirements.txt`
+
+4. Create a development database:
+
+    `./manage.py migrate`
 
 4. If everything is alright, you should be able to start the Django development server:
 
-    ./manage.py runserver
+    `./manage.py runserver`
 
 5. Open your browser and go to http://127.0.0.1:8000, you will be greeted with a welcome page.
 
@@ -36,33 +40,11 @@ This is a minimal Django 1.8 project. It was created with these steps:
 
 ## Deploying to OpenShift
 
-1. osc process -f application-template.json - | osc create -
-deploy
-see it running
+The file `application-template.json` contains an OpenShift application template that you can add you your OpenShift project with:
 
+* `osc create -f application-template.json`
 
-## Next steps
+Now you can browse to your OpenShift web console and create a new app from the 'django-quickstart' template.
+After adjusting your preferences (or accepting the defaults), your application will be built and deployed.
 
-### Add your own code
-
-Add your own code, commit and redeploy.
-hack (create app) & redeploy
-
-### Add a database
-
-Your OpenShift administrator should provide you ...
-Change the configuration to point to your PostgreSQL database server.
-
-### Scaling up
-
-osc resize dc/web ...
-
-### Web server logs
-
-see gunicorn logs
-
-
-## Not covered
-
-- add application monitoring (newrelic)
-- add error monitoring (rollbar)
+You will probably want to set the `GIT_REPOSITORY` parameter to point to your fork.
