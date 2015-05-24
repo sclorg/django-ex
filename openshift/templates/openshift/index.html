@@ -10,8 +10,7 @@
     body>div { border-bottom:1px solid #ddd; }
     h1 { font-weight:normal; }
     code { background: #ffd; }
-    #summary { background: #34383c; }
-    #summary h1 { color: #fff; }
+    #summary, #hostname { background: #34383c; color: #fff; }
     #explanation { background:#eee; }
     #instructions { background:#f6f6f6; }
     #instructions ol li { margin: 0.2em 0 0.2em 2em; }
@@ -45,6 +44,12 @@
     but very handy during development.<br>
     Refer to the <a href="https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/">Deployment Checklist</a>
     before taking this project into a production environment.
+  </p>
+</div>
+
+<div id="hostname">
+  <p>
+    Server hostname: {{ HOSTNAME }}
   </p>
 </div>
 </body></html>
