@@ -79,7 +79,7 @@
         },
         "strategy": {
           "type": "Source",
-          "SourceStrategy": {
+          "sourceStrategy": {
             "from": {
               "kind": "ImageStream",
               "name": "python-33-centos7"
