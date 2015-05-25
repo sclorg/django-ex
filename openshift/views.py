@@ -9,6 +9,6 @@ def index(request):
     hostname = os.getenv('HOSTNAME', 'unknown')
     PageView.objects.create(hostname=hostname)
     return render(request, 'openshift/index.html', {
-        'HOSTNAME': hostname,
+        'hostname': hostname,
         'count': PageView.objects.count()
     })
