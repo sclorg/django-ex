@@ -140,6 +140,9 @@
                 "name": "django-quickstart:latest"
               }
             }
+          },
+          {
+            "type": "ConfigChange"
           }
         ],
         "replicas": 2,
