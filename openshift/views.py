@@ -1,7 +1,14 @@
 import os
 from django.shortcuts import render
 
+from .models import PageView
+
 # Create your views here.
 
 def index(request):
-    return render(request, 'openshift/index.html', {'HOSTNAME': os.getenv('HOSTNAME', 'unknown')})
+    hostname = os.getenv('HOSTNAME', 'unknown')
+    PageView.objects.create(hostname=hostname)
+    return render(request, 'openshift/index.html', {
+        'HOSTNAME': hostname,
+        'count': PageView.objects.count()
+    })
