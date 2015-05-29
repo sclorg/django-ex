@@ -14,6 +14,7 @@
     #explanation { background:#eee; }
     #instructions { background:#f6f6f6; }
     #instructions ol li { margin: 0.2em 0 0.2em 2em; }
+    .warning { color: orange }
   </style>
 </head>
 
@@ -51,7 +52,15 @@
 <div id="hostname">
   <p>
     Server hostname: {{ hostname }}<br>
-    Database server: {{ database_info }}<br>
+    Database server: {{ database.engine }} ({{ database.url }})<br>
+    {% if database.is_sqlite %}
+    <span class="warning">
+      Data persistence warning:
+      You are currently using SQLite.
+      This is fine for development, but your data won't be persisted
+      across application deployments.
+    </span><br>
+    {% endif %}
     Page views: {{ count }}
   </p>
 </div>
