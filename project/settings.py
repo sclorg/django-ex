@@ -43,7 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
-    'openshift',
+    'welcome',
 )
 
 MIDDLEWARE_CLASSES = (
