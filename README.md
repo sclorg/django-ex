@@ -13,7 +13,7 @@ This is a minimal Django 1.8 project. It was created with these steps:
 3. `pip freeze > requirements.txt`
 4. `django-admin startproject project .`
 3. Manually update `project/settings.py` to configure `SECRET_KEY`, `DATABASE` and `STATIC_ROOT` entries.
-4. `./manage.py startapp openshift`, to create the welcome page's app
+4. `./manage.py startapp welcome`, to create the welcome page's app
 
 
 ## Local development
