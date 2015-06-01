@@ -60,16 +60,29 @@ The directory `openshift/` contains OpenShift application template files that yo
 
     osc create -f openshift/<TEMPLATE_NAME>.json
 
-Now you can go to your OpenShift web console and create a new app from one of the templates that you have just added.
-After adjusting your preferences (or accepting the defaults), your application will be built and deployed.
+The template `django-source.json` contains just a minimal set of components to get your Django application into OpenShift.
 
-You will probably want to set the `GIT_REPOSITORY` parameter to point to your fork.
+The template `django-source-postgresql.json` contains all of the components from `django-source.json`, plus a PostgreSQL database service and an Image Stream for the Python base image.
+
+After adding your templates, you can go to your OpenShift web console, browse to your project and click the create button. Create a new app from one of the templates that you have just added.
+
+Adjust the parameter values to suit your configuration. Most times you can just accept the default values, however you will probably want to set the `GIT_REPOSITORY` parameter to point to your fork and the `DATABASE_*` parameters to match your database configuration.
 
 Alternatively, you can use the command line to create your new app:
 
     osc new-app --template=<TEMPLATE_NAME> --param=GIT_REPOSITORY=...,...
 
-In the web console, the overview tab shows you a service, by default called "web", that encapsulates all pods running your Django application. You can access your application by browsing to the service's IP address and port.
+Your application will be built and deployed automatically. If that doesn't happen, you can debug your build:
+
+    osc get builds
+    # take build name from the command above
+    osc build-logs <build-name>
+
+And you can see information about your deployment too:
+
+    osc describe dc/django
+
+In the web console, the overview tab shows you a service, by default called "django", that encapsulates all pods running your Django application. You can access your application by browsing to the service's IP address and port.
 
 
 ### Without an application template
@@ -87,6 +100,8 @@ services/django-ex
 A build was created - you can run `osc start-build django-ex` to start it.
 Service "django-ex" created at 172.30.16.213 with port mappings 8080.
 ```
+
+You can access your application by browsing to the service's IP address and port.
 
 
 ## Special files in this repository
