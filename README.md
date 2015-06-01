@@ -4,6 +4,7 @@ This is a [Django](http://www.djangoproject.com) project that you can use as the
 
 It assumes you have access to an existing OpenShift installation.
 
+
 ## What has been done for you
 
 This is a minimal Django 1.8 project. It was created with these steps:
