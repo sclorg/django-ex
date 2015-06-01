@@ -43,11 +43,21 @@ To run this project in your development machine, follow these steps:
 
 ## Special files in this repository
 
-[TODO]
+Apart from the regular files created by Django (`project/*`, `welcome/*`, `manage.py`), this repository contains:
 
 ```
-.sti/                 - scripts used by source-to-image
-openshift/            - application templates
+.sti/
+└── bin/           - scripts used by source-to-image
+    ├── assemble   - executed to produce a Docker image with your code and dependencies during build
+    └── run        - executed to start your app during deployment
+
+openshift/         - application templates for OpenShift
+
+scripts/           - helper scripts to automate some tasks
+
+gunicorn_conf.py   - configuration for the gunicorn HTTP server
+
+requirements.txt   - list of dependencies
 ```
 
 ## Deploying to OpenShift
