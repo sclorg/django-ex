@@ -52,6 +52,8 @@ To run this project in your development machine, follow these steps:
 
 To follow the next steps, you need to be logged in to an OpenShift cluster and have an OpenShift project where you can work on.
 
+### Using an application template
+
 The directory `openshift/` contains OpenShift application template files that you can add you your OpenShift project with:
 
     osc create -f openshift/<TEMPLATE_NAME>.json
@@ -66,6 +68,22 @@ Alternatively, you can use the command line to create your new app:
     osc new-app --template=<TEMPLATE_NAME> --param=GIT_REPOSITORY=...,...
 
 In the web console, the overview tab shows you a service, by default called "web", that encapsulates all pods running your Django application. You can access your application by browsing to the service's IP address and port.
+
+### Without an application template
+
+Templates give you full control of each component of your application.
+Sometimes your application is simple enough and you don't want to bother with templates. In that case, you can let OpenShift inspect your source code and create the required components automatically for you:
+
+```bash
+$ osc new-app openshift/python-33-centos7~https://github.com/openshift/django-ex
+imageStreams/python-33-centos7
+imageStreams/django-ex
+buildConfigs/django-ex
+deploymentConfigs/django-ex
+services/django-ex
+A build was created - you can run `osc start-build django-ex` to start it.
+Service "django-ex" created at 172.30.16.213 with port mappings 8080.
+```
 
 
 ## Special files in this repository
