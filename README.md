@@ -4,7 +4,6 @@ This is a [Django](http://www.djangoproject.com) project that you can use as the
 
 It assumes you have access to an existing OpenShift installation.
 
-
 ## What has been done for you
 
 This is a minimal Django 1.8 project. It was created with these steps:
@@ -13,8 +12,15 @@ This is a minimal Django 1.8 project. It was created with these steps:
 2. Manually install Django and other dependencies
 3. `pip freeze > requirements.txt`
 4. `django-admin startproject project .`
-3. Manually update `project/settings.py` to configure `SECRET_KEY`, `DATABASE` and `STATIC_ROOT` entries.
+3. Update `project/settings.py` to configure `SECRET_KEY`, `DATABASE` and `STATIC_ROOT` entries
 4. `./manage.py startapp welcome`, to create the welcome page's app
+
+From this initial state you can:
+* create new Django apps
+* remove the `welcome` app
+* rename the Django project
+* update settings to suit your needs
+* install more Python libraries and add them to the `requirements.txt` file
 
 
 ## Local development
@@ -43,6 +49,8 @@ To run this project in your development machine, follow these steps:
 
 
 ## Deploying to OpenShift
+
+To follow the next steps, you need to be logged in to an OpenShift cluster and have an OpenShift project where you can work on.
 
 The directory `openshift/` contains OpenShift application template files that you can add you your OpenShift project with:
 
@@ -89,6 +97,11 @@ After each deploy you get a fresh, empty, SQLite database. That is fine for a fi
 To do that, you should add a properly configured database server or ask your OpenShift administrator to add one for you. Then use `osc env` to update the `DATABASE_*` environment variables in your DeploymentConfig to match your database settings.
 
 Redeploy your application to have your changes applied, and open the welcome page again to make sure your application is successfully connected to the database server.
+
+
+## Looking for help
+
+If you get stuck at some point, or think that this document needs further details or clarification, you can give feedback and look for help using the channels mentioned in [the OpenShift Origin repo](https://github.com/openshift/origin), or by filling an issue.
 
 
 ## License
