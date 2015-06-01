@@ -41,6 +41,24 @@ To run this project in your development machine, follow these steps:
 5. Open your browser and go to http://127.0.0.1:8000, you will be greeted with a welcome page.
 
 
+## Deploying to OpenShift
+
+The directory `openshift/` contains OpenShift application template files that you can add you your OpenShift project with:
+
+    osc create -f openshift/<TEMPLATE_NAME>.json
+
+Now you can go to your OpenShift web console and create a new app from one of the templates that you have just added.
+After adjusting your preferences (or accepting the defaults), your application will be built and deployed.
+
+You will probably want to set the `GIT_REPOSITORY` parameter to point to your fork.
+
+Alternatively, you can use the command line to create your new app:
+
+    osc new-app --template=<TEMPLATE_NAME> --param=GIT_REPOSITORY=...,...
+
+In the web console, the overview tab shows you a service, by default called "web", that encapsulates all pods running your Django application. You can access your application by browsing to the service's IP address and port.
+
+
 ## Special files in this repository
 
 Apart from the regular files created by Django (`project/*`, `welcome/*`, `manage.py`), this repository contains:
@@ -59,17 +77,6 @@ gunicorn_conf.py   - configuration for the gunicorn HTTP server
 
 requirements.txt   - list of dependencies
 ```
-
-## Deploying to OpenShift
-
-The file `application-template.json` contains an OpenShift application template that you can add you your OpenShift project with:
-
-* `osc create -f application-template.json`
-
-Now you can browse to your OpenShift web console and create a new app from the 'django-quickstart' template.
-After adjusting your preferences (or accepting the defaults), your application will be built and deployed.
-
-You will probably want to set the `GIT_REPOSITORY` parameter to point to your fork.
 
 
 ## Data persistence
