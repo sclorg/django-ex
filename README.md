@@ -81,4 +81,10 @@ requirements.txt   - list of dependencies
 
 ## Data persistence
 
-[TODO]
+You can deploy this application without a configured database in your OpenShift project, in which case Django will use a temporary SQLite database that will live inside your application's container, and persist only until you redeploy your application.
+
+After each deploy you get a fresh, empty, SQLite database. That is fine for a first contact with OpenShift and perhaps Django, but sooner or later you will want to persist your data across deployments.
+
+To do that, you should add a properly configured database server or ask your OpenShift administrator to add one for you. Then use `osc env` to update the `DATABASE_*` environment variables in your DeploymentConfig to match your database settings.
+
+Redeploy your application to have your changes applied, and open the welcome page again to make sure your application is successfully connected to the database server.
