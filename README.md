@@ -4,6 +4,7 @@ This is a [Django](http://www.djangoproject.com) project that you can use as the
 
 It assumes you have access to an existing OpenShift installation.
 
+
 ## What has been done for you
 
 This is a minimal Django 1.8 project. It was created with these steps:
@@ -52,6 +53,7 @@ To run this project in your development machine, follow these steps:
 
 To follow the next steps, you need to be logged in to an OpenShift cluster and have an OpenShift project where you can work on.
 
+
 ### Using an application template
 
 The directory `openshift/` contains OpenShift application template files that you can add you your OpenShift project with:
@@ -68,6 +70,7 @@ Alternatively, you can use the command line to create your new app:
     osc new-app --template=<TEMPLATE_NAME> --param=GIT_REPOSITORY=...,...
 
 In the web console, the overview tab shows you a service, by default called "web", that encapsulates all pods running your Django application. You can access your application by browsing to the service's IP address and port.
+
 
 ### Without an application template
 
