@@ -186,7 +186,7 @@
           "description": "Keeps track of changes in the Django app image."
         }
       }
-    },
+    }
   ],
   "parameters": [
     {
