@@ -88,3 +88,8 @@ After each deploy you get a fresh, empty, SQLite database. That is fine for a fi
 To do that, you should add a properly configured database server or ask your OpenShift administrator to add one for you. Then use `osc env` to update the `DATABASE_*` environment variables in your DeploymentConfig to match your database settings.
 
 Redeploy your application to have your changes applied, and open the welcome page again to make sure your application is successfully connected to the database server.
+
+
+## License
+
+This code is dedicated to the public domain to the maximum extent permitted by applicable law, pursuant to [CC0](http://creativecommons.org/publicdomain/zero/1.0/).
