@@ -2,15 +2,15 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "django-quickstart",
+    "name": "django-quickstart-source-postgresql",
     "annotations": {
-      "description": "This is a Django application template that uses PostgreSQL for data storage.",
+      "description": "Django application template that uses the Source build strategy and includes a PostgreSQL database server for storage.",
       "tags": "instant-app,python,django,postgresql",
       "iconClass" : "icon-python"
     }
   },
   "labels": {
-    "template": "django-quickstart-sti"
+    "template": "django-quickstart-source-postgresql"
   },
   "objects": [
     {
@@ -26,7 +26,7 @@
         "ports": [
           {
             "name": "web",
-            "port": 5432,
+            "port": 8080,
             "targetPort": 8080
           }
         ],
@@ -62,9 +62,6 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "django-quickstart",
-        "labels": {
-          "name": "django-quickstart"
-        },
         "annotations": {
           "description": "Defines how to build the Django app."
         }
@@ -89,7 +86,7 @@
         "output": {
           "to": {
             "kind": "ImageStream",
-            "name": "django-quickstart"
+            "name": "django-quickstart-source"
           }
         },
         "triggers": [
@@ -116,9 +113,6 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "${FRONTEND_SERVICE_NAME}",
-        "labels": {
-          "name": "${FRONTEND_SERVICE_NAME}"
-        },
         "annotations": {
           "description": "Defines how to deploy the Django app."
         }
@@ -144,7 +138,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 2,
+        "replicas": 1,
         "selector": {
           "name": "${FRONTEND_SERVICE_NAME}"
         },
@@ -159,13 +153,33 @@
             "containers": [
               {
                 "name": "django-quickstart",
-                "image": "django-quickstart",
+                "image": "django-quickstart-source",
                 "ports": [
                   {
                     "containerPort": 8080
                   }
                 ],
                 "env": [
+                  {
+                    "name": "DATABASE_SERVICE_NAME",
+                    "value": "${DATABASE_SERVICE_NAME}"
+                  },
+                  {
+                    "name": "DATABASE_ENGINE",
+                    "value": "${DATABASE_ENGINE}"
+                  },
+                  {
+                    "name": "DATABASE_NAME",
+                    "value": "${DATABASE_NAME}"
+                  },
+                  {
+                    "name": "DATABASE_USER",
+                    "value": "${DATABASE_USER}"
+                  },
+                  {
+                    "name": "DATABASE_PASSWORD",
+                    "value": "${DATABASE_PASSWORD}"
+                  },
                   {
                     "name": "APP_MODULE",
                     "value": "${APP_MODULE}"
@@ -177,18 +191,6 @@
                   {
                     "name": "DJANGO_SECRET_KEY",
                     "value": "${DJANGO_SECRET_KEY}"
-                  },
-                  {
-                    "name": "DATABASE_USER",
-                    "value": "${DATABASE_USER}"
-                  },
-                  {
-                    "name": "DATABASE_PASSWORD",
-                    "value": "${DATABASE_PASSWORD}"
-                  },
-                  {
-                    "name": "DATABASE_NAME",
-                    "value": "${DATABASE_NAME}"
                   }
                 ]
               }
@@ -263,7 +265,7 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "django-quickstart",
+        "name": "django-quickstart-source",
         "annotations": {
           "description": "Keeps track of changes in the Django app image."
         }
@@ -287,12 +289,37 @@
     {
       "name": "GIT_REPOSITORY",
       "description": "Change this to match your project's Git repository",
-      "value": "git://github.com/rhcarvalho/openshift-django-quickstart.git"
+      "value": "git://github.com/openshift/django-ex.git"
     },
     {
       "name": "CONTEXT_DIR",
-      "description": "Change this to the relative path to your project if it is not in the root of your repository",
-      "value": ""
+      "description": "Set this to the relative path to your project if it is not in the root of your repository"
+    },
+    {
+      "name": "FRONTEND_SERVICE_NAME",
+      "description": "Frontend service name",
+      "value": "django"
+    },
+    {
+      "name": "DATABASE_SERVICE_NAME",
+      "description": "Database service name (PostgreSQL)",
+      "value": "database"
+    },
+    {
+      "name": "DATABASE_NAME",
+      "description": "Database name",
+      "value": "default"
+    },
+    {
+      "name": "DATABASE_USER",
+      "description": "Database user name",
+      "value": "django"
+    },
+    {
+      "name": "DATABASE_PASSWORD",
+      "description": "Database user password",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{16}"
     },
     {
       "name": "APP_MODULE",
@@ -309,32 +336,6 @@
       "description": "Django secret key",
       "generate": "expression",
       "from": "[\\w]{50}"
-    },
-    {
-      "description": "Database name",
-      "name": "DATABASE_NAME",
-      "value": "default"
-    },
-    {
-      "description": "Database user name",
-      "name": "DATABASE_USER",
-      "value": "django"
-    },
-    {
-      "description": "Database user password",
-      "name": "DATABASE_PASSWORD",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{16}"
-    },
-    {
-      "description": "Frontend service name (Django)",
-      "name": "FRONTEND_SERVICE_NAME",
-      "value": "web"
-    },
-    {
-      "description": "Database service name (PostgreSQL)",
-      "name": "DATABASE_SERVICE_NAME",
-      "value": "database"
     }
   ]
 }

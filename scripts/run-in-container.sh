@@ -43,7 +43,7 @@
 #     ./run-in-container.sh ./manage.py createsuperuser
 #     ./run-in-container.sh tail -f access.log
 #
-# If your Python pods are labeled with a name other than "web", you can use:
+# If your Python pods are labeled with a name other than "django", you can use:
 #
 #     POD_NAME=something ./run-in-container.sh ./manage.py check
 #
@@ -58,7 +58,7 @@
 
 # Get name of a currently deployed pod by label and index
 POD_INSTANCE_NAME=`osc get pods \
-  -l "name=${POD_NAME:-web}" \
+  -l "name=${POD_NAME:-django}" \
   -t "{{ with index .items ${POD_INDEX:-0} }}{{ .metadata.name }}{{ end }}"`
 
 # Run command in a container of the specified pod:
