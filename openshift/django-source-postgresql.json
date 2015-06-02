@@ -306,6 +306,11 @@
       "value": "postgresql"
     },
     {
+      "name": "DATABASE_ENGINE",
+      "description": "Database engine: postgresql, mysql or sqlite (default)",
+      "value": "postgresql"
+    },
+    {
       "name": "DATABASE_NAME",
       "description": "Database name",
       "value": "default"
