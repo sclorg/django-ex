@@ -39,7 +39,7 @@
       "kind": "BuildConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "django-quickstart",
+        "name": "django-quickstart-source",
         "annotations": {
           "description": "Defines how to build the Django app."
         }
@@ -108,7 +108,7 @@
                 "django-quickstart"
               ],
               "from": {
-                "name": "django-quickstart:latest"
+                "name": "django-quickstart-source:latest"
               }
             }
           },
