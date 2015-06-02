@@ -302,8 +302,8 @@
     },
     {
       "name": "DATABASE_SERVICE_NAME",
-      "description": "Database service name (PostgreSQL)",
-      "value": "database"
+      "description": "Database service name",
+      "value": "postgresql"
     },
     {
       "name": "DATABASE_NAME",
