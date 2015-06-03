@@ -1,23 +1,22 @@
 {
   "kind": "Template",
-  "apiVersion": "v1",
+  "apiVersion": "v1beta3",
   "metadata": {
     "name": "django-quickstart-source-postgresql",
+    "creationTimestamp": null,
     "annotations": {
       "description": "Django application template that uses the Source build strategy and includes a PostgreSQL database server for storage.",
-      "tags": "instant-app,python,django,postgresql",
-      "iconClass" : "icon-python"
+      "iconClass": "icon-python",
+      "tags": "instant-app,python,django,postgresql"
     }
-  },
-  "labels": {
-    "template": "django-quickstart-source-postgresql"
   },
   "objects": [
     {
       "kind": "Service",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "${FRONTEND_SERVICE_NAME}",
+        "creationTimestamp": null,
         "annotations": {
           "description": "Exposes and load balances the Django app instances."
         }
@@ -26,20 +25,29 @@
         "ports": [
           {
             "name": "web",
+            "protocol": "TCP",
             "port": 8080,
-            "targetPort": 8080
+            "targetPort": 8080,
+            "nodePort": 0
           }
         ],
         "selector": {
           "name": "${FRONTEND_SERVICE_NAME}"
-        }
+        },
+        "portalIP": "",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
       }
     },
     {
       "kind": "Service",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "${DATABASE_SERVICE_NAME}",
+        "creationTimestamp": null,
         "annotations": {
           "description": "Exposes the PostgreSQL database server."
         }
@@ -48,50 +56,38 @@
         "ports": [
           {
             "name": "postgresql",
+            "protocol": "TCP",
             "port": 5432,
-            "targetPort": 5432
+            "targetPort": 5432,
+            "nodePort": 0
           }
         ],
         "selector": {
           "name": "${DATABASE_SERVICE_NAME}"
-        }
+        },
+        "portalIP": "",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
       }
     },
     {
       "kind": "BuildConfig",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "django-quickstart-source",
+        "creationTimestamp": null,
         "annotations": {
           "description": "Defines how to build the Django app."
         }
       },
       "spec": {
-        "source": {
-          "type": "Git",
-          "git": {
-            "uri": "${GIT_REPOSITORY}"
-          },
-          "contextDir": "${CONTEXT_DIR}"
-        },
-        "strategy": {
-          "type": "Source",
-          "sourceStrategy": {
-            "from": {
-              "kind": "ImageStream",
-              "name": "python-33-centos7"
-            }
-          }
-        },
-        "output": {
-          "to": {
-            "kind": "ImageStream",
-            "name": "django-quickstart-source"
-          }
-        },
         "triggers": [
           {
-            "type": "imageChange"
+            "type": "imageChange",
+            "imageChange": {}
           },
           {
             "type": "github",
@@ -105,21 +101,54 @@
               "secret": "secret123"
             }
           }
-        ]
+        ],
+        "source": {
+          "type": "Git",
+          "git": {
+            "uri": "${GIT_REPOSITORY}"
+          },
+          "contextDir": "${CONTEXT_DIR}"
+        },
+        "strategy": {
+          "type": "Source",
+          "sourceStrategy": {
+            "from": {
+              "kind": "ImageStreamTag",
+              "name": "python-33-centos7:latest"
+            }
+          }
+        },
+        "output": {
+          "to": {
+            "kind": "ImageStreamTag",
+            "name": "django-quickstart-source:latest"
+          }
+        },
+        "resources": {}
+      },
+      "status": {
+        "lastVersion": 0
       }
     },
     {
       "kind": "DeploymentConfig",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "${FRONTEND_SERVICE_NAME}",
+        "creationTimestamp": null,
         "annotations": {
           "description": "Defines how to deploy the Django app."
         }
       },
       "spec": {
         "strategy": {
-          "type": "Rolling"
+          "type": "Rolling",
+          "rollingParams": {
+            "updatePeriodSeconds": 1,
+            "intervalSeconds": 1,
+            "timeoutSeconds": 120
+          },
+          "resources": {}
         },
         "triggers": [
           {
@@ -130,8 +159,10 @@
                 "django-quickstart"
               ],
               "from": {
+                "kind": "ImageStreamTag",
                 "name": "django-quickstart-source:latest"
-              }
+              },
+              "lastTriggeredImage": ""
             }
           },
           {
@@ -145,6 +176,7 @@
         "template": {
           "metadata": {
             "name": "${FRONTEND_SERVICE_NAME}",
+            "creationTimestamp": null,
             "labels": {
               "name": "${FRONTEND_SERVICE_NAME}"
             }
@@ -156,7 +188,8 @@
                 "image": "django-quickstart-source",
                 "ports": [
                   {
-                    "containerPort": 8080
+                    "containerPort": 8080,
+                    "protocol": "TCP"
                   }
                 ],
                 "env": [
@@ -192,18 +225,26 @@
                     "name": "DJANGO_SECRET_KEY",
                     "value": "${DJANGO_SECRET_KEY}"
                   }
-                ]
+                ],
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "imagePullPolicy": "IfNotPresent",
+                "capabilities": {}
               }
-            ]
+            ],
+            "restartPolicy": "Always",
+            "dnsPolicy": "ClusterFirst"
           }
         }
-      }
+      },
+      "status": {}
     },
     {
       "kind": "DeploymentConfig",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "${DATABASE_SERVICE_NAME}",
+        "creationTimestamp": null,
         "labels": {
           "name": "${DATABASE_SERVICE_NAME}"
         },
@@ -213,7 +254,8 @@
       },
       "spec": {
         "strategy": {
-          "type": "Recreate"
+          "type": "Recreate",
+          "resources": {}
         },
         "triggers": [
           {
@@ -227,6 +269,7 @@
         "template": {
           "metadata": {
             "name": "${DATABASE_SERVICE_NAME}",
+            "creationTimestamp": null,
             "labels": {
               "name": "${DATABASE_SERVICE_NAME}"
             }
@@ -238,7 +281,8 @@
                 "image": "openshift/postgresql-92-centos7",
                 "ports": [
                   {
-                    "containerPort": 5432
+                    "containerPort": 5432,
+                    "protocol": "TCP"
                   }
                 ],
                 "env": [
@@ -254,34 +298,50 @@
                     "name": "POSTGRESQL_DATABASE",
                     "value": "${DATABASE_NAME}"
                   }
-                ]
+                ],
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "imagePullPolicy": "IfNotPresent",
+                "capabilities": {}
               }
-            ]
+            ],
+            "restartPolicy": "Always",
+            "dnsPolicy": "ClusterFirst"
           }
         }
-      }
+      },
+      "status": {}
     },
     {
       "kind": "ImageStream",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "django-quickstart-source",
+        "creationTimestamp": null,
         "annotations": {
           "description": "Keeps track of changes in the Django app image."
         }
+      },
+      "spec": {},
+      "status": {
+        "dockerImageRepository": ""
       }
     },
     {
       "kind": "ImageStream",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "python-33-centos7",
+        "creationTimestamp": null,
         "annotations": {
           "description": "Keeps track of changes in the Python base image."
         }
       },
       "spec": {
         "dockerImageRepository": "openshift/python-33-centos7"
+      },
+      "status": {
+        "dockerImageRepository": ""
       }
     }
   ],
@@ -342,5 +402,8 @@
       "generate": "expression",
       "from": "[\\w]{50}"
     }
-  ]
+  ],
+  "labels": {
+    "template": "django-quickstart-source-postgresql"
+  }
 }
