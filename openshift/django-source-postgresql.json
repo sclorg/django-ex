@@ -1,6 +1,6 @@
 {
   "kind": "Template",
-  "apiVersion": "v1",
+  "apiVersion": "v1beta3",
   "metadata": {
     "name": "django-quickstart-source-postgresql",
     "annotations": {
@@ -15,7 +15,7 @@
   "objects": [
     {
       "kind": "Service",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "${FRONTEND_SERVICE_NAME}",
         "annotations": {
@@ -37,7 +37,7 @@
     },
     {
       "kind": "Service",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "${DATABASE_SERVICE_NAME}",
         "annotations": {
@@ -59,7 +59,7 @@
     },
     {
       "kind": "BuildConfig",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "django-quickstart-source",
         "annotations": {
@@ -91,7 +91,8 @@
         },
         "triggers": [
           {
-            "type": "imageChange"
+            "type": "imageChange",
+            "imageChange": {}
           },
           {
             "type": "github",
@@ -110,7 +111,7 @@
     },
     {
       "kind": "DeploymentConfig",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "${FRONTEND_SERVICE_NAME}",
         "annotations": {
@@ -201,7 +202,7 @@
     },
     {
       "kind": "DeploymentConfig",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "${DATABASE_SERVICE_NAME}",
         "labels": {
@@ -263,7 +264,7 @@
     },
     {
       "kind": "ImageStream",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "django-quickstart-source",
         "annotations": {
@@ -273,7 +274,7 @@
     },
     {
       "kind": "ImageStream",
-      "apiVersion": "v1",
+      "apiVersion": "v1beta3",
       "metadata": {
         "name": "python-33-centos7",
         "annotations": {
