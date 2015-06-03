@@ -1,2 +1,2 @@
-# Send the access log to STDOUT so it can be consumed by `osc logs` command.
+# Send the access log to stderr so it can be consumed by `osc logs`.
 accesslog = "-"
