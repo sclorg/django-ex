@@ -11,7 +11,7 @@ engines = {
 
 
 def config():
-    service_name = os.getenv('DATABASE_SERVICE_NAME').upper()
+    service_name = os.getenv('DATABASE_SERVICE_NAME', '').upper()
     if service_name:
         engine = engines.get(os.getenv('DATABASE_ENGINE'), engines['sqlite'])
     else:
