@@ -24,6 +24,24 @@ From this initial state you can:
 * install more Python libraries and add them to the `requirements.txt` file
 
 
+## Special files in this repository
+
+Apart from the regular files created by Django (`project/*`, `welcome/*`, `manage.py`), this repository contains:
+
+```
+.sti/
+└── bin/           - scripts used by source-to-image
+    ├── assemble   - executed to produce a Docker image with your code and dependencies during build
+    └── run        - executed to start your app during deployment
+
+openshift/         - OpenShift-specific files
+├── scripts        - helper scripts
+└── templates      - application templates
+
+requirements.txt   - list of dependencies
+```
+
+
 ## Local development
 
 To run this project in your development machine, follow these steps:
@@ -42,11 +60,11 @@ To run this project in your development machine, follow these steps:
 
     `./manage.py migrate`
 
-4. If everything is alright, you should be able to start the Django development server:
+5. If everything is alright, you should be able to start the Django development server:
 
     `./manage.py runserver`
 
-5. Open your browser and go to http://127.0.0.1:8000, you will be greeted with a welcome page.
+6. Open your browser and go to http://127.0.0.1:8000, you will be greeted with a welcome page.
 
 
 ## Deploying to OpenShift
@@ -56,13 +74,13 @@ To follow the next steps, you need to be logged in to an OpenShift cluster and h
 
 ### Using an application template
 
-The directory `openshift/` contains OpenShift application template files that you can add you your OpenShift project with:
+The directory `openshift/templates/` contains OpenShift application templates that you can add to your OpenShift project with:
 
-    osc create -f openshift/<TEMPLATE_NAME>.json
+    osc create -f openshift/templates/<TEMPLATE_NAME>.json
 
-The template `django-source.json` contains just a minimal set of components to get your Django application into OpenShift.
+The template `django.json` contains just a minimal set of components to get your Django application into OpenShift.
 
-The template `django-source-postgresql.json` contains all of the components from `django-source.json`, plus a PostgreSQL database service and an Image Stream for the Python base image.
+The template `django-postgresql.json` contains all of the components from `django.json`, plus a PostgreSQL database service and an Image Stream for the Python base image. For simplicity, the PostgreSQL database in this template uses ephemeral storage and, therefore, is not production ready.
 
 After adding your templates, you can go to your OpenShift web console, browse to your project and click the create button. Create a new app from one of the templates that you have just added.
 
@@ -104,24 +122,82 @@ Service "django-ex" created at 172.30.16.213 with port mappings 8080.
 You can access your application by browsing to the service's IP address and port.
 
 
-## Special files in this repository
+## Logs
 
-Apart from the regular files created by Django (`project/*`, `welcome/*`, `manage.py`), this repository contains:
+By default your Django application is served with gunicorn and configured to output its access log to stderr.
+You can look at the combined stdout and stderr of a given pod with this command:
 
-```
-.sti/
-└── bin/           - scripts used by source-to-image
-    ├── assemble   - executed to produce a Docker image with your code and dependencies during build
-    └── run        - executed to start your app during deployment
+    osc get pods         # list all pods in your project
+    osc logs <pod-name>
 
-openshift/         - application templates for OpenShift
+This can be useful to observe the correct functioning of your application.
 
-scripts/           - helper scripts to automate some tasks
 
-gunicorn_conf.py   - configuration for the gunicorn HTTP server
+## Special environment variables
 
-requirements.txt   - list of dependencies
-```
+### APP_CONFIG
+
+You can fine tune the gunicorn configuration through the environment variable `APP_CONFIG` that, when set, should point to a config file as documented [here](http://docs.gunicorn.org/en/latest/settings.html).
+
+### DJANGO_SECRET_KEY
+
+When using one of the templates provided in this repository, this environment variable has its value automatically generated. For security purposes, make sure to set this to a random string as documented [here](https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-SECRET_KEY).
+
+
+## One-off command execution
+
+At times you might want to manually execute some command in the context of a running application in OpenShift.
+You can drop into a Python shell for debugging, create a new user for the Django Admin interface, or perform any other task.
+
+You can do all that by using regular CLI commands from OpenShift.
+To make it a little more convenient, you can use the script `openshift/scripts/run-in-container.sh` that wraps some calls to `osc`.
+In the future, the `osc` CLI tool might incorporate changes
+that make this script obsolete.
+
+Here is how you would run a command in a pod specified by label:
+
+1. Inpect the output of the command below to find the name of a pod that matches a given label:
+
+        osc get pods -l <your-label-selector>
+
+2. Open a shell in the pod of your choice:
+
+        osc exec -p <pod-name> -it -- bash
+
+3. Because of how `kubectl exec` and `osc exec` work right now, your current working directory is root (/). Change it to where your code lives:
+
+        cd $HOME
+
+4. Because of how the images produced with CentOS and RHEL work currently, you need to manually enable any Software Collections you need to use:
+
+        source scl_source enable python33
+
+5. Finally, execute any command that you need and exit the shell.
+
+Related GitHub issues:
+1. https://github.com/GoogleCloudPlatform/kubernetes/issues/8876
+2. https://github.com/GoogleCloudPlatform/kubernetes/issues/7770
+3. https://github.com/openshift/origin/issues/2001
+
+
+The wrapper script combines the steps above into one. You can use it like this:
+
+    ./run-in-container.sh ./manage.py migrate          # manually migrate the database
+                                                       # (done for you as part of the deployment process)
+    ./run-in-container.sh ./manage.py createsuperuser  # create a user to access Django Admin
+    ./run-in-container.sh ./manage.py shell            # open a Python shell in the context of your app
+
+If your Django pods are labeled with a name other than "django", you can use:
+
+    POD_NAME=name ./run-in-container.sh ./manage.py check
+
+If there is more than one replica, you can also specify a POD by index:
+
+    POD_INDEX=1 ./run-in-container.sh ./manage.py shell
+
+Or both together:
+
+    POD_NAME=frontend POD_INDEX=2 ./run-in-container.sh ./manage.py shell
 
 
 ## Data persistence
