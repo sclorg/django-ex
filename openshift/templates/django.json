@@ -2,15 +2,15 @@
   "kind": "Template",
   "apiVersion": "v1beta3",
   "metadata": {
-    "name": "django-quickstart-source-postgresql",
+    "name": "django-quickstart-source",
     "annotations": {
-      "description": "Django application template that uses the Source build strategy and includes a PostgreSQL database server for storage.",
-      "tags": "instant-app,python,django,postgresql",
+      "description": "Django application template that uses the Source build strategy.",
+      "tags": "instant-app,python,django",
       "iconClass" : "icon-python"
     }
   },
   "labels": {
-    "template": "django-quickstart-source-postgresql"
+    "template": "django-quickstart-source"
   },
   "objects": [
     {
@@ -36,28 +36,6 @@
       }
     },
     {
-      "kind": "Service",
-      "apiVersion": "v1beta3",
-      "metadata": {
-        "name": "${DATABASE_SERVICE_NAME}",
-        "annotations": {
-          "description": "Exposes the PostgreSQL database server."
-        }
-      },
-      "spec": {
-        "ports": [
-          {
-            "name": "postgresql",
-            "port": 5432,
-            "targetPort": 5432
-          }
-        ],
-        "selector": {
-          "name": "${DATABASE_SERVICE_NAME}"
-        }
-      }
-    },
-    {
       "kind": "BuildConfig",
       "apiVersion": "v1beta3",
       "metadata": {
@@ -79,7 +57,7 @@
           "sourceStrategy": {
             "from": {
               "kind": "ImageStream",
-              "name": "python-33-centos7"
+              "name": "${BUILDER_IMAGE_STREAM}"
             }
           }
         },
@@ -182,78 +160,12 @@
                     "value": "${DATABASE_PASSWORD}"
                   },
                   {
-                    "name": "APP_MODULE",
-                    "value": "${APP_MODULE}"
-                  },
-                  {
                     "name": "APP_CONFIG",
                     "value": "${APP_CONFIG}"
                   },
                   {
                     "name": "DJANGO_SECRET_KEY",
                     "value": "${DJANGO_SECRET_KEY}"
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "kind": "DeploymentConfig",
-      "apiVersion": "v1beta3",
-      "metadata": {
-        "name": "${DATABASE_SERVICE_NAME}",
-        "labels": {
-          "name": "${DATABASE_SERVICE_NAME}"
-        },
-        "annotations": {
-          "description": "Defines how to deploy the database."
-        }
-      },
-      "spec": {
-        "strategy": {
-          "type": "Recreate"
-        },
-        "triggers": [
-          {
-            "type": "ConfigChange"
-          }
-        ],
-        "replicas": 1,
-        "selector": {
-          "name": "${DATABASE_SERVICE_NAME}"
-        },
-        "template": {
-          "metadata": {
-            "name": "${DATABASE_SERVICE_NAME}",
-            "labels": {
-              "name": "${DATABASE_SERVICE_NAME}"
-            }
-          },
-          "spec": {
-            "containers": [
-              {
-                "name": "postgresql",
-                "image": "openshift/postgresql-92-centos7",
-                "ports": [
-                  {
-                    "containerPort": 5432
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "POSTGRESQL_USER",
-                    "value": "${DATABASE_USER}"
-                  },
-                  {
-                    "name": "POSTGRESQL_PASSWORD",
-                    "value": "${DATABASE_PASSWORD}"
-                  },
-                  {
-                    "name": "POSTGRESQL_DATABASE",
-                    "value": "${DATABASE_NAME}"
                   }
                 ]
               }
@@ -270,19 +182,6 @@
         "annotations": {
           "description": "Keeps track of changes in the Django app image."
         }
-      }
-    },
-    {
-      "kind": "ImageStream",
-      "apiVersion": "v1beta3",
-      "metadata": {
-        "name": "python-33-centos7",
-        "annotations": {
-          "description": "Keeps track of changes in the Python base image."
-        }
-      },
-      "spec": {
-        "dockerImageRepository": "openshift/python-33-centos7"
       }
     }
   ],
@@ -303,43 +202,36 @@
     },
     {
       "name": "DATABASE_SERVICE_NAME",
-      "description": "Database service name",
-      "value": "postgresql"
+      "description": "Database service name"
     },
     {
       "name": "DATABASE_ENGINE",
-      "description": "Database engine: postgresql, mysql or sqlite (default)",
-      "value": "postgresql"
+      "description": "Database engine: postgresql, mysql or sqlite (default)"
     },
     {
       "name": "DATABASE_NAME",
-      "description": "Database name",
-      "value": "default"
+      "description": "Database name"
     },
     {
       "name": "DATABASE_USER",
-      "description": "Database user name",
-      "value": "django"
+      "description": "Database user name"
     },
     {
       "name": "DATABASE_PASSWORD",
-      "description": "Database user password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{16}"
+      "description": "Database user password"
     },
     {
-      "name": "APP_MODULE",
-      "description": "Python dotted path to your Django WSGI application",
-      "value": "project.wsgi"
+      "name": "BUILDER_IMAGE_STREAM",
+      "description": "Image Stream of the builder image",
+      "value": "python-33-centos7"
     },
     {
       "name": "APP_CONFIG",
-      "description": "Relative path to Gunicorn configuration file (optional)",
-      "value": "gunicorn_conf.py"
+      "description": "Relative path to Gunicorn configuration file (optional)"
     },
     {
       "name": "DJANGO_SECRET_KEY",
-      "description": "Django secret key",
+      "description": "Set this to a long random string",
       "generate": "expression",
       "from": "[\\w]{50}"
     }
