@@ -76,7 +76,7 @@ To follow the next steps, you need to be logged in to an OpenShift cluster and h
 
 The directory `openshift/templates/` contains OpenShift application templates that you can add to your OpenShift project with:
 
-    osc create -f openshift/templates/<TEMPLATE_NAME>.json
+    oc create -f openshift/templates/<TEMPLATE_NAME>.json
 
 The template `django.json` contains just a minimal set of components to get your Django application into OpenShift.
 
@@ -88,17 +88,17 @@ Adjust the parameter values to suit your configuration. Most times you can just 
 
 Alternatively, you can use the command line to create your new app:
 
-    osc new-app --template=<TEMPLATE_NAME> --param=GIT_REPOSITORY=...,...
+    oc new-app --template=<TEMPLATE_NAME> --param=GIT_REPOSITORY=...,...
 
 Your application will be built and deployed automatically. If that doesn't happen, you can debug your build:
 
-    osc get builds
+    oc get builds
     # take build name from the command above
-    osc build-logs <build-name>
+    oc build-logs <build-name>
 
 And you can see information about your deployment too:
 
-    osc describe dc/django
+    oc describe dc/django
 
 In the web console, the overview tab shows you a service, by default called "django", that encapsulates all pods running your Django application. You can access your application by browsing to the service's IP address and port.
 
@@ -109,13 +109,13 @@ Templates give you full control of each component of your application.
 Sometimes your application is simple enough and you don't want to bother with templates. In that case, you can let OpenShift inspect your source code and create the required components automatically for you:
 
 ```bash
-$ osc new-app openshift/python-33-centos7~https://github.com/openshift/django-ex
+$ oc new-app openshift/python-33-centos7~https://github.com/openshift/django-ex
 imageStreams/python-33-centos7
 imageStreams/django-ex
 buildConfigs/django-ex
 deploymentConfigs/django-ex
 services/django-ex
-A build was created - you can run `osc start-build django-ex` to start it.
+A build was created - you can run `oc start-build django-ex` to start it.
 Service "django-ex" created at 172.30.16.213 with port mappings 8080.
 ```
 
@@ -127,8 +127,8 @@ You can access your application by browsing to the service's IP address and port
 By default your Django application is served with gunicorn and configured to output its access log to stderr.
 You can look at the combined stdout and stderr of a given pod with this command:
 
-    osc get pods         # list all pods in your project
-    osc logs <pod-name>
+    oc get pods         # list all pods in your project
+    oc logs <pod-name>
 
 This can be useful to observe the correct functioning of your application.
 
@@ -150,21 +150,21 @@ At times you might want to manually execute some command in the context of a run
 You can drop into a Python shell for debugging, create a new user for the Django Admin interface, or perform any other task.
 
 You can do all that by using regular CLI commands from OpenShift.
-To make it a little more convenient, you can use the script `openshift/scripts/run-in-container.sh` that wraps some calls to `osc`.
-In the future, the `osc` CLI tool might incorporate changes
+To make it a little more convenient, you can use the script `openshift/scripts/run-in-container.sh` that wraps some calls to `oc`.
+In the future, the `oc` CLI tool might incorporate changes
 that make this script obsolete.
 
 Here is how you would run a command in a pod specified by label:
 
 1. Inpect the output of the command below to find the name of a pod that matches a given label:
 
-        osc get pods -l <your-label-selector>
+        oc get pods -l <your-label-selector>
 
 2. Open a shell in the pod of your choice:
 
-        osc exec -p <pod-name> -it -- bash
+        oc exec -p <pod-name> -it -- bash
 
-3. Because of how `kubectl exec` and `osc exec` work right now, your current working directory is root (/). Change it to where your code lives:
+3. Because of how `kubectl exec` and `oc exec` work right now, your current working directory is root (/). Change it to where your code lives:
 
         cd $HOME
 
@@ -206,7 +206,7 @@ You can deploy this application without a configured database in your OpenShift 
 
 After each deploy you get a fresh, empty, SQLite database. That is fine for a first contact with OpenShift and perhaps Django, but sooner or later you will want to persist your data across deployments.
 
-To do that, you should add a properly configured database server or ask your OpenShift administrator to add one for you. Then use `osc env` to update the `DATABASE_*` environment variables in your DeploymentConfig to match your database settings.
+To do that, you should add a properly configured database server or ask your OpenShift administrator to add one for you. Then use `oc env` to update the `DATABASE_*` environment variables in your DeploymentConfig to match your database settings.
 
 Redeploy your application to have your changes applied, and open the welcome page again to make sure your application is successfully connected to the database server.
 
