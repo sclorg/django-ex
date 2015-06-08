@@ -4,8 +4,8 @@
 # Python application code lives in.
 
 # You can accomplish the same results by using regular commands from OpenShift.
-# This script is just wrapping calls to `osc` to make it a little more
-# convenient to use. In the future, the `osc` cli tool might incorporate changes
+# This script is just wrapping calls to `oc` to make it a little more
+# convenient to use. In the future, the `oc` cli tool might incorporate changes
 # that make this script obsolete.
 
 # Related GitHub issues:
@@ -34,10 +34,10 @@
 
 
 # Get name of a currently deployed pod by label and index
-POD_INSTANCE_NAME=`osc get pods \
+POD_INSTANCE_NAME=`oc get pods \
   -l "name=${POD_NAME:-django}" \
   -t "{{ with index .items ${POD_INDEX:-0} }}{{ .metadata.name }}{{ end }}"`
 
 # Run command in a container of the specified pod:
-osc exec -p "$POD_INSTANCE_NAME" -it -- bash -c \
+oc exec -p "$POD_INSTANCE_NAME" -it -- bash -c \
   "cd \$HOME && source scl_source enable python33 && ${@:-echo}"
