@@ -58,6 +58,21 @@
       }
     },
     {
+      "kind": "Route",
+      "apiVersion": "v1beta3",
+      "metadata": {
+          "name": "${FRONTEND_SERVICE_NAME}-route",
+          "creationTimestamp": null
+      },
+      "spec": {
+          "host" : "${FRONTEND_ROUTE}",
+          "to": {
+              "kind" : "Service",
+              "name" : "${FRONTEND_SERVICE_NAME}"
+          }
+      }
+    },
+    {
       "kind": "BuildConfig",
       "apiVersion": "v1beta3",
       "metadata": {
@@ -296,6 +311,11 @@
       "name": "FRONTEND_SERVICE_NAME",
       "description": "Frontend service name",
       "value": "django"
+    },
+    {
+      "name": "FRONTEND_ROUTE",
+      "description": "The exposed hostname that will route to the frontend service",
+      "value": "django-frontend.apps"
     },
     {
       "name": "DATABASE_SERVICE_NAME",
