@@ -168,11 +168,7 @@ Here is how you would run a command in a pod specified by label:
 
         cd $HOME
 
-4. Because of how the images produced with CentOS and RHEL work currently, you need to manually enable any Software Collections you need to use:
-
-        source scl_source enable python33
-
-5. Finally, execute any command that you need and exit the shell.
+4. Finally, execute any command that you need and exit the shell.
 
 Related GitHub issues:
 1. https://github.com/GoogleCloudPlatform/kubernetes/issues/8876
