@@ -156,28 +156,22 @@ that make this script obsolete.
 
 Here is how you would run a command in a pod specified by label:
 
-1. Inpect the output of the command below to find the name of a pod that matches a given label:
+1. Inspect the output of the command below to find the name of a pod that matches a given label:
 
         oc get pods -l <your-label-selector>
 
-2. Open a shell in the pod of your choice:
+2. Open a shell in the pod of your choice. Because of how the images produced
+  with CentOS and RHEL work currently, we need to wrap commands with `bash` to
+  enable any Software Collections that may be used (done automatically inside
+  every bash shell).
 
         oc exec -p <pod-name> -it -- bash
 
-3. Because of how `kubectl exec` and `oc exec` work right now, your current working directory is root (/). Change it to where your code lives:
-
-        cd $HOME
-
-4. Because of how the images produced with CentOS and RHEL work currently, you need to manually enable any Software Collections you need to use:
-
-        source scl_source enable python33
-
-5. Finally, execute any command that you need and exit the shell.
+3. Finally, execute any command that you need and exit the shell.
 
 Related GitHub issues:
 1. https://github.com/GoogleCloudPlatform/kubernetes/issues/8876
-2. https://github.com/GoogleCloudPlatform/kubernetes/issues/7770
-3. https://github.com/openshift/origin/issues/2001
+2. https://github.com/openshift/origin/issues/2001
 
 
 The wrapper script combines the steps above into one. You can use it like this:

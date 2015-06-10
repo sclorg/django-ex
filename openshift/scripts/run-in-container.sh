@@ -9,9 +9,8 @@
 # that make this script obsolete.
 
 # Related GitHub issues:
-# [1] https://github.com/GoogleCloudPlatform/kubernetes/issues/8876
-# [2] https://github.com/GoogleCloudPlatform/kubernetes/issues/7770
-# [3] https://github.com/openshift/origin/issues/2001
+# - https://github.com/GoogleCloudPlatform/kubernetes/issues/8876
+# - https://github.com/openshift/origin/issues/2001
 
 
 # Usage examples:
@@ -39,5 +38,4 @@ POD_INSTANCE_NAME=`oc get pods \
   -t "{{ with index .items ${POD_INDEX:-0} }}{{ .metadata.name }}{{ end }}"`
 
 # Run command in a container of the specified pod:
-oc exec -p "$POD_INSTANCE_NAME" -it -- bash -c \
-  "cd \$HOME && source scl_source enable python33 && ${@:-echo}"
+oc exec -p "$POD_INSTANCE_NAME" -it -- bash -c "${@:-echo}"
