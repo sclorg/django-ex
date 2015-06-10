@@ -40,4 +40,4 @@ POD_INSTANCE_NAME=`oc get pods \
 
 # Run command in a container of the specified pod:
 oc exec -p "$POD_INSTANCE_NAME" -it -- bash -c \
-  "cd \$HOME && source scl_source enable python33 && ${@:-echo}"
+  "cd \$HOME && ${@:-echo}"
