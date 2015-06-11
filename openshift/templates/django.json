@@ -1,6 +1,6 @@
 {
   "kind": "Template",
-  "apiVersion": "v1beta3",
+  "apiVersion": "v1",
   "metadata": {
     "name": "django-quickstart-source",
     "annotations": {
@@ -15,7 +15,7 @@
   "objects": [
     {
       "kind": "Service",
-      "apiVersion": "v1beta3",
+      "apiVersion": "v1",
       "metadata": {
         "name": "${FRONTEND_SERVICE_NAME}",
         "annotations": {
@@ -37,10 +37,9 @@
     },
     {
       "kind": "Route",
-      "apiVersion": "v1beta3",
+      "apiVersion": "v1",
       "metadata": {
-          "name": "${FRONTEND_SERVICE_NAME}-route",
-          "creationTimestamp": null
+          "name": "${FRONTEND_SERVICE_NAME}-route"
       },
       "spec": {
           "host" : "${FRONTEND_ROUTE}",
@@ -49,10 +48,10 @@
               "name" : "${FRONTEND_SERVICE_NAME}"
           }
       }
-    },    
+    },
     {
       "kind": "BuildConfig",
-      "apiVersion": "v1beta3",
+      "apiVersion": "v1",
       "metadata": {
         "name": "django-quickstart-source",
         "annotations": {
@@ -84,17 +83,16 @@
         },
         "triggers": [
           {
-            "type": "imageChange",
-            "imageChange": {}
+            "type": "ImageChange"
           },
           {
-            "type": "github",
+            "type": "GitHub",
             "github": {
               "secret": "secret123"
             }
           },
           {
-            "type": "generic",
+            "type": "Generic",
             "generic": {
               "secret": "secret123"
             }
@@ -104,7 +102,7 @@
     },
     {
       "kind": "DeploymentConfig",
-      "apiVersion": "v1beta3",
+      "apiVersion": "v1",
       "metadata": {
         "name": "${FRONTEND_SERVICE_NAME}",
         "annotations": {
@@ -191,7 +189,7 @@
     },
     {
       "kind": "ImageStream",
-      "apiVersion": "v1beta3",
+      "apiVersion": "v1",
       "metadata": {
         "name": "django-quickstart-source",
         "annotations": {
