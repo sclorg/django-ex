@@ -2,24 +2,24 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "django-quickstart-source",
+    "name": "django-example",
     "annotations": {
-      "description": "Django application template that uses the Source build strategy.",
+      "description": "An example Django application with no database",
       "tags": "instant-app,python,django",
-      "iconClass" : "icon-python"
+      "iconClass": "icon-python"
     }
   },
   "labels": {
-    "template": "django-quickstart-source"
+    "template": "django-example"
   },
   "objects": [
     {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${FRONTEND_SERVICE_NAME}",
+        "name": "django-frontend",
         "annotations": {
-          "description": "Exposes and load balances the Django app instances."
+          "description": "Exposes and load balances the application pods"
         }
       },
       "spec": {
@@ -31,7 +31,7 @@
           }
         ],
         "selector": {
-          "name": "${FRONTEND_SERVICE_NAME}"
+          "name": "django-frontend"
         }
       }
     },
@@ -39,30 +39,40 @@
       "kind": "Route",
       "apiVersion": "v1",
       "metadata": {
-          "name": "${FRONTEND_SERVICE_NAME}-route"
+        "name": "django-route"
       },
       "spec": {
-          "host" : "${FRONTEND_ROUTE}",
-          "to": {
-              "kind" : "Service",
-              "name" : "${FRONTEND_SERVICE_NAME}"
-          }
+        "host": "${FRONTEND_ROUTE}",
+        "to": {
+          "kind": "Service",
+          "name": "django-frontend"
+        }
+      }
+    },
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "django-example",
+        "annotations": {
+          "description": "Keeps track of changes in the application image"
+        }
       }
     },
     {
       "kind": "BuildConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "django-quickstart-source",
+        "name": "django-example",
         "annotations": {
-          "description": "Defines how to build the Django app."
+          "description": "Defines how to build the application"
         }
       },
       "spec": {
         "source": {
           "type": "Git",
           "git": {
-            "uri": "${GIT_REPOSITORY}"
+            "uri": "${SOURCE_REPOSITORY_URL}"
           },
           "contextDir": "${CONTEXT_DIR}"
         },
@@ -70,15 +80,16 @@
           "type": "Source",
           "sourceStrategy": {
             "from": {
-              "kind": "ImageStream",
-              "name": "${BUILDER_IMAGE_STREAM}"
+              "kind": "ImageStreamTag",
+              "namespace": "openshift",
+              "name": "python:3.3"
             }
           }
         },
         "output": {
           "to": {
             "kind": "ImageStream",
-            "name": "django-quickstart-source"
+            "name": "django-example"
           }
         },
         "triggers": [
@@ -88,13 +99,7 @@
           {
             "type": "GitHub",
             "github": {
-              "secret": "secret123"
-            }
-          },
-          {
-            "type": "Generic",
-            "generic": {
-              "secret": "secret123"
+              "secret": "${GITHUB_WEBHOOK_SECRET}"
             }
           }
         ]
@@ -104,9 +109,9 @@
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${FRONTEND_SERVICE_NAME}",
+        "name": "django-frontend",
         "annotations": {
-          "description": "Defines how to deploy the Django app."
+          "description": "Defines how to deploy the application server"
         }
       },
       "spec": {
@@ -119,10 +124,11 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "django-quickstart"
+                "django-example"
               ],
               "from": {
-                "name": "django-quickstart-source:latest"
+                "kind": "ImageStreamTag",
+                "name": "django-example:latest"
               }
             }
           },
@@ -132,20 +138,20 @@
         ],
         "replicas": 1,
         "selector": {
-          "name": "${FRONTEND_SERVICE_NAME}"
+          "name": "django-frontend"
         },
         "template": {
           "metadata": {
-            "name": "${FRONTEND_SERVICE_NAME}",
+            "name": "django-frontend",
             "labels": {
-              "name": "${FRONTEND_SERVICE_NAME}"
+              "name": "django-frontend"
             }
           },
           "spec": {
             "containers": [
               {
-                "name": "django-quickstart",
-                "image": "django-quickstart-source",
+                "name": "django-example",
+                "image": "django-example",
                 "ports": [
                   {
                     "containerPort": 8080
@@ -186,41 +192,32 @@
           }
         }
       }
-    },
-    {
-      "kind": "ImageStream",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "django-quickstart-source",
-        "annotations": {
-          "description": "Keeps track of changes in the Django app image."
-        }
-      }
     }
   ],
   "parameters": [
     {
-      "name": "GIT_REPOSITORY",
-      "description": "Change this to match your project's Git repository",
-      "value": "git://github.com/openshift/django-ex.git"
+      "name": "SOURCE_REPOSITORY_URL",
+      "description": "The URL of the repository with your application source code",
+      "value": "https://github.com/openshift/django-ex.git"
     },
     {
       "name": "CONTEXT_DIR",
       "description": "Set this to the relative path to your project if it is not in the root of your repository"
     },
     {
-      "name": "FRONTEND_SERVICE_NAME",
-      "description": "Frontend service name",
-      "value": "django"
+      "name": "FRONTEND_ROUTE",
+      "description": "The exposed hostname that will route to the Django service",
+      "value": "django.app"
+    },
+    {
+      "name": "GITHUB_WEBHOOK_SECRET",
+      "description": "A secret string used to configure the GitHub webhook",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "DATABASE_SERVICE_NAME",
       "description": "Database service name"
-    },
-    {
-      "name": "FRONTEND_ROUTE",
-      "description": "The exposed hostname that will route to the frontend service",
-      "value": "django-frontend.apps"
     },
     {
       "name": "DATABASE_ENGINE",
@@ -237,11 +234,6 @@
     {
       "name": "DATABASE_PASSWORD",
       "description": "Database user password"
-    },
-    {
-      "name": "BUILDER_IMAGE_STREAM",
-      "description": "Image Stream of the builder image",
-      "value": "python-33-centos7"
     },
     {
       "name": "APP_CONFIG",
