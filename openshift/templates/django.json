@@ -27,7 +27,7 @@
           {
             "name": "web",
             "port": 8080,
-            "targetPort": 8080
+            "targetPort": "web"
           }
         ],
         "selector": {
@@ -161,6 +161,7 @@
                 "image": "django-example",
                 "ports": [
                   {
+                    "name": "web",
                     "containerPort": 8080
                   }
                 ],
@@ -193,7 +194,13 @@
                     "name": "DJANGO_SECRET_KEY",
                     "value": "${DJANGO_SECRET_KEY}"
                   }
-                ]
+                ],
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/_health/live",
+                    "port": "web"
+                  }
+                }
               }
             ]
           }
