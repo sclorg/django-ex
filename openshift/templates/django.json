@@ -72,7 +72,8 @@
         "source": {
           "type": "Git",
           "git": {
-            "uri": "${SOURCE_REPOSITORY_URL}"
+            "uri": "${SOURCE_REPOSITORY_URL}",
+            "ref": "${SOURCE_REPOSITORY_REF}"
           },
           "contextDir": "${CONTEXT_DIR}"
         },
@@ -199,6 +200,10 @@
       "name": "SOURCE_REPOSITORY_URL",
       "description": "The URL of the repository with your application source code",
       "value": "https://github.com/openshift/django-ex.git"
+    },
+    {
+      "name": "SOURCE_REPOSITORY_REF",
+      "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch"
     },
     {
       "name": "CONTEXT_DIR",
