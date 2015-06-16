@@ -89,8 +89,8 @@
         },
         "output": {
           "to": {
-            "kind": "ImageStream",
-            "name": "django-example"
+            "kind": "ImageStreamTag",
+            "name": "django-example:latest"
           }
         },
         "triggers": [
