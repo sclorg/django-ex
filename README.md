@@ -80,9 +80,9 @@ After adding your templates, you can go to your OpenShift web console, browse to
 
 Adjust the parameter values to suit your configuration. Most times you can just accept the default values, however you will probably want to set the `GIT_REPOSITORY` parameter to point to your fork and the `DATABASE_*` parameters to match your database configuration.
 
-Alternatively, you can use the command line to create your new app:
+Alternatively, you can use the command line to create your new app, assuming your OpenShift deployment has the default set of ImageStreams defined.  Instructions for installing the default ImageStreams are available [here](http://docs.openshift.org/latest/admin_guide/install/first_steps.html).  If you are defining the set of ImageStreams now, remember to pass in the proper cluster-admin credentials and to create the ImageStreams in the 'openshift' namespace:
 
-    oc new-app --template=<TEMPLATE_NAME> --param=GIT_REPOSITORY=...,...
+    oc new-app openshift/templates/django.json -p SOURCE_REPOSITORY_URL=<your repository location>
 
 Your application will be built and deployed automatically. If that doesn't happen, you can debug your build:
 
@@ -92,9 +92,11 @@ Your application will be built and deployed automatically. If that doesn't happe
 
 And you can see information about your deployment too:
 
-    oc describe dc/django
+    oc describe dc/django-example
 
-In the web console, the overview tab shows you a service, by default called "django", that encapsulates all pods running your Django application. You can access your application by browsing to the service's IP address and port.
+In the web console, the overview tab shows you a service, by default called "django-example", that encapsulates all pods running your Django application. You can access your application by browsing to the service's IP address and port.  You can determine these by running
+
+   oc get svc
 
 
 ### Without an application template
@@ -185,7 +187,7 @@ If there is more than one replica, you can also specify a POD by index:
 
 Or both together:
 
-    POD_NAME=frontend POD_INDEX=2 ./run-in-container.sh ./manage.py shell
+    POD_NAME=django-example POD_INDEX=2 ./run-in-container.sh ./manage.py shell
 
 
 ## Data persistence
