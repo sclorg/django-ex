@@ -249,7 +249,7 @@
             "containers": [
               {
                 "name": "postgresql",
-                "image": "openshift/postgresql-92-centos7",
+                "image": "${POSTGRESQL_IMAGE}",
                 "ports": [
                   {
                     "containerPort": 5432
@@ -326,6 +326,11 @@
       "description": "Database user password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{16}"
+    },
+    {
+      "name": "POSTGRESQL_IMAGE",
+      "description": "Image to use for postgresql",
+      "value": "openshift/postgresql-92-centos7"      
     },
     {
       "name": "APP_CONFIG",
