@@ -242,6 +242,7 @@
               ],
               "from": {
                 "kind": "ImageStreamTag",
+                "name": "openshift",
                 "name": "postgresql:9.4"
               }
             }
