@@ -5,7 +5,7 @@
     "name": "django-example",
     "annotations": {
       "description": "An example Django application with no database",
-      "tags": "instant-app,python,django",
+      "tags": "quickstart,python,django",
       "iconClass": "icon-python"
     }
   },
