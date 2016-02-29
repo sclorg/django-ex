@@ -1,6 +1,7 @@
 import os
 from django.shortcuts import render
 from django.conf import settings
+from django.http import HttpResponse
 
 from . import database
 from .models import PageView
@@ -16,3 +17,6 @@ def index(request):
         'database': database.info(),
         'count': PageView.objects.count()
     })
+
+def health(request):
+    return HttpResponse(PageView.objects.count())
