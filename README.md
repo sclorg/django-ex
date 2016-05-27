@@ -105,8 +105,8 @@ Templates give you full control of each component of your application.
 Sometimes your application is simple enough and you don't want to bother with templates. In that case, you can let OpenShift inspect your source code and create the required components automatically for you:
 
 ```bash
-$ oc new-app openshift/python-33-centos7~https://github.com/openshift/django-ex
-imageStreams/python-33-centos7
+$ oc new-app centos/python-35-centos7~https://github.com/openshift/django-ex
+imageStreams/python-35-centos7
 imageStreams/django-ex
 buildConfigs/django-ex
 deploymentConfigs/django-ex
