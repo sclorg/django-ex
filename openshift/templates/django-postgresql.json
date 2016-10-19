@@ -19,7 +19,8 @@
       "metadata": {
         "name": "${NAME}",
         "annotations": {
-          "description": "Exposes and load balances the application pods"
+          "description": "Exposes and load balances the application pods",
+          "service.alpha.openshift.io/dependencies": "[{\"name\": \"${DATABASE_SERVICE_NAME}\", \"namespace\": \"\", \"kind\": \"Service\"}]"
         }
       },
       "spec": {
