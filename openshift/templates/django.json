@@ -190,26 +190,6 @@
                 },
                 "env": [
                   {
-                    "name": "DATABASE_SERVICE_NAME",
-                    "value": "${DATABASE_SERVICE_NAME}"
-                  },
-                  {
-                    "name": "DATABASE_ENGINE",
-                    "value": "${DATABASE_ENGINE}"
-                  },
-                  {
-                    "name": "DATABASE_NAME",
-                    "value": "${DATABASE_NAME}"
-                  },
-                  {
-                    "name": "DATABASE_USER",
-                    "value": "${DATABASE_USER}"
-                  },
-                  {
-                    "name": "DATABASE_PASSWORD",
-                    "value": "${DATABASE_PASSWORD}"
-                  },
-                  {
                     "name": "APP_CONFIG",
                     "value": "${APP_CONFIG}"
                   },
@@ -281,27 +261,6 @@
       "description": "A secret string used to configure the GitHub webhook.",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
-    },
-    {
-      "name": "DATABASE_SERVICE_NAME",
-      "displayName": "Database Service Name"
-    },
-    {
-      "name": "DATABASE_ENGINE",
-      "displayName": "Database Engine",
-      "description": "Database engine: postgresql, mysql or sqlite (default)."
-    },
-    {
-      "name": "DATABASE_NAME",
-      "displayName": "Database Name"
-    },
-    {
-      "name": "DATABASE_USER",
-      "displayName": "Database Username"
-    },
-    {
-      "name": "DATABASE_PASSWORD",
-      "displayName": "Database User Password"
     },
     {
       "name": "APP_CONFIG",
