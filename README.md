@@ -80,7 +80,7 @@ After adding your templates, you can go to your OpenShift web console, browse to
 
 Adjust the parameter values to suit your configuration. Most times you can just accept the default values, however you will probably want to set the `GIT_REPOSITORY` parameter to point to your fork and the `DATABASE_*` parameters to match your database configuration.
 
-Alternatively, you can use the command line to create your new app, assuming your OpenShift deployment has the default set of ImageStreams defined.  Instructions for installing the default ImageStreams are available [here](http://docs.openshift.org/latest/admin_guide/install/first_steps.html).  If you are defining the set of ImageStreams now, remember to pass in the proper cluster-admin credentials and to create the ImageStreams in the 'openshift' namespace:
+Alternatively, you can use the command line to create your new app, assuming your OpenShift deployment has the default set of ImageStreams defined.  Instructions for installing the default ImageStreams are available [here](https://docs.openshift.org/latest/install_config/imagestreams_templates.html).  If you are defining the set of ImageStreams now, remember to pass in the proper cluster-admin credentials and to create the ImageStreams in the 'openshift' namespace:
 
     oc new-app openshift/templates/django.json -p SOURCE_REPOSITORY_URL=<your repository location>
 
@@ -88,7 +88,7 @@ Your application will be built and deployed automatically. If that doesn't happe
 
     oc get builds
     # take build name from the command above
-    oc build-logs <build-name>
+    oc logs build/<build-name>
 
 And you can see information about your deployment too:
 
