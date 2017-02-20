@@ -1,122 +1,58 @@
-# Openshift quickstart: Django
+# eDivorce
 
-This is a [Django](http://www.djangoproject.com) project that you can use as the starting point to develop your own and deploy it on an [OpenShift](https://github.com/openshift/origin) cluster.
+This is a [Django](http://www.djangoproject.com) project forked from the [openshift/django-ex](https://github.com/openshift/django-ex) repository.
+
+eDivorce was developed by the British Columbia Ministry of Justice to help self represented litigants fill out the paperwork for their divorce.  It replaces existing fillable PDF forms with a friendly web interface.
 
 The steps in this document assume that you have access to an OpenShift deployment that you can deploy applications on.
 
-## What has been done for you
-
-This is a minimal Django 1.8 project. It was created with these steps:
-
-1. Create a virtualenv
-2. Manually install Django and other dependencies
-3. `pip freeze > requirements.txt`
-4. `django-admin startproject project .`
-3. Update `project/settings.py` to configure `SECRET_KEY`, `DATABASE` and `STATIC_ROOT` entries
-4. `./manage.py startapp welcome`, to create the welcome page's app
-
-From this initial state you can:
-* create new Django apps
-* remove the `welcome` app
-* rename the Django project
-* update settings to suit your needs
-* install more Python libraries and add them to the `requirements.txt` file
-
-
-## Special files in this repository
-
-Apart from the regular files created by Django (`project/*`, `welcome/*`, `manage.py`), this repository contains:
-
-```
-openshift/         - OpenShift-specific files
-├── scripts        - helper scripts
-└── templates      - application templates
-
-requirements.txt   - list of dependencies
-```
-
-
 ## Local development
+
+Prerequesites:
+* Docker
+* Python 3.5
 
 To run this project in your development machine, follow these steps:
 
 1. (optional) Create and activate a [virtualenv](https://virtualenv.pypa.io/) (you may want to use [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/)).
 
-2. Fork this repo and clone your fork:
+2. Clone this repo:
 
-    `git clone https://github.com/openshift/django-ex.git`
+    `git clone https://github.com/bcgov/eDivorce.git`
 
 3. Install dependencies:
 
     `pip install -r requirements.txt`
 
-4. Create a development database:
+4. Create an environment settings file by copying `.env.example` to `.env` (`.env` will be ignored by Git)
+
+5. Create a development database:
 
     `./manage.py migrate`
 
-5. If everything is alright, you should be able to start the Django development server:
+6. If everything is alright, you should be able to start the Django development server:
 
-    `./manage.py runserver`
+    `./manage.py runserver 0.0.0.0:8000`
 
-6. Open your browser and go to http://127.0.0.1:8000, you will be greeted with a welcome page.
+7. Start the [Weasyprint server](https://hub.docker.com/r/aquavitae/weasyprint/) server on port 5005
 
+    1. Bind the IP address 10.200.10.1 to the lo0 interface on your Mac computer.  Weasyprint has been configured to use this IP address to request CSS files from Django *(You should only have to do this once)*.
+        ```
+        sudo ifconfig lo0 alias 10.200.10.1/24
+        ```
 
-## Deploying to OpenShift
-
-To follow the next steps, you need to be logged in to an OpenShift cluster and have an OpenShift project where you can work on.
-
-
-### Using an application template
-
-The directory `openshift/templates/` contains OpenShift application templates that you can add to your OpenShift project with:
-
-    oc create -f openshift/templates/<TEMPLATE_NAME>.json
-
-The template `django.json` contains just a minimal set of components to get your Django application into OpenShift.
-
-The template `django-postgresql.json` contains all of the components from `django.json`, plus a PostgreSQL database service and an Image Stream for the Python base image. For simplicity, the PostgreSQL database in this template uses ephemeral storage and, therefore, is not production ready.
-
-After adding your templates, you can go to your OpenShift web console, browse to your project and click the create button. Create a new app from one of the templates that you have just added.
-
-Adjust the parameter values to suit your configuration. Most times you can just accept the default values, however you will probably want to set the `GIT_REPOSITORY` parameter to point to your fork and the `DATABASE_*` parameters to match your database configuration.
-
-Alternatively, you can use the command line to create your new app, assuming your OpenShift deployment has the default set of ImageStreams defined.  Instructions for installing the default ImageStreams are available [here](http://docs.openshift.org/latest/admin_guide/install/first_steps.html).  If you are defining the set of ImageStreams now, remember to pass in the proper cluster-admin credentials and to create the ImageStreams in the 'openshift' namespace:
-
-    oc new-app openshift/templates/django.json -p SOURCE_REPOSITORY_URL=<your repository location>
-
-Your application will be built and deployed automatically. If that doesn't happen, you can debug your build:
-
-    oc get builds
-    # take build name from the command above
-    oc build-logs <build-name>
-
-And you can see information about your deployment too:
-
-    oc describe dc/django-example
-
-In the web console, the overview tab shows you a service, by default called "django-example", that encapsulates all pods running your Django application. You can access your application by browsing to the service's IP address and port.  You can determine these by running
-
-   oc get svc
+    1. Start docker
+        ```
+        docker run -d -p 5005:5001 aquavitae/weasyprint
+        ```
 
 
-### Without an application template
+8. Open your browser and go to http://127.0.0.1:8000, you will be greeted with the eDivorce homepage.
 
-Templates give you full control of each component of your application.
-Sometimes your application is simple enough and you don't want to bother with templates. In that case, you can let OpenShift inspect your source code and create the required components automatically for you:
 
-```bash
-$ oc new-app centos/python-35-centos7~https://github.com/openshift/django-ex
-imageStreams/python-35-centos7
-imageStreams/django-ex
-buildConfigs/django-ex
-deploymentConfigs/django-ex
-services/django-ex
-A build was created - you can run `oc start-build django-ex` to start it.
-Service "django-ex" created at 172.30.16.213 with port mappings 8080.
-```
+## OpenShift deployment
 
-You can access your application by browsing to the service's IP address and port.
-
+See: `openshift/README.md`
 
 ## Logs
 
@@ -129,17 +65,6 @@ You can look at the combined stdout and stderr of a given pod with this command:
 This can be useful to observe the correct functioning of your application.
 
 
-## Special environment variables
-
-### APP_CONFIG
-
-You can fine tune the gunicorn configuration through the environment variable `APP_CONFIG` that, when set, should point to a config file as documented [here](http://docs.gunicorn.org/en/latest/settings.html).
-
-### DJANGO_SECRET_KEY
-
-When using one of the templates provided in this repository, this environment variable has its value automatically generated. For security purposes, make sure to set this to a random string as documented [here](https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-SECRET_KEY).
-
-
 ## One-off command execution
 
 At times you might want to manually execute some command in the context of a running application in OpenShift.
@@ -147,27 +72,34 @@ You can drop into a Python shell for debugging, create a new user for the Django
 
 You can do all that by using regular CLI commands from OpenShift.
 To make it a little more convenient, you can use the script `openshift/scripts/run-in-container.sh` that wraps some calls to `oc`.
-In the future, the `oc` CLI tool might incorporate changes
-that make this script obsolete.
+In the future, the `oc` CLI tool might incorporate changes that make this script obsolete.
 
 Here is how you would run a command in a pod specified by label:
+
+1. Log in to the Openshift instance
+
+    ```
+    oc login <path> --token=<token>
+    ```
+
+1. Select the project where you want to run the command
+
+    ```
+    oc project <project-name>
+    ```
 
 1. Inspect the output of the command below to find the name of a pod that matches a given label:
 
         oc get pods -l <your-label-selector>
 
-2. Open a shell in the pod of your choice. Because of how the images produced
+1. Open a shell in the pod of your choice. Because of how the images produced
   with CentOS and RHEL work currently, we need to wrap commands with `bash` to
   enable any Software Collections that may be used (done automatically inside
   every bash shell).
 
         oc exec -p <pod-name> -it -- bash
 
-3. Finally, execute any command that you need and exit the shell.
-
-Related GitHub issues:
-1. https://github.com/GoogleCloudPlatform/kubernetes/issues/8876
-2. https://github.com/openshift/origin/issues/2001
+1. Finally, execute any command that you need and exit the shell.
 
 
 The wrapper script combines the steps above into one. You can use it like this:
@@ -192,20 +124,10 @@ Or both together:
 
 ## Data persistence
 
-You can deploy this application without a configured database in your OpenShift project, in which case Django will use a temporary SQLite database that will live inside your application's container, and persist only until you redeploy your application.
-
-After each deploy you get a fresh, empty, SQLite database. That is fine for a first contact with OpenShift and perhaps Django, but sooner or later you will want to persist your data across deployments.
-
-To do that, you should add a properly configured database server or ask your OpenShift administrator to add one for you. Then use `oc env` to update the `DATABASE_*` environment variables in your DeploymentConfig to match your database settings.
-
-Redeploy your application to have your changes applied, and open the welcome page again to make sure your application is successfully connected to the database server.
-
-
-## Looking for help
-
-If you get stuck at some point, or think that this document needs further details or clarification, you can give feedback and look for help using the channels mentioned in [the OpenShift Origin repo](https://github.com/openshift/origin), or by filing an issue.
-
+For local development a SQLite database will be used.  For OpenShift deployments data will be stored in a PostgreSQL database, with data files residing on a persistent volume.
 
 ## License
 
-This code is dedicated to the public domain to the maximum extent permitted by applicable law, pursuant to [CC0](http://creativecommons.org/publicdomain/zero/1.0/).
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABLITY OR NON-INFRINGEMENT.
+See the Apache Version 2.0 License for specific language governing permissions and limitations under the License.

@@ -11,12 +11,11 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 import os
-
 from decouple import config
 from unipath import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-
+PROJECT_ROOT = Path(__file__).parent.parent.parent
 BASE_DIR = Path(__file__).parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -30,8 +29,9 @@ SECRET_KEY = config(
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
+# TODO: Set ALLOWED_HOSTS this to the actual host headers used by the local/dev/test/prod instances & health probes
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -42,8 +42,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'debug_toolbar',
     'edivorce.apps.core',
+    'compressor',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -54,6 +56,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 )
@@ -76,23 +79,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'edivorce.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': config('DATABASE_ENGINE'),
-        'NAME': config('DATABASE_NAME'),
-        'USER': config('DATABASE_USER'),
-        'PASSWORD': config('DATABASE_PASSWORD'),
-        'HOST': config('DATABASE_HOST'),
-        'PORT': config('DATABASE_PORT'),
-    }
-}
-
+WSGI_APPLICATION = 'wsgi.application'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -115,3 +102,18 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
+
+# django-libsass
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+
+FORCE_SCRIPT_NAME = ''
