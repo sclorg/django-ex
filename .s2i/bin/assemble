@@ -1,4 +1,1 @@
-/tmp/.s2I/assemble
-
-curl -H "Accept: application/zip" https://raw.githubusercontent.com/vbchin2/openshift-cartridge-memcached/master/metadata/manifest.yml -o https://github.com/himani153/django-ex
 
