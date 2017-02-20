@@ -1,0 +1,89 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: edivorce-build
+  annotations:
+    description: An example Django application with a PostgreSQL database
+    tags: edivorce,python,django,postgresql
+    iconClass: icon-python
+labels:
+  template: edivorce-build-template
+objects:
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    annotations:
+      description: Keeps track of changes in the application image
+- kind: BuildConfig
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    annotations:
+      description: Defines how to build the application
+  spec:
+    source:
+      type: Git
+      git:
+        uri: "${SOURCE_REPOSITORY_URL}"
+        ref: "${SOURCE_REPOSITORY_REF}"
+      contextDir: "${CONTEXT_DIR}"
+    strategy:
+      type: Source
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          namespace: "${NAMESPACE}"
+          name: python:3.5
+        env:
+        - name: PIP_INDEX_URL
+          value: "${PIP_INDEX_URL}"
+    output:
+      to:
+        kind: ImageStreamTag
+        name: "${NAME}:latest"
+    triggers:
+    - type: ImageChange
+    - type: ConfigChange
+    - type: GitHub
+      github:
+        secret: "${GITHUB_WEBHOOK_SECRET}"
+    postCommit:
+      script: "./manage.py test"
+parameters:
+- name: NAME
+  displayName: Name
+  description: The name assigned to all of the frontend objects defined in this template.
+  required: true
+  value: edivorce-django
+- name: NAMESPACE
+  displayName: Namespace
+  required: true
+  description: The OpenShift Namespace where the ImageStream resides.
+  value: openshift
+- name: SOURCE_REPOSITORY_URL
+  displayName: Git Repository URL
+  required: true
+  description: The URL of the repository with your application source code.
+  value: https://github.com/bcgov/eDivorce.git
+- name: SOURCE_REPOSITORY_REF
+  displayName: Git Reference
+  description: Set this to a branch name, tag or other ref of your repository if you are not using the default branch.
+- name: CONTEXT_DIR
+  displayName: Context Directory
+  description: Set this to the relative path to your project if it is not in the root of your repository.
+- name: GITHUB_WEBHOOK_SECRET
+  displayName: GitHub Webhook Secret
+  description: A secret string used to configure the GitHub webhook.
+  generate: expression
+  from: "[a-zA-Z0-9]{40}"
+- name: DJANGO_SECRET_KEY
+  displayName: Django Secret Key
+  description: Set this to a long random string.
+  generate: expression
+  from: "[\\w]{50}"
+- name: PIP_INDEX_URL
+  displayName: Custom PyPi Index URL
+  description: The custom PyPi index URL
+  value: ''
