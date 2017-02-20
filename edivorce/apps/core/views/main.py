@@ -32,7 +32,7 @@ def preview(request, form):
 
 def login(request):
     if not request.session.get('fake-bceid-guid'):
-        return redirect(settings.FORCE_SCRIPT_NAME + '/bceid')
+        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
     else:
         guid = request.bceid_user.guid
         user, created = BceidUser.objects.get_or_create(user_guid=guid)
@@ -42,12 +42,12 @@ def login(request):
 
         copy_session_to_db(request, user)
 
-        return redirect(settings.FORCE_SCRIPT_NAME + '/overview')
+        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
 
 
 def logout(request):
     request.session.flush()
-    return redirect(settings.FORCE_SCRIPT_NAME + '/intro')
+    return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/intro')
 
 
 @bceid_required

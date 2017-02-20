@@ -19,7 +19,7 @@ def bceid(request):
         # save the guid in a session variable
         request.session['fake-bceid-guid'] = fake_guid
 
-        return redirect(settings.FORCE_SCRIPT_NAME + '/login')
+        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/login')
 
     else:
         return render(request, 'localdev/bceid.html')
