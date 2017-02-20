@@ -11,6 +11,12 @@ def bceid(request):
     """ fake bceid login for developer workstation environment """
     if request.method == "POST":
         login_name = request.POST.get('user', '')
+        password = request.POST.get('password', '')
+
+        # just in case anyone from the general public discovers the dev server
+        # make sure they don't accidentally login and think this is production
+        if password.lower() != 'divorce':
+            return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
 
         # convert the login name to a guid
         hex_name = decode(binascii.hexlify(str.encode(login_name)))[0]
