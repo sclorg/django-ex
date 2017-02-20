@@ -1,0 +1,126 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: nginx
+labels:
+  template: nginx-environment-template
+objects:
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    creationTimestamp:
+    labels:
+      app: "${NAME}"
+  spec:
+    strategy:
+      type: Rolling
+      rollingParams:
+        updatePeriodSeconds: 1
+        intervalSeconds: 1
+        timeoutSeconds: 600
+        maxUnavailable: 25%
+        maxSurge: 25%
+      resources: {}
+    triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - "${NAME}"
+        from:
+          kind: ImageStreamTag
+          namespace: "${APP_IMAGE_NAMESPACE}"
+          name: "${APP_IMAGE_NAME}:deploy-to-${ENVIRONMENT_TYPE}"
+    replicas: 2
+    test: false
+    selector:
+      app: "${NAME}"
+      deploymentconfig: "${NAME}"
+    template:
+      metadata:
+        creationTimestamp:
+        labels:
+          app: "${NAME}"
+          deploymentconfig: "${NAME}"
+      spec:
+        containers:
+        - name: "${NAME}"
+          image: " "
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /nginx_status
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 30
+            periodSeconds: 60
+            successThreshold: 1
+            failureThreshold: 5
+          imagePullPolicy: Always
+        restartPolicy: Always
+        terminationGracePeriodSeconds: 30
+        dnsPolicy: ClusterFirst
+        securityContext: {}
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    creationTimestamp:
+    labels:
+      app: "${NAME}"
+  spec:
+    ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    selector:
+      app: "${NAME}"
+      deploymentconfig: "${NAME}"
+    type: ClusterIP
+    sessionAffinity: None
+- kind: Route
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    creationTimestamp:
+    labels:
+      app: "${NAME}"
+    annotations:
+      openshift.io/host.generated: 'true'
+  spec:
+    host: "edivorce-${ENVIRONMENT_TYPE}.pathfinder.gov.bc.ca"
+    to:
+      kind: Service
+      name: "${NAME}"
+      weight: 100
+    port:
+      targetPort: 8080-tcp
+    tls:
+      termination: edge
+      insecureEdgeTerminationPolicy: Redirect
+parameters:
+- name: NAME
+  displayName: Name
+  description: The name assigned to all of the frontend objects defined in this template.
+  required: true
+  value: nginx-proxy
+- name: APP_IMAGE_NAME
+  displayName: Application image name.
+  description: Application image name.
+  value: nginx-proxy
+  required: true
+- name: APP_IMAGE_NAMESPACE
+  displayName: Namespace containing application images.
+  description: Namespace containing application images.
+  value: "jag-csb-edivorce-tools"
+  required: true
+- name: ENVIRONMENT_TYPE
+  displayName: Type of environnment (dev,test or prod).
+  required: true
