@@ -1,0 +1,18 @@
+[
+{
+    "fields": {
+        "name": "Married or Marriage Like",
+        "description": "[INLINE DEFINITION: LEGALLY MARRIED]\r\n\"Legally married is defined as: when two people agree to live together in a partnership made legally binding by a religous or legal ceremony.\"  To prove you were legally married you will need to provide a marriage certificate issued in the country where you were married.\r\n\r\nSource: http://www.familylaw.lss.bc.ca/resources/fact_sheets/separation.php\r\n\r\n\r\n[INLINE DEFINITION: MARRIAGE LIKE RELATIONSHIP]\r\n\"The term \"common-law relationship\" is often used to refer to a marriage-like relationship that has lasted a certain length of time, usually one or two years. Used in some federal laws to refer to a marriage-like relationship of a year or longer.\"\r\nSource: http://www.familylaw.lss.bc.ca/legal_issues/commonLawFAQ.php\r\n\r\n[INLINE Q & A: If I have lived with my spouse for at least two years, are we married?]\r\n\"No, you aren't married, but after two years, you have a lot of the same rights as a married couple would. And some federal benefits treat you as married spouse if you've been living together for one year. For more information refer to the booklet called Living Together or Living Apart: Common-Law Relationships, Marriage, Separation and Divorce, on the Legal Services Society website.\"\r\n<link: http://www.familylaw.lss.bc.ca/resources/publications/pub.php?pub=347>\r\n\r\nSource: http://www.familylaw.lss.bc.ca/legal_issues/divorcefaq.php"
+    },
+    "model": "core.question",
+    "pk": "p1"
+},
+{
+    "fields": {
+        "name": "Separated One Year",
+        "description": "[INLINE DEFINITION: SPOUSE]\r\n\r\n\"You are a spouse under the Family Law Act if: <link to family law act: http://www.bclaws.ca/civix/document/id/complete/statreg/11025_01>\r\n\r\n- You are or were married\r\n- You have lived with another person in a marriage-like relationship, sometimes called common-law, for a certain period of time\r\n\r\nIf you are common-law, you must have lived together for a minimum period of time to qualify as a spouse.\"\r\n\r\n[INLINE Q & A: Am I married if we live common-law long enough]\r\n\"No, you aren't married, but after two years, you have a lot of the same rights as a married couple would. And some federal benefits treat you as married spouse if you've been living together for one year. For more information refer to the booklet called Living Together or Living Apart: Common-Law Relationships, Marriage, Separation and Divorce, on the Legal Services Society website.\"\r\nSource: http://www.familylaw.lss.bc.ca/legal_issues/divorcefaq.php\r\n"
+    },
+    "model": "core.question",
+    "pk": "p2"
+}
+]

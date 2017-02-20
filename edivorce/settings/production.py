@@ -1,0 +1,1 @@
+from settings.base import *
