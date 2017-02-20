@@ -116,4 +116,4 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
 
-FORCE_SCRIPT_NAME = ''
+FORCE_SCRIPT_NAME = '/'
