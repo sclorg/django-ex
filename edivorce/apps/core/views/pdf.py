@@ -22,11 +22,17 @@ def form(request, form_number):
 
 
 def render_form(request, form_name, context):
+
+    output_as_html = request.GET.get('html', None) is not None
+
+    if output_as_html:
+        context["css_root"] = settings.FORCE_SCRIPT_NAME[:-1]
+
     # render to form as HTML
     rendered_html = render_to_string('pdf/' + form_name + '.html', context=context)
 
     # if '?html' is in the querystring, then return the plain html
-    if request.GET.get('html', None) is not None:
+    if output_as_html:
         return HttpResponse(rendered_html)
 
     else:
