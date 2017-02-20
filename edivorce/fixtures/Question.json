@@ -1,18 +1,418 @@
 [
 {
     "fields": {
-        "name": "Married or Marriage Like",
-        "description": "[INLINE DEFINITION: LEGALLY MARRIED]\r\n\"Legally married is defined as: when two people agree to live together in a partnership made legally binding by a religous or legal ceremony.\"  To prove you were legally married you will need to provide a marriage certificate issued in the country where you were married.\r\n\r\nSource: http://www.familylaw.lss.bc.ca/resources/fact_sheets/separation.php\r\n\r\n\r\n[INLINE DEFINITION: MARRIAGE LIKE RELATIONSHIP]\r\n\"The term \"common-law relationship\" is often used to refer to a marriage-like relationship that has lasted a certain length of time, usually one or two years. Used in some federal laws to refer to a marriage-like relationship of a year or longer.\"\r\nSource: http://www.familylaw.lss.bc.ca/legal_issues/commonLawFAQ.php\r\n\r\n[INLINE Q & A: If I have lived with my spouse for at least two years, are we married?]\r\n\"No, you aren't married, but after two years, you have a lot of the same rights as a married couple would. And some federal benefits treat you as married spouse if you've been living together for one year. For more information refer to the booklet called Living Together or Living Apart: Common-Law Relationships, Marriage, Separation and Divorce, on the Legal Services Society website.\"\r\n<link: http://www.familylaw.lss.bc.ca/resources/publications/pub.php?pub=347>\r\n\r\nSource: http://www.familylaw.lss.bc.ca/legal_issues/divorcefaq.php"
+        "name": "Are you Married or Marriage Like",
+        "description": "For pre-qualification step 1"
     },
     "model": "core.question",
-    "pk": "p1"
+    "pk": "married_marriage_like"
 },
 {
     "fields": {
-        "name": "Separated One Year",
-        "description": "[INLINE DEFINITION: SPOUSE]\r\n\r\n\"You are a spouse under the Family Law Act if: <link to family law act: http://www.bclaws.ca/civix/document/id/complete/statreg/11025_01>\r\n\r\n- You are or were married\r\n- You have lived with another person in a marriage-like relationship, sometimes called common-law, for a certain period of time\r\n\r\nIf you are common-law, you must have lived together for a minimum period of time to qualify as a spouse.\"\r\n\r\n[INLINE Q & A: Am I married if we live common-law long enough]\r\n\"No, you aren't married, but after two years, you have a lot of the same rights as a married couple would. And some federal benefits treat you as married spouse if you've been living together for one year. For more information refer to the booklet called Living Together or Living Apart: Common-Law Relationships, Marriage, Separation and Divorce, on the Legal Services Society website.\"\r\nSource: http://www.familylaw.lss.bc.ca/legal_issues/divorcefaq.php\r\n"
+        "name": "Do you or your spouse live in British Columbia?",
+        "description": "For pre-qualification step 2"
     },
     "model": "core.question",
-    "pk": "p2"
+    "pk": "lived_in_bc"
+},
+{
+    "fields": {
+        "name": "Have you or your spouse lived in B.C. at least one year prior to starting your divorce?",
+        "description": "For pre-qualification step 2"
+    },
+    "model": "core.question",
+    "pk": "lived_in_bc_at_least_year"
+},
+{
+    "fields": {
+        "name": "When did you and your spouse separate (legally this is referred to as living separate and apart)?",
+        "description": "For pre-qualification step 3, Form 1 1. Relationship history"
+    },
+    "model": "core.question",
+    "pk": "separation_date"
+},
+{
+    "fields": {
+        "name": "Do you and your spouse have any children (includes step children, adopted children). The  legal term is children of the marriage.",
+        "description": "For pre-qualification step 4, Form 1 3. Info concerning children"
+    },
+    "model": "core.question",
+    "pk": "children_of_marriage"
+},
+{
+    "fields": {
+        "name": "Are any of the children 19 years or younger?",
+        "description": "For pre-qualification step 4"
+    },
+    "model": "core.question",
+    "pk": "any_under_19"
+},
+{
+    "fields": {
+        "name": "Are you financially supporting any of the children that are 19 years or older?",
+        "description": "For pre-qualification step 4"
+    },
+    "model": "core.question",
+    "pk": "children_financial_support"
+},
+{
+    "fields": {
+        "name": "Will you be able to provide proof of your marriage (in the form of an original or certified marriage certificate or registration of marriage).",
+        "description": "For pre-qualification step 5, Form 1 2. Divorce section D"
+    },
+    "model": "core.question",
+    "pk": "original_marriage_certificate"
+},
+{
+    "fields": {
+        "name": "Will you be providing the marriage certificate or registration of marriage at a later date",
+        "description": "For pre-qualification step 5, Form 1 2. Divorce section D"
+    },
+    "model": "core.question",
+    "pk": "provide_certificate_later"
+},
+{
+    "fields": {
+        "name": "If you will be providing the marriage certificate or registration of marriage at a later date, please let us know why",
+        "description": "For pre-qualification step 5, Form 1 2. Divorce section D"
+    },
+    "model": "core.question",
+    "pk": "provide_certificate_later_reason"
+},
+{
+    "fields": {
+        "name": "Please tell us why it is impossible to obtain a marriage certificate or registration of marriage.",
+        "description": "For pre-qualification step 5, Form 1 2. Divorce section D"
+    },
+    "model": "core.question",
+    "pk": "not_provide_certificate_reason"
+},
+{
+    "fields": {
+        "name": "What is your reason (grounds) for asking for a divorce?",
+        "description": "For pre-qualification step 6"
+    },
+    "model": "core.question",
+    "pk": "divorce_reason"
+},
+{
+    "fields": {
+        "name": "What are you asking for (Orders)?",
+        "description": "For step 1"
+    },
+    "model": "core.question",
+    "pk": "want_which_orders"
+},
+{
+    "fields": {
+        "name": "Please enter your name as it appears on the marriage certificate",
+        "description": "For step 2, Form 1 Claimant 1"
+    },
+    "model": "core.question",
+    "pk": "name_you"
+},
+{
+    "fields": {
+        "name": "Do you go by any other names",
+        "description": "For step 2"
+    },
+    "model": "core.question",
+    "pk": "any_other_name_you"
+},
+{
+    "fields": {
+        "name": "Please enter your other name",
+        "description": "For step 2"
+    },
+    "model": "core.question",
+    "pk": "other_name_you"
+},
+{
+    "fields": {
+        "name": "What was your last name when you were born?",
+        "description": "For step 2, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "last_name_born_you"
+},
+{
+    "fields": {
+        "name": "What was your last name immediately before you were married?",
+        "description": "For step 2, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "last_name_before_married_you"
+},
+{
+    "fields": {
+        "name": "What is your birthday?",
+        "description": "For step 2, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "birthday_you"
+},
+{
+    "fields": {
+        "name": "How long have you lived in British Columbia?",
+        "description": "For step 2, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "lived_in_bc_you"
+},
+{
+    "fields": {
+        "name": "You moved to British Columbia on",
+        "description": "For step 2, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "moved_to_bc_date_you"
+},
+{
+    "fields": {
+        "name": "Please enter your spouse's name as it appears on the marriage certificate",
+        "description": "For step 3, Form 1 Claimant 2"
+    },
+    "model": "core.question",
+    "pk": "name_spouse"
+},
+{
+    "fields": {
+        "name": "Do your spouse go by any other names",
+        "description": "For step 3"
+    },
+    "model": "core.question",
+    "pk": "any_other_name_spouse"
+},
+{
+    "fields": {
+        "name": "Please enter spouse's other name",
+        "description": "For step 3"
+    },
+    "model": "core.question",
+    "pk": "other_name_spouse"
+},
+{
+    "fields": {
+        "name": "What was their last name when you were born?",
+        "description": "For step 3, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "last_name_born_spouse"
+},
+{
+    "fields": {
+        "name": "What was their last name immediately before you were married?",
+        "description": "For step 3, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "last_name_before_married_spouse"
+},
+{
+    "fields": {
+        "name": "What is your spouse's birthday?",
+        "description": "For step 3, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "birthday_spouse"
+},
+{
+    "fields": {
+        "name": "How long has your spouse lived in British Columbia?",
+        "description": "For step 3, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "lived_in_bc_spouse"
+},
+{
+    "fields": {
+        "name": "Spouse moved to British Columbia on",
+        "description": "For step 3, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "moved_to_bc_date_spouse"
+},
+{
+    "fields": {
+        "name": "When were you married?",
+        "description": "For step 4, Form 1 1. Relationship history"
+    },
+    "model": "core.question",
+    "pk": "when_were_you_married"
+},
+{
+    "fields": {
+        "name": "When did you and your spouse begin to live together in a marriage-like relationship?",
+        "description": "For step 4, Form 1 1. Relationship history"
+    },
+    "model": "core.question",
+    "pk": "when_were_you_live_married_like"
+},
+{
+    "fields": {
+        "name": "Where were you married? City",
+        "description": "For step 4, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "where_were_you_married_city"
+},
+{
+    "fields": {
+        "name": "Where were you married? Prov",
+        "description": "For step 4, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "where_were_you_married_prov"
+},
+{
+    "fields": {
+        "name": "Where were you married? Country",
+        "description": "For step 4, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "where_were_you_married_country"
+},
+{
+    "fields": {
+        "name": "Where were you married? Other Country",
+        "description": "For step 4, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "where_were_you_married_other_country"
+},
+{
+    "fields": {
+        "name": "Before you got married to your spouse, what was your marital status?",
+        "description": "For step 4, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "marital_status_before_you"
+},
+{
+    "fields": {
+        "name": "What was the marital status of your spouse before your marriage?",
+        "description": "For step 4, Form 1 2. Divorce section A"
+    },
+    "model": "core.question",
+    "pk": "marital_status_before_spouse"
+},
+{
+    "fields": {
+        "name": "Did you and your spouse try and reconcile after you separated?",
+        "description": "For pre-qualification step 3, For step 5, Form 1 2. Divorce section B"
+    },
+    "model": "core.question",
+    "pk": "try_reconcile_after_separated"
+},
+{
+    "fields": {
+        "name": "There is no possibility my spouse and I will get back together (reconciliation).",
+        "description": "For step 5, Form 1 2. Divorce section C"
+    },
+    "model": "core.question",
+    "pk": "no_reconciliation_possible"
+},
+{
+    "fields": {
+        "name": "There has been no collusion, as defined in section 11(4) of the Divorce Act (Canada), in relation to this claim for divorce.",
+        "description": "For step 5, Form 1 2. Divorce section C"
+    },
+    "model": "core.question",
+    "pk": "no_collusion"
+},
+{
+    "fields": {
+        "name": "Is your marriage certificate or registration of marriage in English?",
+        "description": "For pre-qualification step 5, For step 5"
+    },
+    "model": "core.question",
+    "pk": "marriage_certificate_in_english"
+},
+{
+    "fields": {
+        "name": "You and your spouse are asking for an order for spousal support as follows",
+        "description": "For step 6, Form 1 5. Spousal support"
+    },
+    "model": "core.question",
+    "pk": "spouse_support_details"
+},
+{
+    "fields": {
+        "name": "Please indicate which act you are asking for support under.",
+        "description": "For step 6, Form 1 5. Spousal support"
+    },
+    "model": "core.question",
+    "pk": "spouse_support_act"
+},
+{
+    "fields": {
+        "name": "How have you and your spouse agreed to deal with your property and debt?",
+        "description": "For step 7, Form 1 6. Property and debt"
+    },
+    "model": "core.question",
+    "pk": "deal_with_property_debt"
+},
+{
+    "fields": {
+        "name": "At what court registry will you be filing?",
+        "description": "For step 10, Form 1 court registry"
+    },
+    "model": "core.question",
+    "pk": "court_registry_for_filing"
+},
+{
+    "fields": {
+        "name": "What is the best address to send you official court documents? Street Number",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_street"
+},
+{
+    "fields": {
+        "name": "What is the best address to send you official court documents? City",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_city"
+},
+{
+    "fields": {
+        "name": "What is the best address to send you official court documents? Prov",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_prov"
+},
+{
+    "fields": {
+        "name": "What is the best address to send you official court documents? Country",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_country"
+},
+{
+    "fields": {
+        "name": "What is the best address to send you official court documents? Other Country",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_other_country"
+},
+{
+    "fields": {
+        "name": "What is the best address to send you official court documents? Fax number",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_fax"
+},
+{
+    "fields": {
+        "name": "What is the best address to send you official court documents? Email",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_email"
 }
 ]
