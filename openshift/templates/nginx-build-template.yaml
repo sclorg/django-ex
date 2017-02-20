@@ -64,7 +64,7 @@ parameters:
 - name: SOURCE_REPOSITORY_URL
   displayName: Git Repository URL
   description: The URL of the repository with your nginx configuration code.
-  value: https://github.com/molund/eDivorce
+  value: https://github.com/bcgov/eDivorce
   required: true
 - name: SOURCE_REPOSITORY_CONTEXT_DIR
   displayName: Git sub-directory
