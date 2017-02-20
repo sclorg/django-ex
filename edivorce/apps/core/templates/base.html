@@ -21,6 +21,9 @@
             <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
             <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
         <![endif]-->
+        <script>
+            window.sm_base_url = '{{ request.proxy_root_path }}';
+        </script>
 
     </head>
     <body>

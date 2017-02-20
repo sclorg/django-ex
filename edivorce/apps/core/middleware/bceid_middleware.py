@@ -1,5 +1,7 @@
 import uuid
 
+from django.conf import settings
+
 
 class BceidUser(object):
     def __init__(self, guid, first_name, last_name, type, is_authenticated):
@@ -12,6 +14,10 @@ class BceidUser(object):
 
 class BceidMiddleware(object):
     def process_request(self, request):
+
+        # make the FORCE_SCRIPT_NAME available in templates
+        request.proxy_root_path = settings.FORCE_SCRIPT_NAME
+
         # todo: Make sure the request is coming from the justice proxy (via IP/host check)
 
         # 1. Real BCeID user
