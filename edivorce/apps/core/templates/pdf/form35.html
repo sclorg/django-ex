@@ -1,0 +1,116 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Form 35</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/weasyprint.css" />
+</head>
+
+<body>
+
+    <div class="print-wrapper">
+
+        <h1 class="text-center">Form F35 <br>(Rule 10-10 (2))</h1>
+        <p class="text-right">
+            Court File No.: <span class="form-entry not-complete">&nbsp;</span>
+        </p>
+        <p class="text-right">
+            Court Registry: {% if responses.court_registry_for_filing %} {{ responses.court_registry_for_filing }} {% else %} <span class="form-entry not-complete"> </span> {% endif %}
+        </p>
+        <p class="text-center">
+            <em> In the Supreme Court of British Columbia </em>
+        </p>
+        <p>
+            Claimant 1: {% if responses.name_you %} {{ responses.name_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+        </p>
+        <p>
+            Claimant 2: {% if responses.name_spouse %} {{ responses.name_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+        </p>
+        <h2 class="text-center">
+           REQUISITION
+        </h2>
+        <p>
+            <em>[Rule 21-1 of the Supreme Court Family Rules applies to all forms.]</em>
+        </p>
+        </p>
+        <p>
+            <strong>Filed by:</strong> <span class="form-entry not-complete">[<em>party(ies)</em>]</span>
+        </p>
+        <p>
+            <strong>Filed by:</strong> <span class="form-entry not-complete">[<em>party(ies)</em>]</span>
+        </p>
+        <p>
+            Required: final order, without a hearing, in the form attached
+        </p>
+        <p>
+            <strong>FILED WITH THIS REQUISITION ARE:</strong>
+        </p>
+        <p>
+            [<em>Check all of the following boxes and file the following with this requisition.</em>]
+        </p>
+        <p class="schIndent1">
+            <i class="fa fa-square-o" aria-hidden="true"></i> draft of the order sought;
+        </p>
+        <p class="schIndent1">
+            <i class="fa fa-square-o" aria-hidden="true"></i> proof that the case is an undefended family law case;
+        </p>
+        <p class="schIndent1">
+            <i class="fa fa-square-o" aria-hidden="true"></i> certificate of the registrar in Form F36;
+        </p>
+        <p class="schIndent1">
+            <i class="fa fa-square-o" aria-hidden="true"></i> filing fee.
+        </p>
+        <p>
+            [<em>Check the following box and file the following with this requisition unless a response to family claim or response to counterclaim has been filed or unless this case is a joint family law case within the meaning of Rule 2-2 of the Supreme Court Family Rules</em>.]
+        </p>
+        <p class="schIndent1">
+            <i class="fa fa-square-o" aria-hidden="true"></i> proof of service of the notice of family claim or counterclaim, as the case may be.
+        </p>
+        <p>
+            [<em>Check the following box and file the following document with this requisition if</em>
+        </p>
+        <p class="schIndent1">
+            <em>(a) the family law case includes a claim for divorce and the notice of family claim, response to family claim, counterclaim or response to counterclaim identifies a child of the marriage within the meaning of the <em>Divorce Act</em> (Canada),
+            or
+            </em>
+        </p>
+        <p class="schIndent1">
+            <em>(b) the family law case includes a claim for child support.</em>]
+        </p>
+        <p class="schIndent1">
+            <i class="fa fa-square-o" aria-hidden="true"></i> Child Support Affidavit in Form F37.
+        </p>
+        <p>
+            [<em>Check the following box and file the following document with this requisition if a divorce is sought.</em>]
+        </p>
+        <p class="schIndent1">
+            <i class="fa fa-square-o" aria-hidden="true"></i> affidavit in Form F38.
+        </p>
+        <p>
+        </p>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td colname="c1" valign="top"> Date: <span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span> </td>
+                    <td colname="c2" align="right"> <span class="form-entry not-complete">&nbsp;</span><br> Signature of <i class="fa fa-square-o" aria-hidden="true"></i> filing party <i class="fa fa-square-o" aria-hidden="true"></i> lawyer for filing party(ies) </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="text-right">
+            <span class="form-entry not-complete">[<em>type or print name</em>]</span>
+        </p>
+        
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Form 36</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/weasyprint.css" />
+</head>
+
+<body>
+
+    <div class="print-wrapper">
+
+        <h1 class="text-center">Form F36 <br>(Rules 10-10 (2) and 14-4 (5))</h1>
+        <p class="text-right">
+            Court File No.: <span class="form-entry not-complete">&nbsp;</span>
+        </p>
+        <p class="text-right">
+            Court Registry: {% if responses.court_registry_for_filing %} {{ responses.court_registry_for_filing }} {% else %} <span class="form-entry not-complete"> </span> {% endif %}
+        </p>
+        <p class="text-center">
+            <em> In the Supreme Court of British Columbia </em>
+        </p>
+        <p>
+            Claimant 1: {% if responses.name_you %} {{ responses.name_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+        </p>
+        <p>
+            Claimant 2: {% if responses.name_spouse %} {{ responses.name_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+        </p>
+        <h2 align="center">
+           CERTIFICATE OF PLEADINGS
+        </h2>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <p>
+                            <em>[Rule 21-1 of the Supreme Court Family Rules applies to all forms.]</em>
+                        </p>
+
+                        <p>
+                            I CERTIFY the pleadings and proceedings in this family law case are in order <br />[<em>add the following if applicable:</em> except that <span class="form-entry not-complete">&nbsp;</span>].
+                        </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colname="c1"> Date: <span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span> </td>
+                    <td colname="c2"> <span class="form-entry not-complete">&nbsp;</span><br> Registrar </td>
+                </tr>
+            </tbody>
+        </table>
+
+</div>
+</body>
+
+</html>

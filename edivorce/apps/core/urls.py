@@ -3,6 +3,7 @@ from django.conf.urls import url
 from .views import main, system, styleguide, pdf, api, localdev
 
 urlpatterns = [
+    url(r'^guide$', styleguide.guide),
     url(r'^f/(?P<path>.*)', main.serve),
     url(r'^preview/(?P<form>.*)', main.preview),
     url(r'^prequalification/step_(?P<step>[0-9]{2})$', main.prequalification, name="prequalification"),
@@ -14,6 +15,7 @@ urlpatterns = [
     url(r'^overview', main.overview, name="overview"),
     url(r'^intro', main.intro, name="intro"),
     url(r'^health$', system.health),
+    url(r'^pdf-form(?P<form_number>[0-9]{1,3})$', pdf.form, name="pdf_form"),
     url(r'^(?P<form>.*)/(?P<step>.*)', main.form, name="form_steps"),
     url(r'^', main.index, name="index"),
 ]
