@@ -1,0 +1,60 @@
+{% extends 'base.html' %}{% load input_option %}
+
+{% block title %}{{ block.super }}: Review{% endblock %}
+
+{% block content %}
+<div class="container-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>Step 11. Review</h1>
+                <ul>
+                    <li>
+                        <h4>Step 1: What are you asking for</h4>
+                        {% include "chunks/review_user_responses.html" with questions=prequalification %}
+                    </li>
+                    <li>
+                        <h4>Step 2: Your information</h4>
+                        {% include "chunks/review_user_responses.html" with questions=your_information %}
+                    </li>
+                    <li>
+                        <h4>Step 3: Your spouse</h4>
+                        {% include "chunks/review_user_responses.html" with questions=your_spouse %}
+                    </li>
+                    <li>
+                        <h4>Step 4: Your marriage</h4>
+                        {% include "chunks/review_user_responses.html" with questions=your_marriage %}
+                    </li>
+                    <li>
+                        <h4>Step 5: Your separation</h4>
+                        {% include "chunks/review_user_responses.html" with questions=your_separation %}
+                    </li>
+                    <li>
+                        <h4>Step 6: Spousal support</h4>
+                        {% include "chunks/review_user_responses.html" with questions=spousal_support %}
+                    </li>
+                    <li>
+                        <h4>Step 7: Property and debt</h4>
+                        {% include "chunks/review_user_responses.html" with questions=property_and_debt %}
+                    </li>
+                    <li>
+                        <h4>Step 8: Other orders</h4>
+                        {% include "chunks/review_user_responses.html" with questions=other_orders %}
+                    </li>
+                    <li>
+                        <h4>Step 9: Other questions</h4>
+                        {% include "chunks/review_user_responses.html" with questions=other_questions %}
+                    </li>
+                    <li>
+                        <h4>Step 10: Filing locations</h4>
+                        {% include "chunks/review_user_responses.html" with questions=filing_locations %}
+                    </li>
+                </ul>
+                <form action="{% url 'overview' %}">
+                    <input type="submit" value="Process overview" style="border: solid"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

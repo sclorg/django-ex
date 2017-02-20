@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load input_option %}
+
+{% block title %}{{ block.super }}: Your Information{% endblock %}
+
+{% block content %}
+<div class="container-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>Step 2. Your Information</h1>
+                <h2>Your Information</h2>
+
+                <div>
+                    <h3>Please enter your name as it appears on the marriage certificate</h3>
+                    {% input_option type="text" name="name_you" class="response-textbox" %}
+
+                    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_changed_name" aria-controls="collapse_changed_name">
+                        <div>
+                            Have you changed your legal name since getting married?
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapse_changed_name">
+                        <div>
+                            <p>If either of you has had a legal name change since you were married, put that new name on your form,
+                                            and bring along a copy of the change of name certificate when you file your documents.</p>
+                        </div>
+                    </div>
+
+                    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_maiden_name" aria-controls="collapse_maiden_name">
+                        <div>
+                            Should I use my maiden name or married name?
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapse_maiden_name">
+                        <div>
+                            <p>For the Notice of Family Claim (Form 1) you need to enter your name as it appears on the marriage certificate. </p>
+                            <p>When you got married, your name didn't automatically change. You're allowed to use your spouse's surname, but a formal name change wasn't necessary.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Do you go by any other names?</h3>
+
+                    <div class="btn-radio-group" data-toggle="buttons">
+                        <label class="btn btn-radio">
+                            {% input_option type="radio" name="any_other_name_you" autocomplete="off" value="YES" data_target_id="enter_name" data_reveal_target="true" %} Yes
+                        </label>
+
+                        <label class="btn btn-radio">
+                            {% input_option type="radio" name="any_other_name_you" autocomplete="off" value="NO" data_target_id="enter_name" data_reveal_target="false" %} No
+                        </label>
+                    </div>
+
+                    <p>This could be an abbreviaton of your legal name, a maiden name, or any alias's you use for business or legal matters.</p>
+
+                    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_other_name" aria-controls="collapse_other_name">
+                        <div>
+                            Why do I need to provide other names that I go by? How will you be using this information?
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapse_other_name">
+                        <div>
+                            <p>The name(s) that you provide will appear on the final court order(s)
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+                                       title="<b>Court Orders Definition</b><br /><br />A record of a decision made by a judge or master that
+                                       tells you or your spouse what you must do (or not do).  For example: The court has made an order that
+                                       your spouse must pay you $250 on a monthly basis to help pay off your combined debt" aria-hidden="true"></i>
+                                . Any names you provide will be used on
+                                the final court order for the purposes of executing or following up on the orders. For example,
+                                if you and your spouse will be dividing property, land titles will likely want to see the name in
+                                the court order match what is on the title. This wold also apply to pensions, RRSPs, etc.
+                                The order for divorce is also used to create linkages between names.</p>
+                            <p>You may want to take a look at the names that you have used on any legal and business agreements/contracts
+                                to ensure you are providing the courts with all variations of your name.</p>
+                        </div>
+                    </div>
+
+                    <div id="enter_name" hidden>
+                        <h3>Please enter the name</h3>
+                        {% input_option type="text" name="other_name_you" class="response-textbox" %}
+                        <input type="button" value="Add name"/>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>What was your last name when you were born?</h3>
+                    {% input_option type="text" name="last_name_born_you" class="response-textbox" %}
+                    <p>This is often referred to as Family name or Surname</p>
+                </div>
+
+                <div>
+                    <h3>What was your last name before you were married?</h3>
+                    {% input_option type="text" name="last_name_before_married_you" class="response-textbox" %}
+                    <p>This is often referred to as Family name or Surname</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div>
+                    <h3>When is your birthday?</h3>
+                    <p>{% input_option type="text" name="birthday_you" class="date-picker" id="birth_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></p>
+                </div>
+
+                <div>
+                    <h3>How long have you lived in British Columbia?</h3>
+                    <p>Please select one</p>
+                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="lived_in_bc_you" value="Since birth" %}Since birth</label></div>
+                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" id="radio_with_textbox" name="lived_in_bc_you" value="Moved to British Columbia on" %}Moved to British Columbia on {% input_option type="text" name="moved_to_bc_date_you" id="moved_date" class="date-picker other-textbox" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></label></div>
+                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="lived_in_bc_you" value="Do not live in British Columbia" %}Do not live in British Columbia</label></div>
+
+                    <p>In order to apply for a divorce in British Columbia, you or your spouse must have been a regular resident in B.C (the legal term is ordinarily resident
+                    <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+                   title="<b>Ordinarily resident</b><br /><br />Unfortunately  there is no clear cut definition for the term &quot;ordinarily resident.&quot;<br/><br/>
+                        &quot;ordinary residence&quot; is not a phrase capable of precise definition. At its simplest level, ordinary residence connotes
+                        something more than mere temporary presence in a place. It refers to the place in which a person's lifestyle is centered
+                        and to which the person regularly returns if his or her presence is not continuous.<br/><br/>
+                        Ordinarily Resident<ul><li>the place where a person resides in the ordinary course of his or her day to day</li>
+                        <li>you do not lose your ordinary resident in a place when you leave for a temporary purpose (e.g. go to school in
+                        another province)</li></ul><br/>Not an Ordinarily Resident<ul><li>If you have travelled to another place to live and work indefinitely
+                        (even thought you ultimately intends to return to the prior home)</li></ul>" aria-hidden="true"></i>
+                    ) for at least one year immediately before starting the proceeding.
+                    </p>
+                </div>
+
+                <div>
+                    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseExample" aria-controls="collapseExample">
+                        <div>
+                            Can't remember exact date?
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapseExample">
+                        <div>
+                            <p>If you cannot remember the exact date you moved to B.C, select:</p>
+                            <ul>
+                                <li>the month you moved to B.C.</li>
+                                <li>the last day of that month</li>
+                                <li>year</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex">
+            <form action="{% url 'form_steps' 'f1' '01_orders' %}">
+                <input type="submit" value="Back"/>
+            </form>
+            <form action="#">
+                <input type="submit" value="Save"/>
+            </form>
+            <form action="{% url 'form_steps' 'f1' '03_respondent' %}">
+                <input type="submit" value="Next"/>
+            </form>
+        </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebarText %}
+    <p>The Meaning of "Ordinary Residence" and "Habitual Residence" in the Common Law Provinces in a Family Law Context: <a href="http://www.justice.gc.ca/eng/rp-pr/fl-lf/divorce/rhro_cl/p4.html">http://www.justice.gc.ca/eng/rp-pr/fl-lf/divorce/rhro_cl/p4.html</a></p>
+{% endblock %}

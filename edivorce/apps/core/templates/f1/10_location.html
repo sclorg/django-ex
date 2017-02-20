@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load input_option %}
+
+{% block title %}{{ block.super }}: Property And Debts{% endblock %}
+
+{% block content %}
+<div class="container-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>Step 10: Filing Location</h1>
+                <p>The only way to obtain an order for divorce is by starting a court proceeding in the B.C. Supreme Court;
+                    you must sue your spouse if you want to get divorced. To do this you will need to submit (file)
+                    your divorce application at a court registry
+                    <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+                       title="<b>COURT REGISTRY</b><br /><br />A central office (for the B.C. Supreme Court) at which
+                       the court files for each court proceeding in that district are maintained, and at which legal documents,
+                       can be filed, searched for and reviewed" aria-hidden="true"></i>.</p>
+                <div>
+                    <h3>At what court registry will you be filing?</h3>
+                    <p><em>Select a city to find the nearest Supreme Court Registry</em></p>
+                    <select class="response-dropdown" name="court_registry_for_filing">
+                        <option value="" disabled selected>Please select</option>
+                        <option value="Port Coquitlam">Port Coquitlam</option>
+                        <option value="Burnaby">Burnaby</option>
+                        <option value="New Westminster">New Westminster</option>
+                        <option value="Vancouver">Vancouver</option>
+                    </select>
+                </div>
+
+                <div>
+                    <h3>What is the best address to send you official court documents?</h3>
+                    <p><em>This is known as your "address for service"</em></p>
+                    <p><em>House and street number</em></p>
+                    {% input_option type="text" name="address_to_send_official_document_street" class="response-textbox" %}
+                    <p><em>City</em></p>
+                    {% input_option type="text" name="address_to_send_official_document_city" class="response-textbox" %}
+                    <p><em>Prov/State</em></p>
+                    {% input_option type="text" name="address_to_send_official_document_prov" class="response-textbox" %}
+
+                    <p>Country</p>
+
+                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="address_to_send_official_document_country" value="Canada" %}Canada</label></div>
+                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="address_to_send_official_document_country" value="USA" %}USA</label></div>
+                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" id="radio_with_textbox" name="address_to_send_official_document_country" value="Other" %}Other {% input_option type="text" name="address_to_send_official_document_other_country" class="response-textbox other-textbox" %}</label></div>
+                </div>
+
+                <div>
+                    <p><em>If you don’t live within 30 km of a court registry, you must provide a fax number or email address.
+                        If you main address is a PO box, you can list this instead of the fax or email but you must also list
+                        an address that’s not a PO box.</em></p>
+
+                    <p><em>Fax number (optional)</em></p>
+                    {% input_option type="text" name="address_to_send_official_document_fax" class="response-textbox" %}
+                    <p><em>Email Address (optional)</em></p>
+                    {% input_option type="text" id="email_textbox" name="address_to_send_official_document_email" class="response-textbox" %}
+                </div>
+
+                <div style="display: flex">
+                    <form action="{% url 'form_steps' 'f1' '09_other_questions' %}">
+                        <input type="submit" value="Back"/>
+                    </form>
+                    <form action="#">
+                        <input type="submit" value="Save"/>
+                    </form>
+                    <form action="{% url 'form_steps' 'f1' '11_review' %}">
+                        <input type="submit" value="Next"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,24 +1,28 @@
 from django.contrib.auth.models import User
 from django.contrib import admin
 from django.db import models
-
+from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 
 
 @python_2_unicode_compatible
-class Profile(models.Model):
+class BceidUser(models.Model):
     """
-    eDivorce specific user information
+    BCeID user table
     """
 
-    user = models.OneToOneField(User)
-    """ Django user """
-
-    bceid = models.CharField(max_length=100)
+    user_guid = models.CharField(db_index=True, max_length=36, unique=True, blank=False)
     """ BCEID identifier for user """
 
+    date_joined = models.DateTimeField(default=timezone.now)
+    """ First login timestamp """
+
+    last_login = models.DateTimeField(default=timezone.now)
+    """ Most recent login timestamp """
+
     def __str__(self):
-        return '%s\'s profile' % self.user.username
+        return 'BCeID User %s' % self.user_guid
+
 
 
 @python_2_unicode_compatible
@@ -91,6 +95,7 @@ class FormQuestions(models.Model):
 
     transformation = models.TextField()
     """ Transformations done on the value as part of rendering it in a form """
+    # placeholder for code or flags need to modified to fit into a form
 
     class Meta:
         verbose_name_plural = 'Form Questions'
@@ -98,13 +103,14 @@ class FormQuestions(models.Model):
     def __str__(self):
         return '%s -> %s' % (self.legal_form.key.upper(), self.question.key)
 
+
 @python_2_unicode_compatible
-class Response(models.Model):
+class UserResponse(models.Model):
     """
     User input
     """
 
-    user = models.ForeignKey(User)
+    bceid_user = models.ForeignKey(BceidUser)
     """ User providing response """
 
     question = models.ForeignKey(Question)
@@ -114,11 +120,11 @@ class Response(models.Model):
     """ The question's response from the user """
 
     def __str__(self):
-        return '%s -> %s' % (self.user.username, self.question.key)
+        return '%s -> %s' % (self.bceid_user, self.question.key)
 
 
-admin.site.register(Profile)
+admin.site.register(BceidUser)
 admin.site.register(Question)
 admin.site.register(LegalForm)
-admin.site.register(Response)
+admin.site.register(UserResponse)
 admin.site.register(FormQuestions)

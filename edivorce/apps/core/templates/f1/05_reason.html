@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load input_option %}
+
+{% block title %}{{ block.super }}: Reason For Divorce{% endblock %}
+
+{% block content %}
+<div class="container-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>Step 5: Your Separation</h1>
+                <div>
+                    <h3>Did you and your spouse try and reconcile after you separated?</h3>
+                    <p><em>Please select one</em></p>
+                    <div class="radio"><label>{% input_option type="radio" name="try_reconcile_after_separated" %}
+                        No, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I have not reconciled (gotten back together)</label>
+                    </div>
+                    <div class="radio"><label>{% input_option type="radio" name="try_reconcile_after_separated" %}
+                        Yes, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I lived together again during the following period(s) in an unsuccessful attempt to reconcile</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div>
+                    <p>
+                        For this next question, we need to confirm that there is no chance you and your spouse will be getting back together.
+                        By selecting "I agree" this shows the court that you and your spouse have thoroughly thought out your request for divorce.
+                    </p>
+                    <h3>There is no possibility my spouse and I will get back together (reconciliation).</h3>
+                    <div class="radio"><label>{% input_option type="radio" name="no_reconciliation_possible" value="agree" %}I agree</label></div>
+                    <div class="radio"><label>{% input_option type="radio" name="no_reconciliation_possible" value="disagree" %}I disagree</label></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div>
+                    <p><em>Ok, this next questions uses some legal terminology so we'll help you understand what is being asked.</em></p>
+
+                    <p><em>We’re legally required to ask that you confirm that you and (!!insert spouse name) haven’t lied or
+                        tried to deceive the court in any way. This is called “collusion”. An example of collusion is both
+                        of you saying that you’ve been separated for longer than you actually have been.</em></p>
+
+                    <p><em>Please confirm that there’s been no collusion in this claim for divorce. The court can refuse to
+                        grant a divorce if you and your spouse have not been honest (collusion) about your marriage and
+                        separation details.</em></p>
+                </div>
+
+                <div>
+                    <h3>There has been no collusion
+                        <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+                       title="<b>COURT REGISTRY</b><br /><br />A central office (for the B.C. Supreme Court) at which
+                       the court files for each court proceeding in that district are maintained, and at which legal documents,
+                       can be filed, searched for and reviewed" aria-hidden="true"></i>,
+                        as defined in section 11(4) of the Divorce Act (Canada), in relation to this claim for divorce.</h3>
+                    <div class="radio"><label>{% input_option type="radio" name="no_collusion" value="agree" %}I agree</label></div>
+                    <div class="radio"><label>{% input_option type="radio" name="no_collusion" value="disagree" %}I disagree</label></div>
+                </div>
+
+                <div style="display: flex">
+                    <form action="{% url 'form_steps' 'f1' '04_marriage' %}">
+                        <input type="submit" value="Back"/>
+                    </form>
+                    <form action="#">
+                        <input type="submit" value="Save"/>
+                    </form>
+                    <form action="{% url 'form_steps' 'f1' '06_support' %}">
+                        <input type="submit" value="Next"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block sidebarText %}
+    <div>
+        <p>Most divorces use the one-year separation ground. But you can also apply for a divorce earlier on the basis of adultery or physical or mental cruelty. If you ask for a divorce for one of these reasons, you have to present evidence to the court to prove the facts of the adultery or physical or mental cruelty.</p>
+        <p>If you're asking for a divorce and you expect it to be uncontested (you and your spouse both agree with the divorce), you must have earlier court orders or an agreement settling all your issues. A judge won't order a divorce unless he or she is satisfied that reasonable arrangements have been made for the support of the children.</p>
+    </div>
+    <div>
+        <h2>How can you prove you're separated if you and your spouse still live together?</h2>
+        <p>You and your spouse might have decided to end your relationship, but for financial or other reasons, you can't live separately. You might have to prove to a court that you and your spouse have actually separated so that you can get a divorce and/or divide up the assets you have as a couple.</p>
+        <p>A list of activities and behaviours that the courts consider to be indicators of a couple being separated can be found on the
+            <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/howToProveYouAreSeparatedIfYouStillLiveTogether.php">Legal Services Society web site.</a></p>
+    </div>
+    <div>
+        <p>You can also get a divorce if:</p>
+        <ul>
+            <li>- you or your spouse has committed adultery (been unfaithful) that hasn't been forgiven, or</li>
+            <li>- your spouse treated you with physical or mental cruelty that you haven't forgiven, which makes it impossible for you to continue to live together.</li>
+        </ul>
+        <p>To get a divorce for these reasons you have to prove these things in court.</p>
+        <p>
+            The majority of divorces are uncontested or undefended divorces (about 80 percent). That means that the divorcing couple have settled on how they're going to settle their parenting, support, and property issues. But they still need a court order for the divorce.
+        </p>
+    </div>
+    <div>
+        <a href="http://bcfamilylawresource.blogspot.ca/2010/12/ins-and-outs-of-separation-part-iv.html">http://bcfamilylawresource.blogspot.ca/2010/12/ins-and-outs-of-separation-part-iv.html</a>
+    </div>
+{% endblock %}

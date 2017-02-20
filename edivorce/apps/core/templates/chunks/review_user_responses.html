@@ -1,0 +1,14 @@
+{% if questions %}
+    <table border="1">
+        <tr>
+            <th>Questions</th>
+            <th>User response</th>
+        </tr>
+        {% for question in questions %}
+            <tr>
+                <td width="75%" style="padding-right: 5%">{{question.question.name}}</td>
+                <td width="25%">{{question.value}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
