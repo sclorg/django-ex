@@ -49,7 +49,7 @@ var getCSRFToken = function () {
 // Ajax called when user update their response
 var ajaxCall = function(question, value){
     // var url = $(location).attr('href');
-        var url = $(location).attr('origin') + '/api/response';
+        var url = $(location).attr('origin') + window.sm_base_url + 'api/response';
         // add CSRF_TOKEN to POST
         var csrf_token = getCSRFToken();
 
