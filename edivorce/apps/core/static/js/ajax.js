@@ -24,6 +24,7 @@ var ajaxOnChange = function () {
     }
     else{
         console.log("Invalid input for " + el.prop('name'));
+        window.alert("Invalid input for " + el.prop('name'));
     }
 };
 

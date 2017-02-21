@@ -353,6 +353,22 @@
 },
 {
     "fields": {
+        "name": "Please describe how you and your spouse plan to divide your property, assets and your debts.",
+        "description": "For step 7, Form 1 6. Property and debt"
+    },
+    "model": "core.question",
+    "pk": "how_to_divide_property_debt"
+},
+{
+    "fields": {
+        "name": "Other Property Claims",
+        "description": "For step 7, Form 1 6. Property and debt"
+    },
+    "model": "core.question",
+    "pk": "other_property_claims"
+},
+{
+    "fields": {
         "name": "At what court registry will you be filing?",
         "description": "For step 10, Form 1 court registry"
     },
@@ -365,7 +381,7 @@
         "description": "For step 10, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
-    "pk": "address_to_send_official_document_street"
+    "pk": "address_to_send_official_document_street_you"
 },
 {
     "fields": {
@@ -373,7 +389,7 @@
         "description": "For step 10, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
-    "pk": "address_to_send_official_document_city"
+    "pk": "address_to_send_official_document_city_you"
 },
 {
     "fields": {
@@ -381,7 +397,7 @@
         "description": "For step 10, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
-    "pk": "address_to_send_official_document_prov"
+    "pk": "address_to_send_official_document_prov_you"
 },
 {
     "fields": {
@@ -389,7 +405,7 @@
         "description": "For step 10, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
-    "pk": "address_to_send_official_document_country"
+    "pk": "address_to_send_official_document_country_you"
 },
 {
     "fields": {
@@ -397,7 +413,7 @@
         "description": "For step 10, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
-    "pk": "address_to_send_official_document_other_country"
+    "pk": "address_to_send_official_document_other_country_you"
 },
 {
     "fields": {
@@ -405,7 +421,7 @@
         "description": "For step 10, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
-    "pk": "address_to_send_official_document_fax"
+    "pk": "address_to_send_official_document_fax_you"
 },
 {
     "fields": {
@@ -413,6 +429,62 @@
         "description": "For step 10, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
-    "pk": "address_to_send_official_document_email"
+    "pk": "address_to_send_official_document_email_you"
+},
+{
+    "fields": {
+        "name": "What is the best address to send your spouse official court documents? Street Number",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_street_spouse"
+},
+{
+    "fields": {
+        "name": "What is the best address to send your spouse official court documents? City",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_city_spouse"
+},
+{
+    "fields": {
+        "name": "What is the best address to send your spouse official court documents? Prov",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_prov_spouse"
+},
+{
+    "fields": {
+        "name": "What is the best address to send your spouse official court documents? Country",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_country_spouse"
+},
+{
+    "fields": {
+        "name": "What is the best address to send your spouse official court documents? Other Country",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_other_country_spouse"
+},
+{
+    "fields": {
+        "name": "What is the best address to send your spouse official court documents? Fax number",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_fax_spouse"
+},
+{
+    "fields": {
+        "name": "What is the best address to send your spouse official court documents? Email",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_email_spouse"
 }
 ]

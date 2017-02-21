@@ -62,3 +62,6 @@ target/
 
 # Local env settings
 .env*
+
+# IDE
+.idea/

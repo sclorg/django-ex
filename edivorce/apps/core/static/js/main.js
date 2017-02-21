@@ -14,7 +14,7 @@ $(function () {
 
     // when user click textbox beside radio button, check the associated radio button
     $(".other-textbox").on("click", function(){
-       $("#radio_with_textbox").prop('checked', true);
+       $(this).siblings(".radio_with_textbox").prop('checked', true);
     });
 
     $("input[type=radio], input[type=checkbox], input[type=text], .response-textarea, .response-dropdown").on("change", ajaxOnChange);
