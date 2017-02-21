@@ -43,3 +43,11 @@ def additional_attributes(tag, **kwargs):
             key = str.replace(key, 'data_', 'data-')
         tag.append(' ' + key + '="' + data_val + '"')
     return tag
+
+
+@register.assignment_tag
+def check_list(source, value):
+    """
+    Check if given value is in the given source
+    """
+    return value in source.split('; ')
