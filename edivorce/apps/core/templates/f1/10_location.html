@@ -29,31 +29,63 @@
                 </div>
 
                 <div>
-                    <h3>What is the best address to send you official court documents?</h3>
-                    <p><em>This is known as your "address for service"</em></p>
-                    <p><em>House and street number</em></p>
-                    {% input_option type="text" name="address_to_send_official_document_street" class="response-textbox" %}
-                    <p><em>City</em></p>
-                    {% input_option type="text" name="address_to_send_official_document_city" class="response-textbox" %}
-                    <p><em>Prov/State</em></p>
-                    {% input_option type="text" name="address_to_send_official_document_prov" class="response-textbox" %}
+                    <div>
+                        <h3>What is the best address to send you official court documents?</h3>
+                        <p><em>This is known as your "address for service"</em></p>
+                        <p><em>House and street number</em></p>
+                        {% input_option type="text" name="address_to_send_official_document_street_you" class="response-textbox" %}
+                        <p><em>City</em></p>
+                        {% input_option type="text" name="address_to_send_official_document_city_you" class="response-textbox" %}
+                        <p><em>Prov/State</em></p>
+                        {% input_option type="text" name="address_to_send_official_document_prov_you" class="response-textbox" %}
 
-                    <p>Country</p>
+                        <p>Country</p>
 
-                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="address_to_send_official_document_country" value="Canada" %}Canada</label></div>
-                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="address_to_send_official_document_country" value="USA" %}USA</label></div>
-                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" id="radio_with_textbox" name="address_to_send_official_document_country" value="Other" %}Other {% input_option type="text" name="address_to_send_official_document_other_country" class="response-textbox other-textbox" %}</label></div>
+                        <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="address_to_send_official_document_country_you" value="Canada" %}Canada</label></div>
+                        <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="address_to_send_official_document_country_you" value="USA" %}USA</label></div>
+                        <div class="radio"><label>{% input_option type="radio" class="radio-with-other radio_with_textbox" name="address_to_send_official_document_country_you" value="Other" %}Other {% input_option type="text" name="address_to_send_official_document_other_country_you" class="response-textbox other-textbox" tabindex="-1" %}</label></div>
+                    </div>
+
+                    <div>
+                        <p><em>If you don’t live within 30 km of a court registry, you must provide a fax number or email address.
+                            If you main address is a PO box, you can list this instead of the fax or email but you must also list
+                            an address that’s not a PO box.</em></p>
+
+                        <p><em>Fax number (optional)</em></p>
+                        {% input_option type="text" name="address_to_send_official_document_fax_you" class="response-textbox" %}
+                        <p><em>Email Address (optional)</em></p>
+                        {% input_option type="text" id="email_textbox" name="address_to_send_official_document_email_you" class="response-textbox" %}
+                    </div>
                 </div>
 
                 <div>
-                    <p><em>If you don’t live within 30 km of a court registry, you must provide a fax number or email address.
-                        If you main address is a PO box, you can list this instead of the fax or email but you must also list
-                        an address that’s not a PO box.</em></p>
+                    <div>
+                        <h3>What is the best address to send your spouse official court documents?</h3>
+                        <p><em>This is known as your "address for service"</em></p>
+                        <p><em>House and street number</em></p>
+                        {% input_option type="text" name="address_to_send_official_document_street_spouse" class="response-textbox" %}
+                        <p><em>City</em></p>
+                        {% input_option type="text" name="address_to_send_official_document_city_spouse" class="response-textbox" %}
+                        <p><em>Prov/State</em></p>
+                        {% input_option type="text" name="address_to_send_official_document_prov_spouse" class="response-textbox" %}
 
-                    <p><em>Fax number (optional)</em></p>
-                    {% input_option type="text" name="address_to_send_official_document_fax" class="response-textbox" %}
-                    <p><em>Email Address (optional)</em></p>
-                    {% input_option type="text" id="email_textbox" name="address_to_send_official_document_email" class="response-textbox" %}
+                        <p>Country</p>
+
+                        <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="address_to_send_official_document_country_spouse" value="Canada" %}Canada</label></div>
+                        <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="address_to_send_official_document_country_spouse" value="USA" %}USA</label></div>
+                        <div class="radio"><label>{% input_option type="radio" class="radio-with-other radio_with_textbox" name="address_to_send_official_document_country_spouse" value="Other" %}Other {% input_option type="text" name="address_to_send_official_document_other_country_spouse" class="response-textbox other-textbox" tabindex="-1" %}</label></div>
+                    </div>
+
+                    <div>
+                        <p><em>If your spouse doesn’t live within 30 km of a court registry, your spouse must provide a fax number or email address.
+                            If your spouse's main address is a PO box, your spouse can list this instead of the fax or email but your spouse must also list
+                            an address that’s not a PO box.</em></p>
+
+                        <p><em>Fax number (optional)</em></p>
+                        {% input_option type="text" name="address_to_send_official_document_fax_spouse" class="response-textbox" %}
+                        <p><em>Email Address (optional)</em></p>
+                        {% input_option type="text" id="email_textbox" name="address_to_send_official_document_email_spouse" class="response-textbox" %}
+                    </div>
                 </div>
 
                 <div style="display: flex">

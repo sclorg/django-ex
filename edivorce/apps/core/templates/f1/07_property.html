@@ -29,13 +29,13 @@
 
                     <p>Family property is everything either you or your spouse own together or separately on the date you separate. It includes:</p>
                     <ul>
-                        <li>- the family home</li>
-                        <li>- RRSPs</li>
-                        <li>- investments</li>
-                        <li>- bank accounts</li>
-                        <li>- insurance policies</li>
-                        <li>- pensions</li>
-                        <li>- an interest in a business</li>
+                        <li>the family home</li>
+                        <li>RRSPs</li>
+                        <li>investments</li>
+                        <li>bank accounts</li>
+                        <li>insurance policies</li>
+                        <li>pensions</li>
+                        <li>an interest in a business</li>
                     </ul>
                     <p>It doesn't matter whose name the property is in.</p>
 
@@ -99,7 +99,8 @@
                     <h3>Please describe how you and your spouse plan to divide your property, assets and your debts. </h3>
                     <p>Because the division of family property and debt can be complex we recommend you get
                         <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/lawyers">legal advice</a>
-                        before you make any final decisions. </p>
+                        before you make any final decisions.
+                    </p>
 
                     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_deal_property" aria-controls="collapse_deal_property">
                         <div>
@@ -110,20 +111,22 @@
                         <div>
                             <p>The fact sheet Dealing With Debts After Separation (for Married and Common-law Couples) by the Legal Services Society answers a range of questions including:</p>
                             <ul>
-                                <li>- What is family property?</li>
-                                <li>- What about property one of us owned before we got together?</li>
-                                <li>- Can creditors force me to pay back my ex-spouse's debts?</li>
+                                <li>What is family property?</li>
+                                <li>What about property one of us owned before we got together?</li>
+                                <li>Can creditors force me to pay back my ex-spouse's debts?</li>
                             </ul>
                             <p>The Family Law web site has an online separation agreement tool that details some of the items to consider when
                                 <a href="http://www.familylaw.lss.bc.ca/guides/separation/property.php">dividing property</a> and
                                 <a href="http://www.familylaw.lss.bc.ca/guides/separation/debt.php">debt</a>.</p>
                         </div>
                     </div>
+                    {% input_option type="textarea" name="how_to_divide_property_debt" rows="8" cols="65" class="response-textarea" %}
                 </div>
 
                 <div>
                     <h3>Other Property Claims</h3>
                     <p>This section is about excluded property - e.g. property owned by the respondent at the time you moved in together, and gifts or inheritances the respondent received. Compensation is cash instead of ownership of your share of the property.</p>
+                    {% input_option type="textarea" name="other_property_claims" rows="8" cols="65" class="response-textarea" %}
                 </div>
                 <div style="display: flex">
                     <form action="{% url 'form_steps' 'f1' '06_support' %}">
@@ -147,10 +150,10 @@
         <h2>Where to Find Out More About Dealing with Property and Debt</h2>
         <p>For more information about dealing with Property and Debt, please visit:</p>
         <ul>
-            <li>- The <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/dealing-with-property-and-debt">Family Justice section</a> of the  BC Government web site. </li>
-            <li>- <a href="http://www.familylaw.lss.bc.ca/">Dividing family property and debts</a> on the Family Law in British Columbia website</li>
-            <li>- <a href="http://www.familylaw.lss.bc.ca/resources/publications/pub.php?pub=347">Living Together or Living Apart</a>, a booklet about the family law basics in B.C.</li>
-            <li>- <a href="http://www.cbabc.org/For-the-Public/Dial-A-Law/Scripts/Family-Law/124">Dividing Family Assets</a> in the Family Law section of Dial-A-Law</li>
+            <li>The <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/dealing-with-property-and-debt">Family Justice section</a> of the  BC Government web site. </li>
+            <li><a href="http://www.familylaw.lss.bc.ca/">Dividing family property and debts</a> on the Family Law in British Columbia website</li>
+            <li><a href="http://www.familylaw.lss.bc.ca/resources/publications/pub.php?pub=347">Living Together or Living Apart</a>, a booklet about the family law basics in B.C.</li>
+            <li><a href="http://www.cbabc.org/For-the-Public/Dial-A-Law/Scripts/Family-Law/124">Dividing Family Assets</a> in the Family Law section of Dial-A-Law</li>
         </ul>
     </div>
     <div>

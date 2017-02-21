@@ -361,16 +361,19 @@
                 <tr>
                     <td>
                         <p>Claimant 1:
-                          {% if responses.address_to_send_official_document_street and responses.address_to_send_official_document_city and responses.address_to_send_official_document_prov and responses.address_to_send_official_document_country %}
-                          {{ responses.address_to_send_official_document_street }}, {{ responses.address_to_send_official_document_city }}, {{ responses.address_to_send_official_document_prov }},
-                          {% if responses.address_to_send_official_document_country == 'Other' %} {{ responses.address_to_send_official_document_other_country }} {% else %} {{ responses.address_to_send_official_document_country }} {% endif %} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
-                        <p>Fax (optional) {% if responses.address_to_send_official_document_fax %} {{ responses.address_to_send_official_document_fax }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
-                        <p>E-mail (optional) {% if responses.address_to_send_official_document_email %} {{ responses.address_to_send_official_document_email }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
+                          {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_prov_you and responses.address_to_send_official_document_country_you %}
+                          {{ responses.address_to_send_official_document_street_you }}, {{ responses.address_to_send_official_document_city_you }}, {{ responses.address_to_send_official_document_prov_you }},
+                          {% if responses.address_to_send_official_document_country_you == 'Other' %} {{ responses.address_to_send_official_document_other_country_you }} {% else %} {{ responses.address_to_send_official_document_country_you }} {% endif %} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
+                        <p>Fax (optional) {% if responses.address_to_send_official_document_fax_you %} {{ responses.address_to_send_official_document_fax_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
+                        <p>E-mail (optional) {% if responses.address_to_send_official_document_email_you %} {{ responses.address_to_send_official_document_email_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
                     </td>
                     <td colname="c2">
-                        <p>Claimant 2: <span class="form-entry not-complete">&nbsp;</span> </p>
-                        <p>Fax (optional) <span class="form-entry not-complete">&nbsp;</span> </p>
-                        <p>E-mail (optional) <span class="form-entry not-complete">&nbsp;</span> </p>
+                        <p>Claimant 2:
+                          {% if responses.address_to_send_official_document_street_spouse and responses.address_to_send_official_document_city_spouse and responses.address_to_send_official_document_prov_spouse and responses.address_to_send_official_document_country_spouse %}
+                          {{ responses.address_to_send_official_document_street_spouse }}, {{ responses.address_to_send_official_document_city_spouse }}, {{ responses.address_to_send_official_document_prov_spouse }},
+                          {% if responses.address_to_send_official_document_country_spouse == 'Other' %} {{ responses.address_to_send_official_document_other_country_spouse }} {% else %} {{ responses.address_to_send_official_document_country_spouse }} {% endif %} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
+                        <p>Fax (optional) {% if responses.address_to_send_official_document_fax_spouse %} {{ responses.address_to_send_official_document_fax_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
+                        <p>E-mail (optional) {% if responses.address_to_send_official_document_email_spouse %} {{ responses.address_to_send_official_document_email_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
                     </td>
                 </tr>
             </tbody>
