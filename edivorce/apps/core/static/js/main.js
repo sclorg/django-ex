@@ -22,6 +22,13 @@ $(function () {
     // On step_03.html, update text when user enters separation date
     $("#separated_date").on("change", function(){
         $("#separation_date_span").text(" on " + $(this).val());
+        // if separation date is less than one year, show alert message
+        if (checkSeparationDateLessThanYear($(this).val())){
+            $('#separation_date_alert').show();
+        }
+        else {
+            $('#separation_date_alert').hide();
+        }
     });
 });
 

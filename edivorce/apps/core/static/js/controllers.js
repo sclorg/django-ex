@@ -117,3 +117,18 @@ var validateEmail = function(value){
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(value);
 };
+
+// check if separation date is less than one year from today
+var checkSeparationDateLessThanYear = function(separationDate){
+    // get separation date
+    value = separationDate.split('/');
+    var d = parseInt(value[0], 10);
+    var m = parseInt(value[1], 10);
+    var y = parseInt(value[2], 10);
+    var date = new Date(y,m-1,d);
+    // get a date for a year from today
+    var yearFromToday = new Date();
+    yearFromToday.setYear(yearFromToday.getFullYear()-1);
+    // if separation date is less than one year, display message
+    return (date > yearFromToday);
+};
