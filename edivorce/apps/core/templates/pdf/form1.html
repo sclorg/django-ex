@@ -1,4 +1,5 @@
 {% load static %}
+{% load input_field %}
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -76,7 +77,8 @@
         <table class="table table-bordered">
             <tbody>
                 <tr>
-                    <td colspan="3"> <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for a divorce order. </td>
+                    {% check_list source=responses.want_which_orders value='A legal end to the marriage' as order_wanted %}
+                    <td colspan="3"> <i class="fa {% if order_wanted %} icon-check">&#xe800;</i> {% else %} icon-check-empty">&#xf096;</i> {% endif %} Claimant 1 and Claimant 2 are asking for a divorce order. </td>
                 </tr>
                 <tr>
                     <td colspan="3"> <strong> A Personal information: </strong> </td>
@@ -291,7 +293,8 @@
         <table class="table table-bordered">
             <tbody>
                 <tr>
-                    <td colname="c2"> <i class="fa {% if responses.spouse_support_details %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} Claimant 1 and Claimant 2 are asking for an order for spousal support as follows:
+                    {% check_list source=responses.want_which_orders value='Spousal support' as order_wanted %}
+                    <td colname="c2"> <i class="fa {% if order_wanted %} icon-check">&#xe800;</i> {% else %} icon-check-empty">&#xf096;</i> {% endif %} Claimant 1 and Claimant 2 are asking for an order for spousal support as follows:
                         <span class="form-entry form-textarea not-complete">{% if responses.spouse_support_details %} {{responses.spouse_support_details }} {% else %} &nbsp; {% endif %}</span>
                         <p class="text-center">
                             [<em>set out terms of proposed order</em>]
@@ -317,7 +320,8 @@
                     <td> <strong> A Property claims under the <em> Family Law Act </em> </strong> </td>
                 </tr>
                 <tr>
-                    <td> <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for: <br /><em> [Check whichever one of the following boxes is correct and complete any required information in relation to family property and family debt, as those terms are defined in the Family Law Act.] </em>                        </td>
+                    {% check_list source=responses.want_which_orders value='Division of property and debts' as order_wanted %}
+                    <td> <i class="fa {% if order_wanted %} icon-check">&#xe800;</i> {% else %} icon-check-empty">&#xf096;</i> {% endif %} Claimant 1 and Claimant 2 are asking for an order for: <br /><em> [Check whichever one of the following boxes is correct and complete any required information in relation to family property and family debt, as those terms are defined in the Family Law Act.] </em>                        </td>
                 </tr>
                 <tr>
                     <td> <i class="fa {% if responses.deal_with_property_debt == 'equal division' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} an equal division of family property and family debt </td>
@@ -345,7 +349,8 @@
         <table class="table table-bordered">
             <tbody>
                 <tr>
-                    <td> <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order in the following terms: <span class="form-entry form-textarea not-complete">&nbsp;</span>
+                    {% check_list source=responses.want_which_orders value='Other orders' as order_wanted %}
+                    <td> <i class="fa {% if order_wanted %} icon-check">&#xe800;</i> {% else %} icon-check-empty">&#xf096;</i> {% endif %} Claimant 1 and Claimant 2 are asking for an order in the following terms: <span class="form-entry form-textarea not-complete">&nbsp;</span>
                         <p class="text-center">
                             [<em>set out terms of proposed order</em>]
                         </p>
