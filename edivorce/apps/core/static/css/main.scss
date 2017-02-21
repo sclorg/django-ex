@@ -108,6 +108,7 @@ a {
 .tooltip-arrow {
 	border-top-color: $brand-titles;
 }
+.tooltip.in {opacity: 1;}
 .tooltip-inner {
     text-align: left;
     background-color: $brand-titles;
@@ -281,6 +282,21 @@ input {
 	    box-shadow: inset 0 1px 1px rgba($color-grey-dark,.075), 0 0 8px rgba($color-grey-medium,.6);
 	}
 	&+i.fa {margin-left: 10px;}
+	&.form-block  {
+		display: block;
+		margin-bottom: 10px;
+	}
+	&.input-wide {
+		width: 50%;
+	}
+	&.input-narrow {
+		max-width: 100px;
+	}
+	&.input-inline {
+		padding: 0 20px;
+		border-radius: 5px;
+		margin-left: 5px;
+	}
 }
 
 
