@@ -13,7 +13,7 @@
                 <h3>When were you married?</h3>
                 <p><input type="text" id="date" placeholder="DD/MM/YYYY"> <i class="fa fa-calendar circle" aria-hidden="true"></i></p>
                 <p>
-                    <em>Enter exact date as it appears on your <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<b>ORIGINAL MARRIAGE CERTIFICATE</b><br />The marriage certi cate you received at the church — or any other place where you were married — isn't acceptable in court. You can get a copy of your marriage certificate or a certified copy of the registration of marriage from Vital Statistics (an office run by the provincial government)."
+                    <em>Enter exact date as it appears on your <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click" title="<b>ORIGINAL MARRIAGE CERTIFICATE</b><br />The marriage certi cate you received at the church — or any other place where you were married — isn't acceptable in court. You can get a copy of your marriage certificate or a certified copy of the registration of marriage from Vital Statistics (an office run by the provincial government)."
                         aria-hidden="true"></i> marriage certificate</em>
                 </p>
                 <div class="btn-radio-group" data-toggle="buttons">
@@ -57,6 +57,10 @@
                         </p>
                     </div>
                 </div>
+                <div class="checkbox">
+                    <label> <input type="checkbox"> Spousal Support </label>
+                </div>
+                <p><em>Payments to support you, not the children.</em></p>
                 <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseExample2" aria-controls="collapseExample">
                     <div>
                         What if I cannot get a copy of my marriage certificate? And what if this line is very, very long and runs into multiple lines? Then what?
@@ -85,6 +89,16 @@
                     <em>Enter exact date as it appears on your <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<b>ORIGINAL MARRIAGE CERTIFICATE</b><br />The marriage certi cate you received at the church — or any other place where you were married — isn't acceptable in court. You can get a copy of your marriage certificate or a certified copy of the registration of marriage from Vital Statistics (an office run by the provincial government)."
                         aria-hidden="true"></i> marriage certificate</em>
                 </p>
+                <h3>Where were you married?</h3>
+                <p>Enter the location as it appears on the marriage certificate (e.g. city, province or state and country)</p>
+                <label>City</label>
+                <input type="text" name="where_were_you_married_city" value="" class="form-block input-wide response-textbox">
+                <label>Prov/State</label>
+                <input type="text" name="where_were_you_married_prov" value="" class="form-block input-narrow response-textbox">
+                <label>Country</label>
+                <div class="radio"><label><input type="radio" name="where_were_you_married_country" value="Canada" class="radio-with-other">Canada</label></div>
+                <div class="radio"><label><input type="radio" name="where_were_you_married_country" value="USA" class="radio-with-other">USA</label></div>
+                <div class="radio"><label><input type="radio" name="where_were_you_married_country" value="Other" id="radio_with_textbox" class="radio-with-other">Other <input type="text" name="where_were_you_married_other_country" value="" class="response-textbox other-textbox input-inline"></label></div>
             </div>
         </div>
     </div>
