@@ -74,14 +74,14 @@
                     <h3>Where were you married?</h3>
                     <p>Enter the location as it appears on the marriage certificate (e.g. city, province or state and country)</p>
                     <p>City</p>
-                    {% input_option type="text" name="where_were_you_married_city" class="response-textbox" %}
+                    {% input_option type="text" name="where_were_you_married_city" class="form-block input-wide response-textbox" %}
                     <p>Prov/State</p>
-                    {% input_option type="text" name="where_were_you_married_prov" class="response-textbox" %}
+                    {% input_option type="text" name="where_were_you_married_prov" class="form-block input-narrow response-textbox" %}
                     <p>Country</p>
 
                     <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="where_were_you_married_country" value="Canada" %}Canada</label></div>
                     <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="where_were_you_married_country" value="USA" %}USA</label></div>
-                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other radio_with_textbox" name="where_were_you_married_country" value="Other" %}Other {% input_option type="text" name="where_were_you_married_other_country" class="response-textbox other-textbox" %}</label></div>
+                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other radio_with_textbox" name="where_were_you_married_country" value="Other" %}Other {% input_option type="text" name="where_were_you_married_other_country" class="response-textbox other-textbox input-inline" %}</label></div>
                 </div>
 
                 <div>
