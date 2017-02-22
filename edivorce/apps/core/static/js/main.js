@@ -10,7 +10,7 @@ $('input:radio, input:checkbox').each(function() {
 });
 
 $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({trigger: 'click'});
 
     // when user click textbox beside radio button, check the associated radio button
     $(".other-textbox").on("click", function(){
