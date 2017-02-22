@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load input_option %}
+{% load input_field %}
 
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
@@ -22,11 +22,11 @@
 
                 <div class="btn-radio-group" data-toggle="buttons">
                     <label class="btn btn-radio">
-                        {% input_option type="radio"  name="children_of_marriage" autocomplete="off" value="YES" data_target_id="has_children" data_reveal_target="true" %} Yes
+                        {% input_field type="radio"  name="children_of_marriage" autocomplete="off" value="YES" data_target_id="has_children" data_reveal_target="true" %} Yes
                     </label>
 
                     <label class="btn btn-radio">
-                        {% input_option type="radio"  name="children_of_marriage" autocomplete="off" value="NO" data_target_id="has_children" data_reveal_target="false" %} No
+                        {% input_field type="radio"  name="children_of_marriage" autocomplete="off" value="NO" data_target_id="has_children" data_reveal_target="false" %} No
                     </label>
                 </div>
 
@@ -43,11 +43,11 @@
 
                     <div class="btn-radio-group" data-toggle="buttons">
                         <label class="btn btn-radio">
-                            {% input_option type="radio"  name="any_under_19" autocomplete="off" value="YES" data_target_id="younger_19" data_reveal_target="true" data_related_id="financial_support" %} Yes
+                            {% input_field type="radio"  name="any_under_19" autocomplete="off" value="YES" data_target_id="younger_19" data_reveal_target="true" data_related_id="financial_support" %} Yes
                         </label>
 
                         <label class="btn btn-radio">
-                            {% input_option type="radio"  name="any_under_19" autocomplete="off" value="NO" data_target_id="younger_19" data_reveal_target="false" data_related_id="financial_support" %} No
+                            {% input_field type="radio"  name="any_under_19" autocomplete="off" value="NO" data_target_id="younger_19" data_reveal_target="false" data_related_id="financial_support" %} No
                         </label>
                     </div>
 
@@ -63,11 +63,11 @@
                     <div class="reveal" id="financial_support" hidden>
                         <h3>Are you financially supporting any of the children that are 19 years or older? Please check all that apply.</h3>
                         <div class="checkbox-group">
-                            <div class="checkbox"><label>{% input_option type="checkbox" name="children_financial_support" value="No" data_target_id="need_support" data_reveal_target="false" %}No</label></div>
-                            <div class="checkbox"><label>{% input_option type="checkbox" name="children_financial_support" value="Yes, attending post secondary institution (e.g. college, university)" data_target_id="need_support" data_reveal_target="true" %}Yes, attending post secondary institution (e.g. college, university)</label></div>
-                            <div class="checkbox"><label>{% input_option type="checkbox" name="children_financial_support" value="Yes, due to disability" data_target_id="need_support" data_reveal_target="true" %}Yes, due to disability</label></div>
-                            <div class="checkbox"><label>{% input_option type="checkbox" name="children_financial_support" value="Yes, due to illness" data_target_id="need_support" data_reveal_target="true" %}Yes, due to illness</label></div>
-                            <div class="checkbox"><label>{% input_option type="checkbox" name="children_financial_support" value="Yes, other reason" data_target_id="need_support" data_reveal_target="true" %}Yes, other reason(s)</label></div>
+                            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="No" data_target_id="need_support" data_reveal_target="false" %}No</label></div>
+                            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, attending post secondary institution (e.g. college, university)" data_target_id="need_support" data_reveal_target="true" %}Yes, attending post secondary institution (e.g. college, university)</label></div>
+                            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, due to disability" data_target_id="need_support" data_reveal_target="true" %}Yes, due to disability</label></div>
+                            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, due to illness" data_target_id="need_support" data_reveal_target="true" %}Yes, due to illness</label></div>
+                            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, other reason" data_target_id="need_support" data_reveal_target="true" %}Yes, other reason(s)</label></div>
                         </div>
                         <div class="information-message bg-danger" id="need_support" hidden>
                             <p>Sorry but at this point in time you will not be able to complete your application for divorce using this online tool.

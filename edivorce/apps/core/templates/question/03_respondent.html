@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% load input_option %}
+{% extends 'base.html' %}{% load input_field %}
 
 {% block title %}{{ block.super }}: Your Spouse{% endblock %}
 
@@ -12,7 +12,7 @@
 
                 <div>
                     <h3>Please enter your spouse's name as it appears on the marriage certificate</h3>
-                    {% input_option type="text" name="name_spouse" class="form-block input-wide response-textbox" %}
+                    {% input_field type="text" name="name_spouse" class="form-block input-wide response-textbox" %}
                     <p>This is also know as surname or family name.</p>
 
                     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
@@ -49,11 +49,11 @@
 
                     <div class="btn-radio-group" data-toggle="buttons">
                         <label class="btn btn-radio">
-                            {% input_option type="radio" name="any_other_name_spouse" autocomplete="off" value="YES" data_target_id="enter_name" data_reveal_target="true" %} Yes
+                            {% input_field type="radio" name="any_other_name_spouse" autocomplete="off" value="YES" data_target_id="enter_name" data_reveal_target="true" %} Yes
                         </label>
 
                         <label class="btn btn-radio">
-                            {% input_option type="radio" name="any_other_name_spouse" autocomplete="off" value="NO" data_target_id="enter_name" data_reveal_target="false" %} No
+                            {% input_field type="radio" name="any_other_name_spouse" autocomplete="off" value="NO" data_target_id="enter_name" data_reveal_target="false" %} No
                         </label>
                     </div>
 
@@ -80,7 +80,7 @@
 
                     <div id="enter_name" hidden>
                         <h3>Please enter the name</h3>
-                        {% input_option type="text" name="other_name_spouse" class="form-block input-wide response-textbox" %}
+                        {% input_field type="text" name="other_name_spouse" class="form-block input-wide response-textbox" %}
                         <input type="button" value="Add name"/>
                     </div>
 
@@ -88,13 +88,13 @@
 
                 <div>
                     <h3>What was their last name when they were born?</h3>
-                    {% input_option type="text" name="last_name_born_spouse" class="form-block input-wide response-textbox" %}
+                    {% input_field type="text" name="last_name_born_spouse" class="form-block input-wide response-textbox" %}
                     <p>This is often referred to as Family name or Surname</p>
                 </div>
 
                 <div>
                     <h3>What was their last name before you were married?</h3>
-                    {% input_option type="text" name="last_name_before_married_spouse" class="form-block input-wide response-textbox" %}
+                    {% input_field type="text" name="last_name_before_married_spouse" class="form-block input-wide response-textbox" %}
                     <p>This is often referred to as Family name or Surname</p>
                 </div>
             </div>
@@ -108,15 +108,15 @@
             <div class="col-md-8 col-md-offset-2">
                 <div>
                     <h3>When is your spouse's birthday?</h3>
-                    <p>{% input_option type="text" name="birthday_spouse" class="date-picker" id="birth_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></p>
+                    <p>{% input_field type="text" name="birthday_spouse" class="date-picker" id="birth_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></p>
                 </div>
 
                 <div>
                     <h3>How long has your spouse lived in British Columbia?</h3>
                     <p>Please select one</p>
-                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="lived_in_bc_spouse" value="Since birth" %}Since birth</label></div>
-                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other radio_with_textbox" name="lived_in_bc_spouse" value="Moved to British Columbia on" %}Moved to British Columbia on {% input_option type="text" name="moved_to_bc_date_spouse" id="moved_date" class="date-picker other-textbox" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></label></div>
-                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="lived_in_bc_spouse" value="Do not live in British Columbia" %}Do not live in British Columbia</label></div>
+                    <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="lived_in_bc_spouse" value="Since birth" %}Since birth</label></div>
+                    <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="lived_in_bc_spouse" value="Moved to British Columbia on" %}Moved to British Columbia on {% input_field type="text" name="moved_to_bc_date_spouse" id="moved_date" class="date-picker other-textbox" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></label></div>
+                    <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="lived_in_bc_spouse" value="Do not live in British Columbia" %}Do not live in British Columbia</label></div>
 
                     <p>In order to apply for a divorce in British Columbia, you or your spouse must have been a regular resident in B.C (the legal term is ordinarily resident
                     <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
@@ -151,13 +151,13 @@
                 </div>
 
                 <div style="display: flex">
-                    <form action="{% url 'form_steps' 'f1' '02_claimant' %}">
+                    <form action="{% url 'question_steps' '02_claimant' %}">
                         <input type="submit" value="Back"/>
                     </form>
                     <form action="#">
                         <input type="submit" value="Save"/>
                     </form>
-                    <form action="{% url 'form_steps' 'f1' '04_marriage' %}">
+                    <form action="{% url 'question_steps' '04_marriage' %}">
                         <input type="submit" value="Next"/>
                     </form>
                 </div>

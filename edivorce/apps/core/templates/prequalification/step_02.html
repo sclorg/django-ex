@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load input_option %}
+{% load input_field %}
 
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
@@ -14,11 +14,11 @@
 
                     <div class="btn-radio-group" data-toggle="buttons">
                         <label class="btn btn-radio">
-                            {% input_option type="radio" name="lived_in_bc" autocomplete="off" value="YES" data_target_id="cannot_divorce_in_bc" data_reveal_target="false" %} Yes
+                            {% input_field type="radio" name="lived_in_bc" autocomplete="off" value="YES" data_target_id="cannot_divorce_in_bc" data_reveal_target="false" %} Yes
                         </label>
 
                         <label class="btn btn-radio">
-                            {% input_option type="radio" name="lived_in_bc" autocomplete="off" value="NO" data_target_id="cannot_divorce_in_bc" data_reveal_target="true" %} No
+                            {% input_field type="radio" name="lived_in_bc" autocomplete="off" value="NO" data_target_id="cannot_divorce_in_bc" data_reveal_target="true" %} No
                         </label>
                     </div>
 
@@ -50,11 +50,11 @@
 
                     <div class="btn-radio-group" data-toggle="buttons">
                         <label class="btn btn-radio">
-                            {% input_option type="radio"  name="lived_in_bc_at_least_year" autocomplete="off" value="YES" data_target_id="divorce_precondition" data_reveal_target="false" %} Yes
+                            {% input_field type="radio"  name="lived_in_bc_at_least_year" autocomplete="off" value="YES" data_target_id="divorce_precondition" data_reveal_target="false" %} Yes
                         </label>
 
                         <label class="btn btn-radio">
-                            {% input_option type="radio"  name="lived_in_bc_at_least_year" autocomplete="off" value="NO" data_target_id="divorce_precondition" data_reveal_target="true" %} No
+                            {% input_field type="radio"  name="lived_in_bc_at_least_year" autocomplete="off" value="NO" data_target_id="divorce_precondition" data_reveal_target="true" %} No
                         </label>
                     </div>
 

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load input_option %}
+{% load input_field %}
 
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
@@ -21,7 +21,7 @@
                     <div>
                         <div class="checkbox">
                             <label>
-                                {% input_option type="checkbox" name="want_which_orders" value="A legal end to the marriage" %}<b>A legal end to the marriage</b>
+                                {% input_field type="checkbox" name="want_which_orders" value="A legal end to the marriage" %}<b>A legal end to the marriage</b>
                             </label>
                         </div>
                         <p>
@@ -55,7 +55,7 @@
                             </div>
                         </div>
                     </div>
-                    <div><div class="checkbox"><label>{% input_option type="checkbox" name="want_which_orders" value="Spousal support" data_target_id="spouse_support_alert" data_reveal_target="true" %}<b>Spousal support</b></label></div>
+                    <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Spousal support" data_target_id="spouse_support_alert" data_reveal_target="true" %}<b>Spousal support</b></label></div>
                         <p><em>Payments to support you, not the children.</em></p>
                         <p><em>For more information, please see the fact sheet Spousal Support
                             <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
@@ -80,7 +80,7 @@
                             <p>If you were unmarried, and you qualify for spousal support, you must apply within two years of the date you separated.</p>
                         </div>
                     </div>
-                    <div><div class="checkbox"><label>{% input_option type="checkbox" name="want_which_orders" value="Division of property and debts" data_target_id="property_division_alert" data_reveal_target="true" %}<b>Division of property and debts</b></label></div>
+                    <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Division of property and debts" data_target_id="property_division_alert" data_reveal_target="true" %}<b>Division of property and debts</b></label></div>
                         <p><em>Anything you own including real estate, bank accounts, cars and RRSPs.</em></p>
                         <p><em>For more information, please refer to  the following fact sheets on the  Legal Services Society website:</em></p>
                         <ul>
@@ -102,10 +102,10 @@
                                 </ul>
                         </div>
                     </div>
-                    <div><div class="checkbox"><label>{% input_option type="checkbox" name="want_which_orders" value="Other orders" %}<b>Other orders</b></label></div>
+                    <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Other orders" %}<b>Other orders</b></label></div>
                         <p><em>For example, a name change.</em></p>
                     </div>
-                    <div><div class="checkbox"><label>{% input_option type="checkbox" name="want_which_orders" value="Child support" data_target_id="child_support_alert" data_reveal_target="true" %}<b>Child support (Out of scope)</b></label></div>
+                    <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Child support" data_target_id="child_support_alert" data_reveal_target="true" %}<b>Child support (Out of scope)</b></label></div>
                         <div class="information-message bg-danger" id="child_support_alert" hidden>
                             <p>We've noticed that at this point in time you are not applying for spousal support and/or division of property, debt, or a pension. If you decide to request these items in the future there are some time limits.</p>
                             <h2>Division of Property and Debts</h2>
@@ -118,13 +118,13 @@
                 </div>
 
                 <div style="display: flex">
-                    <form action="{% url 'form_steps' 'f1' '00_intro' %}">
+                    <form action="{% url 'overview' %}">
                         <input type="submit" value="Back"/>
                     </form>
                     <form action="#">
                         <input type="submit" value="Save"/>
                     </form>
-                    <form action="{% url 'form_steps' 'f1' '02_claimant' %}">
+                    <form action="{% url 'question_steps' '02_claimant' %}">
                         <input type="submit" value="Next"/>
                     </form>
                 </div>

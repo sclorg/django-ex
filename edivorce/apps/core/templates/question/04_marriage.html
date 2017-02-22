@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load input_option %}
+{% load input_field %}
 
 {% block title %}{{ block.super }}: Your Marriage{% endblock %}
 
@@ -31,12 +31,12 @@
 
                 <div id="when_married">
                     <h3>When were you married?</h3>
-                    <p>{% input_option type="text" name="when_were_you_married" class="date-picker" id="marriage_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></p>
+                    <p>{% input_field type="text" name="when_were_you_married" class="date-picker" id="marriage_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></p>
                 </div>
 
                 <div id="lived_together">
                     <h3>When did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} begin to live together in a marriage-like relationship?</h3>
-                    <p>{% input_option type="text" name="when_were_you_live_married_like" class="date-picker" id="lived_start_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></p>
+                    <p>{% input_field type="text" name="when_were_you_live_married_like" class="date-picker" id="lived_start_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></p>
 
                     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_start_date" aria-controls="collapse_start_date">
                         <div>
@@ -74,37 +74,37 @@
                     <h3>Where were you married?</h3>
                     <p>Enter the location as it appears on the marriage certificate (e.g. city, province or state and country)</p>
                     <p>City</p>
-                    {% input_option type="text" name="where_were_you_married_city" class="form-block input-wide response-textbox" %}
+                    {% input_field type="text" name="where_were_you_married_city" class="form-block input-wide response-textbox" %}
                     <p>Prov/State</p>
-                    {% input_option type="text" name="where_were_you_married_prov" class="form-block input-narrow response-textbox" %}
+                    {% input_field type="text" name="where_were_you_married_prov" class="form-block input-narrow response-textbox" %}
                     <p>Country</p>
 
-                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="where_were_you_married_country" value="Canada" %}Canada</label></div>
-                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="where_were_you_married_country" value="USA" %}USA</label></div>
-                    <div class="radio"><label>{% input_option type="radio" class="radio-with-other radio_with_textbox" name="where_were_you_married_country" value="Other" %}Other {% input_option type="text" name="where_were_you_married_other_country" class="response-textbox other-textbox input-inline" %}</label></div>
+                    <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="where_were_you_married_country" value="Canada" %}Canada</label></div>
+                    <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="where_were_you_married_country" value="USA" %}USA</label></div>
+                    <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="where_were_you_married_country" value="Other" %}Other {% input_field type="text" name="where_were_you_married_other_country" class="response-textbox other-textbox input-inline" %}</label></div>
                 </div>
 
                 <div>
                     <h3>Before you got married to your spouse, what was your marital status?</h3>
-                    <div class="radio"><label>{% input_option type="radio" name="marital_status_before_you" value="Never married" %}Never married</label></div>
-                    <div class="radio"><label>{% input_option type="radio" name="marital_status_before_you" value="Divorced" %}Divorced</label></div>
-                    <div class="radio"><label>{% input_option type="radio" name="marital_status_before_you" value="Widowed" %}Widowed</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Never married" %}Never married</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Divorced" %}Divorced</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Widowed" %}Widowed</label></div>
                 </div>
 
                 <div>
                     <h3>What was the marital status of your spouse before your marriage?</h3>
-                    <div class="radio"><label>{% input_option type="radio" name="marital_status_before_spouse" value="Never married" %}Never married</label></div>
-                    <div class="radio"><label>{% input_option type="radio" name="marital_status_before_spouse" value="Divorced" %}Divorced</label></div>
-                    <div class="radio"><label>{% input_option type="radio" name="marital_status_before_spouse" value="Widowed" %}Widowed</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Never married" %}Never married</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Divorced" %}Divorced</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Widowed" %}Widowed</label></div>
                 </div>
                 <div style="display: flex">
-                    <form action="{% url 'form_steps' 'f1' '03_respondent' %}">
+                    <form action="{% url 'question_steps' '03_respondent' %}">
                         <input type="submit" value="Back"/>
                     </form>
                     <form action="#">
                         <input type="submit" value="Save"/>
                     </form>
-                    <form action="{% url 'form_steps' 'f1' '05_reason' %}">
+                    <form action="{% url 'question_steps' '05_reason' %}">
                         <input type="submit" value="Next"/>
                     </form>
                 </div>

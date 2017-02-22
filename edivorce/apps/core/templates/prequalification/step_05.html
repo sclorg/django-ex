@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load input_option %}
+{% load input_field %}
 
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
@@ -29,11 +29,11 @@
                 
                 <div class="btn-radio-group" data-toggle="buttons">
                     <label class="btn btn-radio">
-                        {% input_option type="radio"  name="original_marriage_certificate" autocomplete="off" value="YES" data_target_id="marriage_certificate" data_reveal_target="false" %} Yes
+                        {% input_field type="radio"  name="original_marriage_certificate" autocomplete="off" value="YES" data_target_id="marriage_certificate" data_reveal_target="false" %} Yes
                     </label>
 
                     <label class="btn btn-radio">
-                        {% input_option type="radio"  name="original_marriage_certificate" autocomplete="off" value="NO" data_target_id="marriage_certificate" data_reveal_target="true" %} No
+                        {% input_field type="radio"  name="original_marriage_certificate" autocomplete="off" value="NO" data_target_id="marriage_certificate" data_reveal_target="true" %} No
                     </label>
                 </div>
 
@@ -67,11 +67,11 @@
 
                     <div class="btn-radio-group" data-toggle="buttons">
                         <label class="btn btn-radio">
-                            {% input_option type="radio" name="provide_certificate_later" autocomplete="off" value="YES" data_target_id="reason_not_providing" data_reveal_target="false" data_related_id="provide_later_date" %} Yes
+                            {% input_field type="radio" name="provide_certificate_later" autocomplete="off" value="YES" data_target_id="reason_not_providing" data_reveal_target="false" data_related_id="provide_later_date" %} Yes
                         </label>
 
                         <label class="btn btn-radio btn-radio-long">
-                            {% input_option type="radio" name="provide_certificate_later" autocomplete="off" value="NO" data_target_id="reason_not_providing" data_reveal_target="true" data_related_id="provide_later_date" %} No, it is impossible to obtain a marriage certificate (or registration of marriage
+                            {% input_field type="radio" name="provide_certificate_later" autocomplete="off" value="NO" data_target_id="reason_not_providing" data_reveal_target="true" data_related_id="provide_later_date" %} No, it is impossible to obtain a marriage certificate (or registration of marriage
                         </label>
                     </div>
 
@@ -97,7 +97,7 @@
                            title="<b>Notice of Joint Family Claim</b><br /><br />This is the document that start the court case.
                            The Notice of Joint Family Claim (form F1) gives the court details about you and your spouse, about your marriage
                            and separation, and about what you're asking the court for.</a>." aria-hidden="true"></i>(form F1).</p>
-                        {% input_option type="textarea" class="response-textarea" name="provide_certificate_later_reason" rows="8" cols="65" %}
+                        {% input_field type="textarea" class="response-textarea" name="provide_certificate_later_reason" rows="8" cols="65" %}
                         <p>If the registrar
                             <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
                            title="<b>registrar</b><br /><br />An officer of the court who has the power to make
@@ -122,7 +122,7 @@
                         </div>
                         <h3>Please tell us why it is impossible to obtain a marriage certificate or registration of marriage.
                             The registrar will review and then decide whether or not they will accept your reason (s).</h3>
-                        {% input_option type="textarea" class="response-textarea" name="not_provide_certificate_reason" rows="8" cols="65" %}
+                        {% input_field type="textarea" class="response-textarea" name="not_provide_certificate_reason" rows="8" cols="65" %}
                     </div>
                 </div>
 
@@ -131,11 +131,11 @@
 
                     <div class="btn-radio-group" data-toggle="buttons">
                         <label class="btn btn-radio">
-                            {% input_option type="radio" name="marriage_certificate_in_english" autocomplete="off" value="YES" data_target_id="certificate_in_english" data_reveal_target="false" %} Yes
+                            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="YES" data_target_id="certificate_in_english" data_reveal_target="false" %} Yes
                         </label>
 
                         <label class="btn btn-radio">
-                            {% input_option type="radio" name="marriage_certificate_in_english" autocomplete="off" value="NO" data_target_id="certificate_in_english" data_reveal_target="true" %} No
+                            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="NO" data_target_id="certificate_in_english" data_reveal_target="true" %} No
                         </label>
                     </div>
 

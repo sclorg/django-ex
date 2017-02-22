@@ -4,7 +4,7 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def input_option(context, type, name='', value='', **kwargs):
+def input_field(context, type, name='', value='', **kwargs):
     """
     Usage:  when specifying data attributes in templates, use "data_" intead of "data-".
     """
