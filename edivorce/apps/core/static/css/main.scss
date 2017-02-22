@@ -392,6 +392,13 @@ input {
 	}
 }
 
+#form_navigation {
+	display: flex;
+	form {
+		margin-right: 10px;
+	}
+}
+
 #more_information {
 	position: absolute;
 	top: 191px;
