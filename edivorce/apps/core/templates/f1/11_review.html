@@ -10,8 +10,12 @@
                 <h1>Step 11. Review</h1>
                 <ul>
                     <li>
-                        <h4>Step 1: What are you asking for</h4>
+                        <h4>Pre-qualification questions</h4>
                         {% include "chunks/review_user_responses.html" with questions=prequalification %}
+                    </li>
+                    <li>
+                        <h4>Step 1: What are you asking for</h4>
+                        {% include "chunks/review_user_responses.html" with questions=which_orders %}
                     </li>
                     <li>
                         <h4>Step 2: Your information</h4>
