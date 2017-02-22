@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load input_option %}
+{% load input_field %}
 
 {% block title %}{{ block.super }}: Property And Debts{% endblock %}
 
@@ -33,17 +33,17 @@
                         <h3>What is the best address to send you official court documents?</h3>
                         <p><em>This is known as your "address for service"</em></p>
                         <p><em>House and street number</em></p>
-                        {% input_option type="text" name="address_to_send_official_document_street_you" class="form-block input-wide response-textbox" %}
+                        {% input_field type="text" name="address_to_send_official_document_street_you" class="form-block input-wide response-textbox" %}
                         <p><em>City</em></p>
-                        {% input_option type="text" name="address_to_send_official_document_city_you" class="form-block input-wide response-textbox" %}
+                        {% input_field type="text" name="address_to_send_official_document_city_you" class="form-block input-wide response-textbox" %}
                         <p><em>Prov/State</em></p>
-                        {% input_option type="text" name="address_to_send_official_document_prov_you" class="form-block input-narrow response-textbox" %}
+                        {% input_field type="text" name="address_to_send_official_document_prov_you" class="form-block input-narrow response-textbox" %}
 
                         <p>Country</p>
 
-                        <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="address_to_send_official_document_country_you" value="Canada" %}Canada</label></div>
-                        <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="address_to_send_official_document_country_you" value="USA" %}USA</label></div>
-                        <div class="radio"><label>{% input_option type="radio" class="radio-with-other radio_with_textbox" name="address_to_send_official_document_country_you" value="Other" %}Other {% input_option type="text" name="address_to_send_official_document_other_country_you" class="response-textbox other-textbox input-inline" tabindex="-1" %}</label></div>
+                        <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="address_to_send_official_document_country_you" value="Canada" %}Canada</label></div>
+                        <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="address_to_send_official_document_country_you" value="USA" %}USA</label></div>
+                        <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="address_to_send_official_document_country_you" value="Other" %}Other {% input_field type="text" name="address_to_send_official_document_other_country_you" class="response-textbox other-textbox input-inline" tabindex="-1" %}</label></div>
                     </div>
 
                     <div>
@@ -52,9 +52,9 @@
                             an address that’s not a PO box.</em></p>
 
                         <p><em>Fax number (optional)</em></p>
-                        {% input_option type="text" name="address_to_send_official_document_fax_you" class="form-block input-wide response-textbox" %}
+                        {% input_field type="text" name="address_to_send_official_document_fax_you" class="form-block input-wide response-textbox" %}
                         <p><em>Email Address (optional)</em></p>
-                        {% input_option type="text" id="email_textbox" name="address_to_send_official_document_email_you" class="form-block input-wide response-textbox" %}
+                        {% input_field type="text" id="email_textbox" name="address_to_send_official_document_email_you" class="form-block input-wide response-textbox" %}
                     </div>
                 </div>
 
@@ -63,17 +63,17 @@
                         <h3>What is the best address to send your spouse official court documents?</h3>
                         <p><em>This is known as your "address for service"</em></p>
                         <p><em>House and street number</em></p>
-                        {% input_option type="text" name="address_to_send_official_document_street_spouse" class="form-block input-wide response-textbox" %}
+                        {% input_field type="text" name="address_to_send_official_document_street_spouse" class="form-block input-wide response-textbox" %}
                         <p><em>City</em></p>
-                        {% input_option type="text" name="address_to_send_official_document_city_spouse" class="form-block input-wide response-textbox" %}
+                        {% input_field type="text" name="address_to_send_official_document_city_spouse" class="form-block input-wide response-textbox" %}
                         <p><em>Prov/State</em></p>
-                        {% input_option type="text" name="address_to_send_official_document_prov_spouse" class="form-block input-narrow response-textbox" %}
+                        {% input_field type="text" name="address_to_send_official_document_prov_spouse" class="form-block input-narrow response-textbox" %}
 
                         <p>Country</p>
 
-                        <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="address_to_send_official_document_country_spouse" value="Canada" %}Canada</label></div>
-                        <div class="radio"><label>{% input_option type="radio" class="radio-with-other" name="address_to_send_official_document_country_spouse" value="USA" %}USA</label></div>
-                        <div class="radio"><label>{% input_option type="radio" class="radio-with-other radio_with_textbox" name="address_to_send_official_document_country_spouse" value="Other" %}Other {% input_option type="text" name="address_to_send_official_document_other_country_spouse" class="response-textbox other-textbox input-inline" tabindex="-1" %}</label></div>
+                        <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="address_to_send_official_document_country_spouse" value="Canada" %}Canada</label></div>
+                        <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="address_to_send_official_document_country_spouse" value="USA" %}USA</label></div>
+                        <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="address_to_send_official_document_country_spouse" value="Other" %}Other {% input_field type="text" name="address_to_send_official_document_other_country_spouse" class="response-textbox other-textbox input-inline" tabindex="-1" %}</label></div>
                     </div>
 
                     <div>
@@ -82,20 +82,20 @@
                             an address that’s not a PO box.</em></p>
 
                         <p><em>Fax number (optional)</em></p>
-                        {% input_option type="text" name="address_to_send_official_document_fax_spouse" class="form-block input-wide response-textbox" %}
+                        {% input_field type="text" name="address_to_send_official_document_fax_spouse" class="form-block input-wide response-textbox" %}
                         <p><em>Email Address (optional)</em></p>
-                        {% input_option type="text" id="email_textbox" name="address_to_send_official_document_email_spouse" class="form-block input-wide response-textbox" %}
+                        {% input_field type="text" id="email_textbox" name="address_to_send_official_document_email_spouse" class="form-block input-wide response-textbox" %}
                     </div>
                 </div>
 
                 <div style="display: flex">
-                    <form action="{% url 'form_steps' 'f1' '09_other_questions' %}">
+                    <form action="{% url 'question_steps' '09_other_questions' %}">
                         <input type="submit" value="Back"/>
                     </form>
                     <form action="#">
                         <input type="submit" value="Save"/>
                     </form>
-                    <form action="{% url 'form_steps' 'f1' '11_review' %}">
+                    <form action="{% url 'question_steps' '11_review' %}">
                         <input type="submit" value="Next"/>
                     </form>
                 </div>

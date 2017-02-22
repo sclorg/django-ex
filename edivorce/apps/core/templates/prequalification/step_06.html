@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load input_option %}
+{% load input_field %}
 
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
@@ -15,7 +15,7 @@
                     has broken down and cannot be repaired.</em>
                 </p>
                     <div>
-                        <div class="radio"><label>{% input_option type="radio"  name="divorce_reason" value="live separate" data_target_id="other_reason" data_reveal_target="false" %}You and your spouse have lived separate and apart for one year or more</label></div>
+                        <div class="radio"><label>{% input_field type="radio"  name="divorce_reason" value="live separate" data_target_id="other_reason" data_reveal_target="false" %}You and your spouse have lived separate and apart for one year or more</label></div>
                         <p><em>Usually the grounds for divorce are that you've been living separately and apart form your spouse for at least one year</em></p>
                         <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_separated_apart" aria-controls="collapse_separated_apart">
                             <div>
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 <div>
-                    <div class="radio"><label>{% input_option type="radio"  name="divorce_reason" value="other" data_target_id="other_reason" data_reveal_target="true" %}Other reasons (grounds)</label></div>
+                    <div class="radio"><label>{% input_field type="radio"  name="divorce_reason" value="other" data_target_id="other_reason" data_reveal_target="true" %}Other reasons (grounds)</label></div>
 
                     <div class="information-message bg-danger" id="other_reason" hidden>
                         <p>If you ask for a divorce due to "other reason" reasons, you have to present evidence to the court to

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load input_option %}
+{% load input_field %}
 
 {% block title %}{{ block.super }}: Reason For Divorce{% endblock %}
 
@@ -12,10 +12,10 @@
                 <div>
                     <h3>Did you and your spouse try and reconcile after you separated?</h3>
                     <p><em>Please select one</em></p>
-                    <div class="radio"><label>{% input_option type="radio" name="try_reconcile_after_separated" %}
+                    <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" %}
                         No, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I have not reconciled (gotten back together)</label>
                     </div>
-                    <div class="radio"><label>{% input_option type="radio" name="try_reconcile_after_separated" %}
+                    <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" %}
                         Yes, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I lived together again during the following period(s) in an unsuccessful attempt to reconcile</label>
                     </div>
                 </div>
@@ -34,8 +34,8 @@
                         By selecting "I agree" this shows the court that you and your spouse have thoroughly thought out your request for divorce.
                     </p>
                     <h3>There is no possibility my spouse and I will get back together (reconciliation).</h3>
-                    <div class="radio"><label>{% input_option type="radio" name="no_reconciliation_possible" value="agree" %}I agree</label></div>
-                    <div class="radio"><label>{% input_option type="radio" name="no_reconciliation_possible" value="disagree" %}I disagree</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="no_reconciliation_possible" value="agree" %}I agree</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="no_reconciliation_possible" value="disagree" %}I disagree</label></div>
                 </div>
             </div>
         </div>
@@ -64,18 +64,18 @@
                        the court files for each court proceeding in that district are maintained, and at which legal documents,
                        can be filed, searched for and reviewed" aria-hidden="true"></i>,
                         as defined in section 11(4) of the Divorce Act (Canada), in relation to this claim for divorce.</h3>
-                    <div class="radio"><label>{% input_option type="radio" name="no_collusion" value="agree" %}I agree</label></div>
-                    <div class="radio"><label>{% input_option type="radio" name="no_collusion" value="disagree" %}I disagree</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="no_collusion" value="agree" %}I agree</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="no_collusion" value="disagree" %}I disagree</label></div>
                 </div>
 
                 <div style="display: flex">
-                    <form action="{% url 'form_steps' 'f1' '04_marriage' %}">
+                    <form action="{% url 'question_steps' '04_marriage' %}">
                         <input type="submit" value="Back"/>
                     </form>
                     <form action="#">
                         <input type="submit" value="Save"/>
                     </form>
-                    <form action="{% url 'form_steps' 'f1' '06_support' %}">
+                    <form action="{% url 'question_steps' '06_support' %}">
                         <input type="submit" value="Next"/>
                     </form>
                 </div>

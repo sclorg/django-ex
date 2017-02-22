@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load input_option %}
+{% load input_field %}
 
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
@@ -14,7 +14,7 @@
                     work for you.</p>
                 <h3>Are you</h3>
                 <div class="radio"><label>
-                    {% input_option type="radio"  name="married_marriage_like" value="Legally married" %}
+                    {% input_field type="radio"  name="married_marriage_like" value="Legally married" %}
                     Legally married<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"
                                       data-html="true"
                                       title="<b>LEGALLY MARRIED</b><br /><br />Legally married is defined as: when two people agree
@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="radio"><label>
-                    {% input_option type="radio"  name="married_marriage_like" value="Living together in a marriage like relationship" %}
+                    {% input_field type="radio"  name="married_marriage_like" value="Living together in a marriage like relationship" %}
                     Living together in a marriage like<i class="fa fa-question-circle" data-toggle="tooltip"
                                                          data-placement="right" data-html="true"
                                                          title="<b>MARRIAGE LIKE RELATIONSHIP</b><br /><br />The term &quot;common-law relationship&quot;

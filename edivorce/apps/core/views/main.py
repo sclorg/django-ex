@@ -11,7 +11,7 @@ def serve(request, path):
     if path[0:2] == 'f/':
         path = path[2:0]
     if (len(path) > 4 and path[-5:] != '.html') or len(path) == 0:
-        path += '/index.html'
+        path += '/intro.html'
     if path[:1] == '/':
         path = path[1:]
     return render(request, path)
@@ -19,15 +19,6 @@ def serve(request, path):
 
 def intro(request):
     return render(request, 'intro.html', context={'hide_nav': True})
-
-
-@bceid_required
-def preview(request, form):
-    """
-    View showing template preview of rendered form
-    """
-
-    return render(request, 'preview/%s.html' % form)
 
 
 def login(request):
@@ -50,12 +41,30 @@ def logout(request):
     return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/intro')
 
 
+def prequalification(request, step):
+    """
+    View rendering pre-qualification questions
+     If user is not authenticated with proper BCeID,
+     temporarily store user responses to session
+    """
+    template = 'prequalification/step_%s.html' % step
+
+    if not request.bceid_user.is_authenticated:
+        responses_dict = get_responses_from_session(request)
+    else:
+        user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
+        responses_dict = get_responses_from_db(user)
+
+    return render(request, template_name=template, context=responses_dict)
+
+
 @bceid_required
-def form(request, form, step):
+def form(request, step):
     """
-    View rendering form/step combo
+    View rendering main questions
+    For review page, use response grouped by step to render page
     """
-    template = '%s/%s.html' % (form, step)
+    template = 'question/%s.html' % step
     user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
     if step == "11_review":
         responses_dict = get_responses_from_db_grouped_by_steps(user)
@@ -65,12 +74,12 @@ def form(request, form, step):
 
 
 @bceid_required
-def dashboard(request):
-    return render(request, 'dashboard.html')
-
-
-@bceid_required
 def overview(request):
+    """
+    View rendering process overview page
+    If user responded to questions for certain step,
+    mark that step as "Started" otherwise "Not started"
+    """
     user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
     responses_dict = get_responses_from_db_grouped_by_steps(user)
     # To Show whether user has started to respond questions in each step
@@ -83,18 +92,4 @@ def overview(request):
     return render(request, 'overview.html', context=started_dict)
 
 
-def prequalification(request, step):
-    template = 'prequalification/step_%s.html' % step
-
-    if not request.bceid_user.is_authenticated:
-        responses_dict = get_responses_from_session(request)
-    else:
-        user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
-        responses_dict = get_responses_from_db(user)
-
-    return render(request, template_name=template, context=responses_dict)
-
-
-def index(request):
-    return render(request, 'index.html')
 

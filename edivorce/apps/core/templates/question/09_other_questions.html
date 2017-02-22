@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load input_option %}
+{% load input_field %}
 
 {% block title %}{{ block.super }}: Spousal Support{% endblock %}
 
@@ -10,13 +10,13 @@
             <div class="col-md-8 col-md-offset-2">
                 <h1>Step 9. Other Questions</h1>
                 <div style="display: flex">
-                    <form action="{% url 'form_steps' 'f1' '08_other_orders' %}">
+                    <form action="{% url 'question_steps' '08_other_orders' %}">
                         <input type="submit" value="Back"/>
                     </form>
                     <form action="#">
                         <input type="submit" value="Save"/>
                     </form>
-                    <form action="{% url 'form_steps' 'f1' '10_location' %}">
+                    <form action="{% url 'question_steps' '10_location' %}">
                         <input type="submit" value="Next"/>
                     </form>
                 </div>

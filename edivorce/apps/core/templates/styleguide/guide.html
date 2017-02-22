@@ -147,13 +147,13 @@
     <div class="container">
         <div class="row">
             <div id="form_navigation" class="col-md-8 col-md-offset-2">
-                <form action="{% url 'form_steps' 'f1' '09_other_questions' %}">
+                <form action="{% url 'question_steps' '09_other_questions' %}">
                     <input class="btn-primary" type="submit" value="Back"/>
                 </form>
                 <form action="#">
                     <input class="btn-primary" type="submit" value="Save"/>
                 </form>
-                <form action="{% url 'form_steps' 'f1' '11_review' %}">
+                <form action="{% url 'question_steps' '11_review' %}">
                     <input class="btn-primary" type="submit" value="Next"/>
                 </form>
             </div>
