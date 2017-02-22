@@ -47,8 +47,8 @@
 
                 <div>
                     <h3>How have you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} agreed to deal with your property and debt?</h3>
-                    <div class="radio"><label>{% input_field type="radio" name="deal_with_property_debt" value="equal division" %}<b>Equal division</b> of family property and debt</label></div>
-                    <div class="radio"><label>{% input_field type="radio" name="deal_with_property_debt" value="unequal division" %}<b>Unequal division</b> of family property and family debt</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="deal_with_property_debt" value="equal division" data_target_id="property_debt_division_method" data_reveal_target="false" %}<b>Equal division</b> of family property and debt</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="deal_with_property_debt" value="unequal division" data_target_id="property_debt_division_method" data_reveal_target="true" %}<b>Unequal division</b> of family property and family debt</label></div>
                     <p><em>Note: the court will only order an unequal division when an equal division is significantly unfair.</em></p>
 
                     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_unequal_division" aria-controls="collapse_unequal_division">
@@ -86,16 +86,7 @@
                         </div>
                     {% endif %}
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div>
+                <div id="property_debt_division_method" hidden>
                     <h3>Please describe how you and your spouse plan to divide your property, assets and your debts. </h3>
                     <p>Because the division of family property and debt can be complex we recommend you get
                         <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/lawyers" target="_blank">legal advice</a>
@@ -122,7 +113,15 @@
                     </div>
                     {% input_field type="textarea" name="how_to_divide_property_debt" rows="8" cols="65" class="response-textarea" %}
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="container-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
                 <div>
                     <h3>Other Property Claims</h3>
                     <p>This section is about excluded property - e.g. property owned by the respondent at the time you moved in together, and gifts or inheritances the respondent received. Compensation is cash instead of ownership of your share of the property.</p>
