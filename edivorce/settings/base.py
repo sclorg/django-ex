@@ -109,10 +109,5 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-# django-libsass
-
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
 
 FORCE_SCRIPT_NAME = '/'
