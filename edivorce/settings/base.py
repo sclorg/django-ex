@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 import os
-from decouple import config
 from unipath import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -22,12 +21,12 @@ BASE_DIR = Path(__file__).parent.parent
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # The SECRET_KEY is provided via an environment variable in OpenShift
-SECRET_KEY = config(
+SECRET_KEY = os.environ.get(
     'DJANGO_SECRET_KEY',
     default='9e4@&tw46$l31)zrqe3wi+-slqm(ruvz&se0^%9#6(_w3ui!c0'
 )
 
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = False
 
 # TODO: Set ALLOWED_HOSTS this to the actual host headers used by the local/dev/test/prod instances & health probes
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1']
