@@ -13,7 +13,7 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip({trigger: 'click'});
 
     // when user click textbox beside radio button, check the associated radio button
-    $(".other-textbox").on("click", function(){
+    $(".other-textbox").on("click focus", function(){
        $(this).siblings(".radio_with_textbox").prop('checked', true);
     });
 
