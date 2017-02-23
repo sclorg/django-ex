@@ -12,7 +12,7 @@ from django.core.wsgi import get_wsgi_application
 from django.core.management import execute_from_command_line
 
 # check if the app is running on OpenShift
-if not os.environ.get('OPENSHIFT_APP_NAME', False):
+if not os.environ.get('OPENSHIFT_BUILD_NAMESPACE', False):
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "edivorce.settings.local")
 else:
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "edivorce.settings.openshift")
