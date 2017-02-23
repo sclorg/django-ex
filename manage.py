@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import os
 import sys
-import decouple
 
 if __name__ == "__main__":
 
-    if decouple.config("LOCAL_DEV", default=False, cast=bool):
+    # check if the app is running on OpenShift
+    if not os.environ.get('OPENSHIFT_APP_NAME', False):
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "edivorce.settings.local")
     else:
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "edivorce.settings.openshift")
