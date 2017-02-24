@@ -417,6 +417,14 @@
 },
 {
     "fields": {
+        "name": "What is the best address to send you official court documents? Postal code",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_postal_code_you"
+},
+{
+    "fields": {
         "name": "What is the best address to send you official court documents? Fax number",
         "description": "For step 10, Form 1 8. Claimants' addresses for service"
     },
@@ -470,6 +478,14 @@
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_other_country_spouse"
+},
+{
+    "fields": {
+        "name": "What is the best address to send your spouse official court documents? Postal code",
+        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_postal_code_spouse"
 },
 {
     "fields": {
