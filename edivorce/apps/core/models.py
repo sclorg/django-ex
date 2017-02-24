@@ -119,6 +119,9 @@ class UserResponse(models.Model):
     value = models.TextField(blank=True)
     """ The question's response from the user """
 
+    class Meta:
+        unique_together = ("bceid_user", "question")
+
     def __str__(self):
         return '%s -> %s' % (self.bceid_user, self.question.key)
 
