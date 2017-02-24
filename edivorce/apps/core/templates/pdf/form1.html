@@ -78,7 +78,7 @@
             <tbody>
                 <tr>
                     {% check_list source=responses.want_which_orders value='A legal end to the marriage' as order_wanted %}
-                    <td colspan="3"> <i class="fa {% if order_wanted %} icon-check">&#xe800;</i> {% else %} icon-check-empty">&#xf096;</i> {% endif %} Claimant 1 and Claimant 2 are asking for a divorce order. </td>
+                    <td colspan="3"> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for a divorce order. </td>
                 </tr>
                 <tr>
                     <td colspan="3"> <strong> A Personal information: </strong> </td>
@@ -294,7 +294,7 @@
             <tbody>
                 <tr>
                     {% check_list source=responses.want_which_orders value='Spousal support' as order_wanted %}
-                    <td colname="c2"> <i class="fa {% if order_wanted %} icon-check">&#xe800;</i> {% else %} icon-check-empty">&#xf096;</i> {% endif %} Claimant 1 and Claimant 2 are asking for an order for spousal support as follows:
+                    <td colname="c2"> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for spousal support as follows:
                         <span class="form-entry form-textarea not-complete">{% if responses.spouse_support_details %} {{responses.spouse_support_details }} {% else %} &nbsp; {% endif %}</span>
                         <p class="text-center">
                             [<em>set out terms of proposed order</em>]
@@ -321,7 +321,7 @@
                 </tr>
                 <tr>
                     {% check_list source=responses.want_which_orders value='Division of property and debts' as order_wanted %}
-                    <td> <i class="fa {% if order_wanted %} icon-check">&#xe800;</i> {% else %} icon-check-empty">&#xf096;</i> {% endif %} Claimant 1 and Claimant 2 are asking for an order for: <br /><em> [Check whichever one of the following boxes is correct and complete any required information in relation to family property and family debt, as those terms are defined in the Family Law Act.] </em>                        </td>
+                    <td> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for: <br /><em> [Check whichever one of the following boxes is correct and complete any required information in relation to family property and family debt, as those terms are defined in the Family Law Act.] </em>                        </td>
                 </tr>
                 <tr>
                     <td> <i class="fa {% if responses.deal_with_property_debt == 'equal division' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} an equal division of family property and family debt </td>
@@ -350,7 +350,7 @@
             <tbody>
                 <tr>
                     {% check_list source=responses.want_which_orders value='Other orders' as order_wanted %}
-                    <td> <i class="fa {% if order_wanted %} icon-check">&#xe800;</i> {% else %} icon-check-empty">&#xf096;</i> {% endif %} Claimant 1 and Claimant 2 are asking for an order in the following terms: <span class="form-entry form-textarea not-complete">&nbsp;</span>
+                    <td> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order in the following terms: <span class="form-entry form-textarea not-complete">&nbsp;</span>
                         <p class="text-center">
                             [<em>set out terms of proposed order</em>]
                         </p>
@@ -367,17 +367,17 @@
                 <tr>
                     <td>
                         <p>Claimant 1:
-                          {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_prov_you and responses.address_to_send_official_document_country_you %}
+                          {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_prov_you and responses.address_to_send_official_document_country_you and responses.address_to_send_official_document_postal_code_you %}
                           {{ responses.address_to_send_official_document_street_you }}, {{ responses.address_to_send_official_document_city_you }}, {{ responses.address_to_send_official_document_prov_you }},
-                          {% if responses.address_to_send_official_document_country_you == 'Other' %} {{ responses.address_to_send_official_document_other_country_you }} {% else %} {{ responses.address_to_send_official_document_country_you }} {% endif %} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
+                          {% if responses.address_to_send_official_document_country_you == 'Other' %} {{ responses.address_to_send_official_document_other_country_you }}{% else %} {{ responses.address_to_send_official_document_country_you }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
                         <p>Fax (optional) {% if responses.address_to_send_official_document_fax_you %} {{ responses.address_to_send_official_document_fax_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
                         <p>E-mail (optional) {% if responses.address_to_send_official_document_email_you %} {{ responses.address_to_send_official_document_email_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
                     </td>
                     <td colname="c2">
                         <p>Claimant 2:
-                          {% if responses.address_to_send_official_document_street_spouse and responses.address_to_send_official_document_city_spouse and responses.address_to_send_official_document_prov_spouse and responses.address_to_send_official_document_country_spouse %}
+                          {% if responses.address_to_send_official_document_street_spouse and responses.address_to_send_official_document_city_spouse and responses.address_to_send_official_document_prov_spouse and responses.address_to_send_official_document_country_spouse and responses.address_to_send_official_document_postal_code_spouse %}
                           {{ responses.address_to_send_official_document_street_spouse }}, {{ responses.address_to_send_official_document_city_spouse }}, {{ responses.address_to_send_official_document_prov_spouse }},
-                          {% if responses.address_to_send_official_document_country_spouse == 'Other' %} {{ responses.address_to_send_official_document_other_country_spouse }} {% else %} {{ responses.address_to_send_official_document_country_spouse }} {% endif %} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
+                          {% if responses.address_to_send_official_document_country_spouse == 'Other' %} {{ responses.address_to_send_official_document_other_country_spouse }}{% else %} {{ responses.address_to_send_official_document_country_spouse }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
                         <p>Fax (optional) {% if responses.address_to_send_official_document_fax_spouse %} {{ responses.address_to_send_official_document_fax_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
                         <p>E-mail (optional) {% if responses.address_to_send_official_document_email_spouse %} {{ responses.address_to_send_official_document_email_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
                     </td>

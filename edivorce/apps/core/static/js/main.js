@@ -19,6 +19,13 @@ $(function () {
 
     $("input[type=radio], input[type=checkbox], input[type=text], .response-textarea, .response-dropdown").on("change", ajaxOnChange);
 
+    // Configuration for datepicker
+    $(".date-picker-group").datepicker({
+            format: "dd/mm/yyyy",
+            endDate: "today",
+            autoclose: true
+    });
+
     // On step_03.html, update text when user enters separation date
     $("#separated_date").on("change", function(){
         $("#separation_date_span").text(" on " + $(this).val());
