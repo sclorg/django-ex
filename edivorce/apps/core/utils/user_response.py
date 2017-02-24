@@ -47,15 +47,11 @@ def copy_session_to_db(request, bceid_user):
     for q in questions:
         if request.session.get(q.key) is not None:
             # copy the response to the database
-            if UserResponse.objects.filter(bceid_user=bceid_user, question=q).exists():
-                UserResponse.objects.update(bceid_user=bceid_user,
-                                            question=q,
-                                            value=request.session.get(q.key))
-            else:
-                UserResponse.objects.create(bceid_user=bceid_user,
-                                            question=q,
-                                            value=request.session.get(q.key))
+            UserResponse.objects.update_or_create(
+                bceid_user=bceid_user,
+                question=q,
+                defaults={'value': request.session.get(q.key)},
+            )
 
-
-                # clear the response from the session
+            # clear the response from the session
             request.session[q.key] = None
