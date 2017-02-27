@@ -11,7 +11,19 @@
                 <h1>Step 6. Spousal Support</h1>
 
                 <div>
-                    <h3>You and your spouse are asking for an order for spousal support as follows:</h3>
+                    <div>
+                        <p>Spousal support is paid by one spouse to financially support the other spouse after separation, under an agreement or order
+                            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
+                           title="<b>Order</b><br />A type of court ruling a judge or master makes that sets out what you must do or not do." aria-hidden="true"></i>.</p>
+
+                        <p>The purpose of spousal support is to help meet the on-going financial needs of a financially dependent spouse for a defined period of time."</p>
+                        
+                        <p>For more information, please see the <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php">fact sheet Spousal Support</a> by the Legal Services Society.</p>
+                    </div>
+                    <h3>You and your spouse are asking for an order
+                        <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
+                           title="<b>Order</b><br />A type of court ruling a judge or master makes that sets out what you must do or not do." aria-hidden="true"></i>
+                        for spousal support as follows:</h3>
                     {% input_field type="textarea" name="spouse_support_details" rows="8" cols="65" class="response-textarea" %}
 
                     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_support_amount" aria-controls="collapse_support_amount">
@@ -82,8 +94,18 @@
             <div class="col-md-8 col-md-offset-2">
                 <div>
                     <h3>Please indicate which act you are asking for support under.</h3>
-                    <div class="radio"><label>{% input_field type="radio" name="spouse_support_act" value="divorce" data_target_id="other_reason" data_reveal_target="false" %}the Divorce Act (Canada)</label></div>
-                    <div class="radio"><label>{% input_field type="radio" name="spouse_support_act" value="family" data_target_id="other_reason" data_reveal_target="true" %}the Family Law Act</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="spouse_support_act" value="divorce" data_target_id="family_law_time_limit" data_reveal_target="false" %}the Divorce Act (Canada)</label></div>
+                    <div class="radio"><label>{% input_field type="radio" name="spouse_support_act" value="family" data_target_id="family_law_time_limit" data_reveal_target="true" %}the Family Law Act</label></div>
+
+                    <div class="information-message bg-danger" id="family_law_time_limit" hidden>
+                        <h2>Time limit to apply for court order</h2>
+                        <p>
+                            If you were married, you must apply for spousal support under the Family Law Act within two years after you get an order for divorce. If you are applying for spousal support under the Divorce Act, you do not have a time limit.
+                        </p>
+                        <p>
+                            If you were unmarried, and you qualify for spousal support, you must apply within two years of the date you separated.
+                        </p>
+                    </div>
 
                     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_support_act" aria-controls="collapse_support_act">
                         <div>
@@ -107,7 +129,7 @@
                     </div>
                 </div>
                 <div style="display: flex">
-                    <form action="{% url 'question_steps' '05_reason' %}">
+                    <form action="{% url 'question_steps' '05_separation' %}">
                         <input type="submit" value="Back"/>
                     </form>
                     <form action="#">

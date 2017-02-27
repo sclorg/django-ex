@@ -4,6 +4,7 @@ from django.utils import timezone
 from ..decorators import bceid_required
 from ..models import BceidUser
 from ..utils.user_response import get_responses_from_db, get_responses_from_db_grouped_by_steps, get_responses_from_session, copy_session_to_db
+from edivorce.apps.core.utils.question_step_mapping import list_of_registries
 
 
 @bceid_required
@@ -67,7 +68,7 @@ def prequalification(request, step):
 
 
 @bceid_required
-def form(request, step):
+def question(request, step):
     """
     View rendering main questions
     For review page, use response grouped by step to render page
@@ -78,6 +79,9 @@ def form(request, step):
         responses_dict = get_responses_from_db_grouped_by_steps(user)
     else:
         responses_dict = get_responses_from_db(user)
+    # If page is filing location page, add registries dictionary for list of court registries
+    if step == "10_location":
+        responses_dict['registries'] = sorted(list_of_registries)
     return render(request, template_name=template, context=responses_dict)
 
 
