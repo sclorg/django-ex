@@ -18,15 +18,22 @@ class BceidMiddleware(object):
         # make the FORCE_SCRIPT_NAME available in templates
         request.proxy_root_path = settings.FORCE_SCRIPT_NAME
 
-        # todo: Make sure the request is coming from the justice proxy (via IP/host check)
+        if settings.DEPLOYMENT_TYPE != 'localdev' and not request.META.get('HTTP_SM_USERDN', False):
 
-        # 1. Real BCeID user
+            # 1. Real BCeID user / logged in
 
-        # todo: parse the siteminder headers and stick them into a dictionary request.bceid_user
+            # todo: Make sure the request is coming from the justice proxy (via IP/host check)
 
-        if request.session.get('fake-bceid-guid', False):
+            request.bceid_user = BceidUser(
+                guid=request.META.get('HTTP_SM_USERDN', ''),
+                is_authenticated=True,
+                type='BCEID',
+                first_name='Bud',
+                last_name='Bundy'
+            )
+        elif request.session.get('fake-bceid-guid', False):
 
-            # 2. Fake BCeID user
+            # 2. Fake BCeID user / logged in
             request.bceid_user = BceidUser(
                 guid=request.session.get('fake-bceid-guid', ''),
                 is_authenticated=True,
@@ -36,8 +43,7 @@ class BceidMiddleware(object):
             )
         else:
 
-            # 3.  Anonymous User
-
+            # 3.  Anonymous User / not logged in
             if request.session.get('anon-guid', False):
                 request.session['anon-guid'] = uuid.uuid4().urn[9:]
 

@@ -22,7 +22,8 @@ def intro(request):
 
 
 def login(request):
-    if not request.session.get('fake-bceid-guid'):
+
+    if settings.DEPLOYMENT_TYPE == 'localdev' and not request.session.get('fake-bceid-guid'):
         return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
     else:
         guid = request.bceid_user.guid

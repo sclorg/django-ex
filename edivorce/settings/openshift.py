@@ -48,19 +48,19 @@ COMPRESS_OFFLINE = True
 #
 # See nginx-proxy/conf.d/server.conf for related settings
 #
-OPENSHIFT_ENVIRONMENT_TYPE = os.getenv('ENVIRONMENT_TYPE')
+DEPLOYMENT_TYPE = os.getenv('ENVIRONMENT_TYPE')
 
 PROXY_URL_PREFIX = ''
 
-if OPENSHIFT_ENVIRONMENT_TYPE == 'dev':
+if DEPLOYMENT_TYPE == 'dev':
     PROXY_URL_PREFIX = "/divorce-dev"
     DEBUG = True
 
-if OPENSHIFT_ENVIRONMENT_TYPE == 'test':
+if DEPLOYMENT_TYPE == 'test':
     PROXY_URL_PREFIX = "/divorce-test"
 
 
-if OPENSHIFT_ENVIRONMENT_TYPE == 'prod':
+if DEPLOYMENT_TYPE == 'prod':
     PROXY_URL_PREFIX = "/divorce"
 
 

@@ -16,3 +16,5 @@ TEMPLATES[0]["OPTIONS"]["debug"] = True
 
 WEASYPRINT_URL = 'http://localhost:5005'
 WEASYPRINT_CSS_LOOPBACK = 'http://10.200.10.1:8000'
+
+DEPLOYMENT_TYPE = 'localdev'
