@@ -31,19 +31,19 @@
             <em> In the Supreme Court of British Columbia </em>
         </p>
         <p>
-            Claimant 1: {{ responses.name_you }}
+            Claimant 1:<br /> <span class="form-entry_claimant">{{ responses.name_you }}</span>
         </p>
         <p>
-            Claimant 2: {{ responses.name_spouse }}
+            Claimant 2:<br /> <span class="form-entry_claimant">{{ responses.name_spouse }}</span>
         </p>
-        <h2 align="center">
+        <p>
+            &nbsp;
+        </p>
+        <h2 class="text-center">
             NOTICE OF JOINT FAMILY CLAIM
         </h2>
-        <h3>1 Relationship history</h3>
-        <p>
-            [<em>Check the correct box(es) and complete the required information </em> .]
-        </p>
-        </p>
+
+        <h3>1. Relationship history</h3>
         <table class="table table-bordered">
             <tbody>
                 <tr>
@@ -58,8 +58,8 @@
                     <td colname="c2"> {% if responses.when_were_you_married %} {{ responses.when_were_you_married }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
                 </tr>
                 <tr>
-                    <td><i class="fa {% if responses.separation_date %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} separated on </td>
-                    <td colname="c2"> {% if responses.separation_date %} {{ responses.separation_date }} {% else %} <span class="form-entry not-complete">&nbsp;</span> [<em>dd/mmm/yyyy</em>]{% endif %} </td>
+                    <td><i class="fa {% if responses.separation_date %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} separated on [dd/mm/yyyy]</td>
+                    <td colname="c2"> {% if responses.separation_date %} {{ responses.separation_date }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
                 </tr>
                 <tr>
                     <td><i class="fa fa-square-o" aria-hidden="true"></i> were divorced from each other by order made on [<em>dd/mm/yyyy</em>]</td>
@@ -71,9 +71,8 @@
                 </tr>
             </tbody>
         </table>
-        <h3>2 Divorce</h3>
-        <p> [ <em>Complete if you are asking for a divorce order.</em>]
-        </p>
+
+        <h3>2. Divorce</h3>
         <table class="table table-bordered">
             <tbody>
                 <tr>
@@ -81,7 +80,7 @@
                     <td colspan="3"> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for a divorce order. </td>
                 </tr>
                 <tr>
-                    <td colspan="3"> <strong> A Personal information: </strong> </td>
+                    <td colspan="3"> <strong> A. Personal information: </strong> </td>
                 </tr>
                 <tr>
                     <td> </td>
@@ -140,13 +139,13 @@
         <table class="table table-bordered table-fixed">
             <tbody>
                 <tr>
-                    <td colspan="2"> <strong> B Grounds for claim for divorce: </strong><br />[<em>If divorce is claimed as a result of having lived separate and apart, complete paragraph (i).</em>] </td>
+                    <td colspan="2"> <strong> B. Grounds for claim for divorce: </strong></td>
                 </tr>
                 <tr>
-                    <td colspan="2"> (i) <i class="fa {% if responses.separation_date %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} Claimant 1 and Claimant 2 have lived separate and apart since {% if responses.separation_date %} {{ responses.separation_date }} {% else %} <span class="form-entry not-complete">&nbsp;</span> [dd/mm/yyyy]{% endif %}</td>
+                    <td colspan="2"> (i) <i class="fa {% if responses.separation_date %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} Claimant 1 and Claimant 2 have lived separate and apart since {% if responses.separation_date %} {{ responses.separation_date }} {% else %} <span class="form-entry not-complete">&nbsp;</span>{% endif %}</td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <strong> AND </strong ><br /><em> [Check whichever one of the following boxes is correct and complete any required information.] </em> </td>
+                    <td colspan="2"> <strong> AND </strong ></em> </td>
                 </tr>
                 <tr>
                     <td colspan="2"> <i class="fa {% if responses.try_reconcile_after_separated == 'NO' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} Claimant 1 and Claimant 2 have not lived together since then </td>
@@ -159,11 +158,7 @@
                     <td><p>to: <span class="form-entry not-complete">&nbsp;</span></p> <p>to: <span class="form-entry not-complete">&nbsp;</span></p> <p>to: <span class="form-entry not-complete">&nbsp;</span></p></td>
                 </tr>
                 <tr>
-                    <td colspan="2"> [<em>If divorce is claimed on grounds other than having lived separate and apart, complete paragraph (ii) by checking both of the following boxes and completing the required information.</em>] </td>
-                </tr>
-                <tr>
                     <td colspan="2"> (ii) <i class="fa fa-square-o" aria-hidden="true"></i> <strong> Other grounds </strong> , under section 8 (2) (b) of the <em> Divorce Act </em> (Canada): <span class="form-entry form-textarea not-complete">&nbsp;</span>
-                        <p class="text-center">[<em>state the grounds</em>]</p>
                     </td>
                 </tr>
                 <tr>
@@ -174,7 +169,7 @@
         <table class="table table-bordered table-fixed">
             <tbody>
                 <tr>
-                    <td colspan="2"> <strong> C Claimant 1 and Claimant 2 confirm that: </strong> [<em>Check both of the following boxes.</em>] </td>
+                    <td colspan="2"> <strong> C. Claimant 1 and Claimant 2 confirm that: </strong> [<em>Check both of the following boxes.</em>] </td>
                 </tr>
                 <tr>
                     <td colspan="2"> <i class="fa {% if responses.no_reconciliation_possible == 'agree' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There is no possibility of reconciliation. </td>
@@ -187,7 +182,7 @@
         <table class="table table-bordered table-fixed">
             <tbody>
                 <tr>
-                    <td colspan="2"> <strong> D Proof of marriage: </strong><br />[<em>Check whichever one of the following boxes is correct and complete any required information.</em>] </td>
+                    <td colspan="2"> <strong> D. Proof of marriage: </strong><br />[<em>Check whichever one of the following boxes is correct and complete any required information.</em>] </td>
                 </tr>
                 <tr>
                     <td colspan="2"> <i class="fa {% if responses.original_marriage_certificate == 'YES' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} A certificate of marriage or registration of marriage has been filed. </td>
@@ -195,22 +190,18 @@
                 <tr>
                     <td colspan="2"> <i class="fa {% if responses.original_marriage_certificate == 'NO' and responses.provide_certificate_later == 'YES' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} A certificate of marriage or registration of marriage is not being filed with this notice of joint family claim because
                         <span class="form-entry form-textarea not-complete">{% if responses.provide_certificate_later_reason and responses.original_marriage_certificate == 'NO' and responses.provide_certificate_later == 'YES' %} {{ responses.provide_certificate_later_reason }}</span> {% else %} &nbsp;</span> {% endif %}
-                        <p class="text-center">[<em>state the reasons</em>] </p>
                         <p>and the certificate will be filed before this claim is set down for trial or an application is made for an order of divorce.</p>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2"> <i class="fa {% if responses.original_marriage_certificate == 'NO' and not responses.provide_certificate_later == 'YES' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} It is impossible to obtain a certificate of marriage or registration of marriage because:
                         <span class="form-entry form-textarea not-complete">&nbsp;{% if responses.not_provide_certificate_reason and responses.original_marriage_certificate == 'NO' and not responses.provide_certificate_later == 'YES' %} {{ responses.not_provide_certificate_reason }}</span> {% else %} &nbsp;</span> {% endif %}
-                        <p class="text-center">[<em>state the reasons</em>]</p>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <h3>3 Information concerning children</h3>
-        <p>
-            <em>[Complete section 3 if you are asking for an order in relation to children.]</em>
-        </p>
+
+        <h3>3. Information concerning children</h3>
         <table class="table table-bordered">
             <tbody>
                 <tr>
@@ -257,25 +248,19 @@
                 </tr>
             </tbody>
         </table>
-        <h3>4 Orders asked for in relation to children</h3>
-        <p>
-            [<em>Complete section 4 for those children in relation to whom you are asking for an order.</em>]
-        </p>
+
+        <h3>4. Orders asked for in relation to children</h3>
         <table class="table table-bordered">
             <tbody>
                 <tr>
-                    <td colname="c2"> A <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for the following order respecting arrangements for parenting or contact: <span class="form-entry form-textarea not-complete">&nbsp;</span>
-                        <p
-                            class="text-center">
-                            [<em>set out terms of proposed order</em>]
-                            </p>
+                    <td colname="c2">
+                        A <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for the following order respecting arrangements for parenting or contact: <span class="form-entry form-textarea not-complete">&nbsp;</span>
                     </td>
                 </tr>
                 <tr>
-                    <td colname="c2"> B <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for child support as follows: <span class="form-entry form-textarea not-complete">&nbsp;</span>
-                        <p class="text-center">
-                            [<em>set out terms of proposed order</em>]
-                        </p>
+                    <td colname="c2">
+                        B <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for child support as follows: <span class="form-entry form-textarea not-complete">&nbsp;</span>
+
                     </td>
                 </tr>
                 <tr>
@@ -286,19 +271,14 @@
                 </tr>
             </tbody>
         </table>
-        <h3> 5 Spousal support</h3>
-        <p>
-            [<em>Complete section 5 if you are asking for an order for spousal support.</em>]
-        </p>
+
+        <h3>5. Spousal support</h3>
         <table class="table table-bordered">
             <tbody>
                 <tr>
                     {% check_list source=responses.want_which_orders value='Spousal support' as order_wanted %}
                     <td colname="c2"> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for spousal support as follows:
                         <span class="form-entry form-textarea not-complete">{% if responses.spouse_support_details %} {{responses.spouse_support_details }} {% else %} &nbsp; {% endif %}</span>
-                        <p class="text-center">
-                            [<em>set out terms of proposed order</em>]
-                        </p>
                     </td>
                 </tr>
                 <tr>
@@ -310,10 +290,8 @@
                 </tr>
             </tbody>
         </table>
-        <h3>6 Property and debt</h3>
-        <p>
-            [<em>Complete section 6 if you are asking for an order in relation to property or debt.</em>]
-        </p>
+
+        <h3>6. Property and debt</h3>
         <table class="table table-bordered">
             <tbody>
                 <tr>
@@ -321,16 +299,13 @@
                 </tr>
                 <tr>
                     {% check_list source=responses.want_which_orders value='Division of property and debts' as order_wanted %}
-                    <td> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for: <br /><em> [Check whichever one of the following boxes is correct and complete any required information in relation to family property and family debt, as those terms are defined in the Family Law Act.] </em>                        </td>
+                    <td> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for: <br /><em> </td>
                 </tr>
                 <tr>
                     <td> <i class="fa {% if responses.deal_with_property_debt == 'equal division' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} an equal division of family property and family debt </td>
                 </tr>
                 <tr>
                     <td> <i class="fa {% if responses.deal_with_property_debt == 'unequal division' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} an unequal division of family property and family debt as follows: <span class="form-entry form-textarea not-complete">&nbsp;</span>
-                        <p class="text-center">
-                            [<em>set out details of proposed division</em>]
-                        </p>
                     </td>
                 </tr>
                 <tr>
@@ -342,10 +317,8 @@
                 </tr>
             </tbody>
         </table>
-        <h3>7 Other</h3>
-        <p>
-            [<em>Complete section 7 if you are asking for any other order.</em>]
-        </p>
+
+        <h3>7. Other</h3>
         <table class="table table-bordered">
             <tbody>
                 <tr>
@@ -358,10 +331,8 @@
                 </tr>
             </tbody>
         </table>
-        <h3 class="force-break">8 Claimants' addresses for service</h3>
-        <p>
-            [<em>Set out the street address of the address for service. One or both of a fax number and an e-mail address may be given as additional addresses for service.</em>]
-        </p>
+
+        <h3 class="force-break">8. Claimants' addresses for service</h3>
         <table class="table table-bordered">
             <tbody>
                 <tr>
