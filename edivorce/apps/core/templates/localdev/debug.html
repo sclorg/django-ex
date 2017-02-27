@@ -1,0 +1,14 @@
+<html>
+<head>
+    <title>Debug</title>
+</head>
+
+<body>
+
+{% for k, v in request.META.items %}
+    {{ k }} = {{ v }}<br/>
+{% endfor %}
+
+</body>
+
+</html>

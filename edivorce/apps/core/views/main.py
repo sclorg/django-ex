@@ -27,6 +27,10 @@ def login(request):
         return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
     else:
         guid = request.bceid_user.guid
+
+        if guid == None:
+            return render(request, 'localdev/debug.html')
+
         user, created = BceidUser.objects.get_or_create(user_guid=guid)
 
         user.last_login = timezone.now()
