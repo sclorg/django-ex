@@ -68,4 +68,6 @@ FORCE_SCRIPT_NAME = PROXY_URL_PREFIX + '/'
 STATIC_URL = PROXY_URL_PREFIX + '/static/'
 WEASYPRINT_CSS_LOOPBACK += PROXY_URL_PREFIX
 
+LOGOUT_URL = 'https://logon.gov.bc.ca/clp-cgi/logoff.cgi?returl=https://justice.gov.bc.ca%s&retnow=1' % PROXY_URL_PREFIX
+
 

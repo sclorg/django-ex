@@ -39,8 +39,11 @@ def login(request):
 
 def logout(request):
     request.session.flush()
-    return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/intro')
 
+    if settings.DEPLOYMENT_TYPE == 'localdev':
+        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/intro')
+    else:
+        return redirect(settings.LOGOUT_URL)
 
 def prequalification(request, step):
     """

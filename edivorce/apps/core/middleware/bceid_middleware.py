@@ -18,7 +18,9 @@ class BceidMiddleware(object):
         # make the FORCE_SCRIPT_NAME available in templates
         request.proxy_root_path = settings.FORCE_SCRIPT_NAME
 
-        if settings.DEPLOYMENT_TYPE != 'localdev' and not request.META.get('HTTP_SM_USERDN', False):
+        localdev = settings.DEPLOYMENT_TYPE == 'localdev'
+
+        if not localdev and request.META.get('HTTP_SM_USERDN', '') != '':
 
             # 1. Real BCeID user / logged in
 
@@ -31,7 +33,8 @@ class BceidMiddleware(object):
                 first_name='Bud',
                 last_name='Bundy'
             )
-        elif request.session.get('fake-bceid-guid', False):
+
+        elif localdev and request.session.get('fake-bceid-guid', False):
 
             # 2. Fake BCeID user / logged in
             request.bceid_user = BceidUser(
