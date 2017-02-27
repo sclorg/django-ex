@@ -60,6 +60,12 @@ i.fa {
     min-height: 200px;
 }
 
+.form-entry_claimant {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    display: block;
+}
 .not-complete {
     background-color: #fcf8e3;
 }
@@ -67,4 +73,5 @@ i.fa {
 .table-fixed {
     table-layout: fixed;
 }
+
 
