@@ -6,7 +6,9 @@
 <body>
 
 {% for k, v in request.META.items %}
-    {{ k }} = {{ v }}<br/>
+    {% if k.isupper %}
+        {{ k }} = {{ v }}<br/>
+    {% endif %}
 {% endfor %}
 
 </body>
