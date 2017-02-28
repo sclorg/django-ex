@@ -24,8 +24,6 @@ class BceidMiddleware(object):
 
             # 1. Real BCeID user / logged in
 
-            # todo: Make sure the request is coming from the justice proxy (via IP/host check)
-
             request.bceid_user = BceidUser(
                 guid=request.META.get('HTTP_SM_USERDN', ''),
                 is_authenticated=True,
