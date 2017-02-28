@@ -1,14 +1,15 @@
 import uuid
-
+from ipaddress import ip_address, ip_network
 from django.conf import settings
+from django.shortcuts import redirect
 
 
 class BceidUser(object):
-    def __init__(self, guid, first_name, last_name, type, is_authenticated):
+    def __init__(self, guid, first_name, last_name, user_type, is_authenticated):
         self.guid = guid
         self.first_name = first_name
         self.last_name = last_name
-        self.type = type
+        self.type = user_type
         self.is_authenticated = is_authenticated
 
 
@@ -20,14 +21,17 @@ class BceidMiddleware(object):
 
         localdev = settings.DEPLOYMENT_TYPE == 'localdev'
 
+        # make sure the request didn't bypass the proxy
+        if not localdev and not self.__request_came_from_proxy(request):
+            return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME)
+
         if not localdev and request.META.get('HTTP_SM_USERDN', '') != '':
 
             # 1. Real BCeID user / logged in
-
             request.bceid_user = BceidUser(
                 guid=request.META.get('HTTP_SM_USERDN', ''),
                 is_authenticated=True,
-                type='BCEID',
+                user_type='BCEID',
                 first_name='Bud',
                 last_name='Bundy'
             )
@@ -38,10 +42,11 @@ class BceidMiddleware(object):
             request.bceid_user = BceidUser(
                 guid=request.session.get('fake-bceid-guid', ''),
                 is_authenticated=True,
-                type='FAKE',
+                user_type='FAKE',
                 first_name='Kelly',
                 last_name='Bundy'
             )
+
         else:
 
             # 3.  Anonymous User / not logged in
@@ -51,10 +56,28 @@ class BceidMiddleware(object):
             request.bceid_user = BceidUser(
                 guid=request.session.get('anon-guid'),
                 is_authenticated=False,
-                type='ANONYMOUS',
+                user_type='ANONYMOUS',
                 first_name='',
                 last_name=''
             )
 
     def process_response(self, request, response):
         return response
+
+
+    def __request_came_from_proxy(self, request):
+        """
+        Validate that the request is coming from inside the BC Government data centre
+        """
+        # allow all OpenShift health checks
+        if request.path == settings.FORCE_SCRIPT_NAME + 'health':
+            return True
+
+        bcgov_network = ip_network(settings.BCGOV_NETWORK)
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR', '')
+        forwarded_for = x_forwarded_for.split(',')
+
+        for ip in forwarded_for:
+            if ip_address(ip) in bcgov_network:
+                return True
+        return False
