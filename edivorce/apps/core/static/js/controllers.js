@@ -68,14 +68,15 @@ var radioWithTextboxControl = function(el){
 
     // when textbox is clicked, update associated radio button response with its value
     else if (el.is(".other-textbox")){
-        var radioTextbox = el.siblings(".radio_with_textbox");
+        var radioTextbox = el.parents().find(".radio_with_textbox");
         ajaxCall(radioTextbox.prop('name'), radioTextbox.val());
     }
 };
 
 // Get value from various input fields
 // If input is checkbox, get all checked items' value and separate them by ;
-var getValue = function(el, question, value){
+var getValue = function(el, question){
+    var value = [];
     // if checkbox, get list of values.
     if (el.is("input[type=checkbox]")){
         // special behaviour for question children_financial_support
@@ -83,10 +84,18 @@ var getValue = function(el, question, value){
             childSupportCheckboxControl(el);
         }
         $(".checkbox-group").find("input[type=checkbox]:checked").each(function(){
-            value += $(this).val() + '; ';
+            value.push($(this).val());
         });
         // to remove last space and semi-colon
-        return value.slice(0, -2);
+        return JSON.stringify(value);
+    }
+    else if (question == "other_name_you" || question == "other_name_spouse"){
+        var aliasType;
+        $('#other_names_fields').find("input[type=text]").each(function () {
+            aliasType = $(this).siblings(".alias-type").val();
+            value.push([aliasType, $(this).val()]);
+        });
+        return JSON.stringify(value);
     }
     else{
         return el.val();

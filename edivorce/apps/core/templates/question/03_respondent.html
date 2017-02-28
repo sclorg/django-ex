@@ -80,8 +80,21 @@
 
                     <div id="enter_name" hidden>
                         <h3>Please enter the name</h3>
-                        {% input_field type="text" name="other_name_spouse" class="form-block input-wide response-textbox" %}
-                        <input type="button" value="Add name"/>
+                        <!-- This is used for adding a new other name field when add button is clicked -->
+                        <div id="other_names_group" hidden>
+                            {% include "partials/alias_field.html" with name="other_name_spouse" value=' ' delete_button="true" %}
+                        </div>
+                        <div id="other_names_fields">
+                            {% if other_name_spouse %}
+                                {% multiple_values_to_list source=other_name_spouse as values %}
+                                {% for alias_type, value in values %}
+                                    {% include "partials/alias_field.html" with name="other_name_spouse" alias_type=alias_type value=value delete_button="true" %}
+                                {% endfor %}
+                            {% else %}
+                                 {% include "partials/alias_field.html" with name="other_name_spouse" value='' %}
+                            {% endif %}
+                        </div>
+                        <input type="button" id="btn_add_other_names" value="Add name" data-add-for="spouse"/>
                     </div>
 
                 </div>

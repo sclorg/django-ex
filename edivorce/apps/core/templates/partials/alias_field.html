@@ -1,0 +1,11 @@
+{% load input_field %}
+<div style="display: inline-flex">
+    <select class="alias-type" name={{name}}>
+        <option value="also known as" {% if alias_type == 'also known as' %} selected {% endif %}>Also known as</option>
+        <option value="often called" {% if alias_type == 'often called' %} selected {% endif %}>Often called</option>
+    </select>
+    {% input_field type="text" name=name value=value class="form-block input-wide response-textbox" %}
+    {% if delete_button == "true" %}
+        <button class="btn-delete">Delete</button>
+    {% endif %}
+</div>

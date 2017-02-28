@@ -1,4 +1,5 @@
 from django import template
+import json
 
 register = template.Library()
 
@@ -20,14 +21,17 @@ def input_field(context, type, name='', value='', **kwargs):
         tag.append('</textarea>')
     else:
         # set initial value for textbox
-        if type == "text":
+        if type == "text" and value == '':
             value = context.get(name, '')
         tag = ['<input type="' + type + '" name="' + name + '" value="' + value + '"']
 
         tag = additional_attributes(tag, **kwargs)
 
         # check if buttons should be selected by default
-        value_list = context.get(name, '').split('; ')
+        if type == 'checkbox':
+            value_list = json.loads(context.get(name, '[]'))
+        else:
+            value_list = context.get(name, '')
 
         if value in value_list and value != '':
             tag.append(' checked')
@@ -50,4 +54,10 @@ def check_list(source, value):
     """
     Check if given value is in the given source
     """
-    return value in source.split('; ')
+    return value in json.loads(source)
+
+
+@register.assignment_tag
+def multiple_values_to_list(source):
+    json_list = json.loads(source)
+    return json_list

@@ -4,7 +4,7 @@ var ajaxOnChange = function () {
     // show/hide additional information if needed
     reveal(el);
     var question = el.prop('name');
-    var value = getValue(el, question, '');
+    var value = getValue(el, question);
     var isValid = true;
 
     // Check if date is in valid format DD/MM/YYYY

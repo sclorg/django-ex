@@ -79,14 +79,27 @@
 
                     <div id="enter_name" hidden>
                         <h3>Please enter the name</h3>
-                        {% input_field type="text" name="other_name_you" class="form-block input-wide response-textbox" %}
-                        <input type="button" value="Add name"/>
+                        <!-- This is used for adding a new other name field when add button is clicked -->
+                        <div id="other_names_group" hidden>
+                            {% include "partials/alias_field.html" with name="other_name_you" value=' ' delete_button="true" %}
+                        </div>
+                        <div id="other_names_fields">
+                            {% if other_name_you %}
+                                {% multiple_values_to_list source=other_name_you as values %}
+                                {% for alias_type, value in values %}
+                                    {% include "partials/alias_field.html" with name="other_name_you" alias_type=alias_type value=value delete_button="true" %}
+                                {% endfor %}
+                            {% else %}
+                                 {% include "partials/alias_field.html" with name="other_name_you" %}
+                            {% endif %}
+                        </div>
+                        <input type="button" id="btn_add_other_names" value="Add name" data-add-for="you"/>
                     </div>
                 </div>
 
                 <div>
                     <h3>What was your last name when you were born?</h3>
-                    {% input_field type="text" name="last_name_born_you" class="form-block input-wide response-textbox" %}
+                    <div>{% input_field type="text" name="last_name_born_you" class="form-block input-wide response-textbox" %}</div>
                     <p>This is often referred to as Family name or Surname</p>
                 </div>
 
@@ -113,7 +126,7 @@
                     <h3>How long have you lived in British Columbia?</h3>
                     <p>Please select one</p>
                     <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="lived_in_bc_you" value="Since birth" %}Since birth</label></div>
-                    <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="lived_in_bc_you" value="Moved to British Columbia on" %}Moved to British Columbia on <span class="date-picker-group">{% input_field type="text" name="moved_to_bc_date_you" id="moved_date" class="date-picker-group date-picker other-textbox input-inline" tabindex="-1" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></span></label></div>
+                    <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="lived_in_bc_you" value="Moved to British Columbia on" %}Moved to British Columbia on <span class="date-picker-group">{% input_field type="text" name="moved_to_bc_date_you" id="moved_date" class="date-picker other-textbox input-inline" tabindex="-1" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></span></label></div>
                     <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="lived_in_bc_you" value="Do not live in British Columbia" %}Do not live in British Columbia</label></div>
 
                     <p>In order to apply for a divorce in British Columbia, you or your spouse must have been a regular resident in B.C (the legal term is ordinarily resident
