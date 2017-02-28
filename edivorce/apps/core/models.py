@@ -11,7 +11,7 @@ class BceidUser(models.Model):
     BCeID user table
     """
 
-    user_guid = models.CharField(db_index=True, max_length=50, unique=True, blank=False)
+    user_guid = models.CharField(db_index=True, max_length=200, unique=True, blank=False)
     """ BCEID identifier for user """
 
     date_joined = models.DateTimeField(default=timezone.now)
