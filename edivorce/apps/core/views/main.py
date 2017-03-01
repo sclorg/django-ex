@@ -22,10 +22,15 @@ def intro(request):
 
 
 def login(request):
-    if not request.session.get('fake-bceid-guid'):
+
+    if settings.DEPLOYMENT_TYPE == 'localdev' and not request.session.get('fake-bceid-guid'):
         return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
     else:
         guid = request.bceid_user.guid
+
+        if guid == None:
+            return render(request, 'localdev/debug.html')
+
         user, created = BceidUser.objects.get_or_create(user_guid=guid)
 
         user.last_login = timezone.now()
@@ -38,8 +43,11 @@ def login(request):
 
 def logout(request):
     request.session.flush()
-    return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/intro')
 
+    if settings.DEPLOYMENT_TYPE == 'localdev':
+        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/intro')
+    else:
+        return redirect(settings.LOGOUT_URL)
 
 def prequalification(request, step):
     """

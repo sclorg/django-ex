@@ -48,24 +48,28 @@ COMPRESS_OFFLINE = True
 #
 # See nginx-proxy/conf.d/server.conf for related settings
 #
-OPENSHIFT_ENVIRONMENT_TYPE = os.getenv('ENVIRONMENT_TYPE')
+DEPLOYMENT_TYPE = os.getenv('ENVIRONMENT_TYPE')
 
 PROXY_URL_PREFIX = ''
 
-if OPENSHIFT_ENVIRONMENT_TYPE == 'dev':
+if DEPLOYMENT_TYPE == 'dev':
     PROXY_URL_PREFIX = "/divorce-dev"
     DEBUG = True
 
-if OPENSHIFT_ENVIRONMENT_TYPE == 'test':
+if DEPLOYMENT_TYPE == 'test':
     PROXY_URL_PREFIX = "/divorce-test"
 
 
-if OPENSHIFT_ENVIRONMENT_TYPE == 'prod':
+if DEPLOYMENT_TYPE == 'prod':
     PROXY_URL_PREFIX = "/divorce"
 
 
 FORCE_SCRIPT_NAME = PROXY_URL_PREFIX + '/'
 STATIC_URL = PROXY_URL_PREFIX + '/static/'
 WEASYPRINT_CSS_LOOPBACK += PROXY_URL_PREFIX
+
+# Integration URLs
+PROXY_BASE_URL = 'https://justice.gov.bc.ca'
+LOGOUT_URL = 'https://logon.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1' % (PROXY_BASE_URL, PROXY_URL_PREFIX)
 
 

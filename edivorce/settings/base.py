@@ -109,5 +109,6 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
+BCGOV_NETWORK = os.environ.get('PROXY_NETWORK', '0.0.0.0/0')
 
 FORCE_SCRIPT_NAME = '/'
