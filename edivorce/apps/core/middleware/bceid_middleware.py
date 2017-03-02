@@ -78,7 +78,7 @@ class BceidMiddleware(object):
 
         # allow requests for static assets to bypass the proxy
         # (this is needed so WeasyPrint can request CSS)
-        if request.path.startswith(settings.STATIC_URL):
+        if request.path.startswith(settings.FORCE_SCRIPT_NAME[:-1] + settings.STATIC_URL):
             return True
 
         bcgov_network = ip_network(settings.BCGOV_NETWORK)
