@@ -82,7 +82,10 @@ class BceidMiddleware(object):
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR', '')
         forwarded_for = x_forwarded_for.split(',')
 
+        if len(forwarded_for) == 0:
+            return False
+
         for ip in forwarded_for:
-            if ip_address(ip) in bcgov_network:
+            if ip !='' and ip_address(ip) in bcgov_network:
                 return True
         return False
