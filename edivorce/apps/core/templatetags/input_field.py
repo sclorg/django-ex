@@ -54,10 +54,15 @@ def check_list(source, value):
     """
     Check if given value is in the given source
     """
-    return value in json.loads(source)
+    try:
+        return value in json.loads(source)
+    except:
+        return False
 
 
 @register.assignment_tag
 def multiple_values_to_list(source):
-    json_list = json.loads(source)
-    return json_list
+    try:
+        return json.loads(source)
+    except:
+        return []
