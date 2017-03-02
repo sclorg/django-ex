@@ -4,114 +4,108 @@
 {% block title %}{{ block.super }}: Your Marriage{% endblock %}
 
 {% block content %}
-<div class="container-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h1>Step 4: Your Marriage</h1>
-                <p>It is very important that you enter the information below as it appears on your official marriage
-                    certificate
-                    <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                       title="<b>Original Marriage Certificate</b><br /><br />The marriage certificate you received at the church —
-                       or any other place where you were married — isn't acceptable in court. You can get a  marriage certificate
-                       or a certified copy of the registration of marriage from
-                       <a href=&quot;http://www2.gov.B.C..ca/gov/content/life-events/marriages/marriage-certificates&quot;>Vital Statistics</a>
-                       (an office run by the provincial government)." aria-hidden="true"></i>
-                    or registration of marriage
-                    <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                       title="<b>Registration Marriage Certificate</b><br /><br />The Registration of Marriage is the document issued by
-                       Vital Statistics (an office run by the provincial government) along with the Marriage License. This document
-                       would have been signed by you and your spouse, the person who married you (the officiant) and your wedding ceremony witnesses.
-                       Within 48 hours of the wedding, the officiant would have submitted the registration to the Vital Statistics Agency
-                       where the registration information becomes a permanent legal record. Vital Statistics cannot issue a marriage certificate
-                       until the marriage is registered. <br/><br/> For more information, please refer to the
-                       <a href=&quot;http://www2.gov.B.C..ca/gov/content/life-events/marriages/marriage-registration/certified-copies-and-certified-electronic-extracts-of-a-marriage-registration&quot;>Marriage Registration page</a>
-                       on the  B.C. Government web site." aria-hidden="true"></i>. Not doing this can result in delays and
-                    your divorce request being returned for correction.</p>
 
-                <div id="when_married">
-                    <h3>When were you married?</h3>
-                    <p><span class="date-picker-group">{% input_field type="text" name="when_were_you_married" class="date-picker" id="marriage_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></span></p>
-                </div>
+<h1><small>Step 4: </small>Your Marriage</h1>
+<p class="intro">It is very important that you enter the information below as it appears on your <span class="toolip"data-toggle="tooltip" data-placement="right" data-html="true"
+   title="<b>Original Marriage Certificate</b><br /><br />The marriage certificate you received at the church —
+   or any other place where you were married — isn't acceptable in court. You can get a  marriage certificate
+   or a certified copy of the registration of marriage from
+   <a href=&quot;http://www2.gov.B.C..ca/gov/content/life-events/marriages/marriage-certificates&quot;>Vital Statistics</a>
+   (an office run by the provincial government).">official marriage
+    certificate
+    <i class="fa fa-question-circle" aria-hidden="true"></i></span>
+    or <span class="toolip" data-toggle="tooltip" data-placement="right" data-html="true"
+       title="<b>Registration Marriage Certificate</b><br /><br />The Registration of Marriage is the document issued by
+       Vital Statistics (an office run by the provincial government) along with the Marriage License. This document
+       would have been signed by you and your spouse, the person who married you (the officiant) and your wedding ceremony witnesses.
+       Within 48 hours of the wedding, the officiant would have submitted the registration to the Vital Statistics Agency
+       where the registration information becomes a permanent legal record. Vital Statistics cannot issue a marriage certificate
+       until the marriage is registered. <br/><br/> For more information, please refer to the
+       <a href=&quot;http://www2.gov.B.C..ca/gov/content/life-events/marriages/marriage-registration/certified-copies-and-certified-electronic-extracts-of-a-marriage-registration&quot;>Marriage Registration page</a>
+       on the  B.C. Government web site."> registration of marriage
+    <i class="fa fa-question-circle" aria-hidden="true"></i></span>. Not doing this can result in delays and
+    your divorce request being returned for correction.</p>
 
-                <div id="lived_together">
-                    <h3>When did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} begin to live together in a marriage-like relationship?</h3>
-                    <p><span class="date-picker-group">{% input_field type="text" name="when_were_you_live_married_like" class="date-picker" id="lived_start_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></span></p>
+<div id="when_married" class="question-well">
+    <h3>When were you married?</h3>
+    <p><span class="date-picker-group">{% input_field type="text" name="when_were_you_married" class="date-picker" id="marriage_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></span></p>
+</div>
 
-                    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_start_date" aria-controls="collapse_start_date">
-                        <div>
-                            How do I determine the start date?
-                        </div>
-                    </div>
-                    <div class="collapse" id="collapse_start_date">
-                        <div>
-                            <p>
-                                Under the law, the start date of a spousal relationship is the day two individuals begin living together in
-                                a marriage-like relationship, or the day they were married, whichever is first. The start date of
-                                a spousal relationship determines when rights or responsibilities start under the Family Law Act,
-                                particularly respecting property division.
-                            </p>
-                        </div>
-                    </div>
+<div id="lived_together" class="question-well">
+    <h3>When did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} begin to live together in a marriage-like relationship?</h3>
+    <p><span class="date-picker-group">{% input_field type="text" name="when_were_you_live_married_like" class="date-picker" id="lived_start_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></span></p>
 
-                    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_exact_start_date" aria-controls="collapse_exact_start_date">
-                        <div>
-                            What do I do if I can't remember the exact date?
-                        </div>
-                    </div>
-                    <div class="collapse" id="collapse_exact_start_date">
-                        <div>
-                            <p>If you cannot remember the exact date you sepearated then enter:</p>
-                            <ul>
-                                <li>the last day of that month in which you decided to separate from your spouse, and;</li>
-                                <li>year</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_start_date" aria-controls="collapse_start_date">
+        <div>
+            How do I determine the start date?
+        </div>
+    </div>
+    <div class="collapse" id="collapse_start_date">
+        <div>
+            <p>
+                Under the law, the start date of a spousal relationship is the day two individuals begin living together in
+                a marriage-like relationship, or the day they were married, whichever is first. The start date of
+                a spousal relationship determines when rights or responsibilities start under the Family Law Act,
+                particularly respecting property division.
+            </p>
+        </div>
+    </div>
 
-                <div>
-                    <h3>Where were you married?</h3>
-                    <p>Enter the location as it appears on the marriage certificate (e.g. city, province or state and country)</p>
-                    <p>City</p>
-                    {% input_field type="text" name="where_were_you_married_city" class="form-block input-wide response-textbox" %}
-                    <p>Prov/State</p>
-                    {% input_field type="text" name="where_were_you_married_prov" class="form-block input-narrow response-textbox" %}
-                    <p>Country</p>
-
-                    <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="where_were_you_married_country" value="Canada" %}Canada</label></div>
-                    <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="where_were_you_married_country" value="USA" %}USA</label></div>
-                    <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="where_were_you_married_country" value="Other" %}Other {% input_field type="text" name="where_were_you_married_other_country" class="response-textbox other-textbox input-inline" tabindex="-1" %}</label></div>
-                </div>
-
-                <div>
-                    <h3>Before you got married to your spouse, what was your marital status?</h3>
-                    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Never married" %}Never married</label></div>
-                    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Divorced" %}Divorced</label></div>
-                    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Widowed" %}Widowed</label></div>
-                </div>
-
-                <div>
-                    <h3>What was the marital status of your spouse before your marriage?</h3>
-                    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Never married" %}Never married</label></div>
-                    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Divorced" %}Divorced</label></div>
-                    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Widowed" %}Widowed</label></div>
-                </div>
-                <div style="display: flex">
-                    <form action="{% url 'question_steps' '03_respondent' %}">
-                        <input type="submit" value="Back"/>
-                    </form>
-                    <form action="#">
-                        <input type="submit" value="Save"/>
-                    </form>
-                    <form action="{% url 'question_steps' '05_separation' %}">
-                        <input type="submit" value="Next"/>
-                    </form>
-                </div>
-            </div>
+    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_exact_start_date" aria-controls="collapse_exact_start_date">
+        <div>
+            What do I do if I can't remember the exact date?
+        </div>
+    </div>
+    <div class="collapse" id="collapse_exact_start_date">
+        <div>
+            <p>If you cannot remember the exact date you sepearated then enter:</p>
+            <ul>
+                <li>the last day of that month in which you decided to separate from your spouse, and;</li>
+                <li>year</li>
+            </ul>
         </div>
     </div>
 </div>
+
+<div class="question-well">
+    <h3>Where were you married?</h3>
+    <p>Enter the location as it appears on the marriage certificate (e.g. city, province or state and country)</p>
+    <p>City</p>
+    {% input_field type="text" name="where_were_you_married_city" class="form-block input-wide response-textbox" %}
+    <p>Prov/State</p>
+    {% input_field type="text" name="where_were_you_married_prov" class="form-block input-narrow response-textbox" %}
+    <p>Country</p>
+
+    <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="where_were_you_married_country" value="Canada" %}Canada</label></div>
+    <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="where_were_you_married_country" value="USA" %}USA</label></div>
+    <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="where_were_you_married_country" value="Other" %}Other {% input_field type="text" name="where_were_you_married_other_country" class="response-textbox other-textbox input-inline" tabindex="-1" %}</label></div>
+</div>
+
+<div class="question-well">
+    <h3>Before you got married to your spouse, what was your marital status?</h3>
+    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Never married" %}Never married</label></div>
+    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Divorced" %}Divorced</label></div>
+    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Widowed" %}Widowed</label></div>
+</div>
+
+<div class="question-well">
+    <h3>What was the marital status of your spouse before your marriage?</h3>
+    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Never married" %}Never married</label></div>
+    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Divorced" %}Divorced</label></div>
+    <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Widowed" %}Widowed</label></div>
+</div>
+<div style="display: flex">
+    <form action="{% url 'question_steps' '03_respondent' %}">
+        <input type="submit" value="Back"/>
+    </form>
+    <form action="#">
+        <input type="submit" value="Save"/>
+    </form>
+    <form action="{% url 'question_steps' '05_separation' %}">
+        <input type="submit" value="Next"/>
+    </form>
+</div>
+
 
 {% endblock %}
 

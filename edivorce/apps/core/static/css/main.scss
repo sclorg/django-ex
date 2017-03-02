@@ -1,19 +1,27 @@
+// compileCompressed: $1.css
+
 $body-copy: #494949;
 
-$brand-blue: #003366;
-$brand-gold: #fcba19;
+$brand-blue: #042553;
+$brand-gold: #dea61b;
 
-$brand-titles: #213E86;
-$brand-links: #365EBE;
-$brand-buttons: #D7DFF2;
+$brand-titles: #062652;
+$brand-links: #2b5580;
+$brand-buttons: #365ebe;
 
 $color-blue-dark: $brand-titles;
 $color-blue-medium: $brand-links;
 $color-blue-light: $brand-buttons;
+$color-blue-lighter: #d4dce5;
 
 $color-grey-dark: $body-copy;
 $color-grey-medium: #9D9D9D;
-$color-grey-lightest: #f2f2f2;
+$color-grey-light: #d5d5d5;
+$color-grey-lighter: #efefef;
+$color-grey-lightest: #fdfdfd;
+
+$color-green: #57b26a;
+$color-green-light: #d9f6df;
 
 $font-custom:  Myriad-Pro, Calibri, Arial, Sans Serif;
 
@@ -26,8 +34,8 @@ $font-custom:  Myriad-Pro, Calibri, Arial, Sans Serif;
 
 body {
     font-family: $font-custom;
-    font-size: 18px;
-    line-height: 27px;
+    font-size: 16px;
+    line-height: 24px;
     color: $body-copy;
     background: #ffffff;
 	-webkit-font-smoothing: antialiased;
@@ -40,10 +48,18 @@ h1,h2,h3,h4 {
 }
 
 h1 {
-    font-weight: 400;
+    font-weight: 600;
     line-height: 54px;
-    color: $body-copy;
-    margin-bottom: 30px;
+    color: $brand-blue;
+    margin-bottom: 20px;
+	small {
+		font-size: 14px;
+		font-weight: 700;
+		text-transform: uppercase;
+		color: $brand-blue;
+		display: block;
+		letter-spacing: .1em;
+	}
 }
 
 h2 {
@@ -79,6 +95,11 @@ a {
     text-decoration: underline;
     transition: color 0.1s ease;
   }
+}
+
+.intro {
+	font-size: 18px;
+	line-height: 28px;
 }
 
 // Bootstrap Overrides
@@ -120,12 +141,25 @@ a {
 	&b {
 		font-size: 18px;
 	}
+	a {
+		color: #ffffff;
+		text-decoration: underline;
+		&:hover, &:focus {
+			color: $color-grey-light;
+		}
+	}
+}
+
+span.toolip {
+    color: $brand-titles;
+    border-bottom: dotted 1px $brand-titles;
+	cursor: pointer;
 }
 
 .collapse-trigger {
 	& > div {
-		color: $brand-links;
-		border-bottom: solid 1px $brand-links;
+		color: $brand-titles;
+		border-bottom: solid 1px $brand-titles;
 		display: inline;
 		cursor: pointer;
 		&:after {
@@ -273,13 +307,13 @@ fieldset[disabled] .btn-radio.active {
 
 input {
 	border-radius: 10px;
-    background: #f2f2f2;
     color: #494949;
-    padding: 15px 20px;
-    border: none;
+    padding: 12px 15px;
+	border: solid 1px $color-grey-light;
+	line-height: 1em;
 	&:focus {
 	    outline: 0;
-	    box-shadow: inset 0 1px 1px rgba($color-grey-dark,.075), 0 0 8px rgba($color-grey-medium,.6);
+	    box-shadow: inset 0 1px 1px rgba($color-grey-dark,.075), 0 0 4px rgba($color-grey-medium,.5);
 	}
 	&+i.fa {margin-left: 10px;}
 	&.form-block  {
@@ -293,7 +327,7 @@ input {
 		max-width: 100px;
 	}
 	&.input-inline {
-		padding: 0 20px;
+		padding: 5px 20px;
 		border-radius: 5px;
 		margin-left: 5px;
 	}
@@ -305,22 +339,25 @@ input {
 #top_banner {
     background-color: $brand-blue;
 	border-bottom: 2px solid $brand-gold;
-	padding: 5px 0 10px;
+	padding: 5px 20px 10px;
 	.top_banner-logo img {
 	    width: 148px;
 		height: auto;
 		float: left;
 	}
-	h4 {
-		color: $color-blue-light;
+	p {
+		color: #ffffff;
+		font-size: 16px;
 		line-height: 1em;
-		margin-top: 13px;
-		margin-left: 15px;
+		margin-top: 20px;
+		margin-left: 35px;
 		float: left;
 		.beta {
-		    border: solid 1px $color-blue-light;
-		    padding: 4px 5px 0;
+		    border: solid 1px #ffffff;
+		    padding: 4px 8px 3px;
 		    margin-left: 10px;
+			font-size: 12px;
+			text-transform: uppercase;
 		}
 	}
 
@@ -340,55 +377,34 @@ input {
 
 #mid_banner {
 	background-color: $color-blue-medium;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 600;
-	text-transform: uppercase;
 	.mid_banner-dash {
 		float: left;
-		margin-right: 40px;
-		margin-top: 20px;
-		i {
-			color: #ffffff;
-			padding: 0 15px;
+		margin-left: -20px;
+	}
+	.mid_banner-dash a,
+	.mid_banner-link a,
+	.more_information-link a {
+		padding: 10px 20px;
+		float: right;
+		margin-left: 20px;
+		&:hover, &.active {
+			color: $brand-blue;
+			background-color: $color-grey-lighter;
+			text-decoration: none;
+			i {
+				color: $brand-blue;
+			}
 		}
 	}
-	.mid_banner-tab {
-		float: left;
-		display: inline-block;
-		margin-top: 10px;
-		padding: 10px 15px;
-		border-radius: 10px 10px 0 0;
-		color: $color-blue-medium;
-		background: $color-blue-light;
-	}
-	.mid_banner-link {
-		margin-top: 20px;
-		float: right;
+	i {
+		color: #ffffff;
+		padding: 0 10px 0 0;
 	}
 	a {
 	  color: #ffffff;
 	  text-decoration: none;
-	  &:hover,
-	  &:focus {
-		    color: #ffffff;
-		    text-decoration: underline;
-		}
-	}
-}
-
-#bot_banner {
-	background-color: $color-blue-light;
-	padding: 10px 0;
-	font-size: 16px;
-	font-weight: 600;
-	text-transform: uppercase;
-	img {
-		max-width: 100%;
-		height: auto;
-	}
-	.bot_banner-link {
-		float: right;
-		margin-top: 8px;
 	}
 }
 
@@ -399,54 +415,58 @@ input {
 	}
 }
 
-#more_information {
-	position: absolute;
-	top: 191px;
-	right: 0;
-	background: $color-grey-dark;
-	color: #ffffff;
-	border-radius: 10px 0 0 10px;
-	padding: 15px;
-	cursor: pointer;
-	h1,h2,h3,h4 {
-		color: #ffffff;
+.question-well {
+	min-height: 20px;
+	padding: 25px;
+	margin-bottom: 25px;
+	border: 1px solid $color-grey-light;
+	border-radius: 10px;
+	&.hasFocus {border: 1px solid $brand-blue;}
+}
+
+/* Column Grid in flexbox */
+
+.row-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100%;
+	.col {
+		flex: 1 1 8%;
+		margin: 0 0 0.5rem 0;
+		padding: 0.5em 10px;
+		box-sizing: border-box;
 	}
-	h4 {
-		font-size: 16px;
-		line-height: 1em;
-		margin-bottom: 0;
-		&:after {
-			font-family: FontAwesome;
-			font-weight: normal;
-			font-style: normal;
-			display: inline-block;
-			text-decoration: inherit;
-			content: "\f067";
-			padding-left: 15px;
-			color: $brand-gold;
+	.content-column {
+		flex-basis: 100%;
+		max-width: 800px;
+		padding: 60px;
+	}
+	.progress-column {
+		flex: 0 0 262px;
+		background-color: $color-grey-lighter;
+	}
+	.more_information-column {
+		flex: 0 0 306px;
+		background-color: $color-grey-lighter;
+		box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+		padding: 45px 20px;
+		font-size: 14px;
+		line-height: 21px;
+		.more_information-close {
+			float: right;
+			font-size: 24px;
+			margin-top: 3px;
+			color: $brand-blue;
 		}
-	}
-	&>:not(.more_information-title) {
-		display: none;
-	}
-	&.active {
-		&>:not(.more_information-title) {
-			display: block;
-		}
-		h4 {
-			padding-bottom: 20px;
-			margin-bottom: 20px;
-			border-bottom: solid 1px $color-grey-medium;
-			&:after {
-				font-family: FontAwesome;
-				font-weight: normal;
-				font-style: normal;
-				display: inline-block;
-				text-decoration: inherit;
-				content: "\f068";
-				padding-left: 60px;
-				color: $brand-gold;
-			}
+		h2 {
+			color: $brand-blue;
+			padding-right: 25px;
 		}
 	}
 }
+
+
+
+
+

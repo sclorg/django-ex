@@ -29,12 +29,12 @@
     </head>
     <body>
         <div id="top_banner">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="top_banner-logo">
                             <a href="{% url 'intro' %}"><img src="{% static 'svg/bc-logo.svg' %}" /></a>
-                            <h4>Uncontested Divorce <span class="beta">beta</span></h4>
+                            <p>Joint Divorce <span class="beta">beta</span></p>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -55,31 +55,19 @@
         {% if not hide_nav %}
 
             <div id="mid_banner">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-9 col-lg-10">
-                            <div class="mid_banner-dash"><a href="{% url 'overview' %}"><i class="fa fa-pie-chart" aria-hidden="true"></i>Dashboard</a>
+                        <div class="col-md-5">
+                            <div class="mid_banner-dash"><a href="{% url 'overview' %}"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>Back to Dashboard</a>
                             </div>
-                            <span class="mid_banner-tab">1: Prepare Notice of Joint Family Claim (f1)</span>
                         </div>
-                        <div class="col-md-3 col-lg-2">
-                            <div class="mid_banner-link"><a href="#">Legal Support</a></div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div id="bot_banner">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-2 hidden-sm">
-
-                        </div>
-                        <div class="col-sm-10 col-md-8">
-                            <img src="{% static 'img/FPO-progress.png' %}"/>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="bot_banner-link"><a href="#">Preview Form</a></div>
+                        <div class="col-md-7">
+                            <div class="more_information-link">
+                                <a href="#"><i class="fa fa-info-circle" aria-hidden="true"></i>More Information</a>
+                            </div>
+                            <div class="mid_banner-link">
+                                <a href="#"><i class="fa fa-balance-scale" aria-hidden="true"></i>Legal Support</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,15 +75,30 @@
 
         {% endif %}
 
-        {% block content %}{% endblock %}
+        <div class="row-flex">
+        	<div class="col-flex progress-column">
+                <p>Stuff</p>
+            </div>
 
-        {% block sidebar %}
-        <div id="more_information" class="">
-            <h4 class="more_information-title">More Information</h4>
-            {% block sidebarText %}
+            <div class="col">
+                <div class="col-flex content-column">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+
+            {% block sidebar %}
+            <div class="col-flex more_information-column hidden">
+                <a href="#" class="more_information-close"><i class="fa fa-times" aria-hidden="true"></i></a>
+                {% block sidebarText %}
+                {% endblock %}
+            </div>
             {% endblock %}
+
         </div>
-        {% endblock %}
+
+
+
+
 
         <script type="text/javascript" src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/vendor/bootstrap.min.js' %}"></script>

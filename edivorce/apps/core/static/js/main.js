@@ -53,13 +53,33 @@ $(function () {
 });
 
 // Expand More Information boxes
-// TODO this is fragile and really just a place holder until the sidebar is revised
-$("#more_information").click(function () {
-    if ($(this).hasClass("active")) {
-        $(this).removeClass("col-md-4 active");
-        $(".container-wrapper .col-md-8").addClass("col-md-offset-2");
+$(".more_information-link a").click(function () {
+    var moreInfo = $(".more_information-column");
+    if ($(moreInfo).hasClass("hidden")) {
+        $(moreInfo).removeClass("hidden");
     } else {
-        $(this).addClass("col-md-4 active");
-        $(".container-wrapper .col-md-8").removeClass("col-md-offset-2");
+        $(moreInfo).addClass("hidden");
     }
 });
+$("a.more_information-close").click(function () {
+    var moreInfo = $(".more_information-column");
+    $(moreInfo).addClass("hidden");
+});
+
+// Change border color on well when child has focus
+
+$(".question-well").click(function () {
+    $(".question-well").removeClass('hasFocus');
+    $(this).addClass('hasFocus');
+});
+
+// $('.question-well > *')
+//     .focus(function() {
+//         $(this).parent('.question-well').addClass('hasFocus');
+//         console.log("FOCUS!");
+//     })
+//     .blur(function() {
+//         $(this).parent('.question-well').removeClass('hasFocus');
+//         console.log("NO FOCUS!");
+//     });
+
