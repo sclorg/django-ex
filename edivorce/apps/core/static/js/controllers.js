@@ -83,7 +83,7 @@ var getValue = function(el, question){
         if (question == "children_financial_support"){
             childSupportCheckboxControl(el);
         }
-        $(".checkbox-group").find("input[type=checkbox]:checked").each(function(){
+        el.parents(".checkbox-group").find("input[type=checkbox]:checked").each(function(){
             value.push($(this).val());
         });
         // to remove last space and semi-colon

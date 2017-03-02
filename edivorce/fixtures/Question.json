@@ -502,5 +502,29 @@
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_email_spouse"
+},
+{
+    "fields": {
+        "name": "Form 35 requisition dummy question",
+        "description": "DUMMY QUESTION for form 35 first question"
+    },
+    "model": "core.question",
+    "pk": "form35_dummy_requisition"
+},
+{
+    "fields": {
+        "name": "Form 35 additional dummy question",
+        "description": "DUMMY QUESTION for form 35 second question"
+    },
+    "model": "core.question",
+    "pk": "form35_dummy_additional"
+},
+{
+    "fields": {
+        "name": "Will you be swearing/affirming your affidavit together at the registry? Or will you be doing this separately?",
+        "description": "DUMMY QUESTION for form 38 first question"
+    },
+    "model": "core.question",
+    "pk": "form38_dummy_together"
 }
 ]

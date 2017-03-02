@@ -1,4 +1,5 @@
 {% load static %}
+{% load input_field %}
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -31,10 +32,12 @@
             <em> In the Supreme Court of British Columbia </em>
         </p>
         <p>
-            Claimant 1: {% if responses.name_you %} {{ responses.name_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+            Claimant 1: {% if responses.name_you %} {% include "partials/name_with_alias.html" with name=responses.name_you other_names=responses.other_name_you %}
+                        {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
         </p>
         <p>
-            Claimant 2: {% if responses.name_spouse %} {{ responses.name_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+            Claimant 2: {% if responses.name_spouse %} {% include "partials/name_with_alias.html" with name=responses.name_spouse other_names=responses.other_name_spouse %}
+                        {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
         </p>
         <h2 class="text-center">
            REQUISITION
@@ -58,23 +61,28 @@
         <p>
             [<em>Check all of the following boxes and file the following with this requisition.</em>]
         </p>
+        {% check_list source=responses.form35_dummy_requisition value='option1' as dummy_option %}
         <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> draft of the order sought;
+            <i class="fa {% if dummy_option %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> draft of the order sought;
         </p>
+        {% check_list source=responses.form35_dummy_requisition value='option2' as dummy_option %}
         <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> proof that the case is an undefended family law case;
+            <i class="fa {% if dummy_option %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> proof that the case is an undefended family law case;
         </p>
+        {% check_list source=responses.form35_dummy_requisition value='option3' as dummy_option %}
         <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> certificate of the registrar in Form F36;
+            <i class="fa {% if dummy_option %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> certificate of the registrar in Form F36;
         </p>
+        {% check_list source=responses.form35_dummy_requisition value='option4' as dummy_option %}
         <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> filing fee.
+            <i class="fa {% if dummy_option %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> filing fee.
         </p>
         <p>
             [<em>Check the following box and file the following with this requisition unless a response to family claim or response to counterclaim has been filed or unless this case is a joint family law case within the meaning of Rule 2-2 of the Supreme Court Family Rules</em>.]
         </p>
+        {% check_list source=responses.form35_dummy_additional value='option1' as dummy_option %}
         <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> proof of service of the notice of family claim or counterclaim, as the case may be.
+            <i class="fa {% if dummy_option %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> proof of service of the notice of family claim or counterclaim, as the case may be.
         </p>
         <p>
             [<em>Check the following box and file the following document with this requisition if</em>
@@ -87,14 +95,16 @@
         <p class="schIndent1">
             <em>(b) the family law case includes a claim for child support.</em>]
         </p>
+        {% check_list source=responses.form35_dummy_additional value='option2' as dummy_option %}
         <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> Child Support Affidavit in Form F37.
+            <i class="fa {% if dummy_option %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Child Support Affidavit in Form F37.
         </p>
         <p>
             [<em>Check the following box and file the following document with this requisition if a divorce is sought.</em>]
         </p>
+        {% check_list source=responses.form35_dummy_additional value='option3' as dummy_option %}
         <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> affidavit in Form F38.
+            <i class="fa {% if dummy_option %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> affidavit in Form F38.
         </p>
         <p>
         </p>

@@ -26,10 +26,18 @@ $(function () {
 
     // Delete button will remove field and update user responses
     $(".btn-delete").on('click', function () {
-        // store neighbour input text to trigger change event to update list after delete
-        var neighbour = $(this).parent('div').prev().find("input:text");
         $(this).parent('div').remove();
-        neighbour.triggerHandler('change');
+
+        // update by trigger change event on one of the text field
+        var textField = $('#other_names_fields').find('input:text');
+        textField.first().triggerHandler('change');
+
+        // when there is only one field left, clear it instead of delete it
+        if (textField.length < 1){
+            $("#btn_add_other_names").triggerHandler('click');
+            $('#other_names_fields').find('input:text').first().triggerHandler('change');
+        }
+
     });
 
     // Configuration for datepicker

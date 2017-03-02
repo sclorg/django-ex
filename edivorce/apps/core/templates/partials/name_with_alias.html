@@ -1,0 +1,11 @@
+{% load input_field %}
+<br />
+<span class="form-entry_claimant">
+    {{ name }}
+    {% if other_names %}
+        {% multiple_values_to_list source=other_names as values %}
+        {% for alias_type, value in values %}
+            {% if value != '' and value != ' ' %} {{alias_type}} {{value}} {% endif %}
+        {% endfor %}
+    {% endif %}
+</span>

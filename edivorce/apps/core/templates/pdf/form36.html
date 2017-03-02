@@ -31,10 +31,12 @@
             <em> In the Supreme Court of British Columbia </em>
         </p>
         <p>
-            Claimant 1: {% if responses.name_you %} {{ responses.name_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+            Claimant 1: {% if responses.name_you %} {% include "partials/name_with_alias.html" with name=responses.name_you other_names=responses.other_name_you %}
+                        {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
         </p>
         <p>
-            Claimant 2: {% if responses.name_spouse %} {{ responses.name_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+            Claimant 2: {% if responses.name_spouse %} {% include "partials/name_with_alias.html" with name=responses.name_spouse other_names=responses.other_name_spouse %}
+                        {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
         </p>
         <h2 align="center">
            CERTIFICATE OF PLEADINGS

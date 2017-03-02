@@ -1,0 +1,98 @@
+{% extends 'base.html' %}{% load input_field %}
+
+{% block title %}{{ block.super }}: Review{% endblock %}
+
+{% block content %}
+<div class="container-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div>
+                    <h1>FORM 35</h1>
+                    <h1>Filed with this requisition are: </h1>
+                    <div class="checkbox-group">
+                        <div class="checkbox">
+                            <label>
+                                {% input_field type="checkbox" name="form35_dummy_requisition" value="option1" %}a draft of the order sought
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {% input_field type="checkbox" name="form35_dummy_requisition" value="option2" %}proof that the case is an undefended family law case
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {% input_field type="checkbox" name="form35_dummy_requisition" value="option3" %}certificate of the registrar in Form F36
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {% input_field type="checkbox" name="form35_dummy_requisition" value="option4" %}filing fee
+                            </label>
+                        </div>
+                    </div>
+
+                    <h1>Additional request:</h1>
+                    <div class="checkbox-group">
+                        <div class="checkbox">
+                            <label>
+                                {% input_field type="checkbox" name="form35_dummy_additional" value="option1" %}proof of service of the Notice of Family Claim or Counterclaim, as the case may be.
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {% input_field type="checkbox" name="form35_dummy_additional" value="option2" %}a Child Support Affidavit in Form F37.
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {% input_field type="checkbox" name="form35_dummy_additional" value="option3" %}an Affidavit in Form F38.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div>
+                    <h1>FORM 38</h1>
+                    <div>
+                        <h1>Will you be swearing/affirming your affidavit together at the registry? Or will you be doing this separately?</h1>
+                        <div class="btn-radio-group" data-toggle="buttons">
+                            <label class="btn btn-radio btn-radio-long">
+                                {% input_field type="radio" name="form38_dummy_together" autocomplete="off" value="option1" %} Together
+                            </label>
+                            <label class="btn btn-radio btn-radio-long">
+                                {% input_field type="radio" name="form38_dummy_together" autocomplete="off" value="option2" %} Separate
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div>
+                    <h1>FORM 52</h1>
+                </div>
+
+                <form action="{% url 'overview' %}">
+                    <input type="submit" value="Process overview" style="border: solid"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

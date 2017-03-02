@@ -1,8 +1,10 @@
 {% load input_field %}
 <div style="display: inline-flex">
-    <select class="alias-type" name={{name}}>
+    <select class="response-dropdown alias-type" name={{name}}>
         <option value="also known as" {% if alias_type == 'also known as' %} selected {% endif %}>Also known as</option>
-        <option value="often called" {% if alias_type == 'often called' %} selected {% endif %}>Often called</option>
+        <option value="now known as" {% if alias_type == 'now known as' %} selected {% endif %}>Now known as</option>
+        <option value="otherwise known as" {% if alias_type == 'otherwise known as' %} selected {% endif %}>Otherwise known as</option>
+        <option value="with assumed name of" {% if alias_type == 'with assumed name of' %} selected {% endif %}>With assumed name of</option>
     </select>
     {% input_field type="text" name=name value=value class="form-block input-wide response-textbox" %}
     {% if delete_button == "true" %}
