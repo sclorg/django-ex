@@ -3,17 +3,11 @@
 {% block title %}{{ block.super }}: Login{% endblock %}
 
 {% block content %}
-<div class="container-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <form action="{% url 'overview' %}">
-                    <input type="submit" value="Log-in"/>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
+<form action="{% url 'overview' %}">
+    <input type="submit" value="Log-in"/>
+</form>
+
 {% endblock %}
 
 {% block sidebar %}

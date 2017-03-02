@@ -4,10 +4,7 @@
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
 {% block content %}
-<div class="container-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+
                 <h1>Do you qualify for a divorce in BC?</h1>
                 <div>
                     <h3>Do you or your spouse live in British Columbia?</h3>
@@ -77,10 +74,7 @@
                 <form action="{% url 'prequalification' '03' %}">
                     <input type="submit" value="Next"/>
                 </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 {% endblock %}
 {% block sidebarText%}
 <h2>Ordinarily Resident</h2>

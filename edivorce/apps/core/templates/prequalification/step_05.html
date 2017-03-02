@@ -4,171 +4,165 @@
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
 {% block content %}
-<div class="container-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h1>Do you qualify for a divorce in BC?</h1>
-                <h3>Will you be able to provide proof of your marriage (in the form of an original or certified marriage certificate
-                    <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                       title="<b>Original Marriage Certificate</b><br /><br />The marriage certificate you received at the church —
-                       or any other place where you were married — isn't acceptable in court. You can get a  marriage certificate
-                       or a certified copy of the registration of marriage from
-                       <a href=&quot;http://www2.gov.B.C..ca/gov/content/life-events/marriages/marriage-certificates&quot;>Vital Statistics</a>
-                       (an office run by the provincial government)." aria-hidden="true"></i>
-                    or registration of marriage
-                    <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                       title="<b>Registration Marriage Certificate</b><br /><br />The Registration of Marriage is the document issued by
-                       Vital Statistics (an office run by the provincial government) along with the Marriage License. This document
-                       would have been signed by you and your spouse, the person who married you (the officiant) and your wedding ceremony witnesses.
-                       Within 48 hours of the wedding, the officiant would have submitted the registration to the Vital Statistics Agency
-                       where the registration information becomes a permanent legal record. Vital Statistics cannot issue a marriage certificate
-                       until the marriage is registered. <br/><br/> For more information, please refer to the
-                       <a href=&quot;http://www2.gov.B.C..ca/gov/content/life-events/marriages/marriage-registration/certified-copies-and-certified-electronic-extracts-of-a-marriage-registration&quot;>Marriage Registration page</a>
-                       on the  B.C. Government web site." aria-hidden="true"></i>)?</h3>
-                
-                <div class="btn-radio-group" data-toggle="buttons">
-                    <label class="btn btn-radio">
-                        {% input_field type="radio"  name="original_marriage_certificate" autocomplete="off" value="YES" data_target_id="marriage_certificate" data_reveal_target="false" %} Yes
-                    </label>
 
-                    <label class="btn btn-radio">
-                        {% input_field type="radio"  name="original_marriage_certificate" autocomplete="off" value="NO" data_target_id="marriage_certificate" data_reveal_target="true" %} No
-                    </label>
-                </div>
+<h1>Do you qualify for a divorce in BC?</h1>
+<h3>Will you be able to provide proof of your marriage (in the form of an original or certified marriage certificate
+    <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+       title="<b>Original Marriage Certificate</b><br /><br />The marriage certificate you received at the church —
+       or any other place where you were married — isn't acceptable in court. You can get a  marriage certificate
+       or a certified copy of the registration of marriage from
+       <a href=&quot;http://www2.gov.B.C..ca/gov/content/life-events/marriages/marriage-certificates&quot;>Vital Statistics</a>
+       (an office run by the provincial government)." aria-hidden="true"></i>
+    or registration of marriage
+    <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+       title="<b>Registration Marriage Certificate</b><br /><br />The Registration of Marriage is the document issued by
+       Vital Statistics (an office run by the provincial government) along with the Marriage License. This document
+       would have been signed by you and your spouse, the person who married you (the officiant) and your wedding ceremony witnesses.
+       Within 48 hours of the wedding, the officiant would have submitted the registration to the Vital Statistics Agency
+       where the registration information becomes a permanent legal record. Vital Statistics cannot issue a marriage certificate
+       until the marriage is registered. <br/><br/> For more information, please refer to the
+       <a href=&quot;http://www2.gov.B.C..ca/gov/content/life-events/marriages/marriage-registration/certified-copies-and-certified-electronic-extracts-of-a-marriage-registration&quot;>Marriage Registration page</a>
+       on the  B.C. Government web site." aria-hidden="true"></i>)?</h3>
 
-                <p><em>The marriage certificate you received at the church — or any other place where you were married — isn't
-                    acceptable in court. You need the certificate that was issued to you by the government.</em></p>
+<div class="btn-radio-group" data-toggle="buttons">
+    <label class="btn btn-radio">
+        {% input_field type="radio"  name="original_marriage_certificate" autocomplete="off" value="YES" data_target_id="marriage_certificate" data_reveal_target="false" %} Yes
+    </label>
 
-                <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseExample" aria-controls="collapseExample">
-                    <div>
-                        How can I get an original copy of  my marriage certificate or registration of marriage?
-                    </div>
-                </div>
-                <div class="collapse" id="collapseExample">
-                    <div>
-                        <p>If you were married in B.C. you can get a copy of your marriage certificate or a certified copy of
-                            the registration of marriage from
-                            <a href="http://www2.gov.bc.ca/gov/content/life-events/marriages/marriage-certificates" target="_blank">
-                                Vital Statistics</a> (an office run by the provincial government).</p>
+    <label class="btn btn-radio">
+        {% input_field type="radio"  name="original_marriage_certificate" autocomplete="off" value="NO" data_target_id="marriage_certificate" data_reveal_target="true" %} No
+    </label>
+</div>
 
-                        <p><b>If You Were Married in Another Province</b></p>
-                        <p>If you were married in another province you need to get the official marriage certificate or
-                        registration of marriage from the office equivalent to the department of vital statistics in that
-                            province.</p>
+<p><em>The marriage certificate you received at the church — or any other place where you were married — isn't
+    acceptable in court. You need the certificate that was issued to you by the government.</em></p>
 
-                        <p><b>If You Were married in Another Country</b></p>
-                        <p>Contact the office responsible for marriage records in the country where you were married.</p>
-                    </div>
-                </div>
-
-                <div class="reveal" id="marriage_certificate" hidden>
-                    <h3>Will you be providing the marriage certificate or registration of marriage at a later date</h3>
-
-                    <div class="btn-radio-group" data-toggle="buttons">
-                        <label class="btn btn-radio">
-                            {% input_field type="radio" name="provide_certificate_later" autocomplete="off" value="YES" data_target_id="reason_not_providing" data_reveal_target="false" data_related_id="provide_later_date" %} Yes
-                        </label>
-
-                        <label class="btn btn-radio btn-radio-long">
-                            {% input_field type="radio" name="provide_certificate_later" autocomplete="off" value="NO" data_target_id="reason_not_providing" data_reveal_target="true" data_related_id="provide_later_date" %} No, it is impossible to obtain a marriage certificate (or registration of marriage
-                        </label>
-                    </div>
-
-                    <div class="information-message" id="provide_later_date" hidden>
-                        <div class="bg-danger">
-                            <p>
-                                If you can't get your marriage certificate before your case begins, state that on the court forms and explain why.
-                                You may be able to file your marriage certificate later if the court registrar
-                                <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                                title="<b>Court Registrar</b><br /><br />An officer of the court who has the power to make
-                                certain decisions (such as whether or not a divorce application without an original marriage certificate will be accepted).</a>." aria-hidden="true"></i>
-                                is satisfied that you had a good reason for not filing this document sooner. If the court registrar is dissatisfied
-                                with your reason for not filing your marriage certificate, you will be unable to file your claim for divorce until the document can be produced.
-                            </p>
-                        </div>
-                        <h3>If you will be providing the marriage certificate or registration of marriage at a later date, please let us know why.</h3>
-                        <p>Ideally the marriage certificate or registration of marriage is provided to the registry
-                           <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                           title="<b>Registry</b><br /><br />A registry is where you file your divorce documents.
-                           Registries are located in courthouses <a href=&quot;http://www.ag.gov.bc.ca/courts/overview/locations/&quot;>around the province</a>." aria-hidden="true"></i>
-                            when you file the Notice of Joint Family Claim
-                            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                           title="<b>Notice of Joint Family Claim</b><br /><br />This is the document that start the court case.
-                           The Notice of Joint Family Claim (form F1) gives the court details about you and your spouse, about your marriage
-                           and separation, and about what you're asking the court for.</a>." aria-hidden="true"></i>(form F1).</p>
-                        {% input_field type="textarea" class="response-textarea" name="provide_certificate_later_reason" rows="8" cols="65" %}
-                        <p>If the registrar
-                            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                           title="<b>registrar</b><br /><br />An officer of the court who has the power to make
-                           certain decisions (such as whether or not a divorce application without an original marriage certificate will be accepted).</a>." aria-hidden="true"></i>
-                            agrees with the reasons you provide, and accepts the Notice of Joint Family Claim (form F1),
-                            you will need to provide proof of marriage before your application for a divorce order
-                            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                           title="<b>order</b><br /><br />A type of court ruling a judge or master makes that sets out what you must do or not do.</a>." aria-hidden="true"></i>
-                            will be reviewed by the court. Other matters can be pursued in the mean time.</p>
-                        <p>If the registrar is dissatisfied with the reason (s) you provide, you will not be able to file
-                            the Notice of Joint Family claim (form F1)  until the proof of marriage can be produced.</p>
-                    </div>
-
-                    <div class="information-message" id="reason_not_providing" hidden>
-                        <div class="bg-danger">
-                            <p>Since you will not be providing a marriage certificate, or a registration of marriage,  you will need
-                            to state why it is impossible for you to obtain this documentation. The court registrar
-                            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                           title="<b>Court Registrar</b><br /><br />An officer of the court who has the power to make
-                           certain decisions (such as whether or not a divorce application without an original marriage certificate will be accepted).</a>." aria-hidden="true"></i>
-                            will review and then decide whether or not they will accept your reason (s). You will be asked for this detail later in this online tool.</p>
-                        </div>
-                        <h3>Please tell us why it is impossible to obtain a marriage certificate or registration of marriage.
-                            The registrar will review and then decide whether or not they will accept your reason (s).</h3>
-                        {% input_field type="textarea" class="response-textarea" name="not_provide_certificate_reason" rows="8" cols="65" %}
-                    </div>
-                </div>
-
-                <div>
-                    <h3>Is you marriage certificate or registration of marriage in English?</h3>
-
-                    <div class="btn-radio-group" data-toggle="buttons">
-                        <label class="btn btn-radio">
-                            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="YES" data_target_id="certificate_in_english" data_reveal_target="false" %} Yes
-                        </label>
-
-                        <label class="btn btn-radio">
-                            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="NO" data_target_id="certificate_in_english" data_reveal_target="true" %} No
-                        </label>
-                    </div>
-
-                    <div class="information-message bg-danger" id="certificate_in_english" hidden>
-                        <p>Sorry but at this point in time you will need to complete your application for divorce using the Supreme Court of B.C. forms (PDF). The
-                            <a href="http://www.ag.gov.bc.ca/courts/other/supreme/2010SupRules/info/index_family.htm" target="_blank">forms</a>
-                            can be found on the Court Services Branch web site.</p>
-                        <p>A <a href="http://www.familylaw.lss.bc.ca/guides/divorce/divJoint_courtForms.php" target="_blank">listing of forms</a>
-                            that may be required for a Joint Divorce can also be found on the Family Law web site. </p>
-                        <p><b>Proof of MarriageTranslation</b><br/>
-                            You need to get your proof of marriage translated by a certified translator if it is not t in English.
-                            Ask the translator to give you an Affidavit of Translation. You'll then need to file at the court registry
-                            both the original marriage certificate/registration of marriage and the Affidavit of Translation
-                            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                           title="<b>Affidavit of Translation</b><br /><br />The affidavit of translation is an affidavit sworn by
-                           a translator before a notary or commissioner for taking affidavits. " aria-hidden="true"></i>
-                            with the English translation attached as exhibits. A translator can help you do this.</p>
-                        <p><b>If you were married in Quebec and your marriage certificate is in French</b><br/>
-                            If your marriage certificate is in French, the registry may require you to get it translated into English. Contact your
-                            <a href="http://www.courts.gov.bc.ca/supreme_court/court_locations_and_contacts.aspx" target="_blank">Supreme Court registry</a>
-                            to find out what its rule is about marriage certificates in French.</p>
-                    </div>
-                </div>
-
-                <div style="display: flex">
-                    <form action="{% url 'prequalification' '06' %}">
-                        <input type="submit" value="Next"/>
-                    </form>
-                </div>
-            </div>
-        </div>
+<div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseExample" aria-controls="collapseExample">
+    <div>
+        How can I get an original copy of  my marriage certificate or registration of marriage?
     </div>
 </div>
+<div class="collapse" id="collapseExample">
+    <div>
+        <p>If you were married in B.C. you can get a copy of your marriage certificate or a certified copy of
+            the registration of marriage from
+            <a href="http://www2.gov.bc.ca/gov/content/life-events/marriages/marriage-certificates" target="_blank">
+                Vital Statistics</a> (an office run by the provincial government).</p>
+
+        <p><b>If You Were Married in Another Province</b></p>
+        <p>If you were married in another province you need to get the official marriage certificate or
+        registration of marriage from the office equivalent to the department of vital statistics in that
+            province.</p>
+
+        <p><b>If You Were married in Another Country</b></p>
+        <p>Contact the office responsible for marriage records in the country where you were married.</p>
+    </div>
+</div>
+
+<div class="reveal" id="marriage_certificate" hidden>
+    <h3>Will you be providing the marriage certificate or registration of marriage at a later date</h3>
+
+    <div class="btn-radio-group" data-toggle="buttons">
+        <label class="btn btn-radio">
+            {% input_field type="radio" name="provide_certificate_later" autocomplete="off" value="YES" data_target_id="reason_not_providing" data_reveal_target="false" data_related_id="provide_later_date" %} Yes
+        </label>
+
+        <label class="btn btn-radio btn-radio-long">
+            {% input_field type="radio" name="provide_certificate_later" autocomplete="off" value="NO" data_target_id="reason_not_providing" data_reveal_target="true" data_related_id="provide_later_date" %} No, it is impossible to obtain a marriage certificate (or registration of marriage
+        </label>
+    </div>
+
+    <div class="information-message" id="provide_later_date" hidden>
+        <div class="bg-danger">
+            <p>
+                If you can't get your marriage certificate before your case begins, state that on the court forms and explain why.
+                You may be able to file your marriage certificate later if the court registrar
+                <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+                title="<b>Court Registrar</b><br /><br />An officer of the court who has the power to make
+                certain decisions (such as whether or not a divorce application without an original marriage certificate will be accepted).</a>." aria-hidden="true"></i>
+                is satisfied that you had a good reason for not filing this document sooner. If the court registrar is dissatisfied
+                with your reason for not filing your marriage certificate, you will be unable to file your claim for divorce until the document can be produced.
+            </p>
+        </div>
+        <h3>If you will be providing the marriage certificate or registration of marriage at a later date, please let us know why.</h3>
+        <p>Ideally the marriage certificate or registration of marriage is provided to the registry
+           <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+           title="<b>Registry</b><br /><br />A registry is where you file your divorce documents.
+           Registries are located in courthouses <a href=&quot;http://www.ag.gov.bc.ca/courts/overview/locations/&quot;>around the province</a>." aria-hidden="true"></i>
+            when you file the Notice of Joint Family Claim
+            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+           title="<b>Notice of Joint Family Claim</b><br /><br />This is the document that start the court case.
+           The Notice of Joint Family Claim (form F1) gives the court details about you and your spouse, about your marriage
+           and separation, and about what you're asking the court for.</a>." aria-hidden="true"></i>(form F1).</p>
+        {% input_field type="textarea" class="response-textarea" name="provide_certificate_later_reason" rows="8" cols="65" %}
+        <p>If the registrar
+            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+           title="<b>registrar</b><br /><br />An officer of the court who has the power to make
+           certain decisions (such as whether or not a divorce application without an original marriage certificate will be accepted).</a>." aria-hidden="true"></i>
+            agrees with the reasons you provide, and accepts the Notice of Joint Family Claim (form F1),
+            you will need to provide proof of marriage before your application for a divorce order
+            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+           title="<b>order</b><br /><br />A type of court ruling a judge or master makes that sets out what you must do or not do.</a>." aria-hidden="true"></i>
+            will be reviewed by the court. Other matters can be pursued in the mean time.</p>
+        <p>If the registrar is dissatisfied with the reason (s) you provide, you will not be able to file
+            the Notice of Joint Family claim (form F1)  until the proof of marriage can be produced.</p>
+    </div>
+
+    <div class="information-message" id="reason_not_providing" hidden>
+        <div class="bg-danger">
+            <p>Since you will not be providing a marriage certificate, or a registration of marriage,  you will need
+            to state why it is impossible for you to obtain this documentation. The court registrar
+            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+           title="<b>Court Registrar</b><br /><br />An officer of the court who has the power to make
+           certain decisions (such as whether or not a divorce application without an original marriage certificate will be accepted).</a>." aria-hidden="true"></i>
+            will review and then decide whether or not they will accept your reason (s). You will be asked for this detail later in this online tool.</p>
+        </div>
+        <h3>Please tell us why it is impossible to obtain a marriage certificate or registration of marriage.
+            The registrar will review and then decide whether or not they will accept your reason (s).</h3>
+        {% input_field type="textarea" class="response-textarea" name="not_provide_certificate_reason" rows="8" cols="65" %}
+    </div>
+</div>
+
+<div>
+    <h3>Is you marriage certificate or registration of marriage in English?</h3>
+
+    <div class="btn-radio-group" data-toggle="buttons">
+        <label class="btn btn-radio">
+            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="YES" data_target_id="certificate_in_english" data_reveal_target="false" %} Yes
+        </label>
+
+        <label class="btn btn-radio">
+            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="NO" data_target_id="certificate_in_english" data_reveal_target="true" %} No
+        </label>
+    </div>
+
+    <div class="information-message bg-danger" id="certificate_in_english" hidden>
+        <p>Sorry but at this point in time you will need to complete your application for divorce using the Supreme Court of B.C. forms (PDF). The
+            <a href="http://www.ag.gov.bc.ca/courts/other/supreme/2010SupRules/info/index_family.htm" target="_blank">forms</a>
+            can be found on the Court Services Branch web site.</p>
+        <p>A <a href="http://www.familylaw.lss.bc.ca/guides/divorce/divJoint_courtForms.php" target="_blank">listing of forms</a>
+            that may be required for a Joint Divorce can also be found on the Family Law web site. </p>
+        <p><b>Proof of MarriageTranslation</b><br/>
+            You need to get your proof of marriage translated by a certified translator if it is not t in English.
+            Ask the translator to give you an Affidavit of Translation. You'll then need to file at the court registry
+            both the original marriage certificate/registration of marriage and the Affidavit of Translation
+            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+           title="<b>Affidavit of Translation</b><br /><br />The affidavit of translation is an affidavit sworn by
+           a translator before a notary or commissioner for taking affidavits. " aria-hidden="true"></i>
+            with the English translation attached as exhibits. A translator can help you do this.</p>
+        <p><b>If you were married in Quebec and your marriage certificate is in French</b><br/>
+            If your marriage certificate is in French, the registry may require you to get it translated into English. Contact your
+            <a href="http://www.courts.gov.bc.ca/supreme_court/court_locations_and_contacts.aspx" target="_blank">Supreme Court registry</a>
+            to find out what its rule is about marriage certificates in French.</p>
+    </div>
+</div>
+
+<div style="display: flex">
+    <form action="{% url 'prequalification' '06' %}">
+        <input type="submit" value="Next"/>
+    </form>
+</div>
+
 {% endblock %}
 {% block sidebarText %}
     <h3>Video: Needed for Divorce:  Your Marriage Certificate</h3>

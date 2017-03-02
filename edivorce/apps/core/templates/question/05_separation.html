@@ -4,89 +4,78 @@
 {% block title %}{{ block.super }}: Reason For Divorce{% endblock %}
 
 {% block content %}
-<div class="container-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h1>Step 5: Your Separation</h1>
-                <div>
-                    <p>
-                        For this next question, we need to confirm that there is no chance you and your spouse will be getting back together.
-                        By selecting "I agree" this shows the court that you and your spouse have thoroughly thought out your request for divorce.
-                    </p>
-                    <h3>There is no possibility my spouse and I will get back together (reconciliation).</h3>
-                    <div class="radio"><label>{% input_field type="radio" name="no_reconciliation_possible" value="agree" %}I agree</label></div>
-                    <div class="radio"><label>{% input_field type="radio" name="no_reconciliation_possible" value="disagree" %}I disagree</label></div>
-                </div>
-            </div>
+
+
+<h1><small>Step 5:</small>Your Separation</h1>
+<div class="question-well">
+    <p>
+        For this next question, we need to confirm that there is no chance you and your spouse will be getting back together.
+        By selecting "I agree" this shows the court that you and your spouse have thoroughly thought out your request for divorce.
+    </p>
+    <h3>There is no possibility my spouse and I will get back together (reconciliation).</h3>
+    <div class="radio"><label>{% input_field type="radio" name="no_reconciliation_possible" value="agree" %}I agree</label></div>
+    <div class="radio"><label>{% input_field type="radio" name="no_reconciliation_possible" value="disagree" %}I disagree</label></div>
+</div>
+
+<!-- TODO: Confirm with JA and remove this part-->
+<div class="question-well" hidden>
+    <div>
+        <p><em>Ok, this next questions uses some legal terminology so we'll help you understand what is being asked.</em></p>
+
+        <p><em>We’re legally required to ask that you confirm that you and (!!insert spouse name) haven’t lied or
+            tried to deceive the court in any way. This is called “collusion”. An example of collusion is both
+            of you saying that you’ve been separated for longer than you actually have been.</em></p>
+
+        <p><em>Please confirm that there’s been no collusion in this claim for divorce. The court can refuse to
+            grant a divorce if you and your spouse have not been honest (collusion) about your marriage and
+            separation details.</em></p>
+    </div>
+
+    <div>
+        <h3>There has been no collusion
+            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+           title="<b>COURT REGISTRY</b><br /><br />A central office (for the B.C. Supreme Court) at which
+           the court files for each court proceeding in that district are maintained, and at which legal documents,
+           can be filed, searched for and reviewed" aria-hidden="true"></i>,
+            as defined in section 11(4) of the Divorce Act (Canada), in relation to this claim for divorce.</h3>
+        <div class="radio"><label>{% input_field type="radio" name="no_collusion" value="agree" %}I agree</label></div>
+        <div class="radio"><label>{% input_field type="radio" name="no_collusion" value="disagree" %}I disagree</label></div>
+    </div>
+</div>
+
+<div class="question-well">
+    <p>
+        We’re legally required to ask that you confirm that you and {% if responses.name_spouse %} {{ responses.name_spouse }} {% else %} your spouse {% endif %}
+        haven’t lied or tried to deceive the court in any way. This is called “collusion
+        <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+       title="<b>Collusion</b><br /><br />Basically this statement confirms that you and your spouse haven’t lied or tried to deceive the court in any way
+       (for example, saying that you’ve been separated for longer than you have been). It is a legal requirement that you confirm you are providing accurate
+       and complete information. Apologies if you are offended with this question." aria-hidden="true"></i>
+        ”. An example of collusion is both
+        of you saying that you’ve been separated for longer than you actually have been.
+    </p>
+    <div class="checkbox-group">
+        <div class="checkbox">
+            <label>
+                {% input_field type="checkbox" name="no_collusion" value="No collusion" %} My spouse and I have not engaged in collusion to deceive the court in any way.
+            </label>
         </div>
     </div>
 </div>
-<div class="container-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <!-- TODO: Confirm with JA and remove this part-->
-                <div hidden>
-                    <div>
-                        <p><em>Ok, this next questions uses some legal terminology so we'll help you understand what is being asked.</em></p>
 
-                        <p><em>We’re legally required to ask that you confirm that you and (!!insert spouse name) haven’t lied or
-                            tried to deceive the court in any way. This is called “collusion”. An example of collusion is both
-                            of you saying that you’ve been separated for longer than you actually have been.</em></p>
-
-                        <p><em>Please confirm that there’s been no collusion in this claim for divorce. The court can refuse to
-                            grant a divorce if you and your spouse have not been honest (collusion) about your marriage and
-                            separation details.</em></p>
-                    </div>
-
-                    <div>
-                        <h3>There has been no collusion
-                            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                           title="<b>COURT REGISTRY</b><br /><br />A central office (for the B.C. Supreme Court) at which
-                           the court files for each court proceeding in that district are maintained, and at which legal documents,
-                           can be filed, searched for and reviewed" aria-hidden="true"></i>,
-                            as defined in section 11(4) of the Divorce Act (Canada), in relation to this claim for divorce.</h3>
-                        <div class="radio"><label>{% input_field type="radio" name="no_collusion" value="agree" %}I agree</label></div>
-                        <div class="radio"><label>{% input_field type="radio" name="no_collusion" value="disagree" %}I disagree</label></div>
-                    </div>
-                </div>
-
-                <div>
-                    <p>
-                        We’re legally required to ask that you confirm that you and {% if responses.name_spouse %} {{ responses.name_spouse }} {% else %} your spouse {% endif %}
-                        haven’t lied or tried to deceive the court in any way. This is called “collusion
-                        <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                       title="<b>Collusion</b><br /><br />Basically this statement confirms that you and your spouse haven’t lied or tried to deceive the court in any way
-                       (for example, saying that you’ve been separated for longer than you have been). It is a legal requirement that you confirm you are providing accurate
-                       and complete information. Apologies if you are offended with this question." aria-hidden="true"></i>
-                        ”. An example of collusion is both
-                        of you saying that you’ve been separated for longer than you actually have been.
-                    </p>
-                    <div class="checkbox-group">
-                        <div class="checkbox">
-                            <label>
-                                {% input_field type="checkbox" name="no_collusion" value="No collusion" %} My spouse and I have not engaged in collusion to deceive the court in any way.
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display: flex">
-                    <form action="{% url 'question_steps' '04_marriage' %}">
-                        <input type="submit" value="Back"/>
-                    </form>
-                    <form action="#">
-                        <input type="submit" value="Save"/>
-                    </form>
-                    <form action="{% url 'question_steps' '06_support' %}">
-                        <input type="submit" value="Next"/>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+<div style="display: flex">
+    <form action="{% url 'question_steps' '04_marriage' %}">
+        <input type="submit" value="Back"/>
+    </form>
+    <form action="#">
+        <input type="submit" value="Save"/>
+    </form>
+    <form action="{% url 'question_steps' '06_support' %}">
+        <input type="submit" value="Next"/>
+    </form>
 </div>
+
+
 {% endblock %}
 {% block sidebarText %}
     <div>

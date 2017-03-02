@@ -3,24 +3,19 @@
 {% block title %}{{ block.super }}: Other Orders{% endblock %}
 
 {% block content %}
-<div class="container-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h1>Step 8. Other Orders</h1>
-                 <div style="display: flex">
-                    <form action="{% url 'question_steps' '07_property' %}">
-                        <input type="submit" value="Back"/>
-                    </form>
-                    <form action="#">
-                        <input type="submit" value="Save"/>
-                    </form>
-                    <form action="{% url 'question_steps' '09_other_questions' %}">
-                        <input type="submit" value="Next"/>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
+<h1><small>Step 8:</small>Other Orders</h1>
+<div style="display: flex">
+    <form action="{% url 'question_steps' '07_property' %}">
+        <input type="submit" value="Back"/>
+    </form>
+    <form action="#">
+        <input type="submit" value="Save"/>
+    </form>
+    <form action="{% url 'question_steps' '09_other_questions' %}">
+        <input type="submit" value="Next"/>
+    </form>
 </div>
+
 {% endblock %}

@@ -150,7 +150,7 @@ a {
 	}
 }
 
-span.toolip {
+.tooltip-link {
     color: $brand-titles;
     border-bottom: dotted 1px $brand-titles;
 	cursor: pointer;
@@ -333,6 +333,14 @@ input {
 	}
 }
 
+textarea {
+    width: 100%;
+	border-radius: 10px;
+    color: #494949;
+    padding: 12px 15px;
+	border: solid 1px $color-grey-light;
+	line-height: 1em;
+}
 
 // Customizations
 

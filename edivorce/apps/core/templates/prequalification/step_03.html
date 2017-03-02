@@ -4,123 +4,117 @@
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
 {% block content %}
-<div class="container-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div>
-                    <h3>When did you and your spouse separate (legally this is referred to as living separate and apart)
-                        <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                       title="<b>Living separate and apart</b><br /><br /><p>You or your spouse have decided to end the marriage. In general one separates by moving out.
-                       However it is possible to be separated but still live under the same roof as long as either you our your spouse,
-                       have clearly communicated  your intention for a permanent separation (and are starting to act upon it).</p>
-                        <p>This could mean:</p><ul><li>You're living in separate rooms</li><li>You're sleeping in separate beds</li><li>There's no sexual relationship</li>" aria-hidden="true"></i>?
-                    </h3>
-                    <p><span class="date-picker-group">{% input_field type="text" name="separation_date" class="date-picker" id="separated_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></span></p>
 
-                    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_determine_separation_date" aria-controls="collapse_determine_separation_date">
-                        <div>
-                            How do I determine the separation date?
-                        </div>
-                    </div>
-                    <div class="collapse" id="collapse_determine_separation_date">
-                        <div>
-                            <p>Starts when one spouse decides that things have come to an end/the relationship is over, and then act on the decision.</p>
+<div class="question-well">
+    <h3>When did you and your spouse separate (legally this is referred to as living separate and apart)
+        <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+       title="<b>Living separate and apart</b><br /><br /><p>You or your spouse have decided to end the marriage. In general one separates by moving out.
+       However it is possible to be separated but still live under the same roof as long as either you our your spouse,
+       have clearly communicated  your intention for a permanent separation (and are starting to act upon it).</p>
+        <p>This could mean:</p><ul><li>You're living in separate rooms</li><li>You're sleeping in separate beds</li><li>There's no sexual relationship</li>" aria-hidden="true"></i>?
+    </h3>
+    <p><span class="date-picker-group">{% input_field type="text" name="separation_date" class="date-picker" id="separated_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></span></p>
 
-                             <p>
-                                 There is no such thing as a "legal separation." If you're married or in a common-law relationship,
-                                 you become separated as soon as you and your spouse start living apart with at least one of you wanting to separate.
-                                 You don't need your spouse's permission to start living separately. You can tell others that you wish to separate,
-                                 but you don't have to see a lawyer, sign a document, or go to court to be separated.
-                             </p>
+    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_determine_separation_date" aria-controls="collapse_determine_separation_date">
+        <div>
+            How do I determine the separation date?
+        </div>
+    </div>
+    <div class="collapse" id="collapse_determine_separation_date">
+        <div>
+            <p>Starts when one spouse decides that things have come to an end/the relationship is over, and then act on the decision.</p>
 
-                             <p>
-                                 You might even still live in the same house to save money, but you're usually still considered separated
-                                 if you don't share things like meals, a bedroom, and social activities.
-                             </p>
-                        </div>
-                    </div>
+             <p>
+                 There is no such thing as a "legal separation." If you're married or in a common-law relationship,
+                 you become separated as soon as you and your spouse start living apart with at least one of you wanting to separate.
+                 You don't need your spouse's permission to start living separately. You can tell others that you wish to separate,
+                 but you don't have to see a lawyer, sign a document, or go to court to be separated.
+             </p>
 
-                    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_exact_date" aria-controls="collapse_exact_date">
-                        <div>
-                            What do I do if I can't remember the exact date?
-                        </div>
-                    </div>
-                    <div class="collapse" id="collapse_exact_date">
-                        <div>
-                            <p>If you cannot remember the exact date you separated then enter:</p>
-                            <ul>
-                                <li>the last day of that month in which you decided to separate from your spouse, and;</li>
-                                <li>year</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+             <p>
+                 You might even still live in the same house to save money, but you're usually still considered separated
+                 if you don't share things like meals, a bedroom, and social activities.
+             </p>
+        </div>
+    </div>
 
-                <div class="information-message bg-danger" id="separation_date_alert" hidden>
-                    <p>
-                        The date you entered indicates you've been separated for less than one year You can use this online tool to start working
-                        on the divorce forms, however you will not be able to file your documents at the registry until
-                        the one year separation period has passed.
-                    </p>
-                    <p>Under the Divorce Act, a divorce may be granted on one of three grounds:</p>
-                    <ul>
-                        <li>intentional separation for more than one year</li>
-                        <li>adultery</li>
-                        <li>physical or mental cruelty</li>
-                    </ul>
-                    <p>
-                        Most divorces are granted on the basis of intentional separation for more than a year.
-                        It's possible to get a divorce more quickly by basing it on the grounds of either adultery or physical or mental cruelty.
-                        However, you must be able to prove the adultery or cruelty. It's best to talk to a lawyer before deciding to seek a divorce
-                        on grounds other than separation.
-                    </p>
-                </div>
-
-                <div>
-                    <h3>Did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} try and reconcile after you separated <span id="separation_date_span"></span>?</h3>
-                    <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" value="NO" %}
-                        No, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I have not reconciled (gotten back together)</label>
-                    </div>
-                    <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" value="YES" %}
-                        Yes, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I lived together again during the following period(s) in an unsuccessful attempt to reconcile</label>
-                    </div>
-
-                    <!-- TODO: Dev note: If reconciliation period is greater than 90 days, display Alert message in column F -->
-                    <!-- TODO: Add multiple date adding fields -->
-                    <div>
-                        <div class="information-message bg-danger" hidden>
-                            <p>Based on the date(s) you have provided for reconciliation, we have detected that your reconciliation may be for a period of greater than 90 days. Within the one year separation period, you can only live  together for 90 days or less. </p>
-                            <p>You can still proceed to complete the application, however, it will be up to the court to decide if you have lived separate and apart for the required period of one year.</p>
-                            <!-- TODO: Talk to a lawyer links to help centre page. -->
-                            <p>You may want to talk to a lawyer regarding your legal rights and options. </p>
-                        </div>
-                    </div>
-
-                    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_reconcile_not_work" aria-controls="collapse_reconcile_not_work">
-                        <div>
-                            What happens if my spouse and I tried to get back together for a short time but it did not work out?
-                        </div>
-                    </div>
-                    <div class="collapse" id="collapse_reconcile_not_work">
-                        <div>
-                            <p>
-                                Spouses that are separated can get back together and live together again to try and make the marriage work.
-                                But within the one-year separation period, they can only live together for a total of 90 days or less.
-                                If they live together for more than 90 days, the one-year period of separation starts all over again from the date of the last separation.
-                                For more information on separation, refer to script 115 on “Separation and Separation Agreements”.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <form action="{% url 'prequalification' '04' %}">
-                    <input type="submit" value="Next"/>
-                </form>
-            </div>
+    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_exact_date" aria-controls="collapse_exact_date">
+        <div>
+            What do I do if I can't remember the exact date?
+        </div>
+    </div>
+    <div class="collapse" id="collapse_exact_date">
+        <div>
+            <p>If you cannot remember the exact date you separated then enter:</p>
+            <ul>
+                <li>the last day of that month in which you decided to separate from your spouse, and;</li>
+                <li>year</li>
+            </ul>
         </div>
     </div>
 </div>
+
+<div class="information-message bg-danger" id="separation_date_alert" hidden>
+    <p>
+        The date you entered indicates you've been separated for less than one year You can use this online tool to start working
+        on the divorce forms, however you will not be able to file your documents at the registry until
+        the one year separation period has passed.
+    </p>
+    <p>Under the Divorce Act, a divorce may be granted on one of three grounds:</p>
+    <ul>
+        <li>intentional separation for more than one year</li>
+        <li>adultery</li>
+        <li>physical or mental cruelty</li>
+    </ul>
+    <p>
+        Most divorces are granted on the basis of intentional separation for more than a year.
+        It's possible to get a divorce more quickly by basing it on the grounds of either adultery or physical or mental cruelty.
+        However, you must be able to prove the adultery or cruelty. It's best to talk to a lawyer before deciding to seek a divorce
+        on grounds other than separation.
+    </p>
+</div>
+
+<div class="question-well">
+    <h3>Did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} try and reconcile after you separated <span id="separation_date_span"></span>?</h3>
+    <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" value="NO" %}
+        No, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I have not reconciled (gotten back together)</label>
+    </div>
+    <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" value="YES" %}
+        Yes, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I lived together again during the following period(s) in an unsuccessful attempt to reconcile</label>
+    </div>
+
+    <!-- TODO: Dev note: If reconciliation period is greater than 90 days, display Alert message in column F -->
+    <!-- TODO: Add multiple date adding fields -->
+    <div>
+        <div class="information-message bg-danger" hidden>
+            <p>Based on the date(s) you have provided for reconciliation, we have detected that your reconciliation may be for a period of greater than 90 days. Within the one year separation period, you can only live  together for 90 days or less. </p>
+            <p>You can still proceed to complete the application, however, it will be up to the court to decide if you have lived separate and apart for the required period of one year.</p>
+            <!-- TODO: Talk to a lawyer links to help centre page. -->
+            <p>You may want to talk to a lawyer regarding your legal rights and options. </p>
+        </div>
+    </div>
+
+    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_reconcile_not_work" aria-controls="collapse_reconcile_not_work">
+        <div>
+            What happens if my spouse and I tried to get back together for a short time but it did not work out?
+        </div>
+    </div>
+    <div class="collapse" id="collapse_reconcile_not_work">
+        <div>
+            <p>
+                Spouses that are separated can get back together and live together again to try and make the marriage work.
+                But within the one-year separation period, they can only live together for a total of 90 days or less.
+                If they live together for more than 90 days, the one-year period of separation starts all over again from the date of the last separation.
+                For more information on separation, refer to script 115 on “Separation and Separation Agreements”.
+            </p>
+        </div>
+    </div>
+</div>
+
+<form action="{% url 'prequalification' '04' %}">
+    <input type="submit" value="Next"/>
+</form>
+
 {% endblock %}
 {% block sidebarText%}
 <p>When two people who have been living together in a marriage, or a marriage-like relationship (sometimes called a common-law relationship), decide not to live together any more, they are separated.</p>
