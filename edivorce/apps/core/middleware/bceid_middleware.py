@@ -1,5 +1,7 @@
 import uuid
 from ipaddress import ip_address, ip_network
+
+import sys
 from django.conf import settings
 from django.shortcuts import redirect
 
@@ -23,6 +25,7 @@ class BceidMiddleware(object):
 
         # make sure the request didn't bypass the proxy
         if not localdev and not self.__request_came_from_proxy(request):
+            print("Redirecting " + request.path + " to " + settings.PROXY_BASE_URL, file=sys.stderr)
             return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME)
 
         if not localdev and request.META.get('HTTP_SM_USERDN', '') != '':
