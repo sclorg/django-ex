@@ -460,6 +460,10 @@ textarea {
 		flex: 0 0 262px;
 		background-color: $color-grey-lighter;
 	}
+	.dashnav-column {
+		flex: 0 0 262px;
+		background-color: $brand-blue;
+	}
 	.more_information-column {
 		flex: 0 0 306px;
 		background-color: $color-grey-lighter;
@@ -482,7 +486,8 @@ textarea {
 
 /* Side Progress Navigation */
 
-.progress-column {
+.progress-column,
+.dashnav-column {
 	h4 {
 		color: $color-grey-dark;
 		padding: 0 18px;
@@ -499,8 +504,14 @@ textarea {
 			i {
 				font-size: 20px;
 				border: solid 1px $color-grey-dark;
-				padding: 7px;
-				border-radius: 50%;
+				padding: 8px;
+				border-radius: 36px;
+				&.fa:before {
+					width: 20px;
+				    text-align: center;
+				    display: block;
+				    height: 20px;
+				}
 			}
 		}
 		.progress-content {
@@ -545,6 +556,30 @@ textarea {
 				color: #ffffff;
 				border-color: #ffffff;
 			}
+		}
+	}
+}
+
+.dashnav-column {
+	h4 {
+		color: #ffffff;
+	}
+	.progress-question {
+		.progress-icon {
+			width: 36px;
+			i {
+				font-size: 20px;
+				border: none;
+				padding: 0;
+			}
+		}
+		.progress-content {
+			width: 180px;
+			color: #ffffff;
+			font-weight: 600;
+		}
+		i {
+			color: #ffffff;
 		}
 	}
 }

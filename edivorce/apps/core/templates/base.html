@@ -34,7 +34,7 @@
                     <div class="col-sm-8">
                         <div class="top_banner-logo">
                             <a href="{% url 'intro' %}"><img src="{% static 'svg/bc-logo.svg' %}" /></a>
-                            <p>Joint Divorce <span class="beta">beta</span></p>
+                            <p>Online Divorce Assistant <span class="beta">beta</span></p>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -76,8 +76,10 @@
         {% endif %}
 
         <div class="row-flex">
-        	{% include "progress.html" %}
-
+            {% block progress %}
+            {% endblock %}
+            {% block dashnav %}
+            {% endblock %}
             <div class="col">
                 <div class="col-flex content-column">
                     {% block content %}{% endblock %}
@@ -96,7 +98,7 @@
 
         <footer class="footer">
 
-            
+
         </footer>
 
 
