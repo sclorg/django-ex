@@ -89,10 +89,12 @@
             <h2>Time limit to apply for court order </h2>
             <p>If you were <b>married</b>, you must apply to divide property within two years after you get an order for divorce.</p>
             <p>If you were living in a <b>marriage-like relationship</b> for at least two years, you must apply within two years of the date you separated.</p>
-            <div style="border:solid">
-                <h2>(Dev note:  Display this alert message if the user has indicated that they have lived in a marriage like relationship)</h2>
-                <p>In order to be considered a spouse for the purpose of dividing property or debt you must have lived together in a marriage-like relationship for at least two years.</p>
-            </div>
+            <!-- TODO Confirm exact section to show -->
+            {% if married_marriage_like == "Living together in a marriage like relationship" %}
+                <div>
+                    <p>In order to be considered a spouse for the purpose of dividing property or debt you must have lived together in a marriage-like relationship for at least two years.</p>
+                </div>
+            {% endif %}
             <p><em>For more information, please refer to  the following fact sheets on the  Legal Services Society website:</em></p>
                 <ul>
                     <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/dividePropertyAndDebts.php" target="_blank">How to Divide Property and Debts</a></li>

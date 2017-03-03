@@ -305,7 +305,8 @@
                     <td> <i class="fa {% if responses.deal_with_property_debt == 'equal division' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} an equal division of family property and family debt </td>
                 </tr>
                 <tr>
-                    <td> <i class="fa {% if responses.deal_with_property_debt == 'unequal division' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} an unequal division of family property and family debt as follows: <span class="form-entry form-textarea not-complete">&nbsp;</span>
+                    <td> <i class="fa {% if responses.deal_with_property_debt == 'unequal division' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} an unequal division of family property and family debt as follows:
+                        <span class="form-entry form-textarea not-complete">{% if responses.how_to_divide_property_debt %} {{ responses.how_to_divide_property_debt }} {% else %}&nbsp;{% endif %}</span>
                     </td>
                 </tr>
                 <tr>
@@ -313,7 +314,7 @@
                 </tr>
                 <tr>
                     <td> <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
-                        <span class="form-entry form-textarea not-complete">&nbsp;</span> </td>
+                        <span class="form-entry form-textarea not-complete">{% if responses.other_property_claims %} {{ responses.other_property_claims }} {% else %}&nbsp;{% endif %}</span> </td>
                 </tr>
             </tbody>
         </table>
