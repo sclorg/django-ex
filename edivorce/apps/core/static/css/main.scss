@@ -23,6 +23,8 @@ $color-grey-lightest: #fdfdfd;
 $color-green: #57b26a;
 $color-green-light: #d9f6df;
 
+$color-gold-light: #e6ca85;
+
 $font-custom:  Myriad-Pro, Calibri, Arial, Sans Serif;
 
 @font-face {
@@ -100,6 +102,12 @@ a {
 .intro {
 	font-size: 18px;
 	line-height: 28px;
+}
+
+.footer {
+	height: 50px;
+	background-color: $brand-blue;
+	color: #ffffff;
 }
 
 // Bootstrap Overrides
@@ -440,15 +448,13 @@ textarea {
   flex-wrap: wrap;
   height: 100%;
 	.col {
-		flex: 1 1 8%;
-		margin: 0 0 0.5rem 0;
-		padding: 0.5em 10px;
+		flex: 1;
 		box-sizing: border-box;
 	}
 	.content-column {
 		flex-basis: 100%;
 		max-width: 800px;
-		padding: 60px;
+		padding: 35px 50px 50px 50px;
 	}
 	.progress-column {
 		flex: 0 0 262px;
@@ -473,6 +479,76 @@ textarea {
 		}
 	}
 }
+
+/* Side Progress Navigation */
+
+.progress-column {
+	h4 {
+		color: $color-grey-dark;
+		padding: 0 18px;
+		margin-top: 36px;
+	}
+	.progress-question {
+		display: flex;
+		align-items: center;
+		height: 60px;
+		margin-bottom: 12px;
+		padding: 0 12px 0 18px;
+		.progress-icon {
+			width: 46px;
+			i {
+				font-size: 20px;
+				border: solid 1px $color-grey-dark;
+				padding: 7px;
+				border-radius: 50%;
+			}
+		}
+		.progress-content {
+			width: 158px;
+			font-size: 14px;
+			line-height: 16px;
+			color: $body-copy;
+			small {
+				font-size: 11px;
+				text-transform: uppercase;
+				font-weight: 700;
+				letter-spacing: .1em;
+			}
+		}
+		.progress-status {
+			width: 28px;
+			i {
+				float: right;
+			}
+		}
+		i {
+			color: $color-grey-dark;
+		}
+		&.complete {
+			span, i {
+				color: $color-green;
+				border-color: $color-green;
+			}
+		}
+		&:hover, &:focus {
+			background-color: $color-gold-light;
+			text-decoration: none;
+			span, i {
+				color: #ffffff;
+				border-color: #ffffff;
+			}
+		}
+		&.active {
+			background-color: $brand-gold;
+			text-decoration: none;
+			span, i {
+				color: #ffffff;
+				border-color: #ffffff;
+			}
+		}
+	}
+}
+
 
 
 
