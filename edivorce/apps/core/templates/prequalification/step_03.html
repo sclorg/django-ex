@@ -77,7 +77,7 @@
 </div>
 
 <div class="question-well">
-    <h3>Did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} try and reconcile after you separated <span id="separation_date_span"></span>?</h3>
+    <h3>Did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} try and reconcile after you separated <span id="separation_date_span">{% if separation_date %} on {{ separation_date }}{% endif %}</span>?</h3>
     <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" value="NO" data_target_id="reconciliation_period" data_reveal_target="false" %}
         No, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I have not reconciled (gotten back together)</label>
     </div>
@@ -85,8 +85,6 @@
         Yes, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I lived together again during the following period(s) in an unsuccessful attempt to reconcile</label>
     </div>
 
-    <!-- TODO: Dev note: If reconciliation period is greater than 90 days, display Alert message in column F -->
-    <!-- TODO: Add multiple date adding fields -->
     <div id="reconciliation_period" hidden>
         <div id="reconciliation_period_group" hidden>
             {% include "partials/reconciliation_period.html" %}
@@ -104,15 +102,6 @@
         <input type="button" id="btn_add_reconciliation_periods" value="Add Period"/>
     </div>
 
-    <div>
-        <div class="information-message bg-danger" hidden>
-            <p>Based on the date(s) you have provided for reconciliation, we have detected that your reconciliation may be for a period of greater than 90 days. Within the one year separation period, you can only live  together for 90 days or less. </p>
-            <p>You can still proceed to complete the application, however, it will be up to the court to decide if you have lived separate and apart for the required period of one year.</p>
-            <!-- TODO: Talk to a lawyer links to help centre page. -->
-            <p>You may want to talk to a lawyer regarding your legal rights and options. </p>
-        </div>
-    </div>
-
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_reconcile_not_work" aria-controls="collapse_reconcile_not_work">
         <div>
             What happens if my spouse and I tried to get back together for a short time but it did not work out?
@@ -126,6 +115,15 @@
                 If they live together for more than 90 days, the one-year period of separation starts all over again from the date of the last separation.
                 For more information on separation, refer to script 115 on “Separation and Separation Agreements”.
             </p>
+        </div>
+    </div>
+
+    <div>
+        <div class="information-message bg-danger" id="reconciliation_90_days_alert" hidden>
+            <p>Based on the date(s) you have provided for reconciliation, we have detected that your reconciliation may be for a period of greater than 90 days. Within the one year separation period, you can only live  together for 90 days or less. </p>
+            <p>You can still proceed to complete the application, however, it will be up to the court to decide if you have lived separate and apart for the required period of one year.</p>
+            <!-- TODO: Talk to a lawyer links to help centre page. -->
+            <p>You may want to talk to a lawyer regarding your legal rights and options. </p>
         </div>
     </div>
 </div>

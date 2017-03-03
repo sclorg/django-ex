@@ -98,27 +98,38 @@ var getValue = function(el, question){
         });
         return JSON.stringify(value);
     }
-    // for adding reconciliation_period fields, create list of [from_date, to_date] and
-    // check if from_date is earlier than to_date
+    // for adding reconciliation_period fields, create list of [sFromDate, sToDate] and
+    // check if sFromDate is earlier than sToDate
     // TODO clean up console.log
     else if (question == "reconciliation_period"){
-        var to_date, from_date;
+        var sToDate, sFromDate, dToDate, dFromDate;
+        var hideAlert = true;
         $('#reconciliation_period_fields').find(".reconciliation-from-date").each(function () {
-            to_date = $(this).closest('div').find(".reconciliation-to-date").val();
-            from_date = $(this).val();
+            sToDate = $(this).closest('div').find(".reconciliation-to-date").val();
+            sFromDate = $(this).val();
             // check if both date is in valid format and all
-            if (to_date != '' && from_date != '' && validateDate(to_date) && validateDate(from_date))
+            if (sToDate != '' && sFromDate != '' && validateDate(sToDate) && validateDate(sFromDate))
             {
-                if (stringToDate(from_date) < stringToDate(to_date)){
-                    value.push([from_date, to_date]);
+                dToDate = stringToDate(sToDate);
+                dFromDate = stringToDate(sFromDate);
+                if (dFromDate < dToDate){
+                    value.push([sFromDate, sToDate]);
+                    // show alert message if reconciliation period is greater than 90 days
+                    if (dToDate.setDate(dToDate.getDate() - 90) > dFromDate){
+                        $('#reconciliation_90_days_alert').show();
+                        hideAlert = false;
+                    }
+                    if (hideAlert){
+                        $('#reconciliation_90_days_alert').hide();
+                    }
                 }
                 else {
-                    console.log(from_date + " : " + to_date);
+                    console.log(sFromDate + " : " + sToDate);
                     console.log("From date must be smaller than To date")
                 }
             }
             else {
-                console.log("Invalid: " + from_date + " : " + to_date);
+                console.log("Invalid: " + sFromDate + " : " + sToDate);
                 console.log("invalid date format");
             }
         });

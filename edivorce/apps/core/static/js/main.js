@@ -24,38 +24,18 @@ $(function () {
         $('#other_names_fields').append($('#other_names_group').children().clone(true));
     });
 
-    // TODO delete button is not working if they are added
     $("#btn_add_reconciliation_periods").on('click', function () {
         $('#reconciliation_period_fields').append($('#reconciliation_period_group').children().clone());
-        $('#reconciliation_period_fields input:text').on('change', ajaxOnChange);
-        // $('.btn-delete-period').on('click', deleteAddedField);
+        // add event lister for newly added from_date field, to_date field, delete button, and date picker
+        $('#reconciliation_period_fields .reconciliation-from-date').last().on('change', ajaxOnChange);
+        $('#reconciliation_period_fields .reconciliation-to-date').last().on('change', ajaxOnChange);
+        $('#reconciliation_period_fields .btn-delete-period').last().on('click', {field_name: 'reconciliation_period_fields', button_name: 'btn_add_reconciliation_periods'}, deleteAddedField);
         date_picker();
     });
 
     // Delete button will remove field and update user responses
-    $(".btn-delete-name").on('click', function () {
-        $(this).parent('div').remove();
-
-        // when there is only one field left, clear it instead of delete it
-        if ($('#other_names_fields').find('input:text').length < 1){
-            $("#btn_add_other_names").triggerHandler('click');
-        }
-        // update by trigger change event on one of the text field
-        $('#other_names_fields').find('input:text').first().triggerHandler('change');
-
-    });
-
-    $(".btn-delete-period").on('click', function () {
-        $(this).parent('div').remove();
-
-        // when there is only one field left, clear it instead of delete it
-        if ($('#reconciliation_period_fields').find('input:text').length < 1){
-            $("#btn_add_reconciliation_periods").triggerHandler('click');
-        }
-        // update by trigger change event on one of the text field
-        $('#reconciliation_period_fields').find('input:text').first().triggerHandler('change');
-
-    });
+    $(".btn-delete-name").on('click', {field_name: 'other_names_fields', button_name: 'btn_add_other_names'}, deleteAddedField);
+    $(".btn-delete-period").on('click', {field_name: 'reconciliation_period_fields', button_name: 'btn_add_reconciliation_periods'}, deleteAddedField);
 
     // add date_picker
     date_picker();
@@ -73,18 +53,18 @@ $(function () {
     });
 });
 
-// TODO make ajax call way too many times
-var deleteAddedField = function(){
-    console.log($(this));
+// delete and added field and save the change
+var deleteAddedField = function(e){
+    var field = $('#' + e.data.field_name);
+    var button = $('#' + e.data.button_name);
     $(this).parent('div').remove();
 
     // when there is only one field left, clear it instead of delete it
-    if ($('#reconciliation_period_fields').find('input:text').length < 1){
-        $("#btn_add_reconciliation_periods").triggerHandler('click');
+    if (field.find('input:text').length < 1){
+        button.triggerHandler('click');
     }
     // update by trigger change event on one of the text field
-    $('#reconciliation_period_fields').find('input:text').first().triggerHandler('change');
-    console.log($('#reconciliation_period_fields').find('input:text').first());
+    field.find('input:text').first().triggerHandler('change');
 };
 
 // Configuration for datepicker

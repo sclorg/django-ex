@@ -5,7 +5,7 @@
 question_step_mapping = {'prequalification': ['married_marriage_like', 'lived_in_bc', 'lived_in_bc_at_least_year', 'separation_date',
                                               'children_of_marriage', 'any_under_19', 'children_financial_support', 'original_marriage_certificate',
                                               'provide_certificate_later', 'provide_certificate_later_reason', 'not_provide_certificate_reason',
-                                              'divorce_reason', 'marriage_certificate_in_english', 'try_reconcile_after_separated'],
+                                              'divorce_reason', 'marriage_certificate_in_english', 'try_reconcile_after_separated', 'reconciliation_period',],
                          'which_orders': ['want_which_orders',],
                          'your_information': ['name_you', 'any_other_name_you', 'other_name_you', 'last_name_born_you',
                                               'last_name_before_married_you', 'birthday_you', 'lived_in_bc_you', 'moved_to_bc_date_you',],
