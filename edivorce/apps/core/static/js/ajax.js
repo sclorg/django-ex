@@ -9,7 +9,7 @@ var ajaxOnChange = function () {
 
     // Check if date is in valid format DD/MM/YYYY
     if (el.is(".date-picker")){
-        isValid = validateDatePicker(value);
+        isValid = validateDate(value);
     }
 
     if (el.is("#email_textbox")){

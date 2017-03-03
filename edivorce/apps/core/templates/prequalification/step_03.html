@@ -76,15 +76,32 @@
 
 <div class="question-well">
     <h3>Did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} try and reconcile after you separated <span id="separation_date_span"></span>?</h3>
-    <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" value="NO" %}
+    <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" value="NO" data_target_id="reconciliation_period" data_reveal_target="false" %}
         No, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I have not reconciled (gotten back together)</label>
     </div>
-    <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" value="YES" %}
+    <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" value="YES" data_target_id="reconciliation_period" data_reveal_target="true" %}
         Yes, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I lived together again during the following period(s) in an unsuccessful attempt to reconcile</label>
     </div>
 
     <!-- TODO: Dev note: If reconciliation period is greater than 90 days, display Alert message in column F -->
     <!-- TODO: Add multiple date adding fields -->
+    <div id="reconciliation_period" hidden>
+        <div id="reconciliation_period_group" hidden>
+            {% include "partials/reconciliation_period.html" %}
+        </div>
+        <div id="reconciliation_period_fields">
+            {% if reconciliation_period and reconciliation_period != '[]' %}
+                {% multiple_values_to_list source=reconciliation_period as periods %}
+                {% for from, to in periods %}
+                    {% include "partials/reconciliation_period.html" with from=from to=to %}
+                {% endfor %}
+            {% else %}
+                {% include "partials/reconciliation_period.html" %}
+            {% endif %}
+        </div>
+        <input type="button" id="btn_add_reconciliation_periods" value="Add Period"/>
+    </div>
+
     <div>
         <div class="information-message bg-danger" hidden>
             <p>Based on the date(s) you have provided for reconciliation, we have detected that your reconciliation may be for a period of greater than 90 days. Within the one year separation period, you can only live  together for 90 days or less. </p>

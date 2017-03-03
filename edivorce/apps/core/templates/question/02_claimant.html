@@ -70,7 +70,7 @@
         <h3>Please enter the name</h3>
         <!-- This is used for adding a new other name field when add button is clicked -->
         <div id="other_names_group" hidden>
-            {% include "partials/alias_field.html" with name="other_name_you" value=' ' delete_button="true" %}
+            {% include "partials/alias_field.html" with name="other_name_you" %}
         </div>
         <div id="other_names_fields">
             {% if other_name_you %}

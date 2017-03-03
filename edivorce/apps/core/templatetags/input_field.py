@@ -5,7 +5,7 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def input_field(context, type, name='', value='', **kwargs):
+def input_field(context, type, name='', value='', multiple='', **kwargs):
     """
     Usage:  when specifying data attributes in templates, use "data_" intead of "data-".
     """
@@ -21,7 +21,7 @@ def input_field(context, type, name='', value='', **kwargs):
         tag.append('</textarea>')
     else:
         # set initial value for textbox
-        if type == "text" and value == '':
+        if type == "text" and value == '' and multiple != 'true':
             value = context.get(name, '')
         tag = ['<input type="' + type + '" name="' + name + '" value="' + value + '"']
 

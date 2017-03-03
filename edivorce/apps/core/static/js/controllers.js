@@ -89,11 +89,38 @@ var getValue = function(el, question){
         // to remove last space and semi-colon
         return JSON.stringify(value);
     }
+    // for adding other_name fields, create list of [aliasType, alias]
     else if (question == "other_name_you" || question == "other_name_spouse"){
         var aliasType;
         $('#other_names_fields').find("input[type=text]").each(function () {
             aliasType = $(this).siblings(".alias-type").val();
             value.push([aliasType, $(this).val()]);
+        });
+        return JSON.stringify(value);
+    }
+    // for adding reconciliation_period fields, create list of [from_date, to_date] and
+    // check if from_date is earlier than to_date
+    // TODO clean up console.log
+    else if (question == "reconciliation_period"){
+        var to_date, from_date;
+        $('#reconciliation_period_fields').find(".reconciliation-from-date").each(function () {
+            to_date = $(this).closest('div').find(".reconciliation-to-date").val();
+            from_date = $(this).val();
+            // check if both date is in valid format and all
+            if (to_date != '' && from_date != '' && validateDate(to_date) && validateDate(from_date))
+            {
+                if (stringToDate(from_date) < stringToDate(to_date)){
+                    value.push([from_date, to_date]);
+                }
+                else {
+                    console.log(from_date + " : " + to_date);
+                    console.log("From date must be smaller than To date")
+                }
+            }
+            else {
+                console.log("Invalid: " + from_date + " : " + to_date);
+                console.log("invalid date format");
+            }
         });
         return JSON.stringify(value);
     }
@@ -104,9 +131,13 @@ var getValue = function(el, question){
 
 // check if value in date field is in DD/MM/YYYY format
 // and check if it is valid date and it is today or earlier
-var validateDatePicker = function(value){
+var validateDate = function(value){
     var isValid = false;
     var regex = '[0-9]{2}[/][0-9]{2}[/][0-9]{4}';
+    if (value == ''){
+        return true;
+    }
+
     if (value.match(regex)){
         value = value.split('/');
         var d = parseInt(value[0], 10);
@@ -119,6 +150,15 @@ var validateDatePicker = function(value){
         }
     }
     return isValid;
+};
+
+// take date string in DD/MM/YYYY format and return date object
+var stringToDate = function(value){
+    value = value.split('/');
+    var d = parseInt(value[0], 10);
+    var m = parseInt(value[1], 10);
+    var y = parseInt(value[2], 10);
+    return new Date(y,m-1,d);
 };
 
 // check if email is in valid format

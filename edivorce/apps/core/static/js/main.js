@@ -24,28 +24,41 @@ $(function () {
         $('#other_names_fields').append($('#other_names_group').children().clone(true));
     });
 
+    // TODO delete button is not working if they are added
+    $("#btn_add_reconciliation_periods").on('click', function () {
+        $('#reconciliation_period_fields').append($('#reconciliation_period_group').children().clone());
+        $('#reconciliation_period_fields input:text').on('change', ajaxOnChange);
+        // $('.btn-delete-period').on('click', deleteAddedField);
+        date_picker();
+    });
+
     // Delete button will remove field and update user responses
-    $(".btn-delete").on('click', function () {
+    $(".btn-delete-name").on('click', function () {
         $(this).parent('div').remove();
 
+        // when there is only one field left, clear it instead of delete it
+        if ($('#other_names_fields').find('input:text').length < 1){
+            $("#btn_add_other_names").triggerHandler('click');
+        }
         // update by trigger change event on one of the text field
-        var textField = $('#other_names_fields').find('input:text');
-        textField.first().triggerHandler('change');
+        $('#other_names_fields').find('input:text').first().triggerHandler('change');
+
+    });
+
+    $(".btn-delete-period").on('click', function () {
+        $(this).parent('div').remove();
 
         // when there is only one field left, clear it instead of delete it
-        if (textField.length < 1){
-            $("#btn_add_other_names").triggerHandler('click');
-            $('#other_names_fields').find('input:text').first().triggerHandler('change');
+        if ($('#reconciliation_period_fields').find('input:text').length < 1){
+            $("#btn_add_reconciliation_periods").triggerHandler('click');
         }
+        // update by trigger change event on one of the text field
+        $('#reconciliation_period_fields').find('input:text').first().triggerHandler('change');
 
     });
 
-    // Configuration for datepicker
-    $(".date-picker-group").datepicker({
-        format: "dd/mm/yyyy",
-        endDate: "today",
-        autoclose: true
-    });
+    // add date_picker
+    date_picker();
 
     // On step_03.html, update text when user enters separation date
     $("#separated_date").on("change", function () {
@@ -59,6 +72,31 @@ $(function () {
         }
     });
 });
+
+// TODO make ajax call way too many times
+var deleteAddedField = function(){
+    console.log($(this));
+    $(this).parent('div').remove();
+
+    // when there is only one field left, clear it instead of delete it
+    if ($('#reconciliation_period_fields').find('input:text').length < 1){
+        $("#btn_add_reconciliation_periods").triggerHandler('click');
+    }
+    // update by trigger change event on one of the text field
+    $('#reconciliation_period_fields').find('input:text').first().triggerHandler('change');
+    console.log($('#reconciliation_period_fields').find('input:text').first());
+};
+
+// Configuration for datepicker
+var date_picker = function () {
+    $(".date-picker-group").datepicker({
+        format: "dd/mm/yyyy",
+        startDate: "-100y",
+        endDate: "0d",
+        autoclose: true,
+        todayHighlight: true
+    });
+};
 
 // Expand More Information boxes
 $(".more_information-link a").click(function () {
