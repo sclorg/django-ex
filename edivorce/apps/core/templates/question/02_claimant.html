@@ -137,17 +137,11 @@
     </div>
 </div>
 
-<div style="display: flex">
-    <form action="{% url 'question_steps' '01_orders' %}">
-        <input type="submit" value="Back" />
-    </form>
-    <form action="#">
-        <input type="submit" value="Save" />
-    </form>
-    <form action="{% url 'question_steps' '03_respondent' %}">
-        <input type="submit" value="Next" />
-    </form>
-</div>
-{% endblock %} {% block sidebarText %}
+{% endblock %}
+
+{% block formBack %}{% url 'question_steps' '01_orders' %}{% endblock %}
+{% block formNext %}{% url 'question_steps' '03_respondent' %}{% endblock %}
+
+{% block sidebarText %}
 <p>The Meaning of "Ordinary Residence" and "Habitual Residence" in the Common Law Provinces in a Family Law Context: <a href="http://www.justice.gc.ca/eng/rp-pr/fl-lf/divorce/rhro_cl/p4.html" target="_blank">http://www.justice.gc.ca/eng/rp-pr/fl-lf/divorce/rhro_cl/p4.html</a></p>
 {% endblock %}

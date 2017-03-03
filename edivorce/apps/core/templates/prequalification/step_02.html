@@ -7,77 +7,79 @@
 
 {% block content %}
 
-                <h1>Do you qualify for a divorce in BC?</h1>
-                <div>
-                    <h3>Do you or your spouse live in British Columbia?</h3>
+<h1>Do you qualify for a divorce in BC?</h1>
+<div>
+    <h3>Do you or your spouse live in British Columbia?</h3>
 
-                    <div class="btn-radio-group" data-toggle="buttons">
-                        <label class="btn btn-radio">
-                            {% input_field type="radio" name="lived_in_bc" autocomplete="off" value="YES" data_target_id="cannot_divorce_in_bc" data_reveal_target="false" %} Yes
-                        </label>
+    <div class="btn-radio-group" data-toggle="buttons">
+        <label class="btn btn-radio">
+            {% input_field type="radio" name="lived_in_bc" autocomplete="off" value="YES" data_target_id="cannot_divorce_in_bc" data_reveal_target="false" %} Yes
+        </label>
 
-                        <label class="btn btn-radio">
-                            {% input_field type="radio" name="lived_in_bc" autocomplete="off" value="NO" data_target_id="cannot_divorce_in_bc" data_reveal_target="true" %} No
-                        </label>
-                    </div>
+        <label class="btn btn-radio">
+            {% input_field type="radio" name="lived_in_bc" autocomplete="off" value="NO" data_target_id="cannot_divorce_in_bc" data_reveal_target="true" %} No
+        </label>
+    </div>
 
-                    <div class="information-message bg-danger" id="cannot_divorce_in_bc" hidden>
-                        <p>
-                            You must apply for divorce in the Canadian province or territory in which you've lived for a full year immediately before making your application.<br>
-                            To find out how to apply for a divorce in your province or territory refer to the appropriate
-                            <a href="http://www.justice.gc.ca/eng/fl-df/pt-tp/index.html" target="_blank">Provincial or Territorial Government website.</a>
-                        </p>
-                    </div>
+    <div class="information-message bg-danger" id="cannot_divorce_in_bc" hidden>
+        <p>
+            You must apply for divorce in the Canadian province or territory in which you've lived for a full year immediately before making your application.<br>
+            To find out how to apply for a divorce in your province or territory refer to the appropriate
+            <a href="http://www.justice.gc.ca/eng/fl-df/pt-tp/index.html" target="_blank">Provincial or Territorial Government website.</a>
+        </p>
+    </div>
 
-                    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_living_in_bc" aria-controls="collapse_living_in_bc">
-                        <div>
-                            I've been living in B.C. for many years, but my spouse lives in another province. Can we still get divorced in B.C.?
-                        </div>
-                    </div>
-                    <div class="collapse" id="collapse_living_in_bc">
-                        <div>
-                            <p>Yes. If you've been living in B.C. for at least one year and continue to live in B.C., you can apply for
-                                    divorce in BC Supreme Court. The Canada Divorce Act states that a provincial court can deal with a
-                                    divorce proceedings when either spouse has been living in the province for at least one year immediately
-                                    before applying.</p>
-                        </div>
-                    </div>
-                </div>
+    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_living_in_bc" aria-controls="collapse_living_in_bc">
+        <div>
+            I've been living in B.C. for many years, but my spouse lives in another province. Can we still get divorced in B.C.?
+        </div>
+    </div>
+    <div class="collapse" id="collapse_living_in_bc">
+        <div>
+            <p>Yes. If you've been living in B.C. for at least one year and continue to live in B.C., you can apply for
+                    divorce in BC Supreme Court. The Canada Divorce Act states that a provincial court can deal with a
+                    divorce proceedings when either spouse has been living in the province for at least one year immediately
+                    before applying.</p>
+        </div>
+    </div>
+</div>
 
-                <div>
-                    <h3>Have you or your spouse lived in B.C. at least one year prior to starting your divorce?</h3>
+<div>
+    <h3>Have you or your spouse lived in B.C. at least one year prior to starting your divorce?</h3>
 
-                    <div class="btn-radio-group" data-toggle="buttons">
-                        <label class="btn btn-radio">
-                            {% input_field type="radio"  name="lived_in_bc_at_least_year" autocomplete="off" value="YES" data_target_id="divorce_precondition" data_reveal_target="false" %} Yes
-                        </label>
+    <div class="btn-radio-group" data-toggle="buttons">
+        <label class="btn btn-radio">
+            {% input_field type="radio"  name="lived_in_bc_at_least_year" autocomplete="off" value="YES" data_target_id="divorce_precondition" data_reveal_target="false" %} Yes
+        </label>
 
-                        <label class="btn btn-radio">
-                            {% input_field type="radio"  name="lived_in_bc_at_least_year" autocomplete="off" value="NO" data_target_id="divorce_precondition" data_reveal_target="true" %} No
-                        </label>
-                    </div>
+        <label class="btn btn-radio">
+            {% input_field type="radio"  name="lived_in_bc_at_least_year" autocomplete="off" value="NO" data_target_id="divorce_precondition" data_reveal_target="true" %} No
+        </label>
+    </div>
 
-                    <div class="information-message bg-danger" id="divorce_precondition" hidden>
-                        <p>
-                            Before you can apply for divorce in B.C. it is required that you or your spouse has lived in B.C (ordinarily resident)
-                            for the last year. You can use this Divorce Service but you will not be able to submit your divorce application to
-                            the registry until you or your spouse has lived in the province for one year.
-                        </p>
-                        <p>
-                            Another option is to see if you are eligible to apply for divorce in the province/ territory that
-                            you have most recently lived in prior to moving to B.C.<br>
-                            More information on
-                            <a href="http://www.justice.gc.ca/eng/fl-df/pt-tp/index.html" target="_blank">How to Apply for a Divorce in other provinces and territories</a>
-                            can be found on the Department of Justice website.
-                        </p>
-                    </div>
-                </div>
-
-                <form action="{% url 'prequalification' '03' %}">
-                    <input type="submit" value="Next"/>
-                </form>
-
+    <div class="information-message bg-danger" id="divorce_precondition" hidden>
+        <p>
+            Before you can apply for divorce in B.C. it is required that you or your spouse has lived in B.C (ordinarily resident)
+            for the last year. You can use this Divorce Service but you will not be able to submit your divorce application to
+            the registry until you or your spouse has lived in the province for one year.
+        </p>
+        <p>
+            Another option is to see if you are eligible to apply for divorce in the province/ territory that
+            you have most recently lived in prior to moving to B.C.<br>
+            More information on
+            <a href="http://www.justice.gc.ca/eng/fl-df/pt-tp/index.html" target="_blank">How to Apply for a Divorce in other provinces and territories</a>
+            can be found on the Department of Justice website.
+        </p>
+    </div>
+</div>
 {% endblock %}
+
+{% block formbuttons %}
+<div class="form-buttons">
+    <a class="btn btn-success pull-right" href="{% url 'prequalification' '03' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
+</div>
+{% endblock %}
+
 {% block sidebarText%}
 <h2>Ordinarily Resident</h2>
 <p>

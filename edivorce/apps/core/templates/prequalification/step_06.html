@@ -103,13 +103,12 @@
         </div>
     </div>
 </div>
+{% endblock %}
 
-
-
-<form action="{% url 'login' %}">
-    <input type="submit" value="Next" />
-</form>
-
+{% block formbuttons %}
+<div class="form-buttons">
+    <a class="btn btn-success pull-right" href="{% url 'login' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
+</div>
 {% endblock %}
 
 {% block sidebarText %}

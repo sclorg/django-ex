@@ -151,19 +151,9 @@
         </div>
     </div>
 </div>
-
-<div style="display: flex">
-    <form action="{% url 'question_steps' '02_claimant' %}">
-        <input type="submit" value="Back"/>
-    </form>
-    <form action="#">
-        <input type="submit" value="Save"/>
-    </form>
-    <form action="{% url 'question_steps' '04_marriage' %}">
-        <input type="submit" value="Next"/>
-    </form>
-</div>
-
-
 {% endblock %}
+
+{% block formBack %}{% url 'question_steps' '02_claimant' %}{% endblock %}
+{% block formNext %}{% url 'question_steps' '04_marriage' %}{% endblock %}
+
 {% block sidebar %}{% endblock %}

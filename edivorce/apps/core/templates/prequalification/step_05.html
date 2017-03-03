@@ -159,13 +159,14 @@
     </div>
 </div>
 
-<div style="display: flex">
-    <form action="{% url 'prequalification' '06' %}">
-        <input type="submit" value="Next"/>
-    </form>
-</div>
-
 {% endblock %}
+
+{% block formbuttons %}
+<div class="form-buttons">
+    <a class="btn btn-success pull-right" href="{% url 'prequalification' '06' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
+</div>
+{% endblock %}
+
 {% block sidebarText %}
     <h3>Video: Needed for Divorce:  Your Marriage Certificate</h3>
     <p>An 11½-minute video excerpted from "Helping Clients Prepare Divorce Documents That Don't Bounce," a workshop by lawyer J.P. Boyd at the October 2006 LSS Provincial Training Conference for Legal Advocates.</p>

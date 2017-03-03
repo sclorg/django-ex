@@ -119,20 +119,11 @@
     </div>
 </div>
 
-<div style="display: flex">
-    <form action="{% url 'overview' %}">
-        <input type="submit" value="Back"/>
-    </form>
-    <form action="#">
-        <input type="submit" value="Save"/>
-    </form>
-    <form action="{% url 'question_steps' '02_claimant' %}">
-        <input type="submit" value="Next"/>
-    </form>
-</div>
-
 
 {% endblock %}
+
+{% block formBack %}{% url 'overview' %}{% endblock %}
+{% block formNext %}{% url 'question_steps' '02_claimant' %}{% endblock %}
 
 {% block sidebarText %}
 <h2>Marriage Certificates</h2>

@@ -130,11 +130,14 @@
     </div>
 </div>
 
-<form action="{% url 'prequalification' '04' %}">
-    <input type="submit" value="Next"/>
-</form>
-
 {% endblock %}
+
+{% block formbuttons %}
+<div class="form-buttons">
+    <a class="btn btn-success pull-right" href="{% url 'prequalification' '04' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
+</div>
+{% endblock %}
+
 {% block sidebarText%}
 <p>When two people who have been living together in a marriage, or a marriage-like relationship (sometimes called a common-law relationship), decide not to live together any more, they are separated.</p>
 <p>There is no such thing as a "legal" separation. If you are living apart, you are separated.</p>

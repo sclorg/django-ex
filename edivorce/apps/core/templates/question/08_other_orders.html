@@ -8,16 +8,8 @@
 
 
 <h1><small>Step 8:</small>Other Orders</h1>
-<div style="display: flex">
-    <form action="{% url 'question_steps' '07_property' %}">
-        <input type="submit" value="Back"/>
-    </form>
-    <form action="#">
-        <input type="submit" value="Save"/>
-    </form>
-    <form action="{% url 'question_steps' '09_other_questions' %}">
-        <input type="submit" value="Next"/>
-    </form>
-</div>
 
 {% endblock %}
+
+{% block formBack %}{% url 'question_steps' '07_property' %}{% endblock %}
+{% block formNext %}{% url 'question_steps' '09_other_questions' %}{% endblock %}

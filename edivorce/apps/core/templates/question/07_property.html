@@ -113,19 +113,12 @@
     <p>This section is about excluded property - e.g. property owned by the respondent at the time you moved in together, and gifts or inheritances the respondent received. Compensation is cash instead of ownership of your share of the property.</p>
     {% input_field type="textarea" name="other_property_claims" rows="8" cols="65" class="response-textarea" %}
 </div>
-<div style="display: flex">
-    <form action="{% url 'question_steps' '06_support' %}">
-        <input type="submit" value="Back" />
-    </form>
-    <form action="#">
-        <input type="submit" value="Save" />
-    </form>
-    <form action="{% url 'question_steps' '08_other_orders' %}">
-        <input type="submit" value="Next" />
-    </form>
-</div>
+{% endblock %}
 
-{% endblock %} {% block sidebarText %}
+{% block formBack %}{% url 'question_steps' '06_support' %}{% endblock %}
+{% block formNext %}{% url 'question_steps' '08_other_orders' %}{% endblock %}
+
+{% block sidebarText %}
 <div>
     <h2>Where to Find Out More About Dealing with Property and Debt</h2>
     <p>For more information about dealing with Property and Debt, please visit:</p>

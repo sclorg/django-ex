@@ -74,19 +74,10 @@
         {% input_field type="text" id="email_textbox" name="address_to_send_official_document_email_spouse" class="form-block input-wide response-textbox" %}
     </div>
 </div>
-
-<div style="display: flex">
-    <form action="{% url 'question_steps' '08_other_orders' %}">
-        <input type="submit" value="Back"/>
-    </form>
-    <form action="#">
-        <input type="submit" value="Save"/>
-    </form>
-    <form action="{% url 'question_steps' '10_location' %}">
-        <input type="submit" value="Next"/>
-    </form>
-</div>
-
 {% endblock %}
+
+{% block formBack %}{% url 'question_steps' '08_other_orders' %}{% endblock %}
+{% block formNext %}{% url 'question_steps' '10_location' %}{% endblock %}
+
 {% block sidebar %}
 {% endblock %}

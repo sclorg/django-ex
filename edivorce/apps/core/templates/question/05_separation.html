@@ -65,20 +65,11 @@
     </div>
 </div>
 
-<div style="display: flex">
-    <form action="{% url 'question_steps' '04_marriage' %}">
-        <input type="submit" value="Back"/>
-    </form>
-    <form action="#">
-        <input type="submit" value="Save"/>
-    </form>
-    <form action="{% url 'question_steps' '06_support' %}">
-        <input type="submit" value="Next"/>
-    </form>
-</div>
-
-
 {% endblock %}
+
+{% block formBack %}{% url 'question_steps' '04_marriage' %}{% endblock %}
+{% block formNext %}{% url 'question_steps' '06_support' %}{% endblock %}
+
 {% block sidebarText %}
     <div>
         <p>Most divorces use the one-year separation ground. But you can also apply for a divorce earlier on the basis of adultery or physical or mental cruelty. If you ask for a divorce for one of these reasons, you have to present evidence to the court to prove the facts of the adultery or physical or mental cruelty.</p>

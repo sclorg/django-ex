@@ -5,7 +5,7 @@ $body-copy: #494949;
 $brand-blue: #042553;
 $brand-gold: #dea61b;
 
-$brand-titles: #062652;
+$brand-titles: #19355b;
 $brand-links: #2b5580;
 $brand-buttons: #365ebe;
 
@@ -104,11 +104,7 @@ a {
 	line-height: 28px;
 }
 
-.footer {
-	height: 50px;
-	background-color: $brand-blue;
-	color: #ffffff;
-}
+
 
 // Bootstrap Overrides
 
@@ -215,35 +211,36 @@ i.fa {
 
 i.fa.fa-question-circle {margin-left: 5px;}
 
-.btn-primary {
-    font-size: 18px;
-    line-height: 32px;
-    border: none;
-    border-radius: 10px;
-    line-height: 32px;
-    padding: 6px 18px;
-    background-color: $brand-buttons;
-    color: $brand-titles;
-    &:hover {
-        background-color: $brand-titles;
-        color: #ffffff;
-    }
-}
-
-a.btn+a.btn {margin-right: 20px;}
-
-a.btn > i.fa {
-    padding-right: 5px;
-}
-
-a.btn:hover > i.fa {
-	color: #ffffff;
+.form-buttons {
+	margin: 30px 0;
+	.btn {
+	    font-size: 18px;
+	    line-height: 32px;
+	    border: none;
+	    border-radius: 10px;
+	    line-height: 32px;
+	    padding: 6px 18px;
+	    background-color: $brand-buttons;
+	    color: #ffffff;
+	    &:hover {
+	        background-color: darken($brand-buttons, 20%);
+	    }
+		i.fa {
+			color: #ffffff;
+		}
+		&.btn-success {
+			background-color: $color-green;
+			margin-left: 12px;
+			&:hover {
+		        background-color: darken($color-green, 20%);
+		    }
+		}
+	}
 }
 
 .btn-radio {
 	color: $brand-titles;
-	background-color: $brand-buttons;
-	border-color: $brand-buttons;
+	background-color: $color-blue-lighter;
 	font-size: 18px;
     text-transform: uppercase;
     font-weight: 600;
@@ -251,7 +248,7 @@ a.btn:hover > i.fa {
 	width: 60px;
 	height: 60px;
 	border-radius: 30px;
-	border: 3px solid $brand-buttons;
+	border: 3px solid $color-blue-lighter;
 }
 
 .btn-radio:hover,
@@ -431,6 +428,13 @@ textarea {
 	}
 }
 
+.footer {
+	height: 50px;
+	background-color: $brand-blue;
+	border-top: 2px solid $brand-gold;
+	color: #ffffff;
+}
+
 .question-well {
 	min-height: 20px;
 	padding: 25px;
@@ -462,7 +466,7 @@ textarea {
 	}
 	.dashnav-column {
 		flex: 0 0 262px;
-		background-color: $brand-blue;
+		background-color: $brand-titles;
 	}
 	.more_information-column {
 		flex: 0 0 306px;
@@ -581,9 +585,11 @@ textarea {
 		i {
 			color: #ffffff;
 		}
+		&:hover, &:focus {
+			background-color: $brand-gold;
+		}
 	}
 }
-
 
 
 

@@ -96,19 +96,10 @@
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Divorced" %}Divorced</label></div>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Widowed" %}Widowed</label></div>
 </div>
-<div style="display: flex">
-    <form action="{% url 'question_steps' '03_respondent' %}">
-        <input type="submit" value="Back"/>
-    </form>
-    <form action="#">
-        <input type="submit" value="Save"/>
-    </form>
-    <form action="{% url 'question_steps' '05_separation' %}">
-        <input type="submit" value="Next"/>
-    </form>
-</div>
-
 {% endblock %}
+
+{% block formBack %}{% url 'question_steps' '03_respondent' %}{% endblock %}
+{% block formNext %}{% url 'question_steps' '05_separation' %}{% endblock %}
 
 {% block sidebarText %}
 <div>

@@ -121,21 +121,10 @@
         </div>
     </div>
 </div>
-
-
-<div style="display: flex">
-    <form action="{% url 'question_steps' '05_separation' %}">
-        <input type="submit" value="Back"/>
-    </form>
-    <form action="#">
-        <input type="submit" value="Save"/>
-    </form>
-    <form action="{% url 'question_steps' '07_property' %}">
-        <input type="submit" value="Next"/>
-    </form>
-</div>
-
 {% endblock %}
+
+{% block formBack %}{% url 'question_steps' '05_separation' %}{% endblock %}
+{% block formNext %}{% url 'question_steps' '07_property' %}{% endblock %}
 
 {% block sidebarText %}
     <div>
