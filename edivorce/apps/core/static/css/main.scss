@@ -42,6 +42,7 @@ body {
     background: #ffffff;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	min-width: 768px;
 }
 
 h1,h2,h3,h4 {
@@ -222,6 +223,7 @@ i.fa.fa-question-circle {margin-left: 5px;}
 	    padding: 6px 18px;
 	    background-color: $brand-buttons;
 	    color: #ffffff;
+		margin-bottom: 12px;
 	    &:hover {
 	        background-color: darken($brand-buttons, 20%);
 	    }
@@ -460,34 +462,36 @@ textarea {
 /* Column Grid in flexbox */
 
 .row-flex {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  height: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	height: 100%;
 	.col {
 		flex: 1;
 		box-sizing: border-box;
+		order: 3;
 	}
 	.content-column {
-		flex-basis: 100%;
 		max-width: 800px;
 		padding: 35px 50px 50px 50px;
 	}
 	.progress-column {
 		flex: 0 0 262px;
 		background-color: $color-grey-lighter;
+		order: 2;
 	}
 	.dashnav-column {
 		flex: 0 0 262px;
 		background-color: $brand-titles;
 	}
 	.more_information-column {
-		flex: 0 0 306px;
+		flex:  100%;
 		background-color: $color-grey-lighter;
 		box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 		padding: 45px 20px;
 		font-size: 14px;
 		line-height: 21px;
+		order: 1;
 		.more_information-close {
 			float: right;
 			font-size: 24px;
@@ -497,6 +501,12 @@ textarea {
 		h2 {
 			color: $brand-blue;
 			padding-right: 25px;
+		}
+	}
+	@media (min-width: 992px) {
+		.more_information-column {
+			order: 4;
+			flex: 0 0 306px;
 		}
 	}
 	&.intro-page {
@@ -554,6 +564,8 @@ textarea {
 		}
 	}
 }
+
+
 
 /* Side Progress Navigation */
 
