@@ -499,6 +499,60 @@ textarea {
 			padding-right: 25px;
 		}
 	}
+	&.intro-page {
+		background: $color-blue-medium url("../img/bg-edivorce__landing.jpg")  no-repeat top center fixed;
+		background-size: cover;
+		.content-column {
+			margin: 100px auto;
+			padding: 0;
+			max-width: 800px;
+			padding: 0 20px;
+			text-align: center;
+			color: #ffffff;
+			h1, h3 {
+				color: #ffffff;
+			}
+			.intro {
+				font-size: 24px;
+				line-height: 36px;
+				margin: 0 100px;
+			}
+			a {
+				color: #ffffff;
+				text-decoration: none;
+			}
+			a:hover, a:focus {
+				text-decoration: underline;
+				&.btn {
+					text-decoration: none;
+				}
+			}
+			.btn-group-lg>.btn, .btn-lg {
+			    padding: 12px 40px;
+				margin: 10px;
+			}
+			.flex-wrapper {
+				display: flex;
+				margin: 20px 0px;
+				text-align: left;
+				justify-content: space-between;
+				font-size: 18px;
+				.flex-column {
+					width: 45%
+				}
+				span.number-circle {
+				    border: solid 2px white;
+				    padding: 5px;
+				    border-radius: 40px;
+				    width: 50px;
+				    height: 50px;
+				    display: inline-block;
+				    text-align: center;
+				    margin-right: 10px;
+				}
+			}
+		}
+	}
 }
 
 /* Side Progress Navigation */
