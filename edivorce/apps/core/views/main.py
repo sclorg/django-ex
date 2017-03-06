@@ -79,6 +79,7 @@ def question(request, step):
         responses_dict = get_responses_from_db_grouped_by_steps(user)
     else:
         responses_dict = get_responses_from_db(user)
+    responses_dict['question_step'] = step
     # If page is filing location page, add registries dictionary for list of court registries
     if step == "10_location":
         responses_dict['registries'] = sorted(list_of_registries)

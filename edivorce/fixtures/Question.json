@@ -513,6 +513,14 @@
 },
 {
     "fields": {
+        "name": "Step 8 other orders",
+        "description": "DUMMY QUESTION for step 8 other orders"
+    },
+    "model": "core.question",
+    "pk": "other_orders_detail"
+},
+{
+    "fields": {
         "name": "Form 35 requisition dummy question",
         "description": "DUMMY QUESTION for form 35 first question"
     },

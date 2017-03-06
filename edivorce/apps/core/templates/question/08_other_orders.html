@@ -2,12 +2,14 @@
 
 {% block title %}{{ block.super }}: Other Orders{% endblock %}
 
-{% block progress %}{% include "progress.html" %}{% endblock %}
+{% block progress %}{% include "progress.html" with step=question_step %}{% endblock %}
 
 {% block content %}
 
 
 <h1><small>Step 8:</small>Other Orders</h1>
+<h3>Want other orders as follows: </h3>
+{% input_field type="textarea" name="other_orders_detail" rows="8" cols="65" class="response-textarea" %}
 
 {% endblock %}
 

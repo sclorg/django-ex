@@ -3,7 +3,7 @@
 
 {% block title %}{{ block.super }}: Your Information{% endblock %}
 
-{% block progress %}{% include "progress.html" %}{% endblock %}
+{% block progress %}{% include "progress.html" with step=question_step %}{% endblock %}
 
 {% block content %}
 
