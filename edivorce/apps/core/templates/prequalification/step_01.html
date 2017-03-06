@@ -3,10 +3,6 @@
 
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
-{% block progress %}{% include "dashnav.html" %}{% endblock %}
-
-{% block pre_01 %}active{% endblock %}
-
 {% block content %}
 
 <h1>Do you qualify for a divorce in BC?</h1>
@@ -54,7 +50,7 @@
 {% endblock %}
 
 {% block formbuttons %}
-<div class="form-buttons">
+<div class="form-buttons clearfix">
     <a class="btn btn-success pull-right" href="{% url 'prequalification' '02' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
 </div>
 {% endblock %}

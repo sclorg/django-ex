@@ -428,6 +428,19 @@ textarea {
 	}
 }
 
+#other_names_fields {
+	.form-inline {
+		margin-bottom: 10px;
+	    padding: 10px;
+	    background: $color-grey-lighter;
+	    border-radius: 5px;
+	}
+}
+
+#btn_add_other_names {
+	margin-left: 10px;
+}
+
 .footer {
 	height: 50px;
 	background-color: $brand-blue;

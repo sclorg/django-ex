@@ -98,14 +98,3 @@ $(".question-well").click(function () {
     $(".question-well").removeClass('hasFocus');
     $(this).addClass('hasFocus');
 });
-
-// $('.question-well > *')
-//     .focus(function() {
-//         $(this).parent('.question-well').addClass('hasFocus');
-//         console.log("FOCUS!");
-//     })
-//     .blur(function() {
-//         $(this).parent('.question-well').removeClass('hasFocus');
-//         console.log("NO FOCUS!");
-//     });
-

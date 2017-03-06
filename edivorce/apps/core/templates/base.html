@@ -85,7 +85,7 @@
                     {% endblock %}
 
                     {% block formbuttons %}
-                    <div class="form-buttons">
+                    <div class="form-buttons clearfix">
                         <a class="btn btn-primary" href="{% block formBack %}#{% endblock %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
                         <a class="btn btn-success pull-right" href="{% block formNext %}#{% endblock %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
                         <a class="btn btn-primary pull-right" href="#"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;Save and return another time</a>
@@ -96,7 +96,7 @@
             </div>
 
             {% block sidebar %}
-            <div class="col-flex more_information-column hidden">
+            <div class="col-flex more_information-column">
                 <a href="#" class="more_information-close"><i class="fa fa-times" aria-hidden="true"></i></a>
                 {% block sidebarText %}
                 {% endblock %}
