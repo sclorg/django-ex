@@ -12,7 +12,12 @@
     has broken down and cannot be repaired.</em>
 </p>
 <div class="question-well">
-    <div class="radio"><label>{% input_field type="radio"  name="divorce_reason" value="live separate" data_target_id="other_reason" data_reveal_target="false" %}You and your spouse have lived separate and apart for one year or more</label></div>
+    <div class="radio">
+        <label>
+        {% input_field type="radio"  name="divorce_reason" value="live separate" data_target_id="other_reason" data_reveal_target="false" data_target_class="not-disqualified" data_reveal_class="true" %}
+        You and your spouse have lived separate and apart for one year or more
+        </label>
+    </div>
     <p><em>Usually the grounds for divorce are that you've been living separately and apart form your spouse for at least one year</em></p>
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_separated_apart" aria-controls="collapse_separated_apart">
         <div>
@@ -67,7 +72,12 @@
 </div>
 
 <div class="question-well">
-    <div class="radio"><label>{% input_field type="radio"  name="divorce_reason" value="other" data_target_id="other_reason" data_reveal_target="true" %}Other reasons (grounds)</label></div>
+    <div class="radio">
+        <label>
+            {% input_field type="radio"  name="divorce_reason" value="other" data_target_id="other_reason" data_reveal_target="true" data_target_class="not-disqualified" data_reveal_class="false" %}
+            Other reasons (grounds)
+        </label>
+    </div>
 
     <div class="information-message bg-danger" id="other_reason" hidden>
         <p><span class="fa fa-ban hard-stop"></span>
@@ -77,35 +87,36 @@
         <p>A <a href="http://www.familylaw.lss.bc.ca/guides/divorce/divJoint_courtForms.php" target="_blank">listing of forms</a> that may be required for a Joint Divorce can be found on the Legal Services Society web site.</p>
     </div>
 
+    <div class="not-disqualified">
+        <p><em>For example:</em></p>
+        <ul>
+            <li><em>Your spouse has been physically abusive or mentally cruel to you</em></li>
+            <li><em>Your spouse has committed adultery</em></li>
+        </ul>
 
-    <p><em>For example:</em></p>
-    <ul>
-        <li><em>Your spouse has been physically abusive or mentally cruel to you</em></li>
-        <li><em>Your spouse has committed adultery</em></li>
-    </ul>
-
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_which_grounds_select" aria-controls="collapse_which_grounds_select">
-        <div>
-            Which grounds should I select since more than one scenario applies to my marriage?
+        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_which_grounds_select" aria-controls="collapse_which_grounds_select">
+            <div>
+                Which grounds should I select since more than one scenario applies to my marriage?
+            </div>
         </div>
-    </div>
-    <div class="collapse" id="collapse_which_grounds_select">
-        <div>
-            <p>
-                Most divorces use the one-year separation ground. But you can also apply for a divorce earlier on the basis of adultery or physical or mental cruelty. If you ask for a divorce for one of these reasons, you have to present evidence to the court to prove
-                the facts of the adultery or physical or mental cruelty. So generally speaking, asking for a divorce based on the grounds of having lived separate and apart for more than one year is the least complicated.
-            </p>
-            <p>
-                Canada has no-fault divorce. No-fault, in this context, means that the reasons for marriage breakdown have nothing at all to do with the court's consideration of issues like custody and support. So even though you may be really upset at your spouse's
-                misbehaviour, it will have no impact on how the legal issues are addressed.
-            </p>
+        <div class="collapse" id="collapse_which_grounds_select">
+            <div>
+                <p>
+                    Most divorces use the one-year separation ground. But you can also apply for a divorce earlier on the basis of adultery or physical or mental cruelty. If you ask for a divorce for one of these reasons, you have to present evidence to the court to prove
+                    the facts of the adultery or physical or mental cruelty. So generally speaking, asking for a divorce based on the grounds of having lived separate and apart for more than one year is the least complicated.
+                </p>
+                <p>
+                    Canada has no-fault divorce. No-fault, in this context, means that the reasons for marriage breakdown have nothing at all to do with the court's consideration of issues like custody and support. So even though you may be really upset at your spouse's
+                    misbehaviour, it will have no impact on how the legal issues are addressed.
+                </p>
+            </div>
         </div>
     </div>
 </div>
 {% endblock %}
 
 {% block formbuttons %}
-<div class="form-buttons clearfix">
+<div class="form-buttons clearfix not-disqualified">
     <a class="btn btn-success pull-right" href="{% url 'login' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
 </div>
 {% endblock %}

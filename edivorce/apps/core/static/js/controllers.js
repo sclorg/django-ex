@@ -5,19 +5,30 @@
 // data-related_id: id of information section which needed to be hide when target_id section is shown or vice versa
 var reveal = function(el) {
     var id = '#' + el.data("target_id");
+    var css_class = el.data("target_class");
     var related_id = el.data("related_id");
-    if (related_id != undefined) {
-        related_id = '#' + related_id;
-    }
+
+    // hide or show based on target id
     if (el.data("reveal_target") == true) {
         $(id).show();
         if (related_id != undefined){
-            $(related_id).hide();
+            $('#' + related_id).hide();
         }
     } else {
         $(id).hide();
         if (related_id != undefined){
-            $(related_id).show();
+            $('#' + related_id).show();
+        }
+    }
+
+    // hide or show based on target css class
+    if (el.data("reveal_class") == false) {
+        if (css_class != undefined){
+            $('.' + css_class).hide();
+        }
+    } else {
+        if (css_class != undefined){
+            $('.' + css_class).show();
         }
     }
 

@@ -1,7 +1,9 @@
 // Reveal sections as the form is loading
 $('input:radio, input:checkbox').each(function () {
     if ($(this).is(':checked')) {
-        reveal($(this));
+        if ($(this).is(':visible')) {
+            reveal($(this));
+        }
         // apply css class to big round buttons
         if ($(this).parent().hasClass('btn-radio')) {
             $(this).parent().addClass('active');

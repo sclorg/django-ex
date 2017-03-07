@@ -11,11 +11,11 @@
 
     <div class="btn-radio-group" data-toggle="buttons">
         <label class="btn btn-radio">
-            {% input_field type="radio" name="lived_in_bc" autocomplete="off" value="YES" data_target_id="cannot_divorce_in_bc" data_reveal_target="false" %} Yes
+            {% input_field type="radio" name="lived_in_bc" autocomplete="off" value="YES" data_target_id="cannot_divorce_in_bc" data_reveal_target="false" data_target_class="not-disqualified" data_reveal_class="true" %} Yes
         </label>
 
         <label class="btn btn-radio">
-            {% input_field type="radio" name="lived_in_bc" autocomplete="off" value="NO" data_target_id="cannot_divorce_in_bc" data_reveal_target="true" %} No
+            {% input_field type="radio" name="lived_in_bc" autocomplete="off" value="NO" data_target_id="cannot_divorce_in_bc" data_reveal_target="true" data_target_class="not-disqualified" data_reveal_class="false" %} No
         </label>
     </div>
 
@@ -27,7 +27,7 @@
         </p>
     </div>
 
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_living_in_bc" aria-controls="collapse_living_in_bc">
+    <div class="collapse-trigger collapsed not-disqualified" data-toggle="collapse" aria-expanded="false" data-target="#collapse_living_in_bc" aria-controls="collapse_living_in_bc">
         <div>
             I've been living in B.C. for many years, but my spouse lives in another province. Can we still get divorced in B.C.?
         </div>
@@ -42,7 +42,7 @@
     </div>
 </div>
 
-<div class="question-well">
+<div class="question-well not-disqualified">
     <h3>Have you or your spouse lived in B.C. at least one year prior to starting your divorce?</h3>
 
     <div class="btn-radio-group" data-toggle="buttons">
@@ -73,7 +73,7 @@
 {% endblock %}
 
 {% block formbuttons %}
-<div class="form-buttons clearfix">
+<div class="form-buttons clearfix not-disqualified">
     <a class="btn btn-success pull-right" href="{% url 'prequalification' '03' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
 </div>
 {% endblock %}

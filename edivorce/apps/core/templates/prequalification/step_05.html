@@ -131,11 +131,11 @@
 
     <div class="btn-radio-group" data-toggle="buttons">
         <label class="btn btn-radio">
-            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="YES" data_target_id="certificate_in_english" data_reveal_target="false" %} Yes
+            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="YES" data_target_id="certificate_in_english" data_reveal_target="false" data_target_class="not-disqualified" data_reveal_class="true" %} Yes
         </label>
 
         <label class="btn btn-radio">
-            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="NO" data_target_id="certificate_in_english" data_reveal_target="true" %} No
+            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="NO" data_target_id="certificate_in_english" data_reveal_target="true" data_target_class="not-disqualified" data_reveal_class="false" %} No
         </label>
     </div>
 
@@ -164,7 +164,7 @@
 {% endblock %}
 
 {% block formbuttons %}
-<div class="form-buttons clearfix">
+<div class="form-buttons clearfix not-disqualified">
     <a class="btn btn-success pull-right" href="{% url 'prequalification' '06' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
 </div>
 {% endblock %}
