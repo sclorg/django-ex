@@ -444,10 +444,27 @@ textarea {
 }
 
 .footer {
-	height: 50px;
 	background-color: $brand-blue;
-	border-top: 2px solid $brand-gold;
-	color: #ffffff;
+	border-top: 3px solid $brand-gold;
+	padding: 30px 15px 15px;
+	.footer-container ul {
+		list-style-type: none;
+		li {
+			float: left;
+			padding: 2px 10px;
+			position: relative;
+			a {
+				display: block;
+    			text-align: center;
+				color: #ffffff;
+				font-size: 13px;
+				font-weight: 600;
+			}
+			&+li  {
+			    border-left: 1px solid #4b5e73;
+			}
+		}
+	}
 }
 
 .question-well {
@@ -466,6 +483,7 @@ textarea {
 	flex-direction: row;
 	flex-wrap: wrap;
 	height: 100%;
+	overflow: hidden;
 	.col {
 		flex: 1;
 		box-sizing: border-box;
