@@ -33,7 +33,7 @@ def input_field(context, type, name='', value='', multiple='', **kwargs):
         else:
             value_list = context.get(name, '')
 
-        if value in value_list and value != '':
+        if value_list is not None and value != '' and value in value_list:
             tag.append(' checked')
 
         tag.append('>')
