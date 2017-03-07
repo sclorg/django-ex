@@ -2,11 +2,11 @@
 
 {% block title %}{{ block.super }}: Overview{% endblock %}
 
-{% block progress %}{% include "dashnav.html" %}{% endblock %}
+{% block progress %}{% include "dashnav.html" with active_page=active_page %}{% endblock %}
 
 {% block content %}
 
-<h2>Your Information</h2>
+<h2>Answer the Questions Related to Your Divorce Questionnaire</h2>
 <ul>
     <li style="display: flex"><a href="{% url 'prequalification' '01' %}">Qualifying Questions</a><p style="margin-left: 90px">{{prequalification}}</p></li>
     <li style="display: flex"><a href="{% url 'question_steps' '01_orders' %}">Step 1: What are you asking for?</a><p style="margin-left: 90px">{{which_orders}}</p></li>
@@ -22,54 +22,6 @@
     <li style="display: flex"><a href="{% url 'question_steps' '11_review' %}">Step 11: Review</a></li>
     <li style="display: flex"><a href="{% url 'question_steps' '12_uncategorized' %}">Step 12: Uncategorized</a></li>
 </ul>
-
-<h2>Prepare your forms</h2>
-<ul>
-    <li>
-        <p>
-            Notice of Joint Family Claim(F1)
-            <a href="{% url 'pdf_form' '1' %}?html">Preview</a> |
-            <a href="{% url 'pdf_form' '1' %}" class="spinner">Print</a>
-        </p>
-    </li>
-    <li>
-        <p>
-            Original Marriage Certificate or Registration of Marriage
-            <a href="#">Preview</a> |
-            <a href="#">Print</a>
-        </p>
-    </li>
-    <li>
-        <p>
-            Requisition (Form F35)
-            <a href="{% url 'pdf_form' '35' %}?html">Preview</a> |
-            <a href="{% url 'pdf_form' '35' %}" class="spinner">Print</a>
-        </p>
-    </li>
-    <li>
-        <p>
-            Draft Final Order (Form F52)
-            <a href="{% url 'pdf_form' '52' %}?html">Preview</a> |
-            <a href="{% url 'pdf_form' '52' %}" class="spinner">Print</a>
-        </p>
-    </li>
-    <li>
-        <p>
-            Certificate of Pleadings (F36)
-            <a href="{% url 'pdf_form' '36' %}?html">Preview</a> |
-            <a href="{% url 'pdf_form' '36' %}" class="spinner">Print</a>
-        </p>
-    </li>
-    <li>
-        <p>
-            Affidavit Desk Order Divorce (F38)
-            <a href="{% url 'pdf_form' '38' %}?html">Preview</a> |
-            <a href="{% url 'pdf_form' '38' %}" class="spinner">Print</a>
-        </p>
-    </li>
-</ul>
-
-
 
 {% endblock %}
 

@@ -22,6 +22,14 @@ def intro(request):
     return render(request, 'intro.html', context={'hide_nav': True})
 
 
+def success(request):
+    return render(request, 'success.html')
+
+
+def savepdf(request):
+    return render(request, 'savepdf.html', context={'active_page': 'savepdf'})
+
+
 def login(request):
 
     if settings.DEPLOYMENT_TYPE == 'localdev' and not request.session.get('fake-bceid-guid'):
@@ -79,7 +87,7 @@ def question(request, step):
         responses_dict = get_responses_from_db_grouped_by_steps(user)
     else:
         responses_dict = get_responses_from_db(user)
-    responses_dict['question_step'] = step
+    responses_dict['active_page'] = step
     # If page is filing location page, add registries dictionary for list of court registries
     if step == "10_location":
         responses_dict['registries'] = sorted(list_of_registries)
@@ -102,6 +110,7 @@ def overview(request):
             started_dict[step] = "Not started"
         else:
             started_dict[step] = "Started"
+    started_dict['active_page'] = 'overview'
     return render(request, 'overview.html', context=started_dict)
 
 

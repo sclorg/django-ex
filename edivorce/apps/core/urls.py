@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^bceid', localdev.bceid, name="bceid"),
     url(r'^logout', main.logout, name="logout"),
     url(r'^overview', main.overview, name="overview"),
+    url(r'^success', main.success, name="success"),
+    url(r'^savepdf', main.savepdf, name="savepdf"),
     url(r'^health$', system.health),
 
     # todo: remove this line once BCeID is working

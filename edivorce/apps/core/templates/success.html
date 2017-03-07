@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }}: Overview{% endblock %}
+
+{% block progress %}{% include "dashnav.html" %}{% endblock %}
+
+{% block content %}
+<div>
+    <h1>You have met the conditions for requesting a divorce in B.C.</h1>
+
+    <h4>Documents you will need to move forward with the divorce request.</h4>
+    <ul>
+        <li>Marriag certificate</li>
+        <li>Separation agreement or court order</li>
+    </ul>
+    <div class="form-buttons clearfix">
+        <a class="btn btn-success" href="{% url 'login' %}">Returning User<br/>Login with BCeID</a>
+        <a class="btn btn-success" href="{% url 'login' %}">New User<br/>Register for BCeID</a>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block formbuttons %}
+<!-- no formbuttons -->
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
