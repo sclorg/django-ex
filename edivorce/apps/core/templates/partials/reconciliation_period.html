@@ -1,6 +1,13 @@
 {% load input_field %}
-<div style="display: inline-flex">
-    <p><label>From: <span class="date-picker-group">{% input_field type="text" name="reconciliation_period" value=from multiple='true' class="date-pickers reconciliation-from-date" placeholder="DD/MM/YYYY" %}</span></label></p>
-    <p><label>To: <span class="date-picker-group">{% input_field type="text" name="reconciliation_period" value=to multiple='true' class="date-pickers reconciliation-to-date" placeholder="DD/MM/YYYY" %}</span></label></p>
-    <input type="button" class="btn-delete-period" value="Delete" />
+<div class="form-inline">
+    <div class="form-group">
+        <label>From:</label>
+        <span class="date-picker-group">{% input_field type="text" name="reconciliation_period" value=from multiple='true' class="date-pickers reconciliation-from-date" placeholder="DD/MM/YYYY" %}</span>
+    </div>
+    &nbsp;&nbsp;
+    <div class="form-group">
+        <label>To: </label>
+            <span class="date-picker-group">{% input_field type="text" name="reconciliation_period" value=to multiple='true' class="date-pickers reconciliation-to-date" placeholder="DD/MM/YYYY" %}</span>
+    </div>
+    <input type="button" class="btn btn-danger btn-delete-period form-control pull-right" value="Delete" />
 </div>
