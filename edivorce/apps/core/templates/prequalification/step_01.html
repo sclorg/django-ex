@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<h1>Do you qualify for a divorce in BC?</h1>
+<h1>Do you qualify for a divorce in B.C.?</h1>
 
 <p>Let's start off with a few questions about your situation to make sure that this online divorce tool can
     work for you.</p>
@@ -13,7 +13,7 @@
 <div class="question-well">
     <h3>Are you</h3>
     <div class="radio"><label>
-        {% input_field type="radio"  name="married_marriage_like" value="Legally married" %}
+        {% input_field type="radio"  name="married_marriage_like" value="Legally married" class="keep-tooltip-open" %}
         Legally married<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"
                           data-html="true"
                           title="<b>LEGALLY MARRIED</b><br /><br />Legally married is defined as: when two people agree
@@ -24,7 +24,7 @@
     </div>
 
     <div class="radio"><label>
-        {% input_field type="radio"  name="married_marriage_like" value="Living together in a marriage like relationship" %}
+        {% input_field type="radio"  name="married_marriage_like" value="Living together in a marriage like relationship" class="keep-tooltip-open" %}
         Living together in a marriage like<i class="fa fa-question-circle" data-toggle="tooltip"
                                              data-placement="right" data-html="true"
                                              title="<b>MARRIAGE LIKE RELATIONSHIP</b><br /><br />The term &quot;common-law relationship&quot;

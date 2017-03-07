@@ -12,6 +12,17 @@ $('input:radio, input:checkbox').each(function () {
 $(function () {
     $('[data-toggle="tooltip"]').tooltip({trigger: 'click'});
 
+    $('body').on('click', function (e) {
+        $('[data-toggle=tooltip]').each(function () {
+            // hide any open popovers when the anywhere else in the body is clicked
+            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.tooltip').has(e.target).length === 0) {
+                if(!$(e.target).hasClass('keep-tooltip-open')) {
+                    $(this).tooltip('hide');
+                }
+            }
+        });
+    });
+
     // when user click textbox beside radio button, check the associated radio button
     $(".other-textbox").on("click", function () {
         $(this).parents().find(".radio_with_textbox").prop('checked', true);
