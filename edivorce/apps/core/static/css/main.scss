@@ -670,6 +670,27 @@ textarea {
 	}
 }
 
+/* Spinner */
+div#progress-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    background: url(/Images/transparent.png);
+    background: rgba(0,0,0,0.35);
+}
+
+div#progress-overlay-spinner {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5000;
+}
+
 /* Transitions & Transforms */
 
 .on-canvas {

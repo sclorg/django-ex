@@ -90,7 +90,7 @@
                     <div class="form-buttons clearfix">
                         <a class="btn btn-primary" href="{% block formBack %}#{% endblock %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
                         <a class="btn btn-success pull-right" href="{% block formNext %}#{% endblock %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
-                        <a class="btn btn-primary pull-right" href="#"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;Save and return another time</a>
+                        <a class="btn btn-primary pull-right save-spinner" href="#"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;Save and return another time</a>
                     </div>
                     {% endblock %}
 
@@ -113,10 +113,12 @@
         </footer>
 
 
+        <div id="progress-overlay" style="display: none"><div id="progress-overlay-spinner"></div></div>
 
         <script type="text/javascript" src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/vendor/bootstrap-datepicker.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/vendor/spin.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/controllers.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/ajax.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/main.js' %}"></script>

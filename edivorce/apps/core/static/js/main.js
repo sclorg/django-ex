@@ -62,6 +62,25 @@ $(function () {
             $('#separation_date_alert').hide();
         }
     });
+
+    // spinner
+    $('body').on('click', 'input.spinner, a.spinner', function () {
+        $('div#progress-overlay').show();
+        $('div#progress-overlay-spinner').spin('large');
+    });
+
+    $('body').on('click', 'a.save-spinner', function (e) {
+        e.preventDefault();
+        $('div#progress-overlay').show();
+        $('div#progress-overlay-spinner').spin('large');
+
+        setTimeout(function(){
+            $('div#progress-overlay').hide();
+            $('div#progress-overlay-spinner').spin(false);
+        }, 500);
+
+    });
+
 });
 
 // delete and added field and save the change
