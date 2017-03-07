@@ -75,7 +75,7 @@
 </div>
 
 <div class="question-well">
-    <h3>Did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} try and reconcile after you separated <span id="separation_date_span">{% if separation_date %} on {{ separation_date }}{% endif %}</span>?</h3>
+    <h3>Did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} try to reconcile after you separated <span id="separation_date_span">{% if separation_date %} on {{ separation_date }}{% endif %}</span>?</h3>
     <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" value="NO" data_target_id="reconciliation_period" data_reveal_target="false" %}
         No, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I have not reconciled (gotten back together)</label>
     </div>
