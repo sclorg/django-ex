@@ -57,8 +57,11 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-5">
-                            <div class="mid_banner-dash"><a href="{% url 'overview' %}"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>Back to Dashboard</a>
-                            </div>
+                            {% if request.bceid_user.is_authenticated %}
+                                <div class="mid_banner-dash"><a href="{% url 'overview' %}">
+                                    <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>Back to Dashboard</a>
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="col-md-7">
                             <div class="more_information-link">
