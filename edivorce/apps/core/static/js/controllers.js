@@ -20,6 +20,15 @@ var reveal = function(el) {
             $(related_id).show();
         }
     }
+
+    if (el.prop('name') == "provide_certificate_later" || el.prop('name') == "original_marriage_certificate"){
+        if ($('input[name=provide_certificate_later]:checked').val() == 'NO' && $('input[name=original_marriage_certificate]:checked').val() == 'NO') {
+            $('#is_certificate_in_english').hide();
+        }
+        else {
+            $('#is_certificate_in_english').show();
+        }
+    }
 };
 
 // Controls Checkbox behaviour for children_financial_support
