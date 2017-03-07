@@ -670,7 +670,25 @@ textarea {
 	}
 }
 
+/* Transitions & Transforms */
 
-
+.on-canvas {
+	@media (min-width: 1px) and (max-width: 991px) {
+		display: block;
+	}
+	@media (min-width: 992px) {
+		transition: 300ms ease-out all;
+		transform: translateX(0);
+	}
+}
+.off-canvas {
+	@media (min-width: 1px) and (max-width: 991px) {
+		display: none;
+	}
+	@media (min-width: 992px) {
+		transition: 300ms ease-out all;
+		transform: translateX(306px);
+	}
+}
 
 
