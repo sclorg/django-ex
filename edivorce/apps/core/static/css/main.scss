@@ -92,11 +92,12 @@ h4 {
 a {
   color: $brand-links;
   text-decoration: none;
+  transition: all 0.1s ease-in-out;
   &:hover,
   &:focus {
     color: darken( $brand-links, 10% );
     text-decoration: underline;
-    transition: color 0.1s ease;
+    transition: all 0.1s eease-in-out;
   }
 }
 
@@ -176,13 +177,13 @@ a {
 			padding-left: 10px;
 			content: "\f077";
 			transform-origin: 65% 50%;
-			transition: transform 0.2s linear;
+			transition: all 0.1s ease-in-out;
 		}
 		&:hover,
 	    &:focus {
 	      color: darken( $brand-links, 10% );
 		  border-bottom: solid 1px darken( $brand-links, 10% );
-	      transition: all 0.1s ease;
+	      transition: all 0.1s ease-in-out;
 	    }
 	}
 	margin-bottom: 20px;
@@ -224,8 +225,10 @@ i.fa.fa-question-circle {margin-left: 5px;}
 	    background-color: $brand-buttons;
 	    color: #ffffff;
 		margin-bottom: 12px;
+		transition: all 0.1s ease-in-out;
 	    &:hover {
 	        background-color: darken($brand-buttons, 20%);
+			transition: all 0.1s ease-in-out;
 	    }
 		i.fa {
 			color: #ffffff;
@@ -233,8 +236,10 @@ i.fa.fa-question-circle {margin-left: 5px;}
 		&.btn-success {
 			background-color: $color-green;
 			margin-left: 12px;
+			transition: all 0.1s ease-in-out;
 			&:hover {
 		        background-color: darken($color-green, 20%);
+				transition: all 0.1s ease-in-out;
 		    }
 		}
 	}
@@ -251,6 +256,7 @@ i.fa.fa-question-circle {margin-left: 5px;}
 	height: 60px;
 	border-radius: 30px;
 	border: 3px solid $color-blue-lighter;
+	transition: all 0.1s ease-in-out;
 }
 
 .btn-radio:hover,
@@ -261,6 +267,7 @@ i.fa.fa-question-circle {margin-left: 5px;}
 	color: #FFFFFF;
 	background-color: $brand-links;
 	border: 3px solid $brand-buttons;
+	transition: all 0.1s ease-in-out;
 }
 
 .btn-radio:active,
@@ -286,6 +293,7 @@ fieldset[disabled] .btn-radio:active,
 fieldset[disabled] .btn-radio.active {
   background-color: $brand-buttons;
   border-color: $brand-buttons;
+  transition: all 0.1s ease-in-out;
 }
 
 .btn-radio + .btn-radio {
@@ -507,7 +515,7 @@ textarea {
 		flex:  100%;
 		background-color: $color-grey-lighter;
 		box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-		padding: 45px 20px;
+		padding: 20px 45px;
 		font-size: 14px;
 		line-height: 21px;
 		order: 1;
@@ -524,6 +532,7 @@ textarea {
 	}
 	@media (min-width: 992px) {
 		.more_information-column {
+			padding: 45px 20px;
 			order: 4;
 			flex: 0 0 306px;
 		}
@@ -736,6 +745,25 @@ span.hard-stop {
 	@media (min-width: 992px) {
 		transition: 300ms ease-out all;
 		transform: translateX(306px);
+	}
+}
+
+.margin-right {
+	@media (min-width: 1px) and (max-width: 991px) {
+		margin-right: 0;
+	}
+	@media (min-width: 992px) {
+		transition: 300ms ease-out all;
+		margin-right: -306px;
+	}
+}
+.no-margin-right {
+	@media (min-width: 1px) and (max-width: 991px) {
+		margin-right: 0;
+	}
+	@media (min-width: 992px) {
+		transition: 300ms ease-out all;
+		margin-right: 0;
 	}
 }
 

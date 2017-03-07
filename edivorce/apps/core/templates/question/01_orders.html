@@ -7,118 +7,118 @@
 
 {% block content %}
 
-
 <h1><small>Step 1:</small>What are you asking for?</h1>
-<h3>What are you asking for<span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
-   title="<b>Orders Definition</b><br /><br />A record of a decision made by a judge or master
-   <i class=&quot;fa fa-question-circle&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;right&quot; data-html=&quot;true&quot;
-   title=&quot;<b>Master Definition</b><br /><br />A judicial officer of the Supreme Court who can hear and decide certain applications, including interim applications for parenting or support orders.&quot; aria-hidden=&quot;true&quot;></i>
-    that tells you or your spouse what you must do (or not do).  For example: The court has made an order that your spouse must pay you $250 on a monthly basis to help pay off your combined debt."> (Orders)
-    <i class="fa fa-question-circle" aria-hidden="true"></i></span>?</h3>
-<p><em>With an undefended divorce (aka desk order), you do not need  to appear in court. However a judge needs to review and approve what you are asking for.  Orders allow you to tell the court what you want (for example parenting support and property division).</em></p>
-<p><em>Please select what you are asking for. Later on you will be asked to provide details for each request.</em></p>
-<div class="checkbox-group">
-    <div>
-        <div class="checkbox">
-            <label>
-                {% input_field type="checkbox" name="want_which_orders" value="A legal end to the marriage" %}<b>A legal end to the marriage</b>
-            </label>
-        </div>
-        <p>
-            Divorce is the end of a legal marriage. To get a divorce, you must go through a legal process and get a court order that says the marriage has ended.
-        </p>
-        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_common_law" aria-controls="collapse_common_law">
-            <div>
-                Are you in a common law relationship (legally know as a "marriage like relationship"?
+<div class="question-well">
+    <h3>What are you asking for<span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
+       title="<b>Orders Definition</b><br /><br />A record of a decision made by a judge or master
+       <i class=&quot;fa fa-question-circle&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;right&quot; data-html=&quot;true&quot;
+       title=&quot;<b>Master Definition</b><br /><br />A judicial officer of the Supreme Court who can hear and decide certain applications, including interim applications for parenting or support orders.&quot; aria-hidden=&quot;true&quot;></i>
+        that tells you or your spouse what you must do (or not do).  For example: The court has made an order that your spouse must pay you $250 on a monthly basis to help pay off your combined debt."> (Orders)
+        <i class="fa fa-question-circle" aria-hidden="true"></i></span>?</h3>
+    <p><em>With an undefended divorce (aka desk order), you do not need  to appear in court. However a judge needs to review and approve what you are asking for.  Orders allow you to tell the court what you want (for example parenting support and property division).</em></p>
+    <p><em>Please select what you are asking for. Later on you will be asked to provide details for each request.</em></p>
+    <div class="checkbox-group">
+        <div>
+            <div class="checkbox">
+                <label>
+                    {% input_field type="checkbox" name="want_which_orders" value="A legal end to the marriage" %}<b>A legal end to the marriage</b>
+                </label>
             </div>
-        </div>
-        <div class="collapse" id="collapse_common_law">
-            <div>
-                <p>A divorce is a court order, made under the Divorce Act, that ends a marriage. Only married spouses need to get a divorce to end their relationship; unmarried spouses and other unmarried couples do not need to divorce. Their relationships are over when they separate.
-                    <a href="http://www.cbabc.org/For-the-Public/Dial-A-Law/Scripts/Family-Law/120" target="_blank">http://www.cbabc.org/For-the-Public/Dial-A-Law/Scripts/Family-Law/120</a>
-                </p>
-                <p>
-                    So you do not need to ask for a legal end to the marriage (Divorce order). However, if you would like spousal support or property and debt issues addressed, you will need to ask for these orders.
-                </p>
-                <p>
-                    Note that there are important time limits if you want to apply for spousal support and/or divide property, debt, or a pension.
-                </p>
-                <p>
-                    If you were married, you must apply to divide property within two years after you get an order for divorce.
-                    If you were living in a marriage-like relationship for at least two years, you must apply within two years of the date you separated.
-                </p>
-                <p>
-                    For more information refer to the
-                    <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">Spousal Support</a> and
-                    <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/dividePropertyAndDebts.php" target="_blank">How to Divide Property and Debt</a> fact sheets on the Legal Services Society web site.
-                </p>
-            </div>
-        </div>
-    </div>
-    <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Spousal support" data_target_id="spouse_support_alert" data_reveal_target="true" %}<b>Spousal support</b></label></div>
-        <p><em>Payments to support you, not the children.</em></p>
-        <p><em>For more information, please see the fact sheet Spousal Support
-            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-            title="<b>spousal support</b><br /><br />When a couple separates, one spouse may be eligible to
-            receive financial support from the other. This is called spousal support. Spousal support is separate
-            and distinct from child support. Unlike child support, spousal support is not a right in every case.
-            You are entitled to spousal support in certain situations." aria-hidden="true"></i>
-            by the Legal Services Society.
-            <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php</a></em></p>
-        <div class="information-message bg-danger" id="spouse_support_alert" hidden>
-            <p>If you and your spouse have already agreed on spousal support (which could be in the form of a separation agreement
-                <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                   title="<b>Separation agreement</b><br /><br /><p>A document that sets out how you and your spouse have agreed to deal with thing matters
-                   like parenting support and property after you separate (Provincial family law calls it an agreement).
-                   There's no official form to use for drafting up a separation agreement.</p>" aria-hidden="true"></i>
-                ) then you do not need to ask for an Order for Spousal Support. However if you want the spousal support agreement to be enforceable (legally binding) you will need to select this option.</p>
-            <h2>Time limit to apply for court order </h2>
-            <p>If you were married, you must apply for spousal support under the
-                <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/spousal-support" target="_blank">Family Law Act</a>
-                within two years after you get an order for divorce. If you are applying for spousal support under the Divorce Act, you do not have a time limit.</p>
-
-            <p>If you were unmarried, and you qualify for spousal support, you must apply within two years of the date you separated.</p>
-        </div>
-    </div>
-    <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Division of property and debts" data_target_id="property_division_alert" data_reveal_target="true" %}<b>Division of property and debts</b></label></div>
-        <p><em>Anything you own including real estate, bank accounts, cars and RRSPs.</em></p>
-        <p><em>For more information, please refer to  the following fact sheets on the  Legal Services Society website:</em></p>
-        <ul>
-            <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/dividePropertyAndDebts.php" target="_blank">How to Divide Property and Debts</a></li>
-            <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/debtsAfterSeparation.php" target="_blank">Dealing with Debts After Separation</a></li>
-        </ul>
-        <div class="information-message bg-danger" id="property_division_alert" hidden>
-            <h2>Time limit to apply for court order </h2>
-            <p>If you were <b>married</b>, you must apply to divide property within two years after you get an order for divorce.</p>
-            <p>If you were living in a <b>marriage-like relationship</b> for at least two years, you must apply within two years of the date you separated.</p>
-            <!-- TODO Confirm exact section to show -->
-            {% if married_marriage_like == "Living together in a marriage like relationship" %}
+            <p>
+                Divorce is the end of a legal marriage. To get a divorce, you must go through a legal process and get a court order that says the marriage has ended.
+            </p>
+            <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_common_law" aria-controls="collapse_common_law">
                 <div>
-                    <p>In order to be considered a spouse for the purpose of dividing property or debt you must have lived together in a marriage-like relationship for at least two years.</p>
+                    Are you in a common law relationship (legally know as a "marriage like relationship"?
                 </div>
-            {% endif %}
-            <p><em>For more information, please refer to  the following fact sheets on the  Legal Services Society website:</em></p>
-                <ul>
-                    <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/dividePropertyAndDebts.php" target="_blank">How to Divide Property and Debts</a></li>
-                    <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/debtsAfterSeparation.php" target="_blank">Dealing with Debts After Separation</a></li>
-                </ul>
+            </div>
+            <div class="collapse" id="collapse_common_law">
+                <div>
+                    <p>A divorce is a court order, made under the Divorce Act, that ends a marriage. Only married spouses need to get a divorce to end their relationship; unmarried spouses and other unmarried couples do not need to divorce. Their relationships are over when they separate.
+                        <a href="http://www.cbabc.org/For-the-Public/Dial-A-Law/Scripts/Family-Law/120" target="_blank">http://www.cbabc.org/For-the-Public/Dial-A-Law/Scripts/Family-Law/120</a>
+                    </p>
+                    <p>
+                        So you do not need to ask for a legal end to the marriage (Divorce order). However, if you would like spousal support or property and debt issues addressed, you will need to ask for these orders.
+                    </p>
+                    <p>
+                        Note that there are important time limits if you want to apply for spousal support and/or divide property, debt, or a pension.
+                    </p>
+                    <p>
+                        If you were married, you must apply to divide property within two years after you get an order for divorce.
+                        If you were living in a marriage-like relationship for at least two years, you must apply within two years of the date you separated.
+                    </p>
+                    <p>
+                        For more information refer to the
+                        <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">Spousal Support</a> and
+                        <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/dividePropertyAndDebts.php" target="_blank">How to Divide Property and Debt</a> fact sheets on the Legal Services Society web site.
+                    </p>
+                </div>
+            </div>
         </div>
-    </div>
-    <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Other orders" %}<b>Other orders</b></label></div>
-        <p><em>For example, a name change.</em></p>
-    </div>
-    <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Child support" data_target_id="child_support_alert" data_reveal_target="true" %}<b>Child support (Out of scope)</b></label></div>
-        <div class="information-message bg-danger" id="child_support_alert" hidden>
-            <p>We've noticed that at this point in time you are not applying for spousal support and/or division of property, debt, or a pension. If you decide to request these items in the future there are some time limits.</p>
-            <h2>Division of Property and Debts</h2>
-            <p>If you were married, you must apply to divide property within two years after you get an order for divorce. If you were living in a marriage-like relationship for at least two years, you must apply within two years of the date you separated.</p>
-            <h2>Spousal Support</h2>
-            <p>If you were married, you must apply for spousal support under the Family Law Act within two years after you get an order for divorce. If you are applying for spousal support under the Divorce Act, you do not have a time limit.</p>
-            <p>If you were unmarried, and you qualify for spousal support, you must apply within two years of the date you separated.</p>
+        <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Spousal support" data_target_id="spouse_support_alert" data_reveal_target="true" %}<b>Spousal support</b></label></div>
+            <p><em>Payments to support you, not the children.</em></p>
+            <p><em>For more information, please see the fact sheet Spousal Support
+                <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+                title="<b>spousal support</b><br /><br />When a couple separates, one spouse may be eligible to
+                receive financial support from the other. This is called spousal support. Spousal support is separate
+                and distinct from child support. Unlike child support, spousal support is not a right in every case.
+                You are entitled to spousal support in certain situations." aria-hidden="true"></i>
+                by the
+                <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">Legal Services Society</a></em>.</p>
+            <div class="information-message bg-danger" id="spouse_support_alert" hidden>
+                <p>If you and your spouse have already agreed on spousal support (which could be in the form of a separation agreement
+                    <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
+                       title="<b>Separation agreement</b><br /><br /><p>A document that sets out how you and your spouse have agreed to deal with thing matters
+                       like parenting support and property after you separate (Provincial family law calls it an agreement).
+                       There's no official form to use for drafting up a separation agreement.</p>" aria-hidden="true"></i>
+                    ) then you do not need to ask for an Order for Spousal Support. However if you want the spousal support agreement to be enforceable (legally binding) you will need to select this option.</p>
+                <h2>Time limit to apply for court order </h2>
+                <p>If you were married, you must apply for spousal support under the
+                    <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/spousal-support" target="_blank">Family Law Act</a>
+                    within two years after you get an order for divorce. If you are applying for spousal support under the Divorce Act, you do not have a time limit.</p>
+
+                <p>If you were unmarried, and you qualify for spousal support, you must apply within two years of the date you separated.</p>
+            </div>
+        </div>
+        <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Division of property and debts" data_target_id="property_division_alert" data_reveal_target="true" %}<b>Division of property and debts</b></label></div>
+            <p><em>Anything you own including real estate, bank accounts, cars and RRSPs.</em></p>
+            <p><em>For more information, please refer to  the following fact sheets on the  Legal Services Society website:</em></p>
+            <ul>
+                <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/dividePropertyAndDebts.php" target="_blank">How to Divide Property and Debts</a></li>
+                <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/debtsAfterSeparation.php" target="_blank">Dealing with Debts After Separation</a></li>
+            </ul>
+            <div class="information-message bg-danger" id="property_division_alert" hidden>
+                <h2>Time limit to apply for court order </h2>
+                <p>If you were <b>married</b>, you must apply to divide property within two years after you get an order for divorce.</p>
+                <p>If you were living in a <b>marriage-like relationship</b> for at least two years, you must apply within two years of the date you separated.</p>
+                <!-- TODO Confirm exact section to show -->
+                {% if married_marriage_like == "Living together in a marriage like relationship" %}
+                    <div>
+                        <p>In order to be considered a spouse for the purpose of dividing property or debt you must have lived together in a marriage-like relationship for at least two years.</p>
+                    </div>
+                {% endif %}
+                <p><em>For more information, please refer to  the following fact sheets on the  Legal Services Society website:</em></p>
+                    <ul>
+                        <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/dividePropertyAndDebts.php" target="_blank">How to Divide Property and Debts</a></li>
+                        <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/debtsAfterSeparation.php" target="_blank">Dealing with Debts After Separation</a></li>
+                    </ul>
+            </div>
+        </div>
+        <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Other orders" %}<b>Other orders</b></label></div>
+            <p><em>For example, a name change.</em></p>
+        </div>
+        <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Child support" data_target_id="child_support_alert" data_reveal_target="true" %}<b>Child support (Out of scope)</b></label></div>
+            <div class="information-message bg-danger" id="child_support_alert" hidden>
+                <p>We've noticed that at this point in time you are not applying for spousal support and/or division of property, debt, or a pension. If you decide to request these items in the future there are some time limits.</p>
+                <h2>Division of Property and Debts</h2>
+                <p>If you were married, you must apply to divide property within two years after you get an order for divorce. If you were living in a marriage-like relationship for at least two years, you must apply within two years of the date you separated.</p>
+                <h2>Spousal Support</h2>
+                <p>If you were married, you must apply for spousal support under the Family Law Act within two years after you get an order for divorce. If you are applying for spousal support under the Divorce Act, you do not have a time limit.</p>
+                <p>If you were unmarried, and you qualify for spousal support, you must apply within two years of the date you separated.</p>
+            </div>
         </div>
     </div>
 </div>
-
 
 {% endblock %}
 

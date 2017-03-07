@@ -111,20 +111,25 @@ var date_picker = function () {
 };
 
 // Expand More Information boxes
+var moreInfo = $(".more_information-column");
+var moreInfoLink = $(".more_information-link a");
+var contentColumn = $(".col-flex.content-column");
 $(".more_information-link a").click(function () {
-    var moreInfo = $(".more_information-column");
     if ($(moreInfo).hasClass("off-canvas")) {
-        $(moreInfo).removeClass("off-canvas");
-        $(moreInfo).addClass("on-canvas");
+        $(moreInfo).removeClass("off-canvas").addClass("on-canvas");
+        $(moreInfoLink).addClass("active");
+        $(contentColumn).removeClass("margin-right").addClass("no-margin-right");
     } else {
-        $(moreInfo).removeClass("on-canvas");
-        $(moreInfo).addClass("off-canvas");
+        $(moreInfo).removeClass("on-canvas").addClass("off-canvas");
+        $(moreInfoLink).removeClass("active");
+        $(contentColumn).removeClass("no-margin-right").addClass("margin-right");
     }
 });
 $("a.more_information-close").click(function () {
     var moreInfo = $(".more_information-column");
-    $(moreInfo).removeClass("on-canvas");
-    $(moreInfo).addClass("off-canvas");
+    $(moreInfo).removeClass("on-canvas").addClass("off-canvas");
+    $(moreInfoLink).removeClass("active");
+    $(contentColumn).removeClass("no-margin-right").addClass("margin-right");
 });
 
 // Change border color on well when child has focus
