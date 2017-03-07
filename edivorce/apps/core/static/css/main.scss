@@ -381,6 +381,9 @@ textarea {
 		    margin-left: 10px;
 			font-size: 12px;
 			text-transform: uppercase;
+			&.environment-type {
+				background-color: #B200FF;
+			}
 		}
 	}
 
