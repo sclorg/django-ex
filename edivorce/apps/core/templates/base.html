@@ -137,6 +137,8 @@
 
         <div id="progress-overlay" style="display: none"><div id="progress-overlay-spinner"></div></div>
 
+        {% load compress %}
+        {% compress js %}
         <script type="text/javascript" src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/vendor/bootstrap-datepicker.min.js' %}"></script>
@@ -144,5 +146,6 @@
         <script type="text/javascript" src="{% static 'js/controllers.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/ajax.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+        {% endcompress %}
     </body>
 </html>
