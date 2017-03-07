@@ -9,41 +9,44 @@
 
 <p>Let's start off with a few questions about your situation to make sure that this online divorce tool can
     work for you.</p>
+
 <h3>Are you</h3>
-<div class="radio"><label>
-    {% input_field type="radio"  name="married_marriage_like" value="Legally married" %}
-    Legally married<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"
-                      data-html="true"
-                      title="<b>LEGALLY MARRIED</b><br /><br />Legally married is defined as: when two people agree
-                      to live together in a partnership made legally binding by a religous or legal ceremony.<br /><br />
-                      To prove you were legally married you will need to provide a marriage certificate issued in the country
-                      where you were married."
-                      aria-hidden="true"></i></label>
-</div>
-
-<div class="radio"><label>
-    {% input_field type="radio"  name="married_marriage_like" value="Living together in a marriage like relationship" %}
-    Living together in a marriage like<i class="fa fa-question-circle" data-toggle="tooltip"
-                                         data-placement="right" data-html="true"
-                                         title="<b>MARRIAGE LIKE RELATIONSHIP</b><br /><br />The term &quot;common-law relationship&quot;
-                                 is often used to refer to a marriage-like relationship that has lasted a certain length of time,
-                                 usually one or two years. Used in some federal laws to refer to a marriage-like relationship of
-                                 a year or longer." aria-hidden="true"></i> (also know as common law) relationship</label>
-</div>
-
-<div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="true" data-target="#collapse_lived_two_years" aria-controls="collapse_lived_two_year">
-    <div>
-        If I have lived with my spouse for at least two years, are we married?
+<div class="question-well">
+    <div class="radio"><label>
+        {% input_field type="radio"  name="married_marriage_like" value="Legally married" %}
+        Legally married<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"
+                          data-html="true"
+                          title="<b>LEGALLY MARRIED</b><br /><br />Legally married is defined as: when two people agree
+                          to live together in a partnership made legally binding by a religous or legal ceremony.<br /><br />
+                          To prove you were legally married you will need to provide a marriage certificate issued in the country
+                          where you were married."
+                          aria-hidden="true"></i></label>
     </div>
-</div>
-<div class="collapse" id="collapse_lived_two_years">
-    <div>
-        <p>No, you aren't married, but after two years, you have a lot of the same rights as a married
-            couple would. And some federal benefits treat you as married spouse if you've been living together for one
-            year. For more information refer to the booklet called
-            <a href="http://www.familylaw.lss.bc.ca/resources/publications/pub.php?pub=347" target="_blank">
-                Living Together or Living Apart: Common-Law Relationships, Marriage, Separation and Divorce</a>,
-            on the Legal Services Society website.</p>
+
+    <div class="radio"><label>
+        {% input_field type="radio"  name="married_marriage_like" value="Living together in a marriage like relationship" %}
+        Living together in a marriage like<i class="fa fa-question-circle" data-toggle="tooltip"
+                                             data-placement="right" data-html="true"
+                                             title="<b>MARRIAGE LIKE RELATIONSHIP</b><br /><br />The term &quot;common-law relationship&quot;
+                                     is often used to refer to a marriage-like relationship that has lasted a certain length of time,
+                                     usually one or two years. Used in some federal laws to refer to a marriage-like relationship of
+                                     a year or longer." aria-hidden="true"></i> (also know as common law) relationship</label>
+    </div>
+
+    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="true" data-target="#collapse_lived_two_years" aria-controls="collapse_lived_two_year">
+        <div>
+            If I have lived with my spouse for at least two years, are we married?
+        </div>
+    </div>
+    <div class="collapse" id="collapse_lived_two_years">
+        <div>
+            <p>No, you aren't married, but after two years, you have a lot of the same rights as a married
+                couple would. And some federal benefits treat you as married spouse if you've been living together for one
+                year. For more information refer to the booklet called
+                <a href="http://www.familylaw.lss.bc.ca/resources/publications/pub.php?pub=347" target="_blank">
+                    Living Together or Living Apart: Common-Law Relationships, Marriage, Separation and Divorce</a>,
+                on the Legal Services Society website.</p>
+        </div>
     </div>
 </div>
 
