@@ -81,15 +81,18 @@ var date_picker = function () {
 // Expand More Information boxes
 $(".more_information-link a").click(function () {
     var moreInfo = $(".more_information-column");
-    if ($(moreInfo).hasClass("hidden")) {
-        $(moreInfo).removeClass("hidden");
+    if ($(moreInfo).hasClass("off-canvas")) {
+        $(moreInfo).removeClass("off-canvas");
+        $(moreInfo).addClass("on-canvas");
     } else {
-        $(moreInfo).addClass("hidden");
+        $(moreInfo).removeClass("on-canvas");
+        $(moreInfo).addClass("off-canvas");
     }
 });
 $("a.more_information-close").click(function () {
     var moreInfo = $(".more_information-column");
-    $(moreInfo).addClass("hidden");
+    $(moreInfo).removeClass("on-canvas");
+    $(moreInfo).addClass("off-canvas");
 });
 
 // Change border color on well when child has focus

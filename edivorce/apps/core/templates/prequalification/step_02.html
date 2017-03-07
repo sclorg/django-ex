@@ -6,7 +6,7 @@
 {% block content %}
 
 <h1>Do you qualify for a divorce in BC?</h1>
-<div>
+<div class="question-well">
     <h3>Do you or your spouse live in British Columbia?</h3>
 
     <div class="btn-radio-group" data-toggle="buttons">
@@ -42,7 +42,7 @@
     </div>
 </div>
 
-<div>
+<div class="question-well">
     <h3>Have you or your spouse lived in B.C. at least one year prior to starting your divorce?</h3>
 
     <div class="btn-radio-group" data-toggle="buttons">
@@ -73,7 +73,7 @@
 {% endblock %}
 
 {% block formbuttons %}
-<div class="form-buttons">
+<div class="form-buttons clearfix">
     <a class="btn btn-success pull-right" href="{% url 'prequalification' '03' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
 </div>
 {% endblock %}
