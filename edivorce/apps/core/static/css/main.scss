@@ -696,7 +696,6 @@ div#progress-overlay {
     left: 0;
     right: 0;
     z-index: 10000;
-    background: url(/Images/transparent.png);
     background: rgba(0,0,0,0.35);
 }
 
@@ -708,6 +707,15 @@ div#progress-overlay-spinner {
     right: 0;
     z-index: 5000;
 }
+
+/* Prequalification hard-stop indicator */
+span.hard-stop {
+	font-size: 2.8em;
+	display: inline-block;
+	float: left;
+	margin: 3px 10px 0 0;
+}
+
 
 /* Transitions & Transforms */
 
