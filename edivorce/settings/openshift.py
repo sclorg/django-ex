@@ -55,14 +55,15 @@ PROXY_URL_PREFIX = ''
 if DEPLOYMENT_TYPE == 'dev':
     PROXY_URL_PREFIX = "/divorce-dev"
     DEBUG = True
+    REGISTER_URL = 'https://www.test.bceid.ca/register/basic/account_details.aspx?type=regular&eServiceType=basic'
 
 if DEPLOYMENT_TYPE == 'test':
     PROXY_URL_PREFIX = "/divorce-test"
-
+    REGISTER_URL = 'https://www.test.bceid.ca/register/basic/account_details.aspx?type=regular&eServiceType=basic'
 
 if DEPLOYMENT_TYPE == 'prod':
     PROXY_URL_PREFIX = "/divorce"
-
+    REGISTER_URL = 'https://www.bceid.ca/register/basic/account_details.aspx?type=regular&eServiceType=basic'
 
 FORCE_SCRIPT_NAME = PROXY_URL_PREFIX + '/'
 STATIC_URL = PROXY_URL_PREFIX + '/static/'
@@ -71,6 +72,6 @@ WEASYPRINT_CSS_LOOPBACK += PROXY_URL_PREFIX
 # Integration URLs
 PROXY_BASE_URL = 'https://justice.gov.bc.ca'
 LOGOUT_URL = 'https://logon.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1' % (PROXY_BASE_URL, PROXY_URL_PREFIX)
-REGISTER_URL = ''
+
 
 
