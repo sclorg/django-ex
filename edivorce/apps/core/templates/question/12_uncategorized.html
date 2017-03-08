@@ -5,143 +5,110 @@
 {% block progress %}{% include "progress.html" %}{% endblock %}
 
 {% block content %}
-<div class="container-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div>
-                    <h1>FORM 35</h1>
-                    <h1>Filed with this requisition are: </h1>
-                    <div class="checkbox-group">
-                        <div class="checkbox">
-                            <label>
-                                {% input_field type="checkbox" name="form35_dummy_requisition" value="option1" %}a draft of the order sought
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                {% input_field type="checkbox" name="form35_dummy_requisition" value="option2" %}proof that the case is an undefended family law case
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                {% input_field type="checkbox" name="form35_dummy_requisition" value="option3" %}certificate of the registrar in Form F36
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                {% input_field type="checkbox" name="form35_dummy_requisition" value="option4" %}filing fee
-                            </label>
-                        </div>
-                    </div>
+<div class="question-well">
+    <h1>FORM 35</h1>
+    <h3>Filed with this requisition are: </h3>
+    <div class="checkbox-group">
+        <div class="checkbox">
+            <label>
+                {% input_field type="checkbox" name="form35_dummy_requisition" value="option1" %}a draft of the order sought
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                {% input_field type="checkbox" name="form35_dummy_requisition" value="option2" %}proof that the case is an undefended family law case
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                {% input_field type="checkbox" name="form35_dummy_requisition" value="option3" %}certificate of the registrar in Form F36
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                {% input_field type="checkbox" name="form35_dummy_requisition" value="option4" %}filing fee
+            </label>
+        </div>
+    </div>
 
-                    <h1>Additional request:</h1>
-                    <div class="checkbox-group">
-                        <div class="checkbox">
-                            <label>
-                                {% input_field type="checkbox" name="form35_dummy_additional" value="option1" %}proof of service of the Notice of Family Claim or Counterclaim, as the case may be.
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                {% input_field type="checkbox" name="form35_dummy_additional" value="option2" %}a Child Support Affidavit in Form F37.
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                {% input_field type="checkbox" name="form35_dummy_additional" value="option3" %}an Affidavit in Form F38.
-                            </label>
-                        </div>
-                    </div>
-                </div>
+    <h3>Additional request:</h3>
+    <div class="checkbox-group">
+        <div class="checkbox">
+            <label>
+                {% input_field type="checkbox" name="form35_dummy_additional" value="option1" %}proof of service of the Notice of Family Claim or Counterclaim, as the case may be.
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                {% input_field type="checkbox" name="form35_dummy_additional" value="option2" %}a Child Support Affidavit in Form F37.
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                {% input_field type="checkbox" name="form35_dummy_additional" value="option3" %}an Affidavit in Form F38.
+            </label>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="question-well">
+    <h1>FORM 38</h1>
+    <div>
+        <h3>Will you be swearing/affirming your affidavit together at the registry? Or will you be doing this separately?</h3>
+        <div class="btn-radio-group" data-toggle="buttons">
+            <label class="btn btn-radio btn-radio-long">
+                {% input_field type="radio" name="form38_dummy_together" autocomplete="off" value="together" %} Together
+            </label>
+            <label class="btn btn-radio btn-radio-long">
+                {% input_field type="radio" name="form38_dummy_together" autocomplete="off" value="separte" %} Separate
+            </label>
+        </div>
+        <div>
+            <h3>Your occupation</h3>
+            <div>{% input_field type="text" name="form38_dummy_occupation_you" class="form-block input-wide response-textbox" %}</div>
+            <h3>Your spouse's occupation</h3>
+            <div>{% input_field type="text" name="form38_dummy_occupation_spouse" class="form-block input-wide response-textbox" %}</div>
+        </div>
+        <div>
+            <h3>The facts set out in the: (show if separate is clicked) </h3>
+            <div class="btn-radio-group" data-toggle="buttons">
+                <label class="btn btn-radio btn-radio-long">
+                    {% input_field type="radio" name="form38_dummy_facts" autocomplete="off" value="option1" %} notice of family claim
+                </label>
+                <label class="btn btn-radio btn-radio-long">
+                    {% input_field type="radio" name="form38_dummy_facts" autocomplete="off" value="option2" %} response to family claim and counterclaim
+                </label>
+            </div>
+        </div>
+        {% if responses.original_marriage_certificate == 'NO' %}
+        <div>
+            <h3>Name of a person who was present at the marriage ceremony(show if no to provide marriage certificate</h3>
+            <div>{% input_field type="text" name="form38_dummy_witness" class="form-block input-wide response-textbox" %}</div>
+        </div>
+        {% endif %}
+        <div>
+            <h3>change to new name</h3>
+            <div>{% input_field type="text" name="form38_dummy_new_name" class="form-block input-wide response-textbox" %}</div>
+            <h3>For who? (for together)</h3>
+            <div class="btn-radio-group" data-toggle="buttons">
+                <label class="btn btn-radio btn-radio-long">
+                    {% input_field type="radio" name="form38_dummy_for_who" autocomplete="off" value="Claimant 1" %} Claimant 1
+                </label>
+                <label class="btn btn-radio btn-radio-long">
+                    {% input_field type="radio" name="form38_dummy_for_who" autocomplete="off" value="Claimant 2" %} Claimant 2
+                </label>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div>
-                    <h1>FORM 38</h1>
-                    <div>
-                        <h1>Will you be swearing/affirming your affidavit together at the registry? Or will you be doing this separately?</h1>
-                        <div class="btn-radio-group" data-toggle="buttons">
-                            <label class="btn btn-radio btn-radio-long">
-                                {% input_field type="radio" name="form38_dummy_together" autocomplete="off" value="together" %} Together
-                            </label>
-                            <label class="btn btn-radio btn-radio-long">
-                                {% input_field type="radio" name="form38_dummy_together" autocomplete="off" value="separte" %} Separate
-                            </label>
-                        </div>
-                        <div>
-                            <h1>Your occupation</h1>
-                            <div>{% input_field type="text" name="form38_dummy_occupation_you" class="form-block input-wide response-textbox" %}</div>
-                            <h1>Your spouse's occupation</h1>
-                            <div>{% input_field type="text" name="form38_dummy_occupation_spouse" class="form-block input-wide response-textbox" %}</div>
-                        </div>
-                        <div>
-                            <h1>The facts set out in the: (show if separate is clicked) </h1>
-                            <div class="btn-radio-group" data-toggle="buttons">
-                                <label class="btn btn-radio btn-radio-long">
-                                    {% input_field type="radio" name="form38_dummy_facts" autocomplete="off" value="option1" %} notice of family claim
-                                </label>
-                                <label class="btn btn-radio btn-radio-long">
-                                    {% input_field type="radio" name="form38_dummy_facts" autocomplete="off" value="option2" %} response to family claim and counterclaim
-                                </label>
-                            </div>
-                        </div>
-                        {% if responses.original_marriage_certificate == 'NO' %}
-                        <div>
-                            <h1>Name of a person who was present at the marriage ceremony(show if no to provide marriage certificate</h1>
-                            <div>{% input_field type="text" name="form38_dummy_witness" class="form-block input-wide response-textbox" %}</div>
-                        </div>
-                        {% endif %}
-                        <div>
-                            <h1>change to new name</h1>
-                            <div>{% input_field type="text" name="form38_dummy_new_name" class="form-block input-wide response-textbox" %}</div>
-                            <h1>For who? (for together)</h1>
-                            <div class="btn-radio-group" data-toggle="buttons">
-                                <label class="btn btn-radio btn-radio-long">
-                                    {% input_field type="radio" name="form38_dummy_for_who" autocomplete="off" value="Claimant 1" %} Claimant 1
-                                </label>
-                                <label class="btn btn-radio btn-radio-long">
-                                    {% input_field type="radio" name="form38_dummy_for_who" autocomplete="off" value="Claimant 2" %} Claimant 2
-                                </label>
-                            </div>
-                            <h1>gender? (for together)</h1>
-                            <div class="btn-radio-group" data-toggle="buttons">
-                                <label class="btn btn-radio btn-radio-long">
-                                    {% input_field type="radio" name="form38_dummy_gender" autocomplete="off" value="his" %} Male
-                                </label>
-                                <label class="btn btn-radio btn-radio-long">
-                                    {% input_field type="radio" name="form38_dummy_gender" autocomplete="off" value="her" %} Female
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="container-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div>
-                    <h1>FORM 52</h1>
-                </div>
+<form action="{% url 'overview' %}">
+    <input type="submit" value="Process overview" style="border: solid"/>
+</form>
 
-                <form action="{% url 'overview' %}">
-                    <input type="submit" value="Process overview" style="border: solid"/>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block formbuttons %}
