@@ -8,12 +8,20 @@
 
     <h4>Documents you will need to move forward with the divorce request.</h4>
     <ul>
-        <li>Marriag certificate</li>
+        <li>Marriage certificate</li>
         <li>Separation agreement or court order</li>
     </ul>
+
+    <h4>Please register or login to continue.</h4>
+    <p>If you already have a <strong>Basic</strong> BCeID, then you can login now.
+        Otherwise you will need to register for a <strong>Basic</strong> BCeID to continue.</p>
     <div class="form-buttons clearfix">
-        <a class="btn btn-success" href="{% url 'login' %}">Returning User<br/>Login with BCeID</a>
-        <a class="btn btn-success" href="https://www.bceid.ca/register/basic/account_details.aspx?type=regular&eServiceType=basic">New User<br/>Register for BCeID</a>
+        <a class="btn btn-success" href="{% url 'login' %}">
+            I Already Have a BCeID.<br>Login Now
+        </a>
+        <a class="btn btn-success" href="https://www.bceid.ca/register/basic/account_details.aspx?type=regular&eServiceType=basic">
+            Register<br>for a Basic BCeID
+        </a>
     </div>
 </div>
 
