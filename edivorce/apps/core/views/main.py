@@ -23,7 +23,10 @@ def intro(request):
 
 
 def success(request):
-    return render(request, 'success.html')
+    if request.bceid_user.is_authenticated:
+        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
+    else:
+        return render(request, 'success.html', context={'register_url': settings.REGISTER_URL})
 
 
 def savepdf(request):

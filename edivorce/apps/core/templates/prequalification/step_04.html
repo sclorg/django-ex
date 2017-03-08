@@ -3,6 +3,11 @@
 
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
+{% block progress %}
+    {% if request.bceid_user.is_authenticated %}
+        {% include "progress.html" with step=active_page %}
+    {% endif %}
+{% endblock %}
 {% block content %}
 
 <h1>Do you qualify for a divorce in B.C.?</h1>
