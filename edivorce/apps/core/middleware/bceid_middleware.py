@@ -46,8 +46,8 @@ class BceidMiddleware(object):
                 guid=request.session.get('fake-bceid-guid', ''),
                 is_authenticated=True,
                 user_type='FAKE',
-                first_name='Kelly',
-                last_name='Bundy'
+                first_name=request.session.get('login-name',''),
+                last_name=''
             )
 
         else:
