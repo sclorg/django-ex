@@ -2,8 +2,6 @@
 
 {% block title %}{{ block.super }}: Overview{% endblock %}
 
-{% block progress %}{% include "dashnav.html" %}{% endblock %}
-
 {% block content %}
 <div>
     <h1>You have met the conditions for requesting a divorce in B.C.</h1>
@@ -15,7 +13,7 @@
     </ul>
     <div class="form-buttons clearfix">
         <a class="btn btn-success" href="{% url 'login' %}">Returning User<br/>Login with BCeID</a>
-        <a class="btn btn-success" href="{% url 'login' %}">New User<br/>Register for BCeID</a>
+        <a class="btn btn-success" href="https://www.bceid.ca/register/basic/account_details.aspx?type=regular&eServiceType=basic">New User<br/>Register for BCeID</a>
     </div>
 </div>
 
