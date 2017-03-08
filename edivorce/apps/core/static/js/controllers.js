@@ -125,7 +125,7 @@ var getValue = function(el, question){
         var sToDate, sFromDate, dToDate, dFromDate;
         var hideAlert = true;
         $('#reconciliation_period_fields').find(".reconciliation-from-date").each(function () {
-            sToDate = $(this).closest('div').find(".reconciliation-to-date").val();
+            sToDate = $(this).closest('div').next('div').find(".reconciliation-to-date").val();
             sFromDate = $(this).val();
             // check if both date is in valid format and all
             if (sToDate != '' && sFromDate != '' && validateDate(sToDate) && validateDate(sFromDate))
