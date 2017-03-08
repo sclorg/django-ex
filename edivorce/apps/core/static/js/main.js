@@ -109,7 +109,7 @@ var deleteAddedField = function(e){
 
 // Configuration for datepicker
 var date_picker = function () {
-    $(".date-picker-group").datepicker({
+    $(".date-picker-group input").datepicker({
         format: "dd/mm/yyyy",
         startDate: "-100y",
         endDate: "0d",
