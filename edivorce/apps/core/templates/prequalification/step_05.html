@@ -70,12 +70,13 @@
 <div class="reveal question-well" id="marriage_certificate" hidden>
     <h3>Will you be providing the marriage certificate or registration of marriage at a later date?</h3>
 
-    <div class="btn-radio-group" data-toggle="buttons">
-        <label class="btn btn-radio">
+    <div class="radio">
+        <label>
             {% input_field type="radio" name="provide_certificate_later" autocomplete="off" value="YES" data_target_id="reason_not_providing" data_reveal_target="false" data_related_id="provide_later_date" %} Yes
         </label>
-
-        <label class="btn btn-radio btn-radio-long">
+    </div>
+    <div class="radio">
+        <label>
             {% input_field type="radio" name="provide_certificate_later" autocomplete="off" value="NO" data_target_id="reason_not_providing" data_reveal_target="true" data_related_id="provide_later_date" %} No, it is impossible to obtain a marriage certificate (or registration of marriage)
         </label>
     </div>

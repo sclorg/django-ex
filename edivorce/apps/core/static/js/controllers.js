@@ -7,9 +7,8 @@ var reveal = function(el) {
     var id = '#' + el.data("target_id");
     var css_class = el.data("target_class");
     var related_id = el.data("related_id");
-
     // hide or show based on target id
-    if (el.data("reveal_target") == true) {
+    if (el.data("reveal_target") == true && el.prop('checked')) {
         $(id).show();
         if (related_id != undefined){
             $('#' + related_id).hide();
@@ -83,7 +82,8 @@ var radioWithTextboxControl = function(el){
 
     // Set focus to textbox for user convenience
     else if (el.is(".radio-with-other") && el.val() == 'Other'){
-        $(".other-textbox").focus();
+
+        el.siblings($(".other-textbox")).focus();
     }
 
     // when textbox is clicked, update associated radio button response with its value
