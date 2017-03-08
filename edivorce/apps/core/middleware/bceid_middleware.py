@@ -35,8 +35,8 @@ class BceidMiddleware(object):
                 guid=request.META.get('HTTP_SM_USERDN', ''),
                 is_authenticated=True,
                 user_type='BCEID',
-                first_name='Bud',
-                last_name='Bundy'
+                first_name=request.META.get('HTTP_SM_USER', ''),
+                last_name=''
             )
 
         elif localdev and request.session.get('fake-bceid-guid', False):
