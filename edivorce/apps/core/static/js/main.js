@@ -12,7 +12,15 @@ $('input:radio, input:checkbox').each(function () {
 });
 
 $(function () {
-    $('[data-toggle="tooltip"]').tooltip({trigger: 'click'});
+  $('[data-toggle="popover"]').popover()
+})
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip({
+        container: 'body',
+        trigger: 'click',
+        placement:'auto right'
+    });
 
     $('body').on('click', function (e) {
         $('[data-toggle=tooltip]').each(function () {

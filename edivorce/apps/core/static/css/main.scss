@@ -124,18 +124,33 @@ a {
 	padding: 30px 30px 30px 75px;
 	border-radius: 10px;
 	margin-bottom: 20px;
-	background-color: #faebe9;
+	background-color: #fcf8e3;
 	&:after {
-	  content: "\f071";
-	  font-family: FontAwesome;
-	  font-style: normal;
-	  font-weight: normal;
-	  text-decoration: inherit;
-	  position: absolute;
-	  font-size: 24px;
-	  color: #ea604e;
-	  top: 30px;
-	  left: 27px;
+		content: "\f071";
+		font-family: FontAwesome;
+		font-style: normal;
+		font-weight: normal;
+		text-decoration: inherit;
+		position: absolute;
+		font-size: 24px;
+		color: #f0ad4e;
+		top: 30px;
+		left: 27px;
+	}
+	&.hard-stop {
+		background-color: #faebe9;
+		&:after {
+			content: "\f05e";
+			font-family: FontAwesome;
+			font-style: normal;
+			font-weight: normal;
+			text-decoration: inherit;
+			position: absolute;
+			font-size: 24px;
+			color: #ea604e;
+			top: 30px;
+			left: 27px;
+		}
 	}
 }
 
@@ -153,10 +168,10 @@ a {
 .tooltip-inner {
     text-align: left;
     background-color: $brand-titles;
-    padding: 30px;
+    padding: 20px;
 	font-size: 16px;
 	line-height: 24px;
-	max-width: 400px;
+	max-width: 300px;
 	border-radius: 10px;
 	&b {
 		font-size: 18px;
