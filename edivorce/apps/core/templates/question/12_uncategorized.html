@@ -69,11 +69,56 @@
                         <h1>Will you be swearing/affirming your affidavit together at the registry? Or will you be doing this separately?</h1>
                         <div class="btn-radio-group" data-toggle="buttons">
                             <label class="btn btn-radio btn-radio-long">
-                                {% input_field type="radio" name="form38_dummy_together" autocomplete="off" value="option1" %} Together
+                                {% input_field type="radio" name="form38_dummy_together" autocomplete="off" value="together" %} Together
                             </label>
                             <label class="btn btn-radio btn-radio-long">
-                                {% input_field type="radio" name="form38_dummy_together" autocomplete="off" value="option2" %} Separate
+                                {% input_field type="radio" name="form38_dummy_together" autocomplete="off" value="separte" %} Separate
                             </label>
+                        </div>
+                        <div>
+                            <h1>Your occupation</h1>
+                            <div>{% input_field type="text" name="form38_dummy_occupation_you" class="form-block input-wide response-textbox" %}</div>
+                            <h1>Your spouse's occupation</h1>
+                            <div>{% input_field type="text" name="form38_dummy_occupation_spouse" class="form-block input-wide response-textbox" %}</div>
+                        </div>
+                        <div>
+                            <h1>The facts set out in the: (show if separate is clicked) </h1>
+                            <div class="btn-radio-group" data-toggle="buttons">
+                                <label class="btn btn-radio btn-radio-long">
+                                    {% input_field type="radio" name="form38_dummy_facts" autocomplete="off" value="option1" %} notice of family claim
+                                </label>
+                                <label class="btn btn-radio btn-radio-long">
+                                    {% input_field type="radio" name="form38_dummy_facts" autocomplete="off" value="option2" %} response to family claim and counterclaim
+                                </label>
+                            </div>
+                        </div>
+                        {% if responses.original_marriage_certificate == 'NO' %}
+                        <div>
+                            <h1>Name of a person who was present at the marriage ceremony(show if no to provide marriage certificate</h1>
+                            <div>{% input_field type="text" name="form38_dummy_witness" class="form-block input-wide response-textbox" %}</div>
+                        </div>
+                        {% endif %}
+                        <div>
+                            <h1>change to new name</h1>
+                            <div>{% input_field type="text" name="form38_dummy_new_name" class="form-block input-wide response-textbox" %}</div>
+                            <h1>For who? (for together)</h1>
+                            <div class="btn-radio-group" data-toggle="buttons">
+                                <label class="btn btn-radio btn-radio-long">
+                                    {% input_field type="radio" name="form38_dummy_for_who" autocomplete="off" value="Claimant 1" %} Claimant 1
+                                </label>
+                                <label class="btn btn-radio btn-radio-long">
+                                    {% input_field type="radio" name="form38_dummy_for_who" autocomplete="off" value="Claimant 2" %} Claimant 2
+                                </label>
+                            </div>
+                            <h1>gender? (for together)</h1>
+                            <div class="btn-radio-group" data-toggle="buttons">
+                                <label class="btn btn-radio btn-radio-long">
+                                    {% input_field type="radio" name="form38_dummy_gender" autocomplete="off" value="his" %} Male
+                                </label>
+                                <label class="btn btn-radio btn-radio-long">
+                                    {% input_field type="radio" name="form38_dummy_gender" autocomplete="off" value="her" %} Female
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>

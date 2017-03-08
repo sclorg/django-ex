@@ -1,4 +1,5 @@
 {% load static %}
+{% load input_field %}
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -34,34 +35,40 @@
             Court File No.: <span class="form-entry not-complete">&nbsp;</span>
         </p>
         <p class="text-right">
-            Court Registry: <span class="form-entry not-complete">&nbsp;</span>
+            Court Registry: {% if responses.court_registry_for_filing %} {{ responses.court_registry_for_filing }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
         </p>
         <p class="text-center">
             <em>In the Supreme Court of British Columbia</em>
         </p>
         <p>
-            Claimant:
+            Claimant: {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}
         </p>
-        <p>
+        <p hidden>
             Claimant 1 [<em>joint family law case</em>]:
         </p>
         <p>
-            Respondent:
+            Respondent: {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}
         </p>
-        <p>
+        <p hidden>
             Claimant 2 [<em>joint family law case</em>]:
         </p>
         <p class="text-center">
             <strong>AFFIDAVIT - DESK ORDER DIVORCE</strong>
         </p>
-        <p class="text-center">
-            <em>[Rule 21-1 of the Supreme Court Family Rules applies to all forms.]</em>
-        </p>
+        <div hidden>
+            <p class="text-center">
+                <em>[Rule 21-1 of the Supreme Court Family Rules applies to all forms.]</em>
+            </p>
+            <p>
+                <em>[Complete the form in accordance with the instructions found in the bracketed italicized wording and then remove all bracketed italicized wording so that it does not appear in the form when the form is filed.]</em>
+            </p>
+        </div>
         <p>
-            <em>[Complete the form in accordance with the instructions found in the bracketed italicized wording and then remove all bracketed italicized wording so that it does not appear in the form when the form is filed.]</em>
-        </p>
-        <p>
-            I, <span class="form-entry not-complete">[<em>name</em>]</span>, of <span class="form-entry not-complete">[<em>address</em>]</span>, <span class="form-entry not-complete">[<em>occupation</em>]</span>, SWEAR (OR AFFIRM) THAT:
+            I, {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}, of
+            {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_prov_you and responses.address_to_send_official_document_country_you and responses.address_to_send_official_document_postal_code_you %}
+              {{ responses.address_to_send_official_document_street_you }}, {{ responses.address_to_send_official_document_city_you }}, {{ responses.address_to_send_official_document_prov_you }},
+              {% if responses.address_to_send_official_document_country_you == 'Other' %} {{ responses.address_to_send_official_document_other_country_you }}{% else %} {{ responses.address_to_send_official_document_country_you }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_you }} {% else %}<span class="form-entry not-complete">[<em>address</em>]</span>{% endif %},
+            {% if responses.form38_dummy_occupation_you %} {{ responses.form38_dummy_occupation_you }}{% else %}<span class="form-entry not-complete">[<em>occupation</em>]</span>{% endif %}, SWEAR (OR AFFIRM) THAT:
         </p>
         <p class="schIndent1">
             1 I am <span class="form-entry not-complete">[<em>the claimant/the respondent/Claimant 1/Claimant 2</em>]</span>.
@@ -69,94 +76,122 @@
         <p class="schIndent1">
             2 There is no possibility of reconciliation between my spouse and me.
         </p>
-        <p>
+
+        <p hidden>
             [<em>Select whichever one of the 2 following provisions is correct and remove the provision that has not been selected so that it does not appear in the form when the form is filed.</em>]
         </p>
+
         <p class="schIndent1">
-            3 I believe that the facts set out in the notice of family claim are true.
+            3 I believe that the facts set out in {% if responses.form38_dummy_facts == 'option1' %}the notice of family claim{% else %}the response to family claim and counterclaim{% endif %} are true.
         </p>
-        <p class="schIndent1">
-            3 I believe that the facts set out in the response to family claim and counterclaim are true.
-        </p>
-        <p>
+
+        <p hidden>
             <em>[Select whichever one of the 2 following provisions is correct, provide any required information and remove the provision that has not been selected so that it does not appear in the form when the form is filed.]</em>
         </p>
-        <p class="schIndent1">
-            4 The certificate of marriage or certified copy of the registration of marriage filed in this family law case fully and correctly describes the true particulars of the marriage.
-        </p>
-        <p class="schIndent1">
-            4 It is impossible to obtain a certificate of marriage or a certified copy of the registration of marriage and instead, in accordance with section 52 (1) (a) of the <em>Evidence Act</em>, I refer to the affidavit of <span class="form-entry not-complete">[<em>name</em>]</span>,
-            a person who was present at the marriage ceremony, which affidavit is filed in this family law case.
-        </p>
-        <p>
+
+        {% if responses.original_marriage_certificate == 'YES' %}
+            <p class="schIndent1">
+                4 The certificate of marriage or certified copy of the registration of marriage filed in this family law case fully and correctly describes the true particulars of the marriage.
+            </p>
+        {% else %}
+            <p class="schIndent1">
+                4 It is impossible to obtain a certificate of marriage or a certified copy of the registration of marriage and instead, in accordance with section 52 (1) (a) of the <em>Evidence Act</em>, I refer to the affidavit of {% if responses.form38_dummy_witness %}{{ responses.form38_dummy_witness }}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %},
+                a person who was present at the marriage ceremony, which affidavit is filed in this family law case.
+            </p>
+        {% endif %}
+
+        <p hidden>
             <em>[Select whichever one of the 4 following provisions is correct, complete the selected provision and remove the provisions that have not been selected so that they do not appear in the form when the form is filed.]</em>
         </p>
-        <p class="schIndent1">
-            5 [<em>Select this provision if the grounds for divorce are separation for more than one year.</em>] I was living separate and apart from my spouse at the start of this family law case and I have lived separate and apart from my spouse since
-            <span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span> , except: <span class="form-entry not-complete">[<em>provide dates of any periods of attempted reconciliation</em>]</span>.
-        </p>
-        <p class="schIndent1">
-            5 [<em>Select this provision if the grounds for divorce are adultery of a spouse and there has been an admission of adultery.</em>] My spouse has admitted to me that <span class="form-entry not-complete">[<em>he/she</em>]</span> committed the acts of adultery alleged in Schedule
-            1 of the <span class="form-entry not-complete">[<em>notice of family claim/counterclaim</em>]</span> and
-        </p>
-        <p class="schIndent2">
-            (a) as corroboration I refer to <span class="form-entry not-complete">[<em>Set out whichever one of the following is applicable:</em></span> the affidavit(s) of <span class="form-entry not-complete">[<em>name(s)</em>]</span>, / the transcript of the examination for discovery of <span class="form-entry not-complete">[<em>name</em>]</span>
-            marked as Exhibit "A" to this affidavit <span class="form-entry not-complete">]</span> ,
-        </p>
-        <p class="schIndent2">
-            (b) I have not condoned the conduct of my spouse that is alleged as the grounds for divorce in that I have not forgiven my spouse for that conduct, nor have I encouraged or acquiesced in that conduct.
-        </p>
-        <p class="schIndent1">
-            5 [<em>Select this provision if the grounds for divorce are adultery of a spouse and there has been no admission of adultery.</em>] I have no personal knowledge of the acts of adultery alleged in Schedule 1 of the <span class="form-entry not-complete">&nbsp;</span>[<em>notice of family claim/counterclaim</em>]<span class="form-entry not-complete">&nbsp;</span>
-            and
-        </p>
-        <p class="schIndent2">
-            (a) in proof of the adultery committed by my spouse I refer to <span class="form-entry not-complete">&nbsp;</span>[<em>Set out whichever one of the following is applicable:</em> the affidavit(s) of <span class="form-entry not-complete">&nbsp;</span>[<em>name(s)</em>]<span class="form-entry not-complete">&nbsp;</span>, / the transcript of the examination
-            for discovery of <span class="form-entry not-complete">&nbsp;</span>[<em>name</em>]<span class="form-entry not-complete">&nbsp;</span> marked as Exhibit "A" to this affidavit]<span class="form-entry not-complete">&nbsp;</span> ,
-        </p>
-        <p class="schIndent2">
-            (b) I have not condoned the conduct of my spouse that is alleged as the grounds for divorce in that I have not forgiven my spouse for that conduct, nor have I encouraged or acquiesced in that conduct.
-        </p>
-        <p class="schIndent1">
-            5 [<em>Select this provision if the grounds for divorce are physical or mental cruelty of a spouse.</em>] My spouse has treated me with physical or mental cruelty since the date of the marriage as follows: <span class="form-entry not-complete">&nbsp;</span>[<em>provide details</em>]<span class="form-entry not-complete">&nbsp;</span>
-        </p>
+        
+        {% if responses.divorce_reason == 'live separate' %}
+            <p class="schIndent1">
+                5 <span hidden>[<em>Select this provision if the grounds for divorce are separation for more than one year.</em>]</span> I was living separate and apart from my spouse at the start of this family law case and I have lived separate and apart from my spouse since
+                {% if responses.separation_date %} {{ responses.separation_date }}{% else %} <span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span>{% endif %}, except:
+                {% multiple_values_to_list source=responses.reconciliation_period as periods %}
+                {% if periods != '[]' %}
+                    {% for period in periods %}
+                        {{ period }}
+                    {% endfor %}
+                {% else %}<span class="form-entry not-complete">[<em>provide dates of any periods of attempted reconciliation</em>]</span>.{% endif %}
+            </p>
+        {% else %}
+            <p class="schIndent1">
+                5 [<em>Select this provision if the grounds for divorce are adultery of a spouse and there has been an admission of adultery.</em>] My spouse has admitted to me that <span class="form-entry not-complete">[<em>he/she</em>]</span> committed the acts of adultery alleged in Schedule
+                1 of the <span class="form-entry not-complete">[<em>notice of family claim/counterclaim</em>]</span> and
+            </p>
+            <p class="schIndent2">
+                (a) as corroboration I refer to <span class="form-entry not-complete">[<em>Set out whichever one of the following is applicable:</em></span> the affidavit(s) of <span class="form-entry not-complete">[<em>name(s)</em>]</span>, / the transcript of the examination for discovery of <span class="form-entry not-complete">[<em>name</em>]</span>
+                marked as Exhibit "A" to this affidavit <span class="form-entry not-complete">]</span> ,
+            </p>
+            <p class="schIndent2">
+                (b) I have not condoned the conduct of my spouse that is alleged as the grounds for divorce in that I have not forgiven my spouse for that conduct, nor have I encouraged or acquiesced in that conduct.
+            </p>
+            <p class="schIndent1">
+                5 [<em>Select this provision if the grounds for divorce are adultery of a spouse and there has been no admission of adultery.</em>] I have no personal knowledge of the acts of adultery alleged in Schedule 1 of the <span class="form-entry not-complete">&nbsp;</span>[<em>notice of family claim/counterclaim</em>]<span class="form-entry not-complete">&nbsp;</span>
+                and
+            </p>
+            <p class="schIndent2">
+                (a) in proof of the adultery committed by my spouse I refer to <span class="form-entry not-complete">&nbsp;</span>[<em>Set out whichever one of the following is applicable:</em> the affidavit(s) of <span class="form-entry not-complete">&nbsp;</span>[<em>name(s)</em>]<span class="form-entry not-complete">&nbsp;</span>, / the transcript of the examination
+                for discovery of <span class="form-entry not-complete">&nbsp;</span>[<em>name</em>]<span class="form-entry not-complete">&nbsp;</span> marked as Exhibit "A" to this affidavit]<span class="form-entry not-complete">&nbsp;</span> ,
+            </p>
+            <p class="schIndent2">
+                (b) I have not condoned the conduct of my spouse that is alleged as the grounds for divorce in that I have not forgiven my spouse for that conduct, nor have I encouraged or acquiesced in that conduct.
+            </p>
+            <p class="schIndent1">
+                5 [<em>Select this provision if the grounds for divorce are physical or mental cruelty of a spouse.</em>] My spouse has treated me with physical or mental cruelty since the date of the marriage as follows: <span class="form-entry not-complete">&nbsp;</span>[<em>provide details</em>]<span class="form-entry not-complete">&nbsp;</span>
+            </p>
+        {% endif %}
         <p class="schIndent1">
             6 I am neither directly nor indirectly a party to an agreement or conspiracy for the purpose of subverting the administration of justice, or to any agreement, understanding or arrangement to fabricate or suppress evidence or to deceive the court.
         </p>
-        <p>
+
+        <p hidden>
             [<em>Select whichever one of the 2 following provisions is correct, provide any required information and remove the provision that has not been selected so that it does not appear in the form when the form is filed.</em>]
         </p>
-        <p class="schIndent1">
-            7 There are no children of the marriage as defined by the <em>Divorce Act</em> (Canada).
-        </p>
-        <p class="schIndent1">
-            7 There are children of the marriage as defined by the <em>Divorce Act</em> (Canada) and
-        </p>
-        <p class="schIndent2">
-            (a) those children are <span class="form-entry not-complete">&nbsp;</span>[<em>provide the full name, age and birth date of each child of the marriage</em>]<span class="form-entry not-complete">&nbsp;</span>,
-        </p>
-        <p class="schIndent2">
-            (b) I have sworn a child support affidavit in Form F37, and
-        </p>
-        <p class="schIndent2">
-            (c) the following arrangements for parenting have been made: <span class="form-entry not-complete">&nbsp;</span>[<em>provide details</em>]<span class="form-entry not-complete">&nbsp;</span> .
-        </p>
-        <p>
+
+        {% if responses.children_of_marriage == 'NO' %}
+            <p class="schIndent1">
+                7 There are no children of the marriage as defined by the <em>Divorce Act</em> (Canada).
+            </p>
+        {% else %}
+            <p class="schIndent1">
+                7 There are children of the marriage as defined by the <em>Divorce Act</em> (Canada) and
+            </p>
+            <p class="schIndent2">
+                (a) those children are <span class="form-entry not-complete">&nbsp;</span>[<em>provide the full name, age and birth date of each child of the marriage</em>]<span class="form-entry not-complete">&nbsp;</span>,
+            </p>
+            <p class="schIndent2">
+                (b) I have sworn a child support affidavit in Form F37, and
+            </p>
+            <p class="schIndent2">
+                (c) the following arrangements for parenting have been made: <span class="form-entry not-complete">&nbsp;</span>[<em>provide details</em>]<span class="form-entry not-complete">&nbsp;</span> .
+            </p>
+        {% endif %}
+
+        <p hidden>
             <em>[Select and complete the following provision if you are seeking a change of name for yourself. If you are not seeking a change of name for yourself, remove this provision so that it does not appear in the form when the form is filed.]</em>
         </p>
-        <p class="schIndent1">
-            8 Pursuant to section 5 of the <em>Name Act</em>, I am seeking to change my name from <span class="form-entry not-complete">&nbsp;</span> to <span class="form-entry not-complete">&nbsp;</span> . This application for a name change relates only to myself.
-        </p>
-        <p>
-            <em>[Select and complete the following provision if you are seeking a change of name for one or more minor children. If you are not seeking a change of name for one or more minor children, remove this provision so that it does not appear in the form when the form is filed. Renumber this provision as section 8 if you are seeking a change of name for one or more minor children and have not included a section 8 immediately before this provision.]</em>
-        </p>
-        <p class="schIndent1">
-            9 Pursuant to section 5 of the Name Act, I am seeking to change the name(s) of the minor child(ren) of the marriage as follows, and a copy of the consent(s) to the change(s) of name referred to in this section of <span class="form-entry not-complete">[<em>name</em>]</span>
-            who is/are <span class="form-entry not-complete">[<em>relationship to child(ren)</em>]</span> is/are attached to this affidavit and marked as Exhibit(s) <span class="form-entry not-complete">[<em>A, B, C, D, as the case may be</em>]</span>. [<em>Complete the following for each minor child of the marriage for whom a name change is sought.</em>]
-        </p>
-        <p class="schIndent2">
-            from <span class="form-entry not-complete">&nbsp;</span> to: <span class="form-entry not-complete">&nbsp;</span>
-        </p>
+        {% if responses.form38_dummy_new_name %}
+            <p class="schIndent1">
+                8 Pursuant to section 5 of the <em>Name Act</em>, I am seeking to change my name from {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %} to {% if responses.form38_dummy_new_name %}{{ responses.form38_dummy_new_name }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %}. This application for a name change relates only to myself.
+            </p>
+        {% endif %}
+
+        <div hidden>
+            <p>
+                <em>[Select and complete the following provision if you are seeking a change of name for one or more minor children. If you are not seeking a change of name for one or more minor children, remove this provision so that it does not appear in the form when the form is filed. Renumber this provision as section 8 if you are seeking a change of name for one or more minor children and have not included a section 8 immediately before this provision.]</em>
+            </p>
+
+            <p class="schIndent1">
+                9 Pursuant to section 5 of the Name Act, I am seeking to change the name(s) of the minor child(ren) of the marriage as follows, and a copy of the consent(s) to the change(s) of name referred to in this section of <span class="form-entry not-complete">[<em>name</em>]</span>
+                who is/are <span class="form-entry not-complete">[<em>relationship to child(ren)</em>]</span> is/are attached to this affidavit and marked as Exhibit(s) <span class="form-entry not-complete">[<em>A, B, C, D, as the case may be</em>]</span>. [<em>Complete the following for each minor child of the marriage for whom a name change is sought.</em>]
+            </p>
+            <p class="schIndent2">
+                from <span class="form-entry not-complete">&nbsp;</span> to: <span class="form-entry not-complete">&nbsp;</span>
+            </p>
+        </div>
+
         <table class="table table-bordered">
             <tbody>
                 <tr>

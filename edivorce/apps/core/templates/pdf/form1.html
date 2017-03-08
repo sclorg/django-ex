@@ -154,8 +154,19 @@
                     <td colspan="2"> <i class="fa {% if responses.try_reconcile_after_separated == 'YES' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} Claimant 1 and Claimant 2 have lived together again during the following period(s), in an unsuccessful attempt to reconcile: [<em>give dates of period(s)</em>] </td>
                 </tr>
                 <tr>
-                    <td><p>From: <span class="form-entry not-complete">&nbsp;</span></p> <p>From: <span class="form-entry not-complete">&nbsp;</span></p> <p>From: <span class="form-entry not-complete">&nbsp;</span></p></td>
-                    <td><p>to: <span class="form-entry not-complete">&nbsp;</span></p> <p>to: <span class="form-entry not-complete">&nbsp;</span></p> <p>to: <span class="form-entry not-complete">&nbsp;</span></p></td>
+                    {% multiple_values_to_list source=responses.reconciliation_period as periods %}
+                    {% if periods != '[]' %}
+                    <td>
+                        {% for period in periods %}
+                        <p>from: {{period | first}}</p>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for period in periods %}
+                        <p>to: {{period | last }}</p>
+                        {% endfor %}
+                    </td>
+                    {% else %}<td><p>From: <span class="form-entry not-complete">&nbsp;</span></p></td>{% endif %}
                 </tr>
                 <tr>
                     <td colspan="2"> (ii) <i class="fa fa-square-o" aria-hidden="true"></i> <strong> Other grounds </strong> , under section 8 (2) (b) of the <em> Divorce Act </em> (Canada): <span class="form-entry form-textarea not-complete">&nbsp;</span>

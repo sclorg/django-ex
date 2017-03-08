@@ -14,6 +14,8 @@ def form(request, form_number):
     user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
     responses = get_responses_from_db(user)
 
+    if form_number == '38' and responses['form38_dummy_together'] == 'together':
+        form_number += '_we'
     return render_form(request, 'form%s' % form_number,
                        {
                            "css_root": settings.WEASYPRINT_CSS_LOOPBACK,

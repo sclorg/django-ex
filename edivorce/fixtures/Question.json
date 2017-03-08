@@ -386,7 +386,7 @@
 {
     "fields": {
         "name": "What is the best address to send you official court documents? Street Number",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_street_you"
@@ -394,7 +394,7 @@
 {
     "fields": {
         "name": "What is the best address to send you official court documents? City",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_city_you"
@@ -402,7 +402,7 @@
 {
     "fields": {
         "name": "What is the best address to send you official court documents? Prov",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_prov_you"
@@ -410,7 +410,7 @@
 {
     "fields": {
         "name": "What is the best address to send you official court documents? Country",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_country_you"
@@ -418,7 +418,7 @@
 {
     "fields": {
         "name": "What is the best address to send you official court documents? Other Country",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_other_country_you"
@@ -426,7 +426,7 @@
 {
     "fields": {
         "name": "What is the best address to send you official court documents? Postal code",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_postal_code_you"
@@ -434,7 +434,7 @@
 {
     "fields": {
         "name": "What is the best address to send you official court documents? Fax number",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_fax_you"
@@ -442,7 +442,7 @@
 {
     "fields": {
         "name": "What is the best address to send you official court documents? Email",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_email_you"
@@ -450,7 +450,7 @@
 {
     "fields": {
         "name": "What is the best address to send your spouse official court documents? Street Number",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_street_spouse"
@@ -458,7 +458,7 @@
 {
     "fields": {
         "name": "What is the best address to send your spouse official court documents? City",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_city_spouse"
@@ -466,7 +466,7 @@
 {
     "fields": {
         "name": "What is the best address to send your spouse official court documents? Prov",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_prov_spouse"
@@ -474,7 +474,7 @@
 {
     "fields": {
         "name": "What is the best address to send your spouse official court documents? Country",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_country_spouse"
@@ -482,7 +482,7 @@
 {
     "fields": {
         "name": "What is the best address to send your spouse official court documents? Other Country",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_other_country_spouse"
@@ -490,7 +490,7 @@
 {
     "fields": {
         "name": "What is the best address to send your spouse official court documents? Postal code",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_postal_code_spouse"
@@ -498,7 +498,7 @@
 {
     "fields": {
         "name": "What is the best address to send your spouse official court documents? Fax number",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_fax_spouse"
@@ -506,10 +506,26 @@
 {
     "fields": {
         "name": "What is the best address to send your spouse official court documents? Email",
-        "description": "For step 10, Form 1 8. Claimants' addresses for service"
+        "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_email_spouse"
+},
+{
+    "fields": {
+        "name": "Divorce is to take effect on",
+        "description": "For step 9, Form 52 This Court Orders that"
+    },
+    "model": "core.question",
+    "pk": "divorce_take_effect_on"
+},
+{
+    "fields": {
+        "name": "Divorce is to take effect on - specific date",
+        "description": "For step 9, Form 52 This Court Orders that"
+    },
+    "model": "core.question",
+    "pk": "divorce_take_effect_on_specific_date"
 },
 {
     "fields": {
@@ -542,5 +558,61 @@
     },
     "model": "core.question",
     "pk": "form38_dummy_together"
+},
+{
+    "fields": {
+        "name": "Your occupation",
+        "description": "DUMMY QUESTION for form 38 second question"
+    },
+    "model": "core.question",
+    "pk": "form38_dummy_occupation_you"
+},
+{
+    "fields": {
+        "name": "Spouse occupation",
+        "description": "DUMMY QUESTION for form 38 third question"
+    },
+    "model": "core.question",
+    "pk": "form38_dummy_occupation_spouse"
+},
+{
+    "fields": {
+        "name": "Facts set out in the ",
+        "description": "DUMMY QUESTION for form 38 fourth question"
+    },
+    "model": "core.question",
+    "pk": "form38_dummy_facts"
+},
+{
+    "fields": {
+        "name": "Name of a person who was present at the marriage ceremony",
+        "description": "DUMMY QUESTION for form 38 fifth question"
+    },
+    "model": "core.question",
+    "pk": "form38_dummy_witness"
+},
+{
+    "fields": {
+        "name": "Want new name?",
+        "description": "DUMMY QUESTION for form 38 sixth question"
+    },
+    "model": "core.question",
+    "pk": "form38_dummy_new_name"
+},
+{
+    "fields": {
+        "name": "For who to change name?",
+        "description": "DUMMY QUESTION for form 38 seventh question"
+    },
+    "model": "core.question",
+    "pk": "form38_dummy_for_who"
+},
+{
+    "fields": {
+        "name": "Gender?",
+        "description": "DUMMY QUESTION for form 38 eighth question"
+    },
+    "model": "core.question",
+    "pk": "form38_dummy_gender"
 }
 ]
