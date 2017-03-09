@@ -13,8 +13,9 @@ from ..utils.user_response import get_responses_from_db
 def form(request, form_number):
     user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
     responses = get_responses_from_db(user)
+    key = 'form38_dummy_together'
 
-    if form_number == '38' and responses['form38_dummy_together'] == 'together':
+    if form_number == '38' and key in responses and responses[key] == 'together':
         form_number += '_we'
     return render_form(request, 'form%s' % form_number,
                        {
