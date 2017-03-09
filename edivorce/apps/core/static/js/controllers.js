@@ -75,7 +75,7 @@ var childSupportCheckboxControl = function(el) {
 var radioWithTextboxControl = function(el){
     // If radio button has other as an option and 'Other' is not selected, update other textbox to empty
     if (el.is(".radio-with-other") && el.val() != 'Other'){
-        var otherTextBox = $(".other-textbox");
+        var otherTextBox = el.closest('div.radio').parent().find(".other-textbox");
         otherTextBox.val('');
         ajaxCall(otherTextBox.prop('name'), '');
     }
