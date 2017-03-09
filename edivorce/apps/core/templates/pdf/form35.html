@@ -42,9 +42,11 @@
         <h2 class="text-center">
            REQUISITION
         </h2>
-        <p>
+
+        <p hidden>
             <em>[Rule 21-1 of the Supreme Court Family Rules applies to all forms.]</em>
         </p>
+
         </p>
         <p>
             <strong>Filed by:</strong> <span class="form-entry not-complete">[<em>party(ies)</em>]</span>
@@ -58,9 +60,11 @@
         <p>
             <strong>FILED WITH THIS REQUISITION ARE:</strong>
         </p>
-        <p>
+
+        <p hidden>
             [<em>Check all of the following boxes and file the following with this requisition.</em>]
         </p>
+
         {% check_list source=responses.form35_dummy_requisition value='option1' as dummy_option %}
         <p class="schIndent1">
             <i class="fa {% if dummy_option %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> draft of the order sought;
@@ -77,16 +81,20 @@
         <p class="schIndent1">
             <i class="fa {% if dummy_option %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> filing fee.
         </p>
-        <p>
+
+        <p hidden>
             [<em>Check the following box and file the following with this requisition unless a response to family claim or response to counterclaim has been filed or unless this case is a joint family law case within the meaning of Rule 2-2 of the Supreme Court Family Rules</em>.]
         </p>
+
         {% check_list source=responses.form35_dummy_additional value='option1' as dummy_option %}
         <p class="schIndent1">
             <i class="fa {% if dummy_option %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> proof of service of the notice of family claim or counterclaim, as the case may be.
         </p>
-        <p>
+
+        <p hidden>
             [<em>Check the following box and file the following document with this requisition if</em>
         </p>
+
         <p class="schIndent1">
             <em>(a) the family law case includes a claim for divorce and the notice of family claim, response to family claim, counterclaim or response to counterclaim identifies a child of the marriage within the meaning of the <em>Divorce Act</em> (Canada),
             or
@@ -99,9 +107,11 @@
         <p class="schIndent1">
             <i class="fa {% if dummy_option %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Child Support Affidavit in Form F37.
         </p>
-        <p>
+
+        <p hidden>
             [<em>Check the following box and file the following document with this requisition if a divorce is sought.</em>]
         </p>
+
         {% check_list source=responses.form35_dummy_additional value='option3' as dummy_option %}
         <p class="schIndent1">
             <i class="fa {% if dummy_option %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> affidavit in Form F38.
