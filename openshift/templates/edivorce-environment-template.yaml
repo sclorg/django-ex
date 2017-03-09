@@ -226,7 +226,8 @@ objects:
             - weasyprint
           from:
             kind: ImageStreamTag
-            name: 'aquavitae/weasyprint:latest'
+            namespace: aquavitae
+            name: 'weasyprint:latest'
     replicas: 1
     selector:
       name: weasyprint
