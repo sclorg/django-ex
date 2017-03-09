@@ -20,10 +20,10 @@ def serve(request, path):
 
 
 def intro(request):
-    # if the user is returning from BCeID registration, then redirect them to the dashboard
+    # if the user is returning from BCeID registration, then log them in to the site
     if request.bceid_user.is_authenticated and request.session.get('went-to-register', False) == True:
         request.session['went-to-register'] = False
-        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
+        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/login')
 
     return render(request, 'intro.html', context={'hide_nav': True})
 
