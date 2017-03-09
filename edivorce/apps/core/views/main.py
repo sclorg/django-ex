@@ -6,6 +6,7 @@ from ..models import BceidUser
 from ..utils.user_response import get_responses_from_db, get_responses_from_db_grouped_by_steps, \
     get_responses_from_session, copy_session_to_db
 from edivorce.apps.core.utils.question_step_mapping import list_of_registries
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @bceid_required
@@ -35,6 +36,7 @@ def success(request):
         return render(request, 'success.html', context={'register_url': settings.REGISTER_URL})
 
 
+@bceid_required
 def savepdf(request):
     return render(request, 'savepdf.html', context={'active_page': 'savepdf'})
 
@@ -100,7 +102,13 @@ def question(request, step):
     For review page, use response grouped by step to render page
     """
     template = 'question/%s.html' % step
-    user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
+
+    # get the BceidUser record matching the BCeID login from the db
+    try:
+        user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
+    except ObjectDoesNotExist:
+        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/login')
+
     if step == "11_review":
         responses_dict = get_responses_from_db_grouped_by_steps(user)
     else:
@@ -119,7 +127,13 @@ def overview(request):
     If user responded to questions for certain step,
     mark that step as "Started" otherwise "Not started"
     """
-    user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
+
+    # get the BceidUser record matching the BCeID login from the db
+    try:
+        user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
+    except ObjectDoesNotExist:
+        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/login')
+
     responses_dict = get_responses_from_db_grouped_by_steps(user)
     # To Show whether user has started to respond questions in each step
     started_dict = {}
