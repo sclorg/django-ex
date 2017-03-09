@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^api/response$', api.UserResponseHandler.as_view()),
     url(r'^login', main.login, name="login"),
     url(r'^bceid', localdev.bceid, name="bceid"),
+    url(r'^register$', main.register, name="register"),
     url(r'^logout', main.logout, name="logout"),
     url(r'^overview', main.overview, name="overview"),
     url(r'^success', main.success, name="success"),

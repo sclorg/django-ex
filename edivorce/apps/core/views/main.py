@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from ..decorators import bceid_required
 from ..models import BceidUser
-from ..utils.user_response import get_responses_from_db, get_responses_from_db_grouped_by_steps, get_responses_from_session, copy_session_to_db
+from ..utils.user_response import get_responses_from_db, get_responses_from_db_grouped_by_steps, \
+    get_responses_from_session, copy_session_to_db
 from edivorce.apps.core.utils.question_step_mapping import list_of_registries
 
 
@@ -19,6 +20,11 @@ def serve(request, path):
 
 
 def intro(request):
+    # if the user is returning from BCeID registration, then redirect them to the dashboard
+    if request.bceid_user.is_authenticated and request.session.get('went-to-register', False) == True:
+        request.session['went-to-register'] = False
+        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
+
     return render(request, 'intro.html', context={'hide_nav': True})
 
 
@@ -40,7 +46,7 @@ def login(request):
     else:
         guid = request.bceid_user.guid
 
-        if guid == None:
+        if guid is None:
             return render(request, 'localdev/debug.html')
 
         user, created = BceidUser.objects.get_or_create(user_guid=guid)
@@ -61,6 +67,7 @@ def logout(request):
     else:
         return redirect(settings.LOGOUT_URL)
 
+
 def prequalification(request, step):
     """
     View rendering pre-qualification questions
@@ -76,6 +83,14 @@ def prequalification(request, step):
         responses_dict = get_responses_from_db(user)
 
     return render(request, template_name=template, context=responses_dict)
+
+
+def register(request):
+    if settings.DEPLOYMENT_TYPE == 'localdev':
+        return render(request, 'localdev/register.html')
+    else:
+        request.session['went-to-register'] = True
+        return redirect(settings.REGISTER_URL)
 
 
 @bceid_required
@@ -115,6 +130,3 @@ def overview(request):
             started_dict[step] = "Started"
     started_dict['active_page'] = 'overview'
     return render(request, 'overview.html', context=started_dict)
-
-
-

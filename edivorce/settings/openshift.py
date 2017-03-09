@@ -55,11 +55,11 @@ PROXY_URL_PREFIX = ''
 if DEPLOYMENT_TYPE == 'dev':
     PROXY_URL_PREFIX = "/divorce-dev"
     DEBUG = True
-    REGISTER_URL = 'https://www.test.bceid.ca/register/basic/account_details.aspx?type=regular&eServiceType=basic'
+    REGISTER_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5522'
 
 if DEPLOYMENT_TYPE == 'test':
     PROXY_URL_PREFIX = "/divorce-test"
-    REGISTER_URL = 'https://www.test.bceid.ca/register/basic/account_details.aspx?type=regular&eServiceType=basic'
+    REGISTER_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
 
 if DEPLOYMENT_TYPE == 'prod':
     PROXY_URL_PREFIX = "/divorce"

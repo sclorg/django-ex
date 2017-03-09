@@ -83,7 +83,7 @@
                             </div>
 
                             <div class="forgot">
-                                <a href="#" class="link-forgot">Forgot your user ID or password?</a>
+                                <a href="{% url 'register' %}" class="link-forgot">Forgot your user ID or password?</a>
                             </div>
                         </div>
                     </div>
@@ -93,14 +93,14 @@
                             <div>
                                 <strong>No account?</strong>
                             </div>
-                            <a href="#"
+                            <a href="{% url 'register' %}"
                                style="text-decoration: underline; font-size: 16px; font-weight: 600;">Register for a
                                 BCeID</a>
                         </div>
                     </div>
                     <div>
                         &#x25C0; <a href="./" class="link-cancel">Cancel
-                            and return to justice.gov.bc.ca/divorce</a>
+                            and return to localdev</a>
                     </div>
                     <hr class="visible-xs">
                 </div>
