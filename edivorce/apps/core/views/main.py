@@ -2,6 +2,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from ..decorators import bceid_required
+import datetime
 from ..models import BceidUser
 from ..utils.user_response import get_responses_from_db, get_responses_from_db_grouped_by_steps, \
     get_responses_from_session, copy_session_to_db
@@ -51,10 +52,11 @@ def login(request):
         if guid is None:
             return render(request, 'localdev/debug.html')
 
-        user, created = BceidUser.objects.get_or_create(user_guid=guid)
+        user = __get_bceid_user(request)
 
-        user.last_login = timezone.now()
-        user.save()
+        if timezone.now() - user.last_login > datetime.timedelta(minutes=1):
+            user.last_login = timezone.now()
+            user.save()
 
         copy_session_to_db(request, user)
 
@@ -81,7 +83,8 @@ def prequalification(request, step):
     if not request.bceid_user.is_authenticated:
         responses_dict = get_responses_from_session(request)
     else:
-        user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
+        user = __get_bceid_user(request)
+
         responses_dict = get_responses_from_db(user)
 
     return render(request, template_name=template, context=responses_dict)
@@ -102,12 +105,7 @@ def question(request, step):
     For review page, use response grouped by step to render page
     """
     template = 'question/%s.html' % step
-
-    # get the BceidUser record matching the BCeID login from the db
-    try:
-        user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
-    except ObjectDoesNotExist:
-        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/login')
+    user = __get_bceid_user(request)
 
     if step == "11_review":
         responses_dict = get_responses_from_db_grouped_by_steps(user)
@@ -127,13 +125,7 @@ def overview(request):
     If user responded to questions for certain step,
     mark that step as "Started" otherwise "Not started"
     """
-
-    # get the BceidUser record matching the BCeID login from the db
-    try:
-        user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
-    except ObjectDoesNotExist:
-        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/login')
-
+    user = __get_bceid_user(request)
     responses_dict = get_responses_from_db_grouped_by_steps(user)
     # To Show whether user has started to respond questions in each step
     started_dict = {}
@@ -144,3 +136,17 @@ def overview(request):
             started_dict[step] = "Started"
     started_dict['active_page'] = 'overview'
     return render(request, 'overview.html', context=started_dict)
+
+
+def __get_bceid_user(request):
+    user, created = BceidUser.objects.get_or_create(user_guid=request.bceid_user.guid)
+
+    # update the last_login timestamp if it was more than 2 hours ago
+    # this ensures that it gets updated for users who bypass the /login url with a direct link
+    if user.last_login is None or timezone.now() - user.last_login > datetime.timedelta(hours=2):
+        user.last_login = timezone.now()
+        user.save()
+
+    return user
+
+
