@@ -189,10 +189,10 @@ objects:
     tags:
       - name: latest
         annotations:
-          openshift.io/imported-from: jag-csb-edivorce-tools/weasyprint
+          openshift.io/imported-from: aquavitae/weasyprint
         from:
           kind: DockerImage
-          name: jag-csb-edivorce-tools/weasyprint
+          name: aquavitae/weasyprint
 - kind: Service
   apiVersion: v1
   metadata:
@@ -226,8 +226,7 @@ objects:
             - weasyprint
           from:
             kind: ImageStreamTag
-            namespace: jag-csb-edivorce-tools
-            name: 'weasyprint:latest'
+            name: 'aquavitae/weasyprint:latest'
     replicas: 1
     selector:
       name: weasyprint
@@ -241,7 +240,7 @@ objects:
       spec:
         containers:
           - name: weasyprint
-            image: 'jag-csb-edivorce-tools/weasyprint'
+            image: 'aquavitae/weasyprint'
             ports:
               - containerPort: 5001
                 protocol: TCP
