@@ -132,16 +132,11 @@ def overview(request):
     mark that step as "Started" otherwise "Not started"
     """
     user = __get_bceid_user(request)
-    responses_dict = get_responses_from_db_grouped_by_steps(user)
-    # To Show whether user has started to respond questions in each step
-    started_dict = {}
-    for step, lst in responses_dict.items():
-        if not lst:
-            started_dict[step] = "Not started"
-        else:
-            started_dict[step] = "Started"
-    started_dict['active_page'] = 'overview'
-    return render(request, 'overview.html', context=started_dict)
+    responses_dict_by_step = get_responses_from_db_grouped_by_steps(user)
+    # step status dictionary
+    status_dict = {'step_status': get_step_status(responses_dict_by_step),
+                   'active_page': 'overview'}
+    return render(request, 'overview.html', context=status_dict)
 
 
 def __get_bceid_user(request):
