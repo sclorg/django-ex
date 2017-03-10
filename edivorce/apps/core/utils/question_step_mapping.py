@@ -17,7 +17,7 @@ question_step_mapping = {'prequalification': ['married_marriage_like', 'lived_in
                          'your_separation': ['no_reconciliation_possible', 'no_collusion',],
                          'spousal_support': ['spouse_support_details', 'spouse_support_act',],
                          'property_and_debt': ['deal_with_property_debt', 'how_to_divide_property_debt', 'other_property_claims',],
-                         'other_orders': [],
+                         'other_orders': ['other_orders_detail'],
                          'other_questions': ['address_to_send_official_document_street_you',
                                              'address_to_send_official_document_city_you',
                                              'address_to_send_official_document_prov_you',
@@ -33,7 +33,8 @@ question_step_mapping = {'prequalification': ['married_marriage_like', 'lived_in
                                              'address_to_send_official_document_other_country_spouse',
                                              'address_to_send_official_document_postal_code_spouse',
                                              'address_to_send_official_document_fax_spouse',
-                                             'address_to_send_official_document_email_spouse', ],
+                                             'address_to_send_official_document_email_spouse',
+                                             'divorce_take_effect_on_specific_date',],
                          'filing_locations': ['court_registry_for_filing',],
                          }
 
