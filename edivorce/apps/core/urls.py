@@ -15,7 +15,10 @@ urlpatterns = [
     url(r'^savepdf', main.savepdf, name="savepdf"),
     url(r'^health$', system.health),
 
-    # todo: remove this line once BCeID is working
+    # todo: remove these 'headers' lines once SMGOV headers are working
+    url(r'^divorce/headers$', system.headers),
+    url(r'^divorce-test/headers$', system.headers),
+    url(r'^divorce-dev/headers$', system.headers),
     url(r'^headers$', system.headers),
 
     url(r'^pdf-form(?P<form_number>[0-9]{1,3})$', pdf.form, name="pdf_form"),
