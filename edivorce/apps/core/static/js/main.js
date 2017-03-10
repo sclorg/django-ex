@@ -80,6 +80,7 @@ $(function () {
     });
 
     $('body').on('click', 'a.save-spinner', function (e) {
+        var href = $('a.save-spinner').attr('href');
         e.preventDefault();
         $('div#progress-overlay').show();
         $('div#progress-overlay-spinner').spin('large');
@@ -87,7 +88,8 @@ $(function () {
         setTimeout(function(){
             $('div#progress-overlay').hide();
             $('div#progress-overlay-spinner').spin(false);
-        }, 500);
+            window.location.href = href;
+        }, 1000);
 
     });
 
