@@ -36,6 +36,9 @@ def success(request):
     else:
         return render(request, 'success.html', context={'register_url': settings.REGISTER_URL})
 
+@bceid_required
+def legal(request):
+    return render(request, 'legal.html', context={'active_page': 'legal'})
 
 @bceid_required
 def savepdf(request):

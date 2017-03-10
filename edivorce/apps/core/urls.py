@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^success', main.success, name="success"),
     url(r'^savepdf', main.savepdf, name="savepdf"),
     url(r'^health$', system.health),
+    url(r'^legal', main.legal, name="legal"),
 
     # todo: remove these 'headers' lines once SMGOV headers are working
     url(r'^divorce/headers$', system.headers),
