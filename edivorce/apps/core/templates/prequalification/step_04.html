@@ -5,7 +5,7 @@
 
 {% block progress %}
     {% if request.bceid_user.is_authenticated %}
-        {% include "progress.html" with step=active_page %}
+        {% include "progress.html" %}
     {% endif %}
 {% endblock %}
 {% block content %}

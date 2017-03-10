@@ -5,7 +5,7 @@ from ..decorators import bceid_required
 import datetime
 from ..models import BceidUser
 from ..utils.user_response import get_responses_from_db, get_responses_from_db_grouped_by_steps, \
-    get_responses_from_session, copy_session_to_db
+    get_responses_from_session, copy_session_to_db, get_step_status
 from edivorce.apps.core.utils.question_step_mapping import list_of_registries
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -86,6 +86,8 @@ def prequalification(request, step):
         user = __get_bceid_user(request)
 
         responses_dict = get_responses_from_db(user)
+        responses_dict['active_page'] = 'prequalification'
+        responses_dict['step_status'] = get_step_status(get_responses_from_db_grouped_by_steps(user))
 
     return render(request, template_name=template, context=responses_dict)
 
@@ -106,15 +108,19 @@ def question(request, step):
     """
     template = 'question/%s.html' % step
     user = __get_bceid_user(request)
+    responses_dict_by_step = get_responses_from_db_grouped_by_steps(user)
 
     if step == "11_review":
-        responses_dict = get_responses_from_db_grouped_by_steps(user)
+        responses_dict = responses_dict_by_step
     else:
         responses_dict = get_responses_from_db(user)
     responses_dict['active_page'] = step
     # If page is filing location page, add registries dictionary for list of court registries
     if step == "10_location":
         responses_dict['registries'] = sorted(list_of_registries)
+
+    # Add step status dictionary
+    responses_dict['step_status'] = get_step_status(responses_dict_by_step)
     return render(request, template_name=template, context=responses_dict)
 
 

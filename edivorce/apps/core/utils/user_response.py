@@ -19,6 +19,16 @@ def get_responses_from_db_grouped_by_steps(bceid_user):
     return responses_dict
 
 
+def get_step_status(responses_by_step):
+    status_dict = {}
+    for step, lst in responses_by_step.items():
+        if not lst:
+            status_dict[step] = "Not started"
+        else:
+            status_dict[step] = "Started"
+    return status_dict
+
+
 def get_responses_from_session(request):
     return sorted(request.session.items())
 
