@@ -137,6 +137,23 @@
     </div>
 </div>
 
+<div id="questions_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa fa-info" aria-hidden="true"></i>
+                <h1 class="modal-title">Your information</h1>
+            </div>
+            <div class="modal-body">
+                <p>Tell us who you are.  Make sure you have a copy of your marriage certificate. The spelling of your names must match the format on the marriage certificate.</p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block formBack %}{% url 'question_steps' '01_orders' %}{% endblock %}

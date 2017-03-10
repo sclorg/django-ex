@@ -732,6 +732,30 @@ textarea {
 	}
 }
 
+/* Modals */
+
+#questions_modal {
+	font-size: 18px;
+	.modal-header {
+		text-align: center;
+		i {
+			background-color: $brand-links;
+			color: #ffffff;
+		    height: 80px;
+		    width: 80px;
+		    border-radius: 40px;
+		    font-size: 40px;
+		    padding: 20px;
+		    margin-bottom: 15px;
+		}
+	}
+	.modal-footer {
+		text-align: center;
+		border: none;
+		padding-bottom: 30px;
+	}
+}
+
 /* Spinner */
 div#progress-overlay {
     position: fixed;
