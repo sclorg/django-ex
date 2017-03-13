@@ -28,7 +28,7 @@
     <select class="response-dropdown form-control" name="court_registry_for_filing">
         <option value="" disabled selected>Please select</option>
         {% for registry in registries %}
-            <option value='{{registry}}'>{{registry}}</option>
+            <option value='{{registry}}' {% if court_registry_for_filing == registry %} selected {% endif %}>{{registry}}</option>
         {% endfor %}
     </select>
 </div>

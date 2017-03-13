@@ -42,4 +42,7 @@ question_step_mapping = {'prequalification': ['married_marriage_like', 'lived_in
 """
     Dictionary for a list of court registries
 """
-list_of_registries = ['Vancouver', 'Burnaby', 'Port Coquitlam', 'New Westminster',]
+list_of_registries = ['Fort St. John', 'Dawson Creek', 'Prince Rupert', 'Terrace', 'Smithers', 'Prince George', 'Quesnel',
+                      'Williams Lake', 'Campbell River', 'Powell River', 'Courtenay', 'Port Alberni', 'Duncan', 'Nanaimo',
+                      'Victoria', 'Golden', 'Kamloops', 'Salmon Arm', 'Vernon', 'Kelowna', 'Penticton', 'Nelson', 'Rossland',
+                      'Cranbrook', 'Chilliwack', 'New Westminster', 'Vancouver', 'Fort Nelson', 'Revelstoke',]

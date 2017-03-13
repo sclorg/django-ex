@@ -152,7 +152,7 @@
         {% if responses.form38_dummy_new_name %}
             <p class="schIndent1">
                 8 Pursuant to section 5 of the <em>Name Act</em>, {% if responses.form38_dummy_for_who %}{{ responses.form38_dummy_for_who }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %}
-                is seeking to change <b>his/her</b> name from {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %} to {% if responses.form38_dummy_new_name %}{{ responses.form38_dummy_new_name }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %}.
+                is seeking to change <b>his/her</b> name from {% if responses.name_you and responses.form38_dummy_for_who == 'Claimant 1' %}{{ responses.name_you }} {% elif responses.name_spouse and responses.form38_dummy_for_who == 'Claimant 2' %}{{ responses.name_spouse }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %} to {% if responses.form38_dummy_new_name %}{{ responses.form38_dummy_new_name }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %}.
                 This application for a name change relates only to {% if responses.form38_dummy_for_who %}{{ responses.form38_dummy_for_who }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %}.
             </p>
         {% endif %}
