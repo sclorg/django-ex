@@ -30,12 +30,26 @@
 
 <div id="when_married" class="question-well">
     <h3>When were you married?</h3>
-    <p><span class="date-picker-group">{% input_field type="text" name="when_were_you_married" class="date-picker" id="marriage_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></span></p>
+    <p>
+        <span class="input-group date date-picker-group">
+            {% input_field type="text" name="when_were_you_married" class="date-picker form-control" id="marriage_date" placeholder="DD/MM/YYYY" %}
+            <span class="input-group-addon" >
+                <i class="fa fa-calendar circle"></i>
+            </span>
+        </span>
+    </p>
 </div>
 
 <div id="lived_together" class="question-well">
     <h3>When did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} begin to live together in a marriage-like relationship?</h3>
-    <p><span class="date-picker-group">{% input_field type="text" name="when_were_you_live_married_like" class="date-picker" id="lived_start_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></span></p>
+    <p>
+        <span class="input-group date date-picker-group">
+            {% input_field type="text" name="when_were_you_live_married_like" class="date-picker form-control" id="lived_start_date" placeholder="DD/MM/YYYY" %}
+            <span class="input-group-addon" >
+                <i class="fa fa-calendar circle"></i>
+            </span>
+        </span>
+    </p>
 
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_start_date" aria-controls="collapse_start_date">
         <div>

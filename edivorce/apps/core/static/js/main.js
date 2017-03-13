@@ -56,7 +56,7 @@ $(function () {
         $('#reconciliation_period_fields .reconciliation-from-date').last().on('change', ajaxOnChange);
         $('#reconciliation_period_fields .reconciliation-to-date').last().on('change', ajaxOnChange);
         $('#reconciliation_period_fields .btn-delete-period').last().on('click', {field_name: 'reconciliation_period_fields', button_name: 'btn_add_reconciliation_periods'}, deleteAddedField);
-        date_picker();
+        date_picker('.date-pickers-group', true);
     });
 
     // Delete button will remove field and update user responses
@@ -64,7 +64,8 @@ $(function () {
     $(".btn-delete-period").on('click', {field_name: 'reconciliation_period_fields', button_name: 'btn_add_reconciliation_periods'}, deleteAddedField);
 
     // add date_picker
-    date_picker();
+    date_picker('.date-picker-group', false);
+    date_picker('.date-pickers-group', true);
 
     // On step_03.html, update text when user enters separation date
     $("#separated_date").on("change", function () {
@@ -115,13 +116,23 @@ var deleteAddedField = function(e){
 };
 
 // Configuration for datepicker
-var date_picker = function () {
-    $(".date-picker-group input").datepicker({
+var date_picker = function (selector, showOnFocus) {
+    $(selector).datepicker({
         format: "dd/mm/yyyy",
         startDate: "-100y",
         endDate: "0d",
         autoclose: true,
-        todayHighlight: true
+        todayHighlight: true,
+        immediateUpdates: true,
+        showOnFocus: showOnFocus,
+        startView: 'decade',
+        clearBtn: true
+    }).on('dp.change', function(e) {
+         $(this).find('input').trigger('change');
+    }).on('show', function(e) {
+         $(this).closest(selector).find('input').attr('readonly','readonly');
+    }).on('hide', function(e) {
+         $(this).closest(selector).find('input').removeAttr('readonly');
     });
 };
 

@@ -231,6 +231,7 @@ img {
 	margin-bottom: 25px;
 }
 
+.input-group input.form-control:first-child,
 .form-group input.form-control {
 	border-radius: 10px;
 	border-top-right-radius: 10px;
@@ -799,6 +800,14 @@ span.hard-stop {
 	margin: 3px 10px 0 0;
 }
 
+/* Datepicker */
+.date-picker-group {
+	.input-group-addon {
+		display: inline-block;
+		background-color: inherit;
+		border: none;
+	}
+}
 
 /* Transitions & Transforms */
 

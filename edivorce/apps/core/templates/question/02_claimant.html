@@ -99,14 +99,28 @@
 
 <div class="question-well">
     <h3>When is your birthday?</h3>
-    <p><span class="date-picker-group">{% input_field type="text" name="birthday_you" class="date-picker" id="birth_date" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar circle" aria-hidden="true"></i></span></p>
+    <p>
+        <span class="input-group date date-picker-group">
+            {% input_field type="text" name="birthday_you" class="date-picker form-control" id="birth_date" placeholder="DD/MM/YYYY" %}
+            <span class="input-group-addon" >
+                <i class="fa fa-calendar circle"></i>
+            </span>
+        </span>
+    </p>
 </div>
 
 <div class="question-well">
     <h3>How long have you lived in British Columbia?</h3>
     <p>Please select one</p>
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="lived_in_bc_you" value="Since birth" %}Since birth</label></div>
-    <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="lived_in_bc_you" value="Moved to British Columbia on" %}Moved to British Columbia on <span class="date-picker-group">{% input_field type="text" name="moved_to_bc_date_you" id="moved_date" class="date-picker other-textbox input-inline" tabindex="-1" placeholder="DD/MM/YYYY" %} <i class="fa fa-calendar" aria-hidden="true"></i></span></label></div>
+    <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="lived_in_bc_you" value="Moved to British Columbia on" %}Moved to British Columbia on
+        <span class="input-group date date-picker-group">
+            {% input_field type="text" name="moved_to_bc_date_you" id="moved_date" class="date-picker other-textbox input-inline form-control" tabindex="-1" placeholder="DD/MM/YYYY" %}
+            <span class="input-group-addon" >
+                <i class="fa fa-calendar circle"></i>
+            </span>
+        </span>
+    </label></div>
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="lived_in_bc_you" value="Do not live in British Columbia" %}Do not live in British Columbia</label></div>
 
     <p>In order to apply for a divorce in British Columbia, you or your spouse must have been a regular resident in B.C (the legal term is ordinarily resident

@@ -128,7 +128,7 @@ var getValue = function(el, question){
             sToDate = $(this).closest('div').next('div').find(".reconciliation-to-date").val();
             sFromDate = $(this).val();
             // check if both date is in valid format and all
-            if (sToDate != '' && sFromDate != '' && validateDate(sToDate) && validateDate(sFromDate))
+            if (sToDate != '' && sFromDate != '' && isValidDate(sToDate) && isValidDate(sFromDate))
             {
                 dToDate = stringToDate(sToDate);
                 dFromDate = stringToDate(sFromDate);
@@ -182,44 +182,75 @@ var validateEmail = function(el){
 
 // check if value in date field is in DD/MM/YYYY format
 // and check if it is valid date and it is today or earlier
-var validateDate = function(value){
-    var isValid = false;
-    var regex = '[0-9]{2}[/][0-9]{2}[/][0-9]{4}';
-    if (value == ''){
+var validateDate = function(el){
+    el.closest('.date-picker-group')
+        .removeClass('has-error')
+        .find('span.help-block')
+        .remove();
+
+    if (el.val().trim() == '') {
+        el.val('');
         return true;
     }
 
-    if (value.match(regex)){
-        value = value.split('/');
-        var d = parseInt(value[0], 10);
-        var m = parseInt(value[1], 10);
-        var y = parseInt(value[2], 10);
+    if (isValidDate(el.val())) {
+        el.val(formatDate(stringToDate(el.val())));
+        return true;
+    }
+
+    el.closest('.date-picker-group')
+        .addClass('has-error')
+        .append('<span class="help-block">Invalid Date</span>');
+
+    return false;
+};
+
+// validates that a string is a valid date
+var isValidDate = function(dateString) {
+    if (dateString.trim() == '') {
+        return true;
+    }
+
+    var dt = stringToDate(dateString);
+
+    if (!isNaN(dt)) {
         var today = new Date();
-        var date = new Date(y,m-1,d);
-        if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d && date <= today) {
-            isValid = true;
+        if (dt <= today && dt.getFullYear() > 1900) {
+            return true;
         }
     }
-    return isValid;
+    return false;
 };
 
 // take date string in DD/MM/YYYY format and return date object
 var stringToDate = function(value){
-    value = value.split('/');
-    var d = parseInt(value[0], 10);
-    var m = parseInt(value[1], 10);
-    var y = parseInt(value[2], 10);
-    return new Date(y,m-1,d);
+    var regex = /(((0|1)[0-9]|2[0-9]|3[0-1]|[1-9])[\/-\\](0[1-9]|1[0-2]|[1-9])[\/-\\]((19|20)\d\d))$/;
+    if (regex.test(value)) {
+        var parts = value.split(/[\/\-\\]/);
+        return new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
+    }
+    // if the string isn't in DD/MM/YYYY format, try to parse it anyway
+    return new Date(value);
+};
+
+// formats a date object as DD/MM/YYYY
+var formatDate = function (dt) {
+    var dd = dt.getDate();
+    var mm = dt.getMonth() + 1; //January is 0!
+    var yyyy = dt.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    return dd + '/' + mm + '/' + yyyy;
 };
 
 // check if separation date is less than one year from today
 var checkSeparationDateLessThanYear = function(separationDate){
     // get separation date
-    value = separationDate.split('/');
-    var d = parseInt(value[0], 10);
-    var m = parseInt(value[1], 10);
-    var y = parseInt(value[2], 10);
-    var date = new Date(y,m-1,d);
+    var date = stringToDate(separationDate);
     // get a date for a year from today
     var yearFromToday = new Date();
     yearFromToday.setYear(yearFromToday.getFullYear()-1);
