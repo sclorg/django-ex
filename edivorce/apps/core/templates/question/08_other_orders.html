@@ -1,4 +1,8 @@
-{% extends 'base.html' %}{% load input_field %}
+{% extends 'base.html' %}
+{% load input_field %}
+{% load step_order %}
+{% load next_step %}
+{% load prev_step %}
 
 {% block title %}{{ block.super }}: Other Orders{% endblock %}
 
@@ -7,14 +11,14 @@
 {% block content %}
 
 
-<h1><small>Step 8:</small>Other Orders</h1>
+<h1><small>Step {% step_order step="other_orders" %}:</small>Other Orders</h1>
 <h3>Want other orders as follows: </h3>
 {% input_field type="textarea" name="other_orders_detail" rows="8" cols="65" class="response-textarea" %}
 
 {% endblock %}
 
-{% block formBack %}{% url 'question_steps' '07_property' %}{% endblock %}
-{% block formNext %}{% url 'question_steps' '09_other_questions' %}{% endblock %}
+{% block formBack %}{% prev_step step='other_orders' %}{% endblock %}
+{% block formNext %}{% next_step step='other_orders' %}{% endblock %}
 
 {% block sidebarNav %}
 <!-- no sidebar -->

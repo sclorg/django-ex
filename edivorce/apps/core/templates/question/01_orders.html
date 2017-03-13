@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load next_step %}
+{% load prev_step %}
 
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
@@ -135,7 +137,7 @@
 {% endblock %}
 
 {% block formBack %}{% url 'overview' %}{% endblock %}
-{% block formNext %}{% url 'question_steps' '02_claimant' %}{% endblock %}
+{% block formNext %}{% next_step step='orders' %}{% endblock %}
 
 {% block sidebarText %}
     <p>An order is the record of the judge's decision. It is filed at the court registry.</p>

@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load step_order %}
+{% load next_step %}
+{% load prev_step %}
+
 {% block title %}{{ block.super }}: Application Location{% endblock %}
 
 {% block progress %}{% include "progress.html" %}{% endblock %}
 
 {% block content %}
 
-<h1><small>Step 7:</small>Property and Debt</h1>
+<h1><small>Step {% step_order step="property" %}:</small>Property and Debt</h1>
 <div class="intro">
     <p>After you separate, the law says that all <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Family property</b><br /><br />The assest acquired by either spouse during the course of the relationship,
    plus any increase in the value of excluded property. The law assumes that you're both entitled to an equal share of family property unless an equal division would be significantly unfair."> family property
@@ -115,8 +119,8 @@
 </div>
 {% endblock %}
 
-{% block formBack %}{% url 'question_steps' '06_support' %}{% endblock %}
-{% block formNext %}{% url 'question_steps' '08_other_orders' %}{% endblock %}
+{% block formBack %}{% prev_step step='property' %}{% endblock %}
+{% block formNext %}{% next_step step='property' %}{% endblock %}
 
 {% block sidebarText %}
 <div>

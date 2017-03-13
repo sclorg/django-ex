@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load step_order %}
+{% load next_step %}
+{% load prev_step %}
 
 {% block title %}{{ block.super }}: Property And Debts{% endblock %}
 
@@ -8,7 +11,7 @@
 {% block content %}
 
 
-<h1><small>Step 10:</small>Filing Location</h1>
+<h1><small>Step {% step_order step="location" %}:</small>Filing Location</h1>
 <p>
     Ok, we're almost done asking you questions. The last set of information that we need to know is where
     you will be filing your divorce document. You will need to file your documents in person at a court registry.
@@ -34,8 +37,8 @@
 </div>
 {% endblock %}
 
-{% block formBack %}{% url 'question_steps' '09_other_questions' %}{% endblock %}
-{% block formNext %}{% url 'question_steps' '11_review' %}{% endblock %}
+{% block formBack %}{% prev_step step='location' %}{% endblock %}
+{% block formNext %}{% next_step step='location' %}{% endblock %}
 
 {% block sidebarText %}
 <div>

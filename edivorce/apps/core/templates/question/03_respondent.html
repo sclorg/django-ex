@@ -1,4 +1,8 @@
-{% extends 'base.html' %}{% load input_field %}
+{% extends 'base.html' %}
+{% load input_field %}
+{% load next_step %}
+{% load prev_step %}
+
 
 {% block title %}{{ block.super }}: Your Spouse{% endblock %}
 
@@ -166,8 +170,8 @@
 </div>
 {% endblock %}
 
-{% block formBack %}{% url 'question_steps' '02_claimant' %}{% endblock %}
-{% block formNext %}{% url 'question_steps' '04_marriage' %}{% endblock %}
+{% block formBack %}{% prev_step step='respondent' %}{% endblock %}
+{% block formNext %}{% next_step step='respondent' %}{% endblock %}
 
 {% block sidebarNav %}
 <!-- no sidebar -->

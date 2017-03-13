@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load next_step %}
+{% load prev_step %}
+
 
 {% block title %}{{ block.super }}: Reason For Divorce{% endblock %}
 
@@ -67,8 +70,8 @@
 
 {% endblock %}
 
-{% block formBack %}{% url 'question_steps' '04_marriage' %}{% endblock %}
-{% block formNext %}{% url 'question_steps' '06_support' %}{% endblock %}
+{% block formBack %}{% prev_step step='separation' %}{% endblock %}
+{% block formNext %}{% next_step step='separation' %}{% endblock %}
 
 {% block sidebarText %}
     <div>

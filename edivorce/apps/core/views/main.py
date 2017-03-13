@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from edivorce.apps.core.utils.template_step_order import template_step_order
 from ..decorators import bceid_required
 import datetime
 from ..models import BceidUser
@@ -109,7 +110,8 @@ def question(request, step):
     View rendering main questions
     For review page, use response grouped by step to render page
     """
-    template = 'question/%s.html' % step
+    template = 'question/%02d_%s.html' % (template_step_order[step], step)
+
     user = __get_bceid_user(request)
     responses_dict_by_step = get_responses_from_db_grouped_by_steps(user)
 

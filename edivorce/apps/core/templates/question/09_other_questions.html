@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load step_order %}
+{% load next_step %}
+{% load prev_step %}
 
 {% block title %}{{ block.super }}: Spousal Support{% endblock %}
 
@@ -8,7 +11,7 @@
 {% block content %}
 
 
-<h1><small>Step 9:</small>Other Questions</h1>
+<h1><small>Step {% step_order step="other_questions" %}:</small>Other Questions</h1>
 
 <div class="question-well">
     <div>
@@ -96,8 +99,8 @@
 </div>
 {% endblock %}
 
-{% block formBack %}{% url 'question_steps' '08_other_orders' %}{% endblock %}
-{% block formNext %}{% url 'question_steps' '10_location' %}{% endblock %}
+{% block formBack %}{% prev_step step='other_questions' %}{% endblock %}
+{% block formNext %}{% next_step step='other_questions' %}{% endblock %}
 
 {% block sidebarNav %}
 <!-- no sidebar -->

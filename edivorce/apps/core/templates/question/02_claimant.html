@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load next_step %}
+{% load prev_step %}
+
 
 {% block title %}{{ block.super }}: Your Information{% endblock %}
 
@@ -170,8 +173,8 @@
 
 {% endblock %}
 
-{% block formBack %}{% url 'question_steps' '01_orders' %}{% endblock %}
-{% block formNext %}{% url 'question_steps' '03_respondent' %}{% endblock %}
+{% block formBack %}{% prev_step step='claimant' %}{% endblock %}
+{% block formNext %}{% next_step step='claimant' %}{% endblock %}
 
 {% block sidebarText %}
 <p>The Meaning of "Ordinary Residence" and "Habitual Residence" in the Common Law Provinces in a Family Law Context: <a href="http://www.justice.gc.ca/eng/rp-pr/fl-lf/divorce/rhro_cl/p4.html" target="_blank">http://www.justice.gc.ca/eng/rp-pr/fl-lf/divorce/rhro_cl/p4.html</a></p>
