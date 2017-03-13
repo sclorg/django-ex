@@ -160,6 +160,26 @@ var getValue = function(el, question){
     }
 };
 
+// check if email is in valid format
+var validateEmail = function(el){
+
+    el.closest('.form-group')
+        .removeClass('has-error')
+        .find('span.help-block')
+        .remove();
+
+    var value = el.val();
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (regex.test(value)) {
+        return true;
+    } else {
+        el.closest('.form-group')
+            .addClass('has-error')
+            .append('<span class="help-block">Invalid Email</span>');
+        return false;
+    }
+};
+
 // check if value in date field is in DD/MM/YYYY format
 // and check if it is valid date and it is today or earlier
 var validateDate = function(value){
@@ -190,12 +210,6 @@ var stringToDate = function(value){
     var m = parseInt(value[1], 10);
     var y = parseInt(value[2], 10);
     return new Date(y,m-1,d);
-};
-
-// check if email is in valid format
-var validateEmail = function(value){
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return regex.test(value);
 };
 
 // check if separation date is less than one year from today

@@ -231,6 +231,21 @@ img {
 	margin-bottom: 25px;
 }
 
+.form-group input.form-control {
+	border-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	height: inherit;
+	width: inherit;
+	float: inherit;
+	font-size: inherit;
+	padding: 12px 15px;
+	line-height: 1em;
+	&.input-wide {
+		width: 50%;
+	}
+}
+
 
 // Buttons & Icons
 

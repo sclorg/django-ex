@@ -14,18 +14,15 @@ var ajaxOnChange = function () {
     //}
 
     if (el.is("#email_textbox")){
-        isValid = validateEmail(value);
+        isValid = validateEmail(el);
     }
 
     // special behaviour for radio button with textbox
     radioWithTextboxControl(el);
 
     if (isValid) {
+        value = getValue(el, question);
         ajaxCall(question, value);
-    }
-    else{
-        console.log("Invalid input for " + el.prop('name'));
-        window.alert("Invalid input for " + el.prop('name'));
     }
 };
 
