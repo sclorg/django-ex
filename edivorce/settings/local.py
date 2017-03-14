@@ -20,3 +20,6 @@ WEASYPRINT_CSS_LOOPBACK = 'http://10.200.10.1:8000'
 DEPLOYMENT_TYPE = 'localdev'
 REGISTER_URL = '#'
 
+FIXTURE_DIRS = FIXTURE_DIRS = (
+                os.path.join(PROJECT_ROOT, 'edivorce', 'fixtures'),
+                )

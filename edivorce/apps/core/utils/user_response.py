@@ -1,5 +1,6 @@
 from edivorce.apps.core.models import UserResponse, Question
-from edivorce.apps.core.utils.question_step_mapping import question_step_mapping
+from edivorce.apps.core.utils.question_step_mapping import question_step_mapping, complete_state_for_step
+from copy import deepcopy
 
 
 def get_responses_from_db(bceid_user):
@@ -15,7 +16,7 @@ def get_responses_from_db_grouped_by_steps(bceid_user):
     responses = UserResponse.objects.filter(bceid_user=bceid_user)
     responses_dict = {}
     for step, questions in question_step_mapping.items():
-        responses_dict[step] = responses.filter(question_id__in=questions)
+        responses_dict[step] = responses.filter(question_id__in=questions).values('question_id', 'value', 'question__name')
     return responses_dict
 
 
@@ -25,7 +26,11 @@ def get_step_status(responses_by_step):
         if not lst:
             status_dict[step] = "Not started"
         else:
-            status_dict[step] = "Started"
+            if step != 'prequalification':
+                if is_complete(step, lst):
+                    status_dict[step] = "Complete"
+                else:
+                    status_dict[step] = "Started"
     return status_dict
 
 
@@ -65,3 +70,34 @@ def copy_session_to_db(request, bceid_user):
 
             # clear the response from the session
             request.session[q.key] = None
+
+
+def is_complete(step, lst):
+    if not lst:
+        return False
+    required_dict = deepcopy(complete_state_for_step)
+    if step in required_dict:
+        required_list = required_dict[step]['required']
+        conditional_list = required_dict[step]['conditional'] if 'conditional' in required_dict[step] else []
+
+        for question in lst:
+            q_id = question['question_id']
+
+            if q_id in required_list:
+                required_list.remove(q_id)
+            elif q_id in conditional_list:
+                value = question['value']
+                if q_id in conditional_list and value == conditional_list[q_id][0]:
+                    key_in_list = False
+                    for key in lst:
+                        if key['question_id'] == conditional_list[q_id][1]:
+                            key_in_list = True
+                            break
+                    if key_in_list is False:
+                        return False
+                    conditional_list.pop(q_id, None)
+                else:
+                    conditional_list.pop(q_id, None)
+        if not required_list and not conditional_list:
+            return True
+    return False
