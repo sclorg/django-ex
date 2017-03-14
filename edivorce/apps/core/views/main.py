@@ -115,13 +115,13 @@ def question(request, step):
     user = __get_bceid_user(request)
     responses_dict_by_step = get_responses_from_db_grouped_by_steps(user)
 
-    if step == "11_review":
+    if step == "review":
         responses_dict = responses_dict_by_step
     else:
         responses_dict = get_responses_from_db(user)
     responses_dict['active_page'] = step
     # If page is filing location page, add registries dictionary for list of court registries
-    if step == "10_location":
+    if step == "location":
         responses_dict['registries'] = sorted(list_of_registries)
 
     # Add step status dictionary
