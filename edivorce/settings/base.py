@@ -113,3 +113,7 @@ STATICFILES_FINDERS = (
 BCGOV_NETWORK = os.environ.get('PROXY_NETWORK', '0.0.0.0/0')
 
 FORCE_SCRIPT_NAME = '/'
+
+FIXTURE_DIRS = (
+    os.path.join(PROJECT_ROOT, 'edivorce', 'fixtures'),
+)
