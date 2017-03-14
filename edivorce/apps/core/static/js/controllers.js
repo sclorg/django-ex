@@ -183,7 +183,7 @@ var validateEmail = function(el){
 // check if value in date field is in DD/MM/YYYY format
 // and check if it is valid date and it is today or earlier
 var validateDate = function(el){
-    el.closest('.date-picker-group')
+    el.closest('.date')
         .removeClass('has-error')
         .find('span.help-block')
         .remove();
@@ -198,7 +198,7 @@ var validateDate = function(el){
         return true;
     }
 
-    el.closest('.date-picker-group')
+    el.closest('.date')
         .addClass('has-error')
         .append('<span class="help-block">Invalid Date</span>');
 

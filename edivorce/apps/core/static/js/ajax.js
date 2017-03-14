@@ -7,9 +7,8 @@ var ajaxOnChange = function () {
     var value = getValue(el, question);
     var isValid = true;
 
-    // todo: Can this be removed? the forceParse option in the datepicker seems to take care of date validation for us
     // Check if date is in valid format DD/MM/YYYY
-    if (el.is(".date-picker")){
+    if (el.is(".date-picker") || el.is(".date-pickers")){
         isValid = validateDate(el);
     }
 
