@@ -38,7 +38,6 @@
         {% if step_status.your_separation == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.your_separation == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' 'support' %}" class="progress-question {% if step_status.spousal_support == 'Complete' %} complete {% endif %} {% if active_page == '06_support' %} active {% endif %}">
 
     {% if 'Spousal support' in want_which_orders|load_json %}
     <a href="{% url 'question_steps' 'support' %}" class="progress-question {% if active_page == 'support' %} active {% endif %}">

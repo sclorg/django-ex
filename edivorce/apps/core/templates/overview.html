@@ -15,67 +15,77 @@
         <span class="progress-content">Qualifying Questions</span>
         <span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span>
     </a>
-    <a href="{% url 'question_steps' '01_orders' %}" class="progress-question {% if step_status.which_orders == 'Complete' %} complete {% endif %}">
+    <a href="{% url 'question_steps' 'orders' %}" class="progress-question {% if step_status.which_orders == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-commenting" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step 1</small><br />What Are You Asking For?</span>
         {% if step_status.which_orders == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.which_orders == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' '02_claimant' %}" class="progress-question {% if step_status.your_information == 'Complete' %} complete {% endif %}">
+    <a href="{% url 'question_steps' 'claimant' %}" class="progress-question {% if step_status.your_information == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-info" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step 2</small><br />Your information</span>
         {% if step_status.your_information == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.your_information == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' '03_respondent' %}" class="progress-question {% if step_status.your_spouse == 'Complete' %} complete {% endif %}">
+    <a href="{% url 'question_steps' 'respondent' %}" class="progress-question {% if step_status.your_spouse == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step 3</small><br />Your spouse</span>
         {% if step_status.your_spouse == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.your_spouse == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' '04_marriage' %}" class="progress-question {% if step_status.your_marriage == 'Complete' %} complete {% endif %}">
+    <a href="{% url 'question_steps' 'marriage' %}" class="progress-question {% if step_status.your_marriage == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-link" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step 4</small><br />Your marriage</span>
         {% if step_status.your_marriage == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.your_marriage == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' '05_separation' %}" class="progress-question {% if step_status.your_separation == 'Complete' %} complete {% endif %}">
+    <a href="{% url 'question_steps' 'separation' %}" class="progress-question {% if step_status.your_separation == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-chain-broken" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step 5</small><br />Your separation</span>
         {% if step_status.your_separation == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.your_separation == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' '06_support' %}" class="progress-question {% if step_status.spousal_support == 'Complete' %} complete {% endif %}">
+
+    {% if 'Spousal support' in want_which_orders|load_json %}
+    <a href="{% url 'question_steps' 'support' %}" class="progress-question {% if active_page == 'support' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-life-ring" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step 6</small><br />Spousal support</span>
         {% if step_status.spousal_support == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.spousal_support == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' '07_property' %}" class="progress-question {% if step_status.property_and_debt == 'Complete' %} complete {% endif %}">
+    {% endif %}
+
+    {% if 'Division of property and debts' in want_which_orders|load_json %}
+    <a href="{% url 'question_steps' 'property' %}" class="progress-question {% if step_status.property_and_debt == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-home" aria-hidden="true"></i></span>
-        <span class="progress-content"><small>Step 7</small><br />Property and debt</span>
+        <span class="progress-content"><small>Step {% step_order step="property" %}</small><br />Property and debt</span>
         {% if step_status.property_and_debt == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.property_and_debt == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' '08_other_orders' %}" class="progress-question {% if step_status.other_orders == 'Complete' %} complete {% endif %}">
+    {% endif %}
+
+    {% if 'Other orders' in want_which_orders|load_json %}
+    <a href="{% url 'question_steps' 'other_orders' %}" class="progress-question {% if step_status.other_orders == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-gavel" aria-hidden="true"></i></span>
-        <span class="progress-content"><small>Step 8</small><br />Other orders</span>
+        <span class="progress-content"><small>Step {% step_order step="other_orders" %}</small><br />Other orders</span>
         {% if step_status.other_orders == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.other_orders == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' '09_other_questions' %}" class="progress-question {% if step_status.other_questions == 'Complete' %} complete {% endif %}">
+    {% endif %}
+
+    <a href="{% url 'question_steps' 'other_questions' %}" class="progress-question {% if step_status.other_questions == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-question" aria-hidden="true"></i></span>
-        <span class="progress-content"><small>Step 9</small><br />Other questions</span>
+        <span class="progress-content"><small>Step {% step_order step="other_questions" %}</small><br />Other questions</span>
         {% if step_status.other_questions == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.other_questions == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' '10_location' %}" class="progress-question {% if step_status.filing_locations == 'Complete' %} complete {% endif %}">
+    <a href="{% url 'question_steps' 'location' %}" class="progress-question {% if step_status.filing_locations == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-location-arrow" aria-hidden="true"></i></span>
-        <span class="progress-content"><small>Step 10</small><br />Filing locations</span>
+        <span class="progress-content"><small>Step {% step_order step="location" %}</small><br />Filing location</span>
         {% if step_status.filing_locations == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.filing_locations == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' 'review' %}" class="progress-question">
+    <a href="{% url 'question_steps' 'review' %}" class="progress-question {% if active_page == 'review' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-file" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step {% step_order step="review" %}</small><br />Review</span>
     </a>
