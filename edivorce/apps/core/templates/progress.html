@@ -65,7 +65,7 @@
     </a>
     <a href="{% url 'question_steps' 'location' %}" class="progress-question {% if active_page == 'location' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-location-arrow" aria-hidden="true"></i></span>
-        <span class="progress-content"><small>Step {% step_order step="location" %}</small><br />Filing locations</span>
+        <span class="progress-content"><small>Step {% step_order step="location" %}</small><br />Filing location</span>
         {% if step_status.filing_locations == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span> {% endif %}
     </a>
     <a href="{% url 'question_steps' 'review' %}" class="progress-question {% if active_page == 'review' %} active {% endif %}">
