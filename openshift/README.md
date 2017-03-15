@@ -53,7 +53,7 @@ There are several environments set up for different purposes within OpenShift. T
 
 # How to access Jenkins for eDivorce
 
-- Login to https://edivorce-jenkins-edivorce.pathfinder.gov.bc.ca with the username/password that was provided to you.
+- Login to https://edivorce-jenkins.pathfinder.gov.bc.ca with the username/password that was provided to you.
 
 # How to access OpenShift for eDivorce
 
