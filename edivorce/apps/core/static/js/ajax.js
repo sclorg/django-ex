@@ -8,7 +8,7 @@ var ajaxOnChange = function () {
     var isValid = true;
 
     // Check if date is in valid format DD/MM/YYYY
-    if (el.is(".date-picker") || el.is(".date-pickers")){
+    if (el.is(".date-picker") || el.is(".date-pickers") || el.is(".date-picker-future")){
         isValid = validateDate(el);
     }
 

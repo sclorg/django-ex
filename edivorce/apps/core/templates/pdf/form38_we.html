@@ -87,18 +87,17 @@
             </p>
         {% endif %}
 
-        {% if responses.divorce_reason == 'live separate' %}
-            <p class="schIndent1">
-                5 Claimant 1 and claimant 2 were living separate and apart from each other at the start of this family law case and claimant 1 and claimant 2 have lived separate and apart from each other since
-                {% if responses.separation_date %} {{ responses.separation_date }}{% else %} <span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span>{% endif %}, except:
-                {% multiple_values_to_list source=responses.reconciliation_period as periods %}
-                {% if periods != '[]' %}
-                    {% for period in periods %}
-                        {{ period }}
-                    {% endfor %}
-                {% else %}<span class="form-entry not-complete">[<em>provide dates of any periods of attempted reconciliation</em>]</span>.{% endif %}
-            </p>
-        {% else %}
+        <p class="schIndent1">
+            5 Claimant 1 and claimant 2 were living separate and apart from each other at the start of this family law case and claimant 1 and claimant 2 have lived separate and apart from each other since
+            {% if responses.separation_date %} {{ responses.separation_date }}{% else %} <span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span>{% endif %}, except:
+            {% multiple_values_to_list source=responses.reconciliation_period as periods %}
+            {% if periods != '[]' %}
+                {% for period in periods %}
+                    {{ period }}
+                {% endfor %}
+            {% else %}<span class="form-entry not-complete">[<em>provide dates of any periods of attempted reconciliation</em>]</span>.{% endif %}
+        </p>
+        {% comment "This section is out of scope" %}
             <p class="schIndent1">
                 5 [<em>Select this provision if the grounds for divorce are adultery of a spouse and there has been an admission of adultery.</em>] My spouse has admitted to me that <span class="form-entry not-complete">[<em>he/she</em>]</span> committed the acts of adultery alleged in Schedule
                 1 of the <span class="form-entry not-complete">[<em>notice of family claim/counterclaim</em>]</span> and
@@ -124,16 +123,15 @@
             <p class="schIndent1">
                 5 [<em>Select this provision if the grounds for divorce are physical or mental cruelty of a spouse.</em>] My spouse has treated me with physical or mental cruelty since the date of the marriage as follows: <span class="form-entry not-complete">&nbsp;</span>[<em>provide details</em>]<span class="form-entry not-complete">&nbsp;</span>
             </p>
-        {% endif %}
+        {% endcomment %}
         <p class="schIndent1">
             6 We are neither directly nor indirectly a party to an agreement or conspiracy for the purpose of subverting the administration of justice, or to any agreement, understanding or arrangement to fabricate or suppress evidence or to deceive the court.
         </p>
 
-        {% if responses.children_of_marriage == 'NO' %}
-            <p class="schIndent1">
-                7 There are no children of the marriage as defined by the <em>Divorce Act</em> (Canada).
-            </p>
-        {% else %}
+        <p class="schIndent1">
+            7 There are no children of the marriage as defined by the <em>Divorce Act</em> (Canada).
+        </p>
+        {% comment "This section is out of scope" %}
             <p class="schIndent1">
                 7 There are children of the marriage as defined by the <em>Divorce Act</em> (Canada) and
             </p>
@@ -146,7 +144,7 @@
             <p class="schIndent2">
                 (c) the following arrangements for parenting have been made: <span class="form-entry not-complete">&nbsp;</span>[<em>provide details</em>]<span class="form-entry not-complete">&nbsp;</span> .
             </p>
-        {% endif %}
+        {% endcomment %}
 
         <!-- TODO Confirm how to ask and decide his/her -->
         {% if responses.form38_dummy_new_name %}

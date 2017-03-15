@@ -117,10 +117,19 @@ var deleteAddedField = function(e){
 
 // Configuration for datepicker
 var date_picker = function (selector, showOnFocus) {
+    var startDate, endDate;
+    if($(selector).data("allow-future-date")){
+        startDate = "+1d";
+        endDate = "+100y";
+    }
+    else {
+        startDate = "-100y";
+        endDate = "0d";
+    }
     $(selector).datepicker({
         format: "dd/mm/yyyy",
-        startDate: "-100y",
-        endDate: "0d",
+        startDate: startDate,
+        endDate: endDate,
         autoclose: true,
         todayHighlight: true,
         immediateUpdates: true,

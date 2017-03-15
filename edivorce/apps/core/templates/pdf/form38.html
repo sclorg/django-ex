@@ -43,26 +43,12 @@
         <p>
             Claimant: {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}
         </p>
-        <p hidden>
-            Claimant 1 [<em>joint family law case</em>]:
-        </p>
         <p>
             Respondent: {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}
-        </p>
-        <p hidden>
-            Claimant 2 [<em>joint family law case</em>]:
         </p>
         <p class="text-center">
             <strong>AFFIDAVIT - DESK ORDER DIVORCE</strong>
         </p>
-        <div hidden>
-            <p class="text-center">
-                <em>[Rule 21-1 of the Supreme Court Family Rules applies to all forms.]</em>
-            </p>
-            <p>
-                <em>[Complete the form in accordance with the instructions found in the bracketed italicized wording and then remove all bracketed italicized wording so that it does not appear in the form when the form is filed.]</em>
-            </p>
-        </div>
         <p>
             I, {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}, of
             {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_prov_you and responses.address_to_send_official_document_country_you and responses.address_to_send_official_document_postal_code_you %}
@@ -76,17 +62,8 @@
         <p class="schIndent1">
             2 There is no possibility of reconciliation between my spouse and me.
         </p>
-
-        <p hidden>
-            [<em>Select whichever one of the 2 following provisions is correct and remove the provision that has not been selected so that it does not appear in the form when the form is filed.</em>]
-        </p>
-
         <p class="schIndent1">
             3 I believe that the facts set out in {% if responses.form38_dummy_facts == 'option1' %}the notice of family claim{% else %}the response to family claim and counterclaim{% endif %} are true.
-        </p>
-
-        <p hidden>
-            <em>[Select whichever one of the 2 following provisions is correct, provide any required information and remove the provision that has not been selected so that it does not appear in the form when the form is filed.]</em>
         </p>
 
         {% if responses.original_marriage_certificate == 'YES' %}
@@ -100,22 +77,17 @@
             </p>
         {% endif %}
 
-        <p hidden>
-            <em>[Select whichever one of the 4 following provisions is correct, complete the selected provision and remove the provisions that have not been selected so that they do not appear in the form when the form is filed.]</em>
+        <p class="schIndent1">
+            5 I was living separate and apart from my spouse at the start of this family law case and I have lived separate and apart from my spouse since
+            {% if responses.separation_date %} {{ responses.separation_date }}{% else %} <span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span>{% endif %}, except:
+            {% multiple_values_to_list source=responses.reconciliation_period as periods %}
+            {% if periods != '[]' %}
+                {% for period in periods %}
+                    {{ period }}
+                {% endfor %}
+            {% else %}<span class="form-entry not-complete">[<em>provide dates of any periods of attempted reconciliation</em>]</span>.{% endif %}
         </p>
-        
-        {% if responses.divorce_reason == 'live separate' %}
-            <p class="schIndent1">
-                5 <span hidden>[<em>Select this provision if the grounds for divorce are separation for more than one year.</em>]</span> I was living separate and apart from my spouse at the start of this family law case and I have lived separate and apart from my spouse since
-                {% if responses.separation_date %} {{ responses.separation_date }}{% else %} <span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span>{% endif %}, except:
-                {% multiple_values_to_list source=responses.reconciliation_period as periods %}
-                {% if periods != '[]' %}
-                    {% for period in periods %}
-                        {{ period }}
-                    {% endfor %}
-                {% else %}<span class="form-entry not-complete">[<em>provide dates of any periods of attempted reconciliation</em>]</span>.{% endif %}
-            </p>
-        {% else %}
+        {% comment "This section is out of scope" %}
             <p class="schIndent1">
                 5 [<em>Select this provision if the grounds for divorce are adultery of a spouse and there has been an admission of adultery.</em>] My spouse has admitted to me that <span class="form-entry not-complete">[<em>he/she</em>]</span> committed the acts of adultery alleged in Schedule
                 1 of the <span class="form-entry not-complete">[<em>notice of family claim/counterclaim</em>]</span> and
@@ -141,20 +113,15 @@
             <p class="schIndent1">
                 5 [<em>Select this provision if the grounds for divorce are physical or mental cruelty of a spouse.</em>] My spouse has treated me with physical or mental cruelty since the date of the marriage as follows: <span class="form-entry not-complete">&nbsp;</span>[<em>provide details</em>]<span class="form-entry not-complete">&nbsp;</span>
             </p>
-        {% endif %}
+        {% endcomment %}
         <p class="schIndent1">
             6 I am neither directly nor indirectly a party to an agreement or conspiracy for the purpose of subverting the administration of justice, or to any agreement, understanding or arrangement to fabricate or suppress evidence or to deceive the court.
         </p>
 
-        <p hidden>
-            [<em>Select whichever one of the 2 following provisions is correct, provide any required information and remove the provision that has not been selected so that it does not appear in the form when the form is filed.</em>]
+        <p class="schIndent1">
+            7 There are no children of the marriage as defined by the <em>Divorce Act</em> (Canada).
         </p>
-
-        {% if responses.children_of_marriage == 'NO' %}
-            <p class="schIndent1">
-                7 There are no children of the marriage as defined by the <em>Divorce Act</em> (Canada).
-            </p>
-        {% else %}
+        {% comment "This section is out of scope" %}
             <p class="schIndent1">
                 7 There are children of the marriage as defined by the <em>Divorce Act</em> (Canada) and
             </p>
@@ -167,18 +134,15 @@
             <p class="schIndent2">
                 (c) the following arrangements for parenting have been made: <span class="form-entry not-complete">&nbsp;</span>[<em>provide details</em>]<span class="form-entry not-complete">&nbsp;</span> .
             </p>
-        {% endif %}
+        {% endcomment %}
 
-        <p hidden>
-            <em>[Select and complete the following provision if you are seeking a change of name for yourself. If you are not seeking a change of name for yourself, remove this provision so that it does not appear in the form when the form is filed.]</em>
-        </p>
         {% if responses.form38_dummy_new_name %}
             <p class="schIndent1">
                 8 Pursuant to section 5 of the <em>Name Act</em>, I am seeking to change my name from {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %} to {% if responses.form38_dummy_new_name %}{{ responses.form38_dummy_new_name }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %}. This application for a name change relates only to myself.
             </p>
         {% endif %}
 
-        <div hidden>
+        {% comment "This section is out of scope" %}
             <p>
                 <em>[Select and complete the following provision if you are seeking a change of name for one or more minor children. If you are not seeking a change of name for one or more minor children, remove this provision so that it does not appear in the form when the form is filed. Renumber this provision as section 8 if you are seeking a change of name for one or more minor children and have not included a section 8 immediately before this provision.]</em>
             </p>
@@ -190,7 +154,7 @@
             <p class="schIndent2">
                 from <span class="form-entry not-complete">&nbsp;</span> to: <span class="form-entry not-complete">&nbsp;</span>
             </p>
-        </div>
+        {% endcomment %}
 
         <table class="table table-bordered">
             <tbody>
