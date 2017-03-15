@@ -3,14 +3,14 @@
     <div class="form-group">
         <label>From:</label>
         <span class="input-group date date-pickers-group">
-            {% input_field type="text" name="reconciliation_period" value=from multiple='true' class="date-pickers reconciliation-from-date form-control" placeholder="DD/MM/YYYY" %}
+            {% input_field type="text" name="reconciliation_period" value=from multiple='true' class="date-pickers reconciliation-from-date form-control" placeholder="DD/MM/YYYY" tabindex="-1" %}
         </span>
     </div>
     &nbsp;&nbsp;
     <div class="form-group">
         <label>To: </label>
         <span class="input-group date date-pickers-group">
-            {% input_field type="text" name="reconciliation_period" value=to multiple='true' class="date-pickers reconciliation-to-date form-control" placeholder="DD/MM/YYYY" %}
+            {% input_field type="text" name="reconciliation_period" value=to multiple='true' class="date-pickers reconciliation-to-date form-control" placeholder="DD/MM/YYYY" tabindex="-1" %}
         </span>
     </div>
     <input type="button" class="btn btn-danger btn-delete-period form-control pull-right" tabindex="-1" value="Delete" />
