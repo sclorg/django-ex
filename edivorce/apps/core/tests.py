@@ -27,6 +27,12 @@ class UserResponseTestCase(TestCase):
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), True)
 
+        # Put empty response
+        UserResponse.objects.filter(question_id='want_which_orders').update(value="[]")
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
+        self.assertEqual(is_complete(step, lst), False)
+
     def test_your_info(self):
         step = 'your_information'
         questions = question_step_mapping[step]
@@ -82,10 +88,16 @@ class UserResponseTestCase(TestCase):
         self.assertEqual(is_complete(step, lst), False)
 
         # All required questions with all checking question with all hidden questions
-        create_response(user, 'other_name_you', 'Smith')
+        create_response(user, 'other_name_you', '[["also known as","Smith"]]')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), True)
+
+        # Put empty response
+        UserResponse.objects.filter(question_id='other_name_you').update(value='[["also known as",""]]')
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
+        self.assertEqual(is_complete(step, lst), False)
 
     def test_your_spouse(self):
         step = 'your_spouse'
@@ -147,6 +159,12 @@ class UserResponseTestCase(TestCase):
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), True)
 
+        # Put empty response
+        UserResponse.objects.filter(question_id='name_spouse').update(value="")
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
+        self.assertEqual(is_complete(step, lst), False)
+
     def test_your_marriage(self):
         pass
 
@@ -164,6 +182,12 @@ class UserResponseTestCase(TestCase):
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), True)
+
+        # Put empty response
+        UserResponse.objects.filter(question_id='no_reconciliation_possible').update(value="")
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
+        self.assertEqual(is_complete(step, lst), False)
 
     def test_spousal_support(self):
         step = 'spousal_support'
@@ -188,6 +212,12 @@ class UserResponseTestCase(TestCase):
 
         # Remove first added required response to test the second required question
         UserResponse.objects.get(question_id='spouse_support_details').delete()
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
+        self.assertEqual(is_complete(step, lst), False)
+
+        # Put empty response
+        UserResponse.objects.filter(question_id='spouse_support_details').update(value="")
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), False)
@@ -219,6 +249,12 @@ class UserResponseTestCase(TestCase):
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), True)
 
+        # Put empty response
+        UserResponse.objects.filter(question_id='how_to_divide_property_debt').update(value="")
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
+        self.assertEqual(is_complete(step, lst), False)
+
     def test_other_orders(self):
         step = 'other_orders'
         questions = question_step_mapping[step]
@@ -233,6 +269,12 @@ class UserResponseTestCase(TestCase):
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), True)
+
+        # Put empty response
+        UserResponse.objects.filter(question_id='other_orders_detail').update(value="")
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
+        self.assertEqual(is_complete(step, lst), False)
 
     def test_other_questions(self):
         pass
@@ -251,6 +293,12 @@ class UserResponseTestCase(TestCase):
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), True)
+
+        # Put empty response
+        UserResponse.objects.filter(question_id='court_registry_for_filing').update(value="")
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
+        self.assertEqual(is_complete(step, lst), False)
 
 
 # Helper functions
