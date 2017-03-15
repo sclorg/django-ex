@@ -102,14 +102,14 @@
 </div>
 
 <div class="question-well">
-    <h3>Before you got married to your spouse, what was your marital status?</h3>
+    <h3>Before you got married to {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %}, what was your marital status?</h3>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Never married" %}Never married</label></div>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Divorced" %}Divorced</label></div>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Widowed" %}Widowed</label></div>
 </div>
 
 <div class="question-well">
-    <h3>What was the marital status of your spouse before your marriage?</h3>
+    <h3>What was the marital status of {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} before your marriage?</h3>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Never married" %}Never married</label></div>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Divorced" %}Divorced</label></div>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Widowed" %}Widowed</label></div>
