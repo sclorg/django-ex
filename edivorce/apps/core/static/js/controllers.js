@@ -193,7 +193,8 @@ var validateDate = function(el){
         return true;
     }
 
-    if (isValidDate(el.val())) {
+    var isFuture = el.is('.date-picker-future');
+    if (isValidDate(el.val(), isFuture)) {
         el.val(formatDate(stringToDate(el.val())));
         return true;
     }
@@ -206,7 +207,7 @@ var validateDate = function(el){
 };
 
 // validates that a string is a valid date
-var isValidDate = function(dateString) {
+var isValidDate = function(dateString, isFuture) {
     if (dateString.trim() == '') {
         return true;
     }
@@ -215,7 +216,10 @@ var isValidDate = function(dateString) {
 
     if (!isNaN(dt)) {
         var today = new Date();
-        if (dt <= today && dt.getFullYear() > 1900) {
+        if (isFuture && dt >= today && dt.getFullYear() <= today.getFullYear() + 100) {
+            return true;
+        }
+        else if (!isFuture && dt <= today && dt.getFullYear() > 1900) {
             return true;
         }
     }
