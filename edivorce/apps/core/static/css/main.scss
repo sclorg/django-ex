@@ -495,6 +495,15 @@ textarea {
 	    padding: 10px;
 	    background: $color-grey-lighter;
 	    border-radius: 5px;
+		label {
+			min-width: 40px;
+			margin-right: 10px;
+			text-align: right;
+		}
+		&:before {
+			display: table;
+			content: " ";
+		}
 	}
 }
 
@@ -505,7 +514,7 @@ textarea {
 .footer {
 	background-color: $brand-blue;
 	border-top: 3px solid $brand-gold;
-	padding: 30px 15px 15px;
+	padding: 15px;
 	.footer-container ul {
 		list-style-type: none;
 		li {
@@ -816,7 +825,7 @@ span.hard-stop {
 		display: block;
 	}
 	@media (min-width: 992px) {
-		transition: 300ms ease-out all;
+		transition: 0.2s ease-out all;
 		transform: translateX(0);
 	}
 }
@@ -825,7 +834,7 @@ span.hard-stop {
 		display: none;
 	}
 	@media (min-width: 992px) {
-		transition: 300ms ease-out all;
+		transition: 0.2s ease-out all;
 		transform: translateX(306px);
 	}
 }
@@ -835,7 +844,7 @@ span.hard-stop {
 		margin-right: 0;
 	}
 	@media (min-width: 992px) {
-		transition: 300ms ease-out all;
+		transition: 0.2s ease-out all;
 		margin-right: -306px;
 	}
 }
@@ -844,7 +853,7 @@ span.hard-stop {
 		margin-right: 0;
 	}
 	@media (min-width: 992px) {
-		transition: 300ms ease-out all;
+		transition: 0.2s ease-out all;
 		margin-right: 0;
 	}
 }

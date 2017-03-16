@@ -1,12 +1,11 @@
 {% load input_field %}
-<div class="form-inline">
+<div class="form-inline clearfix">
     <div class="form-group">
         <label>From:</label>
         <span class="input-group date date-pickers-group">
             {% input_field type="text" name="reconciliation_period" value=from multiple='true' class="date-pickers reconciliation-from-date form-control" placeholder="DD/MM/YYYY" tabindex="-1" %}
         </span>
     </div>
-    &nbsp;&nbsp;
     <div class="form-group">
         <label>To: </label>
         <span class="input-group date date-pickers-group">
