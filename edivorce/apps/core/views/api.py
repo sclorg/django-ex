@@ -8,6 +8,9 @@ from ..serializer import UserResponseSerializer
 
 class UserResponseHandler(APIView):
     def post(self, request):
+        if request.data == {}:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
         serializer = UserResponseSerializer(data=request.data)
 
         try:
