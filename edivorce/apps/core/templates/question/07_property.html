@@ -115,6 +115,32 @@
     <p>This section is about excluded property - e.g. property owned by the respondent at the time you moved in together, and gifts or inheritances the respondent received. Compensation is cash instead of ownership of your share of the property.</p>
     {% input_field type="textarea" name="other_property_claims" rows="8" cols="65" class="response-textarea" %}
 </div>
+
+
+
+
+
+
+<div id="questions_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa fa-home" aria-hidden="true"></i>
+                <h1 class="modal-title">Property and Debt</h1>
+            </div>
+            <div class="modal-body">
+                <p>Okay {{ name_you }}, next up let's go over some questions pertaining to the division of property and debt. The answers you provide will be used to populate what's called a Draft Final Order (Form 52). </p>
+                <p>A draft final order sets out what orders (decisions) you want the court to make. This will be reviewed by a judge or master.  If the judge or master makes the order you ask for, they'll sign the draft order you filed and it becomes your final court order.</p>
+                <p>If there's a problem with your order and the judge or master doesn't approve it, the court registry will let you know. You might have to draft another version of the order or appear in court to give the judge or master more information about what you wrote in the order.</p>
+                <p><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingOrders.php" target="_blank">source</a></p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block formBack %}{% prev_step step='property' %}{% endblock %}

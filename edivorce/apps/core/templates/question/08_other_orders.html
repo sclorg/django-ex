@@ -13,6 +13,29 @@
 <h3>Want other orders as follows: </h3>
 {% input_field type="textarea" name="other_orders_detail" rows="8" cols="65" class="response-textarea" %}
 
+
+
+
+
+<div id="questions_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa fa-gavel" aria-hidden="true"></i>
+                <h1 class="modal-title">Other Orders</h1>
+            </div>
+            <div class="modal-body">
+                <p>This section will allow you to provide the details for any other orders you are seeking.</p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 {% endblock %}
 
 {% block formBack %}{% prev_step step='other_orders' %}{% endblock %}

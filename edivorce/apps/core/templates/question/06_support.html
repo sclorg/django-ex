@@ -124,6 +124,29 @@
         </div>
     </div>
 </div>
+
+
+<div id="questions_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa fa-life-ring" aria-hidden="true"></i>
+                <h1 class="modal-title">Spousal Support</h1>
+            </div>
+            <div class="modal-body">
+                <p>Okay, {{ name_you }} now we need to ask you several questions about spousal support.</p>
+                <p>Spousal support is paid by one spouse to financially support the other spouse after separation, under an agreement or order.  The purpose of spousal support is to help meet the on-going financial needs of a financially dependent spouse for a defined period of time.</p>
+                <p>The answers you provide will be used to populate what's called a Draft Final Order (Form 52). A draft final order sets out what orders (decisions) you want the court to make. This will be reviewed by a judge or master.  If the judge or master makes the order you ask for, they'll sign the draft order you filed and it becomes your final court order.</p>
+                <p>If there's a problem with your order and the judge or master doesn't approve it, the court registry will let you know. You might have to draft another version of the order or appear in court to give the judge or master more information about what you wrote in the order.</p>
+                <p><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingOrders.php" target="_blank">source</a></p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block formBack %}{% prev_step step='support' %}{% endblock %}
