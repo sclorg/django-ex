@@ -39,7 +39,7 @@
         {% elif step_status.your_separation == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
 
-    {% if 'Spousal support' in want_which_orders|load_json %}
+    {% if 'Spousal support' in want_which_orders|load_json or 'Spousal support' in which_orders.0.value|load_json %}
     <a href="{% url 'question_steps' 'support' %}" class="progress-question {% if active_page == 'support' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-life-ring" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step 6</small><br />Spousal support</span>
@@ -48,7 +48,7 @@
     </a>
     {% endif %}
 
-    {% if 'Division of property and debts' in want_which_orders|load_json %}
+    {% if 'Division of property and debts' in want_which_orders|load_json or 'Division of property and debts' in which_orders.0.value|load_json %}
     <a href="{% url 'question_steps' 'property' %}" class="progress-question {% if step_status.property_and_debt == 'Complete' %} complete {% endif %} {% if active_page == 'property' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-home" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step {% step_order step="property" %}</small><br />Property and debt</span>
@@ -57,7 +57,7 @@
     </a>
     {% endif %}
 
-    {% if 'Other orders' in want_which_orders|load_json %}
+    {% if 'Other orders' in want_which_orders|load_json or 'Other orders' in which_orders.0.value|load_json %}
     <a href="{% url 'question_steps' 'other_orders' %}" class="progress-question {% if step_status.other_orders == 'Complete' %} complete {% endif %} {% if active_page == 'other_orders' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-gavel" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step {% step_order step="other_orders" %}</small><br />Other orders</span>

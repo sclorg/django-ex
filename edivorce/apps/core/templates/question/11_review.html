@@ -36,21 +36,21 @@
         {% include "partials/review_user_responses.html" with questions=your_separation %}
     </li>
 
-    {% if 'Spousal support' in want_which_orders|load_json %}
+    {% if 'Spousal support' in which_orders.0.value|load_json %}
     <li>
         <h4>Step 6: Spousal support</h4>
         {% include "partials/review_user_responses.html" with questions=spousal_support %}
     </li>
     {% endif %}
 
-    {% if 'Division of property and debts' in want_which_orders|load_json %}
+    {% if 'Division of property and debts' in which_orders.0.value|load_json %}
     <li>
         <h4>Step {% step_order step="property" %}: Property and debt</h4>
         {% include "partials/review_user_responses.html" with questions=property_and_debt %}
     </li>
     {% endif %}
 
-    {% if 'Other orders' in want_which_orders|load_json %}
+    {% if 'Other orders' in which_orders.0.value|load_json %}
     <li>
         <h4>Step {% step_order step="other_orders" %}: Other orders</h4>
         {% include "partials/review_user_responses.html" with questions=other_orders %}
