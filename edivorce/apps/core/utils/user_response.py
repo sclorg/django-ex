@@ -83,7 +83,7 @@ def is_complete(step, lst):
         for question in lst:
             q_id = question['question_id']
             value = question['value']
-            if value != '[]' and value != '':
+            if value != '[]' and value.strip() != '':
                 if q_id in required_list:
                     required_list.remove(q_id)
                 elif q_id in conditional_list:
@@ -95,7 +95,7 @@ def is_complete(step, lst):
                                 # print("H: %s,  V: %s|" %(hidden_q_id, key['value']))
                                 if hidden_q_id == 'other_name_you' and not json.loads(key['value'])[0][1]:
                                     break
-                                elif not key['value']:
+                                elif not key['value'] or key['value'].strip() == '':
                                     break
                                 else:
                                     key_in_list = True
