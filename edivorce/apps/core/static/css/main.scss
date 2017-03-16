@@ -544,6 +544,26 @@ textarea {
 	&.hasFocus {border: 1px solid $brand-blue;}
 }
 
+.step-review {
+	.collapse-trigger {
+		font-size: 24px;
+		&.collapsed {
+			margin-bottom: 0;
+			transition: 0.5s ease-out all;
+		}
+	}
+	table {
+		margin-bottom: 0;
+		thead tr {
+			background-color: $brand-blue;
+			color: #fff;
+		}
+	}
+	.collapse>div, .collapsing>div {
+		margin-bottom: 0;
+	}
+}
+
 /* Column Grid in flexbox */
 
 .row-flex {
@@ -651,8 +671,6 @@ textarea {
 		}
 	}
 }
-
-
 
 /* Side Progress Navigation */
 

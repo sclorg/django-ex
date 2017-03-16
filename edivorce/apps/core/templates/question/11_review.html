@@ -8,75 +8,170 @@
 {% block progress %}{% include "progress.html" %}{% endblock %}
 
 {% block content %}
-
 <h1><small>Step {% step_order step="review" %}:</small>Review</h1>
-<ul>
-    <li>
-        <h4>Pre-qualification questions</h4>
-        {% include "partials/review_user_responses.html" with questions=prequalification %}
-    </li>
-    <li>
-        <h4>Step 1: What are you asking for</h4>
-        {% include "partials/review_user_responses.html" with questions=which_orders %}
-    </li>
-    <li>
-        <h4>Step 2: Your information</h4>
-        {% include "partials/review_user_responses.html" with questions=your_information %}
-    </li>
-    <li>
-        <h4>Step 3: Your spouse</h4>
-        {% include "partials/review_user_responses.html" with questions=your_spouse %}
-    </li>
-    <li>
-        <h4>Step 4: Your marriage</h4>
-        {% include "partials/review_user_responses.html" with questions=your_marriage %}
-    </li>
-    <li>
-        <h4>Step 5: Your separation</h4>
-        {% include "partials/review_user_responses.html" with questions=your_separation %}
-    </li>
 
-    {% if 'Spousal support' in which_orders.0.value|load_json %}
-    <li>
-        <h4>Step 6: Spousal support</h4>
-        {% include "partials/review_user_responses.html" with questions=spousal_support %}
-    </li>
-    {% endif %}
-
-    {% if 'Division of property and debts' in which_orders.0.value|load_json %}
-    <li>
-        <h4>Step {% step_order step="property" %}: Property and debt</h4>
-        {% include "partials/review_user_responses.html" with questions=property_and_debt %}
-    </li>
-    {% endif %}
-
-    {% if 'Other orders' in which_orders.0.value|load_json %}
-    <li>
-        <h4>Step {% step_order step="other_orders" %}: Other orders</h4>
-        {% include "partials/review_user_responses.html" with questions=other_orders %}
-    </li>
-    {% endif %}
-
-    <li>
-        <h4>Step {% step_order step="other_questions" %}: Other questions</h4>
-        {% include "partials/review_user_responses.html" with questions=other_questions %}
-    </li>
-    <li>
-        <h4>Step {% step_order step="location" %}: Filing location</h4>
-        {% include "partials/review_user_responses.html" with questions=filing_locations %}
-    </li>
-</ul>
-{% endblock %}
-
-{% block formbuttons %}
-<div class="form-buttons clearfix">
-    <a class="btn btn-success pull-right" href="{% url 'savepdf' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
+<div class="question-well step-review">
+    <div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_prequal" aria-controls="collapse_changed_name">
+    	<div>
+    		Pre-qualification questions
+    	</div>
+    </div>
+    <div class="collapse in" id="review_step_prequal">
+    	<div>
+    		{% include "partials/review_user_responses.html" with questions=prequalification %}
+    	</div>
+    </div>
 </div>
+
+<div class="question-well step-review">
+<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_1" aria-controls="collapse_changed_name">
+	<div>
+		Step 1: What are you asking for
+	</div>
+</div>
+<div class="collapse in" id="review_step_1">
+	<div>
+		{% include "partials/review_user_responses.html" with questions=which_orders %}
+	</div>
+</div>
+</div>
+
+<div class="question-well step-review">
+<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_2" aria-controls="collapse_changed_name">
+	<div>
+		Step 2: Your information
+	</div>
+</div>
+<div class="collapse in" id="review_step_2">
+	<div>
+		{% include "partials/review_user_responses.html" with questions=your_information %}
+	</div>
+</div>
+</div>
+
+<div class="question-well step-review">
+<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_3" aria-controls="collapse_changed_name">
+	<div>
+		Step 3: Your spouse
+	</div>
+</div>
+<div class="collapse in" id="review_step_3">
+	<div>
+		{% include "partials/review_user_responses.html" with questions=your_spouse %}
+	</div>
+</div>
+</div>
+
+<div class="question-well step-review">
+<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_4" aria-controls="collapse_changed_name">
+	<div>
+		Step 4: Your marriage
+	</div>
+</div>
+<div class="collapse in" id="review_step_4">
+	<div>
+		{% include "partials/review_user_responses.html" with questions=your_marriage %}
+	</div>
+</div>
+</div>
+
+<div class="question-well step-review">
+<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_5" aria-controls="collapse_changed_name">
+	<div>
+		Step 5: Your separation
+	</div>
+</div>
+<div class="collapse in" id="review_step_5">
+	<div>
+		{% include "partials/review_user_responses.html" with questions=your_separation %}
+	</div>
+</div>
+</div>
+
+{% if 'Spousal support' in which_orders.0.value|load_json %}
+<div class="question-well step-review">
+<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_6" aria-controls="collapse_changed_name">
+	<div>
+		Step 6: Spousal support
+	</div>
+</div>
+<div class="collapse in" id="review_step_6">
+	<div>
+		{% include "partials/review_user_responses.html" with questions=spousal_support %}
+	</div>
+</div>
+</div>
+{% endif %}
+
+{% if 'Division of property and debts' in which_orders.0.value|load_json %}
+<div class="question-well step-review">
+    <div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_7" aria-controls="collapse_changed_name">
+    	<div>
+    		Step {% step_order step="property" %}: Property and debt
+    	</div>
+    </div>
+    <div class="collapse in" id="review_step_7">
+    	<div>
+    		{% include "partials/review_user_responses.html" with questions=property_and_debt %}
+    	</div>
+    </div>
+</div>
+{% endif %}
+
+{% if 'Other orders' in which_orders.0.value|load_json %}
+<div class="question-well step-review">
+    <div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_8" aria-controls="collapse_changed_name">
+    	<div>
+    		Step {% step_order step="other_orders" %}: Other orders
+    	</div>
+    </div>
+    <div class="collapse in" id="review_step_8">
+    	<div>
+    		{% include "partials/review_user_responses.html" with questions=other_orders %}
+    	</div>
+    </div>
+</div>
+{% endif %}
+
+<div class="question-well step-review">
+    <div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_9" aria-controls="collapse_changed_name">
+    	<div>
+    		Step {% step_order step="other_questions" %}: Other questions
+    	</div>
+    </div>
+    <div class="collapse in" id="review_step_9">
+    	<div>
+    		{% include "partials/review_user_responses.html" with questions=other_questions %}
+    	</div>
+    </div>
+</div>
+
+<div class="question-well step-review">
+    <div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_10" aria-controls="collapse_changed_name">
+    	<div>
+    		Step {% step_order step="location" %}: Filing location
+    	</div>
+    </div>
+    <div class="collapse in" id="review_step_10">
+    	<div>
+    		{% include "partials/review_user_responses.html" with questions=filing_locations %}
+    	</div>
+    </div>
+</div>
+
+{% endblock %}
+{% block formbuttons %}
+
+<div class="form-buttons clearfix">
+	<a class="btn btn-success pull-right" href="{% url 'savepdf' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
+</div>
+
 {% endblock %}
 
 {% block sidebarNav %}
 <!-- no sidebar -->
 {% endblock %}
+
 {% block sidebar %}
 <!-- no sidebar -->
 {% endblock %}

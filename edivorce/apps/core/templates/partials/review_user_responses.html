@@ -1,15 +1,19 @@
 {% if questions %}
-    <table border="1">
-        <tr>
-            <th>Questions</th>
-            <th>User response</th>
-        </tr>
-        {% for question in questions %}
-        {{question.question}}
+    <table class="table table-bordered table-striped">
+        <thead>
             <tr>
-                <td width="75%" style="padding-right: 5%">{{question.question__name}}</td>
-                <td width="25%">{{question.value}}</td>
+                <th>Questions</th>
+                <th>User response</th>
             </tr>
-        {% endfor %}
+        </thead>
+        <tbody>
+            {% for question in questions %}
+            {{question.question}}
+                <tr>
+                    <td width="75%" style="padding-right: 5%">{{question.question__name}}</td>
+                    <td width="25%">{{question.value}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 {% endif %}
