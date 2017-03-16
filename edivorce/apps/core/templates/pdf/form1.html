@@ -20,15 +20,18 @@
 <body>
 
     <div class="print-wrapper">
-        <h1 class="text-center">Form F1<br />(Rule 2-2 (2))</h1>
+        <h3 class="text-center">Form F1<br />(Rule 2-2 (2))</h3>
         <p class="text-right">
             Court File No.: <span class="form-entry not-complete">&nbsp;</span>
         </p>
         <p class="text-right">
             Court Registry: {% if responses.court_registry_for_filing %} {{ responses.court_registry_for_filing }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
         </p>
-        <p class="text-center">
-            <em> In the Supreme Court of British Columbia </em>
+        <h3 class="text-center">
+            In the Supreme Court of British Columbia
+        </h3>
+        <p>
+            &nbsp;
         </p>
         <p>
             Claimant 1:{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}
@@ -39,9 +42,9 @@
         <p>
             &nbsp;
         </p>
-        <h2 class="text-center">
+        <h1 class="text-center">
             NOTICE OF JOINT FAMILY CLAIM
-        </h2>
+        </h1>
 
         <h3>1. Relationship history</h3>
         <table class="table table-bordered">

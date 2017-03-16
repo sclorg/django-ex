@@ -13,12 +13,7 @@ $('input:radio, input:checkbox').each(function () {
 
 $(window).load(function(){
     $('#questions_modal').modal('show');
-    console.log("loading");
 });
-
-$(function () {
-  $('[data-toggle="popover"]').popover()
-})
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip({

@@ -65,9 +65,7 @@ i.fa {
     font-weight: bold;
     font-size: 18px;
     display: block;
-}
-.not-complete {
-    background-color: #fcf8e3;
+    margin: -22px 0 40px;
 }
 
 .table-fixed {
