@@ -37,13 +37,16 @@ def success(request):
     else:
         return render(request, 'success.html', context={'register_url': settings.REGISTER_URL})
 
+
 @bceid_required
 def legal(request):
     return render(request, 'legal.html', context={'active_page': 'legal'})
 
+
 @bceid_required
-def savepdf(request):
-    return render(request, 'savepdf.html', context={'active_page': 'savepdf'})
+def dashboard_nav(request, nav_step):
+    template_name = 'dashboard/%s.html' % nav_step
+    return render(request, template_name=template_name, context={'active_page': nav_step})
 
 
 def login(request):

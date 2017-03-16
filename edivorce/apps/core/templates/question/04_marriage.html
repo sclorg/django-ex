@@ -29,6 +29,7 @@
     <i class="fa fa-question-circle" aria-hidden="true"></i></span>. Not doing this can result in delays and
     your divorce request being returned for correction.</p>
 
+{% if married_marriage_like == 'Legally married' %}
 <div id="when_married" class="question-well">
     <h3>When were you married?</h3>
     <p>
@@ -40,6 +41,7 @@
         </span>
     </p>
 </div>
+{% endif %}
 
 <div id="lived_together" class="question-well">
     <h3>When did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} begin to live together in a marriage-like relationship?</h3>
@@ -85,6 +87,8 @@
     </div>
 </div>
 
+
+{% if married_marriage_like == 'Legally married' %}
 <div class="question-well">
     <h3>Where were you married?</h3>
     <p>Enter the location as it appears on the marriage certificate (e.g. city, province or state and country)</p>
@@ -98,6 +102,7 @@
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="where_were_you_married_country" value="USA" %}USA</label></div>
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="where_were_you_married_country" value="Other" %}Other {% input_field type="text" name="where_were_you_married_other_country" class="response-textbox other-textbox input-inline" tabindex="-1" %}</label></div>
 </div>
+{% endif %}
 
 <div class="question-well">
     <h3>Before you got married to {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %}, what was your marital status?</h3>

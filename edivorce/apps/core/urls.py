@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^logout', main.logout, name="logout"),
     url(r'^overview', main.overview, name="overview"),
     url(r'^success', main.success, name="success"),
-    url(r'^savepdf', main.savepdf, name="savepdf"),
+    url(r'^dashboard/(?P<nav_step>.*)', main.dashboard_nav, name="dashboard_nav"),
     url(r'^health$', system.health),
     url(r'^legal', main.legal, name="legal"),
 
@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^divorce-dev/headers$', system.headers),
     url(r'^headers$', system.headers),
 
-    url(r'^pdf-form(?P<form_number>[0-9]{1,3})$', pdf.form, name="pdf_form"),
+    url(r'^pdf-form(?P<form_number>[0-9]{1,3}(_we)?)$', pdf.form, name="pdf_form"),
     url(r'^prequalification/step_(?P<step>[0-9]{2})$', main.prequalification, name="prequalification"),
     url(r'^question/(?P<step>.*)$', main.question, name="question_steps"),
     url(r'^', main.intro, name="intro"),

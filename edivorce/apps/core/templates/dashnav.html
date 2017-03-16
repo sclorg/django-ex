@@ -6,23 +6,23 @@
         <span class="progress-icon"><i class="fa fa-file-text-o" aria-hidden="true"></i></span>
         <span class="progress-content">Divorce Questionnaire</span>
     </a>
-    <a href="{% url 'savepdf' %}" class="progress-question {% if active_page == 'savepdf' %} active {% endif %}">
+    <a href="{% url 'dashboard_nav' 'print_form' %}" class="progress-question {% if active_page == 'print_form' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-print" aria-hidden="true"></i></span>
         <span class="progress-content">Review and Print Forms</span>
     </a>
-    <a href="{% url 'overview' %}" class="progress-question">
+    <a href="{% url 'dashboard_nav' 'file_documents' %}" class="progress-question {% if active_page == 'file_documents' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-folder-open" aria-hidden="true"></i></span>
         <span class="progress-content">File Documents</span>
     </a>
-    <a href="{% url 'overview' %}" class="progress-question">
+    <a href="{% url 'dashboard_nav' 'wait' %}" class="progress-question {% if active_page == 'wait' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-hourglass-half" aria-hidden="true"></i></span>
         <span class="progress-content">Wait</span>
     </a>
-    <a href="{% url 'overview' %}" class="progress-question">
+    <a href="{% url 'dashboard_nav' 'check_with_registry' %}" class="progress-question {% if active_page == 'check_with_registry' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-university" aria-hidden="true"></i></span>
         <span class="progress-content">Check with Registry</span>
     </a>
-    <a href="{% url 'overview' %}" class="progress-question">
+    <a href="{% url 'dashboard_nav' 'order_certificate' %}" class="progress-question {% if active_page == 'order_certificate' %} active {% endif %}">
         <span class="progress-icon"><img src="{% static 'svg/icon-certificate.svg' %}" /></span>
         <span class="progress-content">Order a Certificate of Divorce</span>
     </a>

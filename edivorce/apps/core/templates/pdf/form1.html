@@ -223,13 +223,14 @@
                     <td> <strong> Children: </strong> [<em>Check whichever one of the following boxes is correct and complete any required information.</em>] </td>
                 </tr>
                 <tr>
+                    {% check_list source=responses.children_financial_support value='No' as children_of_marriage %}
                     <td><i class="fa {% if responses.children_of_marriage == 'NO' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There are no children of the marriage, as defined by the <em> Divorce Act </em> (Canada), or children of whom Claimant 1 and Claimant 2 are parents within the meaning of the <em> Family Law Act </em> . </td>
                 </tr>
                 <tr>
                     <td align="center"> [OR] </td>
                 </tr>
                 <tr>
-                    <td> <i class="fa {% if responses.children_of_marriage == 'YES' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There are children of the marriage, as defined by the <em> Divorce Act </em> (Canada), or children of whom Claimant 1 and Claimant 2 are parents within the meaning of the <em> Family Law Act </em> , and those children are: </td>
+                    <td> <i class="fa {% if responses.children_of_marriage == 'YES' and children_of_marriage %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There are children of the marriage, as defined by the <em> Divorce Act </em> (Canada), or children of whom Claimant 1 and Claimant 2 are parents within the meaning of the <em> Family Law Act </em> , and those children are: </td>
                 </tr>
                 <tr>
                     <td>

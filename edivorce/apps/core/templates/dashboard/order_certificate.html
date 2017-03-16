@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }}: Overview{% endblock %}
+
+{% block progress %}{% include "dashnav.html" with active_page=active_page %}{% endblock %}
+
+{% block content %}
+<h3>Order a Certificate of Divorce (Optional)</h3>
+<p>$40 for each Certificate of Divorce (as of March 2013)</p>
+<p>
+    Anytime after 31 days have passed and the divorce has become final, you can go back to the registry to ask for a Certificate of Divorce Form (F56).
+</p>
+<p>
+    This step isn't mandatory. If you don't go to the court registry to get a Certificate of Divorce, your divorce will still be legal. If you ever have to show legal proof of your divorce, you can use your divorce order. However, you may prefer just to show a certificate rather than all the details in the order.
+</p>
+<p>
+    For details on
+    <a href="http://www.familylaw.lss.bc.ca/guides/divorce/divJoint_step8.php">how to apply for a Certificate of Divorce</a>
+    refer to the Legal Services Society website.
+</p>
+{% endblock %}
+
+{% block formbuttons %}
+<div class="form-buttons clearfix">
+    <a class="btn btn-success pull-right" href="{% url 'overview' %}">Overview&nbsp;&nbsp;&nbsp;<i class="fa fa-list"></i></a>
+</div>
+{% endblock %}
+
+{% block sidebarNav %}
+<!-- no sidebar -->
+{% endblock %}
+{% block sidebar %}
+<!-- no sidebar -->
+{% endblock %}

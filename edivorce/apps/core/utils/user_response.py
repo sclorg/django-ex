@@ -87,7 +87,6 @@ def is_complete(step, lst):
                 if q_id in required_list:
                     required_list.remove(q_id)
                 elif q_id in conditional_list:
-
                     if q_id in conditional_list and value == conditional_list[q_id][0]:
                         key_in_list = False
                         hidden_q_id = conditional_list[q_id][1]

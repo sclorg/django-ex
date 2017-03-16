@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }}: Overview{% endblock %}
+
+{% block progress %}{% include "dashnav.html" with active_page=active_page %}{% endblock %}
+
+{% block content %}
+<h3>Wait while Judge reviews your request</h3>
+<p>
+    Once filed, the stage 2 forms will be passed to a judge. If the judge determines that you are entitled to a divorce, he or she will grant you a Divorce Order.
+</p>
+{% endblock %}
+
+{% block formbuttons %}
+<div class="form-buttons clearfix">
+    <a class="btn btn-success pull-right" href="{% url 'overview' %}">Overview&nbsp;&nbsp;&nbsp;<i class="fa fa-list"></i></a>
+</div>
+{% endblock %}
+
+{% block sidebarNav %}
+<!-- no sidebar -->
+{% endblock %}
+{% block sidebar %}
+<!-- no sidebar -->
+{% endblock %}

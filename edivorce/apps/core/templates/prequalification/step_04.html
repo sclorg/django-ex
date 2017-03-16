@@ -13,17 +13,7 @@
 <h1>Do you qualify for a divorce in B.C.?</h1>
 
 <div class="question-well">
-<h3>Do you and your spouse have any children (includes step children, adopted children). The  legal term is children of the marriage
-    <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" data-html="true"
-       title="<b>Children for the Marriage</b><br/><br/> The
-       <a target='_blank' href='http://wiki.clicklaw.bc.ca/index.php?title=Divorce Act'>Divorce Act</a> defines child of the  marriage as:
-        Child of the marriage means a child of two spouses or former spouses who, at the material time,<ol type=&quot;a&quot;>
-        <li>is under the age of majority and who has not withdrawn from their charge, or</li>
-        <li>is the age of majority or over and under their charge but unable, by reason of illness, disability
-            or other cause, to withdraw from their charge or to obtain the necessaries of life; (enfant à charge)?</li></ol>
-        More details on the
-        <a target='_blank' href='http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/rp/v2/v2_7.html'>definition of &quot;child of the marriage&quot;</a>
-        can be found on the Department of Justice web site." aria-hidden="true"></i>?</h3>
+<h3>Do you and your spouse have any children (includes step children, adopted children). The  legal term is children of the marriage?</h3>
 
 <div class="btn-radio-group" data-toggle="buttons">
     <label class="btn btn-radio">
@@ -96,9 +86,21 @@
 </div>
 {% endblock %}
 
-{% block sidebarNav %}
-<!-- no sidebar -->
-{% endblock %}
-{% block sidebar %}
-<!-- no sidebar -->
+{% block sidebarText%}
+<h2>Children for the Marriage</h2>
+<p>The <a target='_blank' href='http://wiki.clicklaw.bc.ca/index.php?title=Divorce Act'>Divorce Act</a>
+    defines child of the  marriage as: Child of the marriage means a child of two spouses or former spouses who, at the material time,</p>
+
+<ol type=&quot;a&quot;>
+    <li>is under the age of majority and who has not withdrawn from their charge, or</li>
+    <li>
+        is the age of majority or over and under their charge but unable, by reason of illness, disability
+        or other cause, to withdraw from their charge or to obtain the necessaries of life; (enfant à charge)?
+    </li>
+</ol>
+<p>
+    More details on the
+    <a target='_blank' href='http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/rp/v2/v2_7.html'>definition of &quot;child of the marriage&quot;</a>
+    can be found on the Department of Justice web site.
+</p>
 {% endblock %}
