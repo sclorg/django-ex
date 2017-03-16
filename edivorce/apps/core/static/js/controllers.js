@@ -88,7 +88,7 @@ var radioWithTextboxControl = function(el){
 
     // when textbox is clicked, update associated radio button response with its value
     else if (el.is(".other-textbox")){
-        var radioTextbox = el.parents().find(".radio_with_textbox");
+        var radioTextbox = el.parent().find(".radio_with_textbox");
         ajaxCall(radioTextbox.prop('name'), radioTextbox.val());
     }
 };
