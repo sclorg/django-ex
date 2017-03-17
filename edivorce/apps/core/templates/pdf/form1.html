@@ -210,7 +210,7 @@
                 </tr>
                 <tr>
                     <td colspan="2"> <i class="fa {% if responses.original_marriage_certificate == 'NO' and not responses.provide_certificate_later == 'YES' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} It is impossible to obtain a certificate of marriage or registration of marriage because:
-                        <span class="form-entry form-textarea not-complete">&nbsp;{% if responses.not_provide_certificate_reason and responses.original_marriage_certificate == 'NO' and not responses.provide_certificate_later == 'YES' %} {{ responses.not_provide_certificate_reason }}</span> {% else %} &nbsp;</span> {% endif %}
+                        <span class="form-entry form-textarea not-complete">{% if responses.not_provide_certificate_reason and responses.original_marriage_certificate == 'NO' and not responses.provide_certificate_later == 'YES' %} {{ responses.not_provide_certificate_reason|linebreaksbr }}</span> {% else %} &nbsp;</span> {% endif %}
                     </td>
                 </tr>
             </tbody>
@@ -294,7 +294,7 @@
                 <tr>
                     {% check_list source=responses.want_which_orders value='Spousal support' as order_wanted %}
                     <td colname="c2"> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for spousal support as follows:
-                        <span class="form-entry form-textarea not-complete">{% if responses.spouse_support_details %} {{responses.spouse_support_details }} {% else %} &nbsp; {% endif %}</span>
+                        <span class="form-entry form-textarea not-complete">{% if responses.spouse_support_details %} {{responses.spouse_support_details|linebreaksbr }} {% else %} &nbsp; {% endif %}</span>
                     </td>
                 </tr>
                 <tr>
@@ -322,7 +322,7 @@
                 </tr>
                 <tr>
                     <td> <i class="fa {% if responses.deal_with_property_debt == 'unequal division' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} an unequal division of family property and family debt as follows:
-                        <span class="form-entry form-textarea not-complete">{% if responses.how_to_divide_property_debt %} {{ responses.how_to_divide_property_debt }} {% else %}&nbsp;{% endif %}</span>
+                        <span class="form-entry form-textarea not-complete">{% if responses.how_to_divide_property_debt %} {{ responses.how_to_divide_property_debt|linebreaksbr }} {% else %}&nbsp;{% endif %}</span>
                     </td>
                 </tr>
                 <tr>
@@ -330,7 +330,7 @@
                 </tr>
                 <tr>
                     <td> <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
-                        <span class="form-entry form-textarea not-complete">{% if responses.other_property_claims %} {{ responses.other_property_claims }} {% else %}&nbsp;{% endif %}</span> </td>
+                        <span class="form-entry form-textarea not-complete">{% if responses.other_property_claims %} {{ responses.other_property_claims|linebreaksbr }} {% else %}&nbsp;{% endif %}</span> </td>
                 </tr>
             </tbody>
         </table>
@@ -340,7 +340,7 @@
             <tbody>
                 <tr>
                     {% check_list source=responses.want_which_orders value='Other orders' as order_wanted %}
-                    <td> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order in the following terms: <span class="form-entry form-textarea not-complete">{% if responses.other_orders_detail %} {{ responses.other_orders_detail }} {% else %} &nbsp; {% endif %}</span>
+                    <td> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order in the following terms: <span class="form-entry form-textarea not-complete">{% if responses.other_orders_detail %} {{ responses.other_orders_detail|linebreaksbr }} {% else %} &nbsp; {% endif %}</span>
                         <p class="text-center">
                             [<em>set out terms of proposed order</em>]
                         </p>
