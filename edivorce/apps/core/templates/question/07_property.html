@@ -10,8 +10,8 @@
 
 <h1><small>Step {% step_order step="property" %}:</small>Property and Debt</h1>
 <div class="intro">
-    <p>After you separate, the law says that all <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Family property</b><br /><br />The assest acquired by either spouse during the course of the relationship,
-   plus any increase in the value of excluded property. The law assumes that you're both entitled to an equal share of family property unless an equal division would be significantly unfair."> family property<i class="fa fa-question-circle" aria-hidden="true"></i></span> and
+    <p>After you separate, the law says that all <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Family property</b><br /><br />The asset acquired by either spouse during the course of the relationship,
+   plus any increase in the value of excluded properties. The law assumes that you're both entitled to an equal share of family property unless an equal division would be significantly unfair."> family property<i class="fa fa-question-circle" aria-hidden="true"></i></span> and
         <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Family debt</b><br /><br />Money owed to others accumulated during a relationship or to maintain
        family property after separation. The law assumes that both spouses are equally responsible for the debt
        unless an equal division would be &quot;significantly unfair.&quot;">  family debt<i class="fa fa-question-circle" aria-hidden="true"></i></span>
@@ -121,10 +121,12 @@
     <p>
         You can ask for an interest in the property (part ownership) or compensation (money). If the property is real estate, provide the legal description.
     </p>
-    <div class="checkbox">
-        <label>
-            {% input_field type="checkbox" name="want_other_property_claims" value="Ask for other property claims" %} Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
-        </label>
+    <div class="checkbox-group">
+        <div class="checkbox">
+            <label>
+                {% input_field type="checkbox" name="want_other_property_claims" value="Ask for other property claims" %} Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
+            </label>
+        </div>
     </div>
     {% input_field type="textarea" name="other_property_claims" rows="8" cols="65" class="response-textarea" %}
 </div>

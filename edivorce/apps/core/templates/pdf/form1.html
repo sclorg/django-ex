@@ -158,18 +158,21 @@
                 </tr>
                 <tr>
                     {% multiple_values_to_list source=responses.reconciliation_period as periods %}
-                    {% if periods != '[]' %}
-                    <td>
-                        {% for period in periods %}
-                        <p>from: {{period | first}}</p>
-                        {% endfor %}
-                    </td>
-                    <td>
-                        {% for period in periods %}
-                        <p>to: {{period | last }}</p>
-                        {% endfor %}
-                    </td>
-                    {% else %}<td><p>From: <span class="form-entry not-complete">&nbsp;</span></p></td>{% endif %}
+                    {% if periods and responses.try_reconcile_after_separated == 'YES' %}
+                        <td>
+                            {% for period in periods %}
+                                <p>from: {{period | first}}</p>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for period in periods %}
+                                <p>to: {{period | last }}</p>
+                            {% endfor %}
+                        </td>
+                    {% else %}
+                        <td><p>From: <span class="form-entry not-complete">&nbsp;</span></p></td>
+                        <td><p>To: <span class="form-entry not-complete">&nbsp;</span></p></td>
+                    {% endif %}
                 </tr>
                 <tr>
                     <td colspan="2"> (ii) <i class="fa fa-square-o" aria-hidden="true"></i> <strong> Other grounds </strong> , under section 8 (2) (b) of the <em> Divorce Act </em> (Canada): <span class="form-entry form-textarea not-complete">&nbsp;</span>
@@ -224,13 +227,13 @@
                 </tr>
                 <tr>
                     {% check_list source=responses.children_financial_support value='No' as children_of_marriage %}
-                    <td><i class="fa {% if responses.children_of_marriage == 'NO' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There are no children of the marriage, as defined by the <em> Divorce Act </em> (Canada), or children of whom Claimant 1 and Claimant 2 are parents within the meaning of the <em> Family Law Act </em> . </td>
+                    <td><i class="fa {% if responses.children_of_marriage == 'NO' or children_of_marriage%} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There are no children of the marriage, as defined by the <em> Divorce Act </em> (Canada), or children of whom Claimant 1 and Claimant 2 are parents within the meaning of the <em> Family Law Act </em> . </td>
                 </tr>
                 <tr>
                     <td align="center"> [OR] </td>
                 </tr>
                 <tr>
-                    <td> <i class="fa {% if responses.children_of_marriage == 'YES' and children_of_marriage %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There are children of the marriage, as defined by the <em> Divorce Act </em> (Canada), or children of whom Claimant 1 and Claimant 2 are parents within the meaning of the <em> Family Law Act </em> , and those children are: </td>
+                    <td> <i class="fa {% if responses.children_of_marriage == 'YES' and not children_of_marriage %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There are children of the marriage, as defined by the <em> Divorce Act </em> (Canada), or children of whom Claimant 1 and Claimant 2 are parents within the meaning of the <em> Family Law Act </em> , and those children are: </td>
                 </tr>
                 <tr>
                     <td>
@@ -318,19 +321,20 @@
                     <td> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for: <br /><em> </td>
                 </tr>
                 <tr>
-                    <td> <i class="fa {% if responses.deal_with_property_debt == 'equal division' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} an equal division of family property and family debt </td>
+                    <td> <i class="fa {% if responses.deal_with_property_debt == 'equal division' %} fa-check-square-o {% else %} fa-square-o{% endif %}" aria-hidden="true"></i> an equal division of family property and family debt </td>
                 </tr>
                 <tr>
-                    <td> <i class="fa {% if responses.deal_with_property_debt == 'unequal division' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} an unequal division of family property and family debt as follows:
-                        <span class="form-entry form-textarea not-complete">{% if responses.how_to_divide_property_debt %} {{ responses.how_to_divide_property_debt|linebreaksbr }} {% else %}&nbsp;{% endif %}</span>
+                    <td> <i class="fa {% if responses.deal_with_property_debt == 'unequal division' %} fa-check-square-o {% else %} fa-square-o{% endif %}" aria-hidden="true"></i> an unequal division of family property and family debt as follows:
+                        <span class="form-entry form-textarea not-complete">{% if responses.deal_with_property_debt == 'unequal division' and responses.how_to_divide_property_debt %} {{ responses.how_to_divide_property_debt|linebreaksbr }} {% else %}&nbsp;{% endif %}</span>
                     </td>
                 </tr>
                 <tr>
                     <td> <strong> B Other property claims </strong> </td>
                 </tr>
                 <tr>
-                    <td> <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
-                        <span class="form-entry form-textarea not-complete">{% if responses.other_property_claims %} {{ responses.other_property_claims|linebreaksbr }} {% else %}&nbsp;{% endif %}</span> </td>
+                    {% check_list source=responses.want_other_property_claims value='Ask for other property claims' as other_wanted %}
+                    <td> <i class="fa {% if other_wanted %} fa-check-square-o {% else %} fa-square-o{% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
+                        <span class="form-entry form-textarea not-complete">{% if other_wanted and responses.other_property_claims %} {{ responses.other_property_claims|linebreaksbr }} {% else %}&nbsp;{% endif %}</span> </td>
                 </tr>
             </tbody>
         </table>
