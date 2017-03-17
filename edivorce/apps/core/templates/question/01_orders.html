@@ -111,17 +111,20 @@
     </div>
 </div>
 
-<div class="checkbox hidden"><label>{% input_field type="checkbox" name="want_which_orders" value="Child support" %}<b>Child support (Out of scope)</b></label></div>
+{% comment "Not in use - Out of this scope but keep it for later" %}
+    <div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Child support" %}<b>Child support (Out of scope)</b></label></div>
+{% endcomment %}
 
-<div class="information-message bg-danger" id="child_support_alert" hidden>
-    <p>We've noticed that at this point in time you are not applying for spousal support and/or division of property, debt, or a pension. If you decide to request these items in the future there are some time limits.</p>
-    <h2>Division of Property and Debts</h2>
-    <p>If you were married, you must apply to divide property within two years after you get an order for divorce. If you were living in a marriage-like relationship for at least two years, you must apply within two years of the date you separated.</p>
-    <h2>Spousal Support</h2>
-    <p>If you were married, you must apply for spousal support under the Family Law Act within two years after you get an order for divorce. If you are applying for spousal support under the Divorce Act, you do not have a time limit.</p>
-    <p>If you were unmarried, and you qualify for spousal support, you must apply within two years of the date you separated.</p>
+<div class="question-well" id="unselected_orders_alert" hidden>
+    <div class="information-message bg-danger">
+        <p>We've noticed that at this point in time you are not applying for spousal support and/or division of property, debt, or a pension. If you decide to request these items in the future there are some time limits.</p>
+        <h2>Division of Property and Debts</h2>
+        <p>If you were married, you must apply to divide property within two years after you get an order for divorce. If you were living in a marriage-like relationship for at least two years, you must apply within two years of the date you separated.</p>
+        <h2>Spousal Support</h2>
+        <p>If you were married, you must apply for spousal support under the Family Law Act within two years after you get an order for divorce. If you are applying for spousal support under the Divorce Act, you do not have a time limit.</p>
+        <p>If you were unmarried, and you qualify for spousal support, you must apply within two years of the date you separated.</p>
+    </div>
 </div>
-
 
 <div id="questions_modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

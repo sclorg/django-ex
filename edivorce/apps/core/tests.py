@@ -183,7 +183,7 @@ class UserResponseTestCase(TestCase):
         create_response(user, 'no_reconciliation_possible', 'I agree')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
-        self.assertEqual(is_complete(step, lst), True)
+        self.assertEqual(is_complete(step, lst), False)
 
         # Put empty response
         UserResponse.objects.filter(question_id='no_reconciliation_possible').update(value="")
