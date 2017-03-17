@@ -47,6 +47,7 @@ class UserResponseTestCase(TestCase):
         create_response(user, 'name_you', 'John Doe')
         create_response(user, 'last_name_before_married_you', 'Jackson')
         create_response(user, 'birthday_you', '11/11/1111')
+        create_response(user, 'occupation_you', 'Plumber')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), False)
@@ -113,6 +114,7 @@ class UserResponseTestCase(TestCase):
         create_response(user, 'name_spouse', 'John Doe')
         create_response(user, 'last_name_before_married_spouse', 'Jackson')
         create_response(user, 'birthday_spouse', '11/11/1111')
+        create_response(user, 'occupation_spouse', 'Electrician')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), False)
