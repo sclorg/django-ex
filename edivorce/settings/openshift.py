@@ -38,8 +38,8 @@ WEASYPRINT_URL = 'http://weasyprint:5001'
 WEASYPRINT_CSS_LOOPBACK = 'http://edivorce-django:8080'
 
 # Django Compressor offline compression (triggered by setup.py during OpenShift build)
-COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = True
+COMPRESS_ENABLED = False
+# COMPRESS_OFFLINE = True
 
 # The app will be served out of a subdirectory of justice.gov.bc.ca
 # PROD: /divorce
