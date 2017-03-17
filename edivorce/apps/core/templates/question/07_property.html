@@ -112,14 +112,22 @@
 
 <div class="question-well">
     <h3>Other Property Claims</h3>
-    <p>This section is about excluded property - e.g. property owned by the respondent at the time you moved in together, and gifts or inheritances the respondent received. Compensation is cash instead of ownership of your share of the property.</p>
+    <p>This section is for property claims not covered by the Family Law Act—property that is not family property. This includes:</p>
+    <ul>
+        <li>excluded property, such as gifts or inheritances the other party received while you were together and property owned by the other party at the time you moved in together</li>
+        <li>property owned by a third party</li>
+        <li>property you’re claiming on the basis of unjust enrichment (a legal concept used to get a share of property that you’re not entitled to under the Family Law Act)</li>
+    </ul>
+    <p>
+        You can ask for an interest in the property (part ownership) or compensation (money). If the property is real estate, provide the legal description.
+    </p>
+    <div class="checkbox">
+        <label>
+            {% input_field type="checkbox" name="want_other_property_claims" value="Ask for other property claims" %} Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
+        </label>
+    </div>
     {% input_field type="textarea" name="other_property_claims" rows="8" cols="65" class="response-textarea" %}
 </div>
-
-
-
-
-
 
 <div id="questions_modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -132,7 +140,6 @@
                 <p>Okay {{ name_you }}, next up let's go over some questions pertaining to the division of property and debt. The answers you provide will be used to populate what's called a Draft Final Order (Form 52). </p>
                 <p>A draft final order sets out what orders (decisions) you want the court to make. This will be reviewed by a judge or master.  If the judge or master makes the order you ask for, they'll sign the draft order you filed and it becomes your final court order.</p>
                 <p>If there's a problem with your order and the judge or master doesn't approve it, the court registry will let you know. You might have to draft another version of the order or appear in court to give the judge or master more information about what you wrote in the order.</p>
-                <p><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingOrders.php" target="_blank">source</a></p>
             </div>
             <div class="modal-footer">
                 <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>

@@ -10,7 +10,10 @@
 
 <h1><small>Step 1:</small>What are you asking for?</h1>
 <div class="question-well">
-    <h3>What are you asking for (Orders)?</h3>
+    <h3>What are you asking for (Orders)
+        <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
+           title="<b>Orders</b><br /><br />A record of a decision made by a judge or master that tells you or your spouse what you must do (or not do).
+           For example: The court has made an order that your spouse must pay you $250 on a monthly basis to help pay off your combined debt." aria-hidden="true"></i>?</h3>
     <p><em>With an undefended divorce (aka desk order), you do not need  to appear in court. However, a judge needs to review and approve what you are asking for.  Orders allow you to tell the court what you want (for example parenting support and property division).</em></p>
     <p><em>Please select what you are asking for. Later on you will be asked to provide details for each request.</em></p>
     <div class="checkbox-group">
@@ -60,15 +63,31 @@
             </div>
         </div>
         <div><div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Spousal support" data_target_id="spouse_support_alert" data_reveal_target="true" %}<b>Spousal support</b></label></div>
-            <p><em>Payments to support you, not the children.</em></p>
-            <p><em>For more information, please see the
-                <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">Spousal Support fact sheet</a>
-                <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"
-                title="<b>spousal support</b><br /><br />When a couple separates, one spouse may be eligible to
-                receive financial support from the other. This is called spousal support. Spousal support is separate
-                and distinct from child support. Unlike child support, spousal support is not a right in every case.
-                You are entitled to spousal support in certain situations." aria-hidden="true"></i>
-                on the Family Law in B.C. website.</em></p>
+            <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseExample2" aria-controls="collapseExample">
+                    <div>
+                         What is spousal support?
+                    </div>
+                </div>
+                <div class="collapse" id="collapseExample2">
+                    <div>
+                        <p>
+                            When a couple separates, one spouse may be eligible to receive financial support from the other. This is called spousal support. Spousal support is separate and distinct from child support. Unlike child support, spousal support is not a right in every case. You are entitled to spousal support in certain situations.<br />
+                            The objectives of spousal support are to:
+                        </p>
+                        <ul>
+                            <li>Deal with any economic advantages or disadvantages a spouse may face as a result of the relationship or separation</li>
+                            <li>Share the financial consequences arising from care of the children</li>
+                            <li>Reduce the financial hardship a spouse will experience as a result of the separation, and</li>
+                            <li>Encourage each spouse to become financially self-sufficient within a reasonable period of time.</li>
+                        </ul>
+                        <p>
+                            For more information, please refer to the
+                            <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php">Spousal Support fact sheet</a>
+                            on the Family Law in B.C. website.
+                        </p>
+                    </div>
+                </div>
+
             <div class="information-message bg-danger" id="spouse_support_alert" hidden>
                 <p>If you and your spouse have already agreed on spousal support (which could be in the form of a separation agreement
                     <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true"

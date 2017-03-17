@@ -11,7 +11,8 @@
 <h1><small>Step 2:</small>Your Information</h1>
 
 <div class="question-well">
-    <h3>Please enter your name as it appears on the marriage certificate</h3> {% input_field type="text" name="name_you" class="form-block input-wide response-textbox" %}
+    <h3>Please enter your name (as it appears on your marriage certificate or registration of marriage)</h3>
+    {% input_field type="text" name="name_you" class="form-block input-wide response-textbox" %}
 
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_changed_name" aria-controls="collapse_changed_name">
         <div>
@@ -60,7 +61,7 @@
     <div class="collapse" id="collapse_other_name">
         <div>
             <p>The name(s) that you provide will appear on the final court order(s)
-                <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Court Orders Definition</b><br /><br />A record of a decision made by a judge or master that
+                <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Court Orders</b><br /><br />A record of a decision made by a judge or master that
                                        tells you or your spouse what you must do (or not do).  For example: The court has made an order that
                                        your spouse must pay you $250 on a monthly basis to help pay off your combined debt" aria-hidden="true"></i> . Any names you provide will be used on the final court order for the purposes of executing
                 or following up on the orders. For example, if you and your spouse will be dividing property, land titles will likely want to see the name in the court order match what is on the title. This wold also apply to pensions, RRSPs, etc. The
@@ -108,6 +109,12 @@
             </span>
         </span>
     </p>
+</div>
+
+<div class="question-well">
+    <h3>What is your occupation?</h3>
+    <div>{% input_field type="text" name="occupation_you" class="form-block input-wide response-textbox" %}</div>
+    <p><em>This refers to the type of work you do. For example,  janitor, banker, homemaker, student, nurse etc.</em></p>
 </div>
 
 <div class="question-well">

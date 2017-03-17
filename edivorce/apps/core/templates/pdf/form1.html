@@ -189,7 +189,7 @@
                     <td colspan="2"> <i class="fa {% if responses.no_reconciliation_possible == 'agree' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There is no possibility of reconciliation. </td>
                 </tr>
                 <tr>
-                    {% check_list source=responses.no_collusion value='No collusion' as is_no_collusion %}
+                    {% check_list source=responses.no_collusion value='I agree' as is_no_collusion %}
                     <td colspan="2"> <i class="fa {% if is_no_collusion %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There has been no collusion, as defined in section 11 (4) of the <em> Divorce Act </em> (Canada), in relation to this claim for divorce. </td>
                 </tr>
             </tbody>

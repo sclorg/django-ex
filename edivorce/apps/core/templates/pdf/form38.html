@@ -54,7 +54,7 @@
             {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_prov_you and responses.address_to_send_official_document_country_you and responses.address_to_send_official_document_postal_code_you %}
               {{ responses.address_to_send_official_document_street_you }}, {{ responses.address_to_send_official_document_city_you }}, {{ responses.address_to_send_official_document_prov_you }},
               {% if responses.address_to_send_official_document_country_you == 'Other' %} {{ responses.address_to_send_official_document_other_country_you }}{% else %} {{ responses.address_to_send_official_document_country_you }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_you }} {% else %}<span class="form-entry not-complete">[<em>address</em>]</span>{% endif %},
-            {% if responses.form38_dummy_occupation_you %} {{ responses.form38_dummy_occupation_you }}{% else %}<span class="form-entry not-complete">[<em>occupation</em>]</span>{% endif %}, SWEAR (OR AFFIRM) THAT:
+            {% if responses.occupation_you %} {{ responses.occupation_you }}{% else %}<span class="form-entry not-complete">[<em>occupation</em>]</span>{% endif %}, SWEAR (OR AFFIRM) THAT:
         </p>
         <p class="schIndent1">
             1 I am <span class="form-entry not-complete">[<em>the claimant/the respondent/Claimant 1/Claimant 2</em>]</span>.

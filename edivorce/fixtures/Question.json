@@ -1,7 +1,7 @@
 [
 {
     "fields": {
-        "name": "Are you Married or Marriage Like",
+        "name": "Are you legally married or living together in a marriage like (also known as common law) relationship?",
         "description": "For pre-qualification step 1"
     },
     "model": "core.question",
@@ -9,7 +9,7 @@
 },
 {
     "fields": {
-        "name": "Do you or your spouse live in British Columbia?",
+        "name": "Do you or your spouse live in B.C.?",
         "description": "For pre-qualification step 2"
     },
     "model": "core.question",
@@ -33,7 +33,7 @@
 },
 {
     "fields": {
-        "name": "Did you and your spouse try and reconcile after you separated?",
+        "name": "Did you and your spouse try to reconcile after you separated?",
         "description": "For pre-qualification step 3, Form 1 2. Divorce section B"
     },
     "model": "core.question",
@@ -41,7 +41,7 @@
 },
 {
     "fields": {
-        "name": "Please enter reconciliation periods",
+        "name": "Please enter the period(s) during which you attempted to reconcile",
         "description": "For pre-qualification step 3, Form 1 2. Divorce section B"
     },
     "model": "core.question",
@@ -73,7 +73,7 @@
 },
 {
     "fields": {
-        "name": "Will you be able to provide proof of your marriage (in the form of an original or certified marriage certificate or registration of marriage).",
+        "name": "Will you be able to provide proof of your marriage (in the form of an original or certified marriage certificate or registration of marriage)?",
         "description": "For pre-qualification step 5, Form 1 2. Divorce section D"
     },
     "model": "core.question",
@@ -81,7 +81,7 @@
 },
 {
     "fields": {
-        "name": "Will you be providing the marriage certificate or registration of marriage at a later date",
+        "name": "Will you be providing the marriage certificate or registration of marriage at a later date?",
         "description": "For pre-qualification step 5, Form 1 2. Divorce section D"
     },
     "model": "core.question",
@@ -89,7 +89,7 @@
 },
 {
     "fields": {
-        "name": "If you will be providing the marriage certificate or registration of marriage at a later date, please let us know why",
+        "name": "If you will be providing the marriage certificate or registration of marriage at a later date, please let us know why.",
         "description": "For pre-qualification step 5, Form 1 2. Divorce section D"
     },
     "model": "core.question",
@@ -121,7 +121,7 @@
 },
 {
     "fields": {
-        "name": "Please enter your name as it appears on the marriage certificate",
+        "name": "Please enter your name (as it appears on the marriage certificate)",
         "description": "For step 2, Form 1 Claimant 1"
     },
     "model": "core.question",
@@ -129,7 +129,7 @@
 },
 {
     "fields": {
-        "name": "Do you go by any other names",
+        "name": "Do you go by any other names?",
         "description": "For step 2"
     },
     "model": "core.question",
@@ -137,7 +137,7 @@
 },
 {
     "fields": {
-        "name": "Please enter your other name",
+        "name": "Please enter the name",
         "description": "For step 2"
     },
     "model": "core.question",
@@ -153,7 +153,7 @@
 },
 {
     "fields": {
-        "name": "What was your last name immediately before you were married?",
+        "name": "What was your last name before you were married?",
         "description": "For step 2, Form 1 2. Divorce section A"
     },
     "model": "core.question",
@@ -161,7 +161,7 @@
 },
 {
     "fields": {
-        "name": "What is your birthday?",
+        "name": "When is your birthday?",
         "description": "For step 2, Form 1 2. Divorce section A"
     },
     "model": "core.question",
@@ -169,7 +169,15 @@
 },
 {
     "fields": {
-        "name": "How long have you lived in British Columbia?",
+        "name": "What is your occupation?",
+        "description": "For step 2, Form 38 first question"
+    },
+    "model": "core.question",
+    "pk": "occupation_you"
+},
+{
+    "fields": {
+        "name": "How long have you lived in B.C.?",
         "description": "For step 2, Form 1 2. Divorce section A"
     },
     "model": "core.question",
@@ -177,7 +185,7 @@
 },
 {
     "fields": {
-        "name": "You moved to British Columbia on",
+        "name": "You moved to B.C. on",
         "description": "For step 2, Form 1 2. Divorce section A"
     },
     "model": "core.question",
@@ -185,7 +193,7 @@
 },
 {
     "fields": {
-        "name": "Please enter your spouse's name as it appears on the marriage certificate",
+        "name": "Please enter your spouse's name (as it appears on the marriage certificate)",
         "description": "For step 3, Form 1 Claimant 2"
     },
     "model": "core.question",
@@ -193,7 +201,7 @@
 },
 {
     "fields": {
-        "name": "Do your spouse go by any other names",
+        "name": "Does your spouse go by any other names?",
         "description": "For step 3"
     },
     "model": "core.question",
@@ -201,7 +209,7 @@
 },
 {
     "fields": {
-        "name": "Please enter spouse's other name",
+        "name": "Please enter the name",
         "description": "For step 3"
     },
     "model": "core.question",
@@ -209,7 +217,7 @@
 },
 {
     "fields": {
-        "name": "What was their last name when you were born?",
+        "name": "What was their last name at birth?",
         "description": "For step 3, Form 1 2. Divorce section A"
     },
     "model": "core.question",
@@ -217,7 +225,7 @@
 },
 {
     "fields": {
-        "name": "What was their last name immediately before you were married?",
+        "name": "What was their last name before you were married?",
         "description": "For step 3, Form 1 2. Divorce section A"
     },
     "model": "core.question",
@@ -225,7 +233,7 @@
 },
 {
     "fields": {
-        "name": "What is your spouse's birthday?",
+        "name": "What is your spouse's date of birth?",
         "description": "For step 3, Form 1 2. Divorce section A"
     },
     "model": "core.question",
@@ -233,7 +241,15 @@
 },
 {
     "fields": {
-        "name": "How long has your spouse lived in British Columbia?",
+        "name": "What is your spouse's occupation?",
+        "description": "For step 3, Form 38 first question"
+    },
+    "model": "core.question",
+    "pk": "occupation_spouse"
+},
+{
+    "fields": {
+        "name": "How long has your spouse lived in B.C.?",
         "description": "For step 3, Form 1 2. Divorce section A"
     },
     "model": "core.question",
@@ -265,7 +281,7 @@
 },
 {
     "fields": {
-        "name": "Where were you married? City",
+        "name": "Where were you married?",
         "description": "For step 4, Form 1 2. Divorce section A"
     },
     "model": "core.question",
@@ -321,7 +337,7 @@
 },
 {
     "fields": {
-        "name": "There has been no collusion, as defined in section 11(4) of the Divorce Act (Canada), in relation to this claim for divorce.",
+        "name": "My spouse and I have not engaged in collusion to deceive the court in any way.",
         "description": "For step 5, Form 1 2. Divorce section C"
     },
     "model": "core.question",
@@ -369,7 +385,15 @@
 },
 {
     "fields": {
-        "name": "Other Property Claims",
+        "name": "Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows",
+        "description": "For step 7, Form 1 6. Property and debt"
+    },
+    "model": "core.question",
+    "pk": "want_other_property_claims"
+},
+{
+    "fields": {
+        "name": "Please list any other property claims",
         "description": "For step 7, Form 1 6. Property and debt"
     },
     "model": "core.question",
@@ -377,7 +401,7 @@
 },
 {
     "fields": {
-        "name": "At what court registry will you be filing?",
+        "name": "Where will you be filing for divorce?",
         "description": "For step 10, Form 1 court registry"
     },
     "model": "core.question",
@@ -385,7 +409,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send you official court documents? Street Number",
+        "name": "What is the best address to send you official court documents?",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -393,7 +417,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send you official court documents? City",
+        "name": "City",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -401,7 +425,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send you official court documents? Prov",
+        "name": "Prov",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -409,7 +433,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send you official court documents? Country",
+        "name": "Country",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -417,7 +441,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send you official court documents? Other Country",
+        "name": "Other Country",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -425,7 +449,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send you official court documents? Postal code",
+        "name": "Postal code",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -433,7 +457,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send you official court documents? Fax number",
+        "name": "Fax number",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -441,7 +465,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send you official court documents? Email",
+        "name": "Email",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -449,7 +473,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send your spouse official court documents? Street Number",
+        "name": "What is the best address to send your spouse official court documents?",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -457,7 +481,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send your spouse official court documents? City",
+        "name": "City",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -465,7 +489,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send your spouse official court documents? Prov",
+        "name": "Prov",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -473,7 +497,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send your spouse official court documents? Country",
+        "name": "Country",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -481,7 +505,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send your spouse official court documents? Other Country",
+        "name": "Other Country",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -489,7 +513,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send your spouse official court documents? Postal code",
+        "name": "Postal code",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -497,7 +521,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send your spouse official court documents? Fax number",
+        "name": "Fax number",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -505,7 +529,7 @@
 },
 {
     "fields": {
-        "name": "What is the best address to send your spouse official court documents? Email",
+        "name": "Email",
         "description": "For step 9, Form 1 8. Claimants' addresses for service"
     },
     "model": "core.question",
@@ -521,15 +545,15 @@
 },
 {
     "fields": {
-        "name": "Divorce is to take effect on - specific date",
-        "description": "For step 9, Form 52 This Court Orders that"
+        "name": "Divorce is to take effect on",
+        "description": "For step 9 - specific date, Form 52 This Court Orders that"
     },
     "model": "core.question",
     "pk": "divorce_take_effect_on_specific_date"
 },
 {
     "fields": {
-        "name": "Step 8 other orders",
+        "name": "Please list any other orders",
         "description": "DUMMY QUESTION for step 8 other orders"
     },
     "model": "core.question",
@@ -558,22 +582,6 @@
     },
     "model": "core.question",
     "pk": "form38_dummy_together"
-},
-{
-    "fields": {
-        "name": "Your occupation",
-        "description": "DUMMY QUESTION for form 38 second question"
-    },
-    "model": "core.question",
-    "pk": "form38_dummy_occupation_you"
-},
-{
-    "fields": {
-        "name": "Spouse occupation",
-        "description": "DUMMY QUESTION for form 38 third question"
-    },
-    "model": "core.question",
-    "pk": "form38_dummy_occupation_spouse"
 },
 {
     "fields": {

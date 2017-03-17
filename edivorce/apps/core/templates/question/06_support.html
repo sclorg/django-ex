@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load input_field %}
 {% load step_order %}
 
@@ -10,22 +11,9 @@
 
 <h1><small>Step 6:</small>Spousal Support</h1>
 
-<div class="intro">
-    <p>Spousal support is paid by one spouse to financially support the other spouse after separation, under <span class="tooltip-link" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
-   title="<b>Order</b><br />A type of court ruling a judge or master makes that sets out what you must do or not do." >an agreement or order
-        <i class="fa fa-question-circle" aria-hidden="true"></i></span>.</p>
-
-    <p>The purpose of spousal support is to help meet the on-going financial needs of a financially dependent spouse for a defined period of time."</p>
-
-    <p>For more information, please see the
-        <a target="_blank" href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php"> fact
-            sheet Spousal Support</a> by the Legal Services Society.</p>
-</div>
-
 <div class="question-well">
-    <h3>You and your spouse are asking for an <span class="tooltip-link" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
-       title="<b>Order</b><br />A type of court ruling a judge or master makes that sets out what you must do or not do.">order
-        <i class="fa fa-question-circle"  aria-hidden="true"></i></span>
+    <h3>Claimant 1 and Claimant 2 are asking for an <span class="tooltip-link" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
+       title="<b>Order</b><br />A type of court ruling a judge or master makes that sets out what you must do or not do.">order<i class="fa fa-question-circle"  aria-hidden="true"></i></span>
         for spousal support as follows:</h3>
     {% input_field type="textarea" name="spouse_support_details" rows="8" cols="65" class="response-textarea" %}
 
@@ -44,23 +32,25 @@
                 <li>What the person who is asking for spousal support needs in order to become self-sufficient, such as extra training or education.</li>
             </ul>
             <p>
-                <a href="http://mysupportcalculator.ca" target="_blank">MySupportCalculator.ca</a> is a website with a support calculator which can give you a rough estimate of spousal support." The guidelines and calculations are complicated so you may want to contact a family law lawyer or a family justice counesllor for help.
+                <a href="http://mysupportcalculator.ca" target="_blank">MySupportCalculator.ca</a> is a website with a support calculator which can give you a rough estimate of spousal support."
+                The guidelines and calculations are complicated so you may want to contact a
+                <a href="{% url 'legal' %}" target="_blank">family law lawyer</a> or a <a href="{% url 'legal' %}" target="_blank">family justice counsellor</a> for help.
 
-                For more information, please see the fact sheet <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">Spousal Support</a> by the Legal Services Society.
+                For more information, please see the fact sheet <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">Spousal Support</a> on the Family Law in B.C. website.
             </p>
         </div>
     </div>
+
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_support_info" aria-controls="collapse_support_info">
         <div>
             What detail/information do I need to provide?
         </div>
     </div>
-
     <div class="collapse" id="collapse_support_info">
         <div>
             <p>Typically, Spousal Support is resolved out of court and is detailed in a separation agreement.</p>
             <p>Many couples come to an agreement about spousal support  outside of court and capture the details in a
-                <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">separation  agreement</a>.
+                <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">separation agreement</a>.
                 "Agreements that are filed with the court can be enforced — they have the same force as a court order.
                 They can also be set aside (cancelled) if the situation changes.
             </p>
@@ -85,13 +75,33 @@
             </p>
         </div>
     </div>
+
+    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_support_eligible" aria-controls="collapse_support_eligible">
+        <div>
+            How do I know if I'm eligible?
+        </div>
+    </div>
+    <div class="collapse" id="collapse_support_eligible">
+        <div>
+            <p>You may apply for spousal support if:</p>
+            <ul>
+                <li>You were married</li>
+                <li>You lived together in a marriage-like relationship for at least two years, or</li>
+                <li>The roles and functions of each spouse during the relationship, and</li>
+                <li>You lived in a marriage-like relationship for less than two years, but you have a child together (This recognizes that having a child together also creates interdependence between the couple that may result in a need for spousal support.)</li>
+            </ul>
+            <p>
+                For more information, please refer to the the <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/spousal-support/can-i-get" target="_blank">Spousal Support fact sheet</a> on the Family Law in B.C. website.
+            </p>
+        </div>
+    </div>
 </div>
 
 
 <div class="question-well">
     <h3>Please indicate which act you are asking for support under.</h3>
-    <div class="radio"><label>{% input_field type="radio" name="spouse_support_act" value="divorce" data_target_id="family_law_time_limit" data_reveal_target="false" %}the Divorce Act (Canada)</label></div>
-    <div class="radio"><label>{% input_field type="radio" name="spouse_support_act" value="family" data_target_id="family_law_time_limit" data_reveal_target="true" %}the Family Law Act</label></div>
+    <div class="radio"><label>{% input_field type="radio" name="spouse_support_act" value="divorce" data_target_id="family_law_time_limit" data_reveal_target="false" %}the Divorce Act (Canada)</label> - <a href="http://laws-lois.justice.gc.ca/eng/acts/D-3.4/index.html">view the Divorce Act</a></div>
+    <div class="radio"><label>{% input_field type="radio" name="spouse_support_act" value="family" data_target_id="family_law_time_limit" data_reveal_target="true" %}the Family Law Act</label> - <a href="http://www.bclaws.ca/civix/document/id/complete/statreg/11025_01">view the Family Law Act</a></div>
 
     <div class="information-message bg-danger" id="family_law_time_limit" hidden>
         <h2>Time limit to apply for court order</h2>
@@ -136,9 +146,8 @@
             <div class="modal-body">
                 <p>Okay, {{ name_you }} now we need to ask you several questions about spousal support.</p>
                 <p>Spousal support is paid by one spouse to financially support the other spouse after separation, under an agreement or order.  The purpose of spousal support is to help meet the on-going financial needs of a financially dependent spouse for a defined period of time.</p>
-                <p>The answers you provide will be used to populate what's called a Draft Final Order (Form 52). A draft final order sets out what orders (decisions) you want the court to make. This will be reviewed by a judge or master.  If the judge or master makes the order you ask for, they'll sign the draft order you filed and it becomes your final court order.</p>
+                <p>The answers you provide will be used to populate what's called a Draft Final Order Form (F52). A draft final order sets out what orders (decisions) you want the court to make. This will be reviewed by a judge or master.  If the judge or master makes the order you ask for, they'll sign the draft order you filed and it becomes your final court order.</p>
                 <p>If there's a problem with your order and the judge or master doesn't approve it, the court registry will let you know. You might have to draft another version of the order or appear in court to give the judge or master more information about what you wrote in the order.</p>
-                <p><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingOrders.php" target="_blank">source</a></p>
             </div>
             <div class="modal-footer">
                 <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
@@ -154,23 +163,12 @@
 
 {% block sidebarText %}
     <div>
-        <h2>What is spousal support?</h2>
-        <p>The objectives of spousal support are to:</p>
-        <ul>
-            <li>Deal with any economic advantages or disadvantages a spouse may face as a result of the relationship or separation</li>
-            <li>Share the financial consequences arising from care of the children</li>
-            <li>Reduce the financial hardship a spouse will experience as a result of the separation, and</li>
-            <li>Encourage each spouse to become financially self-sufficient within a reasonable period of time.</li>
-        </ul>
-</div>
-    <div>
+        <h2>How is spousal support decided?</h2>
         <div>
-            <h2>How is spousal support decided?</h2>
-            <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/spousal-support/how-decided" target="_blank">Link</a>
-        </div>
-        <div>
-            <h2>Spousal Support Advisory Guidelines</h2>
-            <p>The <a href="http://www.justice.gc.ca/eng/fl-df/spousal-epoux/ss-pae.html" target="_blank"> Support Advisory Guidelines</a> can help you figure out the amount of spousal support that should be paid.</p>
+            <p>
+                <b>Spousal Support Advisory Guidelines</b><br />
+                The <a href="http://www.justice.gc.ca/eng/fl-df/spousal-epoux/ss-pae.html" target="_blank"> Support Advisory Guidelines</a> can help you figure out the amount of spousal support that should be paid.
+            </p>
             <p>These guidelines aren't the law (neither you or the judge has to follow them), but if your case went to court, the judge or master would probably look at the guidelines to help make his or her decision about the amount of spousal support. The guidelines take into account the income of both spouses, how long you were married, and whether you have children.</p>
             <p>For more information, see the Department of Justice website on
                 <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">spousal support.</a></p>
@@ -191,6 +189,8 @@
         <p>In the Provincial Court, both parties must fill out and file a Financial Statement Form (F4). For help, see our guide How to deal with a Provincial Court Financial Statement. However, if you agree about the amount of your incomes and how much support should be paid, you can instead fill out a Consent form Form (F19) and file it along with copies of your most recent income tax returns and notices of assessment.</p>
     </div>
     <div>
-        <h2>(Add image here if needed)</h2>
+        <p>There are two types of laws (statutory or statute-based and common-law or case-based).</p>
+        <h2>Statute-based law</h2>
+        <img src="{% static 'img/which_laws_apply.png' %}" />
     </div>
 {% endblock %}
