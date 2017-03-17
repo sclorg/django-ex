@@ -141,10 +141,11 @@ def overview(request):
     """
     user = __get_bceid_user(request)
     responses_dict_by_step = get_responses_from_db_grouped_by_steps(user)
-    # step status dictionary
-    status_dict = {'step_status': get_step_status(responses_dict_by_step),
-                   'active_page': 'overview'}
-    return render(request, 'overview.html', context=status_dict)
+    responses_dict_by_step['active_page'] = 'overview'
+
+    # Add step status dictionary
+    responses_dict_by_step['step_status'] = get_step_status(responses_dict_by_step)
+    return render(request, 'overview.html', context=responses_dict_by_step)
 
 
 def __get_bceid_user(request):

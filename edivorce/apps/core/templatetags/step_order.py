@@ -73,7 +73,7 @@ def __parse_json_which_orders_selected(context):
         # for the review page, responses are nested in a special format
         which_orders = context.get('which_orders', None)
 
-        if which_orders is not None:
+        if which_orders is not None and len(which_orders) >= 1:
             want_which_orders = which_orders[0]["value"]
     if want_which_orders is None:
         want_which_orders = json.loads('[]')
