@@ -16,9 +16,14 @@ if not os.environ.get('OPENSHIFT_BUILD_NAMESPACE', False):
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "edivorce.settings.local")
 else:
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "edivorce.settings.openshift")
-    # compress the static assets
-    # execute_from_command_line(['manage.py', 'compress', '--force'])
-    # load the Question fixture
-    # execute_from_command_line(['manage.py', 'loaddata', '/opt/app-root/src/edivorce/fixtures/Question.json'])
+
+    if os.environ.get('POD_INIT_COMPLETE', "") != "True":
+        # gunicorn starts multiple threads and runs wsgi.py once for each thread.  We only want
+        # these commands to run ONCE.
+        os.environ["POD_INIT_COMPLETE"] = "True"
+        # compress the static assets
+        execute_from_command_line(['manage.py', 'compress', '--force'])
+        # load the Question fixture
+        execute_from_command_line(['manage.py', 'loaddata', '/opt/app-root/src/edivorce/fixtures/Question.json'])
 
 application = get_wsgi_application()
