@@ -24,9 +24,9 @@
     <p>
         We are legally required to ask whether or not you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %}
          have agreed to deceive the court. This is called “<span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
-           title="<b>Collusion</b><br /><br />Basically this statement confirms that you and your spouse haven’t lied or tried to deceive the court in any way
-       (for example, saying that you’ve been separated for longer than you have been). It is a legal requirement that you confirm you are providing accurate
-       and complete information. Apologies if you are offended with this question.">collusion<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+           title="<b>Collusion</b><br /><br />Basically this statement confirms that you and your spouse haven’t lied or tried to deceive the court
+           in any way (for example, saying that you’ve been separated for longer than you have been). It is a legal requirement that you confirm you
+           are providing accurate and complete information.">collusion<i class="fa fa-question-circle" aria-hidden="true"></i></span>
         ”. An example of collusion is when a couple agrees to lie about the date of separation to speed up the divorce process.
     </p>
     <div class="checkbox-group">
@@ -60,29 +60,9 @@
 {% block formBack %}{% prev_step step='separation' %}{% endblock %}
 {% block formNext %}{% next_step step='separation' %}{% endblock %}
 
-{% block sidebarText %}
-    <div>
-        <p>Most divorces use the one-year separation ground. But you can also apply for a divorce earlier on the basis of adultery or physical or mental cruelty. If you ask for a divorce for one of these reasons, you have to present evidence to the court to prove the facts of the adultery or physical or mental cruelty.</p>
-        <p>If you're asking for a divorce and you expect it to be uncontested (you and your spouse both agree with the divorce), you must have earlier court orders or an agreement settling all your issues. A judge won't order a divorce unless he or she is satisfied that reasonable arrangements have been made for the support of the children.</p>
-    </div>
-    <div>
-        <h2>How can you prove you're separated if you and your spouse still live together?</h2>
-        <p>You and your spouse might have decided to end your relationship, but for financial or other reasons, you can't live separately. You might have to prove to a court that you and your spouse have actually separated so that you can get a divorce and/or divide up the assets you have as a couple.</p>
-        <p>A list of activities and behaviours that the courts consider to be indicators of a couple being separated can be found on the
-            <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/howToProveYouAreSeparatedIfYouStillLiveTogether.php" target="_blank">Legal Services Society web site.</a></p>
-    </div>
-    <div>
-        <p>You can also get a divorce if:</p>
-        <ul>
-            <li>you or your spouse has committed adultery (been unfaithful) that hasn't been forgiven, or</li>
-            <li>your spouse treated you with physical or mental cruelty that you haven't forgiven, which makes it impossible for you to continue to live together.</li>
-        </ul>
-        <p>To get a divorce for these reasons you have to prove these things in court.</p>
-        <p>
-            The majority of divorces are uncontested or undefended divorces (about 80 percent). That means that the divorcing couple have settled on how they're going to settle their parenting, support, and property issues. But they still need a court order for the divorce.
-        </p>
-    </div>
-    <div>
-        <a href="http://bcfamilylawresource.blogspot.ca/2010/12/ins-and-outs-of-separation-part-iv.html" target="_blank">More information on this topic</a>
-    </div>
+{% block sidebarNav %}
+<!-- no sidebar -->
+{% endblock %}
+{% block sidebar %}
+<!-- no sidebar -->
 {% endblock %}
