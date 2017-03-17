@@ -7,11 +7,15 @@ var reveal = function(el) {
     var id = '#' + el.data("target_id");
     var css_class = el.data("target_class");
     var related_id = el.data("related_id");
+    console.log(id);
     // hide or show based on target id
     if (el.data("reveal_target") == true && el.prop('checked')) {
         $(id).show();
         if (related_id != undefined){
             $('#' + related_id).hide();
+        }
+        if (id == "#has_children"){
+            reveal($("input[name=any_under_19]:checked"));
         }
     } else {
         $(id).hide();
