@@ -89,20 +89,6 @@
 
         <p>Anything you own including real estate, bank accounts, cars and RRSPs. For more information, please refer to the <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/debtsAfterSeparation.php" target="_blank">Dealing with Debts
                 After Separation fact sheet</a> on the Family Law in B.C. website.</p>
-
-        <div class="information-message bg-danger" id="property_division_alert" hidden>
-            <b>Time limit to apply for court order </b> {% if married_marriage_like != "Living together in a marriage like relationship" %}
-            <p>If you were <b>married</b>, you must apply to divide property within two years after you get an order for divorce.</p>
-            {% else %}
-            <p>If you were living in a <b>marriage-like relationship</b> for at least two years, you must apply within two years of the date you separated.</p>
-            <p>In order to be considered a spouse for the purpose of dividing property or debt you must have lived together in a marriage-like relationship for at least two years.</p>
-            {% endif %}
-            <p><em>For more information, please refer to  the following fact sheets on the  Legal Services Society website:</em></p>
-            <ul>
-                <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/dividePropertyAndDebts.php" target="_blank">How to Divide Property and Debts</a></li>
-                <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/debtsAfterSeparation.php" target="_blank">Dealing with Debts After Separation</a></li>
-            </ul>
-        </div>
     </div>
 
     <div class="question-well">
@@ -115,15 +101,13 @@
     <div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Child support" %}<b>Child support (Out of scope)</b></label></div>
 {% endcomment %}
 
-<div class="question-well" id="unselected_orders_alert" hidden>
-    <div class="information-message bg-danger">
-        <p>We've noticed that at this point in time you are not applying for spousal support and/or division of property, debt, or a pension. If you decide to request these items in the future there are some time limits.</p>
-        <h2>Division of Property and Debts</h2>
-        <p>If you were married, you must apply to divide property within two years after you get an order for divorce. If you were living in a marriage-like relationship for at least two years, you must apply within two years of the date you separated.</p>
-        <h2>Spousal Support</h2>
-        <p>If you were married, you must apply for spousal support under the Family Law Act within two years after you get an order for divorce. If you are applying for spousal support under the Divorce Act, you do not have a time limit.</p>
-        <p>If you were unmarried, and you qualify for spousal support, you must apply within two years of the date you separated.</p>
-    </div>
+<div class="information-message bg-danger" id="unselected_orders_alert" >
+    <p>We've noticed that at this point in time you are not applying for spousal support and/or division of property, debt, or a pension. If you decide to request these items in the future there are some time limits.</p>
+    <h2>Division of Property and Debts</h2>
+    <p>If you were married, you must apply to divide property within two years after you get an order for divorce. If you were living in a marriage-like relationship for at least two years, you must apply within two years of the date you separated.</p>
+    <h2>Spousal Support</h2>
+    <p>If you were married, you must apply for spousal support under the Family Law Act within two years after you get an order for divorce. If you are applying for spousal support under the Divorce Act, you do not have a time limit.</p>
+    <p>If you were unmarried, and you qualify for spousal support, you must apply within two years of the date you separated.</p>
 </div>
 
 <div id="questions_modal" class="modal fade" tabindex="-1" role="dialog">
