@@ -304,6 +304,7 @@ parameters:
   from: "[a-zA-Z0-9]{16}"
 - name: APP_CONFIG
   displayName: Application Configuration File Path
+  value: gunicorn_config.py
   description: Relative path to Gunicorn configuration file (optional).
 - name: DJANGO_SECRET_KEY
   displayName: Django Secret Key
