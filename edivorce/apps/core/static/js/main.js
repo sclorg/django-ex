@@ -74,6 +74,27 @@ $(function () {
         }
     });
 
+    // For want which order page
+    // If either Spousal support or Division of property and debts is not selected show alert message
+    // if user still wants to proceed(click next again), let them proceed to next page
+    $('#check_order_selected').on('click', function (e) {
+        var showAlert = $(this).data('show_alert');
+        var proceedNext = $(this).data('proceed');
+        if (!showAlert) {
+            $(".checkbox-group input:checkbox").not(":checked").each(function () {
+                console.log($(this).val());
+                if ($(this).val() == 'Division of property and debts' || $(this).val() == 'Spousal support') {
+                    showAlert = true;
+                }
+            });
+        }
+        if (showAlert && !proceedNext) {
+            $('#unselected_orders_alert').show();
+            e.preventDefault();
+            $(this).data('proceed', true);
+        }
+    });
+
     // spinner
     $('body').on('click', 'input.spinner, a.spinner', function () {
         $('div#progress-overlay').show();

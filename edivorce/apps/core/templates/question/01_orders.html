@@ -101,7 +101,7 @@
     <div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Child support" %}<b>Child support (Out of scope)</b></label></div>
 {% endcomment %}
 
-<div class="information-message bg-danger" id="unselected_orders_alert" >
+<div class="information-message bg-danger" id="unselected_orders_alert" hidden>
     <p>We've noticed that at this point in time you are not applying for spousal support and/or division of property, debt, or a pension. If you decide to request these items in the future there are some time limits.</p>
     <h2>Division of Property and Debts</h2>
     <p>If you were married, you must apply to divide property within two years after you get an order for divorce. If you were living in a marriage-like relationship for at least two years, you must apply within two years of the date you separated.</p>
@@ -128,7 +128,8 @@
     </div>
 </div>
 
-{% endblock %} {% block formBack %}{% url 'overview' %}{% endblock %} {% block formNext %}{% next_step step='orders' %}{% endblock %} {% block sidebarText %}
+{% endblock %} {% block formBack %}{% url 'overview' %}{% endblock %} {% block formNext %}{% next_step step='orders' %}{% endblock %}{% block nextButtonAttribute %}id="check_order_selected" data-proceed="false" data-show_alert="false"{% endblock %}
+{% block sidebarText %}
 <p>An order is the record of the judge's decision. It is filed at the court registry.</p>
 <p>
     In Supreme Court, the parties involved in a case (or their lawyers) are responsible for telling the court the order(s) they want. This is done by putting the details in writing in their application and in a draft of the order to be signed by the judge

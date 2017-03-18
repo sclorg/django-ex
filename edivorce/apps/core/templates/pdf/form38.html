@@ -26,7 +26,7 @@
             This is the <span class="form-entry not-complete">[<em>1st/2nd/3rd/etc.</em>]</span> affidavit
         </p>
         <p class="text-right">
-            of <span class="form-entry not-complete">[<em>name</em>]</span> in this case
+            of {% if responses.name_claimant %}{{ responses.name_claimant }}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %} in this case
         </p>
         <p class="text-right">
             and was made on <span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span>
@@ -50,11 +50,11 @@
             <strong>AFFIDAVIT - DESK ORDER DIVORCE</strong>
         </p>
         <p>
-            I, {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}, of
-            {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_prov_you and responses.address_to_send_official_document_country_you and responses.address_to_send_official_document_postal_code_you %}
-              {{ responses.address_to_send_official_document_street_you }}, {{ responses.address_to_send_official_document_city_you }}, {{ responses.address_to_send_official_document_prov_you }},
-              {% if responses.address_to_send_official_document_country_you == 'Other' %} {{ responses.address_to_send_official_document_other_country_you }}{% else %} {{ responses.address_to_send_official_document_country_you }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_you }} {% else %}<span class="form-entry not-complete">[<em>address</em>]</span>{% endif %},
-            {% if responses.occupation_you %} {{ responses.occupation_you }}{% else %}<span class="form-entry not-complete">[<em>occupation</em>]</span>{% endif %}, SWEAR (OR AFFIRM) THAT:
+            I, {% if responses.name_claimant %}{{ responses.name_claimant }}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}, of
+            {% if responses.address_to_send_official_document_street_claimant and responses.address_to_send_official_document_city_claimant and responses.address_to_send_official_document_prov_claimant and responses.address_to_send_official_document_country_claimant and responses.address_to_send_official_document_postal_code_claimant %}
+              {{ responses.address_to_send_official_document_street_claimant }}, {{ responses.address_to_send_official_document_city_claimant }}, {{ responses.address_to_send_official_document_prov_claimant }},
+              {% if responses.address_to_send_official_document_country_claimant == 'Other' %} {{ responses.address_to_send_official_document_other_country_claimant }}{% else %} {{ responses.address_to_send_official_document_country_claimant }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_claimant }} {% else %}<span class="form-entry not-complete">[<em>address</em>]</span>{% endif %},
+            {% if responses.occupation_claimant %} {{ responses.occupation_claimant }}{% else %}<span class="form-entry not-complete">[<em>occupation</em>]</span>{% endif %}, SWEAR (OR AFFIRM) THAT:
         </p>
         <p class="schIndent1">
             1 I am <span class="form-entry not-complete">[<em>the claimant/the respondent/Claimant 1/Claimant 2</em>]</span>.
@@ -138,7 +138,7 @@
 
         {% if responses.form38_dummy_new_name %}
             <p class="schIndent1">
-                8 Pursuant to section 5 of the <em>Name Act</em>, I am seeking to change my name from {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %} to {% if responses.form38_dummy_new_name %}{{ responses.form38_dummy_new_name }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %}. This application for a name change relates only to myself.
+                8 Pursuant to section 5 of the <em>Name Act</em>, I am seeking to change my name from {% if responses.name_claimant %}{{ responses.name_claimant }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %} to {% if responses.form38_dummy_new_name %}{{ responses.form38_dummy_new_name }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %}. This application for a name change relates only to myself.
             </p>
         {% endif %}
 

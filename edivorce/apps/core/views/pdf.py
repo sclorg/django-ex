@@ -14,6 +14,13 @@ def form(request, form_number):
     user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
     responses = get_responses_from_db(user)
 
+    if form_number == "38_claimant1":
+        form_number = "38"
+        responses = add_claimant_info(responses, '_you')
+    elif form_number == "38_claimant2":
+        form_number = "38"
+        responses = add_claimant_info(responses, '_spouse')
+
     return render_form(request, 'form%s' % form_number,
                        {
                            "css_root": settings.WEASYPRINT_CSS_LOOPBACK,
@@ -45,3 +52,13 @@ def render_form(request, form_name, context):
         response['Content-Disposition'] = 'inline;filename=' + form_name + '.pdf'
 
         return response
+
+
+def add_claimant_info(responses, claimant):
+    claimant_info = {}
+    for key in responses:
+        if key.endswith(claimant):
+            claimant_key = key.replace(claimant, '_claimant')
+            claimant_info[claimant_key] = responses[key]
+    responses.update(claimant_info)
+    return responses
