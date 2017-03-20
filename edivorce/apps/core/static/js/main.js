@@ -158,8 +158,9 @@ var date_picker = function (selector, showOnFocus) {
          $(this).closest(selector).find('input').attr('readonly','readonly');
     }).on('hide', function(e) {
          $(this).closest(selector).find('input').removeAttr('readonly');
-    }).on('clearDate', function(e) {
-         $(this).closest(selector).find('input').triggerHandler('change');
+    }).on('clearDate', function (e) {
+        var input = $(this).closest(selector).find('input');
+        ajaxCall(input.attr('name'), '')
     });
 };
 
