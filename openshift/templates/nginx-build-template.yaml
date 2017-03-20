@@ -69,7 +69,7 @@ parameters:
 - name: SOURCE_REPOSITORY_CONTEXT_DIR
   displayName: Git sub-directory
   description: The folder in the Git repo that contains the config.d directory.
-  value: /nginx-proxy
+  value: /openshift/nginx-proxy
 - name: SOURCE_REPOSITORY_REF
   displayName: Git Reference
   description: Set this to a branch name, tag or other ref of your repository if you are not using the default branch.
