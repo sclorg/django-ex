@@ -627,6 +627,9 @@ textarea {
 		    -ms-flex: 0 0 262px;
 		        flex: 0 0 262px;
 		background-color: $brand-titles;
+		-webkit-box-ordinal-group: 3;
+		    -ms-flex-order: 2;
+		        order: 2;
 	}
 	.more_information-column {
 		-webkit-box-flex:  100%;
