@@ -18,7 +18,7 @@ question_step_mapping = {'prequalification': ['married_marriage_like', 'lived_in
                                            'marital_status_before_spouse', 'when_were_you_live_married_like', ],
                          'your_separation': ['no_reconciliation_possible', 'no_collusion',],
                          'spousal_support': ['spouse_support_details', 'spouse_support_act',],
-                         'property_and_debt': ['deal_with_property_debt', 'how_to_divide_property_debt', 'other_property_claims',],
+                         'property_and_debt': ['deal_with_property_debt', 'how_to_divide_property_debt', 'other_property_claims', 'want_other_property_claims'],
                          'other_orders': ['other_orders_detail'],
                          'other_questions': ['address_to_send_official_document_street_you',
                                              'address_to_send_official_document_city_you',

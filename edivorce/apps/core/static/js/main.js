@@ -82,7 +82,6 @@ $(function () {
         var proceedNext = $(this).data('proceed');
         if (!showAlert) {
             $(".checkbox-group input:checkbox").not(":checked").each(function () {
-                console.log($(this).val());
                 if ($(this).val() == 'Division of property and debts' || $(this).val() == 'Spousal support') {
                     showAlert = true;
                 }
