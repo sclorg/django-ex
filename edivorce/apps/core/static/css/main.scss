@@ -159,6 +159,26 @@ img {
 	}
 }
 
+.checkmark {
+	background: lighten($color-green, 10%);
+	position: relative;
+	padding: 20px 20px 20px 90px;
+	color: #ffffff;
+	border-radius: 10px;
+	&:after {
+		content: "\f00c";
+		font-family: FontAwesome;
+		font-style: normal;
+		font-weight: normal;
+		text-decoration: inherit;
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		font-size: 50px;
+		color: #ffffff;
+	}
+}
+
 @media (max-width: 991px) {
 	.container {
 	    width: 100%;
@@ -508,6 +528,21 @@ textarea {
 		margin-right: 10px;
 	}
 }
+
+.success-buttons {
+	text-align: center;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-line-pack: justify;
+	-webkit-box-pack: justify;
+	    -ms-flex-pack: justify;
+	        justify-content: space-between;
+	.flex-row {
+		width: 45%
+	}
+}
+
 
 #other_names_fields,
 #reconciliation_period_fields {

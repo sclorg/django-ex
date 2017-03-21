@@ -3,30 +3,49 @@
 {% block title %}{{ block.super }}: Overview{% endblock %}
 
 {% block content %}
-<div>
-    <h1>You have met the conditions for requesting a divorce in B.C.</h1>
 
-    <p><strong>Documents you will need to move forward with the divorce request:</strong></p>
-    <ul>
-        <li>Marriage certificate</li>
-        <li>Separation agreement or court order</li>
-    </ul>
+<h1 class="checkmark">You have met the conditions for using the Online Divorce Assistant</h1>
 
-    <h4>Please register or login to continue.</h4>
-    <p>If you already have a <strong>Basic</strong> BCeID, then you can login now.
-        Otherwise you will need to register for a <strong>Basic</strong> BCeID to continue.</p>
-    <div class="form-buttons clearfix">
-        <a class="btn btn-success" href="{% url 'login' %}">
-            I already have a Basic BCeID<br />Login Now
+<h2>1. Gather your documents</h2>
+<p>You will need the following documents to move forward with the divorce request:</p>
+<ul>
+    <li>Marriage certificate </li>
+    <li>Separation agreement (if applicable) </li>
+    <li>Court order (if applicable) </li>
+</ul>
+
+<h2>2. Register or Login</h2>
+<p>You will need a BCeID account to access the Online Divorce Assistant. This is an online "ID"
+    and password that enables you to securely access multiple online government services with a single user ID and password.</p>
+
+    <hr />
+
+<div class="success-buttons">
+    <div class="flex-row">
+        <h3>Register for a Basic BCeID</h3>
+        <p>You need a <strong>Basic BCeID</strong> to use the Online Divorce Assistant. Once you register, you’ll be taken back to this website.</p>
+    </div>
+    <div class="flex-row">
+        <h3>I have a BCeID</h3>
+        <p>If you already have a <strong>Basic BCeID</strong> or a <strong>Personal BCeID</strong>, then you can login now. </p>
+
+    </div>
+</div>
+<div class="success-buttons">
+    <div class="flex-row">
+        <a class="btn btn-success btn-lg btn-block" href="{% url 'register' %}">
+            Register
         </a>
-        <a class="btn btn-success" href="{% url 'login' %}">
-            I already have a personal BCeID<br />Login Now
-        </a>
-        <a class="btn btn-success" href="{% url 'register' %}">
-            Register for a<br />Basic BCeID
+    </div>
+    <div class="flex-row">
+        <a class="btn btn-success btn-lg btn-block" href="{% url 'login' %}">
+            Login
         </a>
     </div>
 </div>
+
+
+<p>&nbsp;</p>
 
 {% endblock %}
 
