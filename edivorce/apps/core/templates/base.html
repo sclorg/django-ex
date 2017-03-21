@@ -67,12 +67,13 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-5">
-                            {% url 'overview' as overview_url %}
-                            {% if request.bceid_user.is_authenticated and request.path != overview_url %}
-                                <div class="mid_banner-dash"><a href="{{overview_url}}">
+                            {% block backToDashboard %}
+                            {% if request.bceid_user.is_authenticated %}
+                                <div class="mid_banner-dash"><a href="{% url 'overview' %}">
                                     <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>Back to Dashboard</a>
                                 </div>
                             {% endif %}
+                            {% endblock %}
                         </div>
                         <div class="col-md-7">
                             {% block sidebarNav %}
