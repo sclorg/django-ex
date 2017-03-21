@@ -95,7 +95,7 @@
                 {% for period in periods %}
                     from {{ period | first }} to {{ period | last }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}.
-            {% else %}<span class="form-entry not-complete">[<em>provide dates of any periods of attempted reconciliation</em>]</span>.{% endif %}
+            {% else %}<span class="form-entry not-complete">[<em>provide dates of any periods of attempted reconciliation</em>]</span>{% endif %}
         </p>
         {% comment "This section is out of scope" %}
             <p class="schIndent1">

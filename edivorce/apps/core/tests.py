@@ -65,7 +65,7 @@ class UserResponseTestCase(TestCase):
         self.assertEqual(is_complete(step, lst), False)
 
         # All required questions with one checking question with hidden question missing
-        UserResponse.objects.filter(question_id='lived_in_bc_you').update(value="Moved to British Columbia on")
+        UserResponse.objects.filter(question_id='lived_in_bc_you').update(value="Moved to B.C. on")
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), False)
@@ -144,13 +144,13 @@ class UserResponseTestCase(TestCase):
         self.assertEqual(is_complete(step, lst), False)
 
         # All required questions with two checking question with one hidden and one shown
-        create_response(user, 'other_name_spouse', 'Smith')
+        create_response(user, 'other_name_spouse', '[["also known as","Smith"]]')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), True)
 
         # All required questions with two checking question with one hidden question missing
-        UserResponse.objects.filter(question_id='lived_in_bc_spouse').update(value="Moved to British Columbia on")
+        UserResponse.objects.filter(question_id='lived_in_bc_spouse').update(value="Moved to B.C. on")
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), False)
@@ -163,6 +163,12 @@ class UserResponseTestCase(TestCase):
 
         # Put empty response
         UserResponse.objects.filter(question_id='name_spouse').update(value="")
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
+        self.assertEqual(is_complete(step, lst), False)
+
+        # Put empty response
+        UserResponse.objects.filter(question_id='other_name_spouse').update(value='[["also known as",""]]')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), False)
@@ -237,7 +243,7 @@ class UserResponseTestCase(TestCase):
         create_response(user, 'deal_with_property_debt', 'equal division')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
-        self.assertEqual(is_complete(step, lst), True)
+        self.assertEqual(is_complete(step, lst), False)
 
         # All required question with hidden shown but no response
         UserResponse.objects.filter(question_id='deal_with_property_debt').update(value="unequal division")
@@ -245,14 +251,26 @@ class UserResponseTestCase(TestCase):
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), False)
 
-        # All required question with hidden shown and answered
+        # Only one required question with hidden shown and answered
         create_response(user, 'how_to_divide_property_debt', 'Do not divide them')
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
+        self.assertEqual(is_complete(step, lst), False)
+
+        # Only two required question with hidden shown and answered
+        create_response(user, 'want_other_property_claims', 'Ask for other property claims')
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
+        self.assertEqual(is_complete(step, lst), False)
+
+        # All required question with hidden shown and answered
+        create_response(user, 'other_property_claims', 'Want these property claims')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), True)
 
         # Put empty response
-        UserResponse.objects.filter(question_id='how_to_divide_property_debt').update(value="")
+        UserResponse.objects.filter(question_id='want_other_property_claims').update(value="")
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value')
         self.assertEqual(is_complete(step, lst), False)

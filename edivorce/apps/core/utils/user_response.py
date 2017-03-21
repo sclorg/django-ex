@@ -16,7 +16,7 @@ def get_responses_from_db_grouped_by_steps(bceid_user):
     responses = UserResponse.objects.filter(bceid_user=bceid_user)
     responses_dict = {}
     for step, questions in question_step_mapping.items():
-        responses_dict[step] = responses.filter(question_id__in=questions).values('question_id', 'value', 'question__name')
+        responses_dict[step] = responses.filter(question_id__in=questions).exclude(value__in=['', '[]']).values('question_id', 'value', 'question__name')
     return responses_dict
 
 
@@ -92,10 +92,7 @@ def is_complete(step, lst):
                         hidden_q_id = conditional_list[q_id][1]
                         for key in lst:
                             if key['question_id'] == hidden_q_id:
-                                # print("H: %s,  V: %s|" %(hidden_q_id, key['value']))
-                                if hidden_q_id == 'other_name_you' and not json.loads(key['value'])[0][1]:
-                                    break
-                                elif not key['value'] or key['value'].strip() == '':
+                                if (hidden_q_id == 'other_name_you' or hidden_q_id == 'other_name_spouse') and not json.loads(key['value'])[0][1]:
                                     break
                                 else:
                                     key_in_list = True
