@@ -88,7 +88,7 @@
                 {% else %} {{responses.where_were_you_married_country}}{% endif %}
             {% else %}<span class="form-entry not-complete">[<em>place</em>]</span>{% endif %}
             on {% if responses.when_were_you_married %} {{ responses.when_were_you_married }} {% else %}<span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span>{% endif %}, are divorced from each other,
-            {% if responses.divorce_take_effect_on == 'the 31st day after' %}
+            {% if responses.divorce_take_effect_on == 'the 31st day after the date of this order' %}
                 the divorce to take effect on the 31st day after the date of this order.
             {% else %}
                 the divorce to take effect on {% if responses.divorce_take_effect_on_specific_date %}{{ responses.divorce_take_effect_on_specific_date }}{% else %}<span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span>{% endif %}.
