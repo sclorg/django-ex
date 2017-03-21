@@ -34,7 +34,7 @@ objects:
           kind: ImageStreamTag
           namespace: "${APP_IMAGE_NAMESPACE}"
           name: "${APP_IMAGE_NAME}:deploy-to-${ENVIRONMENT_TYPE}"
-    replicas: 2
+    replicas: 1
     test: false
     selector:
       app: "${NAME}"
