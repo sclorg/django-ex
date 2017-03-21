@@ -322,11 +322,11 @@
                     <td> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for: <br /><em> </td>
                 </tr>
                 <tr>
-                    <td> <i class="fa {% if responses.deal_with_property_debt == 'Equal division' %} fa-check-square-o {% else %} fa-square-o{% endif %}" aria-hidden="true"></i> an equal division of family property and family debt </td>
+                    <td> <i class="fa {% if responses.deal_with_property_debt == 'Equal division' and order_wanted %} fa-check-square-o {% else %} fa-square-o{% endif %}" aria-hidden="true"></i> an equal division of family property and family debt </td>
                 </tr>
                 <tr>
-                    <td> <i class="fa {% if responses.deal_with_property_debt == 'Unequal division' %} fa-check-square-o {% else %} fa-square-o{% endif %}" aria-hidden="true"></i> an unequal division of family property and family debt as follows:
-                        <span class="form-entry form-textarea not-complete">{% if responses.deal_with_property_debt == 'Unequal division' and responses.how_to_divide_property_debt %} {{ responses.how_to_divide_property_debt|linebreaksul }} {% else %}&nbsp;{% endif %}</span>
+                    <td> <i class="fa {% if responses.deal_with_property_debt == 'Unequal division' and order_wanted %} fa-check-square-o {% else %} fa-square-o{% endif %}" aria-hidden="true"></i> an unequal division of family property and family debt as follows:
+                        <span class="form-entry form-textarea not-complete">{% if responses.deal_with_property_debt == 'Unequal division' and responses.how_to_divide_property_debt and order_wanted %} {{ responses.how_to_divide_property_debt|linebreaksul }} {% else %}&nbsp;{% endif %}</span>
                     </td>
                 </tr>
                 <tr>
