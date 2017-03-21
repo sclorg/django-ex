@@ -69,7 +69,7 @@
                     <td colname="c2"> <span class="form-entry not-complete">&nbsp;</span></td>
                 </tr>
                 <tr>
-                    <td><i class="fa fa-square-o" aria-hidden="true"></i> were never married </td>
+                    <td><i class="fa {% if responses.married_marriage_like == 'Living together in a marriage like relationship' %}fa-check-square-o{% else %}fa-square-o{% endif %}" aria-hidden="true"></i> were never married </td>
                     <td colname="c2"> </td>
                 </tr>
             </tbody>
@@ -297,7 +297,7 @@
                 <tr>
                     {% check_list source=responses.want_which_orders value='Spousal support' as order_wanted %}
                     <td colname="c2"> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for spousal support as follows:
-                        <span class="form-entry form-textarea not-complete">{% if responses.spouse_support_details %} {{responses.spouse_support_details|linebreaksbr }} {% else %} &nbsp; {% endif %}</span>
+                        <span class="form-entry form-textarea not-complete">{% if order_wanted and responses.spouse_support_details %} {{responses.spouse_support_details|linebreaksbr }} {% else %} &nbsp; {% endif %}</span>
                     </td>
                 </tr>
                 <tr>

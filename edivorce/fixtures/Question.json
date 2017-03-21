@@ -161,7 +161,7 @@
 },
 {
     "fields": {
-        "name": "When is your birthday?",
+        "name": "What is your date of birth?",
         "description": "For step 2, Form 1 2. Divorce section A"
     },
     "model": "core.question",
