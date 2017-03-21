@@ -127,15 +127,28 @@
 
 {% endblock %} {% block formBack %}{% url 'overview' %}{% endblock %} {% block formNext %}{% next_step step='orders' %}{% endblock %}{% block nextButtonAttribute %}id="check_order_selected" data-proceed="false" data-show_alert="false"{% endblock %}
 {% block sidebarText %}
+<h3>What are Orders?</h3>
 <p>An order is the record of the judge's decision. It is filed at the court registry.</p>
 <p>
-    In Supreme Court, the parties involved in a case (or their lawyers) are responsible for telling the court the order(s) they want. This is done by putting the details in writing in their application and in a draft of the order to be signed by the judge
-    or master. The judge or master who reviews the application will sign the order, if they approve it.
+    An order is the record of the judge's decision. It is filed at the court registry. In Supreme Court, the parties involved in a case (or their lawyers) are responsible for telling the court the order(s) they want.
+    This is done by putting the details in writing in their
+    <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
+           title="<b>Application</b><br /><br />An application is a request to the court for an order or judgment
+           which occurs during the course of a court proceeding.What this means is an application is what you are seeking
+           from the court and the draft order is the outcome of what is being sought. The draft order includes the full details
+           (e.g. child support to be paid by payor or payee, by when, how, etc). of what you want the court to grant." >application<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+    and in a
+    <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
+       title="<b>Draft of the order</b><br /><br />A draft final order sets out what orders (decisions) you want the court to make (what you want the judge to approve). 
+       The draft final order is reviewed by a judge or master. If the judge or master makes the order you ask for, 
+       they'll sign the <b>draft order</b> you filed and it becomes your <b>final court order</b>.">draft of the order<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+    to be signed by the judge or
+    <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
+       title="<b>Master</b><br /><br />A master is a judicial officer of the Supreme Court who can hear and decide certain applications,
+       including interim applications for parenting or support orders.">master<i class="fa fa-question-circle" aria-hidden="true"></i></span>.
+    The judge or master who reviews the application will sign the order, if they approve it.
 </p>
-<p>Can we define "draft"? The term is referenced on Form F35 and would naturally fit in this explanation.</p>
-<p>Define application<br /> An application (request) to the Court for an order or judgment which occurs during the course of a court proceeding</p>
 <p>
-    More information on <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/allAboutCourtOrders.php">Court Orders</a> can be found on the Legal Services Society website.
-
+    More information on <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/allAboutCourtOrders.php" target="_blank">Court Orders</a> can be found on the Family Law in B.C. website.
 </p>
 {% endblock %}

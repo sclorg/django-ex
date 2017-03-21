@@ -41,7 +41,7 @@
 },
 {
     "fields": {
-        "name": "Please enter the period(s) during which you attempted to reconcile",
+        "name": "Please enter the period(s) during which you attempted to reconcile.",
         "description": "For pre-qualification step 3, Form 1 2. Divorce section B"
     },
     "model": "core.question",
@@ -121,7 +121,7 @@
 },
 {
     "fields": {
-        "name": "Please enter your name (as it appears on the marriage certificate)",
+        "name": "Please enter your name (as it appears on the marriage certificate).",
         "description": "For step 2, Form 1 Claimant 1"
     },
     "model": "core.question",
@@ -137,7 +137,7 @@
 },
 {
     "fields": {
-        "name": "Please enter the name",
+        "name": "Please enter the name.",
         "description": "For step 2"
     },
     "model": "core.question",
@@ -193,7 +193,7 @@
 },
 {
     "fields": {
-        "name": "Please enter your spouse's name (as it appears on the marriage certificate)",
+        "name": "Please enter your spouse's name (as it appears on the marriage certificate).",
         "description": "For step 3, Form 1 Claimant 2"
     },
     "model": "core.question",
@@ -209,7 +209,7 @@
 },
 {
     "fields": {
-        "name": "Please enter the name",
+        "name": "Please enter the name.",
         "description": "For step 3"
     },
     "model": "core.question",
@@ -393,7 +393,7 @@
 },
 {
     "fields": {
-        "name": "Please list any other property claims",
+        "name": "Please list any other property claims.",
         "description": "For step 7, Form 1 6. Property and debt"
     },
     "model": "core.question",
@@ -553,7 +553,7 @@
 },
 {
     "fields": {
-        "name": "Please list any other orders",
+        "name": "Please enter the details for any other orders that you are asking for.",
         "description": "DUMMY QUESTION for step 8 other orders"
     },
     "model": "core.question",
