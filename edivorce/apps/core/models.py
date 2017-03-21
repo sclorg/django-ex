@@ -43,8 +43,11 @@ class Question(models.Model):
     description = models.TextField(blank=True)
     """ Extended description (n.b., NOT content) """
 
+    summary_order = models.PositiveIntegerField(default=0)
+    """ Convenience for listing these in the admin """
+
     class Meta:
-        ordering = ('key', )
+        ordering = ('summary_order', )
 
     def __str__(self):
         return '%s: %s' % (self.key, self.name)

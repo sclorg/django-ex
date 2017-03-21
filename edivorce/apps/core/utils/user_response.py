@@ -16,7 +16,7 @@ def get_responses_from_db_grouped_by_steps(bceid_user):
     responses = UserResponse.objects.filter(bceid_user=bceid_user)
     responses_dict = {}
     for step, questions in question_step_mapping.items():
-        responses_dict[step] = responses.filter(question_id__in=questions).exclude(value__in=['', '[]']).values('question_id', 'value', 'question__name')
+        responses_dict[step] = responses.filter(question_id__in=questions).exclude(value__in=['', '[]']).order_by('question').values('question_id', 'value', 'question__name')
     return responses_dict
 
 
