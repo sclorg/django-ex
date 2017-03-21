@@ -525,6 +525,9 @@ textarea {
 			display: table;
 			content: " ";
 		}
+		input.response-textbox {
+			min-width: 330px;
+		}
 	}
 }
 
