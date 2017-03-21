@@ -76,7 +76,7 @@
             <h3>Your spouse's occupation</h3>
             <div>{% input_field type="text" name="form38_dummy_occupation_spouse" class="form-block input-wide response-textbox" %}</div>
         </div>
-        {% endcomment %}
+
 
         <div>
             <h3>The facts set out in the: (show if separate is clicked) </h3>
@@ -89,12 +89,17 @@
                 </label>
             </div>
         </div>
+
+
         {% if original_marriage_certificate == 'NO' %}
         <div>
             <h3>Name of a person who was present at the marriage ceremony(show if no to provide marriage certificate</h3>
             <div>{% input_field type="text" name="form38_dummy_witness" class="form-block input-wide response-textbox" %}</div>
         </div>
         {% endif %}
+
+        {% endcomment %}
+
         <div>
             <h3>change to new name</h3>
             <div>{% input_field type="text" name="form38_dummy_new_name" class="form-block input-wide response-textbox" %}</div>
