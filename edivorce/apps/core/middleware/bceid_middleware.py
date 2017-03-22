@@ -28,14 +28,14 @@ class BceidMiddleware(object):
             print("Redirecting " + request.path + " to " + settings.PROXY_BASE_URL, file=sys.stderr)
             return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME)
 
-        if not localdev and request.META.get('HTTP_SM_USERDN', '') != '':
+        if not localdev and request.META.get('HTTP_SM_USERDN', False):
 
             # 1. Real BCeID user / logged in
             request.bceid_user = BceidUser(
-                guid=request.META.get('HTTP_SM_USERDN', ''),
+                guid=request.META.get('HTTP_SM_USERDN'),
                 is_authenticated=True,
                 user_type='BCEID',
-                first_name=request.META.get('HTTP_SM_USER', ''),
+                first_name=request.META.get('HTTP_SM_USER'),
                 last_name=''
             )
 
@@ -43,7 +43,7 @@ class BceidMiddleware(object):
 
             # 2. Fake BCeID user / logged in
             request.bceid_user = BceidUser(
-                guid=request.session.get('fake-bceid-guid', ''),
+                guid=request.session.get('fake-bceid-guid'),
                 is_authenticated=True,
                 user_type='FAKE',
                 first_name=request.session.get('login-name',''),
@@ -53,11 +53,8 @@ class BceidMiddleware(object):
         else:
 
             # 3.  Anonymous User / not logged in
-            if request.session.get('anon-guid', False):
-                request.session['anon-guid'] = uuid.uuid4().urn[9:]
-
             request.bceid_user = BceidUser(
-                guid=request.session.get('anon-guid'),
+                guid=None,
                 is_authenticated=False,
                 user_type='ANONYMOUS',
                 first_name='',
