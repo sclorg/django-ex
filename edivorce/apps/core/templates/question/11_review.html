@@ -18,7 +18,7 @@
     </div>
     <div class="collapse in" id="review_step_prequal">
     	<div>
-    		{% include "partials/review_user_responses.html" with questions=prequalification %}
+    		{% include "partials/review_user_responses.html" with questions=prequalification step='prequalification' %}
     	</div>
     </div>
 </div>
@@ -44,7 +44,7 @@
 </div>
 <div class="collapse in" id="review_step_2">
 	<div>
-		{% include "partials/review_user_responses.html" with questions=your_information %}
+		{% include "partials/review_user_responses.html" with questions=your_information step='your_information' %}
 	</div>
 </div>
 </div>
@@ -57,7 +57,7 @@
 </div>
 <div class="collapse in" id="review_step_3">
 	<div>
-		{% include "partials/review_user_responses.html" with questions=your_spouse %}
+		{% include "partials/review_user_responses.html" with questions=your_spouse step='your_spouse' %}
 	</div>
 </div>
 </div>
@@ -70,7 +70,7 @@
 </div>
 <div class="collapse in" id="review_step_4">
 	<div>
-		{% include "partials/review_user_responses.html" with questions=your_marriage %}
+		{% include "partials/review_user_responses.html" with questions=your_marriage step='your_marriage' %}
 	</div>
 </div>
 </div>
@@ -112,7 +112,7 @@
     </div>
     <div class="collapse in" id="review_step_7">
     	<div>
-    		{% include "partials/review_user_responses.html" with questions=property_and_debt %}
+    		{% include "partials/review_user_responses.html" with questions=property_and_debt step='property_and_debt' %}
     	</div>
     </div>
 </div>
@@ -141,7 +141,7 @@
     </div>
     <div class="collapse in" id="review_step_9">
     	<div>
-    		{% include "partials/review_user_responses.html" with questions=other_questions %}
+    		{% include "partials/review_user_responses.html" with questions=other_questions step="other_questions" %}
     	</div>
     </div>
 </div>

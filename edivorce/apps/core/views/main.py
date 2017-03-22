@@ -122,13 +122,15 @@ def question(request, step):
         responses_dict = responses_dict_by_step
     else:
         responses_dict = get_responses_from_db(user)
+
+    # Add step status dictionary
+    responses_dict['step_status'] = get_step_status(responses_dict_by_step)
+
     responses_dict['active_page'] = step
     # If page is filing location page, add registries dictionary for list of court registries
     if step == "location":
         responses_dict['registries'] = sorted(list_of_registries)
 
-    # Add step status dictionary
-    responses_dict['step_status'] = get_step_status(responses_dict_by_step)
     return render(request, template_name=template, context=responses_dict)
 
 
@@ -141,10 +143,11 @@ def overview(request):
     """
     user = __get_bceid_user(request)
     responses_dict_by_step = get_responses_from_db_grouped_by_steps(user)
-    responses_dict_by_step['active_page'] = 'overview'
 
     # Add step status dictionary
     responses_dict_by_step['step_status'] = get_step_status(responses_dict_by_step)
+
+    responses_dict_by_step['active_page'] = 'overview'
     return render(request, 'overview.html', context=responses_dict_by_step)
 
 

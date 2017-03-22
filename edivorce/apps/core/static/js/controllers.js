@@ -116,7 +116,7 @@ var getValue = function(el, question){
     else if (question == "other_name_you" || question == "other_name_spouse"){
         var aliasType;
         $('#other_names_fields').find("input[type=text]").each(function () {
-            aliasType = $(this).siblings(".alias-type").val();
+            aliasType = $(this).val() == '' ? '' : $(this).siblings(".alias-type").val();
             value.push([aliasType, $(this).val()]);
         });
         return JSON.stringify(value);

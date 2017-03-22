@@ -48,7 +48,7 @@
     </a>
 
     {% if 'Spousal support' in which_orders.0.value|load_json %}
-    <a href="{% url 'question_steps' 'support' %}" class="progress-question {% if active_page == 'support' %} active {% endif %}">
+    <a href="{% url 'question_steps' 'support' %}" class="progress-question {% if step_status.spousal_support == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-life-ring" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step 6</small><br />Spousal support</span>
         {% if step_status.spousal_support == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i> Started</span>

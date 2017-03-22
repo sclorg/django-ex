@@ -16,7 +16,7 @@ def get_responses_from_db_grouped_by_steps(bceid_user):
     responses = UserResponse.objects.filter(bceid_user=bceid_user)
     responses_dict = {}
     for step, questions in question_step_mapping.items():
-        responses_dict[step] = responses.filter(question_id__in=questions).exclude(value__in=['', '[]']).order_by('question').values('question_id', 'value', 'question__name')
+        responses_dict[step] = responses.filter(question_id__in=questions).exclude(value__in=['', '[]', '[["",""]]']).order_by('question').values('question_id', 'value', 'question__name', 'question__required', 'question__conditional_target', 'question__reveal_response')
     return responses_dict
 
 
@@ -73,35 +73,35 @@ def copy_session_to_db(request, bceid_user):
 
 
 def is_complete(step, lst):
+    """
+    Check required field of question for complete state
+    Required: question is always require user response to be complete
+    Conditional: question itself is required and depends on the response to this question,
+                 optional question may be also required
+    """
     if not lst:
         return False
-    required_dict = deepcopy(complete_state_for_step)
-    if step in required_dict:
-        required_list = required_dict[step]['required']
-        conditional_list = required_dict[step]['conditional'] if 'conditional' in required_dict[step] else []
-
-        for question in lst:
+    question_list = Question.objects.filter(key__in=question_step_mapping[step])
+    required_list = list(question_list.filter(required='Required').values_list("key", flat=True))
+    conditional_list = list(question_list.filter(required='Conditional').values_list("key", flat=True))
+    for question in lst:
+        q_val = question['value']
+        if q_val != "" and q_val != "[]" and q_val != '[["",""]]':
             q_id = question['question_id']
-            value = question['value']
-            if value != '[]' and value.strip() != '':
-                if q_id in required_list:
-                    required_list.remove(q_id)
-                elif q_id in conditional_list:
-                    if q_id in conditional_list and value == conditional_list[q_id][0]:
-                        key_in_list = False
-                        hidden_q_id = conditional_list[q_id][1]
-                        for key in lst:
-                            if key['question_id'] == hidden_q_id:
-                                if (hidden_q_id == 'other_name_you' or hidden_q_id == 'other_name_spouse') and not json.loads(key['value'])[0][1]:
-                                    break
-                                else:
-                                    key_in_list = True
-                                    break
-                        if key_in_list is False:
-                            return False
-                        conditional_list.pop(q_id, None)
-                    else:
-                        conditional_list.pop(q_id, None)
-        if not required_list and not conditional_list:
-            return True
+            if q_id in required_list:
+                required_list.remove(q_id)
+            elif q_id in conditional_list:
+                if q_val == question['question__reveal_response']:
+                    key_in_list = False
+                    for key in lst:
+                        k_val = key['value']
+                        if key['question_id'] == question['question__conditional_target']:
+                            if k_val != "" and k_val != "[]" and k_val != '[["",""]]':
+                                key_in_list = True
+                                break
+                    if key_in_list is False:
+                        return False
+                conditional_list.remove(q_id)
+    if not required_list and not conditional_list:
+        return True
     return False

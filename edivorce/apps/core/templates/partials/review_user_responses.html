@@ -1,3 +1,4 @@
+{% load summary_format %}
 {% if questions %}
     <table class="table table-bordered table-striped">
         <thead>
@@ -7,13 +8,24 @@
             </tr>
         </thead>
         <tbody>
-            {% for question in questions %}
-            {{question.question}}
-                <tr>
-                    <td width="75%" style="padding-right: 5%">{{question.question__name}}</td>
-                    <td width="25%">{{question.value}}</td>
-                </tr>
-            {% endfor %}
+            {% if step == 'prequalification' %}
+                {% prequal_tag source=questions %}
+            {% elif step == 'your_information' or step == 'your_spouse' %}
+                {% personal_info_tag source=questions %}
+            {% elif step == 'property_and_debt' %}
+                {% property_tag source=questions %}
+            {% elif step == 'your_marriage' %}
+                {% marriage_tag source=questions %}
+            {% elif step == 'other_questions' %}
+                {% combine_address source=questions %}
+            {% else %}
+                {% for question in questions %}
+                    <tr>
+                        <td width="75%" style="padding-right: 5%">{{question.question__name}}</td>
+                        <td width="25%">{% reformat_value source=question.value question_key=question.question_id %}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 {% endif %}

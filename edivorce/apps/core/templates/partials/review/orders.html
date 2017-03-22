@@ -1,0 +1,20 @@
+{% load input_field %}
+{% if questions %}
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Response</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in questions %}
+                <tr>
+                    <td width="75%" style="padding-right: 5%">{{question.question__name}} {{question.question__key}}</td>
+                    <td width="25%">{% strip_value source=question.value question_key=question.question__key %}</td>
+                    <td>{{question.value}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

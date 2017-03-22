@@ -138,7 +138,8 @@
     "fields": {
         "name": "What are you asking for (Orders)?",
         "description": "For step 1",
-        "summary_order": 16
+        "summary_order": 16,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "want_which_orders"
@@ -147,7 +148,8 @@
     "fields": {
         "name": "Please enter your name (as it appears on the marriage certificate).",
         "description": "For step 2, Form 1 Claimant 1",
-        "summary_order": 17
+        "summary_order": 17,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "name_you"
@@ -156,7 +158,10 @@
     "fields": {
         "name": "Do you go by any other names?",
         "description": "For step 2",
-        "summary_order": 18
+        "summary_order": 18,
+        "required": "Conditional",
+        "conditional_target": "other_name_you",
+        "reveal_response": "YES"
     },
     "model": "core.question",
     "pk": "any_other_name_you"
@@ -174,7 +179,8 @@
     "fields": {
         "name": "What was your last name when you were born?",
         "description": "For step 2, Form 1 2. Divorce section A",
-        "summary_order": 20
+        "summary_order": 20,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "last_name_born_you"
@@ -183,7 +189,8 @@
     "fields": {
         "name": "What was your last name before you were married?",
         "description": "For step 2, Form 1 2. Divorce section A",
-        "summary_order": 21
+        "summary_order": 21,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "last_name_before_married_you"
@@ -192,7 +199,8 @@
     "fields": {
         "name": "What is your date of birth?",
         "description": "For step 2, Form 1 2. Divorce section A",
-        "summary_order": 22
+        "summary_order": 22,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "birthday_you"
@@ -201,7 +209,8 @@
     "fields": {
         "name": "What is your occupation?",
         "description": "For step 2, Form 38 first question",
-        "summary_order": 23
+        "summary_order": 23,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "occupation_you"
@@ -210,7 +219,10 @@
     "fields": {
         "name": "How long have you lived in B.C.?",
         "description": "For step 2, Form 1 2. Divorce section A",
-        "summary_order": 24
+        "summary_order": 24,
+        "required": "Conditional",
+        "conditional_target": "moved_to_bc_date_you",
+        "reveal_response": "Moved to B.C. on"
     },
     "model": "core.question",
     "pk": "lived_in_bc_you"
@@ -228,7 +240,8 @@
     "fields": {
         "name": "Please enter your spouse's name (as it appears on the marriage certificate).",
         "description": "For step 3, Form 1 Claimant 2",
-        "summary_order": 26
+        "summary_order": 26,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "name_spouse"
@@ -237,7 +250,10 @@
     "fields": {
         "name": "Does your spouse go by any other names?",
         "description": "For step 3",
-        "summary_order": 27
+        "summary_order": 27,
+        "required": "Conditional",
+        "conditional_target": "other_name_spouse",
+        "reveal_response": "YES"
     },
     "model": "core.question",
     "pk": "any_other_name_spouse"
@@ -255,7 +271,8 @@
     "fields": {
         "name": "What was their last name at birth?",
         "description": "For step 3, Form 1 2. Divorce section A",
-        "summary_order": 29
+        "summary_order": 29,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "last_name_born_spouse"
@@ -264,7 +281,8 @@
     "fields": {
         "name": "What was their last name before you were married?",
         "description": "For step 3, Form 1 2. Divorce section A",
-        "summary_order": 30
+        "summary_order": 30,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "last_name_before_married_spouse"
@@ -273,7 +291,8 @@
     "fields": {
         "name": "What is your spouse's date of birth?",
         "description": "For step 3, Form 1 2. Divorce section A",
-        "summary_order": 31
+        "summary_order": 31,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "birthday_spouse"
@@ -282,7 +301,8 @@
     "fields": {
         "name": "What is your spouse's occupation?",
         "description": "For step 3, Form 38 first question",
-        "summary_order": 33
+        "summary_order": 33,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "occupation_spouse"
@@ -291,7 +311,10 @@
     "fields": {
         "name": "How long has your spouse lived in B.C.?",
         "description": "For step 3, Form 1 2. Divorce section A",
-        "summary_order": 33
+        "summary_order": 33,
+        "required": "Conditional",
+        "conditional_target": "moved_to_bc_date_spouse",
+        "reveal_response": "Moved to B.C. on"
     },
     "model": "core.question",
     "pk": "lived_in_bc_spouse"
@@ -309,7 +332,10 @@
     "fields": {
         "name": "When were you married?",
         "description": "For step 4, Form 1 1. Relationship history",
-        "summary_order": 35
+        "summary_order": 35,
+        "required": "Conditional",
+        "conditional_target": "married_marriage_like",
+        "reveal_response": "Legally married"
     },
     "model": "core.question",
     "pk": "when_were_you_married"
@@ -318,7 +344,8 @@
     "fields": {
         "name": "When did you and your spouse begin to live together in a marriage-like relationship?",
         "description": "For step 4, Form 1 1. Relationship history",
-        "summary_order": 36
+        "summary_order": 36,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "when_were_you_live_married_like"
@@ -327,7 +354,10 @@
     "fields": {
         "name": "Where were you married?",
         "description": "For step 4, Form 1 2. Divorce section A",
-        "summary_order": 37
+        "summary_order": 37,
+        "required": "Conditional",
+        "conditional_target": "married_marriage_like",
+        "reveal_response": "Legally married"
     },
     "model": "core.question",
     "pk": "where_were_you_married_city"
@@ -336,7 +366,10 @@
     "fields": {
         "name": "Where were you married? Prov",
         "description": "For step 4, Form 1 2. Divorce section A",
-        "summary_order": 38
+        "summary_order": 38,
+        "required": "Conditional",
+        "conditional_target": "married_marriage_like",
+        "reveal_response": "Legally married"
     },
     "model": "core.question",
     "pk": "where_were_you_married_prov"
@@ -345,7 +378,10 @@
     "fields": {
         "name": "Where were you married? Country",
         "description": "For step 4, Form 1 2. Divorce section A",
-        "summary_order": 39
+        "summary_order": 39,
+        "required": "Conditional",
+        "conditional_target": "where_were_you_married_other_country",
+        "reveal_response": "Other"
     },
     "model": "core.question",
     "pk": "where_were_you_married_country"
@@ -363,7 +399,8 @@
     "fields": {
         "name": "Before you got married to your spouse, what was your marital status?",
         "description": "For step 4, Form 1 2. Divorce section A",
-        "summary_order": 41
+        "summary_order": 41,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "marital_status_before_you"
@@ -372,7 +409,8 @@
     "fields": {
         "name": "What was the marital status of your spouse before your marriage?",
         "description": "For step 4, Form 1 2. Divorce section A",
-        "summary_order": 42
+        "summary_order": 42,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "marital_status_before_spouse"
@@ -381,7 +419,8 @@
     "fields": {
         "name": "There is no possibility my spouse and I will get back together (reconciliation).",
         "description": "For step 5, Form 1 2. Divorce section C",
-        "summary_order": 43
+        "summary_order": 43,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "no_reconciliation_possible"
@@ -390,7 +429,8 @@
     "fields": {
         "name": "My spouse and I have not engaged in collusion to deceive the court in any way.",
         "description": "For step 5, Form 1 2. Divorce section C",
-        "summary_order": 44
+        "summary_order": 44,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "no_collusion"
@@ -399,7 +439,8 @@
     "fields": {
         "name": "You and your spouse are asking for an order for spousal support as follows",
         "description": "For step 6, Form 1 5. Spousal support",
-        "summary_order": 45
+        "summary_order": 45,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "spouse_support_details"
@@ -408,7 +449,8 @@
     "fields": {
         "name": "Please indicate which act you are asking for support under.",
         "description": "For step 6, Form 1 5. Spousal support",
-        "summary_order": 46
+        "summary_order": 46,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "spouse_support_act"
@@ -417,7 +459,10 @@
     "fields": {
         "name": "How have you and your spouse agreed to deal with your property and debt?",
         "description": "For step 7, Form 1 6. Property and debt",
-        "summary_order": 47
+        "summary_order": 47,
+        "required": "Conditional",
+        "conditional_target": "how_to_divide_property_debt",
+        "reveal_response": "Unequal division"
     },
     "model": "core.question",
     "pk": "deal_with_property_debt"
@@ -435,7 +480,10 @@
     "fields": {
         "name": "Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows",
         "description": "For step 7, Form 1 6. Property and debt",
-        "summary_order": 49
+        "summary_order": 49,
+        "required": "Conditional",
+        "conditional_target": "other_property_claims",
+        "reveal_response": "Ask for other property claims"
     },
     "model": "core.question",
     "pk": "want_other_property_claims"
@@ -453,7 +501,8 @@
     "fields": {
         "name": "Please list any other orders",
         "description": "For step 8 other orders",
-        "summary_order": 51
+        "summary_order": 51,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "other_orders_detail"
@@ -462,7 +511,8 @@
     "fields": {
         "name": "What is the best address to send you official court documents?",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 52
+        "summary_order": 52,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_street_you"
@@ -471,7 +521,8 @@
     "fields": {
         "name": "City",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 53
+        "summary_order": 53,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_city_you"
@@ -480,7 +531,8 @@
     "fields": {
         "name": "Prov",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 54
+        "summary_order": 54,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_prov_you"
@@ -489,7 +541,10 @@
     "fields": {
         "name": "Country",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 55
+        "summary_order": 55,
+        "required": "Conditional",
+        "conditional_target": "address_to_send_official_document_other_country_you",
+        "reveal_response": "Other"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_country_you"
@@ -507,7 +562,8 @@
     "fields": {
         "name": "Postal code",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 57
+        "summary_order": 57,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_postal_code_you"
@@ -534,7 +590,8 @@
     "fields": {
         "name": "What is the best address to send your spouse official court documents?",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 60
+        "summary_order": 60,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_street_spouse"
@@ -543,7 +600,8 @@
     "fields": {
         "name": "City",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 61
+        "summary_order": 61,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_city_spouse"
@@ -552,7 +610,8 @@
     "fields": {
         "name": "Prov",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 62
+        "summary_order": 62,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_prov_spouse"
@@ -561,7 +620,10 @@
     "fields": {
         "name": "Country",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 63
+        "summary_order": 63,
+        "required": "Conditional",
+        "conditional_target": "address_to_send_official_document_other_country_spouse",
+        "reveal_response": "Other"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_country_spouse"
@@ -579,7 +641,8 @@
     "fields": {
         "name": "Postal code",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 65
+        "summary_order": 65,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_postal_code_spouse"
@@ -606,7 +669,10 @@
     "fields": {
         "name": "Divorce is to take effect on",
         "description": "For step 9, Form 52 This Court Orders that",
-        "summary_order": 68
+        "summary_order": 68,
+        "required": "Conditional",
+        "conditional_target": "divorce_take_effect_on_specific_date",
+        "reveal_response": "specific date"
     },
     "model": "core.question",
     "pk": "divorce_take_effect_on"
@@ -624,7 +690,8 @@
     "fields": {
         "name": "Please enter the details for any other orders that you are asking for.",
         "description": "For step 10, Form 1 court registry",
-        "summary_order": 70
+        "summary_order": 70,
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "court_registry_for_filing"

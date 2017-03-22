@@ -46,6 +46,14 @@ class Question(models.Model):
     summary_order = models.PositiveIntegerField(default=0)
     """ Convenience for listing these in the admin """
 
+    required = models.TextField(blank=True)
+
+    conditional_target = models.TextField(blank=True)
+
+    reveal_response = models.TextField(blank=True)
+
+
+
     class Meta:
         ordering = ('summary_order', )
 
