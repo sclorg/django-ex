@@ -1,6 +1,7 @@
 from django.conf import settings
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.utils import timezone
+from django.template import RequestContext
 from edivorce.apps.core.utils.template_step_order import template_step_order
 from ..decorators import bceid_required
 import datetime
@@ -8,7 +9,6 @@ from ..models import BceidUser
 from ..utils.user_response import get_responses_from_db, get_responses_from_db_grouped_by_steps, \
     get_responses_from_session, copy_session_to_db, get_step_status
 from edivorce.apps.core.utils.question_step_mapping import list_of_registries
-from django.core.exceptions import ObjectDoesNotExist
 
 
 @bceid_required
@@ -146,6 +146,20 @@ def overview(request):
     # Add step status dictionary
     responses_dict_by_step['step_status'] = get_step_status(responses_dict_by_step)
     return render(request, 'overview.html', context=responses_dict_by_step)
+
+
+def page_not_found(request):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def server_error(request):
+    response = render_to_response('500.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
 
 
 def __get_bceid_user(request):
