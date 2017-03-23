@@ -337,8 +337,7 @@ parameters:
   displayName: Type of environnment (dev,test or prod).
   required: true
 - name: PROXY_NETWORK
-  displayName: Network of upstream proxy
-  value: 0.0.0.0/0
+  displayName: Network of upstream proxy (CIDR notation 0.0.0.0/0)
   required: true
 - name: BASICAUTH_ENABLED
   displayName: Enable basic auth (recommended for Dev and Test environments)
