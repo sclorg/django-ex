@@ -750,8 +750,13 @@ textarea {
 			padding: 0 20px;
 			text-align: center;
 			color: #ffffff;
-			h1, h3 {
+			h1, h2, h3 {
 				color: #ffffff;
+			}
+			h2 {
+				font-size: 30px;
+				font-weight: 600;
+				margin: 20px 0 0;
 			}
 			.intro {
 				font-size: 24px;
