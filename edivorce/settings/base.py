@@ -49,6 +49,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'edivorce.apps.core.middleware.basicauth_middleware.BasicAuthMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -117,3 +118,5 @@ FORCE_SCRIPT_NAME = '/'
 FIXTURE_DIRS = (
     os.path.join(PROJECT_ROOT, 'edivorce', 'fixtures'),
 )
+
+BASICAUTH_ENABLED = False

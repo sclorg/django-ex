@@ -88,6 +88,12 @@ objects:
             value: "${ENVIRONMENT_TYPE}"
           - name: PROXY_NETWORK
             value: "${PROXY_NETWORK}"
+          - name: BASICAUTH_ENABLED
+            value: "${BASICAUTH_ENABLED}"
+          - name: BASICAUTH_USERNAME
+            value: "${BASICAUTH_USERNAME}"
+          - name: BASICAUTH_PASSWORD
+            value: "${BASICAUTH_PASSWORD}"
           resources:
             limits:
               memory: "${MEMORY_LIMIT}"
@@ -217,7 +223,7 @@ objects:
       description: Weasyprint microservice using aquavitae/weasyprint
   spec:
     strategy:
-      type: Recreate
+      type: Rolling
     triggers:
       - type: ImageChange
         imageChangeParams:
@@ -228,6 +234,7 @@ objects:
             kind: ImageStreamTag
             namespace: aquavitae
             name: 'weasyprint:latest'
+      - type: ConfigChange
     replicas: 1
     selector:
       name: weasyprint
@@ -333,3 +340,15 @@ parameters:
   displayName: Network of upstream proxy
   value: 0.0.0.0/0
   required: true
+- name: BASICAUTH_ENABLED
+  displayName: Enable basic auth (recommended for Dev and Test environments)
+  value: "False"
+  required: true
+- name: BASICAUTH_USERNAME
+  displayName: Username for basic auth
+  value: divorce
+  required: true
+- name: BASICAUTH_PASSWORD
+  displayName:  Password for basic auth
+  generate: expression
+  from: "[a-zA-Z0-9]{16}"
