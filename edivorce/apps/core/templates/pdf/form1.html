@@ -190,7 +190,7 @@
                     <td colspan="2"> <strong> C. Claimant 1 and Claimant 2 confirm that: </strong> [<em>Check both of the following boxes.</em>] </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <i class="fa {% if responses.no_reconciliation_possible == 'agree' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There is no possibility of reconciliation. </td>
+                    <td colspan="2"> <i class="fa {% if responses.no_reconciliation_possible == 'I agree' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There is no possibility of reconciliation. </td>
                 </tr>
                 <tr>
                     {% check_list source=responses.no_collusion value='I agree' as is_no_collusion %}

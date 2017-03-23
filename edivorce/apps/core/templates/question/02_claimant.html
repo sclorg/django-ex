@@ -132,14 +132,13 @@
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="lived_in_bc_you" value="Do not live in B.C." %}Do not live in B.C.</label></div>
 
     <p>In order to apply for a divorce in B.C., you or your spouse must have been a regular resident in B.C (the legal term is
-        <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Ordinarily resident</b><br /><br />Unfortunately  there is no clear cut definition for the term &quot;ordinarily resident.&quot;<br/><br/>
-                        &quot;ordinary residence&quot; is not a phrase capable of precise definition. At its simplest level, ordinary residence connotes
-                        something more than mere temporary presence in a place. It refers to the place in which a person's lifestyle is centered
-                        and to which the person regularly returns if his or her presence is not continuous.<br/><br/>
+        <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Ordinarily resident</b><br /><br />
                         Ordinarily Resident<ul><li>the place where a person resides in the ordinary course of his or her day to day</li>
                         <li>you do not lose your ordinary resident in a place when you leave for a temporary purpose (e.g. go to school in
                         another province)</li></ul><br/>Not an Ordinarily Resident<ul><li>If you have travelled to another place to live and work indefinitely
-                        (even though you ultimately intend to return to the prior home)</li></ul>">ordinarily resident<i class="fa fa-question-circle" aria-hidden="true"></i></span>) for at least one year immediately before starting the proceeding.
+                        (even though you ultimately intend to return to the prior home)</li></ul><p>A detailed explanation of the
+                        <a href='http://www.justice.gc.ca/eng/rp-pr/fl-lf/divorce/rhro_cl/p4.html' target='_blank'>meaning of ordinarily resident</a> can be found on the Department of Justice website.</p>">
+            ordinarily resident<i class="fa fa-question-circle" aria-hidden="true"></i></span>) for at least one year immediately before starting the proceeding.
     </p>
 
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseExample" aria-controls="collapseExample">
@@ -183,6 +182,9 @@
 {% block formBack %}{% prev_step step='claimant' %}{% endblock %}
 {% block formNext %}{% next_step step='claimant' %}{% endblock %}
 
-{% block sidebarText %}
-<p>The Meaning of "Ordinary Residence" and "Habitual Residence" in the Common Law Provinces in a Family Law Context: <a href="http://www.justice.gc.ca/eng/rp-pr/fl-lf/divorce/rhro_cl/p4.html" target="_blank">http://www.justice.gc.ca/eng/rp-pr/fl-lf/divorce/rhro_cl/p4.html</a></p>
+{% block sidebarNav %}
+<!-- no sidebar -->
+{% endblock %}
+{% block sidebar %}
+<!-- no sidebar -->
 {% endblock %}
