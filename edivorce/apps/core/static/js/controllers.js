@@ -35,7 +35,7 @@ var reveal = function(el) {
     }
 
     if (el.prop('name') == "provide_certificate_later" || el.prop('name') == "original_marriage_certificate"){
-        if ($('input[name=provide_certificate_later]:checked').val() == 'NO' && $('input[name=original_marriage_certificate]:checked').val() == 'NO') {
+        if ($('input[name=provide_certificate_later]:checked').val() != 'YES' && $('input[name=original_marriage_certificate]:checked').val() == 'NO') {
             $('#is_certificate_in_english').hide();
         }
         else {
