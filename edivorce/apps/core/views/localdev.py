@@ -16,7 +16,7 @@ def bceid(request):
         # just in case anyone from the general public discovers the dev server
         # make sure they don't accidentally login and think this is production
         if password.lower() != 'divorce':
-            return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
+            return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
 
         # convert the login name to a guid
         hex_name = decode(binascii.hexlify(str.encode(login_name)))[0]
@@ -26,7 +26,7 @@ def bceid(request):
         request.session['login-name'] = login_name
         request.session['fake-bceid-guid'] = fake_guid
 
-        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/login')
+        return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/login')
 
     else:
         return render(request, 'localdev/bceid.html')

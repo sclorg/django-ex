@@ -9,7 +9,7 @@ def bceid_required(function=None):
     def _dec(view_func):
         def _view(request, *args, **kwargs):
             if not request.bceid_user.is_authenticated:
-                return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/login')
+                return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/login')
             else:
                 return view_func(request, *args, **kwargs)
 

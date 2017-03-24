@@ -26,14 +26,14 @@ def intro(request):
     # if the user is returning from BCeID registration, then log them in to the site
     if request.bceid_user.is_authenticated and request.session.get('went-to-register', False) == True:
         request.session['went-to-register'] = False
-        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/login')
+        return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/login')
 
     return render(request, 'intro.html', context={'hide_nav': True})
 
 
 def success(request):
     if request.bceid_user.is_authenticated:
-        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
+        return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
     else:
         return render(request, 'success.html', context={'register_url': settings.REGISTER_URL})
 
@@ -52,7 +52,7 @@ def dashboard_nav(request, nav_step):
 def login(request):
 
     if settings.DEPLOYMENT_TYPE == 'localdev' and not request.session.get('fake-bceid-guid'):
-        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
+        return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
     else:
         guid = request.bceid_user.guid
 
@@ -67,14 +67,14 @@ def login(request):
 
         copy_session_to_db(request, user)
 
-        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
+        return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
 
 
 def logout(request):
     request.session.flush()
 
     if settings.DEPLOYMENT_TYPE == 'localdev':
-        return redirect(settings.FORCE_SCRIPT_NAME[:-1] + '/intro')
+        return redirect('/')
     else:
         return redirect(settings.LOGOUT_URL)
 

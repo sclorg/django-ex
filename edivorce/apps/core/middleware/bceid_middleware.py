@@ -25,8 +25,8 @@ class BceidMiddleware(object):
 
         # make sure the request didn't bypass the proxy
         if not localdev and not self.__request_came_from_proxy(request):
-            print("Redirecting " + request.path + " to " + settings.PROXY_BASE_URL, file=sys.stderr)
-            return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME)
+            print("Redirecting to " + settings.PROXY_BASE_URL + request.path, file=sys.stderr)
+            return redirect(settings.PROXY_BASE_URL + request.path)
 
         if not localdev and request.META.get('HTTP_SM_USERDN', False):
 
