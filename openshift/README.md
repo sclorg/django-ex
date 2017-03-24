@@ -2,11 +2,11 @@
 
 There are three deployment environments set up for different purposes within OpenShift. They are available at the URLs below.
 
-|Environment| URL |Justice URL|
-|-----------|-----|-----------|
-|DEV|https://edivorce-dev.pathfinder.gov.bc.ca|https://justice.gov.bc.ca/divorce-dev|
-|TEST|https://edivorce-test.pathfinder.gov.bc.ca|https://justice.gov.bc.ca/divorce-test|
-|PROD|https://edivorce-prod.pathfinder.gov.bc.ca|https://justice.gov.bc.ca/divorce|
+| Environment |  URL  | Justice URL |
+| ----------- | ----- | ----------- |
+| DEV | https://edivorce-dev.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce-dev |
+| TEST | https://edivorce-test.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce-test |
+| PROD | https://edivorce-prod.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce |
 
 These instructions assume you have 4 EMPTY projects created in OpenShift:
 
@@ -116,11 +116,12 @@ oc process nginx-build | oc create -f -
 3. Copy the GitHub wookhook URL
 
 4. Go to the repository settings in Github, and add the webhook url under "Webhooks"
--- Payload URL = The URL you copied from OpenShift
--- Content type = application/json
--- Secret = Leave Blank
--- Just push the event
--- Active
+
+    - Payload URL = The URL you copied from OpenShift
+    - Content type = application/json
+    - Secret = Leave Blank
+    - Just push the event
+    - Active
 
 ## Setting up Dev/Test/Prod Projects
 
@@ -128,7 +129,7 @@ oc process nginx-build | oc create -f -
 
 #### Mandatory Settings:
 
-**PROXY_NETWORK:**
+PROXY_NETWORK
 
 Network of upstream proxy. This is used to ensure that requests come from
 the Justice Proxy only. It should be entered in IPV4 CIDR notation
@@ -138,13 +139,13 @@ setting is currently the same for all 3 environments (dev, test & prod)
 
 #### Optional Settings you will probably want to set:
 
-**BASICAUTH_ENABLED:**
+BASICAUTH_ENABLED
 
 Turns on simple basic authentication for test and dev environments.
 This is recommended since these environments are accessible to the general public.
 Set it to "True" (no quotes) to enable it.  Default = False
 
-**BASICAUTH_USERNAME / BASICAUTH_PASSWORD:**
+BASICAUTH_USERNAME / BASICAUTH_PASSWORD
 
 Username will default to divorce, and password will default to a random 16 digit string
 unless you override these settings
@@ -269,6 +270,10 @@ command to get to the command line on the postgresql pod.
 The pod identifiers change with every deployment, you need to find the current one
 
 ```
+oc get pods | grep Running
+```
+
+```
 oc rsh postgresql-2-qp0oh
 ```
 
@@ -299,61 +304,4 @@ You can look at the combined stdout and stderr of a given pod with this command:
     oc logs <pod-name>
 
 This can be useful to observe the correct functioning of your application.
-
-
-## One-off command execution
-
-At times you might want to manually execute some command in the context of a running application in OpenShift.
-You can drop into a Python shell for debugging, create a new user for the Django Admin interface, or perform any other task.
-
-You can do all that by using regular CLI commands from OpenShift.
-To make it a little more convenient, you can use the script `openshift/scripts/run-in-container.sh` that wraps some calls to `oc`.
-In the future, the `oc` CLI tool might incorporate changes that make this script obsolete.
-
-Here is how you would run a command in a pod specified by label:
-
-1. Log in to the Openshift instance
-
-    ```
-    oc login <path> --token=<token>
-    ```
-
-1. Select the project where you want to run the command
-
-    ```
-    oc project <project-name>
-    ```
-
-1. Inspect the output of the command below to find the name of a pod that matches a given label:
-
-        oc get pods -l <your-label-selector>
-
-1. Open a shell in the pod of your choice. Because of how the images produced
-  with CentOS and RHEL work currently, we need to wrap commands with `bash` to
-  enable any Software Collections that may be used (done automatically inside
-  every bash shell).
-
-        oc exec -p <pod-name> -it -- bash
-
-1. Finally, execute any command that you need and exit the shell.
-
-
-The wrapper script combines the steps above into one. You can use it like this:
-
-    ./run-in-container.sh ./manage.py migrate          # manually migrate the database
-                                                       # (done for you as part of the deployment process)
-    ./run-in-container.sh ./manage.py createsuperuser  # create a user to access Django Admin
-    ./run-in-container.sh ./manage.py shell            # open a Python shell in the context of your app
-
-If your Django pods are labeled with a name other than "django", you can use:
-
-    POD_NAME=name ./run-in-container.sh ./manage.py check
-
-If there is more than one replica, you can also specify a POD by index:
-
-    POD_INDEX=1 ./run-in-container.sh ./manage.py shell
-
-Or both together:
-
-    POD_NAME=django-example POD_INDEX=2 ./run-in-container.sh ./manage.py shell
 
