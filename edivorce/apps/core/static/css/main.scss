@@ -924,15 +924,23 @@ textarea {
 			.progress-icon i,
 			.progress-icon i:before,
 			.progress-content,
-			.progress-status {
+			.progress-status,
+			.progress-status i  {
 				color: $color-green;
+			}
+			.progress-icon i {
+				border: solid 1px $color-green;
 			}
 		}
 		.progress-icon i,
 		.progress-icon i::before,
 		.progress-content,
-		.progress-status {
+		.progress-status,
+		.progress-status i  {
 			color: $brand-blue;
+		}
+		.progress-icon i {
+			border: solid 1px $brand-blue;
 		}
 		&:hover, &:focus {
 			background-color: rgba($brand-blue, .3);
@@ -944,9 +952,7 @@ textarea {
 			.progress-status i {
 				color: $brand-blue;
 			}
-			.progress-icon i {
-				border: solid 1px $brand-blue;
-			}
+
 		}
 	}
 }
