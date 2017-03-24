@@ -587,11 +587,11 @@ textarea {
 		float: right;
 		margin-left: 6px;
 		&:hover, &.active {
-			color: $brand-blue;
-			background-color: $color-grey-lighter;
+			color: #fff;
+			background-color: $brand-gold;
 			text-decoration: none;
 			i {
-				color: $brand-blue;
+				color: #fff;
 			}
 		}
 	}
