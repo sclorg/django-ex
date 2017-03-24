@@ -63,7 +63,7 @@ if DEPLOYMENT_TYPE == 'test':
 
 if DEPLOYMENT_TYPE == 'prod':
     PROXY_URL_PREFIX = "/divorce"
-    REGISTER_URL = 'https://www.bceid.ca/register/basic/account_details.aspx?type=regular&eServiceType=basic'
+    REGISTER_URL = 'https://www.bceid.ca/directories/bluepages/details.aspx?serviceID=4483'
 
 FORCE_SCRIPT_NAME = PROXY_URL_PREFIX + '/'
 STATIC_URL = PROXY_URL_PREFIX + '/static/'
