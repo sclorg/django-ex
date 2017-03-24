@@ -177,20 +177,26 @@ img {
 .checkmark {
 	background: lighten($color-green, 10%);
 	position: relative;
-	padding: 20px 20px 20px 90px;
+	padding: 22px 20px 20px 90px;
 	color: #ffffff;
 	border-radius: 10px;
-	&:after {
+	font-size: 32px;
+
+	&:before {
 		content: "\f00c";
 		font-family: FontAwesome;
 		font-style: normal;
 		font-weight: normal;
 		text-decoration: inherit;
 		position: absolute;
-		top: 20px;
-		left: 20px;
-		font-size: 50px;
+		top: 0;
+		bottom: 0;
+		margin-top: auto;
+		margin-bottom: auto;
+		left: 24px;
+		font-size: 42px;
 		color: #ffffff;
+		height: 60px
 	}
 }
 
