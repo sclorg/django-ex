@@ -200,7 +200,7 @@ def property_tag(source):
 
     if division:
         tags.append(first_column + division['question__name'] + second_column + division['value'] + end_tag)
-    if division['value'] == "Unequal division" and division_detail:
+    if division and division['value'] == "Unequal division" and division_detail:
         tags.append(first_column + division_detail['question__name'] + second_column + process_list(division_detail['value'].split('\n'), division_detail['question_id']) + end_tag)
     if want_other and other_detail:
         tags.append(first_column + other_detail['question__name'] + second_column + process_list(other_detail['value'].split('\n'), other_detail['question_id']) + end_tag)
@@ -266,7 +266,7 @@ def prequal_tag(source):
         tags.append(first_column + separation_date['question__name'] + second_column + separation_date['value'] + end_tag)
     if try_reconcile:
         tags.append(first_column + try_reconcile['question__name'] + second_column + try_reconcile['value'] + end_tag)
-    if try_reconcile['value'] == 'YES' and reconciliation_period:
+    if try_reconcile and try_reconcile['value'] == 'YES' and reconciliation_period:
         tags.append(first_column + reconciliation_period['question__name'] + second_column + reconciliation_period_reformat(reconciliation_period['value']) + end_tag)
     if children_of_marriage:
         tags.append(first_column + children_of_marriage['question__name'] + second_column + children_of_marriage['value'] + end_tag)
@@ -276,13 +276,13 @@ def prequal_tag(source):
         tags.append(first_column + financial_support['question__name'] + second_column + json.loads(financial_support['value'])[0] + end_tag)
     if certificate:
         tags.append(first_column + certificate['question__name'] + second_column + certificate['value'] + end_tag)
-    if certificate['value'] == 'NO' and provide_later:
+    if certificate and certificate['value'] == 'NO' and provide_later:
         tags.append(first_column + provide_later['question__name'] + second_column + provide_later['value'] + end_tag)
-    if certificate['value'] == 'NO' and provide_later['value'] == 'YES' and provide_later_reason:
+    if certificate and provide_later and certificate['value'] == 'NO' and provide_later['value'] == 'YES' and provide_later_reason:
         tags.append(first_column + provide_later_reason['question__name'] + second_column + process_list(provide_later_reason['value'].split('\n'), provide_later_reason['question_id']) + end_tag)
-    if certificate['value'] == 'NO' and provide_later['value'] == 'NO' and not_provide_later_reason:
+    if certificate and provide_later and certificate['value'] == 'NO' and provide_later['value'] == 'NO' and not_provide_later_reason:
         tags.append(first_column + not_provide_later_reason['question__name'] + second_column + process_list(not_provide_later_reason['value'].split('\n'), not_provide_later_reason['question_id']) + end_tag)
-    if marriage_status['value'] == 'Living together in a marriage like relationship' and in_english:
+    if marriage_status and marriage_status['value'] == 'Living together in a marriage like relationship' and in_english:
         tags.append(first_column + in_english['question__name'] + second_column + in_english['value'] + end_tag)
     if divorce_reason:
         tags.append(first_column + divorce_reason['question__name'] + second_column + divorce_reason['value'] + end_tag)
@@ -330,7 +330,7 @@ def personal_info_tag(source):
         tags.append(first_column + name['question__name'] + second_column + name['value'] + end_tag)
     if other_name:
         tags.append(first_column + other_name['question__name'] + second_column + other_name['value'] + end_tag)
-    if other_name['value'] == 'YES' and other_name_list:
+    if other_name and other_name['value'] == 'YES' and other_name_list:
         tags.append(first_column + other_name_list['question__name'] + second_column + process_list(json.loads(other_name_list['value']), other_name_list['question_id']) + end_tag)
     if last_name_born:
         tags.append(first_column + last_name_born['question__name'] + second_column + last_name_born['value'] + end_tag)
@@ -340,9 +340,9 @@ def personal_info_tag(source):
         tags.append(first_column + birthday['question__name'] + second_column + birthday['value'] + end_tag)
     if occupation:
         tags.append(first_column + occupation['question__name'] + second_column + occupation['value'] + end_tag)
-    if lived_bc['value'] == "Moved to B.C. on":
+    if lived_bc and moved_bc and lived_bc['value'] == "Moved to B.C. on":
         tags.append(first_column + lived_bc['question__name'] + second_column + lived_bc['value'] + ' ' + moved_bc['value'] + end_tag)
-    if lived_bc['value'] != "Moved to B.C. on" and lived_bc:
+    if lived_bc and lived_bc['value'] != "Moved to B.C. on" and lived_bc:
         tags.append(first_column + lived_bc['question__name'] + second_column + lived_bc['value'] + end_tag)
 
     return ''.join(tags)
