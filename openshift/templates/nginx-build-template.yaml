@@ -2,7 +2,7 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: nginx
+  name: nginx-build
   creationTimestamp:
 objects:
 - kind: ImageStream
