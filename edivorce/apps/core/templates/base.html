@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="top_banner-logo">
-                            <a href="{% url 'intro' %}"><img src="{% static 'svg/bc-logo.svg' %}" /></a>
+                            <a href="{% url 'home' %}"><img src="{% static 'svg/bc-logo.svg' %}" /></a>
                             <p>Online Divorce Assistant
                                 {% if request.path|slice:":12" == '/divorce-dev' %}
                                     <span class="beta environment-type">dev</span>

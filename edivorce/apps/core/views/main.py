@@ -11,18 +11,20 @@ from ..utils.user_response import get_responses_from_db, get_responses_from_db_g
 from edivorce.apps.core.utils.question_step_mapping import list_of_registries
 
 
-@bceid_required
-def serve(request, path):
-    if path[0:2] == 'f/':
-        path = path[2:0]
-    if (len(path) > 4 and path[-5:] != '.html') or len(path) == 0:
-        path += '/intro.html'
-    if path[:1] == '/':
-        path = path[1:]
-    return render(request, path)
+# @bceid_required
+# def serve(request, path):
+#     if path[0:2] == 'f/':
+#         path = path[2:0]
+#     if (len(path) > 4 and path[-5:] != '.html') or len(path) == 0:
+#         path += '/intro.html'
+#     if path[:1] == '/':
+#         path = path[1:]
+#     return render(request, path)
 
-
-def intro(request):
+def home(request):
+    """
+    This is the homepage
+    """
     # if the user is returning from BCeID registration, then log them in to the site
     if request.bceid_user.is_authenticated and request.session.get('went-to-register', False) == True:
         request.session['went-to-register'] = False
@@ -31,26 +33,56 @@ def intro(request):
     return render(request, 'intro.html', context={'hide_nav': True})
 
 
+def prequalification(request, step):
+    """
+    View for rendering pre-qualification questions.
+    If user is not authenticated with BCeID, temporarily store user responses to session
+    """
+    template = 'prequalification/step_%s.html' % step
+
+    if not request.bceid_user.is_authenticated:
+        responses_dict = get_responses_from_session(request)
+    else:
+        user = __get_bceid_user(request)
+
+        responses_dict = get_responses_from_db(user)
+        responses_dict['active_page'] = 'prequalification'
+        responses_dict['step_status'] = get_step_status(get_responses_from_db_grouped_by_steps(user))
+
+    return render(request, template_name=template, context=responses_dict)
+
+
 def success(request):
+    """
+    This page is shown if the user passes the qualification test
+    """
     if request.bceid_user.is_authenticated:
         return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
     else:
         return render(request, 'success.html', context={'register_url': settings.REGISTER_URL})
 
 
-@bceid_required
-def legal(request):
-    return render(request, 'legal.html', context={'active_page': 'legal'})
+def incomplete(request):
+    return render(request, 'incomplete.html')
 
 
-@bceid_required
-def dashboard_nav(request, nav_step):
-    template_name = 'dashboard/%s.html' % nav_step
-    return render(request, template_name=template_name, context={'active_page': nav_step})
+def register(request):
+    """
+    Sets a session variable and redirects users to register for BCeID
+    """
+    if settings.DEPLOYMENT_TYPE == 'localdev':
+        return render(request, 'localdev/register.html')
+    else:
+        request.session['went-to-register'] = True
+        return redirect(settings.REGISTER_URL)
 
 
 def login(request):
-
+    """
+    This page is proxy-protected by Siteminder.  Users who are not
+    logged into BCeID will get a login page.  Users who are logged into
+    BCeID will be redirected to the dashboard
+    """
     if settings.DEPLOYMENT_TYPE == 'localdev' and not request.session.get('fake-bceid-guid'):
         return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
     else:
@@ -71,6 +103,9 @@ def login(request):
 
 
 def logout(request):
+    """
+    Clear session and log out of BCeID
+    """
     request.session.flush()
 
     if settings.DEPLOYMENT_TYPE == 'localdev':
@@ -79,32 +114,27 @@ def logout(request):
         return redirect(settings.LOGOUT_URL)
 
 
-def prequalification(request, step):
+@bceid_required
+def overview(request):
     """
-    View rendering pre-qualification questions
-     If user is not authenticated with proper BCeID,
-     temporarily store user responses to session
+    View rendering process overview page
+    If user responded to questions for certain step,
+    mark that step as "Started" otherwise "Not started"
     """
-    template = 'prequalification/step_%s.html' % step
+    user = __get_bceid_user(request)
+    responses_dict_by_step = get_responses_from_db_grouped_by_steps(user)
 
-    if not request.bceid_user.is_authenticated:
-        responses_dict = get_responses_from_session(request)
-    else:
-        user = __get_bceid_user(request)
+    # Add step status dictionary
+    responses_dict_by_step['step_status'] = get_step_status(responses_dict_by_step)
 
-        responses_dict = get_responses_from_db(user)
-        responses_dict['active_page'] = 'prequalification'
-        responses_dict['step_status'] = get_step_status(get_responses_from_db_grouped_by_steps(user))
-
-    return render(request, template_name=template, context=responses_dict)
+    responses_dict_by_step['active_page'] = 'overview'
+    return render(request, 'overview.html', context=responses_dict_by_step)
 
 
-def register(request):
-    if settings.DEPLOYMENT_TYPE == 'localdev':
-        return render(request, 'localdev/register.html')
-    else:
-        request.session['went-to-register'] = True
-        return redirect(settings.REGISTER_URL)
+@bceid_required
+def dashboard_nav(request, nav_step):
+    template_name = 'dashboard/%s.html' % nav_step
+    return render(request, template_name=template_name, context={'active_page': nav_step})
 
 
 @bceid_required
@@ -134,24 +164,10 @@ def question(request, step):
     return render(request, template_name=template, context=responses_dict)
 
 
-@bceid_required
-def overview(request):
-    """
-    View rendering process overview page
-    If user responded to questions for certain step,
-    mark that step as "Started" otherwise "Not started"
-    """
-    user = __get_bceid_user(request)
-    responses_dict_by_step = get_responses_from_db_grouped_by_steps(user)
-
-    # Add step status dictionary
-    responses_dict_by_step['step_status'] = get_step_status(responses_dict_by_step)
-
-    responses_dict_by_step['active_page'] = 'overview'
-    return render(request, 'overview.html', context=responses_dict_by_step)
-
-
 def page_not_found(request):
+    """
+    404 Error Page
+    """
     response = render_to_response('404.html', {},
                                   context_instance=RequestContext(request))
     response.status_code = 404
@@ -159,10 +175,17 @@ def page_not_found(request):
 
 
 def server_error(request):
+    """
+    500 Error Page
+    """
     response = render_to_response('500.html', {},
                                   context_instance=RequestContext(request))
     response.status_code = 500
     return response
+
+
+def legal(request):
+    return render(request, 'legal.html', context={'active_page': 'legal'})
 
 
 def __get_bceid_user(request):
@@ -175,5 +198,3 @@ def __get_bceid_user(request):
         user.save()
 
     return user
-
-

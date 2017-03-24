@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }}: Incomplete{% endblock %}
+
+{% block content %}
+
+<h1>Do you qualify for a divorce in B.C.?</h1>
+
+<div class="information-message bg-danger hard-stop">
+
+    <p>
+        Please go back and make sure you have answered all of the qualifying questions.
+        Currently, this online tool only supports a limited number of scenarios, so we
+        need to verify that you meet the criteria for using the tool.
+    </p>
+    <p>
+        If you do not qualify, you can file for divorce using the forms provided on the
+        <a href="http://www.ag.gov.bc.ca/courts/other/supreme/2010SupRules/info/index_family.htm">Supreme
+            Court of B.C. website</a>.
+    </p>
+    <p>
+        A <a href="http://www.familylaw.lss.bc.ca/guides/divorce/divJoint_courtForms.php">listing
+        of forms</a> that may be required for a Joint Divorce can also be found on the Family Law
+        in B.C. website.
+    </p>
+
+</div>
+
+{% endblock %}
+
+{% block formbuttons %}
+<div class="form-buttons clearfix not-disqualified">
+    <a class="btn btn-primary" href="{% url 'prequalification' '06' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
+</div>
+{% endblock %}
+
+{% block sidebarNav %}
+<!-- no sidebar -->
+{% endblock %}
+{% block sidebar %}
+<!-- no sidebar -->
+{% endblock %}
