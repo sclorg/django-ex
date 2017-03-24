@@ -191,3 +191,6 @@ $(".question-well").click(function () {
     $(".question-well").removeClass('hasFocus');
     $(this).addClass('hasFocus');
 });
+
+// kills the spinner when the back button is pressed
+window.onunload = function () { };
