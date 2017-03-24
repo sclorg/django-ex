@@ -192,5 +192,10 @@ $(".question-well").click(function () {
     $(this).addClass('hasFocus');
 });
 
+// disable collapse for links in data-toggle elements
+$('.no-collapse').on('click', function (e) {
+    e.stopPropagation();
+});
+
 // kills the spinner when the back button is pressed
 window.onunload = function () { };
