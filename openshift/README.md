@@ -4,9 +4,9 @@ There are three deployment environments set up for different purposes within Ope
 
 |Environment| URL |Justice URL|
 |-----------|-----|-----------|
-|DEV|[https://edivorce-dev.pathfinder.gov.bc.ca]|[https://justice.gov.bc.ca/divorce-dev]|
-|TEST|[https://edivorce-test.pathfinder.gov.bc.ca]|[https://justice.gov.bc.ca/divorce-test]|
-|PROD|[https://edivorce-prod.pathfinder.gov.bc.ca]|[https://justice.gov.bc.ca/divorce]|
+|DEV|https://edivorce-dev.pathfinder.gov.bc.ca|https://justice.gov.bc.ca/divorce-dev|
+|TEST|https://edivorce-test.pathfinder.gov.bc.ca|https://justice.gov.bc.ca/divorce-test|
+|PROD|https://edivorce-prod.pathfinder.gov.bc.ca|https://justice.gov.bc.ca/divorce|
 
 These instructions assume you have 4 EMPTY projects created in OpenShift:
 
@@ -165,7 +165,7 @@ oc policy add-role-to-user system:image-puller system:serviceaccount:jag-csb-edi
 oc policy add-role-to-user edit system:serviceaccount:jag-csb-edivorce-tools:default -n jag-csb-edivorce-dev
 ```
 
-Deploy the Django app and the Postgresql DB
+Deploy the Django app and the Postgresql DB (Read the section about "Important Configuration Options" above!)
 ```
 oc process edivorce -v ENVIRONMENT_TYPE=dev,PROXY_NETWORK=123.45.67.89/0,BASICAUTH_ENABLED=True | oc create -f -
 ```
@@ -202,7 +202,7 @@ oc policy add-role-to-user system:image-puller system:serviceaccount:jag-csb-edi
 oc policy add-role-to-user edit system:serviceaccount:jag-csb-edivorce-tools:default -n jag-csb-edivorce-test
 ```
 
-Deploy the Django app and the Postgresql DB
+Deploy the Django app and the Postgresql DB (Read the section about "Important Configuration Options" above!)
 ```
 oc process edivorce -v ENVIRONMENT_TYPE=test,PROXY_NETWORK=123.45.67.89/0,BASICAUTH_ENABLED=True | oc create -f -
 ```
@@ -238,7 +238,7 @@ oc policy add-role-to-user system:image-puller system:serviceaccount:jag-csb-edi
 oc policy add-role-to-user edit system:serviceaccount:jag-csb-edivorce-tools:default -n jag-csb-edivorce-prod
 ```
 
-Deploy the Django app and the Postgresql DB
+Deploy the Django app and the Postgresql DB (Read the section about "Important Configuration Options" above!)
 ```
 oc process edivorce -v ENVIRONMENT_TYPE=prod,PROXY_NETWORK=123.45.67.89/0 | oc create -f -
 ```
@@ -289,3 +289,71 @@ exit
 ## How to access Jenkins for eDivorce
 
 - Login to https://edivorce-jenkins.pathfinder.gov.bc.ca with the username/password that was provided to you.
+
+## Logs
+
+By default your Django application is served with gunicorn and configured to output its access log to stderr.
+You can look at the combined stdout and stderr of a given pod with this command:
+
+    oc get pods         # list all pods in your project
+    oc logs <pod-name>
+
+This can be useful to observe the correct functioning of your application.
+
+
+## One-off command execution
+
+At times you might want to manually execute some command in the context of a running application in OpenShift.
+You can drop into a Python shell for debugging, create a new user for the Django Admin interface, or perform any other task.
+
+You can do all that by using regular CLI commands from OpenShift.
+To make it a little more convenient, you can use the script `openshift/scripts/run-in-container.sh` that wraps some calls to `oc`.
+In the future, the `oc` CLI tool might incorporate changes that make this script obsolete.
+
+Here is how you would run a command in a pod specified by label:
+
+1. Log in to the Openshift instance
+
+    ```
+    oc login <path> --token=<token>
+    ```
+
+1. Select the project where you want to run the command
+
+    ```
+    oc project <project-name>
+    ```
+
+1. Inspect the output of the command below to find the name of a pod that matches a given label:
+
+        oc get pods -l <your-label-selector>
+
+1. Open a shell in the pod of your choice. Because of how the images produced
+  with CentOS and RHEL work currently, we need to wrap commands with `bash` to
+  enable any Software Collections that may be used (done automatically inside
+  every bash shell).
+
+        oc exec -p <pod-name> -it -- bash
+
+1. Finally, execute any command that you need and exit the shell.
+
+
+The wrapper script combines the steps above into one. You can use it like this:
+
+    ./run-in-container.sh ./manage.py migrate          # manually migrate the database
+                                                       # (done for you as part of the deployment process)
+    ./run-in-container.sh ./manage.py createsuperuser  # create a user to access Django Admin
+    ./run-in-container.sh ./manage.py shell            # open a Python shell in the context of your app
+
+If your Django pods are labeled with a name other than "django", you can use:
+
+    POD_NAME=name ./run-in-container.sh ./manage.py check
+
+If there is more than one replica, you can also specify a POD by index:
+
+    POD_INDEX=1 ./run-in-container.sh ./manage.py shell
+
+Or both together:
+
+    POD_NAME=django-example POD_INDEX=2 ./run-in-container.sh ./manage.py shell
+
