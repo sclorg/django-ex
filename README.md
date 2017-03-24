@@ -22,17 +22,17 @@ To run this project in your development machine, follow these steps:
 
 3. Install dependencies:
 
-    `pip install -r requirements.txt`
+    `pip3.5 install -r requirements.txt`
 
 4. Create an environment settings file by copying `.env.example` to `.env` (`.env` will be ignored by Git)
 
 5. Create a development database:
 
-    `./manage.py migrate`
+    `python3.5 ./manage.py migrate`
 
 6. If everything is alright, you should be able to start the Django development server:
 
-    `./manage.py runserver 0.0.0.0:8000`
+    `python3.5 ./manage.py runserver 0.0.0.0:8000`
 
 7. Start the [Weasyprint server](https://hub.docker.com/r/aquavitae/weasyprint/) server on port 5005
 
