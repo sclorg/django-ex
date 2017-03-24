@@ -81,8 +81,8 @@
         </p>
 
         <p class="schIndent1">
-            Subject to section 12 of the <em>Divorce Act</em> (Canada), claimant 1 {% if responses.name_you %}{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}
-            , and claimant 2 {% if responses.name_spouse %}{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}, who were married at
+            Subject to section 12 of the <em>Divorce Act</em> (Canada), claimant 1, {% if responses.name_you %}{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}
+            , and claimant 2, {% if responses.name_spouse %}{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}, who were married at
             {% if responses.where_were_you_married_city and responses.where_were_you_married_prov and responses.where_were_you_married_country %}
                 {{responses.where_were_you_married_city}}; {{responses.where_were_you_married_prov}};
                 {% if responses.where_were_you_married_country == 'Other' %} {{ responses.where_were_you_married_other_country }}

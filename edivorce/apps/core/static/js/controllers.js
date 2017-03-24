@@ -55,16 +55,16 @@ var childSupportCheckboxControl = function(el) {
         el.prop('checked', true);
     }
     else {
-        if (el.val() == "No") {
+        if (el.val() == "NO") {
             $("input[name=" + boxName + "]").each(function () {
-                if ($(this).val() != "No") {
+                if ($(this).val() != "NO") {
                     $(this).prop('checked', false);
                 }
             });
         }
         else {
             $("input[name=" + boxName + "]").each(function () {
-                if ($(this).val() == "No") {
+                if ($(this).val() == "NO") {
                     $(this).prop('checked', false);
                 }
             });

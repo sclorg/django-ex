@@ -136,11 +136,9 @@
             </p>
         {% endcomment %}
 
-        {% if responses.form38_dummy_new_name %}
-            <p class="schIndent1">
-                8 Pursuant to section 5 of the <em>Name Act</em>, I am seeking to change my name from {% if responses.name_claimant %}{{ responses.name_claimant }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %} to {% if responses.form38_dummy_new_name %}{{ responses.form38_dummy_new_name }}{% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %}. This application for a name change relates only to myself.
-            </p>
-        {% endif %}
+        <p class="schIndent1">
+            8 Additional Details <span class="form-entry form-textarea not-complete"> </span>
+        </p>
 
         {% comment "This section is out of scope" %}
             <p>

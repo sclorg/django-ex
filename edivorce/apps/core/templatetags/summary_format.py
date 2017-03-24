@@ -32,11 +32,12 @@ def process_list(lst, question_key):
     tag = ["<ul>"]
     if question_key.startswith('other_name_'):
         for alias_type, value in lst:
-            if value != '':
+            if value:
                 tag.append('<li>' + alias_type + ' ' + value + '</li>')
     else:
         for value in lst:
-            tag.append('<li>' + value + '</li>')
+            if value and not value.isspace():
+                tag.append('<li>' + value + '</li>')
     tag.append('</ul>')
     return ''.join(tag)
 

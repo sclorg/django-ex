@@ -13,8 +13,7 @@ template_step_order = {
     'other_orders': 8,
     'other_questions': 9,
     'location': 10,
-    'review': 11,
-    'uncategorized': 12
+    'review': 11
 }
 
 def get_step_name(step_order):

@@ -17,7 +17,8 @@ class UserResponseHandler(APIView):
         
         try:
             question = Question.objects.get(pk=question_key)
-            value = request.data['value']
+            # As a result of discussion, decide to escape < and > only
+            value = request.data['value'].replace('<', '&lt;').replace('>', '&gt;')
             if request.bceid_user.is_authenticated:
                 user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
                 save_to_db(serializer, question, value, user)
