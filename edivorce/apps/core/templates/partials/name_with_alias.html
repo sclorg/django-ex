@@ -1,5 +1,5 @@
 {% load input_field %}
-<span class="form-entry_claimant">
+<span class="{{class_name}}">
     {{ name }}
     {% if other_names and use_other_name == 'YES' %}
         {% multiple_values_to_list source=other_names as values %}

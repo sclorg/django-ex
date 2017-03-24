@@ -41,10 +41,10 @@
             <em>In the Supreme Court of British Columbia</em>
         </p>
         <p>
-            Claimant: {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}
+            Claimant: {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
         </p>
         <p>
-            Respondent: {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}
+            Respondent: {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
         </p>
         <p class="text-center">
             <strong>AFFIDAVIT - DESK ORDER DIVORCE</strong>
