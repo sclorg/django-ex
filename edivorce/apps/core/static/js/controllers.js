@@ -133,6 +133,12 @@ var getValue = function(el, question){
             // check if both date is in valid format and all
             if (sToDate != '' && sFromDate != '' && isValidDate(sToDate) && isValidDate(sFromDate))
             {
+                // clear previous errors
+                el.closest('.form-group')
+                    .removeClass('has-error')
+                    .find('span.help-block')
+                    .remove();
+
                 dToDate = stringToDate(sToDate);
                 dFromDate = stringToDate(sFromDate);
                 if (dFromDate < dToDate){
@@ -147,8 +153,9 @@ var getValue = function(el, question){
                     }
                 }
                 else {
-                    console.log(sFromDate + " : " + sToDate);
-                    console.log("From date must be smaller than To date")
+                    el.closest('.date')
+                        .addClass('has-error')
+                        .append('<span class="help-block">Negative Date Range</span>');
                 }
             }
             else {
