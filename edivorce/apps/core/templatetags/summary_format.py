@@ -22,7 +22,8 @@ def reformat_value(source, question_key):
             text_list = source.split('\n')
             tag = ["<ul>"]
             for value in text_list:
-                tag.append('<li>' + value + '</li>')
+                if value and not value.isspace():
+                    tag.append('<li>' + value + '</li>')
             tag.append('</ul>')
             return ''.join(tag)
         return source
