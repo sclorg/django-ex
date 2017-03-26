@@ -6,7 +6,8 @@
     <a href="{% url 'prequalification' '01' %}" class="progress-question complete {% if active_page == 'prequalification' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-share-alt" aria-hidden="true"></i></span>
         <span class="progress-content">Qualifying Questions</span>
-        <span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span>
+        {% if step_status.prequalification == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
+        {% elif step_status.prequalification == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
     <a href="{% url 'question_steps' 'orders' %}" class="progress-question {% if step_status.which_orders == 'Complete' %} complete {% endif %} {% if active_page == 'orders' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-commenting" aria-hidden="true"></i></span>
