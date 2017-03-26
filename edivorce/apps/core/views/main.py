@@ -7,7 +7,8 @@ from ..decorators import bceid_required
 import datetime
 from ..models import BceidUser
 from ..utils.user_response import get_responses_from_db, get_responses_from_db_grouped_by_steps, \
-    get_responses_from_session, copy_session_to_db, get_step_status
+    get_responses_from_session, copy_session_to_db, get_step_status, is_complete, \
+    get_responses_from_session_grouped_by_steps
 from edivorce.apps.core.utils.question_step_mapping import list_of_registries
 
 
@@ -49,11 +50,23 @@ def success(request):
     if request.bceid_user.is_authenticated:
         return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
     else:
-        return render(request, 'success.html', context={'register_url': settings.REGISTER_URL})
+        prequal_responses = get_responses_from_session_grouped_by_steps(request)['prequalification']
+        complete, missed_questions = is_complete('prequalification', prequal_responses)
+
+        if complete:
+            return render(request, 'success.html', context={'register_url': settings.REGISTER_URL})
+        else:
+            return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/incomplete')
 
 
 def incomplete(request):
-    return render(request, 'incomplete.html')
+    """
+    This page is shown if the user misses any pre-qualification questions
+    """
+    prequal_responses = get_responses_from_session_grouped_by_steps(request)['prequalification']
+    complete, missed_questions = is_complete('prequalification', prequal_responses)
+    return render(request, 'incomplete.html',
+                            context={'missed_questions': missed_questions, 'debug': settings.DEBUG })
 
 
 def register(request):
@@ -107,9 +120,7 @@ def logout(request):
 @bceid_required
 def overview(request):
     """
-    View rendering process overview page
-    If user responded to questions for certain step,
-    mark that step as "Started" otherwise "Not started"
+    Dashboard: Process overview page.
     """
     user = __get_bceid_user(request)
     responses_dict_by_step = get_responses_from_db_grouped_by_steps(user)
@@ -123,6 +134,9 @@ def overview(request):
 
 @bceid_required
 def dashboard_nav(request, nav_step):
+    """
+    Dashboard: All other pages
+    """
     template_name = 'dashboard/%s.html' % nav_step
     return render(request, template_name=template_name, context={'active_page': nav_step})
 
@@ -130,8 +144,7 @@ def dashboard_nav(request, nav_step):
 @bceid_required
 def question(request, step):
     """
-    View rendering main questions
-    For review page, use response grouped by step to render page
+    View for rendering main divorce questionaire questions
     """
     template = 'question/%02d_%s.html' % (template_step_order[step], step)
 
@@ -175,6 +188,9 @@ def server_error(request):
 
 
 def legal(request):
+    """
+    Legal Information page
+    """
     return render(request, 'legal.html', context={'active_page': 'legal'})
 
 

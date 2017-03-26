@@ -24,6 +24,11 @@
         in B.C. website.
     </p>
 
+    {% if debug %}
+    <hr>
+    <p>Unanswered: {{ missed_questions }}</p>
+    {% endif %}
+
 </div>
 
 {% endblock %}
