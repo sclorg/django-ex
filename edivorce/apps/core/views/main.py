@@ -11,16 +11,6 @@ from ..utils.user_response import get_responses_from_db, get_responses_from_db_g
 from edivorce.apps.core.utils.question_step_mapping import list_of_registries
 
 
-# @bceid_required
-# def serve(request, path):
-#     if path[0:2] == 'f/':
-#         path = path[2:0]
-#     if (len(path) > 4 and path[-5:] != '.html') or len(path) == 0:
-#         path += '/intro.html'
-#     if path[:1] == '/':
-#         path = path[1:]
-#     return render(request, path)
-
 def home(request):
     """
     This is the homepage
