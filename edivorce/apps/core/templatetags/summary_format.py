@@ -257,6 +257,8 @@ def prequal_tag(source):
             in_english = item
         elif q_id == 'divorce_reason':
             divorce_reason = item
+            if divorce_reason['value'] == 'live separate':
+                divorce_reason['value'] = 'Lived apart for one year'
 
     if marriage_status:
         tags.append(first_column + marriage_status['question__name'] + second_column + marriage_status['value'] + end_tag)
