@@ -6,7 +6,7 @@ $brand-blue: #042553;
 $brand-gold: #dea61b;
 
 $brand-titles: #19355b;
-$brand-links: #365ebe; //#2b5580;
+$brand-links: #365ebe; /*#2b5580;*/
 $brand-buttons: $brand-links;
 
 $color-blue-dark: $brand-titles;
@@ -649,10 +649,23 @@ textarea {
 			-ms-flex-wrap: wrap;
 			    flex-wrap: wrap;
 		}
+
+		.form-group {
+			display: block;
+			width: 100%;
+			margin-bottom: 5px;
+			@media (min-width: 992px) {
+				-webkit-box-flex: 1;
+				    -ms-flex: 1;
+				        flex: 1;
+			}
+		}
 		.form-control {
 			display: inline-block;
 			width: auto;
 			vertical-align: middle;
+			height: 34px;
+			margin-top: 0;
 		}
 		margin-bottom: 10px;
 	    padding: 10px;
@@ -686,19 +699,17 @@ textarea {
 			        flex: 1;
 		}
 		input.btn {
-			-webkit-box-flex: 0;
-			    -ms-flex: 0 0 70px;
-			        flex: 0 0 70px;
+			padding: 8px 15px;
+			@media (min-width: 992px) {
+				-webkit-box-flex: 0;
+				    -ms-flex: 0 0 70px;
+				        flex: 0 0 70px;
+			}
 		}
 	}
 }
 
-#btn_add_other_names {
-	margin-left: 10px;
-	background-color: $brand-buttons;
-	border: 0;
-	font-size: 16px;
-}
+
 
 .footer {
 	background-color: $brand-blue;
@@ -733,6 +744,7 @@ textarea {
 	background: #ffffff;
 	&.hasFocus {
 		border: 1px solid $color-blue-light;
+		-webkit-transition: 0.1s ease-in-out all;
 		transition: 0.1s ease-in-out all;
 	}
 	h3 {
@@ -801,8 +813,8 @@ textarea {
 		        order: 3;
 	}
 	.content-column {
-		// max-width: 800px;
-		// padding: 35px 50px 50px 50px;
+		/* max-width: 800px;*/
+		/* padding: 35px 50px 50px 50px;*/
 		max-width: 1280px;
     padding: 36px 6% 50px 6%;
 	}
