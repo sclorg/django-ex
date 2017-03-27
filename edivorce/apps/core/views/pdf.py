@@ -11,24 +11,27 @@ from ..utils.user_response import get_responses_from_db
 
 @bceid_required
 def form(request, form_number):
+    """
+    View for rendering PDF's and previews
+    """
     user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
     responses = get_responses_from_db(user)
 
     if form_number == "38_claimant1":
         form_number = "38"
-        responses = add_claimant_info(responses, '_you')
+        responses = __add_claimant_info(responses, '_you')
     elif form_number == "38_claimant2":
         form_number = "38"
-        responses = add_claimant_info(responses, '_spouse')
+        responses = __add_claimant_info(responses, '_spouse')
 
-    return render_form(request, 'form%s' % form_number,
+    return __render_form(request, 'form%s' % form_number,
                        {
                            "css_root": settings.WEASYPRINT_CSS_LOOPBACK,
                            "responses" : responses
                        })
 
 
-def render_form(request, form_name, context):
+def __render_form(request, form_name, context):
 
     output_as_html = request.GET.get('html', None) is not None
 
@@ -54,7 +57,7 @@ def render_form(request, form_name, context):
         return response
 
 
-def add_claimant_info(responses, claimant):
+def __add_claimant_info(responses, claimant):
     claimant_info = {}
     for key in responses:
         if key.endswith(claimant):

@@ -23,14 +23,10 @@ class BceidUser(models.Model):
         return 'BCeID User %s' % self.user_guid
 
 
-
 @python_2_unicode_compatible
 class Question(models.Model):
     """
-    Questions being asked of the user, later assembled into LegalForms.
-
-    NOTE: The content and interaction of the question is defined in the
-    template; the name and description field here are for admin use.
+    Questions being asked of the user.
     """
 
     key = models.TextField(primary_key=True)
@@ -46,12 +42,13 @@ class Question(models.Model):
     """ Convenience for listing these in the admin """
 
     required = models.TextField(blank=True)
+    """ 'Required', 'Conditional', or '' [blank = not required] """
 
     conditional_target = models.TextField(blank=True)
+    """ For conditionally required questions, this is the other question that it is conditional upon """
 
     reveal_response = models.TextField(blank=True)
-
-
+    """ The value of the other question that makes this question required """
 
     class Meta:
         ordering = ('summary_order', )

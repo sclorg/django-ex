@@ -6,7 +6,7 @@ handler404 = 'core.views.main.page_not_found'
 handler500 = 'core.views.main.server_error'
 
 urlpatterns = [
-    url(r'^guide$', styleguide.guide),
+    # url(r'^guide$', styleguide.guide),
     url(r'^api/response$', api.UserResponseHandler.as_view()),
     url(r'^login', main.login, name="login"),
     url(r'^bceid', localdev.bceid, name="bceid"),

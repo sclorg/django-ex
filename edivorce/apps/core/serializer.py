@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Question, UserResponse, User
+from .models import UserResponse
 
 
 class UserResponseSerializer(serializers.ModelSerializer):
@@ -13,7 +13,6 @@ class UserResponseSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         response = UserResponse(**validated_data)
         response.save()
-
         return response
 
     def update(self, instance, validated_data):
