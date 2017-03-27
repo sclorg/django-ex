@@ -82,6 +82,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'wsgi.application'
 
+# need to disable auth in Django Rest Framework so it doesn't get triggered
+# by presence of Basic Auth headers
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': []
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 

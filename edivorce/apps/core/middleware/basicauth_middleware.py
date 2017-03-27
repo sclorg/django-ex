@@ -1,4 +1,6 @@
 import base64
+
+import sys
 from django.http import HttpResponse
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -16,6 +18,13 @@ class BasicAuthMiddleware(object):
 
         # allow all OpenShift health checks
         if request.path == settings.FORCE_SCRIPT_NAME + 'health':
+            return None
+
+        # allow ajax requests -
+        # basic auth through ajax is tricky, and besides, this isn't really
+        # intended as security.  It's just to prevent users from
+        # logging into the wrong environment.
+        if request.path.startswith(settings.FORCE_SCRIPT_NAME + 'api/'):
             return None
 
         # check if the middleware is enabled in settings
