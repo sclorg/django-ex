@@ -20,9 +20,11 @@ def form(request, form_number):
     if form_number == "38_claimant1":
         form_number = "38"
         responses = __add_claimant_info(responses, '_you')
+        responses["which_claimant"] = "Claimant 1"
     elif form_number == "38_claimant2":
         form_number = "38"
         responses = __add_claimant_info(responses, '_spouse')
+        responses["which_claimant"] = "Claimant 2"
 
     return __render_form(request, 'form%s' % form_number,
                        {

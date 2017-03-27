@@ -41,23 +41,23 @@
             <em>In the Supreme Court of British Columbia</em>
         </p>
         <p>
-            Claimant: {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
+            Claimant 1: {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
         </p>
         <p>
-            Respondent: {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
+            Claimant 2: {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
         </p>
         <p class="text-center">
             <strong>AFFIDAVIT - DESK ORDER DIVORCE</strong>
         </p>
         <p>
-            I, {% if responses.name_claimant %}{{ responses.name_claimant }}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}, of
+            I, {% if responses.name_claimant %}{{ responses.name_claimant }}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
             {% if responses.address_to_send_official_document_street_claimant and responses.address_to_send_official_document_city_claimant and responses.address_to_send_official_document_prov_claimant and responses.address_to_send_official_document_country_claimant and responses.address_to_send_official_document_postal_code_claimant %}
               {{ responses.address_to_send_official_document_street_claimant }}, {{ responses.address_to_send_official_document_city_claimant }}, {{ responses.address_to_send_official_document_prov_claimant }},
               {% if responses.address_to_send_official_document_country_claimant == 'Other' %} {{ responses.address_to_send_official_document_other_country_claimant }}{% else %} {{ responses.address_to_send_official_document_country_claimant }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_claimant }} {% else %}<span class="form-entry not-complete">[<em>address</em>]</span>{% endif %},
             {% if responses.occupation_claimant %} {{ responses.occupation_claimant }}{% else %}<span class="form-entry not-complete">[<em>occupation</em>]</span>{% endif %}, SWEAR (OR AFFIRM) THAT:
         </p>
         <p class="schIndent1">
-            1 I am <span class="form-entry not-complete">[<em>the claimant/the respondent/Claimant 1/Claimant 2</em>]</span>.
+            1 I am {% if responses.which_claimant %}{{ responses.which_claimant }}{% else %}<span class="form-entry not-complete">{% endif %}</span>.
         </p>
         <p class="schIndent1">
             2 There is no possibility of reconciliation between my spouse and me.
