@@ -160,7 +160,9 @@
         "name": "What is your reason (grounds) for asking for a divorce?",
         "description": "For pre-qualification step 6",
         "summary_order": 15,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "married_marriage_like",
+        "reveal_response": "Legally married"
     },
     "model": "core.question",
     "pk": "divorce_reason"
@@ -708,8 +710,8 @@
         "description": "For step 9, Form 52 This Court Orders that",
         "summary_order": 68,
         "required": "Conditional",
-        "conditional_target": "divorce_take_effect_on_specific_date",
-        "reveal_response": "specific date"
+        "conditional_target": "married_marriage_like",
+        "reveal_response": "Legally married"
     },
     "model": "core.question",
     "pk": "divorce_take_effect_on"
@@ -718,7 +720,10 @@
     "fields": {
         "name": "Divorce is to take effect on specific date",
         "description": "For step 9 - specific date, Form 52 This Court Orders that",
-        "summary_order": 69
+        "summary_order": 69,
+        "required": "Conditional",
+        "conditional_target": "divorce_take_effect_on",
+        "reveal_response": "specific date"
     },
     "model": "core.question",
     "pk": "divorce_take_effect_on_specific_date"

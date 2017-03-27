@@ -35,7 +35,11 @@
 
 {% block formbuttons %}
 <div class="form-buttons clearfix not-disqualified">
-    <a class="btn btn-primary" href="{% url 'prequalification' '06' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
+    {% if married_marriage_like == "Living together in a marriage like relationship" %}
+        <a class="btn btn-primary" href="{% url 'prequalification' '04' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
+    {% else %}
+        <a class="btn btn-primary" href="{% url 'prequalification' '06' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
+    {% endif %}
 </div>
 {% endblock %}
 

@@ -79,7 +79,7 @@
     <a class="btn btn-primary" href="{% url 'prequalification' '03' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
 
     {% if married_marriage_like == "Living together in a marriage like relationship" %}
-        <a class="btn btn-success pull-right" href="{% url 'prequalification' '06' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
+        <a class="btn btn-success pull-right" href="{% url 'success' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
     {% else %}
         <a class="btn btn-success pull-right" href="{% url 'prequalification' '05' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
     {% endif %}

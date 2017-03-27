@@ -80,19 +80,19 @@
     </div>
 </div>
 
-<div class="question-well">
-    <h2>Divorce is to take effect on:</h2>
-    <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="divorce_take_effect_on" value="the 31st day after the date of this order" %}the 31st day after the date of this order</label></div>
-    <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="divorce_take_effect_on" value="specific date" %}a specific date
-        <span class="input-group date date-picker-group" data-allow-future-date="true">
-            {% input_field type="text" name="divorce_take_effect_on_specific_date" id="effect_date" class="date-picker-future other-textbox input-inline form-control" tabindex="-1" placeholder="DD/MM/YYYY" %}
-            <span class="input-group-addon" ><i class="fa fa-calendar circle"></i></span>
-        </span>
-    </label></div>
-
-    <p>If you select the "specific date" option you will need to request this as an "other" order and you will need to provide affidavit evidence to support the order. </p>
-
-</div>
+{% if married_marriage_like == "Legally married" %}
+    <div class="question-well">
+        <h2>Divorce is to take effect on:</h2>
+        <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="divorce_take_effect_on" value="the 31st day after the date of this order" %}the 31st day after the date of this order</label></div>
+        <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="divorce_take_effect_on" value="specific date" %}a specific date
+            <span class="input-group date date-picker-group" data-allow-future-date="true">
+                {% input_field type="text" name="divorce_take_effect_on_specific_date" id="effect_date" class="date-picker-future other-textbox input-inline form-control" tabindex="-1" placeholder="DD/MM/YYYY" %}
+                <span class="input-group-addon" ><i class="fa fa-calendar circle"></i></span>
+            </span>
+        </label></div>
+        <p>If you select the "specific date" option you will need to request this as an "other" order and you will need to provide affidavit evidence to support the order. </p>
+    </div>
+{% endif %}
 
 {% endblock %}
 

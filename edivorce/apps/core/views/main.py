@@ -65,8 +65,12 @@ def incomplete(request):
     """
     prequal_responses = get_responses_from_session_grouped_by_steps(request)['prequalification']
     complete, missed_questions = is_complete('prequalification', prequal_responses)
-    return render(request, 'incomplete.html',
-                            context={'missed_questions': missed_questions, 'debug': settings.DEBUG })
+
+    responses_dict = get_responses_from_session(request)
+    responses_dict.append(('debug', settings.DEBUG, ))
+    responses_dict.append(('missed_questions', str(missed_questions), ))
+
+    return render(request, 'incomplete.html', context=responses_dict)
 
 
 def register(request):
