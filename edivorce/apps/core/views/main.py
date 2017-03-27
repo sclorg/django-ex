@@ -141,8 +141,11 @@ def dashboard_nav(request, nav_step):
     """
     Dashboard: All other pages
     """
+    user = __get_bceid_user(request)
+    responses_dict = get_responses_from_db(user)
+    responses_dict['active_page'] = nav_step
     template_name = 'dashboard/%s.html' % nav_step
-    return render(request, template_name=template_name, context={'active_page': nav_step})
+    return render(request, template_name=template_name, context=responses_dict)
 
 
 @bceid_required

@@ -87,49 +87,55 @@
        </div>
     </div>
 
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF38" aria-controls="collapseF38">
-       <div>
-           Affidavit Desk Order Divorce Form (F38) - signing together
-       </div>
-       <p class="no-collapse"><a href="{% url 'pdf_form' '38_we' %}?html">Preview</a> | <a href="{% url 'pdf_form' '38_we' %}" class="spinner">Print</a></p>
-    </div>
-    <div class="collapse" id="collapseF38">
-       <div>
-           <o>$40 per affidavit (if sworn at a court registry)</o>
-           <p>
-               Since your divorce won't require an appearance before a judge, you must fill out and swear/affirm <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click" title="&lt;b&gt;Swear/Affirm&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;To &ldquo;take an oath&rdquo; in front of a lawyer, notary public, or commissioner for taking affidavits
-                                  that statements made in court or the contents of an affidavit are true to the best of your knowledge and belief
-                                  that your oath is &ldquo;under an immediate sense of responsibility to God&rdquo;. A non-religious alternative is to affirm." aria-hidden="true"></i> an Affidavit <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click" title="&lt;b&gt;Affidavit&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;A document that contains facts that you swear under oath or affirm to be true.
-                                  A lawyer, notary public, or commissioner for taking affidavits must witness your signature and sign your affidavit." aria-hidden="true"></i> Desk Order Divorce Form (F38). This document sets out the facts of your marriage and separation.
-           </p>
-            <p>
-                Please follows these steps to ensure your affidavit does not get rejected:
-            </p>
-           <ul>
-               Both you and your spouse need to swear/affirm the affidavit. Take <b>photo identification</b> with you. The person who will swear/affirm the documents for you must be sure you are both who you say you are. One affidavit must be sworn/affirmed <b>at the time of filing.</b>
-           <p>
-               You'll notice that some of the information in the affidavit is the same as what's in your Notice of Joint Family Claim Form (F1). Because the Notice of Joint Family Claim is not a sworn document, and the judge/master must have sworn evidence to make a decision, you must swear or affirm that the information in these affidavits is true.
-           </p>
-       </div>
-    </div>
+    {% if married_marriage_like == 'Legally married' %}
 
-    <p>
-       Affidavit Desk Order Divorce Form (F38) - signing separately
-    </p>
-    <p>
-       Claimant 1
-    </p>
-    <a href="{% url 'pdf_form' '38_claimant1' %}?html">Preview</a> | <a href="{% url 'pdf_form' '38_claimant1' %}" class="spinner">Print</a>
-    <p>
-       Claimant 2
-    </p>
-    <a href="{% url 'pdf_form' '38_claimant2' %}?html">Preview</a> | <a href="{% url 'pdf_form' '38_claimant2' %}" class="spinner">Print</a>
+        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF38" aria-controls="collapseF38">
+           <div>
+               Affidavit Desk Order Divorce Form (F38) - signing together
+           </div>
+           <p class="no-collapse"><a href="{% url 'pdf_form' '38_we' %}?html">Preview</a> | <a href="{% url 'pdf_form' '38_we' %}" class="spinner">Print</a></p>
+        </div>
+        <div class="collapse" id="collapseF38">
+           <div>
+               <o>$40 per affidavit (if sworn at a court registry)</o>
+               <p>
+                   Since your divorce won't require an appearance before a judge, you must fill out and swear/affirm <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click" title="&lt;b&gt;Swear/Affirm&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;To &ldquo;take an oath&rdquo; in front of a lawyer, notary public, or commissioner for taking affidavits
+                                      that statements made in court or the contents of an affidavit are true to the best of your knowledge and belief
+                                      that your oath is &ldquo;under an immediate sense of responsibility to God&rdquo;. A non-religious alternative is to affirm." aria-hidden="true"></i> an Affidavit <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click" title="&lt;b&gt;Affidavit&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;A document that contains facts that you swear under oath or affirm to be true.
+                                      A lawyer, notary public, or commissioner for taking affidavits must witness your signature and sign your affidavit." aria-hidden="true"></i> Desk Order Divorce Form (F38). This document sets out the facts of your marriage and separation.
+               </p>
+                <p>
+                    Please follows these steps to ensure your affidavit does not get rejected:
+                </p>
+               <ul>
+                   Both you and your spouse need to swear/affirm the affidavit. Take <b>photo identification</b> with you. The person who will swear/affirm the documents for you must be sure you are both who you say you are. One affidavit must be sworn/affirmed <b>at the time of filing.</b>
+               <p>
+                   You'll notice that some of the information in the affidavit is the same as what's in your Notice of Joint Family Claim Form (F1). Because the Notice of Joint Family Claim is not a sworn document, and the judge/master must have sworn evidence to make a decision, you must swear or affirm that the information in these affidavits is true.
+               </p>
+           </div>
+        </div>
+
+        <p>
+           Affidavit Desk Order Divorce Form (F38) - signing separately
+        </p>
+        <p>
+           Claimant 1
+        </p>
+        <a href="{% url 'pdf_form' '38_claimant1' %}?html">Preview</a> | <a href="{% url 'pdf_form' '38_claimant1' %}" class="spinner">Print</a>
+        <p>
+           Claimant 2
+        </p>
+        <a href="{% url 'pdf_form' '38_claimant2' %}?html">Preview</a> | <a href="{% url 'pdf_form' '38_claimant2' %}" class="spinner">Print</a>
+
+    {% endif %}
 </div>
 
+{% if married_marriage_like == 'Legally married' %}
 <div class="question-well">
     <h2>Signing Your Affidavit Forms</h2>
     <p>
-        The affidavit will need to be sworn or affirmed. You can either <b>jointly</b> prepare one Affidavit — Desk Order Divorce form (F38) or complete two versions and <b>swear/affirm them separately.</b>
+        The affidavit will need to be sworn or affirmed. You can either <b>jointly</b> prepare one Affidavit — Desk
+        Order Divorce form (F38) or complete two versions and <b>swear/affirm them separately.</b>
     </p>
 
     <table class="table table-bordered">
@@ -140,15 +146,21 @@
         <tr>
             <td>The affidavit can be signed and sworn/affirmed by both of you when at the registry.</td>
             <td>
-                <p>Either you or your spouse can sign and swear/affirm ahead of time, but the 2nd party will need to sign when at the registry.</p>
-                <p>If one of you decides to swear/affirm ahead of time, at the time of filing the application, both affidavits must have been notarized within 30 days prior to filing.</p>
+                <p>Either you or your spouse can sign and swear/affirm ahead of time, but the 2nd party will need to
+                    sign when at the registry.</p>
+                <p>If one of you decides to swear/affirm ahead of time, at the time of filing the application, both
+                    affidavits must have been notarized within 30 days prior to filing.</p>
             </td>
         </tr>
     </table>
 </div>
+{% endif %}
 
 <div class="question-well">
-    <h2>Other Documents to Take to the Court Registry</h2>
+    <h2>
+        {% if married_marriage_like == 'Legally married' %}Other{% endif %}
+        Documents to Take to the Court Registry
+    </h2>
     <ul>
         <li>Proof of marriage (original or certified Marriage Certificate or Registration of Divorce)</li>
         <li>Completed <a href="http://www.justice.gc.ca/eng/fl-df/divorce/pdf/form.pdf">Registration of Divorce form</a> (Federal)</li>
@@ -163,9 +175,16 @@
         <li>Requisition Form (F35)</li>
         <li>Draft Final Order Form (F52)</li>
         <li>Certificate of Pleadings Form (F36)</li>
-        <li>Affidavit — Desk Order Divorce Form (F38)</li>
+        {% if married_marriage_like == 'Legally married' %}
+            <li>Affidavit — Desk Order Divorce Form (F38)</li>
+        {% endif %}
     </ul>
-    <p>If you have other court orders or a written separation agreement, they should also be attached to your Affidavit — Desk Order Divorce Form (F38). Note that these agreements or orders must not contradict what's in your divorce application.</p>
+    <p>
+        If you have other court orders or a written separation agreement, they should also be
+        attached{% if married_marriage_like == 'Legally married' %} to your Affidavit — Desk
+        Order Divorce Form (F38){% endif %}. Note that these agreements or orders must not
+        contradict what's in your divorce application.
+    </p>
 </div>
 
 {% endblock %}
