@@ -10,7 +10,7 @@
 {% endblock %}
 {% block content %}
 
-<h1>Do you qualify for a divorce in B.C.?</h1>
+<h1>Do You Qualify for a Divorce in B.C.?</h1>
 
 <div class="question-well">
 <h3>Do you and your spouse have any children (includes step children, adopted children). The  legal term is children of the marriage.</h3>
@@ -25,7 +25,15 @@
     </label>
 </div>
 
-<p><em>If you had children with your spouse, but the children are over
+<p><em>Legally, the court is only concerned with
+    <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
+       title='<b>Children for the Marriage</b><br /><br /><p>The <a href="http://wiki.clicklaw.bc.ca/index.php?title=Divorce Act" target="_blank">Divorce Act</a> defines child of the  marriage as:</p>
+             <p>Child of the marriage means a child of two spouses or former spouses who, at the material time,</p>
+             <ol type="a"><li>is under the age of majority and who has not withdrawn from their charge, or</li>
+             <li>is the age of majority or over and under their charge but unable, by reason of illness, disability or other cause, to withdraw from their charge or to obtain the necessaries of life; (enfant à charge)?</li>
+             <p>More details on the <a href="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/rp/v2/v2_7.html" target="_blank">definition of "child of the marriage"</a> can be found on the Department of Justice website.</p>'>
+           children of the marriage<i class="fa fa-question-circle" aria-hidden="true"></i></span>.
+    If you had children with your spouse, but the children are over
     the age of majority (19 in B.C.) and independent, they are
     no longer considered ‘children of the marriage’ under the Divorce
     Act, and you do not need to include their information in your
@@ -49,9 +57,9 @@
         </div>
 
         <div class="information-message bg-danger hard-stop" id="younger_19" hidden>
-            <p>Sorry but at this point in time you will need to complete your application for divorce using the Supreme Court of B.C. forms (PDF). The <a href="http://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/sup-family-forms" target="_blank">forms</a> can be found on the Court Services Branch website: Supreme Court - Provincial Court.</p>
+            <p>Sorry, but at this point in time you will not be able to complete your application for divorce using this online tool. Currently the tool supports a limited number of scenarios. In the meantime, you can file for divorce using the forms provided on the <a href="http://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/sup-family-forms" target="_blank">Supreme Court of B.C. website</a>.</p>
 
-            <p>A <a href="http://www.familylaw.lss.bc.ca/guides/divorce/divJoint_courtForms.php" target="_blank">listing of forms</a> that may be required for a Joint Divorce can also be found on the Family Law website. </p>
+            <p>A <a href="http://www.familylaw.lss.bc.ca/guides/divorce/divJoint_courtForms.php" target="_blank">listing of forms</a> that may be required for a Joint Divorce can also be found on the Family Law in B.C. website.</p>
         </div>
     </div>
 
@@ -66,9 +74,9 @@
             <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, other reason" data_target_id="need_support" data_reveal_target="true" data_target_class="not-disqualified-other" data_reveal_class="false" %}Yes, other reason(s)</label></div>
         </div>
         <div class="information-message bg-danger hard-stop" id="need_support" hidden>
-            <p>Sorry but at this point in time you will not be able to complete your application for divorce using this online tool. Currently the tool supports a limited number of scenarios. In the meantime, you can file for divorce using the <a href="http://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/sup-family-forms" target="_blank">forms</a> provided on the Supreme Court of B.C. website.</p>
+            <p>Sorry, but at this point in time you will not be able to complete your application for divorce using this online tool. Currently the tool supports a limited number of scenarios. In the meantime, you can file for divorce using the forms provided on the <a href="http://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/sup-family-forms" target="_blank">Supreme Court of B.C. website</a>.</p>
 
-            <p>A <a href="http://www.familylaw.lss.bc.ca/guides/divorce/divJoint_courtForms.php" target="_blank">listing of forms</a> that may be required for a Joint Divorce, as well as an overview of the divorce process,  can be found on the <a href="http://www.familylaw.lss.bc.ca/guides/divorce/" target="_blank">Legal Services Society website</a>. </p>
+            <p>A <a href="http://www.familylaw.lss.bc.ca/guides/divorce/divJoint_courtForms.php" target="_blank">listing of forms</a> that may be required for a Joint Divorce can also be found on the Family Law in B.C. website. </p>
         </div>
     </div>
 </div>

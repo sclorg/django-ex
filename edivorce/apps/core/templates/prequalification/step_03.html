@@ -11,7 +11,7 @@
 
 {% block content %}
 
-<h1>Do you qualify for a divorce in B.C.?</h1>
+<h1>Do You Qualify for a Divorce in B.C.?</h1>
 
 <div class="question-well">
     <h3>When did you and your spouse separate (legally this is referred to as
@@ -58,9 +58,7 @@
     </div>
     <div class="collapse" id="collapse_determine_separation_date">
         <div>
-            <p>Starts when one spouse decides that things have come to an end/the relationship is over, and then act on the decision.  </p>
-
-            <p>There is no such thing as a "legal separation." If you're married or in a common-law relationship, you become separated as soon as you and your spouse start living apart with at least one of you wanting to separate. You don't need your spouse's permission to start living separately. You can tell others that you wish to separate, but you don't have to see a lawyer, sign a document, or go to court to be separated.</p>
+            <p>Separation starts when one spouse decides that things have come to an end/the relationship is over, and then acts on the decision.</p>
 
             <p>You might even still live in the same house to save money, but you're usually still considered separated if you don't share things like meals, a bedroom, and social activities.</p>
         </div>
@@ -90,7 +88,7 @@
 </div>
 
 <div class="question-well">
-    <h3>Did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} try to reconcile after you separated <span id="separation_date_span">{% if separation_date %} on {{ separation_date }}{% endif %}</span>?</h3>
+    <h3>Did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} attempt to reconcile after you separated <span id="separation_date_span">{% if separation_date %} on {{ separation_date }}{% endif %}</span>?</h3>
     <div class="radio"><label>{% input_field type="radio" name="try_reconcile_after_separated" value="NO" data_target_id="reconciliation_period" data_reveal_target="false" %}
         No, {% if name_spouse %} {{ name_spouse }} {% else %} my spouse {% endif %} and I have not reconciled (gotten back together)</label>
     </div>
@@ -120,8 +118,7 @@
         <div class="information-message bg-danger" id="reconciliation_90_days_alert" hidden>
             <p>Based on the date(s) you have provided for reconciliation, we have detected that your reconciliation may be for a period of greater than 90 days. Within the one year separation period, you can only live  together for 90 days or less. </p>
             <p>You can still proceed to complete the application, however, it will be up to the court to decide if you have lived separate and apart for the required period of one year.</p>
-            <!-- TODO: Talk to a lawyer links to help centre page. -->
-            <p>You may want to talk to a lawyer regarding your legal rights and options. </p>
+            <p>You may want to <a href="{% url 'legal' %}" target="_blank">talk to a lawyer</a> regarding your legal rights and options. </p>
         </div>
     </div>
 
@@ -149,12 +146,12 @@
 {% endblock %}
 
 {% block sidebarText%}
-
+<h3>Am I separated?</h3>
 <p>When two people who have been living together in a marriage, or a marriage-like relationship (sometimes called a common-law relationship), decide not to live together any more, they are separated.</p>
 <p>There is no such thing as a "legal" separation. If you are living apart, you are separated.</p>
 <p>It is possible to be separated and still living in the same home where a clear intention of a permanent separation has been communicated and acted upon.</p>
 
-<h3>What happens if my spouse and I tried to work things out</h3>
+<h3>What happens if my spouse and I tried to work things out?</h3>
 <p>
     If you apply for a divorce on the basis of a one-year separation, you can live together for up to 90 days
     (either before or after you file the application) to try to reconcile. If things do not work out, you can continue your action for
@@ -163,5 +160,6 @@
 
 <h3>Does being separated mean living at two different addresses?</h3>
 <p>Some couples choose to separate but still live in the same house. A lawyer can tell you what factors courts may consider when they are deciding if you are separated.</p>
-<p>A list of activities and behaviours that the courts consider to be indicators of a couple being separated can be found on the Legal Services Society website</p>
+<p>A <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/howToProveYouAreSeparatedIfYouStillLiveTogether.php" target="_blank">list of activities and behaviours</a>
+    that the courts consider to be indicators of a couple being separated can be found on the Family Law in B.C. website.</p>
 {% endblock %}

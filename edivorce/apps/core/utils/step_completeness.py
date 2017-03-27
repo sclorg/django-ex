@@ -19,8 +19,7 @@ def is_complete(step, lst):
     """
     Check required field of question for complete state
     Required: question is always require user response to be complete
-    Conditional: question itself is required and depends on the response to this question,
-                 optional question may be also required
+    Conditional: Optional question needed depends on reveal_response value of its conditional_target.
     """
     if not lst:
         return False, []
@@ -60,7 +59,7 @@ def __condition_met(reveal_response, target, lst):
     if target['question__required'] != 'Conditional':
         return True
     else:
-        # if the target is Conitional and the condition was met, check the target next
+        # if the target is Conditional and the condition was met, check the target next
         reveal_response = target["question__reveal_response"]
         conditional_target = target["question__conditional_target"]
         for new_target in lst:

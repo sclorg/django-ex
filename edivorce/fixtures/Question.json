@@ -737,53 +737,5 @@
     },
     "model": "core.question",
     "pk": "court_registry_for_filing"
-},
-{
-    "fields": {
-        "name": "Will you be swearing/affirming your affidavit together at the registry? Or will you be doing this separately?",
-        "description": "DUMMY QUESTION for form 38 first question"
-    },
-    "model": "core.question",
-    "pk": "form38_dummy_together"
-},
-{
-    "fields": {
-        "name": "Facts set out in the ",
-        "description": "DUMMY QUESTION for form 38 fourth question"
-    },
-    "model": "core.question",
-    "pk": "form38_dummy_facts"
-},
-{
-    "fields": {
-        "name": "Name of a person who was present at the marriage ceremony",
-        "description": "DUMMY QUESTION for form 38 fifth question"
-    },
-    "model": "core.question",
-    "pk": "form38_dummy_witness"
-},
-{
-    "fields": {
-        "name": "Want new name?",
-        "description": "DUMMY QUESTION for form 38 sixth question"
-    },
-    "model": "core.question",
-    "pk": "form38_dummy_new_name"
-},
-{
-    "fields": {
-        "name": "For who to change name?",
-        "description": "DUMMY QUESTION for form 38 seventh question"
-    },
-    "model": "core.question",
-    "pk": "form38_dummy_for_who"
-},
-{
-    "fields": {
-        "name": "Gender?",
-        "description": "DUMMY QUESTION for form 38 eighth question"
-    },
-    "model": "core.question",
-    "pk": "form38_dummy_gender"
 }
 ]
