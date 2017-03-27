@@ -95,12 +95,12 @@ $(function () {
     });
 
     // spinner
-    $('body').on('click', 'input.spinner, a.spinner', function () {
+    $('input.spinner, a.spinner').on('click', function () {
         $('div#progress-overlay').show();
         $('div#progress-overlay-spinner').spin('large');
     });
 
-    $('body').on('click', 'a.save-spinner', function (e) {
+    $('a.save-spinner').on('click', function (e) {
         var href = $('a.save-spinner').attr('href');
         e.preventDefault();
         $('div#progress-overlay').show();
@@ -110,7 +110,7 @@ $(function () {
             $('div#progress-overlay').hide();
             $('div#progress-overlay-spinner').spin(false);
             window.location.href = href;
-        }, 1000);
+        }, 300);
 
     });
 
@@ -198,4 +198,7 @@ $('.no-collapse').on('click', function (e) {
 });
 
 // kills the spinner when the back button is pressed
-window.onunload = function () { };
+window.onunload = function () {
+    $('div#progress-overlay').hide();
+    $('div#progress-overlay-spinner').spin(false);
+};
