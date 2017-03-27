@@ -755,6 +755,68 @@ textarea {
 	}
 }
 
+.review-well {
+	min-height: 20px;
+	margin-bottom: 10px;
+	border: 1px solid $color-grey-light;
+	background: #ffffff;
+	.review-well {
+		margin: 0 40px 5px;
+	}
+	.collapse-trigger {
+		padding: 20px 15px;
+	}
+	.collapse,
+	.collapsing {
+		border-top: 1px solid $color-grey-light;
+		padding: 20px 15px 10px 50px;
+	}
+	.collapse>div, .collapsing>div {
+	    margin-bottom: 0;
+	}
+	.review-butons {
+		float: right;
+		padding: 10px 15px;
+    	margin: 0;
+	}
+	.collapse-trigger {
+		margin-bottom: 0;
+		display: inline-block;
+		&>div {
+			border-bottom: none;
+			font-size: 18px;
+			font-weight: 600;
+			&:before {
+			    font-family: FontAwesome;
+			    font-weight: normal;
+			    font-style: normal;
+			    display: inline-block;
+			    text-decoration: inherit;
+			    padding-right: 10px;
+			    content: "\f077";
+			    -webkit-transform-origin: 65% 50%;
+			    transform-origin: 65% 50%;
+			    -webkit-transition: all 0.1s ease-in-out;
+			    transition: all 0.1s ease-in-out;
+			}
+			&:after {
+				display: none;
+			}
+		}
+		&.empty div:before {
+			display: none;
+		}
+		&.collapsed div:before {
+			-webkit-transform: rotate(-180deg);
+					transform: rotate(-180deg);
+			-webkit-transform-style: preserve-3D;
+					transform-style: preserve-3D;
+			-webkit-transform-origin: 30% 50%;
+					transform-origin: 30% 50%;
+		}
+	}
+}
+
 .print-form-action {
 	display: inline-block;
 	float: right;
