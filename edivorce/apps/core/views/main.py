@@ -7,8 +7,8 @@ from ..decorators import bceid_required
 import datetime
 from ..models import BceidUser
 from ..utils.user_response import get_responses_from_db, get_responses_from_db_grouped_by_steps, \
-    get_responses_from_session, copy_session_to_db, get_step_status, is_complete, \
-    get_responses_from_session_grouped_by_steps
+    get_responses_from_session, copy_session_to_db, get_responses_from_session_grouped_by_steps
+from ..utils.step_completeness import get_step_status, is_complete
 from edivorce.apps.core.utils.question_step_mapping import list_of_registries
 
 
