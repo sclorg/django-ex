@@ -95,9 +95,14 @@ $(function () {
     });
 
     // spinner
-    $('input.spinner, a.spinner').on('click', function () {
+    $('a.spinner').on('click', function (e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
         $('div#progress-overlay').show();
         $('div#progress-overlay-spinner').spin('large');
+        setTimeout(function(){
+            window.location.href = href;
+        }, 0);
     });
 
     $('a.save-spinner').on('click', function (e) {
@@ -114,6 +119,11 @@ $(function () {
 
     });
 
+    // kills the spinner when the back button is pressed
+    $(window).on('beforeunload', function () {
+        $('div#progress-overlay').hide();
+        $('div#progress-overlay-spinner').spin(false);
+    });
 });
 
 // delete and added field and save the change
@@ -197,8 +207,3 @@ $('.no-collapse').on('click', function (e) {
     e.stopPropagation();
 });
 
-// kills the spinner when the back button is pressed
-window.onunload = function () {
-    $('div#progress-overlay').hide();
-    $('div#progress-overlay-spinner').spin(false);
-};
