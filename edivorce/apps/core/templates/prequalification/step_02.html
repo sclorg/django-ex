@@ -48,19 +48,6 @@
             </p>
         </div>
     </div>
-    <div class="not-disqualified">
-        <p><em><strong>Ordinarily Resident</strong><br/>
-            The legal definition of “ordinarily resident” is: the place where in the settled routine of an individual's
-            life, he or she regularly, normally or customarily lives.
-            “Ordinarily” is the word is used in s. 3(1) of the Divorce Act…. A court in a province has
-            jurisdiction to hear and determine a divorce proceeding if either spouse has been ordinarily
-            resident in the province for at least one year immediately preceding the commencement of the
-            proceeding.</em></p>
-
-        <p><em>A detailed explanation of the <a href="http://www.justice.gc.ca/eng/rp-pr/fl-lf/divorce/rhro_cl/p4.html"
-                                                target="_blank">meaning of ordinarily resident</a> can be found on the
-            Department of Justice website.</em></p>
-    </div>
 </div>
 
 <div class="question-well not-disqualified">
@@ -75,6 +62,16 @@
             {% input_field type="radio"  name="lived_in_bc_at_least_year" autocomplete="off" value="NO" data_target_id="divorce_precondition" data_reveal_target="true" %} No
         </label>
     </div>
+
+    <p>In order to apply for a divorce in B.C., you or your spouse must have been a regular resident in B.C (the legal term is
+        <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Ordinarily resident</b><br /><br />
+                        Ordinarily Resident<ul><li>the place where a person resides in the ordinary course of his or her day to day</li>
+                        <li>you do not lose your ordinary resident in a place when you leave for a temporary purpose (e.g. go to school in
+                        another province)</li></ul><br/>Not an Ordinarily Resident<ul><li>If you have travelled to another place to live and work indefinitely
+                        (even though you ultimately intend to return to the prior home)</li></ul><p>A detailed explanation of the
+                        <a href='http://www.justice.gc.ca/eng/rp-pr/fl-lf/divorce/rhro_cl/p4.html' target='_blank'>meaning of ordinarily resident</a> can be found on the Department of Justice website.</p>">
+            ordinarily resident<i class="fa fa-question-circle" aria-hidden="true"></i></span>) for at least one year immediately before starting the proceeding.
+    </p>
 
     <div class="information-message bg-danger" id="divorce_precondition" hidden>
         <p>Before you can apply for divorce in B.C. it is required that you or your spouse has lived in B.C (ordinarily resident) for the last year. You can use this Divorce Service but you will not be able to submit your divorce application to the registry until you or your spouse has lived in the province for one year.</p>
@@ -91,9 +88,15 @@
 </div>
 {% endblock %}
 
-{% block sidebarNav %}
-<!-- no sidebar -->
-{% endblock %}
-{% block sidebar %}
-<!-- no sidebar -->
+{% block sidebarText %}
+<p><strong>Ordinarily Resident</strong><br/>
+            The legal definition of “ordinarily resident” is: the place where in the settled routine of an individual's
+            life, he or she regularly, normally or customarily lives.
+            “Ordinarily” is the word is used in s. 3(1) of the Divorce Act…. A court in a province has
+            jurisdiction to hear and determine a divorce proceeding if either spouse has been ordinarily
+            resident in the province for at least one year immediately preceding the commencement of the
+            proceeding.
+</p>
+<p>A detailed explanation of the <a href="http://www.justice.gc.ca/eng/rp-pr/fl-lf/divorce/rhro_cl/p4.html" target="_blank">
+    meaning of ordinarily resident</a> can be found on the Department of Justice website.</p>
 {% endblock %}

@@ -16,8 +16,13 @@
         By selecting "I agree" this shows the court that you and your spouse have thoroughly thought out your request for divorce.
     </p>
     <h3>There is no possibility my spouse and I will get back together (reconciliation).</h3>
-    <div class="radio"><label>{% input_field type="radio" name="no_reconciliation_possible" value="I agree" %}I agree</label></div>
-    <div class="radio"><label>{% input_field type="radio" name="no_reconciliation_possible" value="I disagree" %}I disagree</label></div>
+    <div class="checkbox-group">
+        <div class="checkbox">
+            <label>
+                {% input_field type="checkbox" name="no_reconciliation_possible" value="I agree" %}I agree
+            </label>
+        </div>
+    </div>
 </div>
 
 <div class="question-well">
