@@ -44,8 +44,9 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	min-width: 768px;
 
-	@media (min-width: 1680px) {
+	@media (min-width: 1920px) {
 		font-size: 18px;
+		line-height: 1.5;
 	}
 }
 
@@ -129,6 +130,15 @@ img {
 }
 
 /* Bootstrap Overrides*/
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+	padding: 12px 16px;
+}
 
 .container-wrapper {
 	padding: 40px 0;
@@ -506,7 +516,7 @@ input {
 	&+i.fa {margin-left: 10px;}
 	&.form-block  {
 		display: block;
-		margin-bottom: 10px;
+		margin-bottom: 16px;
 	}
 	&.input-wide {
 		width: 70%;
@@ -523,6 +533,10 @@ input {
 
 .checkbox label, .radio label {
 	margin-bottom: 8px;
+}
+
+.checkbox label, .radio label {
+		font-weight: 700;
 }
 
 textarea {
@@ -756,6 +770,7 @@ textarea {
 }
 
 .review-well {
+	border-radius: 10px;
 	min-height: 20px;
 	margin-bottom: 10px;
 	border: 1px solid $color-grey-light;
@@ -769,35 +784,58 @@ textarea {
 	.collapse,
 	.collapsing {
 		border-top: 1px solid $color-grey-light;
-		padding: 20px 15px 10px 50px;
+		padding: 24px 47px 24px;
 	}
 	.collapse>div, .collapsing>div {
 	    margin-bottom: 0;
 	}
 	.review-butons {
+		float: left;
+		padding: 0 15px 20px;
+		margin: 0 0 0 32px;
+
+		@media (min-width: 991px) {
 		float: right;
 		padding: 10px 15px;
-    	margin: 0;
+    margin: 0;
+	}
+
+			.fa {
+				color: white;
+				margin-right: 6px;
+			}
 	}
 	.collapse-trigger {
 		margin-bottom: 0;
 		display: inline-block;
+		width: 100%;
+		@media (min-width: 991px) {
+			width: initial;
+		}
+
 		&>div {
 			border-bottom: none;
 			font-size: 18px;
 			font-weight: 600;
+			padding-left: 8px;
+			position: relative;
 			&:before {
 			    font-family: FontAwesome;
 			    font-weight: normal;
 			    font-style: normal;
-			    display: inline-block;
+			    position: absolute;
 			    text-decoration: inherit;
-			    padding-right: 10px;
+					left: 0;
+			    // padding-right: 10px;
 			    content: "\f077";
-			    -webkit-transform-origin: 65% 50%;
-			    transform-origin: 65% 50%;
+			    -webkit-transform-origin: 50%;
+			    transform-origin: 50%;
 			    -webkit-transition: all 0.1s ease-in-out;
 			    transition: all 0.1s ease-in-out;
+			}
+			span {
+				display: inline-block;
+				margin-left: 24px;
 			}
 			&:after {
 				display: none;
@@ -811,8 +849,34 @@ textarea {
 					transform: rotate(-180deg);
 			-webkit-transform-style: preserve-3D;
 					transform-style: preserve-3D;
-			-webkit-transform-origin: 30% 50%;
-					transform-origin: 30% 50%;
+			-webkit-transform-origin: 50%;
+					transform-origin: 50%;
+		}
+	}
+}
+
+.review-well-no-icon {
+		padding-left: 47px;
+}
+
+.review-well-child {
+	display: inline-block;
+	width: 100%;
+
+	.review-butons {
+		margin: 0;
+		padding-left: 8px;
+		@media (min-width: 991px) {
+			margin: initial;
+			padding-left: initial;
+		}
+	}
+
+	.collapse-trigger {
+		padding-left: 0;
+		&>div {
+			color: $color-grey-dark;
+			font-weight: normal;
 		}
 	}
 }
@@ -918,7 +982,7 @@ textarea {
 		        order: 1;
 		height: auto;
 
-		@media (min-width: 1680px) {
+		@media (min-width: 1920px) {
 			font-size: 16px;
 			line-height: 1.5;
 		}
@@ -1061,7 +1125,7 @@ textarea {
 			line-height: 1.3;
 			color: $body-copy;
 
-			@media (min-width: 1680px) {
+			@media (min-width: 1920px) {
 			font-size: 16px;
 			width: 190px;
 		}
@@ -1108,8 +1172,14 @@ textarea {
 	}
 }
 
+.dashnav-column .progress-question {
+	height: 60px;
+}
+
 .overview-progress {
 	border: solid 1px $color-grey-lighter;
+	border-radius: 10px;
+	background: #ffffff;
 	.progress-question {
 		margin-bottom: 0;
 		border-bottom: solid 1px $color-grey-lighter;
@@ -1175,6 +1245,19 @@ textarea {
 			}
 
 		}
+		&:first-child:hover {
+			border-top-left-radius: 7px;
+			border-top-right-radius: 7px;
+		}
+		&:last-child:hover {
+			border-bottom-left-radius: 7px;
+			border-bottom-right-radius: 7px;
+		}
+		a {
+			transition: 0.1s background ease-in-out;
+			-webkit-transition: 0.1s background ease-in-out;
+		}
+
 	}
 }
 
@@ -1216,6 +1299,7 @@ textarea {
 .modal-header {
 	border: 0;
 	padding-bottom: 0;
+	padding-top: 24px;
 }
 
 .modal-title {
@@ -1224,12 +1308,11 @@ textarea {
 }
 
 .modal-body {
-	padding-left: 64px;
-	padding-right: 64px;
+	padding: 0 64px 36px;
 
 	p {
 		font-size: 18px;
-		text-align: center;
+		margin-top: 12px;
 	}
 }
 
@@ -1237,9 +1320,6 @@ textarea {
 	background: #f5f5f5;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
-	.btn {
-		margin-top: 12px;
-	}
 }
 
 #questions_modal {
@@ -1261,7 +1341,7 @@ textarea {
 	.modal-footer {
 		text-align: center;
 		border: none;
-		padding-bottom: 30px;
+		padding-bottom: 18px;
 	}
 }
 

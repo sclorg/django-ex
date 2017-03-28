@@ -22,10 +22,10 @@
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF1" aria-controls="collapseF1">
        <div>
-           Notice of Joint Family Claim Form (F1)
+           <span>Notice of Joint Family Claim Form (F1)</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '1' %}?html">Preview</a> <a href="{% url 'pdf_form' '1' %}" class="btn btn-primary spinner">Print</a> </p>
+    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '1' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '1' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a> </p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF1">
        <div>
@@ -38,10 +38,10 @@
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF35" aria-controls="collapseF35">
        <div>
-           Requisition Form (F35)
+           <span>Requisition Form (F35)</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '35' %}?html">Preview</a> <a href="{% url 'pdf_form' '35' %}" class="btn btn-primary spinner">Print</a></p>
+    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '35' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '35' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF35">
        <div>
@@ -54,10 +54,10 @@
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF52" aria-controls="collapseF52">
        <div>
-           Draft Final Order Form (F52)
+           <span>Draft Final Order Form (F52)</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '52' %}?html">Preview</a> <a href="{% url 'pdf_form' '52' %}" class="btn btn-primary spinner">Print</a></p>
+    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '52' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '52' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF52">
        <div>
@@ -76,10 +76,10 @@
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF36" aria-controls="collapseF36">
        <div>
-           Certificate of Pleadings Form (F36)
+           <span>Certificate of Pleadings Form (F36)</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '36' %}?html">Preview</a> <a href="{% url 'pdf_form' '36' %}" class="btn btn-primary spinner">Print</a></p>
+    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '36' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '36' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF36">
        <div>
@@ -100,10 +100,10 @@
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF38" aria-controls="collapseF38">
        <div>
-           Affidavit Desk Order Divorce Form (F38) - signing together
+           <span>Affidavit Desk Order Divorce Form (F38) - signing together</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_we' %}?html">Preview</a> <a href="{% url 'pdf_form' '38_we' %}" class="btn btn-primary spinner">Print</a></p>
+    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_we' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '38_we' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF38">
        <div>
@@ -126,35 +126,38 @@
     </div>
 </div>
 <div class="review-well clearfix">
-    <div class="collapse-trigger empty">
+  <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF38b" aria-controls="collapseF38b">
        <div>
-           Affidavit Desk Order Divorce Form (F38) - signing separately
+           <span>Affidavit Desk Order Divorce Form (F38) - signing separately</span>
        </div>
    </div>
-    <div class="review-well clearfix">
+   <div class="collapse" id="collapseF38b">
+    <div class="review-well-child clearfix">
         <div class="collapse-trigger empty">
            <div>
                Claimant 1
            </div>
        </div>
-        <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_claimant1' %}?html">Preview</a> <a href="{% url 'pdf_form' '38_claimant1' %}" class="btn btn-primary spinner">Print</a></p>
+        <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_claimant1' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '38_claimant1' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
         <div class="clearfix"> </div>
     </div>
-    <div class="review-well clearfix">
+    <div class="review-well-child clearfix">
         <div class="collapse-trigger empty">
            <div>
                Claimant 2
            </div>
        </div>
-        <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_claimant2' %}?html">Preview</a> <a href="{% url 'pdf_form' '38_claimant2' %}" class="btn btn-primary spinner">Print</a></p>
+
+        <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_claimant2' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '38_claimant2' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
         <div class="clearfix"> </div>
     </div>
+  </div>
 </div>
 {% else %}
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF30" aria-controls="collapseF30">
        <div>
-           Affidavit Form (F30)
+           <span>Affidavit Form (F30)</span>
        </div>
     </div>
     <div class="clearfix"> </div>
