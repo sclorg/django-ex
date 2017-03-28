@@ -534,7 +534,7 @@
         "summary_order": 50,
         "required": "Conditional",
         "conditional_target": "want_other_property_claims",
-        "reveal_response": "Ask for other property claims"
+        "reveal_response": "[\"Ask for other property claims\"]"
     },
     "model": "core.question",
     "pk": "other_property_claims"
