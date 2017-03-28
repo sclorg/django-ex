@@ -112,15 +112,13 @@ $(function () {
         $('div#progress-overlay-spinner').spin('large');
 
         setTimeout(function(){
-            $('div#progress-overlay').hide();
-            $('div#progress-overlay-spinner').spin(false);
             window.location.href = href;
-        }, 300);
+        }, 0);
 
     });
 
     // kills the spinner when the back button is pressed
-    $(window).on('beforeunload', function () {
+    $(window).on('pageshow', function () {
         $('div#progress-overlay').hide();
         $('div#progress-overlay-spinner').spin(false);
     });
