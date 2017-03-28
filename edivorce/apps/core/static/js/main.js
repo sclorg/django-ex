@@ -122,6 +122,12 @@ $(function () {
         $('div#progress-overlay').hide();
         $('div#progress-overlay-spinner').spin(false);
     });
+
+    $('.info-modal').on('click', function (e) {
+        e.preventDefault();
+        $('#info_modal').modal('show');
+    })
+
 });
 
 // delete and added field and save the change

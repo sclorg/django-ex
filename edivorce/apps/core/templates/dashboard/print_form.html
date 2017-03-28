@@ -17,15 +17,15 @@
 </p>
 <p>&nbsp;</p>
 <h3>Print These Forms</h3>
-<p><a href="{% url 'dashboard_nav' 'help_saving_pdf' %}">Get help opening and saving PDF forms</a></p>
+<p><a href="{% url 'dashboard_nav' 'help_saving_pdf' %}">Get help opening and saving PDF forms</a> | <a href="#" class="info-modal">Changing my forms</a></p>
 
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF1" aria-controls="collapseF1">
        <div>
-           Notice of Joint Family Claim Form (F1)
+           <span>Notice of Joint Family Claim Form (F1)</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '1' %}?html">Preview</a> <a href="{% url 'pdf_form' '1' %}" class="btn btn-primary spinner">Print</a> </p>
+    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '1' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '1' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a> </p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF1">
        <div>
@@ -38,10 +38,10 @@
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF35" aria-controls="collapseF35">
        <div>
-           Requisition Form (F35)
+           <span>Requisition Form (F35)</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '35' %}?html">Preview</a> <a href="{% url 'pdf_form' '35' %}" class="btn btn-primary spinner">Print</a></p>
+    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '35' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '35' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF35">
        <div>
@@ -54,10 +54,10 @@
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF52" aria-controls="collapseF52">
        <div>
-           Draft Final Order Form (F52)
+           <span>Draft Final Order Form (F52)</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '52' %}?html">Preview</a> <a href="{% url 'pdf_form' '52' %}" class="btn btn-primary spinner">Print</a></p>
+    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '52' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '52' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF52">
        <div>
@@ -76,10 +76,10 @@
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF36" aria-controls="collapseF36">
        <div>
-           Certificate of Pleadings Form (F36)
+           <span>Certificate of Pleadings Form (F36)</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '36' %}?html">Preview</a> <a href="{% url 'pdf_form' '36' %}" class="btn btn-primary spinner">Print</a></p>
+    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '36' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '36' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF36">
        <div>
@@ -100,10 +100,10 @@
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF38" aria-controls="collapseF38">
        <div>
-           Affidavit Desk Order Divorce Form (F38) - signing together
+           <span>Affidavit Desk Order Divorce Form (F38) - signing together</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_we' %}?html">Preview</a> <a href="{% url 'pdf_form' '38_we' %}" class="btn btn-primary spinner">Print</a></p>
+    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_we' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '38_we' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF38">
        <div>
@@ -115,7 +115,7 @@
                                   A lawyer, notary public, or commissioner for taking affidavits must witness your signature and sign your affidavit." aria-hidden="true"></i> Desk Order Divorce Form (F38). This document sets out the facts of your marriage and separation.
            </p>
             <p>
-                Please follows these steps to ensure your affidavit does not get rejected:
+                Please follow these steps to ensure your affidavit does not get rejected:
             </p>
            <ul>
                Both you and your spouse need to swear/affirm the affidavit. Take <b>photo identification</b> with you. The person who will swear/affirm the documents for you must be sure you are both who you say you are. One affidavit must be sworn/affirmed <b>at the time of filing.</b>
@@ -126,35 +126,38 @@
     </div>
 </div>
 <div class="review-well clearfix">
-    <div class="collapse-trigger empty">
+  <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF38b" aria-controls="collapseF38b">
        <div>
-           Affidavit Desk Order Divorce Form (F38) - signing separately
+           <span>Affidavit Desk Order Divorce Form (F38) - signing separately</span>
        </div>
    </div>
-    <div class="review-well clearfix">
+   <div class="collapse" id="collapseF38b">
+    <div class="review-well-child clearfix">
         <div class="collapse-trigger empty">
            <div>
                Claimant 1
            </div>
        </div>
-        <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_claimant1' %}?html">Preview</a> <a href="{% url 'pdf_form' '38_claimant1' %}" class="btn btn-primary spinner">Print</a></p>
+        <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_claimant1' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '38_claimant1' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
         <div class="clearfix"> </div>
     </div>
-    <div class="review-well clearfix">
+    <div class="review-well-child clearfix">
         <div class="collapse-trigger empty">
            <div>
                Claimant 2
            </div>
        </div>
-        <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_claimant2' %}?html">Preview</a> <a href="{% url 'pdf_form' '38_claimant2' %}" class="btn btn-primary spinner">Print</a></p>
+
+        <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_claimant2' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '38_claimant2' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
         <div class="clearfix"> </div>
     </div>
+  </div>
 </div>
 {% else %}
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF30" aria-controls="collapseF30">
        <div>
-           Affidavit Form (F30)
+           <span>Affidavit Form (F30)</span>
        </div>
     </div>
     <div class="clearfix"> </div>
@@ -164,11 +167,11 @@
                Since your divorce won't require an appearance before a judge, in addition to the documents above you
                must fill out and swear/affirm <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click" title="&lt;b&gt;Swear/Affirm&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;To &ldquo;take an oath&rdquo; in front of a lawyer, notary public, or commissioner for taking affidavits
                that statements made in court or the contents of an affidavit are true to the best of your knowledge and belief
-               that your oath is &ldquo;under an immediate sense of responsibility to God&rdquo;. A non-religious alternative is to affirm." aria-hidden="true"></i> an <a target="_blank" href="http://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/f30.pdf?forcedownload=true">Affidavit Form (F30)</a>. This document sets out the facts of your marriage
-               and separation.
+               that your oath is &ldquo;under an immediate sense of responsibility to God&rdquo;. A non-religious alternative is to affirm." aria-hidden="true"></i> an <a target="_blank" href="http://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/f30.pdf?forcedownload=true">Affidavit Form (F30)</a>.
+               This document sets out the facts of your relationship and separation.
            <p/>
             <p>
-                Please follows these steps to ensure your affidavit does not get rejected:
+                Please follow these steps to ensure your affidavit does not get rejected:
             </p>
            <ul>
                Both you and your spouse need to swear/affirm the affidavit. Take <b>photo identification</b> with you. The person who will swear/affirm the documents for you must be sure you are both who you say you are. One affidavit must be sworn/affirmed <b>at the time of filing.</b>
@@ -237,6 +240,26 @@
         Order Divorce Form (F38){% else %} Form (F30){% endif %}. Note that these agreements or orders must not
         contradict what's in your divorce application.
     </p>
+</div>
+
+<div id="info_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa fa-file" aria-hidden="true"></i>
+                <h1 class="modal-title">Changing your forms</h1>
+            </div>
+            <div class="modal-body">
+                <p>
+                    If you need to make changes to your forms, you can return to the Divorce Questionnaire section to
+                    review and update your answers. You will then need to Review and Print your forms again.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
