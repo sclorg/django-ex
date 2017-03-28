@@ -1,3 +1,4 @@
+from django.db.models import Count
 from edivorce.apps.core.models import UserResponse, Question
 from edivorce.apps.core.utils.question_step_mapping import question_step_mapping
 
@@ -107,7 +108,13 @@ def __get_data(bceid_user):
     MARRIED = 'Legally married'
 
     responses = UserResponse.objects.filter(bceid_user=bceid_user)
-    married = responses.get(question_id='married_marriage_like').value != COMMON_LAW
+    married_status = responses.filter(question_id='married_marriage_like')
+
+    if married_status.count() > 0:
+        married = married_status[0].value != COMMON_LAW
+    else:
+        married = False
+
     married_questions = list(
         Question.objects.filter(reveal_response=MARRIED).values_list("key", flat=True))
     return married, married_questions, responses
