@@ -16,7 +16,7 @@
     		Qualifying Questions
     	</div>
     </div>
-    <p class="review-butons"><a class="btn btn-success" href="#">Edit</a> </p>
+    <p class="review-butons"><a class="btn btn-success" href="{% url 'prequalification' '01' %}">Edit</a> </p>
     <div class="clearfix"> </div>
     <div class="collapse in" id="review_step_prequal">
     	<div>
@@ -26,82 +26,94 @@
 </div>
 
 <div class="question-well step-review">
-<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_1" aria-controls="collapse_changed_name">
-	<div>
-		Step 1: What are you asking for
+	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_1" aria-controls="collapse_changed_name">
+		<div>
+			Step 1: What are you asking for
+		</div>
 	</div>
-</div>
-<div class="collapse in" id="review_step_1">
-	<div>
-		{% include "partials/review_user_responses.html" with questions=which_orders %}
+	<p class="review-butons"><a class="btn btn-success" href="{% url 'question_steps' 'orders' %}">Edit</a> </p>
+    <div class="clearfix"> </div>
+	<div class="collapse in" id="review_step_1">
+		<div>
+			{% include "partials/review_user_responses.html" with questions=which_orders %}
+		</div>
 	</div>
-</div>
 </div>
 
 <div class="question-well step-review">
-<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_2" aria-controls="collapse_changed_name">
-	<div>
-		Step 2: Your information
+	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_2" aria-controls="collapse_changed_name">
+		<div>
+			Step 2: Your information
+		</div>
 	</div>
-</div>
-<div class="collapse in" id="review_step_2">
-	<div>
-		{% include "partials/review_user_responses.html" with questions=your_information step='your_information' %}
+	<p class="review-butons"><a class="btn btn-success" href="{% url 'question_steps' 'claimant' %}">Edit</a> </p>
+    <div class="clearfix"> </div>
+	<div class="collapse in" id="review_step_2">
+		<div>
+			{% include "partials/review_user_responses.html" with questions=your_information step='your_information' %}
+		</div>
 	</div>
-</div>
 </div>
 
 <div class="question-well step-review">
-<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_3" aria-controls="collapse_changed_name">
-	<div>
-		Step 3: Your spouse
+	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_3" aria-controls="collapse_changed_name">
+		<div>
+			Step 3: Your spouse
+		</div>
 	</div>
-</div>
-<div class="collapse in" id="review_step_3">
-	<div>
-		{% include "partials/review_user_responses.html" with questions=your_spouse step='your_spouse' %}
+	<p class="review-butons"><a class="btn btn-success" href="{% url 'question_steps' 'respondent' %}">Edit</a> </p>
+    <div class="clearfix"> </div>
+	<div class="collapse in" id="review_step_3">
+		<div>
+			{% include "partials/review_user_responses.html" with questions=your_spouse step='your_spouse' %}
+		</div>
 	</div>
-</div>
 </div>
 
 <div class="question-well step-review">
-<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_4" aria-controls="collapse_changed_name">
-	<div>
-		Step 4: Your marriage
+	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_4" aria-controls="collapse_changed_name">
+		<div>
+			Step 4: Your marriage
+		</div>
 	</div>
-</div>
-<div class="collapse in" id="review_step_4">
-	<div>
-		{% include "partials/review_user_responses.html" with questions=your_marriage step='your_marriage' %}
+	<p class="review-butons"><a class="btn btn-success" href="{% url 'question_steps' 'marriage' %}">Edit</a> </p>
+    <div class="clearfix"> </div>
+	<div class="collapse in" id="review_step_4">
+		<div>
+			{% include "partials/review_user_responses.html" with questions=your_marriage step='your_marriage' %}
+		</div>
 	</div>
-</div>
 </div>
 
 <div class="question-well step-review">
-<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_5" aria-controls="collapse_changed_name">
-	<div>
-		Step 5: Your separation
+	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_5" aria-controls="collapse_changed_name">
+		<div>
+			Step 5: Your separation
+		</div>
 	</div>
-</div>
-<div class="collapse in" id="review_step_5">
-	<div>
-		{% include "partials/review_user_responses.html" with questions=your_separation %}
+	<p class="review-butons"><a class="btn btn-success" href="{% url 'question_steps' 'separation' %}">Edit</a> </p>
+    <div class="clearfix"> </div>
+	<div class="collapse in" id="review_step_5">
+		<div>
+			{% include "partials/review_user_responses.html" with questions=your_separation %}
+		</div>
 	</div>
-</div>
 </div>
 
 {% if 'Spousal support' in which_orders.0.value|load_json %}
 <div class="question-well step-review">
-<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_6" aria-controls="collapse_changed_name">
-	<div>
-		Step 6: Spousal support
+	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_6" aria-controls="collapse_changed_name">
+		<div>
+			Step 6: Spousal support
+		</div>
 	</div>
-</div>
-<div class="collapse in" id="review_step_6">
-	<div>
-		{% include "partials/review_user_responses.html" with questions=spousal_support %}
+	<p class="review-butons"><a class="btn btn-success" href="{% url 'question_steps' 'support' %}">Edit</a> </p>
+    <div class="clearfix"> </div>
+	<div class="collapse in" id="review_step_6">
+		<div>
+			{% include "partials/review_user_responses.html" with questions=spousal_support %}
+		</div>
 	</div>
-</div>
 </div>
 {% endif %}
 
@@ -112,6 +124,8 @@
     		Step {% step_order step="property" %}: Property and debt
     	</div>
     </div>
+	<p class="review-butons"><a class="btn btn-success" href="{% url 'question_steps' 'property' %}">Edit</a> </p>
+    <div class="clearfix"> </div>
     <div class="collapse in" id="review_step_7">
     	<div>
     		{% include "partials/review_user_responses.html" with questions=property_and_debt step='property_and_debt' %}
@@ -127,6 +141,8 @@
     		Step {% step_order step="other_orders" %}: Other orders
     	</div>
     </div>
+	<p class="review-butons"><a class="btn btn-success" href="{% url 'question_steps' 'other_orders' %}">Edit</a> </p>
+    <div class="clearfix"> </div>
     <div class="collapse in" id="review_step_8">
     	<div>
     		{% include "partials/review_user_responses.html" with questions=other_orders %}
@@ -141,6 +157,8 @@
     		Step {% step_order step="other_questions" %}: Other questions
     	</div>
     </div>
+	<p class="review-butons"><a class="btn btn-success" href="{% url 'question_steps' 'other_questions' %}">Edit</a> </p>
+    <div class="clearfix"> </div>
     <div class="collapse in" id="review_step_9">
     	<div>
     		{% include "partials/review_user_responses.html" with questions=other_questions step="other_questions" %}
@@ -154,6 +172,8 @@
     		Step {% step_order step="location" %}: Filing location
     	</div>
     </div>
+	<p class="review-butons"><a class="btn btn-success" href="{% url 'question_steps' 'location' %}">Edit</a> </p>
+    <div class="clearfix"> </div>
     <div class="collapse in" id="review_step_10">
     	<div>
     		{% include "partials/review_user_responses.html" with questions=filing_locations %}
