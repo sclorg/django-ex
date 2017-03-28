@@ -15,7 +15,7 @@ question_step_mapping = {'prequalification': ['married_marriage_like', 'lived_in
                                          'occupation_spouse'],
                          'your_marriage': ['when_were_you_married', 'where_were_you_married_city', 'where_were_you_married_prov',
                                            'where_were_you_married_country', 'where_were_you_married_other_country', 'marital_status_before_you',
-                                           'marital_status_before_spouse', 'when_were_you_live_married_like', 'married_marriage_like'],
+                                           'marital_status_before_spouse', 'when_were_you_live_married_like'],
                          'your_separation': ['no_reconciliation_possible', 'no_collusion',],
                          'spousal_support': ['spouse_support_details', 'spouse_support_act',],
                          'property_and_debt': ['deal_with_property_debt', 'how_to_divide_property_debt', 'other_property_claims', 'want_other_property_claims'],

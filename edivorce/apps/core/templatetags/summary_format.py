@@ -115,8 +115,8 @@ def combine_address(source):
     return ''.join(tags)
 
 
-@register.simple_tag
-def marriage_tag(source):
+@register.simple_tag(takes_context=True)
+def marriage_tag(context, source):
     """
         Reformat your_marriage step
         Also show/hide optional questions
@@ -137,14 +137,20 @@ def marriage_tag(source):
     marital_status_spouse = ""
     marital_status_spouse_q = ""
 
+    # get married_marriage_like value to check if legally married or not
+    for question in context.get('prequalification', ''):
+        if question['question_id'] == 'married_marriage_like' and question['value'] == 'Legally married':
+            show_all = True
+            break
+        elif question['question_id'] == 'married_marriage_like':
+            break
+
     for item in source:
         q_id = item['question_id']
         value = item['value']
         q_name = item['question__name']
 
-        if q_id == 'married_marriage_like' and value == 'Legally married':
-            show_all = True
-        elif q_id == 'when_were_you_married':
+        if q_id == 'when_were_you_married':
             married_date_q = q_name
             married_date = value
         elif q_id == 'when_were_you_live_married_like':
