@@ -17,7 +17,7 @@
 </p>
 <p>&nbsp;</p>
 <h3>Print These Forms</h3>
-<p><a href="{% url 'dashboard_nav' 'help_saving_pdf' %}">Get help opening and saving PDF forms</a></p>
+<p><a href="{% url 'dashboard_nav' 'help_saving_pdf' %}">Get help opening and saving PDF forms</a> | <a href="#" class="info-modal">Changing my forms</a></p>
 
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF1" aria-controls="collapseF1">
@@ -240,6 +240,26 @@
         Order Divorce Form (F38){% else %} Form (F30){% endif %}. Note that these agreements or orders must not
         contradict what's in your divorce application.
     </p>
+</div>
+
+<div id="info_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa fa-file" aria-hidden="true"></i>
+                <h1 class="modal-title">Changing your forms</h1>
+            </div>
+            <div class="modal-body">
+                <p>
+                    If you need to make changes to your forms, you can return to the Divorce Questionnaire section to
+                    review and update your answers. You will then need to Review and Print your forms again.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

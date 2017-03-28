@@ -34,7 +34,7 @@ def prequalification(request, step):
     if not request.bceid_user.is_authenticated:
         responses_dict = get_responses_from_session(request)
     else:
-        user = __get_bceid_user(request)
+        user, _ = __get_bceid_user(request)
 
         responses_dict = get_responses_from_db(user)
         responses_dict['active_page'] = 'prequalification'
@@ -98,7 +98,14 @@ def login(request):
         if guid is None:
             return render(request, 'localdev/debug.html')
 
-        user = __get_bceid_user(request)
+        user, created = __get_bceid_user(request)
+
+        # some later messaging needs to be shown or hidden based on whether
+        # or not this is a returning user
+        print('CREATED=' + str(created))
+
+
+        request.session["FIRST_LOGIN"] = created
 
         if timezone.now() - user.last_login > datetime.timedelta(minutes=1):
             user.last_login = timezone.now()
@@ -115,10 +122,13 @@ def logout(request):
     """
     request.session.flush()
 
+    response = redirect(settings.LOGOUT_URL)
+
     if settings.DEPLOYMENT_TYPE == 'localdev':
-        return redirect('/')
-    else:
-        return redirect(settings.LOGOUT_URL)
+        response = redirect('/')
+
+    response.delete_cookie('VIEWED_DASHBOARD_DURING_THIS_SESSION')
+    return response
 
 
 @bceid_required
@@ -126,7 +136,7 @@ def overview(request):
     """
     Dashboard: Process overview page.
     """
-    user = __get_bceid_user(request)
+    user, _ = __get_bceid_user(request)
     responses_dict_by_step = get_responses_from_db_grouped_by_steps(user)
 
     # Add step status dictionary
@@ -141,7 +151,7 @@ def dashboard_nav(request, nav_step):
     """
     Dashboard: All other pages
     """
-    user = __get_bceid_user(request)
+    user, _ = __get_bceid_user(request)
     responses_dict = get_responses_from_db(user)
     responses_dict['active_page'] = nav_step
     template_name = 'dashboard/%s.html' % nav_step
@@ -155,7 +165,7 @@ def question(request, step):
     """
     template = 'question/%02d_%s.html' % (template_step_order[step], step)
 
-    user = __get_bceid_user(request)
+    user, _ = __get_bceid_user(request)
     responses_dict_by_step = get_responses_from_db_grouped_by_steps(user)
 
     if step == "review":
@@ -210,4 +220,4 @@ def __get_bceid_user(request):
         user.last_login = timezone.now()
         user.save()
 
-    return user
+    return user, created
