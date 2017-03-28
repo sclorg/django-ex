@@ -6,9 +6,9 @@
 
 {% block content %}
 <h1>Get Help Opening and Saving PDF forms</h1>
-<div class="question-well">
+<div>
     <h3>Your divorce forms</h3>
-    <p>If you “Preview” your form, you can view your information, but you won’t be able to print it in the right format. To file your form with the courts, you will need to select “Print” to open a PDF version.</p>
+    <p>You can “Preview” your form to view your information and print it from there (using File > Print). If you’d like to have a file to print and save, you will need to select “Print” to open a PDF version.</p>
     <p>"PDF" stand for Portable Document Format, which is a file format created by Adobe and is a standard format for printed documents. A PDF retains the design and layout of the document so it appears the same wherever it is viewed or printed.</p>
 </div>
 
@@ -19,6 +19,7 @@
         <li>Click on the “Print” link to open the PDF form in your browser window.</li>
         <li>Depending on your browser settings, your PDF might save the form to your computer (see below) or it will open in a new tab or window.</li>
         <li>To print, click on the printer icon at the top of the document (it might be on the left or the right side).</li>
+        <li>To save the file to your computer, click on the save icon (disk) or download icon (downward arrow) at the top of the document.</li>
     </ol>
     <p>
         If you are having trouble viewing PDFs, you may need to adjust your browser settings. See
@@ -54,13 +55,19 @@
 {% endblock %}
 
 {% block backToDashboard %}
-<!-- no back to dashboard -->
+    <div class="mid_banner-dash"><a href="{% url 'dashboard_nav' 'print_form' %}">
+        <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>Back to Dashboard</a>
+    </div>
 {% endblock %}
 
 {% block formbuttons %}
 <!-- no button -->
 {% endblock %}
 
-{% block sidebarText %}
-    {% include "dashboard/partials/sidebar_help.html" %}
+{% block sidebarNav %}
+<!-- no sidebarNav -->
+{% endblock %}
+
+{% block sidebar %}
+<!-- no sidebar -->
 {% endblock %}
