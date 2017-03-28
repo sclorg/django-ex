@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }}: Overview{% endblock %}
+
+{% block progress %}{% include "partials/dashnav.html" with active_page=active_page %}{% endblock %}
+
+{% block content %}
+<h1>Get Help Opening and Saving PDF forms</h1>
+<div class="question-well">
+    <h3>Your divorce forms</h3>
+    <p>If you “Preview” your form, you can view your information, but you won’t be able to print it in the right format. To file your form with the courts, you will need to select “Print” to open a PDF version.</p>
+    <p>"PDF" stand for Portable Document Format, which is a file format created by Adobe and is a standard format for printed documents. A PDF retains the design and layout of the document so it appears the same wherever it is viewed or printed.</p>
+</div>
+
+<div class="question-well">
+    <h3>Open the form in your browser</h3>
+    <p>Your browser (e.g. Internet Explorer, Edge, Google Chrome, Firefox, or Safari) may have a built-in PDF viewer. If so, you can open the forms directly on the web.</p>
+    <ol type="1">
+        <li>Click on the “Print” link to open the PDF form in your browser window.</li>
+        <li>Depending on your browser settings, your PDF might save the form to your computer (see below) or it will open in a new tab or window.</li>
+        <li>To print, click on the printer icon at the top of the document (it might be on the left or the right side).</li>
+    </ol>
+    <p>
+        If you are having trouble viewing PDFs, you may need to adjust your browser settings. See
+        <a href="https://helpx.adobe.com/acrobat/using/display-pdf-in-browser.html" target="_blank">Adobe’s instructions for displaying PDFs</a> in various browsers for detailed instructions.
+    </p>
+</div>
+
+<div class="question-well">
+    <h3>Save the forms to your computer</h3>
+    <p>It's a great idea to save the PDF’s of your forms to your computer so you have a backup, and can print it later. You must have Adobe Reader installed (or Preview on Mac), otherwise, you can <a href="https://get.adobe.com/reader/" target="_blank">download it here</a>.</p>
+    <ol type="1">
+        <li>Right-click on the “Print” link next to the name of the document.</li>
+        <li>Select “Save Target As” or “Save Link As”.</li>
+        <li>Choose a folder to keep your forms in (for example “Documents”). You may want to make a note of where you saved it.</li>
+        <li>Open Adobe Reader: When Adobe Reader is open, go to File, then to Open, then to where you saved the document. Double-click on the document to open it.<br />
+            OR<br />
+            FInd the file: On your computer, find where you saved the document and double-click it.</li>
+        <li>View and/or print your form.</li>
+    </ol>
+</div>
+
+<div class="question-well">
+    <h3>Download the form through your browser</h3>
+    <p>Depending on your browser settings, your PDF forms may download automatically.</p>
+    <ol type="1">
+        <li>If asked, choose a folder to keep your forms in (for example “Documents”). You may want to make a note of where you saved it.</li>
+        <li>Open Adobe Reader (or Preview on Mac). If you need to, you can <a href="https://get.adobe.com/reader/" target="_blank">download it here</a>.</li>
+        <li>When Adobe Reader is open, go to File, then to Open, then go to your “Downloads” folder (or to where you saved the document).</li>
+        <li>View and/or print your form.</li>
+    </ol>
+</div>
+
+{% endblock %}
+
+{% block backToDashboard %}
+<!-- no back to dashboard -->
+{% endblock %}
+
+{% block formbuttons %}
+<!-- no button -->
+{% endblock %}
+
+{% block sidebarText %}
+    {% include "dashboard/partials/sidebar_help.html" %}
+{% endblock %}
