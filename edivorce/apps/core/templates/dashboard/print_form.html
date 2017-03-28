@@ -30,7 +30,7 @@
     <div class="collapse" id="collapseF1">
        <div>
            <p>
-               The Notice of Joint Family Claim Form (F1) is a document that starts the court file for your divorce. It states the grounds for the divorce and gives information about you and your spouse, as well as the details about your marriage and separation.
+               The Notice of Joint Family Claim Form (F1) is a document that starts the court file for your divorce. It states the grounds for the divorce and gives information about you and your spouse, as well as the details about your {% if married_marriage_like == 'Legally married' %}marriage{% else %}relationship{% endif %} and separation.
            </p>
        </div>
     </div>
@@ -150,6 +150,34 @@
         <div class="clearfix"> </div>
     </div>
 </div>
+{% else %}
+<div class="review-well clearfix">
+    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF30" aria-controls="collapseF30">
+       <div>
+           Affidavit Form (F30)
+       </div>
+    </div>
+    <div class="clearfix"> </div>
+    <div class="collapse" id="collapseF30">
+       <div>
+           <p>
+               Since your divorce won't require an appearance before a judge, in addition to the documents above you
+               must fill out and swear/affirm <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click" title="&lt;b&gt;Swear/Affirm&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;To &ldquo;take an oath&rdquo; in front of a lawyer, notary public, or commissioner for taking affidavits
+               that statements made in court or the contents of an affidavit are true to the best of your knowledge and belief
+               that your oath is &ldquo;under an immediate sense of responsibility to God&rdquo;. A non-religious alternative is to affirm." aria-hidden="true"></i> an <a target="_blank" href="http://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/f30.pdf?forcedownload=true">Affidavit Form (F30)</a>. This document sets out the facts of your marriage
+               and separation.
+           <p/>
+            <p>
+                Please follows these steps to ensure your affidavit does not get rejected:
+            </p>
+           <ul>
+               Both you and your spouse need to swear/affirm the affidavit. Take <b>photo identification</b> with you. The person who will swear/affirm the documents for you must be sure you are both who you say you are. One affidavit must be sworn/affirmed <b>at the time of filing.</b>
+           <p>
+               You'll notice that some of the information in the affidavit is the same as what's in your Notice of Joint Family Claim Form (F1). Because the Notice of Joint Family Claim is not a sworn document, and the judge/master must have sworn evidence to make a decision, you must swear or affirm that the information in these affidavits is true.
+           </p>
+       </div>
+    </div>
+</div>
 {% endif %}
 
 {% if married_marriage_like == 'Legally married' %}
@@ -199,12 +227,14 @@
         <li>Certificate of Pleadings Form (F36)</li>
         {% if married_marriage_like == 'Legally married' %}
             <li>Affidavit — Desk Order Divorce Form (F38)</li>
+        {% else %}
+            <li>Affidavit — Desk Order Divorce Form (F30)</li>
         {% endif %}
     </ul>
     <p>
         If you have other court orders or a written separation agreement, they should also be
-        attached{% if married_marriage_like == 'Legally married' %} to your Affidavit — Desk
-        Order Divorce Form (F38){% endif %}. Note that these agreements or orders must not
+        attached to your Affidavit{% if married_marriage_like == 'Legally married' %} — Desk
+        Order Divorce Form (F38){% else %} Form (F30){% endif %}. Note that these agreements or orders must not
         contradict what's in your divorce application.
     </p>
 </div>
