@@ -1,25 +1,48 @@
 from edivorce.apps.core.models import UserResponse, Question
 from edivorce.apps.core.utils.question_step_mapping import question_step_mapping
 
+COMMON_LAW = 'Living together in a marriage like relationship'
+MARRIED = 'Legally married'
+
 
 def get_responses_from_db(bceid_user):
-    responses = UserResponse.objects.filter(bceid_user=bceid_user)
+    married, married_questions, responses = __get_data(bceid_user)
     responses_dict = {}
     for answer in responses:
-        responses_dict[answer.question.key] = answer.value
+        if not married and answer.question_id in married_questions:
+            responses_dict[answer.question.key] = ''
+        else:
+            responses_dict[answer.question.key] = answer.value
+
     return responses_dict
 
 
 def get_responses_from_db_grouped_by_steps(bceid_user):
     """ Group questions and responses by steps they belong to """
-    responses = UserResponse.objects.filter(bceid_user=bceid_user)
+    married, married_questions, responses = __get_data(bceid_user)
     responses_dict = {}
+
     for step, questions in question_step_mapping.items():
-        responses_dict[step] = responses.filter(question_id__in=questions).exclude(
-            value__in=['', '[]', '[["",""]]']).order_by('question').values('question_id', 'value', 'question__name',
-                                                                           'question__required',
-                                                                           'question__conditional_target',
-                                                                           'question__reveal_response')
+
+        lst = []
+        step_responses = responses.filter(question_id__in=questions).exclude(
+            value__in=['', '[]', '[["",""]]']).order_by('question')
+
+        for answer in step_responses:
+            if not married and answer.question_id in married_questions:
+                value = ''
+            else:
+                value = answer.value
+
+            lst += [{'question__conditional_target': answer.question.conditional_target,
+                     'question__reveal_response': answer.question.reveal_response,
+                     'value': value,
+                     'question__name': answer.question.name,
+                     'question__required': answer.question.required,
+                     'question_id': answer.question.pk}]
+
+        responses_dict[step] = lst
+
     return responses_dict
 
 
@@ -75,3 +98,11 @@ def copy_session_to_db(request, bceid_user):
 
             # clear the response from the session
             request.session[q.key] = None
+
+
+def __get_data(bceid_user):
+    responses = UserResponse.objects.filter(bceid_user=bceid_user)
+    married = responses.get(question_id='married_marriage_like').value != COMMON_LAW
+    married_questions = list(
+        Question.objects.filter(reveal_response=MARRIED).values_list("key", flat=True))
+    return married, married_questions, responses
