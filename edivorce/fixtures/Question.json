@@ -418,8 +418,8 @@
         "description": "For step 4, Form 1 2. Divorce section A",
         "summary_order": 39,
         "required": "Conditional",
-        "conditional_target": "where_were_you_married_other_country",
-        "reveal_response": "Other"
+        "conditional_target": "married_marriage_like",
+        "reveal_response": "Legally married"
     },
     "model": "core.question",
     "pk": "where_were_you_married_country"
@@ -428,7 +428,10 @@
     "fields": {
         "name": "Where were you married? Other Country",
         "description": "For step 4, Form 1 2. Divorce section A",
-        "summary_order": 40
+        "summary_order": 40,
+        "required": "Conditional",
+        "conditional_target": "where_were_you_married_country",
+        "reveal_response": "Other"
     },
     "model": "core.question",
     "pk": "where_were_you_married_other_country"
