@@ -584,9 +584,7 @@
         "name": "Country",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
         "summary_order": 55,
-        "required": "Conditional",
-        "conditional_target": "address_to_send_official_document_other_country_you",
-        "reveal_response": "Other"
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_country_you"
@@ -595,7 +593,10 @@
     "fields": {
         "name": "Other Country",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 56
+        "summary_order": 56,
+        "required": "Conditional",
+        "conditional_target": "address_to_send_official_document_country_you",
+        "reveal_response": "Other"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_other_country_you"
@@ -663,9 +664,7 @@
         "name": "Country",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
         "summary_order": 63,
-        "required": "Conditional",
-        "conditional_target": "address_to_send_official_document_other_country_spouse",
-        "reveal_response": "Other"
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_country_spouse"
@@ -674,7 +673,10 @@
     "fields": {
         "name": "Other Country",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 64
+        "summary_order": 64,
+        "required": "Conditional",
+        "conditional_target": "address_to_send_official_document_country_spouse",
+        "reveal_response": "Other"
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_other_country_spouse"

@@ -23,15 +23,15 @@
 
         <h1 class="text-center">Form F38 <br>(Rule 10-10 (2))</h1>
         <p class="text-right">
-            This is the <span class="form-entry not-complete">[<em>1st/2nd/3rd/etc.</em>]</span> affidavit
+            This is the <span class="form-entry not-complete"></span> affidavit
         </p>
         <p class="text-right">
-            of {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}
-            and {% if responses.name_spouse %}{{ responses.name_spouse }}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}
+            of {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete"></span>{% endif %}
+            and {% if responses.name_spouse %}{{ responses.name_spouse }}{% else %}<span class="form-entry not-complete"></span>{% endif %}
             in this case
         </p>
         <p class="text-right">
-            and was made on <span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span>
+            and was made on <span class="form-entry not-complete"></span>
         </p>
         <p class="text-right">
             Court File No.: <span class="form-entry not-complete">&nbsp;</span>
@@ -52,17 +52,17 @@
             <strong>AFFIDAVIT - DESK ORDER DIVORCE</strong>
         </p>
         <p>
-            We, {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}, of
+            We, {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
             {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_prov_you and responses.address_to_send_official_document_country_you and responses.address_to_send_official_document_postal_code_you %}
               {{ responses.address_to_send_official_document_street_you }}, {{ responses.address_to_send_official_document_city_you }}, {{ responses.address_to_send_official_document_prov_you }},
-              {% if responses.address_to_send_official_document_country_you == 'Other' %} {{ responses.address_to_send_official_document_other_country_you }}{% else %} {{ responses.address_to_send_official_document_country_you }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_you }} {% else %}<span class="form-entry not-complete">[<em>address</em>]</span>{% endif %},
-            {% if responses.occupation_you %} {{ responses.occupation_you }}{% else %}<span class="form-entry not-complete">[<em>occupation</em>]</span>{% endif %},<br />
+              {% if responses.address_to_send_official_document_country_you == 'Other' %} {{ responses.address_to_send_official_document_other_country_you }}{% else %} {{ responses.address_to_send_official_document_country_you }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_you }} {% else %}<span class="form-entry not-complete"></span>{% endif %},
+            {% if responses.occupation_you %} {{ responses.occupation_you }}{% else %}<span class="form-entry not-complete"></span>{% endif %},<br />
             and <br />
-            {% if responses.name_spouse %}{{ responses.name_spouse }}{% else %}<span class="form-entry not-complete">[<em>name</em>]</span>{% endif %}, of
+            {% if responses.name_spouse %}{{ responses.name_spouse }}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
             {% if responses.address_to_send_official_document_street_spouse and responses.address_to_send_official_document_city_spouse and responses.address_to_send_official_document_prov_spouse and responses.address_to_send_official_document_country_spouse and responses.address_to_send_official_document_postal_code_spouse %}
               {{ responses.address_to_send_official_document_street_spouse }}, {{ responses.address_to_send_official_document_city_spouse }}, {{ responses.address_to_send_official_document_prov_spouse }},
-              {% if responses.address_to_send_official_document_country_spouse == 'Other' %} {{ responses.address_to_send_official_document_other_country_spouse }}{% else %} {{ responses.address_to_send_official_document_country_spouse }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_spouse }} {% else %}<span class="form-entry not-complete">[<em>address</em>]</span>{% endif %},
-            {% if responses.occupation_spouse %} {{ responses.occupation_spouse }}{% else %}<span class="form-entry not-complete">[<em>occupation</em>]</span>{% endif %},<br />
+              {% if responses.address_to_send_official_document_country_spouse == 'Other' %} {{ responses.address_to_send_official_document_other_country_spouse }}{% else %} {{ responses.address_to_send_official_document_country_spouse }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_spouse }} {% else %}<span class="form-entry not-complete"></span>{% endif %},
+            {% if responses.occupation_spouse %} {{ responses.occupation_spouse }}{% else %}<span class="form-entry not-complete"></span>{% endif %},<br />
             SWEAR (OR AFFIRM) THAT:
         </p>
         <p class="schIndent1">
@@ -89,39 +89,39 @@
 
         <p class="schIndent1">
             5 Claimant 1 and claimant 2 were living separate and apart from each other at the start of this family law case and claimant 1 and claimant 2 have lived separate and apart from each other since
-            {% if responses.separation_date %} {{ responses.separation_date }}{% else %} <span class="form-entry not-complete">[<em>dd/mmm/yyyy</em>]</span>{% endif %}, except:
+            {% if responses.separation_date %} {{ responses.separation_date }}{% else %} <span class="form-entry not-complete"></span>{% endif %}, except:
             {% multiple_values_to_list source=responses.reconciliation_period as periods %}
             {% if periods != '[]' %}
                 {% for period in periods %}
                     from {{ period | first }} to {{ period | last }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}.
-            {% else %}<span class="form-entry not-complete">[<em>provide dates of any periods of attempted reconciliation</em>]</span>{% endif %}
+            {% else %}<span class="form-entry not-complete"></span>{% endif %}
         </p>
         {% comment "This section is out of scope" %}
             <p class="schIndent1">
-                5 [<em>Select this provision if the grounds for divorce are adultery of a spouse and there has been an admission of adultery.</em>] My spouse has admitted to me that <span class="form-entry not-complete">[<em>he/she</em>]</span> committed the acts of adultery alleged in Schedule
-                1 of the <span class="form-entry not-complete">[<em>notice of family claim/counterclaim</em>]</span> and
+                5 My spouse has admitted to me that <span class="form-entry not-complete"></span> committed the acts of adultery alleged in Schedule
+                1 of the <span class="form-entry not-complete"></span> and
             </p>
             <p class="schIndent2">
-                (a) as corroboration I refer to <span class="form-entry not-complete">[<em>Set out whichever one of the following is applicable:</em></span> the affidavit(s) of <span class="form-entry not-complete">[<em>name(s)</em>]</span>, / the transcript of the examination for discovery of <span class="form-entry not-complete">[<em>name</em>]</span>
+                (a) as corroboration I refer to <span class="form-entry not-complete">[<em>Set out whichever one of the following is applicable:</em></span> the affidavit(s) of <span class="form-entry not-complete"></span>, / the transcript of the examination for discovery of <span class="form-entry not-complete"></span>
                 marked as Exhibit "A" to this affidavit <span class="form-entry not-complete">]</span> ,
             </p>
             <p class="schIndent2">
                 (b) I have not condoned the conduct of my spouse that is alleged as the grounds for divorce in that I have not forgiven my spouse for that conduct, nor have I encouraged or acquiesced in that conduct.
             </p>
             <p class="schIndent1">
-                5 [<em>Select this provision if the grounds for divorce are adultery of a spouse and there has been no admission of adultery.</em>] I have no personal knowledge of the acts of adultery alleged in Schedule 1 of the <span class="form-entry not-complete">&nbsp;</span>[<em>notice of family claim/counterclaim</em>]<span class="form-entry not-complete">&nbsp;</span>
+                5 I have no personal knowledge of the acts of adultery alleged in Schedule 1 of the <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>
                 and
             </p>
             <p class="schIndent2">
-                (a) in proof of the adultery committed by my spouse I refer to <span class="form-entry not-complete">&nbsp;</span>[<em>Set out whichever one of the following is applicable:</em> the affidavit(s) of <span class="form-entry not-complete">&nbsp;</span>[<em>name(s)</em>]<span class="form-entry not-complete">&nbsp;</span>, / the transcript of the examination
-                for discovery of <span class="form-entry not-complete">&nbsp;</span>[<em>name</em>]<span class="form-entry not-complete">&nbsp;</span> marked as Exhibit "A" to this affidavit]<span class="form-entry not-complete">&nbsp;</span> ,
+                (a) in proof of the adultery committed by my spouse I refer to <span class="form-entry not-complete">&nbsp;</span>[<em>Set out whichever one of the following is applicable:</em> the affidavit(s) of <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>, / the transcript of the examination
+                for discovery of <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span> marked as Exhibit "A" to this affidavit]<span class="form-entry not-complete">&nbsp;</span> ,
             </p>
             <p class="schIndent2">
                 (b) I have not condoned the conduct of my spouse that is alleged as the grounds for divorce in that I have not forgiven my spouse for that conduct, nor have I encouraged or acquiesced in that conduct.
             </p>
             <p class="schIndent1">
-                5 [<em>Select this provision if the grounds for divorce are physical or mental cruelty of a spouse.</em>] My spouse has treated me with physical or mental cruelty since the date of the marriage as follows: <span class="form-entry not-complete">&nbsp;</span>[<em>provide details</em>]<span class="form-entry not-complete">&nbsp;</span>
+                5 My spouse has treated me with physical or mental cruelty since the date of the marriage as follows: <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>
             </p>
         {% endcomment %}
         <p class="schIndent1">
@@ -136,13 +136,13 @@
                 7 There are children of the marriage as defined by the <em>Divorce Act</em> (Canada) and
             </p>
             <p class="schIndent2">
-                (a) those children are <span class="form-entry not-complete">&nbsp;</span>[<em>provide the full name, age and birth date of each child of the marriage</em>]<span class="form-entry not-complete">&nbsp;</span>,
+                (a) those children are <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>,
             </p>
             <p class="schIndent2">
                 (b) we have sworn a child support affidavit in Form F37, and
             </p>
             <p class="schIndent2">
-                (c) the following arrangements for parenting have been made: <span class="form-entry not-complete">&nbsp;</span>[<em>provide details</em>]<span class="form-entry not-complete">&nbsp;</span> .
+                (c) the following arrangements for parenting have been made: <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span> .
             </p>
         {% endcomment %}
 
@@ -163,7 +163,7 @@
                     <td colname="c3"> </td>
                 </tr>
                 <tr>
-                    <td colname="c1"> on <span class="form-entry not-complete">&nbsp;</span>[<em>dd/mmm/yyyy</em>]<span class="form-entry not-complete">&nbsp;</span> . </td>
+                    <td colname="c1"> on <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span> . </td>
                     <td colname="c2"> ) </td>
                     <td colname="c3"> <span class="form-entry not-complete">&nbsp;</span> </td>
                 </tr>
@@ -190,7 +190,7 @@
             </tbody>
         </table>
         <p>
-            <span class="form-entry not-complete">&nbsp;</span>[<em>print name or affix stamp of commissioner</em>]<span class="form-entry not-complete">&nbsp;</span>
+            <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>
         </p>
         <hr />
 
@@ -207,7 +207,7 @@
                     <td colname="c3"> </td>
                 </tr>
                 <tr>
-                    <td colname="c1"> on <span class="form-entry not-complete">&nbsp;</span>[<em>dd/mmm/yyyy</em>]<span class="form-entry not-complete">&nbsp;</span> . </td>
+                    <td colname="c1"> on <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span> . </td>
                     <td colname="c2"> ) </td>
                     <td colname="c3"> <span class="form-entry not-complete">&nbsp;</span> </td>
                 </tr>
@@ -234,7 +234,7 @@
             </tbody>
         </table>
         <p>
-            <span class="form-entry not-complete">&nbsp;</span>[<em>print name or affix stamp of commissioner</em>]<span class="form-entry not-complete">&nbsp;</span>
+            <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>
         </p>
         <hr />
         <small>Printed on {% now "F jS, Y" %} from https://justice.gov.bc.ca/divorce</small>
