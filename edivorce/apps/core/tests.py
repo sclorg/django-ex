@@ -257,7 +257,7 @@ class UserResponseTestCase(TestCase):
         self.assertEqual(is_complete(step, lst)[0], True)
 
         # Only two required question with hidden shown and answered
-        create_response(user, 'want_other_property_claims', 'Ask for other property claims')
+        create_response(user, 'want_other_property_claims', '["Ask for other property claims"]')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
         self.assertEqual(is_complete(step, lst)[0], False)
