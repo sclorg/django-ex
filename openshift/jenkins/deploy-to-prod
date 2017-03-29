@@ -1,8 +1,8 @@
 node('master') {
 
 stage 'deployInProd'
-openshiftTag(namespace: 'jag-csb-edivorce-tools', sourceStream: 'edivorce-django',  sourceTag: 'deploy-to-test', destinationNamespace: 'jag-csb-edivorce-tools',  destinationStream: 'edivorce-django', destinationTag: 'deploy-to-prod')
+openshiftTag(namespace: 'jag-csb-edivorce-tools', sourceStream: 'edivorce-django',  sourceTag: 'latest', destinationNamespace: 'jag-csb-edivorce-tools',  destinationStream: 'edivorce-django', destinationTag: 'deploy-to-prod')
 openshiftDeploy(namespace: 'jag-csb-edivorce-prod', deploymentConfig: 'edivorce-django')
-openshiftScale(namespace: 'jag-csb-edivorce-prod', deploymentConfig: 'edivorce-django',replicaCount: '1')
+openshiftScale(namespace: 'jag-csb-edivorce-prod', deploymentConfig: 'edivorce-django',replicaCount: '2')
 }
 
