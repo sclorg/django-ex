@@ -99,12 +99,12 @@
                 <tr>
                     <td> Ordinarily resident in British Columbia since: [<em>dd/mm/yyyy</em>] </td>
                     <td colname="c2">{% if responses.lived_in_bc_you == 'Since birth' %} {{ responses.birthday_you }}
-                                     {% elif responses.lived_in_bc_you == 'Moved to British Columbia on' %} {{ responses.moved_to_bc_date_you }}
-                                     {% elif responses.lived_in_bc_you == 'Do not live in British Columbia' %} {{ responses.lived_in_bc_you }}
+                                     {% elif responses.lived_in_bc_you == 'Moved to B.C. on' %} {{ responses.moved_to_bc_date_you }}
+                                     {% elif responses.lived_in_bc_you == 'Do not live in B.C.' %}
                                      {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
                     <td colname="c3">{% if responses.lived_in_bc_spouse == 'Since birth' %} {{ responses.birthday_spouse }}
-                                     {% elif responses.lived_in_bc_spouse == 'Moved to British Columbia on' %} {{ responses.moved_to_bc_date_spouse }}
-                                     {% elif responses.lived_in_bc_spouse == 'Do not live in British Columbia' %} {{ responses.lived_in_bc_spouse }}
+                                     {% elif responses.lived_in_bc_spouse == 'Moved to B.C. on' %} {{ responses.moved_to_bc_date_spouse }}
+                                     {% elif responses.lived_in_bc_spouse == 'Do not live in B.C.' %}
                                      {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
                 </tr>
                 <tr>
@@ -269,7 +269,7 @@
                 </tr>
             </tbody>
         </table>
-
+        {% comment "Out of scope for now %}
         <h3>4. Orders asked for in relation to children</h3>
         <table class="table table-bordered">
             <tbody>
@@ -292,6 +292,7 @@
                 </tr>
             </tbody>
         </table>
+        {% endcomment %}
 
         <h3>5. Spousal support</h3>
         <table class="table table-bordered">
