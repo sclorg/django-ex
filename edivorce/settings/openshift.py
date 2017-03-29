@@ -78,3 +78,5 @@ BASICAUTH_ENABLED = os.getenv('BASICAUTH_ENABLED', '').lower() == 'true'
 BASICAUTH_USERNAME = os.getenv('BASICAUTH_USERNAME', '')
 BASICAUTH_PASSWORD = os.getenv('BASICAUTH_PASSWORD', '')
 
+# Only send session cookies over SSL
+SESSION_COOKIE_SECURE=True
