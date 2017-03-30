@@ -18,9 +18,6 @@ class BceidUser(object):
 class BceidMiddleware(object):
     def process_request(self, request):
 
-        # make the FORCE_SCRIPT_NAME available in templates
-        request.proxy_root_path = settings.FORCE_SCRIPT_NAME
-
         localdev = settings.DEPLOYMENT_TYPE == 'localdev'
 
         # make sure the request didn't bypass the proxy

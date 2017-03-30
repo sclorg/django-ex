@@ -75,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'edivorce.apps.core.context_processors.settings_processor'
             ],
         },
     },
@@ -126,3 +127,6 @@ FIXTURE_DIRS = (
 )
 
 BASICAUTH_ENABLED = False
+
+# Google Tag Manager (dev/test instance)
+GTM_ID = 'GTM-NJLR7LT'

@@ -16,17 +16,19 @@
         {% compress css %}
         <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}" />
         {% endcompress %}
+        {% include 'partials/gtm_head.html' %}
 
         <!--[if lt IE 9]>
             <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
             <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
         <![endif]-->
         <script>
-            window.sm_base_url = '{{ request.proxy_root_path }}';
+            window.sm_base_url = '{{ proxy_root_path }}';
         </script>
 
     </head>
     <body>
+        {% include 'partials/gtm_body.html' %}
         <div id="top_banner">
             <div class="container-fluid">
                 <div class="row">

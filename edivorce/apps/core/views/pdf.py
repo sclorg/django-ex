@@ -41,7 +41,7 @@ def __render_form(request, form_name, context):
         context["css_root"] = settings.FORCE_SCRIPT_NAME[:-1]
 
     # render to form as HTML
-    rendered_html = render_to_string('pdf/' + form_name + '.html', context=context)
+    rendered_html = render_to_string('pdf/' + form_name + '.html', context=context, request=request)
 
     # if '?html' is in the querystring, then return the plain html
     if output_as_html:

@@ -64,6 +64,8 @@ if DEPLOYMENT_TYPE == 'test':
 if DEPLOYMENT_TYPE == 'prod':
     PROXY_URL_PREFIX = "/divorce"
     REGISTER_URL = 'https://www.bceid.ca/directories/bluepages/details.aspx?serviceID=4483'
+    # Google Tag Manager (Production)
+    GTM_ID = 'GTM-W4Z2SPS'
 
 FORCE_SCRIPT_NAME = PROXY_URL_PREFIX + '/'
 STATIC_URL = PROXY_URL_PREFIX + '/static/'
