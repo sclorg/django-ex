@@ -93,6 +93,15 @@ def login(request):
     if settings.DEPLOYMENT_TYPE == 'localdev' and not request.session.get('fake-bceid-guid'):
         return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
     else:
+        # Save SiteMinder headers to session variables.  /login* is the only actual
+        # SiteMinder-protected part of the site, so the headers aren't availabale anywhere else
+        if request.META.get('HTTP_SMGOV_USERGUID', ''):
+            request.session['SMGOV_USERGUID'] = request.META.get('HTTP_SMGOV_USERGUID')
+
+        if request.META.get('HTTP_SMGOV_USERDISPLAYNAME', ''):
+            request.session['SMGOV_USERDISPLAYNAME'] = request.META.get('HTTP_SMGOV_USERDISPLAYNAME')
+
+        # get the Guid that was set in the middleware
         guid = request.bceid_user.guid
 
         if guid is None:

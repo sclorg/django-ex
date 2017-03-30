@@ -8,6 +8,10 @@ handler500 = 'core.views.main.server_error'
 urlpatterns = [
     # url(r'^guide$', styleguide.guide),
     url(r'^api/response$', api.UserResponseHandler.as_view()),
+
+    # todo: remove this line once SMGOV headers are working
+    url(r'^login/headers$', system.headers),
+
     url(r'^login', main.login, name="login"),
     url(r'^bceid', localdev.bceid, name="bceid"),
     url(r'^register$', main.register, name="register"),

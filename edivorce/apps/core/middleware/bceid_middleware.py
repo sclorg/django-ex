@@ -20,19 +20,23 @@ class BceidMiddleware(object):
 
         localdev = settings.DEPLOYMENT_TYPE == 'localdev'
 
+        # get SiteMinder variables from the headers first, then from the session
+        smgov_userguid = request.META.get('HTTP_SMGOV_USERGUID', request.session.get('SMGOV_USERGUID',False))
+        smgov_userdisplayname = request.META.get('HTTP_SMGOV_USERDISPLAYNAME', request.session.get('SMGOV_USERDISPLAYNAME', False))
+
         # make sure the request didn't bypass the proxy
         if not localdev and not self.__request_came_from_proxy(request):
             print("Redirecting to " + settings.PROXY_BASE_URL + request.path, file=sys.stderr)
             return redirect(settings.PROXY_BASE_URL + request.path)
 
-        if not localdev and request.META.get('HTTP_SM_USERDN', False):
+        if not localdev and smgov_userguid:
 
             # 1. Real BCeID user / logged in
             request.bceid_user = BceidUser(
-                guid=request.META.get('HTTP_SM_USERDN'),
+                guid=smgov_userguid,
                 is_authenticated=True,
                 user_type='BCEID',
-                first_name=request.META.get('HTTP_SM_USER'),
+                first_name=smgov_userdisplayname,
                 last_name=''
             )
 
