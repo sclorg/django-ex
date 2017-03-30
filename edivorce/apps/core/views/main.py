@@ -105,7 +105,11 @@ def login(request):
         guid = request.bceid_user.guid
 
         if guid is None:
-            return render(request, 'localdev/debug.html')
+            # If a user is logged into an IDIR then they can see the login page
+            # but the SMGOV headers are missing.  If this is the case, then log them out
+            # of their IDIR, and redirect them back to here again....
+            return redirect(
+                settings.LOGOUT_URL_TEMPLATE % (settings.PROXY_BASE_URL, settings.FORCE_SCRIPT_NAME[:-1] + '/login'))
 
         user, created = __get_bceid_user(request)
 

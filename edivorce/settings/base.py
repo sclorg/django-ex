@@ -28,8 +28,6 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = False
 
-# TODO: Set ALLOWED_HOSTS this to the actual host headers used by the local/dev/test/prod instances & health probes
-# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 ALLOWED_HOSTS = ['*']
 
 # Application definition

@@ -73,7 +73,8 @@ WEASYPRINT_CSS_LOOPBACK += PROXY_URL_PREFIX
 
 # Integration URLs
 PROXY_BASE_URL = 'https://justice.gov.bc.ca'
-LOGOUT_URL = 'https://logon.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1' % (PROXY_BASE_URL, PROXY_URL_PREFIX)
+LOGOUT_URL_TEMPLATE = 'https://logon.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
+LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
 
 # Basic Authentication to prevent anyone from accidentally stumbling across publicly accessible dev/test environments
 BASICAUTH_ENABLED = os.getenv('BASICAUTH_ENABLED', '').lower() == 'true'
