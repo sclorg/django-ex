@@ -136,7 +136,6 @@ def logout(request):
     if settings.DEPLOYMENT_TYPE == 'localdev':
         response = redirect('/')
 
-    response.delete_cookie('VIEWED_DASHBOARD_DURING_THIS_SESSION')
     return response
 
 
@@ -150,9 +149,14 @@ def overview(request):
 
     # Add step status dictionary
     responses_dict_by_step['step_status'] = get_step_status(responses_dict_by_step)
-
     responses_dict_by_step['active_page'] = 'overview'
-    return render(request, 'overview.html', context=responses_dict_by_step)
+
+    response = render(request, 'overview.html', context=responses_dict_by_step)
+
+    # set this session variable after the page is already rendered
+    request.session['VIEWED_DASHBOARD_DURING_SESSION'] = True
+
+    return response
 
 
 @bceid_required

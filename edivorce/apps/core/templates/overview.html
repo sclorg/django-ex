@@ -94,7 +94,7 @@
 </div>
 
 
-{% if not request.session.FIRST_LOGIN and request.COOKIES.VIEWED_DASHBOARD_DURING_THIS_SESSION != 'True' %}
+{% if not request.session.FIRST_LOGIN and not request.session.VIEWED_DASHBOARD_DURING_SESSION %}
 <div id="questions_modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -114,9 +114,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    document.cookie = 'VIEWED_DASHBOARD_DURING_THIS_SESSION=True';
-</script>
 {% endif %}
 
 {% endblock %}
