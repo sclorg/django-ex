@@ -7,10 +7,9 @@ from django.shortcuts import redirect
 
 
 class BceidUser(object):
-    def __init__(self, guid, first_name, last_name, user_type, is_authenticated):
+    def __init__(self, guid, display_name, user_type, is_authenticated):
         self.guid = guid
-        self.first_name = first_name
-        self.last_name = last_name
+        self.display_name = display_name
         self.type = user_type
         self.is_authenticated = is_authenticated
 
@@ -36,8 +35,7 @@ class BceidMiddleware(object):
                 guid=smgov_userguid,
                 is_authenticated=True,
                 user_type='BCEID',
-                first_name=smgov_userdisplayname,
-                last_name=''
+                display_name=smgov_userdisplayname
             )
 
         elif localdev and request.session.get('fake-bceid-guid', False):
@@ -47,8 +45,7 @@ class BceidMiddleware(object):
                 guid=request.session.get('fake-bceid-guid'),
                 is_authenticated=True,
                 user_type='FAKE',
-                first_name=request.session.get('login-name',''),
-                last_name=''
+                display_name=request.session.get('login-name', '')
             )
 
         else:
@@ -58,8 +55,7 @@ class BceidMiddleware(object):
                 guid=None,
                 is_authenticated=False,
                 user_type='ANONYMOUS',
-                first_name='',
-                last_name=''
+                display_name=''
             )
 
     def process_response(self, request, response):

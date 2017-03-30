@@ -52,8 +52,7 @@
                         <div class="top_banner-user">
                             {% if request.bceid_user.is_authenticated %}
                             <span>
-                                {{ request.bceid_user.first_name}}
-                                {{ request.bceid_user.last_name}}
+                                {{ request.bceid_user.display_name}}
                                 &nbsp;&nbsp;|&nbsp;&nbsp; <a href="{% url 'logout' %}">Log out</a>
                             </span>
                             {% endif %}
