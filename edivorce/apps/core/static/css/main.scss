@@ -1432,6 +1432,12 @@ textarea {
 		}
 	}
 }
+
+.has-warning-box {
+	border: 3px solid #a94442;
+	padding-top: 8px;
+	padding-left: 8px;
+}
 /* Modals */
 .modal-dialog {
 	width: 780px;
@@ -1464,7 +1470,8 @@ textarea {
 }
 
 #info_modal,
-#questions_modal {
+#questions_modal,
+#terms_modal {
 	margin-top: 112px;
 	font-size: 18px;
 

@@ -25,6 +25,12 @@
 
         <h1 class="text-center">Form F38 <br>(Rule 10-10 (2))</h1>
         <p class="text-right">
+            Court File No.: <span class="form-entry not-complete">&nbsp;</span>
+        </p>
+        <p class="text-right">
+            Court Registry: {% if responses.court_registry_for_filing %} {{ responses.court_registry_for_filing }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+        </p>
+        <p class="text-right">
             This is the <span class="form-entry not-complete"></span> affidavit
         </p>
         <p class="text-right">
@@ -32,12 +38,6 @@
         </p>
         <p class="text-right">
             and was made on <span class="form-entry not-complete"></span>
-        </p>
-        <p class="text-right">
-            Court File No.: <span class="form-entry not-complete">&nbsp;</span>
-        </p>
-        <p class="text-right">
-            Court Registry: {% if responses.court_registry_for_filing %} {{ responses.court_registry_for_filing }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
         </p>
         <p class="text-center">
             <em>In the Supreme Court of British Columbia</em>

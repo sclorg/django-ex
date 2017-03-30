@@ -12,7 +12,7 @@ $('input:radio, input:checkbox').each(function () {
 });
 
 $(window).load(function(){
-    $('#questions_modal').modal('show');
+    $('#questions_modal, #terms_modal').modal('show');
 });
 
 $(function () {
@@ -20,6 +20,17 @@ $(function () {
         container: 'body',
         trigger: 'click',
         placement:'auto right'
+    });
+
+    // Only close Terms and Conditions when user check the I agree checkbox
+    $('#terms_agree_button').on('click', function() {
+        if ($('#terms_checkbox').is(':checked')) {
+            $('#terms_modal').modal('hide');
+        }
+        else {
+            // show warning box and warning message if user does not check the box and click aceept
+            $('#terms_and_conditions').addClass('has-warning-box').append('<span class="help-block">Please check the box</span>');
+        }
     });
 
     $('body').on('click', function (e) {
