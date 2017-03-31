@@ -114,7 +114,7 @@
         </div>
     </div>
 </div>
-{% else %}
+{% elif request.session.FIRST_LOGIN and not request.session.VIEWED_DASHBOARD_DURING_SESSION %}
 <div id="terms_modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
