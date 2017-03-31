@@ -25,17 +25,22 @@ class BceidMiddleware(object):
         if request.META.get('HTTP_SMGOV_USERDISPLAYNAME', ''):
             request.session['smgov_userdisplayname'] = request.META.get('HTTP_SMGOV_USERDISPLAYNAME')
 
-
         # get SiteMinder variables from the headers first, then from the session
         smgov_userguid = request.META.get('HTTP_SMGOV_USERGUID', request.session.get('smgov_userguid', False))
         smgov_userdisplayname = request.META.get('HTTP_SMGOV_USERDISPLAYNAME', request.session.get('smgov_userdisplayname', False))
+
+        # HTTP_SM_USER is available on both secure and unsecure pages.  If it has a value then we know
+        # that the user is still logged into BCeID
+        # This is an additional check to make sure we aren't letting users access the site
+        # via their session variables after logging out of bceid
+        has_siteminder_auth = request.META.get('HTTP_SM_USER','') != ''
 
         # make sure the request didn't bypass the proxy
         if settings.DEPLOYMENT_TYPE != 'localdev' and not self.__request_came_from_proxy(request):
             print("Redirecting to " + settings.PROXY_BASE_URL + request.path, file=sys.stderr)
             return redirect(settings.PROXY_BASE_URL + request.path)
 
-        if settings.DEPLOYMENT_TYPE != 'localdev' and smgov_userguid:
+        if settings.DEPLOYMENT_TYPE != 'localdev' and has_siteminder_auth and smgov_userguid:
 
             # 1. Real BCeID user / logged in
             request.bceid_user = BceidUser(
