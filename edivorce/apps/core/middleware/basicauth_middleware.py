@@ -27,6 +27,10 @@ class BasicAuthMiddleware(object):
         if request.path.startswith(settings.FORCE_SCRIPT_NAME + 'api/'):
             return None
 
+        # allow all static files
+        if request.path.startswith(settings.FORCE_SCRIPT_NAME[:-1] + settings.FORCE_SCRIPT_NAME + 'static/'):
+            return None
+
         # check if the middleware is enabled in settings
         if not settings.BASICAUTH_ENABLED:
             return None
