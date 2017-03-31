@@ -541,7 +541,7 @@
 },
 {
     "fields": {
-        "name": "Please list any other orders",
+        "name": "Please enter the details for any other orders that you are asking for.",
         "description": "For step 8 other orders",
         "summary_order": 51,
         "required": "Required"
@@ -735,7 +735,7 @@
 },
 {
     "fields": {
-        "name": "Please enter the details for any other orders that you are asking for.",
+        "name": "Where will you be filing for divorce?",
         "description": "For step 10, Form 1 court registry",
         "summary_order": 70,
         "required": "Required"
