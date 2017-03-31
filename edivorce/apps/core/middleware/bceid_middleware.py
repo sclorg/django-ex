@@ -17,6 +17,14 @@ class BceidUser(object):
 class BceidMiddleware(object):
     def process_request(self, request):
 
+        # Save SiteMinder headers to session variables.  /login* is the only actual
+        # SiteMinder-protected part of the site, so the headers aren't availabale anywhere else
+        if request.META.get('HTTP_SMGOV_USERGUID', ''):
+            request.session['smgov_userguid'] = request.META.get('HTTP_SMGOV_USERGUID')
+
+        if request.META.get('HTTP_SMGOV_USERDISPLAYNAME', ''):
+            request.session['smgov_userdisplayname'] = request.META.get('HTTP_SMGOV_USERDISPLAYNAME')
+
 
         # get SiteMinder variables from the headers first, then from the session
         smgov_userguid = request.META.get('HTTP_SMGOV_USERGUID', request.session.get('smgov_userguid', False))
