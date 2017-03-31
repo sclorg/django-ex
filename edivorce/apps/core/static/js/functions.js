@@ -123,7 +123,6 @@ var getValue = function(el, question){
     }
     // for adding reconciliation_period fields, create list of [sFromDate, sToDate] and
     // check if sFromDate is earlier than sToDate
-    // TODO clean up console.log
     else if (question == "reconciliation_period"){
         var sToDate, sFromDate, dToDate, dFromDate;
         var hideAlert = true;
@@ -157,10 +156,6 @@ var getValue = function(el, question){
                         .addClass('has-error')
                         .append('<span class="help-block">Negative Date Range</span>');
                 }
-            }
-            else {
-                console.log("Invalid: " + sFromDate + " : " + sToDate);
-                console.log("invalid date format");
             }
         });
         return JSON.stringify(value);

@@ -55,7 +55,6 @@ var ajaxCall = function(question, value){
         // add CSRF_TOKEN to POST
         var csrf_token = getCSRFToken();
 
-        // TODO more useful callback functions for done and fail
         $.ajax(url,
             {
                 type: 'POST',
@@ -65,12 +64,6 @@ var ajaxCall = function(question, value){
                     }
                 },
                 data: {question: question, value: value}
-            })
-            .done(function () {
-                console.log("Successful");
-            })
-            .fail(function (xhr) {
-                console.log(xhr);
             });
 };
 
