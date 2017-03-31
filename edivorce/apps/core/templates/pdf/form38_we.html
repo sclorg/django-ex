@@ -54,13 +54,13 @@
             <strong>AFFIDAVIT - DESK ORDER DIVORCE</strong>
         </p>
         <p>
-            We, {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
+            We, {% if responses.name_you %}{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
             {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_prov_you and responses.address_to_send_official_document_country_you and responses.address_to_send_official_document_postal_code_you %}
               {{ responses.address_to_send_official_document_street_you }}, {{ responses.address_to_send_official_document_city_you }}, {{ responses.address_to_send_official_document_prov_you }},
               {% if responses.address_to_send_official_document_country_you == 'Other' %} {{ responses.address_to_send_official_document_other_country_you }}{% else %} {{ responses.address_to_send_official_document_country_you }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_you }} {% else %}<span class="form-entry not-complete"></span>{% endif %},
             {% if responses.occupation_you %} {{ responses.occupation_you }}{% else %}<span class="form-entry not-complete"></span>{% endif %},<br />
             and <br />
-            {% if responses.name_spouse %}{{ responses.name_spouse }}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
+            {% if responses.name_spouse %}{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
             {% if responses.address_to_send_official_document_street_spouse and responses.address_to_send_official_document_city_spouse and responses.address_to_send_official_document_prov_spouse and responses.address_to_send_official_document_country_spouse and responses.address_to_send_official_document_postal_code_spouse %}
               {{ responses.address_to_send_official_document_street_spouse }}, {{ responses.address_to_send_official_document_city_spouse }}, {{ responses.address_to_send_official_document_prov_spouse }},
               {% if responses.address_to_send_official_document_country_spouse == 'Other' %} {{ responses.address_to_send_official_document_other_country_spouse }}{% else %} {{ responses.address_to_send_official_document_country_spouse }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_spouse }} {% else %}<span class="form-entry not-complete"></span>{% endif %},
