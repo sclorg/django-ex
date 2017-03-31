@@ -24,12 +24,13 @@ $(function () {
 
     // Only close Terms and Conditions when user check the I agree checkbox
     $('#terms_agree_button').on('click', function() {
+        $('#terms_warning').remove();
         if ($('#terms_checkbox').is(':checked')) {
             $('#terms_modal').modal('hide');
         }
         else {
             // show warning box and warning message if user does not check the box and click aceept
-            $('#terms_and_conditions').addClass('has-warning-box').append('<span class="help-block">Please check the box</span>');
+            $('#terms_and_conditions').addClass('has-warning-box').append('<span id="terms_warning" class="help-block">Please check the box</span>');
         }
     });
 
