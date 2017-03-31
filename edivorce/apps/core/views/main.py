@@ -17,7 +17,8 @@ def home(request):
     This is the homepage
     """
     # if the user is returning from BCeID registration, then log them in to the site
-    if request.bceid_user.is_authenticated and request.session.get('went-to-register', False) == True:
+    sm_authenticated = request.META.get('HTTP_SM_USERDN', '') != ''
+    if sm_authenticated and request.session.get('went-to-register', False) == True:
         request.session['went-to-register'] = False
         return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/login')
 
@@ -115,9 +116,6 @@ def login(request):
 
         # some later messaging needs to be shown or hidden based on whether
         # or not this is a returning user
-        print('CREATED=' + str(created))
-
-
         request.session["FIRST_LOGIN"] = created
 
         if timezone.now() - user.last_login > datetime.timedelta(minutes=1):
