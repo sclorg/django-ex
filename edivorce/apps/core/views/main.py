@@ -104,6 +104,11 @@ def login(request):
             # If a user is logged into an IDIR then they can see the login page
             # but the SMGOV headers are missing.  If this is the case, then log them out
             # of their IDIR, and redirect them back to here again....
+
+            # FUTURE DEV NOTE: The DC elements of HTTP_SM_USERDN header will tell us exactly how the user is
+            # logged in. But it doesn't seem like a very good idea at this time to rely on this magic string.
+            # e.g. CN=Smith\, John,OU=Users,OU=Attorney General,OU=BCGOV,DC=idir,DC=BCGOV
+
             if request.GET.get('noretry','') != 'true':
                 return redirect(settings.LOGOUT_URL_TEMPLATE % (
                     settings.PROXY_BASE_URL, settings.FORCE_SCRIPT_NAME[:-1] + '/login%3Fnoretry=true'))

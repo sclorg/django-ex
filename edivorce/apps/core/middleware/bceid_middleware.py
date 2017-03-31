@@ -35,6 +35,10 @@ class BceidMiddleware(object):
         # via their session variables after logging out of bceid
         has_siteminder_auth = request.META.get('HTTP_SM_USER','') != ''
 
+        # Note: It's still possible that a user has logged out of one BCeID and logged into another BCeID
+        # via www.bceid.ca without clicking the logout link on our app or closing the browser.  This is an
+        # extreme edge case, and it's not pragmatic to code against it at this time.
+
         # make sure the request didn't bypass the proxy
         if settings.DEPLOYMENT_TYPE != 'localdev' and not self.__request_came_from_proxy(request):
             print("Redirecting to " + settings.PROXY_BASE_URL + request.path, file=sys.stderr)
