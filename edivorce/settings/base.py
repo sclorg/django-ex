@@ -124,6 +124,10 @@ FIXTURE_DIRS = (
     os.path.join(PROJECT_ROOT, 'edivorce', 'fixtures'),
 )
 
+# Expire sessions after 20 minutes
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_AGE = 1200 # (seconds)
+
 BASICAUTH_ENABLED = False
 
 # Google Tag Manager (dev/test instance)

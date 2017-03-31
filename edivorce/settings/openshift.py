@@ -34,14 +34,11 @@ DATABASES = {
     'default': openshift_db_config()
 }
 
-WEASYPRINT_URL = 'http://weasyprint:5001'
-WEASYPRINT_CSS_LOOPBACK = 'http://edivorce-django:8080'
-
 # Django Compressor offline compression (triggered by wsgi.py during OpenShift deployment)
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
 
-# The app will be served out of a subdirectory of justice.gov.bc.ca
+# The app will be served out of a subdirectory of justice.gov.bc.ca via reverse-proxy
 # PROD: /divorce
 # TEST: /divorce-test
 # DEV: /divorce-dev
@@ -67,21 +64,25 @@ if DEPLOYMENT_TYPE == 'prod':
     # Google Tag Manager (Production)
     GTM_ID = 'GTM-W4Z2SPS'
 
+# Internal Relative Urls
 FORCE_SCRIPT_NAME = PROXY_URL_PREFIX + '/'
 STATIC_URL = PROXY_URL_PREFIX + '/static/'
+
+# Internal Urls (within the OpenShift project)
+WEASYPRINT_URL = 'http://weasyprint:5001'
+WEASYPRINT_CSS_LOOPBACK = 'http://edivorce-django:8080'
 WEASYPRINT_CSS_LOOPBACK += PROXY_URL_PREFIX
 
-# Integration URLs
+# External URLs
 PROXY_BASE_URL = 'https://justice.gov.bc.ca'
 LOGOUT_URL_TEMPLATE = 'https://logon.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
 LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
 
-# Basic Authentication to prevent anyone from accidentally stumbling across publicly accessible dev/test environments
+# Basic authentication settings (meant for dev/test environments)
 BASICAUTH_ENABLED = os.getenv('BASICAUTH_ENABLED', '').lower() == 'true'
 BASICAUTH_USERNAME = os.getenv('BASICAUTH_USERNAME', '')
 BASICAUTH_PASSWORD = os.getenv('BASICAUTH_PASSWORD', '')
 
-# Only send session cookies over SSL
+# Lock down the session cookie settings
 SESSION_COOKIE_SECURE=True
 SESSION_COOKIE_PATH = PROXY_URL_PREFIX
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
