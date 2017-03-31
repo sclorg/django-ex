@@ -23,8 +23,8 @@ def bceid(request):
         fake_guid = uuid.UUID(hex_name.rjust(32, '0')).urn[9:]
 
         # save the guid in a session variable
-        request.session['login-name'] = login_name
-        request.session['fake-bceid-guid'] = fake_guid
+        request.session['login_name'] = login_name
+        request.session['fake_bceid_guid'] = fake_guid
 
         return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/login')
 

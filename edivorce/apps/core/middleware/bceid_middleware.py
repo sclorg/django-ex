@@ -17,18 +17,17 @@ class BceidUser(object):
 class BceidMiddleware(object):
     def process_request(self, request):
 
-        localdev = settings.DEPLOYMENT_TYPE == 'localdev'
 
         # get SiteMinder variables from the headers first, then from the session
-        smgov_userguid = request.META.get('HTTP_SMGOV_USERGUID', request.session.get('SMGOV_USERGUID',False))
-        smgov_userdisplayname = request.META.get('HTTP_SMGOV_USERDISPLAYNAME', request.session.get('SMGOV_USERDISPLAYNAME', False))
+        smgov_userguid = request.META.get('HTTP_SMGOV_USERGUID', request.session.get('smgov_userguid', False))
+        smgov_userdisplayname = request.META.get('HTTP_SMGOV_USERDISPLAYNAME', request.session.get('smgov_userdisplayname', False))
 
         # make sure the request didn't bypass the proxy
-        if not localdev and not self.__request_came_from_proxy(request):
+        if settings.DEPLOYMENT_TYPE != 'localdev' and not self.__request_came_from_proxy(request):
             print("Redirecting to " + settings.PROXY_BASE_URL + request.path, file=sys.stderr)
             return redirect(settings.PROXY_BASE_URL + request.path)
 
-        if not localdev and smgov_userguid:
+        if settings.DEPLOYMENT_TYPE != 'localdev' and smgov_userguid:
 
             # 1. Real BCeID user / logged in
             request.bceid_user = BceidUser(
@@ -38,14 +37,14 @@ class BceidMiddleware(object):
                 display_name=smgov_userdisplayname
             )
 
-        elif localdev and request.session.get('fake-bceid-guid', False):
+        elif settings.DEPLOYMENT_TYPE == 'localdev' and request.session.get('fake_bceid_guid', False):
 
             # 2. Fake BCeID user / logged in
             request.bceid_user = BceidUser(
-                guid=request.session.get('fake-bceid-guid'),
+                guid=request.session.get('fake_bceid_guid'),
                 is_authenticated=True,
                 user_type='FAKE',
-                display_name=request.session.get('login-name', '')
+                display_name=request.session.get('login_name', '')
             )
 
         else:

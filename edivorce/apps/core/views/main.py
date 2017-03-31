@@ -16,10 +16,13 @@ def home(request):
     """
     This is the homepage
     """
+    # HTTP_SM_USER is available on both unsecure and secure pages.
+    # If it has a value then we know the user is logged into BCeID/siteminder
+    siteminder_is_authenticated = request.META.get('HTTP_SM_USER', '') != ''
+
     # if the user is returning from BCeID registration, then log them in to the site
-    sm_authenticated = request.META.get('HTTP_SM_USERDN', '') != ''
-    if sm_authenticated and request.session.get('went-to-register', False) == True:
-        request.session['went-to-register'] = False
+    if siteminder_is_authenticated and request.session.get('went_to_register', False) == True:
+        request.session['went_to_register'] = False
         return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/login')
 
     return render(request, 'intro.html', context={'hide_nav': True})
@@ -81,7 +84,7 @@ def register(request):
     if settings.DEPLOYMENT_TYPE == 'localdev':
         return render(request, 'localdev/register.html')
     else:
-        request.session['went-to-register'] = True
+        request.session['went_to_register'] = True
         return redirect(settings.REGISTER_URL)
 
 
@@ -91,7 +94,7 @@ def login(request):
     logged into BCeID will get a login page.  Users who are logged into
     BCeID will be redirected to the dashboard
     """
-    if settings.DEPLOYMENT_TYPE == 'localdev' and not request.session.get('fake-bceid-guid'):
+    if settings.DEPLOYMENT_TYPE == 'localdev' and not request.session.get('fake_bceid_guid'):
         return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
     else:
         # Save SiteMinder headers to session variables.  /login* is the only actual
@@ -103,9 +106,8 @@ def login(request):
             request.session['SMGOV_USERDISPLAYNAME'] = request.META.get('HTTP_SMGOV_USERDISPLAYNAME')
 
         # get the Guid that was set in the middleware
-        guid = request.bceid_user.guid
-
-        if guid is None:
+        if request.bceid_user.guid is None:
+            # Fix for weird siteminder behaviour......
             # If a user is logged into an IDIR then they can see the login page
             # but the SMGOV headers are missing.  If this is the case, then log them out
             # of their IDIR, and redirect them back to here again....
@@ -119,7 +121,7 @@ def login(request):
 
         # some later messaging needs to be shown or hidden based on whether
         # or not this is a returning user
-        request.session["FIRST_LOGIN"] = created
+        request.session["first_login"] = created
 
         if timezone.now() - user.last_login > datetime.timedelta(minutes=1):
             user.last_login = timezone.now()
@@ -159,7 +161,7 @@ def overview(request):
     response = render(request, 'overview.html', context=responses_dict_by_step)
 
     # set this session variable after the page is already rendered
-    request.session['VIEWED_DASHBOARD_DURING_SESSION'] = True
+    request.session['viewed_dashboard_during_session'] = True
 
     return response
 
