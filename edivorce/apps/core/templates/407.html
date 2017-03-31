@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }}: 500 Internal Server Error{% endblock %}
+
+{% block content %}
+<h1>Authentication Error Occurred</h1>
+<p>Invalid SiteMinder authentication type.  Only basic BCeID authentication is supported at this time.</p>
+<div style="min-height:200px"></div>
+{% endblock %}
+
+{% block formbuttons %}
+<!-- no formbuttons -->
+{% endblock %}
+
+{% block sidebarNav %}
+<!-- no sidebar -->
+{% endblock %}
+{% block sidebar %}
+<!-- no sidebar -->
+{% endblock %}
