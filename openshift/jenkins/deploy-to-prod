@@ -1,5 +1,7 @@
 node('master') {
 
+properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10']]])
+
 stage 'deployInProd'
 openshiftTag(namespace: 'jag-csb-edivorce-tools', sourceStream: 'edivorce-django',  sourceTag: 'latest', destinationNamespace: 'jag-csb-edivorce-tools',  destinationStream: 'edivorce-django', destinationTag: 'deploy-to-prod')
 openshiftDeploy(namespace: 'jag-csb-edivorce-prod', deploymentConfig: 'edivorce-django')

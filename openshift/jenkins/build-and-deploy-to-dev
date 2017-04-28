@@ -1,5 +1,7 @@
 node('master') {
 
+properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10']]])
+
 stage 'buildInTools'
 openshiftBuild(namespace: 'jag-csb-edivorce-tools', buildConfig: 'edivorce-django', showBuildLogs: 'true')
 
