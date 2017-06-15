@@ -280,9 +280,9 @@ def prequal_tag(source):
         tags.append(first_column + reconciliation_period['question__name'] + second_column + reconciliation_period_reformat(reconciliation_period['value']) + end_tag)
     if children_of_marriage:
         tags.append(first_column + children_of_marriage['question__name'] + second_column + children_of_marriage['value'] + end_tag)
-    if children_of_marriage['value'] == 'YES' and any_under_19:
+    if children_of_marriage and children_of_marriage['value'] == 'YES' and any_under_19:
         tags.append(first_column + any_under_19['question__name'] + second_column + any_under_19['value'] + end_tag)
-    if children_of_marriage['value'] == 'YES' and any_under_19['value'] == 'NO' and financial_support:
+    if children_of_marriage and children_of_marriage['value'] == 'YES' and any_under_19['value'] == 'NO' and financial_support:
         tags.append(first_column + financial_support['question__name'] + second_column + json.loads(financial_support['value'])[0] + end_tag)
     if certificate:
         tags.append(first_column + certificate['question__name'] + second_column + certificate['value'] + end_tag)

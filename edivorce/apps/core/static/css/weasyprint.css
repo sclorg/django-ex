@@ -16,7 +16,12 @@
 }
 
 @page {
+    size: Letter;
     margin: 0.75cm;
+
+    @bottom-right {
+        content: counter(page) " of " counter(pages)
+    }
 }
 
 body {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
@@ -70,6 +75,32 @@ i.fa {
 
 .table-fixed {
     table-layout: fixed;
+}
+
+.sig-table td.underline {
+    border-bottom: 1px solid black;
+}
+.sig-table .sig-line-text {
+    font-size: 0.88em;
+}
+.sig-table .sig-col1 {
+    max-width: 30px;
+}
+.sig-table .sig-col2 {
+    width: 220px;
+    padding-left: 0;
+}
+.sig-table .sig-col3 {
+    max-width: 10px;
+}
+
+.sig-table .sig-col4 {
+    width: 350px;
+    padding-left: 0;
+}
+
+.sig-table td {
+    border-top: none !important;
 }
 
 

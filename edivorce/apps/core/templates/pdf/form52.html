@@ -97,6 +97,8 @@
                 the divorce to take effect on {% if responses.divorce_take_effect_on_specific_date %}{{ responses.divorce_take_effect_on_specific_date }}{% else %}<span class="form-entry not-complete"></span>{% endif %}.
             {% endif %}
         </p>
+
+        {% comment "removed as per CLAW-480" %}
         <p>
             THIS COURT ORDERS that BY CONSENT:
         </p>
@@ -113,41 +115,53 @@
         <p class="force-break">
             THE FOLLOWING PARTIES APPROVE THE FORM OF THIS ORDER AND CONSENT TO EACH OF THE ORDERS, IF ANY, THAT ARE INDICATED ABOVE AS BEING BY CONSENT:
         </p>
+        {% endcomment %}
 
-        <table class="table table-bordered">
+        <br><br>
+
+        <table class="table sig-table">
+            <tbody>
             <tr>
-                <td>
+                <td class="sig-col4 underline">&nbsp;</td>
+                <td style="width:10px">&nbsp;</td>
+                <td class="sig-col4 underline">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="sig-col4 sig-line-text">
+                    <p>Signature of</p>
                     <p>
-                        <span class="form-entry not-complete">&nbsp;</span><br> Signature of<br> <i class="fa fa-square-o" aria-hidden="true"></i> party <i class="fa fa-square-o" aria-hidden="true"></i> lawyer for <span class="form-entry not-complete"></span>
-                    </p>
-                    <p>
-                        <span class="form-entry not-complete"></span>
+                        <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 <i
+                            class="fa fa-square-o" aria-hidden="true"></i> lawyer for Claimant 1<span
+                            class="form-entry not-complete"></span>
                     </p>
                 </td>
-                <td>
+                <td>&nbsp;</td>
+                <td class="sig-col4 sig-line-text">
+                    <p>Signature of</p>
                     <p>
-                        <span class="form-entry not-complete">&nbsp;</span><br> Signature of<br> <i class="fa fa-square-o" aria-hidden="true"></i> party <i class="fa fa-square-o" aria-hidden="true"></i> lawyer for <span class="form-entry not-complete"></span>
-                    </p>
-                    <p>
-                        <span class="form-entry not-complete"></span>
+                        <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 2 <i
+                            class="fa fa-square-o" aria-hidden="true"></i> lawyer for Claimant 2<span
+                            class="form-entry not-complete"></span>
                     </p>
                 </td>
             </tr>
             <tr>
-                <td>
-
-                </td>
-                <td>
-                    <p class="text-right">
-                        By the Court.
-                    </p>
-                    <p class="text-right">
-                        <span class="form-entry not-complete">&nbsp;</span><br> Registrar
-                    </p>
-                </td>
+                <td class="sig-col2">&nbsp;</td>
+                <td class="sig-col3">&nbsp;</td>
+                <td class="sig-col4">By the Court.</td>
             </tr>
+            <tr>
+                <td class="sig-col2">&nbsp;</td>
+                <td class="sig-col3">&nbsp;</td>
+                <td class="sig-col4 underline">&nbsp;<br><br></td>
+            </tr>
+            <tr>
+                <td class="sig-col2">&nbsp;</td>
+                <td class="sig-col3">&nbsp;</td>
+                <td class="sig-col4">Registrar</td>
+            </tr>
+            </tbody>
         </table>
-        <hr />
         <small>Printed on {% now "F jS, Y" %} from https://justice.gov.bc.ca/divorce</small>
     </div>
 </body>
