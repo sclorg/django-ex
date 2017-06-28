@@ -12,10 +12,11 @@
 <h1><small>Step 6:</small>Spousal Support</h1>
 
 <div class="question-well">
-    <h3>Claimant 1 and Claimant 2 are asking for an <span class="tooltip-link" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
+    <h3>{% if name_you %} {{ name_you }} {% else %}Claimant 1 {% endif %} and {% if name_spouse %} {{ name_spouse }} {% else %}Claimant 2 {% endif %}
+        are asking for an <span class="tooltip-link" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
        title="<b>Order</b><br />A type of court ruling a judge or master makes that sets out what you must do or not do.">order<i class="fa fa-question-circle"  aria-hidden="true"></i></span>
         for spousal support as follows:</h3>
-    {% input_field type="textarea" name="spouse_support_details" rows="8" cols="65" class="response-textarea" placeholder="Please enter the spousal support details that you wnat to appear in the order issued by the court." %}
+    {% input_field type="textarea" name="spouse_support_details" rows="8" cols="65" class="response-textarea" placeholder="Please enter the spousal support details that you want to appear in the order issued by the court." %}
     <p>
         To see some examples of how to write what you are asking for, refer to the Supreme Court of B.C. website. The website has a list of
         <a href="http://www.courts.gov.bc.ca/supreme_court/practice_and_procedure/sc_family_law_orders.aspx" target="_blank">standard terms</a>
