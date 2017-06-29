@@ -118,9 +118,10 @@ var getValue = function(el, question){
     }
     // for adding other_name fields, create list of [aliasType, alias]
     else if (question == "other_name_you" || question == "other_name_spouse"){
-        var aliasType;
+        var aliasType = "also known as";
         $('#other_names_fields').find("input[type=text]").each(function () {
-            aliasType = $(this).val() == '' ? '' : $(this).siblings(".alias-type").val();
+            // as per request, alias type will always be also known as for now
+            // aliasType = $(this).val() == '' ? '' : $(this).siblings(".alias-type").val();
             value.push([aliasType, $(this).val()]);
         });
         return JSON.stringify(value);
