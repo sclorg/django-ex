@@ -16,6 +16,10 @@ var reveal = function(el) {
         if (id == "#has_children"){
             reveal($("input[name=any_under_19]:checked"));
         }
+        // reveal nested question as well
+        if (id =="#marriage_certificate"){
+            reveal($("input[name=provide_certificate_later]:checked"));
+        }
     } else {
         $(id).hide();
         if (related_id != undefined){
