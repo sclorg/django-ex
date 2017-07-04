@@ -61,8 +61,14 @@ $(function () {
     }
 
     // Add name button adds new input field for adding other name
+    // Maximum of two other name fields allowed 
     $("#btn_add_other_names").on('click', function () {
-        $('#other_names_fields').append($('#other_names_group').children().clone(true));
+        if ($('#other_names_fields input[type=text]').length < 2) {
+            $('#other_names_fields').append($('#other_names_group').children().clone(true));
+        }
+        else {
+            $('#btn_add_other_names').prop("disabled",true).prop("value","Max 2 other names");
+        }
     });
 
     $("#btn_add_reconciliation_periods").on('click', function () {
@@ -155,6 +161,11 @@ var deleteAddedField = function(e){
     var field = $('#' + e.data.field_name);
     var button = $('#' + e.data.button_name);
     $(this).parent('div').remove();
+
+    //enable btn_add_other_names button
+    if (button.prop('id') == "btn_add_other_names"){
+        button.prop('disabled',false).prop('value','Add name');
+    }
 
     // when there is only one field left, clear it instead of delete it
     if (field.find('input:text').length < 1){
