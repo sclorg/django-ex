@@ -61,9 +61,25 @@ $(function () {
     }
 
     // Add name button adds new input field for adding other name
+    // Maximum of two other name fields allowed
     $("#btn_add_other_names").on('click', function () {
-        $('#other_names_fields').append($('#other_names_group').children().clone(true));
+        if ($('#other_names_fields input[type=text]').length < 2) {
+            $('#other_names_fields').append($('#other_names_group').children().clone(true));
+        }
+
+        showWarningOtherName();
     });
+
+    // Show warning text when there are 2 other name fields
+    var showWarningOtherName = function() {
+        if ($('#other_names_fields input[type=text]').length >= 2) {
+            $('#btn_add_other_names').hide();
+            $('#other_name_warning_message').html("<p>Max 2 other names, please enter only the name variations to be shown on the order from the court</p>");
+        }
+    };
+
+    // show warning message if other name field is already at its maximum number when the page rendered
+    showWarningOtherName();
 
     $("#btn_add_reconciliation_periods").on('click', function () {
         $('#reconciliation_period_fields').append($('#reconciliation_period_group').children().clone());
@@ -155,6 +171,12 @@ var deleteAddedField = function(e){
     var field = $('#' + e.data.field_name);
     var button = $('#' + e.data.button_name);
     $(this).parent('div').remove();
+
+    //enable btn_add_other_names button
+    if (button.prop('id') == "btn_add_other_names"){
+        button.show();
+        $('#other_name_warning_message').html("");
+    }
 
     // when there is only one field left, clear it instead of delete it
     if (field.find('input:text').length < 1){
