@@ -52,6 +52,14 @@ $(function () {
 
     $("input[type=radio], input[type=checkbox], input[type=text], .response-textarea, .response-dropdown").on("change", ajaxOnChange);
 
+    // If relationship is common law and they want spousal support, update spouse_support_act with hidden input field, spouse_support_act_common_law
+    if ($("#spouse_support_act_common_law").length) {
+        var el = $("#spouse_support_act_common_law");
+        var question = el.prop('name');
+        var value = getValue(el, question);
+        ajaxCall(question, value);
+    }
+
     // Add name button adds new input field for adding other name
     $("#btn_add_other_names").on('click', function () {
         $('#other_names_fields').append($('#other_names_group').children().clone(true));
