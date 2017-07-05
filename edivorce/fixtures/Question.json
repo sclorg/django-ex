@@ -2,7 +2,7 @@
 {
     "fields": {
         "name": "Are you legally married or living together in a marriage like (also known as common law) relationship?",
-        "description": "For pre-qualification step 1",
+        "description": "For pre-qualification step 1, Form 1 1. Relationship history",
         "summary_order": 1,
         "required": "Required"
     },
@@ -32,7 +32,7 @@
 {
     "fields": {
         "name": "When did you and your spouse separate (legally this is referred to as living separate and apart)?",
-        "description": "For pre-qualification step 3, Form 1 1. Relationship history",
+        "description": "For pre-qualification step 3, Form 1 1. Relationship history, Form 38(joint and sole) question 5",
         "summary_order": 4,
         "required": "Required"
     },
@@ -52,7 +52,7 @@
 {
     "fields": {
         "name": "Please enter the period(s) during which you attempted to reconcile.",
-        "description": "For pre-qualification step 3, Form 1 2. Divorce section B",
+        "description": "For pre-qualification step 3, Form 1 2. Divorce section B, Form 38(joint and sole) question 5",
         "summary_order": 6,
         "required": "Conditional",
         "conditional_target": "try_reconcile_after_separated",
@@ -86,7 +86,7 @@
 {
     "fields": {
         "name": "Are you financially supporting any of the children that are 19 years or older?",
-        "description": "For pre-qualification step 4",
+        "description": "For pre-qualification step 4, Form 1 3. Info concerning children",
         "summary_order": 9,
         "required": "Conditional",
         "conditional_target": "any_under_19",
@@ -98,7 +98,7 @@
 {
     "fields": {
         "name": "Will you be able to provide proof of your marriage (in the form of an original or certified marriage certificate or registration of marriage)?",
-        "description": "For pre-qualification step 5, Form 1 2. Divorce section D",
+        "description": "For pre-qualification step 5, Form 1 2. Divorce section D, Form 38(joint and sole) question 4",
         "summary_order": 10,
         "required": "Conditional",
         "conditional_target": "married_marriage_like",
@@ -170,7 +170,7 @@
 {
     "fields": {
         "name": "What are you asking for (Orders)?",
-        "description": "For step 1",
+        "description": "For step 1, Form 1 2. Divorce, 5. Spousal support, 6. Property and debt, 7. Other ",
         "summary_order": 16,
         "required": "Required"
     },
@@ -180,7 +180,7 @@
 {
     "fields": {
         "name": "Please enter your name (as it appears on the marriage certificate).",
-        "description": "For step 2, Form 1 Claimant 1",
+        "description": "For step 2, Form 1 Claimant 1, Form 35 Claimant 1, Filed by, Form 36 Claimant 1, Form 38 Claimant 1(sole), Form 38 Claimant 1, affidavit section(joint), Form 52 Claimant 1",
         "summary_order": 17,
         "required": "Required"
     },
@@ -190,7 +190,7 @@
 {
     "fields": {
         "name": "Do you go by any other names?",
-        "description": "For step 2",
+        "description": "For step 2, Form 1 Claimant 1, Form 35 Claimant 1, Form 36 Claimant 1, Form 38 Claimant 1(sole), Form 38 Claimant 1, affidavit section(joint), Form 52 Claimant 1",
         "summary_order": 18,
         "required": "Required"
     },
@@ -200,7 +200,7 @@
 {
     "fields": {
         "name": "Please enter the name.",
-        "description": "For step 2",
+        "description": "For step 2, Same as above(any_other_name_you)",
         "summary_order": 19,
         "required": "Conditional",
         "conditional_target": "any_other_name_you",
@@ -233,7 +233,7 @@
 {
     "fields": {
         "name": "What is your date of birth?",
-        "description": "For step 2, Form 1 2. Divorce section A",
+        "description": "For step 2, Form 1 2. Divorce section A, Form 1 2. Divorce resident in BC since",
         "summary_order": 22,
         "required": "Required"
     },
@@ -243,7 +243,7 @@
 {
     "fields": {
         "name": "What is your occupation?",
-        "description": "For step 2, Form 38 first question",
+        "description": "For step 2, Form 38(joint) first question",
         "summary_order": 23,
         "required": "Required"
     },
@@ -275,7 +275,7 @@
 {
     "fields": {
         "name": "Please enter your spouse's name (as it appears on the marriage certificate).",
-        "description": "For step 3, Form 1 Claimant 2",
+        "description": "For step 3, Form 1 Claimant 2, Form 35 Claimant 2, Filed by, Form 36 Claimant 2, Form 38 Claimant 2(sole), Form 38 Claimant 2, affidavit section(joint), Form 52 Claimant 2",
         "summary_order": 26,
         "required": "Required"
     },
@@ -285,7 +285,7 @@
 {
     "fields": {
         "name": "Does your spouse go by any other names?",
-        "description": "For step 3",
+        "description": "For step 3, Form 1 Claimant 2, Form 35 Claimant 2, Form 36 Claimant 2, Form 38 Claimant 2(sole), Form 38 Claimant 2, affidavit section(joint), Form 52 Claimant 2",
         "summary_order": 27,
         "required": "Required"
     },
@@ -295,7 +295,7 @@
 {
     "fields": {
         "name": "Please enter the name.",
-        "description": "For step 3",
+        "description": "For step 3, same as above",
         "summary_order": 28,
         "required": "Conditional",
         "conditional_target": "any_other_name_spouse",
@@ -369,7 +369,7 @@
 {
     "fields": {
         "name": "When were you married?",
-        "description": "For step 4, Form 1 1. Relationship history",
+        "description": "For step 4, Form 1 1. Relationship history, Form 52 Court orders that section",
         "summary_order": 35,
         "required": "Conditional",
         "conditional_target": "married_marriage_like",
@@ -391,7 +391,7 @@
 {
     "fields": {
         "name": "Where were you married?",
-        "description": "For step 4, Form 1 2. Divorce section A",
+        "description": "For step 4, Form 1 2. Divorce section A, Form 52 Court orders that section",
         "summary_order": 37,
         "required": "Conditional",
         "conditional_target": "married_marriage_like",
@@ -403,7 +403,7 @@
 {
     "fields": {
         "name": "Where were you married? Prov",
-        "description": "For step 4, Form 1 2. Divorce section A",
+        "description": "For step 4, Form 1 2. Divorce section A, Form 52 Court orders that section",
         "summary_order": 38,
         "required": "Conditional",
         "conditional_target": "married_marriage_like",
@@ -415,7 +415,7 @@
 {
     "fields": {
         "name": "Where were you married? Country",
-        "description": "For step 4, Form 1 2. Divorce section A",
+        "description": "For step 4, Form 1 2. Divorce section A, Form 52 Court orders that section",
         "summary_order": 39,
         "required": "Conditional",
         "conditional_target": "married_marriage_like",
@@ -427,7 +427,7 @@
 {
     "fields": {
         "name": "Where were you married? Other Country",
-        "description": "For step 4, Form 1 2. Divorce section A",
+        "description": "For step 4, Form 1 2. Divorce section A, Form 52 Court orders that section",
         "summary_order": 40,
         "required": "Conditional",
         "conditional_target": "where_were_you_married_country",
@@ -542,7 +542,7 @@
 {
     "fields": {
         "name": "Please enter the details for any other orders that you are asking for.",
-        "description": "For step 8 other orders",
+        "description": "For step 8 other orders, Form 1 7. Other",
         "summary_order": 51,
         "required": "Required"
     },
@@ -552,7 +552,7 @@
 {
     "fields": {
         "name": "What is the best address to send you official court documents?",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 52,
         "required": "Required"
     },
@@ -562,7 +562,7 @@
 {
     "fields": {
         "name": "City",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 53,
         "required": "Required"
     },
@@ -572,7 +572,7 @@
 {
     "fields": {
         "name": "Prov",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 54,
         "required": "Required"
     },
@@ -582,7 +582,7 @@
 {
     "fields": {
         "name": "Country",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 55,
         "required": "Required"
     },
@@ -592,7 +592,7 @@
 {
     "fields": {
         "name": "Other Country",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 56,
         "required": "Conditional",
         "conditional_target": "address_to_send_official_document_country_you",
@@ -604,7 +604,7 @@
 {
     "fields": {
         "name": "Postal code",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 57,
         "required": "Required"
     },
@@ -632,7 +632,7 @@
 {
     "fields": {
         "name": "What is the best address to send your spouse official court documents?",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 60,
         "required": "Required"
     },
@@ -642,7 +642,7 @@
 {
     "fields": {
         "name": "City",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 61,
         "required": "Required"
     },
@@ -652,7 +652,7 @@
 {
     "fields": {
         "name": "Prov",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 62,
         "required": "Required"
     },
@@ -662,7 +662,7 @@
 {
     "fields": {
         "name": "Country",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 63,
         "required": "Required"
     },
@@ -672,7 +672,7 @@
 {
     "fields": {
         "name": "Other Country",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 64,
         "required": "Conditional",
         "conditional_target": "address_to_send_official_document_country_spouse",
@@ -736,7 +736,7 @@
 {
     "fields": {
         "name": "Where will you be filing for divorce?",
-        "description": "For step 10, Form 1 court registry",
+        "description": "For step 10, Form 1 court registry, Form 35 court registry, Form 36 court registry, Form 38(joint and sole) court registry, Form 52 court registry",
         "summary_order": 70,
         "required": "Required"
     },

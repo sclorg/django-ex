@@ -83,7 +83,7 @@
             5 I was living separate and apart from my spouse at the start of this family law case and I have lived separate and apart from my spouse since
             {% if responses.separation_date %} {{ responses.separation_date }}{% else %} <span class="form-entry not-complete"></span>{% endif %}, except:
             {% multiple_values_to_list source=responses.reconciliation_period as periods %}
-            {% if periods != '[]' %}
+            {% if periods != '[]' and responses.try_reconcile_after_separated == 'YES' %}
                 {% for period in periods %}
                     from {{ period | first }} to {{ period | last }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}.
