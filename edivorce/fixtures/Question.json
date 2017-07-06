@@ -532,7 +532,7 @@
         "name": "Please list any other property claims.",
         "description": "For step 7, Form 1 6. Property and debt",
         "summary_order": 50,
-        "required": "Required"
+        "required": "Conditional"
     },
     "model": "core.question",
     "pk": "other_property_claims"

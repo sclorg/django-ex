@@ -342,14 +342,8 @@ class UserResponseTestCase(TestCase):
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
         self.assertEqual(is_complete(step, lst)[0], False)
 
-        # Only one required question with no hidden shown
+        # All required question with no hidden shown
         create_response(user, 'deal_with_property_debt', 'Equal division')
-
-        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
-        self.assertEqual(is_complete(step, lst)[0], False)
-
-        # All required question with hidden shown and answered
-        create_response(user, 'other_property_claims', 'Want these property claims')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
         self.assertEqual(is_complete(step, lst)[0], True)
@@ -360,7 +354,7 @@ class UserResponseTestCase(TestCase):
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
         self.assertEqual(is_complete(step, lst)[0], False)
 
-        # All required question with hidden shown and answered
+        # Only one required question with hidden shown and answered
         create_response(user, 'how_to_divide_property_debt', 'Do not divide them')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
@@ -373,11 +367,17 @@ class UserResponseTestCase(TestCase):
         # lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
         # self.assertEqual(is_complete(step, lst)[0], False)
 
-        # Put empty response
-        UserResponse.objects.filter(question_id='other_property_claims').update(value="")
+        # All required question with hidden shown and answered
+        create_response(user, 'other_property_claims', 'Want these property claims')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
-        self.assertEqual(is_complete(step, lst)[0], False)
+        self.assertEqual(is_complete(step, lst)[0], True)
+
+        # Put empty response
+        # UserResponse.objects.filter(question_id='want_other_property_claims').update(value="")
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
+        self.assertEqual(is_complete(step, lst)[0], True)
 
     def test_other_orders(self):
         step = 'other_orders'
