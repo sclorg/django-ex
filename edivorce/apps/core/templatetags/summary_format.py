@@ -192,7 +192,7 @@ def property_tag(source):
     second_column = '</td><td width="25%">'
     end_tag = '</td></tr>'
 
-    division = division_detail = want_other = other_detail = None
+    division = division_detail = other_detail = None
 
     for item in source:
         q_id = item['question_id']
@@ -201,8 +201,6 @@ def property_tag(source):
             division = item
         elif q_id == 'how_to_divide_property_debt':
             division_detail = item
-        elif q_id == 'want_other_property_claims':
-            want_other = item
         elif q_id == 'other_property_claims':
             other_detail = item
 
@@ -210,7 +208,7 @@ def property_tag(source):
         tags.append(first_column + division['question__name'] + second_column + division['value'] + end_tag)
     if division and division['value'] == "Unequal division" and division_detail:
         tags.append(first_column + division_detail['question__name'] + second_column + process_list(division_detail['value'].split('\n'), division_detail['question_id']) + end_tag)
-    if want_other and other_detail:
+    if other_detail and other_detail['value'].strip():
         tags.append(first_column + other_detail['question__name'] + second_column + process_list(other_detail['value'].split('\n'), other_detail['question_id']) + end_tag)
 
     return ''.join(tags)

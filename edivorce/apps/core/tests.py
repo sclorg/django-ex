@@ -342,26 +342,8 @@ class UserResponseTestCase(TestCase):
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
         self.assertEqual(is_complete(step, lst)[0], False)
 
-        # All required question with no hidden shown
+        # Only one required question with no hidden shown
         create_response(user, 'deal_with_property_debt', 'Equal division')
-
-        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
-        self.assertEqual(is_complete(step, lst)[0], True)
-
-        # All required question with hidden shown but no response
-        UserResponse.objects.filter(question_id='deal_with_property_debt').update(value="Unequal division")
-
-        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
-        self.assertEqual(is_complete(step, lst)[0], False)
-
-        # Only one required question with hidden shown and answered
-        create_response(user, 'how_to_divide_property_debt', 'Do not divide them')
-
-        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
-        self.assertEqual(is_complete(step, lst)[0], True)
-
-        # Only two required question with hidden shown and answered
-        create_response(user, 'want_other_property_claims', '["Ask for other property claims"]')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
         self.assertEqual(is_complete(step, lst)[0], False)
@@ -372,11 +354,30 @@ class UserResponseTestCase(TestCase):
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
         self.assertEqual(is_complete(step, lst)[0], True)
 
-        # Put empty response
-        UserResponse.objects.filter(question_id='want_other_property_claims').update(value="")
+        # All required question with hidden shown but no response
+        UserResponse.objects.filter(question_id='deal_with_property_debt').update(value="Unequal division")
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
+        self.assertEqual(is_complete(step, lst)[0], False)
+
+        # All required question with hidden shown and answered
+        create_response(user, 'how_to_divide_property_debt', 'Do not divide them')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
         self.assertEqual(is_complete(step, lst)[0], True)
+
+        # Only two required question with hidden shown and answered
+        # NOTE: want_other_property_claims not in use anymore
+        # create_response(user, 'want_other_property_claims', '["Ask for other property claims"]')
+        #
+        # lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
+        # self.assertEqual(is_complete(step, lst)[0], False)
+
+        # Put empty response
+        UserResponse.objects.filter(question_id='other_property_claims').update(value="")
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
+        self.assertEqual(is_complete(step, lst)[0], False)
 
     def test_other_orders(self):
         step = 'other_orders'

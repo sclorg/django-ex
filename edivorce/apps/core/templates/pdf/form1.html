@@ -336,9 +336,8 @@
                     <td> <strong> B Other property claims </strong> </td>
                 </tr>
                 <tr>
-                    {% check_list source=responses.want_other_property_claims value='Ask for other property claims' as other_wanted %}
-                    <td> <i class="fa {% if other_wanted %} fa-check-square-o {% else %} fa-square-o{% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
-                        <span class="form-entry form-textarea not-complete">{% if other_wanted and responses.other_property_claims %} {{ responses.other_property_claims|striptags|linebreaksul }} {% else %}&nbsp;{% endif %}</span> </td>
+                    <td> <i class="fa {% if responses.other_property_claims %} fa-check-square-o {% else %} fa-square-o{% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
+                        <span class="form-entry form-textarea not-complete">{% if responses.other_property_claims %} {{ responses.other_property_claims|striptags|linebreaksul }} {% else %}&nbsp;{% endif %}</span> </td>
                 </tr>
             </tbody>
         </table>
@@ -348,7 +347,7 @@
             <tbody>
                 <tr>
                     {% check_list source=responses.want_which_orders value='Other orders' as order_wanted %}
-                    <td> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order in the following terms: <span class="form-entry form-textarea not-complete">{% if responses.other_orders_detail %} {{ responses.other_orders_detail|striptags|linebreaksul }} {% else %} &nbsp; {% endif %}</span>
+                    <td> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order in the following terms: <span class="form-entry form-textarea not-complete">{% if responses.other_orders_detail and order_wanted %} {{ responses.other_orders_detail|striptags|linebreaksul }} {% else %} &nbsp; {% endif %}</span>
                         <p class="text-center">
                             [<em>set out terms of proposed order</em>]
                         </p>
