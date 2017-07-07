@@ -1,5 +1,6 @@
 {% load static %}
 {% load input_field %}
+{% load format_utils %}
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -90,11 +91,11 @@
                 {% if responses.where_were_you_married_country == 'Other' %} {{ responses.where_were_you_married_other_country }}
                 {% else %} {{responses.where_were_you_married_country}}{% endif %}
             {% else %}<span class="form-entry not-complete"></span>{% endif %}
-            on {% if responses.when_were_you_married %} {{ responses.when_were_you_married }} {% else %}<span class="form-entry not-complete"></span>{% endif %}, are divorced from each other,
+            on {% if responses.when_were_you_married %} {{ responses.when_were_you_married|date_formatter }} {% else %}<span class="form-entry not-complete"></span>{% endif %}, are divorced from each other,
             {% if responses.divorce_take_effect_on == 'the 31st day after the date of this order' %}
                 the divorce to take effect on the 31st day after the date of this order.
             {% else %}
-                the divorce to take effect on {% if responses.divorce_take_effect_on_specific_date %}{{ responses.divorce_take_effect_on_specific_date }}{% else %}<span class="form-entry not-complete"></span>{% endif %}.
+                the divorce to take effect on {% if responses.divorce_take_effect_on_specific_date %}{{ responses.divorce_take_effect_on_specific_date|date_formatter }}{% else %}<span class="form-entry not-complete"></span>{% endif %}.
             {% endif %}
         </p>
 

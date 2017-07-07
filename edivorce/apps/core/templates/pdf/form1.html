@@ -55,19 +55,19 @@
                     <td colspan="2"> Claimant 1 and Claimant 2: </td>
                 </tr>
                 <tr>
-                    <td><i class="fa {% if responses.when_were_you_live_married_like %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} began to live together in a marriage-like relationship on [<em>dd/mm/yyyy</em>]</td>
-                    <td colname="c2"> {% if responses.when_were_you_live_married_like %} {{ responses.when_were_you_live_married_like }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
+                    <td><i class="fa {% if responses.when_were_you_live_married_like %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} began to live together in a marriage-like relationship on [<em>dd/mmm/yyyy</em>]</td>
+                    <td colname="c2"> {% if responses.when_were_you_live_married_like %} {{ responses.when_were_you_live_married_like|date_formatter }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
                 </tr>
                 <tr>
-                    <td><i class="fa {% if responses.when_were_you_married %} fa-check-square-o" aria-hidden="true"></i> {% else %} fa-square-o" aria-hidden="true"></i> {% endif %} were married on  [<em>dd/mm/yyyy</em>]</td>
-                    <td colname="c2"> {% if responses.when_were_you_married %} {{ responses.when_were_you_married }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
+                    <td><i class="fa {% if responses.when_were_you_married %} fa-check-square-o" aria-hidden="true"></i> {% else %} fa-square-o" aria-hidden="true"></i> {% endif %} were married on  [<em>dd/mmm/yyyy</em>]</td>
+                    <td colname="c2"> {% if responses.when_were_you_married %} {{ responses.when_were_you_married|date_formatter }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
                 </tr>
                 <tr>
-                    <td><i class="fa {% if responses.separation_date %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} separated on [dd/mm/yyyy]</td>
-                    <td colname="c2"> {% if responses.separation_date %} {{ responses.separation_date }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
+                    <td><i class="fa {% if responses.separation_date %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} separated on [dd/mmm/yyyy]</td>
+                    <td colname="c2"> {% if responses.separation_date %} {{ responses.separation_date|date_formatter }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
                 </tr>
                 <tr>
-                    <td><i class="fa fa-square-o" aria-hidden="true"></i> were divorced from each other by order made on [<em>dd/mm/yyyy</em>]</td>
+                    <td><i class="fa fa-square-o" aria-hidden="true"></i> were divorced from each other by order made on [<em>dd/mmm/yyyy</em>]</td>
                     <td colname="c2"> <span class="form-entry not-complete">&nbsp;</span></td>
                 </tr>
                 <tr>
@@ -93,18 +93,18 @@
                     <td colname="c3"> <strong> Claimant 2 </strong> </td>
                 </tr>
                 <tr>
-                    <td> Birthdate: [<em>dd/mm/yyyy</em>] </td>
-                    <td colname="c2">{% if responses.birthday_you %} {{ responses.birthday_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
-                    <td colname="c3">{% if responses.birthday_spouse %} {{ responses.birthday_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
+                    <td> Birthdate: [<em>dd/mmm/yyyy</em>] </td>
+                    <td colname="c2">{% if responses.birthday_you %} {{ responses.birthday_you|date_formatter }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
+                    <td colname="c3">{% if responses.birthday_spouse %} {{ responses.birthday_spouse|date_formatter }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
                 </tr>
                 <tr>
-                    <td> Ordinarily resident in British Columbia since: [<em>dd/mm/yyyy</em>] </td>
+                    <td> Ordinarily resident in British Columbia since: [<em>dd/mmm/yyyy</em>] </td>
                     <td colname="c2">{% if responses.lived_in_bc_you == 'Since birth' %} {{ responses.birthday_you }}
-                                     {% elif responses.lived_in_bc_you == 'Moved to B.C. on' %} {{ responses.moved_to_bc_date_you }}
+                                     {% elif responses.lived_in_bc_you == 'Moved to B.C. on' %} {{ responses.moved_to_bc_date_you|date_formatter }}
                                      {% elif responses.lived_in_bc_you == 'Do not live in B.C.' %}
                                      {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
                     <td colname="c3">{% if responses.lived_in_bc_spouse == 'Since birth' %} {{ responses.birthday_spouse }}
-                                     {% elif responses.lived_in_bc_spouse == 'Moved to B.C. on' %} {{ responses.moved_to_bc_date_spouse }}
+                                     {% elif responses.lived_in_bc_spouse == 'Moved to B.C. on' %} {{ responses.moved_to_bc_date_spouse|date_formatter }}
                                      {% elif responses.lived_in_bc_spouse == 'Does not live in B.C.' %}
                                      {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
                 </tr>
@@ -147,7 +147,7 @@
                     <td colspan="2"> <strong> B. Grounds for claim for divorce: </strong></td>
                 </tr>
                 <tr>
-                    <td colspan="2"> (i) <i class="fa {% if responses.separation_date %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} Claimant 1 and Claimant 2 have lived separate and apart since {% if responses.separation_date %} {{ responses.separation_date }} {% else %} <span class="form-entry not-complete">&nbsp;</span>{% endif %}</td>
+                    <td colspan="2"> (i) <i class="fa {% if responses.separation_date %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} Claimant 1 and Claimant 2 have lived separate and apart since {% if responses.separation_date %} {{ responses.separation_date|date_formatter }} {% else %} <span class="form-entry not-complete">&nbsp;</span>{% endif %}</td>
                 </tr>
                 <tr>
                     <td colspan="2"> <strong> AND </strong ></em> </td>
@@ -243,7 +243,7 @@
                         <table class="table table-fixed table-bordered">
                             <tr>
                                 <td align="center"> Full name: </td>
-                                <td align="center"> Birth date:<br />[<em>dd/mm/yyyy</em>] </td>
+                                <td align="center"> Birth date:<br />[<em>dd/mmm/yyyy</em>] </td>
                                 <td align="center"> Resides with: </td>
                             </tr>
                             <tr>
@@ -390,7 +390,7 @@
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd/mm/yyyy]</td>
+                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
                         <p>
@@ -414,7 +414,7 @@
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd/mm/yyyy]</td>
+                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
                         <p>
@@ -457,7 +457,7 @@
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd/mm/yyyy]</td>
+                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
                         <p>
@@ -505,7 +505,7 @@
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd/mm/yyyy]</td>
+                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
                         <p>

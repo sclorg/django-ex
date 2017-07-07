@@ -1,5 +1,6 @@
 {% load static %}
 {% load input_field %}
+{% load format_utils %}
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -91,11 +92,11 @@
 
         <p class="schIndent1">
             5 Claimant 1 and claimant 2 were living separate and apart from each other at the start of this family law case and claimant 1 and claimant 2 have lived separate and apart from each other since
-            {% if responses.separation_date %} {{ responses.separation_date }}{% else %} <span class="form-entry not-complete"></span>{% endif %}, except:
+            {% if responses.separation_date %} {{ responses.separation_date|date_formatter }}{% else %} <span class="form-entry not-complete"></span>{% endif %}, except:
             {% multiple_values_to_list source=responses.reconciliation_period as periods %}
             {% if periods != '[]' and responses.try_reconcile_after_separated == 'YES' %}
                 {% for period in periods %}
-                    from {{ period | first }} to {{ period | last }}{% if not forloop.last %}, {% endif %}
+                    from {{ period | first|date_formatter }} to {{ period | last|date_formatter }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}.
             {% else %}<span class="form-entry not-complete"></span>{% endif %}
         </p>
