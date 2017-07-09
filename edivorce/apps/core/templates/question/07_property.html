@@ -128,7 +128,8 @@
     </p>
     <div>
         <label>
-            Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
+            {% if name_you %} {{ name_you }} {% else %}Claimant 1 {% endif %} and {% if name_spouse %} {{ name_spouse }} {% else %}Claimant 2 {% endif %}
+            ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
         </label>
     </div>
     {% input_field type="textarea" name="other_property_claims" rows="8" cols="65" class="response-textarea" %}
