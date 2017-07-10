@@ -135,31 +135,41 @@ var getValue = function(el, question){
             sToDate = $(this).closest('div').next('div').find(".reconciliation-to-date").val();
             sFromDate = $(this).val();
             // check if both date is in valid format and all
-            if (sToDate != '' && sFromDate != '' && isValidDate(sToDate) && isValidDate(sFromDate))
+            if (sToDate !== '' && sFromDate !== '' && isValidDate(sToDate) && isValidDate(sFromDate))
             {
                 // clear previous errors
-                el.closest('.form-group')
-                    .removeClass('has-error')
-                    .find('span.help-block')
+                $(this).closest('.form-inline').find('.date')
+                    .removeClass('has-error');
+                $(this).closest('.form-inline').find('span.help-block')
                     .remove();
 
                 dToDate = stringToDate(sToDate);
                 dFromDate = stringToDate(sFromDate);
                 if (dFromDate < dToDate){
-                    value.push([sFromDate, sToDate]);
-                    // show alert message if reconciliation period is greater than 90 days
-                    if (dToDate.setDate(dToDate.getDate() - 90) > dFromDate){
-                        $('#reconciliation_90_days_alert').show();
-                        hideAlert = false;
+                    // check if date overlaps with other dates
+                    if(!checkDateOverlap(value, dFromDate, dToDate)) {
+                        value.push([sFromDate, sToDate]);
+                        // show alert message if reconciliation period is greater than 90 days
+                        if (dToDate.setDate(dToDate.getDate() - 90) > dFromDate) {
+                            $('#reconciliation_90_days_alert').show();
+                            hideAlert = false;
+                        }
+                        if (hideAlert) {
+                            $('#reconciliation_90_days_alert').hide();
+                        }
                     }
-                    if (hideAlert){
-                        $('#reconciliation_90_days_alert').hide();
+                    else {
+                        $(this).closest('.form-inline').find('.date')
+                        .addClass('has-error');
+                        $(this).closest('.form-inline').find('.form-warning')
+                            .append('<span class="help-block">You have entered date periods that overlap, please check your dates and enter each period of time separately.</span>');
                     }
                 }
                 else {
-                    el.closest('.date')
-                        .addClass('has-error')
-                        .append('<span class="help-block">Negative Date Range</span>');
+                    $(this).closest('.form-inline').find('.date')
+                        .addClass('has-error');
+                    $(this).closest('.form-inline').find('.form-warning')
+                            .append('<span class="help-block">You have entered an end date (To:) that is earlier than the start date (From:), please check your dates and try again.</span>');
                 }
             }
         });
@@ -270,4 +280,28 @@ var checkSeparationDateLessThanYear = function(separationDate){
     yearFromToday.setYear(yearFromToday.getFullYear()-1);
     // if separation date is less than one year, display message
     return (date > yearFromToday);
+};
+
+// Check if new date overlaps with existing dates
+var checkDateOverlap = function(dates, newFromDate, newToDate){
+    if (dates.length === 0) {
+        return false;
+    }
+    var isOverlap = true;
+    var oldFromDate;
+    var oldToDate;
+    // No overlap when new From date is later than old To date
+    // Or if new From date is earlier than old To date, and new To date is earlier than old From date.
+    dates.forEach(function(date){
+        oldFromDate = stringToDate(date[0]);
+        oldToDate = stringToDate(date[1]);
+        if(newFromDate > oldToDate) {
+            isOverlap = false;
+        }
+        else {
+            isOverlap = !(newToDate < oldFromDate);
+        }
+    });
+
+    return isOverlap;
 };
