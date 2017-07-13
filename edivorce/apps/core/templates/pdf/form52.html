@@ -1,6 +1,7 @@
 {% load static %}
 {% load input_field %}
 {% load format_utils %}
+{% load load_json %}
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -79,42 +80,59 @@
         <p class="schIndent1">
             This family law case coming on as an undefended family law case without an oral hearing under Rule 10-10 of the Supreme Court Family Rules, and on considering the evidence put forward;
         </p>
-        <p>
-            THIS COURT ORDERS that
-        </p>
 
-        <p class="schIndent1">
-            Subject to section 12 of the <em>Divorce Act</em> (Canada), claimant 1, {% if responses.name_you %}{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}{% else %}<span class="form-entry not-complete"></span>{% endif %},
-            and claimant 2, {% if responses.name_spouse %}{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}{% else %}<span class="form-entry not-complete"></span>{% endif %}, who were married at
-            {% if responses.where_were_you_married_city and responses.where_were_you_married_prov and responses.where_were_you_married_country %}
-                {{responses.where_were_you_married_city}}; {{responses.where_were_you_married_prov}};
-                {% if responses.where_were_you_married_country == 'Other' %} {{ responses.where_were_you_married_other_country }}
-                {% else %} {{responses.where_were_you_married_country}}{% endif %}
-            {% else %}<span class="form-entry not-complete"></span>{% endif %}
-            on {% if responses.when_were_you_married %} {{ responses.when_were_you_married|date_formatter }} {% else %}<span class="form-entry not-complete"></span>{% endif %}, are divorced from each other,
-            {% if responses.divorce_take_effect_on == 'the 31st day after the date of this order' %}
-                the divorce to take effect on the 31st day after the date of this order.
-            {% else %}
-                the divorce to take effect on {% if responses.divorce_take_effect_on_specific_date %}{{ responses.divorce_take_effect_on_specific_date|date_formatter }}{% else %}<span class="form-entry not-complete"></span>{% endif %}.
-            {% endif %}
-        </p>
+        {% if 'A legal end to the marriage' in responses.want_which_orders|load_json %}
+            <p>
+                THIS COURT ORDERS that
+            </p>
 
-        {% comment "removed as per CLAW-480" %}
-        <p>
-            THIS COURT ORDERS that BY CONSENT:
-        </p>
+            <p class="schIndent1">
+                Subject to section 12 of the <em>Divorce Act</em> (Canada), claimant 1, {% if responses.name_you %}{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}{% else %}<span class="form-entry not-complete"></span>{% endif %},
+                and claimant 2, {% if responses.name_spouse %}{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}{% else %}<span class="form-entry not-complete"></span>{% endif %}, who were married at
+                {% if responses.where_were_you_married_city and responses.where_were_you_married_prov and responses.where_were_you_married_country %}
+                    {{responses.where_were_you_married_city}}; {{responses.where_were_you_married_prov}};
+                    {% if responses.where_were_you_married_country == 'Other' %} {{ responses.where_were_you_married_other_country }}
+                    {% else %} {{responses.where_were_you_married_country}}{% endif %}
+                {% else %}<span class="form-entry not-complete"></span>{% endif %}
+                on {% if responses.when_were_you_married %} {{ responses.when_were_you_married|date_formatter }} {% else %}<span class="form-entry not-complete"></span>{% endif %}, are divorced from each other,
+                {% if responses.divorce_take_effect_on == 'the 31st day after the date of this order' %}
+                    the divorce to take effect on the 31st day after the date of this order.
+                {% else %}
+                    the divorce to take effect on {% if responses.divorce_take_effect_on_specific_date %}{{ responses.divorce_take_effect_on_specific_date|date_formatter }}{% else %}<span class="form-entry not-complete"></span>{% endif %}.
+                {% endif %}
+            </p>
+        {% endif %}
 
-        <p class="schIndent1">
-            1 <span class="form-entry not-complete">&nbsp;</span>
-        </p>
-        <p class="schIndent1">
-            2 <span class="form-entry not-complete">&nbsp;</span>
-        </p>
-        <p class="schIndent1">
-            3 <span class="form-entry not-complete">&nbsp;</span>
-        </p>
 
-        {% endcomment %}
+        {% if 'Division of property and debts' in responses.want_which_orders|load_json or 'Spousal support' in responses.want_which_orders|load_json or 'Other orders' in responses.want_which_orders|load_json %}
+            <p>
+                THIS COURT ORDERS that BY CONSENT:
+            </p>
+
+            <p class="schIndent1">
+                <ol>
+                  {% if 'Spousal support' in responses.want_which_orders|load_json and responses.spouse_support_details %}
+                    <li>{{ responses.spouse_support_details }}</li>
+                  {% endif %}
+
+                  {% if 'Division of property and debts' in responses.want_which_orders|load_json %}
+                    <li>
+                        {% if responses.deal_with_property_debt == 'Equal division' %}
+                            Equal division of property and debts.
+                        {% else %}
+                            {{ responses.how_to_divide_property_debt }}
+                        {% endif %}
+                        <br>
+                        {{ responses.other_property_claims }}
+                    </li>
+                  {% endif %}
+
+                  {% if 'Other orders' in responses.want_which_orders|load_json and responses.other_orders_detail %}
+                    <li>{{ responses.other_orders_detail }}</li>
+                  {% endif %}
+                </ol>
+            </p>
+        {% endif %}
 
         <div class="avoid-break">
             <p>
