@@ -99,11 +99,11 @@
                 </tr>
                 <tr>
                     <td> Ordinarily resident in British Columbia since: [<em>dd/mmm/yyyy</em>] </td>
-                    <td colname="c2">{% if responses.lived_in_bc_you == 'Since birth' %} {{ responses.birthday_you }}
+                    <td colname="c2">{% if responses.lived_in_bc_you == 'Since birth' %} {{ responses.birthday_you|date_formatter }}
                                      {% elif responses.lived_in_bc_you == 'Moved to B.C. on' %} {{ responses.moved_to_bc_date_you|date_formatter }}
                                      {% elif responses.lived_in_bc_you == 'Do not live in B.C.' %}
                                      {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
-                    <td colname="c3">{% if responses.lived_in_bc_spouse == 'Since birth' %} {{ responses.birthday_spouse }}
+                    <td colname="c3">{% if responses.lived_in_bc_spouse == 'Since birth' %} {{ responses.birthday_spouse|date_formatter }}
                                      {% elif responses.lived_in_bc_spouse == 'Moved to B.C. on' %} {{ responses.moved_to_bc_date_spouse|date_formatter }}
                                      {% elif responses.lived_in_bc_spouse == 'Does not live in B.C.' %}
                                      {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
@@ -163,12 +163,12 @@
                     {% if periods and responses.try_reconcile_after_separated == 'YES' %}
                         <td>
                             {% for period in periods %}
-                                <p>from: {{period | first}}</p>
+                                <p>from: {{period | first |date_formatter }}</p>
                             {% endfor %}
                         </td>
                         <td>
                             {% for period in periods %}
-                                <p>to: {{period | last }}</p>
+                                <p>to: {{period | last |date_formatter }}</p>
                             {% endfor %}
                         </td>
                     {% else %}
