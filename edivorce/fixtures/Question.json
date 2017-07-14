@@ -73,7 +73,7 @@
 },
 {
     "fields": {
-        "name": "Are any of the children 19 years or younger?",
+        "name": "Are any of the children under 19 years old?",
         "description": "For pre-qualification step 4",
         "summary_order": 8,
         "required": "Conditional",
