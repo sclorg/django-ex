@@ -118,7 +118,7 @@ $(function () {
         var proceedNext = $(this).data('proceed');
         if (!showAlert) {
             $(".checkbox-group input:checkbox").not(":checked").each(function () {
-                if ($(this).val() == 'Division of property and debts' || $(this).val() == 'Spousal support') {
+                if ($(this).val() === 'Division of property and debts' || $(this).val() === 'Spousal support') {
                     showAlert = true;
                 }
             });
@@ -127,6 +127,16 @@ $(function () {
             $('#unselected_orders_alert').show();
             e.preventDefault();
             $(this).data('proceed', true);
+        }
+    });
+
+    // For Prequalification step 3
+    // If there is invalid date on reconciliation period,
+    // prevent user from navigate away from the page when user clicks next or back button, or use side navigation
+    $('#btn_reconcilaition_back, #btn_reconcilaition_next, .progress-column > a').on('click', function(e){
+        if ($('.invalid-date').is(':visible')) {
+            e.preventDefault();
+            $('.invalid-date').parent().siblings('.form-group').find('.reconciliation-from-date').focus();
         }
     });
 

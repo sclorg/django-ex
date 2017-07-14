@@ -162,14 +162,14 @@ var getValue = function(el, question){
                         $(this).closest('.form-inline').find('.date')
                         .addClass('has-error');
                         $(this).closest('.form-inline').find('.form-warning')
-                            .append('<span class="help-block">You have entered date periods that overlap, please check your dates and enter each period of time separately.</span>');
+                            .append('<span class="help-block invalid-date">You have entered date periods that overlap, please check your dates and enter each period of time separately.</span>');
                     }
                 }
                 else {
                     $(this).closest('.form-inline').find('.date')
                         .addClass('has-error');
                     $(this).closest('.form-inline').find('.form-warning')
-                            .append('<span class="help-block">You have entered an end date (To:) that is earlier than the start date (From:), please check your dates and try again.</span>');
+                            .append('<span class="help-block invalid-date">You have entered an end date (To:) that is earlier than the start date (From:), please check your dates and try again.</span>');
                 }
             }
         });
