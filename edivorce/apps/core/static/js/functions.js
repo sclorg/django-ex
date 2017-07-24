@@ -8,38 +8,38 @@ var reveal = function(el) {
     var css_class = el.data("target_class");
     var related_id = el.data("related_id");
     // hide or show based on target id
-    if (el.data("reveal_target") == true && el.prop('checked')) {
+    if (el.data("reveal_target") === true && el.prop('checked')) {
         $(id).show();
-        if (related_id != undefined){
+        if (related_id !== undefined){
             $('#' + related_id).hide();
         }
-        if (id == "#has_children"){
+        if (id === "#has_children"){
             reveal($("input[name=any_under_19]:checked"));
         }
         // reveal nested question as well
-        if (id =="#marriage_certificate"){
+        if (id ==="#marriage_certificate"){
             reveal($("input[name=provide_certificate_later]:checked"));
         }
     } else {
         $(id).hide();
-        if (related_id != undefined){
+        if (related_id !== undefined){
             $('#' + related_id).show();
         }
     }
 
     // hide or show based on target css class
-    if (el.data("reveal_class") == false) {
-        if (css_class != undefined){
+    if (el.data("reveal_class") === false) {
+        if (css_class !== undefined){
             $('.' + css_class).hide();
         }
     } else {
-        if (css_class != undefined){
+        if (css_class !== undefined){
             $('.' + css_class).show();
         }
     }
 
-    if (el.prop('name') == "provide_certificate_later" || el.prop('name') == "original_marriage_certificate"){
-        if ($('input[name=provide_certificate_later]:checked').val() != 'YES' && $('input[name=original_marriage_certificate]:checked').val() == 'NO') {
+    if (el.prop('name') === "provide_certificate_later" || el.prop('name') === "original_marriage_certificate"){
+        if ($('input[name=provide_certificate_later]:checked').val() !== 'YES' && $('input[name=original_marriage_certificate]:checked').val() === 'NO') {
             $('#is_certificate_in_english').hide();
         }
         else {
@@ -55,20 +55,20 @@ var reveal = function(el) {
 var childSupportCheckboxControl = function(el) {
     var boxName = el.prop("name");
     // Make sure at least one box is checked
-    if ($(".checkbox-group").find("input[type=checkbox]:checked").length == 0){
+    if ($(".checkbox-group").find("input[type=checkbox]:checked").length === 0){
         el.prop('checked', true);
     }
     else {
-        if (el.val() == "NO") {
+        if (el.val() === "NO") {
             $("input[name=" + boxName + "]").each(function () {
-                if ($(this).val() != "NO") {
+                if ($(this).val() !== "NO") {
                     $(this).prop('checked', false);
                 }
             });
         }
         else {
             $("input[name=" + boxName + "]").each(function () {
-                if ($(this).val() == "NO") {
+                if ($(this).val() === "NO") {
                     $(this).prop('checked', false);
                 }
             });
@@ -81,14 +81,14 @@ var childSupportCheckboxControl = function(el) {
 // Else, set textbox to empty and update the response
 var radioWithTextboxControl = function(el){
     // If radio button has other as an option and 'Other' is not selected, update other textbox to empty
-    if (el.is(".radio-with-other") && el.val() != 'Other'){
+    if (el.is(".radio-with-other") && el.val() !== 'Other'){
         var otherTextBox = el.closest('div.radio').parent().find(".other-textbox");
         otherTextBox.val('');
         ajaxCall(otherTextBox.prop('name'), '');
     }
 
     // Set focus to textbox for user convenience
-    else if (el.is(".radio-with-other") && el.val() == 'Other'){
+    else if (el.is(".radio-with-other") && el.val() === 'Other'){
 
         el.siblings($(".other-textbox")).focus();
     }
@@ -107,7 +107,7 @@ var getValue = function(el, question){
     // if checkbox, get list of values.
     if (el.is("input[type=checkbox]")){
         // special behaviour for question children_financial_support
-        if (question == "children_financial_support"){
+        if (question === "children_financial_support"){
             childSupportCheckboxControl(el);
         }
         el.parents(".checkbox-group").find("input[type=checkbox]:checked").each(function(){
@@ -117,18 +117,18 @@ var getValue = function(el, question){
         return JSON.stringify(value);
     }
     // for adding other_name fields, create list of [aliasType, alias]
-    else if (question == "other_name_you" || question == "other_name_spouse"){
+    else if (question === "other_name_you" || question === "other_name_spouse"){
         var aliasType = "also known as";
         $('#other_names_fields').find("input[type=text]").each(function () {
             // as per request, alias type will always be also known as for now
-            // aliasType = $(this).val() == '' ? '' : $(this).siblings(".alias-type").val();
+            // aliasType = $(this).val() === '' ? '' : $(this).siblings(".alias-type").val();
             value.push([aliasType, $(this).val()]);
         });
         return JSON.stringify(value);
     }
     // for adding reconciliation_period fields, create list of [sFromDate, sToDate] and
     // check if sFromDate is earlier than sToDate
-    else if (question == "reconciliation_period"){
+    else if (question === "reconciliation_period"){
         var sToDate, sFromDate, dToDate, dFromDate;
         var hideAlert = true;
         $('#reconciliation_period_fields').find(".reconciliation-from-date").each(function () {
@@ -208,7 +208,7 @@ var validateDate = function(el){
         .find('span.help-block')
         .remove();
 
-    if (el.val().trim() == '') {
+    if (el.val().trim() === '') {
         el.val('');
         return true;
     }
@@ -228,7 +228,7 @@ var validateDate = function(el){
 
 // validates that a string is a valid date
 var isValidDate = function(dateString, isFuture) {
-    if (dateString.trim() == '') {
+    if (dateString.trim() === '') {
         return true;
     }
 
