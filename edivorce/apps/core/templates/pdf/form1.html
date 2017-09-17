@@ -133,11 +133,12 @@
                 </tr>
                 <tr>
                     <td colspan="1"> Place of marriage: [<em>city or town; province or state; country</em>] </td>
-                    <td colspan="2">{% if responses.where_were_you_married_city and responses.where_were_you_married_prov and responses.where_were_you_married_country %}
-                        {{responses.where_were_you_married_city}}; {{responses.where_were_you_married_prov}};
-                            {% if responses.where_were_you_married_country == 'Other' %} {{ responses.where_were_you_married_other_country }}
-                            {% else %} {{responses.where_were_you_married_country}}{% endif %}
-                        {% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %}</td>
+                    <td colspan="2">{% if responses.where_were_you_married_city and responses.where_were_you_married_country %}
+                        {{responses.where_were_you_married_city}};
+                        {% if responses.where_were_you_married_prov %} {{responses.where_were_you_married_prov}}; {% endif %}
+                        {% if responses.where_were_you_married_country == 'Other' %} {{ responses.where_were_you_married_other_country }}
+                        {% else %} {{responses.where_were_you_married_country}}{% endif %}
+                    {% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %}</td>
                 </tr>
             </tbody>
         </table>
