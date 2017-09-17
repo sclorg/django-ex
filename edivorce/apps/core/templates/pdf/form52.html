@@ -35,10 +35,10 @@
         <p class="text-center">
             <em> In the Supreme Court of British Columbia </em>
         </p>
-        <p>
+        <p style="max-height: 32px">
             Claimant 1:{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
         </p>
-        <p>
+        <p style="max-height: 32px">
             Claimant 2:{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
         </p>
         <h2 class="text-center">
@@ -104,38 +104,38 @@
             </p>
         {% endif %}
 
-
-        {% if 'Division of property and debts' in responses.want_which_orders|load_json or 'Spousal support' in responses.want_which_orders|load_json or 'Other orders' in responses.want_which_orders|load_json %}
-            <p>
-                THIS COURT ORDERS that BY CONSENT:
-            </p>
-
-            <p class="schIndent1">
-                <ol>
-                  {% if 'Spousal support' in responses.want_which_orders|load_json and responses.spouse_support_details %}
-                    <li>{{ responses.spouse_support_details }}</li>
-                  {% endif %}
-
-                  {% if 'Division of property and debts' in responses.want_which_orders|load_json %}
-                    <li>
-                        {% if responses.deal_with_property_debt == 'Equal division' %}
-                            Equal division of property and debts.
-                        {% else %}
-                            {{ responses.how_to_divide_property_debt }}
-                        {% endif %}
-                        <br>
-                        {{ responses.other_property_claims }}
-                    </li>
-                  {% endif %}
-
-                  {% if 'Other orders' in responses.want_which_orders|load_json and responses.other_orders_detail %}
-                    <li>{{ responses.other_orders_detail }}</li>
-                  {% endif %}
-                </ol>
-            </p>
-        {% endif %}
-
         <div class="avoid-break">
+
+            {% if 'Division of property and debts' in responses.want_which_orders|load_json or 'Spousal support' in responses.want_which_orders|load_json or 'Other orders' in responses.want_which_orders|load_json %}
+                <p>
+                    THIS COURT ORDERS that BY CONSENT:
+                </p>
+
+                <p class="schIndent1">
+                    <ol>
+                      {% if 'Spousal support' in responses.want_which_orders|load_json and responses.spouse_support_details %}
+                        <li>{{ responses.spouse_support_details }}</li>
+                      {% endif %}
+
+                      {% if 'Division of property and debts' in responses.want_which_orders|load_json %}
+                        <li>
+                            {% if responses.deal_with_property_debt == 'Equal division' %}
+                                Equal division of property and debts.
+                            {% else %}
+                                {{ responses.how_to_divide_property_debt }}
+                            {% endif %}
+                            <br>
+                            {{ responses.other_property_claims }}
+                        </li>
+                      {% endif %}
+
+                      {% if 'Other orders' in responses.want_which_orders|load_json and responses.other_orders_detail %}
+                        <li>{{ responses.other_orders_detail }}</li>
+                      {% endif %}
+                    </ol>
+                </p>
+            {% endif %}
+
             <p>
                 THE FOLLOWING PARTIES APPROVE THE FORM OF THIS ORDER AND CONSENT TO EACH OF THE ORDERS, IF ANY, THAT ARE INDICATED ABOVE AS BEING BY CONSENT:
             </p>
