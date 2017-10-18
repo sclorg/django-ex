@@ -1,4 +1,12 @@
-{% extends 'base.html' %} {% load input_field %} {% load step_order %} {% block title %}{{ block.super }}: Prequalification{% endblock %} {% block progress %}{% include "partials/progress.html" %}{% endblock %} {% block content %}
+{% extends 'base.html' %}
+{% load input_field %}
+{% load step_order %}
+
+{% block title %}{{ block.super }}: Prequalification{% endblock %}
+
+{% block progress %}{% include "partials/progress.html" %}{% endblock %}
+
+{% block content %}
 
 <h1><small>Step 1:</small>What are you asking for
     <span class="tooltip-link" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
@@ -135,7 +143,14 @@
     </div>
 </div>
 
-{% endblock %} {% block formBack %}{% url 'overview' %}{% endblock %} {% block formNext %}{% next_step step='orders' %}{% endblock %}{% block nextButtonAttribute %}id="check_order_selected" data-proceed="false" data-show_alert="false"{% endblock %}
+{% endblock %}
+
+{% block formBack %}{% url 'overview' %}{% endblock %}
+
+{% block formNext %}{% next_step step='orders' %}{% endblock %}
+
+{% block nextButtonAttribute %}id="check_order_selected" data-proceed="false" data-show_alert="false"{% endblock %}
+
 {% block sidebarText %}
 <h3>What are Orders?</h3>
 <p>
@@ -148,8 +163,8 @@
            (e.g. child support to be paid by payor or payee, by when, how, etc). of what you want the court to grant." >application<i class="fa fa-question-circle" aria-hidden="true"></i></span>
     and in a
     <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
-       title="<b>Draft of the order</b><br /><br />A draft final order sets out what orders (decisions) you want the court to make (what you want the judge to approve). 
-       The draft final order is reviewed by a judge or master. If the judge or master makes the order you ask for, 
+       title="<b>Draft of the order</b><br /><br />A draft final order sets out what orders (decisions) you want the court to make (what you want the judge to approve).
+       The draft final order is reviewed by a judge or master. If the judge or master makes the order you ask for,
        they'll sign the <b>draft order</b> you filed and it becomes your <b>final court order</b>.">draft of the order<i class="fa fa-question-circle" aria-hidden="true"></i></span>
     to be signed by the judge or
     <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
