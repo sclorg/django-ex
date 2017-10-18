@@ -7,90 +7,165 @@
 {% block content %}
 <h1>Review and Print your Divorce Forms</h1>
 <p>
-    To get divorced, you need to get a divorce order. Only the court has the ability to divorce a married couple.
-    To get a court order you have to start a court case. What this means is you will have to print off the forms listed below,
-    and file them (open your court case) at a
-    <span class="tooltip-link" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
-       title="<b>Court Registry</b><br /><br />Registries are located in courthouses around the province. You can file your divorce documents at any
-       <a href='http://www.courts.gov.bc.ca/supreme_court/court_locations_and_contacts.aspx' target='_blank'>Supreme Court registry</a>.
-       Usually, people file their documents at the Supreme Court registry nearest to where they live or work (Supreme Court registry addresses)."> court registry<i class="fa fa-question-circle" aria-hidden="true"></i></span>.
+    To get divorced, you need to get a divorce order. Only the court has the
+    ability to divorce a married couple.  To get a court order you have to
+    start a court case. What this means is you will have to print off the forms
+    listed below, and file them (open your court case) at a
+    <span class="tooltip-link" data-toggle="tooltip" data-placement="auto"
+          data-html="true" data-trigger="click"
+          title="
+            <b>Court Registry</b>
+            <br /><br />
+            Registries are located in courthouses around the province. You can
+            file your divorce documents at any
+            <a href='http://www.courts.gov.bc.ca/supreme_court/court_locations_and_contacts.aspx'
+            target='_blank'>Supreme Court registry</a>. Usually, people file
+            their documents at the Supreme Court registry nearest to where they
+            live or work (Supreme Court registry addresses).
+          ">
+      court registry<i class="fa fa-question-circle" aria-hidden="true"></i>
+    </span>.
 </p>
+
 <p>&nbsp;</p>
+
 <h3>Print These Forms</h3>
-<p><a href="{% url 'dashboard_nav' 'help_saving_pdf' %}">Get help opening and saving PDF forms</a> | <a href="#" class="info-modal">Changing my forms</a></p>
+
+<p>
+  <a href="{% url 'dashboard_nav' 'help_saving_pdf' %}">Get help opening and saving PDF forms</a> |
+  <a href="#" class="info-modal">Changing my forms</a>
+</p>
 
 <div class="review-well clearfix">
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF1" aria-controls="collapseF1">
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#collapseF1"
+         aria-controls="collapseF1">
        <div>
            <span>Notice of Joint Family Claim Form (F1)</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '1' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '1' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a> </p>
+    <p class="review-butons">
+        <a href="{% url 'pdf_form' '1' %}" class="btn btn-primary spinner">
+            <i class="fa fa-print" aria-hidden="true"></i> Review and Print
+        </a>
+    </p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF1">
        <div>
            <p>
-               The Notice of Joint Family Claim Form (F1) is a document that starts the court file for your divorce. It states the grounds for the divorce and gives information about you and your spouse, as well as the details about your {% if married_marriage_like == 'Legally married' %}marriage{% else %}relationship{% endif %} and separation.
+               The Notice of Joint Family Claim Form (F1) is a document that
+               starts the court file for your divorce. It states the grounds
+               for the divorce and gives information about you and your spouse,
+               as well as the details about your
+               {% if married_marriage_like == 'Legally married' %}marriage
+               {% else %}relationship{% endif %} and separation.
            </p>
        </div>
     </div>
 </div>
+
 <div class="review-well clearfix">
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF35" aria-controls="collapseF35">
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#collapseF35"
+         aria-controls="collapseF35">
        <div>
            <span>Requisition Form (F35)</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '35' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '35' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
+    <p class="review-butons">
+        <a href="{% url 'pdf_form' '35' %}" class="btn btn-primary spinner">
+            <i class="fa fa-print" aria-hidden="true"></i> Review and Print
+        </a>
+    </p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF35">
        <div>
            <p>
-               This form tells the court that you are asking for an order (decision) from a judge. The Requisition also tells the court what documents you’re providing to support your application.
+               This form tells the court that you are asking for an order
+               (decision) from a judge. The Requisition also tells the court
+               what documents you’re providing to support your application.
            </p>
        </div>
     </div>
 </div>
 <div class="review-well clearfix">
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF52" aria-controls="collapseF52">
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#collapseF52"
+         aria-controls="collapseF52">
        <div>
            <span>Draft Final Order Form (F52)</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '52' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '52' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
+    <p class="review-butons">
+        <a href="{% url 'pdf_form' '52' %}" class="btn btn-primary spinner">
+            <i class="fa fa-print" aria-hidden="true"></i> Review and Print
+        </a>
+    </p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF52">
        <div>
            <p>
-               A draft Final Order sets out what orders (decision) you want the court to make. You and your spouse are responsible for writing out the order. The judge or master who reviews your case doesn't write the order. The final order you draft will become your divorce order, once the judge has signed it.
+               A draft Final Order sets out what orders (decision) you want the
+               court to make. You and your spouse are responsible for writing
+               out the order. The judge or master who reviews your case doesn't
+               write the order. The final order you draft will become your
+               divorce order, once the judge has signed it.
            </p>
            <ul>
-               <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingOrders.php" target="_blank">Write draft order</a> - List what orders you want the court to make.</li>
-               <li><b>File draft order</b> when you file the other forms and documents at the court registry</li>
-               <li>If the judge or master makes the order you ask for, they'll sign the draft order you filed and it becomes your court order.</li>
-               <li><b>If there's a problem</b> with your order and the judge or master doesn't approve it, the court registry will let you know. You might have to draft another version of the order or appear in court to give the judge or master more information about what you wrote in the order.</li>
+               <li>
+                   <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingOrders.php"
+                     target="_blank">Write draft order</a>
+                   - List what orders you want the court to make.
+               </li>
+               <li><b>File draft order</b> when you file the other forms and
+                 documents at the court registry</li>
+               <li>If the judge or master makes the order you ask for, they'll
+                 sign the draft order you filed and it becomes your court
+                 order.</li>
+               <li><b>If there's a problem</b> with your order and the judge or
+                 master doesn't approve it, the court registry will let you
+                 know. You might have to draft another version of the order or
+                 appear in court to give the judge or master more information
+                 about what you wrote in the order.</li>
            </ul>
        </div>
     </div>
 </div>
 <div class="review-well clearfix">
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF36" aria-controls="collapseF36">
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#collapseF36"
+         aria-controls="collapseF36">
        <div>
            <span>Certificate of Pleadings Form (F36)</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '36' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '36' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
+    <p class="review-butons">
+        <a href="{% url 'pdf_form' '36' %}" class="btn btn-primary spinner">
+            <i class="fa fa-print" aria-hidden="true"></i> Review and Print
+        </a>
+    </p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF36">
        <div>
            <p>
-               The only details you need to provide on the Certificate of Pleadings form (F36) are your name and your spouse's name. The Court Registrar uses this form to tell you if all your documents are in order. If something is missing or you’ve filled in the form incorrectly, he or she will let you know using this form.
+               The only details you need to provide on the Certificate of
+               Pleadings form (F36) are your name and your spouse's name. The
+               Court Registrar uses this form to tell you if all your documents
+               are in order. If something is missing or you’ve filled in the
+               form incorrectly, he or she will let you know using this form.
            </p>
            <p>
-               Take the Certificate to the court registry where you filed your Notice of Trial. After you file it, the registrar will search the file and sign and return the Certificate to you. If something's missing, the registrar won't sign the Certificate and will let you know.
+               Take the Certificate to the court registry where you filed your
+               Notice of Trial. After you file it, the registrar will search
+               the file and sign and return the Certificate to you. If
+               something's missing, the registrar won't sign the Certificate
+               and will let you know.
            </p>
            <p>
-               If everything is in order, the Registrar will sign the Certificate of Pleadings to show the judge that they've checked everything over. All of your document will be sent to the judge for review.
+               If everything is in order, the Registrar will sign the
+               Certificate of Pleadings to show the judge that they've checked
+               everything over. All of your document will be sent to the judge
+               for review.
            </p>
        </div>
     </div>
@@ -98,29 +173,71 @@
 
 {% if married_marriage_like == 'Legally married' %}
 <div class="review-well clearfix">
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF38" aria-controls="collapseF38">
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#collapseF38"
+         aria-controls="collapseF38">
        <div>
            <span>Affidavit Desk Order Divorce Form (F38) - signing together</span>
        </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_we' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '38_we' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
+    <p class="review-butons">
+        <a href="{% url 'pdf_form' '38_we' %}" class="btn btn-primary spinner">
+            <i class="fa fa-print" aria-hidden="true"></i> Review and Print
+        </a>
+    </p>
     <div class="clearfix"> </div>
     <div class="collapse" id="collapseF38">
        <div>
-           <o>$40 per affidavit (if sworn at a court registry)</o>
+           <p>$40 per affidavit (if sworn at a court registry)</p>
            <p>
-               Since your divorce won't require an appearance before a judge, you must fill out and swear/affirm <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click" title="&lt;b&gt;Swear/Affirm&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;To &ldquo;take an oath&rdquo; in front of a lawyer, notary public, or commissioner for taking affidavits
-                                  that statements made in court or the contents of an affidavit are true to the best of your knowledge and belief
-                                  that your oath is &ldquo;under an immediate sense of responsibility to God&rdquo;. A non-religious alternative is to affirm." aria-hidden="true"></i> an Affidavit <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click" title="&lt;b&gt;Affidavit&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;A document that contains facts that you swear under oath or affirm to be true.
-                                  A lawyer, notary public, or commissioner for taking affidavits must witness your signature and sign your affidavit." aria-hidden="true"></i> Desk Order Divorce Form (F38). This document sets out the facts of your marriage and separation.
+               Since your divorce won't require an appearance before a judge,
+               you must fill out and
+               swear/affirm<i class="fa fa-question-circle" data-toggle="tooltip"
+                  data-placement="auto" data-html="true" data-trigger="click"
+                  title="
+                    <b>Swear/Affirm</b>
+                    <br /><br />
+                    To &ldquo;take an oath&rdquo; in front of a lawyer, notary
+                    public, or commissioner for taking affidavits that
+                    statements made in court or the contents of an affidavit
+                    are true to the best of your knowledge and belief that your
+                    oath is &ldquo;under an immediate sense of responsibility
+                    to God&rdquo;. A non-religious alternative is to affirm.
+                  "
+                  aria-hidden="true"></i>
+                an Affidavit<i class="fa fa-question-circle" data-toggle="tooltip"
+                  data-placement="auto" data-html="true" data-trigger="click"
+                  title="
+                    <b>Affidavit</b>
+                    <br /><br />
+                    A document that contains facts that you swear under
+                    oath or affirm to be true.  A lawyer, notary public, or
+                    commissioner for taking affidavits must witness your
+                    signature and sign your affidavit.
+                  "
+                  aria-hidden="true"></i>
+                Desk Order Divorce Form (F38). This document sets out the facts
+                of your marriage and separation.
            </p>
-            <p>
-                Please follow these steps to ensure your affidavit does not get rejected:
-            </p>
-           <ul>
-               Both you and your spouse need to swear/affirm the affidavit. Take <b>photo identification</b> with you. The person who will swear/affirm the documents for you must be sure you are both who you say you are. One affidavit must be sworn/affirmed <b>at the time of filing.</b>
            <p>
-               You'll notice that some of the information in the affidavit is the same as what's in your Notice of Joint Family Claim Form (F1). Because the Notice of Joint Family Claim is not a sworn document, and the judge/master must have sworn evidence to make a decision, you must swear or affirm that the information in these affidavits is true.
+                Please follow these steps to ensure your affidavit does not get
+                rejected:
+           </p>
+           <ul>
+               <li>Both you and your spouse need to swear/affirm the affidavit.</li>
+               <li>Take <b>photo identification</b> with you. The person who
+                 will swear/affirm the documents for you must be sure you are
+                 both who you say you are.
+               <li>One affidavit must be sworn/affirmed <b>at the time of
+                   filing.</b></li>
+           </ul>
+           <p>
+               You'll notice that some of the information in the affidavit is
+               the same as what's in your Notice of Joint Family Claim Form
+               (F1). Because the Notice of Joint Family Claim is not a sworn
+               document, and the judge/master must have sworn evidence to make
+               a decision, you must swear or affirm that the information in
+               these affidavits is true.
            </p>
        </div>
     </div>
@@ -134,19 +251,30 @@
           Claimant 1
         </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_claimant1' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '38_claimant1' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
+    <p class="review-butons">
+        <a href="{% url 'pdf_form' '38_claimant1' %}" class="btn btn-primary spinner">
+            <i class="fa fa-print" aria-hidden="true"></i> Review and Print
+        </a>
+    </p>
     <div class="clearfix"> </div>
     <div class="collapse empty">
         <div>
           Claimant 2
         </div>
     </div>
-    <p class="review-butons"><a class="btn btn-primary" href="{% url 'pdf_form' '38_claimant2' %}?html"><i class="fa fa-eye" aria-hidden="true"></i> Preview</a> <a href="{% url 'pdf_form' '38_claimant2' %}" class="btn btn-primary spinner"><i class="fa fa-print" aria-hidden="true"></i> Print</a></p>
+    <p class="review-butons">
+        <a href="{% url 'pdf_form' '38_claimant2' %}" class="btn btn-primary spinner">
+            <i class="fa fa-print" aria-hidden="true"></i> Review and Print
+        </a>
+    </p>
     <div class="clearfix"> </div>
 </div>
 {% else %}
+{% comment %}{# common law use case removed in DIV-495 #}
 <div class="review-well clearfix">
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseF30" aria-controls="collapseF30">
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#collapseF30"
+         aria-controls="collapseF30">
        <div>
            <span>Affidavit Form (F30)</span>
        </div>
@@ -172,14 +300,16 @@
        </div>
     </div>
 </div>
+{% endcomment %}
 {% endif %}
 
 {% if married_marriage_like == 'Legally married' %}
 <div class="question-well">
     <h2>Signing Your Affidavit Forms</h2>
     <p>
-        The affidavit will need to be sworn or affirmed. You can either <b>jointly</b> prepare one Affidavit — Desk
-        Order Divorce form (F38) or complete two versions and <b>swear/affirm them separately.</b>
+        The affidavit will need to be sworn or affirmed. You can either
+        <b>jointly</b> prepare one Affidavit — Desk Order Divorce form (F38) or
+        complete two versions and <b>swear/affirm them separately.</b>
     </p>
 
     <table class="table table-bordered">
@@ -188,12 +318,17 @@
             <th>If only one of you will be coming to the court registry:</th>
         </tr>
         <tr>
-            <td>The affidavit can be signed and sworn/affirmed by both of you when at the registry.</td>
             <td>
-                <p>Either you or your spouse can sign and swear/affirm ahead of time, but the 2nd party will need to
-                    sign when at the registry.</p>
-                <p>If one of you decides to swear/affirm ahead of time, at the time of filing the application, both
-                    affidavits must have been notarized within 30 days prior to filing.</p>
+              The affidavit can be signed and sworn/affirmed by both of you
+              when at the registry.
+            </td>
+            <td>
+                <p>Either you or your spouse can sign and swear/affirm ahead of
+                time, but the 2nd party will need to sign when at the
+                registry.</p>
+                <p>If one of you decides to swear/affirm ahead of time, at the
+                time of filing the application, both affidavits must have been
+                notarized within 30 days prior to filing.</p>
             </td>
         </tr>
     </table>
@@ -201,19 +336,24 @@
 {% endif %}
 
 <div class="question-well">
-    <h2>
-        {% if married_marriage_like == 'Legally married' %}Other{% endif %}
-        Documents to Take to the Court Registry
-    </h2>
+    <h2>Other Documents to Take to the Court Registry</h2>
     <ul>
-        <li>Proof of marriage (original or certified Marriage Certificate or Registration of Divorce)</li>
-        <li>Completed <a href="http://www.justice.gc.ca/eng/fl-df/divorce/pdf/form.pdf">Registration of Divorce form</a> (Federal)</li>
+        <li>
+          Proof of marriage (original or certified Marriage Certificate or
+          Registration of Divorce)
+        </li>
+        <li>Completed
+          <a href="http://www.justice.gc.ca/eng/fl-df/divorce/pdf/form.pdf">
+            Registration of Divorce form
+          </a> (Federal)
+        </li>
     </ul>
 </div>
 
 <div class="question-well">
     <h2>Assembly Instructions</h2>
-    <p>Staple each form together and then fasten all forms with a paper clip, in the following order:</p>
+    <p>Staple each form together and then fasten all forms with a paper clip,
+    in the following order:</p>
     <ul>
         <li>Notice of Joint Family Claim Form (F1)</li>
         <li>Requisition Form (F35)</li>
@@ -222,14 +362,17 @@
         {% if married_marriage_like == 'Legally married' %}
             <li>Affidavit — Desk Order Divorce Form (F38)</li>
         {% else %}
+            {% comment %}{# common law use case removed in DIV-495 #}
             <li>Affidavit — Desk Order Divorce Form (F30)</li>
+            {% endcomment %}
         {% endif %}
     </ul>
     <p>
-        If you have other court orders or a written separation agreement, they should also be
-        attached to your Affidavit{% if married_marriage_like == 'Legally married' %} — Desk
-        Order Divorce Form (F38){% else %} Form (F30){% endif %}. Note that these agreements or orders must not
-        contradict what's in your divorce application.
+        If you have other court orders or a written separation agreement, they
+        should also be attached to your Affidavit
+        {% if married_marriage_like == 'Legally married' %} — Desk Order Divorce
+        Form (F38){% else %} Form (F30){% endif %}. Note that these agreements
+        or orders must not contradict what's in your divorce application.
     </p>
 </div>
 
@@ -242,8 +385,10 @@
             </div>
             <div class="modal-body">
                 <p>
-                    If you need to make changes to your forms, you can return to the Divorce Questionnaire section to
-                    review and update your answers. You will then need to Review and Print your forms again.
+                    If you need to make changes to your forms, you can return
+                    to the Divorce Questionnaire section to review and update
+                    your answers. You will then need to Review and Print your
+                    forms again.
                 </p>
             </div>
             <div class="modal-footer">
