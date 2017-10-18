@@ -30,11 +30,15 @@ To run this project in your development machine, follow these steps:
 
     `python3.5 ./manage.py migrate`
 
-6. If everything is alright, you should be able to start the Django development server:
+6. Load questions from fixtures:
+  
+    `python3.5 ./manage.py loaddata edivorce/fixtures/Question.json`
+
+7. If everything is alright, you should be able to start the Django development server:
 
     `python3.5 ./manage.py runserver 0.0.0.0:8000`
 
-7. Start the [Weasyprint server](https://hub.docker.com/r/aquavitae/weasyprint/) server on port 5005
+8. Start the [Weasyprint server](https://hub.docker.com/r/aquavitae/weasyprint/) server on port 5005
 
     1. Bind the IP address 10.200.10.1 to the lo0 interface on your Mac computer.  Weasyprint has been configured to use this IP address to request CSS files from Django *(You should only have to do this once)*.
         ```
@@ -46,8 +50,7 @@ To run this project in your development machine, follow these steps:
         docker run -d -p 5005:5001 aquavitae/weasyprint
         ```
 
-
-8. Open your browser and go to http://127.0.0.1:8000, you will be greeted with the eDivorce homepage.
+9. Open your browser and go to http://127.0.0.1:8000, you will be greeted with the eDivorce homepage.  In dev mode, you can log in with any username and the password 'divorce'.
 
 
 ## OpenShift deployment
