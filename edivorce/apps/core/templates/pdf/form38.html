@@ -54,9 +54,12 @@
         </p>
         <p>
             I, {% if responses.name_claimant %}{% include "partials/name_with_alias.html" with name=responses.name_claimant use_other_name=responses.any_other_name_claimant other_names=responses.other_name_claimant %}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
-            {% if responses.address_to_send_official_document_street_claimant and responses.address_to_send_official_document_city_claimant and responses.address_to_send_official_document_prov_claimant and responses.address_to_send_official_document_country_claimant and responses.address_to_send_official_document_postal_code_claimant %}
-              {{ responses.address_to_send_official_document_street_claimant }}, {{ responses.address_to_send_official_document_city_claimant }}, {{ responses.address_to_send_official_document_prov_claimant }},
-              {% if responses.address_to_send_official_document_country_claimant == 'Other' %} {{ responses.address_to_send_official_document_other_country_claimant }}{% else %} {{ responses.address_to_send_official_document_country_claimant }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_claimant }} {% else %}<span class="form-entry not-complete"></span>{% endif %},
+            {% if responses.address_to_send_official_document_street_claimant and responses.address_to_send_official_document_city_claimant and responses.address_to_send_official_document_country_claimant and responses.address_to_send_official_document_postal_code_claimant %}
+              {{ responses.address_to_send_official_document_street_claimant }}, {{ responses.address_to_send_official_document_city_claimant }},
+              {% if responses.address_to_send_official_document_prov_claimant %}
+                  {{ responses.address_to_send_official_document_prov_claimant }},
+              {% endif %}
+              {% if responses.address_to_send_official_document_country_claimant == 'Other' %} {{ responses.address_to_send_official_document_other_country_claimant }}{% else %} {{ responses.address_to_send_official_document_country_claimant }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_claimant }}{% else %}<span class="form-entry not-complete"></span>{% endif %},
             {% if responses.occupation_claimant %} {{ responses.occupation_claimant }}{% else %}<span class="form-entry not-complete"></span>{% endif %}, SWEAR (OR AFFIRM) THAT:
         </p>
         <p class="schIndent1">

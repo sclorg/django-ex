@@ -572,7 +572,7 @@
         "name": "Prov",
         "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 54,
-        "required": "Required"
+        "required": ""
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_prov_you"
@@ -652,7 +652,7 @@
         "name": "Prov",
         "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
         "summary_order": 62,
-        "required": "Required"
+        "required": ""
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_prov_spouse"
