@@ -13,66 +13,121 @@
 <div>
     <h1>Before We Begin...</h1>
 
-    <p>Some divorces are more complicated than others, and not everyone should use this online tool. So let's start by asking you a few questions to make sure that this website is right for your situation.</p>
+    <p>Some divorces are more complicated than others, and not everyone should
+    use this online tool. So let's start by asking you a few questions to make
+    sure that this website is right for your situation.</p>
 </div>
 
 <div class="question-well">
     <h3>Are you</h3>
+
     <div class="radio"><label>
-        {% input_field type="radio"  name="married_marriage_like" value="Legally married" class="keep-tooltip-open" %}
-        Legally married<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"
+        {% input_field type="radio" name="married_marriage_like" value="Legally married" class="keep-tooltip-open" data_target_id="cannot_divorce_common_law" data_reveal_target="false" data_target_class="not-disqualified" data_reveal_class="true" %}
+        Legally married<i class="fa fa-question-circle"
+                          data-toggle="tooltip"
+                          data-placement="right"
                           data-html="true"
-                          title="<b>LEGALLY MARRIED</b><br /><br />Legally married is defined as: when two people agree
-                          to live together in a partnership made legally binding by a religious or legal ceremony.<br /><br />
-                          To prove you were legally married you will need to provide a marriage certificate issued in the country
+                          title="
+                          <b>LEGALLY MARRIED</b>
+                          <br /><br />
+                          Legally married is defined as: when two people agree
+                          to live together in a partnership made legally
+                          binding by a religous or legal ceremony.
+                          <br /><br />
+                          To prove you were legally married you will need to
+                          provide a marriage certificate issued in the country
                           where you were married."
-                          aria-hidden="true"></i></label>
-    </div>
+                          aria-hidden="true"></i>
+    </label></div>
 
     <div class="radio"><label>
-        {% input_field type="radio"  name="married_marriage_like" value="Living together in a marriage like relationship" class="keep-tooltip-open" %}
-        Living together in a <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
-                                     title="<b>MARRIAGE LIKE RELATIONSHIP</b><br /><br />The term &quot;common-law relationship&quot;
-                                     is often used to refer to a marriage-like relationship that has lasted a certain length of time,
-                                     usually one or two years." >marriage like<i class="fa fa-question-circle" aria-hidden="true"></i></span>
-        (also known as common law) relationship</label>
+        {% input_field type="radio"  name="married_marriage_like" value="Living together in a marriage like relationship" class="keep-tooltip-open" data_target_id="cannot_divorce_common_law" data_reveal_target="true" data_target_class="not-disqualified" data_reveal_class="false" %}
+        Living together in a
+        <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
+              data-html="true"
+              title="
+                <b>MARRIAGE LIKE RELATIONSHIP</b>
+                <br /><br />
+                The term &quot;common-law relationship&quot; is often used to
+                refer to a marriage-like relationship that has lasted a certain
+                length of time, usually one or two years.">
+          marriage like<i class="fa fa-question-circle" aria-hidden="true"></i>
+        </span>
+        (also known as common law) relationship
+    </label></div>
+
+    <div class="not-disqualified">
+        <div class="collapse-trigger collapsed" data-toggle="collapse"
+          aria-expanded="true" data-target="#collapse_lived_two_years"
+          aria-controls="collapse_lived_two_year">
+            <div>
+                If I have lived with my spouse for at least two years, are we
+                married?
+            </div>
+        </div>
+        <div class="collapse" id="collapse_lived_two_years">
+            <div>
+                <p>No, you aren't married, but after two years, you have a lot
+                of the same rights as a married couple would.  Some federal
+                benefits treat you as married spouse if you've been living
+                together for one year. For more information refer to the
+                booklet called
+                <a href="http://www.familylaw.lss.bc.ca/resources/publications/pub.php?pub=347" target="_blank">
+                Living Together or Living Apart: Common-Law Relationships,
+                Marriage, Separation and Divorce</a>, on the Family Law in B.C.
+                website.</p>
+            </div>
+        </div>
     </div>
 
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="true" data-target="#collapse_lived_two_years" aria-controls="collapse_lived_two_year">
-        <div>
-            If I have lived with my spouse for at least two years, are we married?
-        </div>
+    <div class="information-message bg-danger hard-stop"
+         id="cannot_divorce_common_law" hidden>
+      <p>Sorry, but at this point in time you will not be able to complete your
+      application using this online tool.</p>
+
+      <p>As someone living in a marriage-like relationship, you have several
+      options for dealing with your separation. Many separating couples can
+      agree about how they're going to deal with parenting, property, and child
+      and spousal support without ever going to court. If you and your spouse
+      or partner can come to an agreement, you'll save yourselves time, money,
+      and emotional turmoil, as well as keep control of important decisions
+      that affect your family.</p>
+
+      <p>For more information about resolving your family law matters, see the
+      <a href="https://mylawbc.modria.com/family/make-a-plan"
+      target="_blank">Make a Separation Plan</a> or the <a
+      href="https://mylawbc.modria.com/family/get-orders" target="_blank">Get
+      Family Orders</a> guided pathway available from MyLawBC.</p>
     </div>
-    <div class="collapse" id="collapse_lived_two_years">
-        <div>
-            <p>No, you aren't married, but after two years, you have a lot of the same rights as a married couple would.
-                Some federal benefits treat you as married spouse if you've been living together for one year. For more
-                information refer to the booklet called
-                <a href="http://www.familylaw.lss.bc.ca/resources/publications/pub.php?pub=347" target="_blank">
-                    Living Together or Living Apart: Common-Law Relationships, Marriage, Separation and Divorce</a>,
-                on the Family Law in B.C. website.</p>
-        </div>
-    </div>
+
 </div>
 
 {% endblock %}
 
 {% block formbuttons %}
-<div class="form-buttons clearfix">
+<div class="form-buttons clearfix not-disqualified">
 
     {% if request.bceid_user.is_authenticated %}
-        <a class="btn btn-primary" href="{% url 'overview' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
+        <a class="btn btn-primary" href="{% url 'overview' %}">
+          <i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back
+        </a>
     {% else %}
-        <a class="btn btn-primary" href="{% url 'home' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
+        <a class="btn btn-primary" href="{% url 'home' %}">
+          <i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back
+        </a>
     {% endif %}
 
-    <a class="btn btn-success pull-right" href="{% url 'prequalification' '02' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
+    <a class="btn btn-success pull-right"
+       href="{% url 'prequalification' '02' %}">
+      Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i>
+    </a>
 </div>
 {% endblock %}
 
 {% block sidebarNav %}
 <!-- no sidebar -->
 {% endblock %}
+
 {% block sidebar %}
 <!-- no sidebar -->
 {% endblock %}
