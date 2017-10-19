@@ -10,28 +10,68 @@
 
 
 <h1><small>Step {% step_order step="other_orders" %}:</small>Other Orders</h1>
-<h3>Please enter the details for another orders that you are asking for.</h3>
-{% input_field type="textarea" name="other_orders_detail" rows="8" cols="65" class="response-textarea" %}
 
-<div id="questions_modal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <i class="fa fa-gavel" aria-hidden="true"></i>
-                <h1 class="modal-title">Other Orders</h1>
-            </div>
-            <div class="modal-body">
-                <p>This section will allow you to provide the details for any other orders you are seeking.</p>
-            </div>
-            <div class="modal-footer">
-                <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
+<div class="question-well">
+    <h3>Are you asking for a name change?</h3>
+
+    <div class="btn-radio-group" data-toggle="buttons">
+        <label class="btn btn-radio">
+            {% input_field type="radio" name="name_change_you" autocomplete="off" value="YES" data_target_id="name_change_you_fullname" data_reveal_target="true" %} Yes
+        </label>
+
+        <label class="btn btn-radio">
+            {% input_field type="radio" name="name_change_you" autocomplete="off" value="NO" data_target_id="name_change_you_fullname" data_reveal_target="false" %} No
+        </label>
+    </div>
+
+    <div id="name_change_you_fullname" hidden>
+        <h3>Please enter the full name</h3>
+        {% input_field type="text" name="name_change_you_fullname" class="form-block input-wide response-textbox" %}
+    </div>
+
+</div>
+
+<div class="question-well">
+    <h3>Is your spouse asking for a name change?</h3>
+
+    <div class="btn-radio-group" data-toggle="buttons">
+        <label class="btn btn-radio">
+            {% input_field type="radio" name="name_change_spouse" autocomplete="off" value="YES" data_target_id="name_change_spouse_fullname" data_reveal_target="true" %} Yes
+        </label>
+
+        <label class="btn btn-radio">
+            {% input_field type="radio" name="name_change_spouse" autocomplete="off" value="NO" data_target_id="name_change_spouse_fullname" data_reveal_target="false" %} No
+        </label>
+    </div>
+
+    <div id="name_change_spouse_fullname" hidden>
+        <h3>Please enter the full name</h3>
+        {% input_field type="text" name="name_change_spouse_fullname" class="form-block input-wide response-textbox" %}
+    </div>
+
+</div>
+
+<div class="question-well">
+    <h3>Please enter the details for other orders that you are asking for.</h3>
+    {% input_field type="textarea" name="other_orders_detail" rows="8" cols="65" class="response-textarea" %}
+
+    <div id="questions_modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <i class="fa fa-gavel" aria-hidden="true"></i>
+                    <h1 class="modal-title">Other Orders</h1>
+                </div>
+                <div class="modal-body">
+                    <p>This section will allow you to provide the details for any other orders you are seeking.</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
 {% endblock %}
 
 {% block formBack %}{% prev_step step='other_orders' %}{% endblock %}

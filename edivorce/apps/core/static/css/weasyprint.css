@@ -103,4 +103,12 @@ i.fa {
     border-top: none !important;
 }
 
+ol.numbered-paragraphs {
+  padding-left: 1.5em;
+}
+
+ol.numbered-paragraphs li {
+  margin-bottom: 10px;
+  padding-left: 1.5em;
+}
 

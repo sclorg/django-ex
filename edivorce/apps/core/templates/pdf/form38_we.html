@@ -74,92 +74,65 @@
             {% if responses.occupation_spouse %} {{ responses.occupation_spouse }}{% else %}<span class="form-entry not-complete"></span>{% endif %},<br />
             SWEAR (OR AFFIRM) THAT:
         </p>
-        <p class="schIndent1">
-            1 We are claimant 1 and claimant 2.
-        </p>
-        <p class="schIndent1">
-            2 There is no possibility of reconciliation between my spouse and me.
-        </p>
-
-        <p class="schIndent1">
-            3 We believe that the facts set out in the notice of family claim are true.
-        </p>
-
+        <ol class="numbered-paragraphs">
+          <li>We are claimant 1 and claimant 2.</li>
+          <li>There is no possibility of reconciliation between my spouse and me.</li>
+          <li>We believe that the facts set out in the notice of family claim are true.</li>
         {% if responses.original_marriage_certificate == 'YES' %}
-            <p class="schIndent1">
-                4 The certificate of marriage or certified copy of the registration of marriage filed in this family law case fully and correctly describes the true particulars of the marriage.
-            </p>
+          <li>The certificate of marriage or certified copy of the registration
+            of marriage filed in this family law case fully and correctly
+            describes the true particulars of the marriage.</li>
         {% else %}
-            <p class="schIndent1">
-                4 It is impossible to obtain a certificate of marriage or a certified copy of the registration of marriage and instead, in accordance with section 52 (1) (a) of the <em>Evidence Act</em>, we refer to the affidavit of <span class="form-entry not-complete"></span>,
-                a person who was present at the marriage ceremony, which affidavit is filed in this family law case.
-            </p>
+          <li>It is impossible to obtain a certificate of marriage or a
+            certified copy of the registration of marriage and instead, in
+            accordance with section 52 (1) (a) of the <em>Evidence Act</em>, we
+            refer to the affidavit of <span class="form-entry
+            not-complete"></span>, a person who was present at the marriage
+            ceremony, which affidavit is filed in this family law case.</li>
         {% endif %}
-
-        <p class="schIndent1">
-            5 Claimant 1 and claimant 2 were living separate and apart from each other at the start of this family law case and claimant 1 and claimant 2 have lived separate and apart from each other since
-            {% if responses.separation_date %} {{ responses.separation_date|date_formatter }}{% else %} <span class="form-entry not-complete"></span>{% endif %}, except:
+          <li>
+            Claimant 1 and claimant 2 were living separate and apart from each
+            other at the start of this family law case and claimant 1 and
+            claimant 2 have lived separate and apart from each other since
+            {% if responses.separation_date %}
+              {{ responses.separation_date|date_formatter }}
+            {% else %}
+              <span class="form-entry not-complete"></span>
+            {% endif %},
+            except:
             {% multiple_values_to_list source=responses.reconciliation_period as periods %}
             {% if periods != '[]' and responses.try_reconcile_after_separated == 'YES' %}
                 {% for period in periods %}
                     from {{ period | first|date_formatter }} to {{ period | last|date_formatter }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}.
             {% else %}<span class="form-entry not-complete"></span>{% endif %}
-        </p>
-        {% comment "This section is out of scope" %}
-            <p class="schIndent1">
-                5 My spouse has admitted to me that <span class="form-entry not-complete"></span> committed the acts of adultery alleged in Schedule
-                1 of the <span class="form-entry not-complete"></span> and
-            </p>
-            <p class="schIndent2">
-                (a) as corroboration I refer to <span class="form-entry not-complete">[<em>Set out whichever one of the following is applicable:</em></span> the affidavit(s) of <span class="form-entry not-complete"></span>, / the transcript of the examination for discovery of <span class="form-entry not-complete"></span>
-                marked as Exhibit "A" to this affidavit <span class="form-entry not-complete">]</span> ,
-            </p>
-            <p class="schIndent2">
-                (b) I have not condoned the conduct of my spouse that is alleged as the grounds for divorce in that I have not forgiven my spouse for that conduct, nor have I encouraged or acquiesced in that conduct.
-            </p>
-            <p class="schIndent1">
-                5 I have no personal knowledge of the acts of adultery alleged in Schedule 1 of the <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>
-                and
-            </p>
-            <p class="schIndent2">
-                (a) in proof of the adultery committed by my spouse I refer to <span class="form-entry not-complete">&nbsp;</span>[<em>Set out whichever one of the following is applicable:</em> the affidavit(s) of <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>, / the transcript of the examination
-                for discovery of <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span> marked as Exhibit "A" to this affidavit]<span class="form-entry not-complete">&nbsp;</span> ,
-            </p>
-            <p class="schIndent2">
-                (b) I have not condoned the conduct of my spouse that is alleged as the grounds for divorce in that I have not forgiven my spouse for that conduct, nor have I encouraged or acquiesced in that conduct.
-            </p>
-            <p class="schIndent1">
-                5 My spouse has treated me with physical or mental cruelty since the date of the marriage as follows: <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>
-            </p>
-        {% endcomment %}
-        <p class="schIndent1">
-            6 We are neither directly nor indirectly a party to an agreement or conspiracy for the purpose of subverting the administration of justice, or to any agreement, understanding or arrangement to fabricate or suppress evidence or to deceive the court.
-        </p>
+          </li>
+          <li>We are neither directly nor indirectly a party to an agreement or
+            conspiracy for the purpose of subverting the administration of
+            justice, or to any agreement, understanding or arrangement to
+            fabricate or suppress evidence or to deceive the court.</li>
+          <li>There are no children of the marriage as defined by the
+            <em>Divorce Act</em> (Canada).</li>
 
-        <p class="schIndent1 force-break">
-            7 There are no children of the marriage as defined by the <em>Divorce Act</em> (Canada).
-        </p>
-        {% comment "This section is out of scope" %}
-            <p class="schIndent1">
-                7 There are children of the marriage as defined by the <em>Divorce Act</em> (Canada) and
-            </p>
-            <p class="schIndent2">
-                (a) those children are <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>,
-            </p>
-            <p class="schIndent2">
-                (b) we have sworn a child support affidavit in Form F37, and
-            </p>
-            <p class="schIndent2">
-                (c) the following arrangements for parenting have been made: <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span> .
-            </p>
-        {% endcomment %}
+        {% if responses.name_change_you == 'YES' %}
+          <li>
+            Pursuant to Section 5 of the Name Act, Claimant 1 shall
+            bear the name of {{ responses.name_change_you_fullname }}
+            to take effect on the 31st day after the date of this
+            order.
+          </li>
+        {% endif %}
 
-        {% comment "This section is out of scope" %}
-            <p class="schIndent1">
-                8 Additional Details <span class="form-entry form-textarea not-complete"> </span>
-            </p>
-        {% endcomment %}
+        {% if responses.name_change_spouse == 'YES' %}
+          <li>
+            Pursuant to Section 5 of the Name Act, Claimant 2 shall
+            bear the name of {{ responses.name_change_spouse_fullname }}
+            to take effect on the 31st day after the date of this
+            order.
+          </li>
+        {% endif %}
+
+        </ol>
 
         <br><br><br>
         <table class="table table-bordered">

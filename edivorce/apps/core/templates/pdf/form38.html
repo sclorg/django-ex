@@ -62,106 +62,85 @@
               {% if responses.address_to_send_official_document_country_claimant == 'Other' %} {{ responses.address_to_send_official_document_other_country_claimant }}{% else %} {{ responses.address_to_send_official_document_country_claimant }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_claimant }}{% else %}<span class="form-entry not-complete"></span>{% endif %},
             {% if responses.occupation_claimant %} {{ responses.occupation_claimant }}{% else %}<span class="form-entry not-complete"></span>{% endif %}, SWEAR (OR AFFIRM) THAT:
         </p>
-        <p class="schIndent1">
-            1 I am {% if responses.which_claimant %}{{ responses.which_claimant }}{% else %}<span class="form-entry not-complete">{% endif %}</span>.
-        </p>
-        <p class="schIndent1">
-            2 There is no possibility of reconciliation between my spouse and me.
-        </p>
-        <p class="schIndent1">
-            3 I believe that the facts set out in the notice of family claim are true.
-        </p>
 
-        {% if responses.original_marriage_certificate == 'YES' %}
-            <p class="schIndent1">
-                4 The certificate of marriage or certified copy of the registration of marriage filed in this family law case fully and correctly describes the true particulars of the marriage.
-            </p>
-        {% else %}
-            <p class="schIndent1">
-                4 It is impossible to obtain a certificate of marriage or a certified copy of the registration of marriage and instead, in accordance with section 52 (1) (a) of the <em>Evidence Act</em>, I refer to the affidavit of <span class="form-entry not-complete"></span>,
-                a person who was present at the marriage ceremony, which affidavit is filed in this family law case.
-            </p>
-        {% endif %}
+        <ol class="numbered-paragraphs">
+            <li>
+                I am {% if responses.which_claimant %}{{ responses.which_claimant }}{% else %}<span class="form-entry not-complete">{% endif %}</span>.
+            </li>
+            <li>
+                There is no possibility of reconciliation between my spouse and me.
+            </li>
+            <li>
+                I believe that the facts set out in the notice of family claim are true.
+            </li>
 
-        <p class="schIndent1">
-            5 I was living separate and apart from my spouse at the start of this family law case and I have lived separate and apart from my spouse since
-            {% if responses.separation_date %} {{ responses.separation_date|date_formatter }}{% else %} <span class="form-entry not-complete"></span>{% endif %}, except:
-            {% multiple_values_to_list source=responses.reconciliation_period as periods %}
-            {% if periods != '[]' and responses.try_reconcile_after_separated == 'YES' %}
-                {% for period in periods %}
-                    from {{ period | first |date_formatter }} to {{ period | last |date_formatter }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}.
-            {% else %}<span class="form-entry not-complete"></span>{% endif %}
-        </p>
-        {% comment "This section is out of scope" %}
-            <p class="schIndent1">
-                5 My spouse has admitted to me that <span class="form-entry not-complete"></span> committed the acts of adultery alleged in Schedule
-                1 of the <span class="form-entry not-complete"></span> and
-            </p>
-            <p class="schIndent2">
-                (a) as corroboration I refer to <span class="form-entry not-complete">[<em>Set out whichever one of the following is applicable:</em></span> the affidavit(s) of <span class="form-entry not-complete"></span>, / the transcript of the examination for discovery of <span class="form-entry not-complete"></span>
-                marked as Exhibit "A" to this affidavit <span class="form-entry not-complete">]</span> ,
-            </p>
-            <p class="schIndent2">
-                (b) I have not condoned the conduct of my spouse that is alleged as the grounds for divorce in that I have not forgiven my spouse for that conduct, nor have I encouraged or acquiesced in that conduct.
-            </p>
-            <p class="schIndent1">
-                5 I have no personal knowledge of the acts of adultery alleged in Schedule 1 of the <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>
-                and
-            </p>
-            <p class="schIndent2">
-                (a) in proof of the adultery committed by my spouse I refer to <span class="form-entry not-complete">&nbsp;</span>[<em>Set out whichever one of the following is applicable:</em> the affidavit(s) of <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>, / the transcript of the examination
-                for discovery of <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span> marked as Exhibit "A" to this affidavit]<span class="form-entry not-complete">&nbsp;</span> ,
-            </p>
-            <p class="schIndent2">
-                (b) I have not condoned the conduct of my spouse that is alleged as the grounds for divorce in that I have not forgiven my spouse for that conduct, nor have I encouraged or acquiesced in that conduct.
-            </p>
-            <p class="schIndent1">
-                5 My spouse has treated me with physical or mental cruelty since the date of the marriage as follows: <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>
-            </p>
-        {% endcomment %}
-        <p class="schIndent1">
-            6 I am neither directly nor indirectly a party to an agreement or conspiracy for the purpose of subverting the administration of justice, or to any agreement, understanding or arrangement to fabricate or suppress evidence or to deceive the court.
-        </p>
+            {% if responses.original_marriage_certificate == 'YES' %}
+                <li>
+                  The certificate of marriage or certified copy of the registration
+                  of marriage filed in this family law case fully and correctly
+                  describes the true particulars of the marriage.
+                </li>
+            {% else %}
+                <li>
+                  It is impossible to obtain a certificate of marriage or a
+                  certified copy of the registration of marriage and instead, in
+                  accordance with section 52 (1) (a) of the <em>Evidence
+                  Act</em>, I refer to the affidavit of <span class="form-entry
+                  not-complete"></span>, a person who was present at the marriage
+                  ceremony, which affidavit is filed in this family law case.
+                </li>
+            {% endif %}
 
-        <p class="schIndent1 force-break">
-            <!-- Keep question #7 together with the sig block, so the sig block is never on a page by iteself. -->
-            7 There are no children of the marriage as defined by the <em>Divorce Act</em> (Canada).
-        </p>
-        {% comment "This section is out of scope" %}
-            <p class="schIndent1">
-                7 There are children of the marriage as defined by the <em>Divorce Act</em> (Canada) and
-            </p>
-            <p class="schIndent2">
-                (a) those children are <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>,
-            </p>
-            <p class="schIndent2">
-                (b) I have sworn a child support affidavit in Form F37, and
-            </p>
-            <p class="schIndent2">
-                (c) the following arrangements for parenting have been made: <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span> .
-            </p>
-        {% endcomment %}
+            <li>
+                I was living separate and apart from my spouse at the start of this
+                family law case and I have lived separate and apart from my spouse
+                since
+                {% if responses.separation_date %}
+                  {{ responses.separation_date|date_formatter }},
+                {% else %}
+                  <span class="form-entry not-complete"></span>,
+                {% endif %}
+                except:
+                {% multiple_values_to_list source=responses.reconciliation_period as periods %}
+                {% if periods != '[]' and responses.try_reconcile_after_separated == 'YES' %}
+                    {% for period in periods %}
+                        from {{ period | first |date_formatter }}
+                        to {{ period | last |date_formatter }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}.
+                {% else %}<span class="form-entry not-complete"></span>{% endif %}
+            </li>
+            <li>
+                I am neither directly nor indirectly a party to an agreement or
+                conspiracy for the purpose of subverting the administration of
+                justice, or to any agreement, understanding or arrangement to
+                fabricate or suppress evidence or to deceive the court.
+            </li>
 
-        {% comment "This section is out of scope" %}
-            <p class="schIndent1">
-                8 Additional Details <span class="form-entry form-textarea not-complete"> </span>
-            </p>
-        {% endcomment %}
+            <li class="force-break">
+                <!-- Keep question #7 together with the sig block, so the sig block is never on a page by iteself. -->
+                There are no children of the marriage as defined by the <em>Divorce
+                Act</em> (Canada).
+            </li>
 
-        {% comment "This section is out of scope" %}
-            <p>
-                <em>[Select and complete the following provision if you are seeking a change of name for one or more minor children. If you are not seeking a change of name for one or more minor children, remove this provision so that it does not appear in the form when the form is filed. Renumber this provision as section 8 if you are seeking a change of name for one or more minor children and have not included a section 8 immediately before this provision.]</em>
-            </p>
+          {% if responses.which_claimant == 'Claimant 1' and responses.name_change_you == 'YES' %}
+            <li>
+              Pursuant to Section 5 of the Name Act, Claimant 1 shall
+              bear the name of {{ responses.name_change_you_fullname }}
+              to take effect on the 31st day after the date of this
+              order.
+            </li>
+          {% endif %}
 
-            <p class="schIndent1">
-                9 Pursuant to section 5 of the Name Act, I am seeking to change the name(s) of the minor child(ren) of the marriage as follows, and a copy of the consent(s) to the change(s) of name referred to in this section of <span class="form-entry not-complete"></span>
-                who is/are <span class="form-entry not-complete"></span> is/are attached to this affidavit and marked as Exhibit(s) <span class="form-entry not-complete"></span>.
-            </p>
-            <p class="schIndent2">
-                from <span class="form-entry not-complete">&nbsp;</span> to: <span class="form-entry not-complete">&nbsp;</span>
-            </p>
-        {% endcomment %}
+          {% if responses.which_claimant == 'Claimant 2' and responses.name_change_spouse == 'YES' %}
+            <li>
+              Pursuant to Section 5 of the Name Act, Claimant 2 shall
+              bear the name of {{ responses.name_change_spouse_fullname }}
+              to take effect on the 31st day after the date of this
+              order.
+            </li>
+          {% endif %}
+
+        </ol>
 
         <br><br><br>
         <table class="table table-bordered">
