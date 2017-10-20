@@ -12,15 +12,25 @@
 <h1><small>Step 6:</small>Spousal Support</h1>
 
 <div class="question-well">
-    <h3>{% if name_you %} {{ name_you }} {% else %}Claimant 1 {% endif %} and {% if name_spouse %} {{ name_spouse }} {% else %}Claimant 2 {% endif %}
-        are asking for an <span class="tooltip-link" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
-       title="<b>Order</b><br />A type of court ruling a judge or master makes that sets out what you must do or not do.">order<i class="fa fa-question-circle"  aria-hidden="true"></i></span>
-        for spousal support as follows:</h3>
+    <h3>
+        {% if name_you %}{{ name_you }}{% else %}Claimant 1{% endif %}
+        and {% if name_spouse %}{{ name_spouse }}{% else %}Claimant 2{% endif %}
+        are asking for an
+        <span class="tooltip-link" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
+              title="
+              <p><b>Order</b></p>
+              <p>A type of court ruling a judge or master makes that sets out
+              what you must do or not do.</p>
+              ">order<i class="fa fa-question-circle"  aria-hidden="true"></i></span>
+        for spousal support as follows:
+    </h3>
     {% input_field type="textarea" name="spouse_support_details" rows="8" cols="65" class="response-textarea" placeholder="Please enter the spousal support details that you want to appear in the order issued by the court." %}
     <p>
-        To see some examples of how to write what you are asking for, refer to the Supreme Court of B.C. website. The website has a list of
-        <a href="http://www.courts.gov.bc.ca/supreme_court/practice_and_procedure/sc_family_law_orders.aspx" target="_blank">standard terms</a>
-        for most of the usual orders made in family cases.
+        To see some examples of how to write what you are asking for, refer to
+        the Supreme Court of B.C. website. The website has a list of
+        <a href="http://www.courts.gov.bc.ca/supreme_court/practice_and_procedure/sc_family_law_orders.aspx"
+        target="_blank">standard terms</a> for most of the usual orders made in
+        family cases.
     </p>
 
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_support_amount" aria-controls="collapse_support_amount">
@@ -30,59 +40,90 @@
     </div>
     <div class="collapse" id="collapse_support_amount">
         <div>
-            <p>The amount and duration of spousal support is determined after considering the circumstances of each spouse, including:</p>
+            <p>The amount and duration of spousal support is determined after
+            considering the circumstances of each spouse, including:</p>
             <ul>
-                <li>Your financial situation and the financial situation of your former spouse</li>
+                <li>Your financial situation and the financial situation of
+                  your former spouse</li>
                 <li>How long your relationship lasted</li>
-                <li>The roles and functions of each spouse during the relationship, and</li>
-                <li>What the person who is asking for spousal support needs in order to become self-sufficient, such as extra training or education.</li>
+                <li>The roles and functions of each spouse during the
+                  relationship, and</li>
+                <li>What the person who is asking for spousal support needs in
+                  order to become self-sufficient, such as extra training or
+                  education.</li>
             </ul>
             <p>
-                <a href="http://mysupportcalculator.ca" target="_blank">MySupportCalculator.ca</a> is a website with a support calculator which can give you a rough estimate of spousal support."
-                The guidelines and calculations are complicated so you may want to contact a
-                <a href="{% url 'legal' %}" target="_blank">family law lawyer</a> or a <a href="{% url 'legal' %}" target="_blank">family justice counsellor</a> for help.
-
-                For more information, please see the fact sheet <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">Spousal Support</a> on the Family Law in B.C. website.
+                <a href="http://mysupportcalculator.ca"
+                  target="_blank">MySupportCalculator.ca</a> is a website with
+                a support calculator which can give you a rough estimate of
+                spousal support.  The guidelines and calculations are
+                complicated so you may want to contact a
+                <a href="{% url 'legal' %}" target="_blank">family law lawyer</a>
+                or a <a href="{% url 'legal' %}" target="_blank">family justice
+                counsellor</a> for help. For more information, please see the
+                fact sheet
+                <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php"
+                target="_blank">Spousal Support</a> on the Family Law in B.C.
+              website.
             </p>
         </div>
     </div>
 
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_support_info" aria-controls="collapse_support_info">
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#collapse_support_info"
+         aria-controls="collapse_support_info">
         <div>
             What detail/information do I need to provide?
         </div>
     </div>
     <div class="collapse" id="collapse_support_info">
         <div>
-            <p>Typically, Spousal Support is resolved out of court and is detailed in a separation agreement.</p>
-            <p>Many couples come to an agreement about spousal support  outside of court and capture the details in a
-                <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">separation agreement</a>.
-                "Agreements that are filed with the court can be enforced — they have the same force as a court order.
-                They can also be set aside (cancelled) if the situation changes.
+            <p>Typically, Spousal Support is resolved out of court and is
+            detailed in a separation agreement.</p>
+            <p>Many couples come to an agreement about spousal support  outside
+            of court and capture the details in a
+            <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php"
+            target="_blank">separation agreement</a>.  "Agreements that are
+            filed with the court can be enforced — they have the same force as a
+            court order.  They can also be set aside (cancelled) if the situation
+            changes.
             </p>
-            <p>If you're applying for an undefended divorce and asking for spousal support, make sure you fill in:</p>
+            <p>If you're applying for an undefended divorce and asking for
+            spousal support, make sure you fill in:</p>
             <ul>
                 <li>the amount of support you want, and</li>
-                <li>an amount for your spouse's income. If you aren't sure, make your best estimate.</li>
+                <li>an amount for your spouse's income. If you aren't sure,
+                  make your best estimate.</li>
             </ul>
-            <p>If you don't provide this information, the court may not make an order.</p>
+            <p>If you don't provide this information, the court may not make an
+            order.</p>
             <p>
-                If you're married, you must claim spousal support within two years of the divorce judgment. If you were not married,
-                but lived in a marriage-like relationship for two years or more, you must apply within two years of your separation.
+                If you're married, you must claim spousal support within two
+                years of the divorce judgment. If you were not married, but
+                lived in a marriage-like relationship for two years or more,
+                you must apply within two years of your separation.
             </p>
             <p>
-                For help on what factors to consider, and details to include in your spousal support agreement, refer to the online tool,
-                <a href="http://www.familylaw.lss.bc.ca/guides/separation/supportSpouse.php" target="_blank">How to Write Your Own Separation Agreement</a>,
+                For help on what factors to consider, and details to include in
+                your spousal support agreement, refer to the online tool,
+                <a href="http://www.familylaw.lss.bc.ca/guides/separation/supportSpouse.php"
+                target="_blank">How to Write Your Own Separation Agreement</a>,
                 on the Family Law in B.C. website.
             </p>
             <p>
-                You may also find Clicklaw's wikibook on <a href="http://wiki.clicklaw.bc.ca/index.php/Spousal_Support" target="_blank">Spousal Support</a> helpful.
-                This wikibook is a chapter from the JP Boyd on <a href="http://wiki.clicklaw.bc.ca/index.php?title=JP_Boyd_on_Family_Law" target="_blank">Family Law wikibook</a>.
+                You may also find Clicklaw's wikibook on
+                <a href="http://wiki.clicklaw.bc.ca/index.php/Spousal_Support"
+                  target="_blank">Spousal Support</a> helpful.  This wikibook
+                is a chapter from the JP Boyd on
+                <a href="http://wiki.clicklaw.bc.ca/index.php?title=JP_Boyd_on_Family_Law"
+                  target="_blank">Family Law wikibook</a>.
             </p>
         </div>
     </div>
 
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_support_eligible" aria-controls="collapse_support_eligible">
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#collapse_support_eligible"
+         aria-controls="collapse_support_eligible">
         <div>
             How do I know if I'm eligible?
         </div>
@@ -92,11 +133,18 @@
             <p>You may apply for spousal support if:</p>
             <ul>
                 <li>You were married</li>
-                <li>You lived together in a marriage-like relationship for at least two years, or</li>
-                <li>You lived in a marriage-like relationship for less than two years, but you have a child together (This recognizes that having a child together also creates interdependence between the couple that may result in a need for spousal support.)</li>
+                <li>You lived together in a marriage-like relationship for at
+                  least two years, or</li>
+                <li>You lived in a marriage-like relationship for less than two
+                  years, but you have a child together (This recognizes that
+                  having a child together also creates interdependence between
+                the couple that may result in a need for spousal support.)</li>
             </ul>
             <p>
-                For more information, please refer to the the <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/spousal-support/can-i-get" target="_blank">Spousal Support fact sheet</a> on the Family Law in B.C. website.
+                For more information, please refer to the the
+                <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/spousal-support/can-i-get"
+                  target="_blank">Spousal Support fact sheet</a> on the Family
+                Law in B.C. website.
             </p>
         </div>
     </div>
@@ -106,35 +154,58 @@
 <div class="question-well">
     {% if married_marriage_like == "Legally married" %}
         <h3>Please indicate which act you are asking for support under.</h3>
-        <div class="radio"><label>{% input_field type="radio" name="spouse_support_act" value="The Divorce Act (Canada)" data_target_id="family_law_time_limit" data_reveal_target="false" %}The Divorce Act (Canada)</label> - <a href="http://laws-lois.justice.gc.ca/eng/acts/D-3.4/index.html" target="_blank">view the Divorce Act</a></div>
-        <div class="radio"><label>{% input_field type="radio" name="spouse_support_act" value="The Family Law Act" data_target_id="family_law_time_limit" data_reveal_target="true" %}The Family Law Act</label> - <a href="http://www.bclaws.ca/civix/document/id/complete/statreg/11025_01" target="_blank">view the Family Law Act</a></div>
+        <div class="radio">
+            <label>
+                {% input_field type="radio" name="spouse_support_act" value="The Divorce Act (Canada)" data_target_id="family_law_time_limit" data_reveal_target="false" %}
+                The Divorce Act (Canada)
+            </label> -
+            <a href="http://laws-lois.justice.gc.ca/eng/acts/D-3.4/index.html"
+              target="_blank">view the Divorce Act</a>
+        </div>
+        <div class="radio">
+            <label>
+                {% input_field type="radio" name="spouse_support_act" value="The Family Law Act" data_target_id="family_law_time_limit" data_reveal_target="true" %}
+                The Family Law Act
+            </label> -
+            <a href="http://www.bclaws.ca/civix/document/id/complete/statreg/11025_01"
+              target="_blank">view the Family Law Act</a></div>
 
         <div class="information-message bg-danger" id="family_law_time_limit" hidden>
             <h2>Time limit to apply for court order</h2>
             <p>
-                If you were married, you must apply for spousal support under the Family Law Act <b>within two years after you get an order for divorce.</b>
-                If you are applying for spousal support under the Divorce Act, you do not have a time limit.
+                If you were married, you must apply for spousal support under
+                the Family Law Act <b>within two years after you get an order
+                for divorce.</b> If you are applying for spousal support under
+                the Divorce Act, you do not have a time limit.
             </p>
         </div>
 
-        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_support_act" aria-controls="collapse_support_act">
+        <div class="collapse-trigger collapsed" data-toggle="collapse"
+             aria-expanded="false" data-target="#collapse_support_act"
+             aria-controls="collapse_support_act">
             <div>
                 How do I know which act applies to my situation?
             </div>
         </div>
         <div class="collapse" id="collapse_support_act">
             <div>
-                <p>Ok, you may be thinking, how the heck am I supposed to know which Act (a written law) applies. Let's see if we can help you identify which Act best fits with your circumstances/situation.</p>
-                <p><b>If you are not married (common law) >  Family Law Act</b><br/>
-                    If you were never married, you must use the Family Law Act. Provincial and territorial laws apply when unmarried couples separate or when married couples separate but do not pursue a divorce.
-                </p>
-                <p><b>If you are Married > Family Law Act or Divorce Act</b><br/>
-                    If you're married, you have a choice.The federal Divorce Act generally applies when parents are divorcing. Provincial and territorial laws apply when married couples separate but do not pursue a divorce.
-                </p>
-                <p>
-                    For more  information on
-                    <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/what_laws_apply.php" target="_blank">which laws apply</a> to your situation please refer to the Family Law of B.C. website.
-                </p>
+                <p>Ok, you may be thinking, how the heck am I supposed to know
+                which act (a written law) applies. Let's see if we can help you
+                identify which act best fits with your
+                circumstances/situation.</p>
+
+                <p>The Family Law Act and the Divorce Act overlap in some areas
+                but not others. You must apply under the Family Law Act for the
+                division of property or debts, a family law protection order,
+                or orders related to guardianship. The Divorce Act does not
+                deal with these.</p>
+
+                <p>There are big differences in how the Divorce Act and the
+                Family Law Act deal with some issues, especially parenting. For
+                more information on which laws apply to your situation please
+                refer to the Family Law of B.C. website.</p>
+
+                <img src="{% static 'img/which_laws_apply.png' %}" />
             </div>
         </div>
     {% else %}
@@ -142,18 +213,26 @@
             <div>
                 {% input_field type="hidden" id="spouse_support_act_common_law" name="spouse_support_act" value="The Family Law Act" %}
                 <p>
-                    As you and your spouse were never legally married, you must use the
-                    <a href="http://www.bclaws.ca/civix/document/id/complete/statreg/11025_01" target="_blank">Family Law Act</a>
-                    for your separation. Provincial and territorial laws apply when unmarried couples separate or when married couples separate but do not pursue a divorce.
+                    As you and your spouse were never legally married, you must
+                    use the
+                    <a href="http://www.bclaws.ca/civix/document/id/complete/statreg/11025_01"
+                    target="_blank">Family Law Act</a> for your separation.
+                    Provincial and territorial laws apply when unmarried couples
+                    separate or when married couples separate but do not pursue a
+                    divorce.
                 </p>
                 <p>
-                    For more information on <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/what_laws_apply.php" target="_blank">which laws apply</a>
+                    For more information on
+                    <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/what_laws_apply.php"
+                      target="_blank">which laws apply</a>
                     to your situation please refer to the Family Law of B.C. website.
                 </p>
             </div>
             <div class="information-message bg-danger">
                 <h2>Time limit to apply for court order</h2>
-                <p>If you were unmarried, and you qualify for spousal support, you must apply <b>within two years of the date you separated</b>.</p>
+                <p>If you were unmarried, and you qualify for spousal support,
+                you must apply <b>within two years of the date you
+                separated</b>.</p>
             </div>
         </div>
     {% endif %}
@@ -168,10 +247,27 @@
                 <h1 class="modal-title">Spousal Support</h1>
             </div>
             <div class="modal-body">
-                <p>Okay {{ name_you }}, now we need to ask you several questions about spousal support.</p>
-                <p>Spousal support is paid by one spouse to financially support the other spouse after separation, under an agreement or order.  The purpose of spousal support is to help meet the on-going financial needs of a financially dependent spouse for a defined period of time.</p>
-                <p>The answers you provide will be used to populate what's called a Draft Final Order Form (F52). A draft final order sets out what orders (decisions) you want the court to make. This will be reviewed by a judge or master.  If the judge or master makes the order you ask for, they'll sign the draft order you filed and it becomes your final court order.</p>
-                <p>If there's a problem with your order and the judge or master doesn't approve it, the court registry will let you know. You might have to draft another version of the order or appear in court to give the judge or master more information about what you wrote in the order.</p>
+                <p>Okay {{ name_you }}, now we need to ask you several
+                questions about spousal support.</p>
+
+                <p>Spousal support is paid by one spouse to financially support
+                the other spouse after separation, under an agreement or order.
+                The purpose of spousal support is to help meet the on-going
+                financial needs of a financially dependent spouse for a defined
+                period of time.</p>
+
+                <p>The answers you provide will be used to populate what's
+                called a Draft Final Order Form (F52). A draft final order sets
+                out what orders (decisions) you want the court to make. This
+                will be reviewed by a judge or master.  If the judge or master
+                makes the order you ask for, they'll sign the draft order you
+                filed and it becomes your final court order.</p>
+
+                <p>If there's a problem with your order and the judge or master
+                doesn't approve it, the court registry will let you know. You
+                might have to draft another version of the order or appear in
+                court to give the judge or master more information about what
+                you wrote in the order.</p>
             </div>
             <div class="modal-footer">
                 <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
@@ -189,31 +285,71 @@
     <div>
         <h3>How is spousal support decided?</h3>
         <div>
-            <p>
-                <b>Spousal Support Advisory Guidelines</b><br />
-                The <a href="http://www.justice.gc.ca/eng/fl-df/spousal-epoux/ss-pae.html" target="_blank"> Support Advisory Guidelines</a> can help you figure out the amount of spousal support that should be paid.
+            <p><b>Spousal Support Advisory Guidelines</b><br />
+            The
+            <a href="http://www.justice.gc.ca/eng/fl-df/spousal-epoux/ss-pae.html"
+              target="_blank"> Support Advisory Guidelines</a> can help you
+            figure out the amount of spousal support that should be paid.
             </p>
-            <p>These guidelines aren't the law (neither you or the judge has to follow them), but if your case went to court, the judge or master would probably look at the guidelines to help make his or her decision about the amount of spousal support. The guidelines take into account the income of both spouses, how long you were married, and whether you have children.</p>
+            <p>These guidelines aren't the law (neither you or the judge has to
+            follow them), but if your case went to court, the judge or master
+            would probably look at the guidelines to help make his or her
+            decision about the amount of spousal support. The guidelines take
+            into account the income of both spouses, how long you were married,
+            and whether you have children.</p>
             <p>For more information, see the Department of Justice website on
-                <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php" target="_blank">spousal support.</a></p>
+                <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/spousal_support.php"
+                  target="_blank">spousal support.</a></p>
         </div>
         <div>
             <h3>How is spousal support enforced?</h3>
-            <p>Many couples come to an agreement about spousal support without going to court. Agreements that are filed with the court can be enforced — they have the same force as a court order. They can also be set aside (cancelled) if the situation changes.</p>
-            <p>If you're trying to negotiate an agreement, consider the factors listed under When should spousal support be paid? (above) and the amount of support listed in the Spousal Support Advisory Guidelines. Get advice from a lawyer about what is fair.</p>
+
+            <p>Many couples come to an agreement about spousal support without
+            going to court. Agreements that are filed with the court can be
+            enforced — they have the same force as a court order. They can also
+            be set aside (cancelled) if the situation changes.</p>
+
+            <p>If you're trying to negotiate an agreement, consider the factors
+            listed under When should spousal support be paid? (above) and the
+            amount of support listed in the Spousal Support Advisory
+            Guidelines. Get advice from a lawyer about what is fair.</p>
         </div>
     </div>
     <div>
         <h3>What financial information you will need to provide</h3>
-        <p>When one spouse applies for spousal support, both spouses will have to provide financial information to each other and to the court. You will have to share detailed documents showing your income, assets, and debt. Both Supreme and Provincial Court have rules setting out exactly what needs to be shared and when.</p>
-        <p>Be aware that the law requires you to provide "full and true" information to the other party, whether you're negotiating an agreement or making or responding to a court application. There can be serious consequences if you don't. There may be financial penalties, and the court could make changes to your agreement or order.</p>
+
+        <p>When one spouse applies for spousal support, both spouses will have
+        to provide financial information to each other and to the court. You
+        will have to share detailed documents showing your income, assets, and
+        debt. Both Supreme and Provincial Court have rules setting out exactly
+        what needs to be shared and when.</p>
+
+        <p>Be aware that the law requires you to provide "full and true"
+        information to the other party, whether you're negotiating an agreement
+        or making or responding to a court application. There can be serious
+        consequences if you don't. There may be financial penalties, and the
+        court could make changes to your agreement or order.</p>
+
         <p>In the Supreme Court, both parties must fill out a
-            <a href="http://www.ag.gov.bc.ca/courts/forms/sup_family/F8.pdf" target="_blank">Financial Statement Form (F8)</a> and file it with the court for orders related to support. For help, refer to the guide
-            <a href="http://www.familylaw.lss.bc.ca/guides/mini/howToFillFinanState_SC.php" target="_blank">How to deal with a Supreme Court Financial Statement,</a> produced by the Legal Services Society.</p>
-        <p>In the Provincial Court, both parties must fill out and file a Financial Statement Form (F4). For help, see our guide How to deal with a Provincial Court Financial Statement. However, if you agree about the amount of your incomes and how much support should be paid, you can instead fill out a Consent form Form (F19) and file it along with copies of your most recent income tax returns and notices of assessment.</p>
+        <a href="http://www.ag.gov.bc.ca/courts/forms/sup_family/F8.pdf"
+          target="_blank">Financial Statement Form (F8)</a> and file it
+        with the court for orders related to support. For help, refer to
+        the guide
+        <a href="http://www.familylaw.lss.bc.ca/guides/mini/howToFillFinanState_SC.php"
+        target="_blank">How to deal with a Supreme Court Financial
+        Statement,</a> produced by the Legal Services Society.</p>
+
+        <p>In the Provincial Court, both parties must fill out and file a
+        Financial Statement Form (F4). For help, see our guide How to deal with
+        a Provincial Court Financial Statement. However, if you agree about the
+        amount of your incomes and how much support should be paid, you can
+        instead fill out a Consent form Form (F19) and file it along with
+        copies of your most recent income tax returns and notices of
+        assessment.</p>
     </div>
     <div>
-        <p>There are two types of laws (statutory or statute-based and common-law or case-based).</p>
+        <p>There are two types of laws (statutory or statute-based and
+        common-law or case-based).</p>
         <h3>Statute-based law</h3>
         <img src="{% static 'img/which_laws_apply.png' %}" />
     </div>

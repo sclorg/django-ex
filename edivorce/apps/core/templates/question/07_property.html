@@ -10,17 +10,36 @@
 
 <h1><small>Step {% step_order step="property" %}:</small>Property and Debt</h1>
 <div class="intro">
-    <p>After you separate, the law says that all <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Family property</b><br /><br />The asset acquired by either spouse during the course of the relationship,
-   plus any increase in the value of excluded properties. The law assumes that you're both entitled to an equal share of family property unless an equal division would be significantly unfair."> family property<i class="fa fa-question-circle" aria-hidden="true"></i></span> and
-        <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Family debt</b><br /><br />Money owed to others accumulated during a relationship or to maintain
-       family property after separation. The law assumes that both spouses are equally responsible for the debt
-       unless an equal division would be &quot;significantly unfair.&quot;">  family debt<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+    <p>After you separate, the law says that all
+        <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
+              title="
+              <p><b>Family property</b></p>
+              <p>The asset acquired by either spouse during the course of the
+              relationship, plus any increase in the value of excluded
+              properties. The law assumes that you're both entitled to an equal
+              share of family property unless an equal division would be
+              significantly unfair.</p>
+              "> family property<i class="fa fa-question-circle" aria-hidden="true"></i></span> and
+        <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
+              title="
+              <p><b>Family debt</b></p>
+              <p>Money owed to others accumulated during a relationship or to
+              maintain family property after separation. The law assumes that
+              both spouses are equally responsible for the debt unless an equal
+              division would be &ldquo;significantly unfair.&rdquo;
+              ">  family debt<i class="fa fa-question-circle" aria-hidden="true"></i></span>
         must be divided equally between you and your spouse, unless you have
-        <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>An agreement</b><br /><br />A written document that sets out how you and your spouse have agreed
-       to deal with parenting, support, and/or property." > an agreement<i class="fa fa-question-circle" aria-hidden="true"></i></span> that says you'll divide them differently.
+        <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
+              title="
+              <p><b>An agreement</b></p>
+              <p>A written document that sets out how you and your spouse have agreed
+              to deal with parenting, support, and/or property.</p>
+              "> an agreement<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+        that says you'll divide them differently.
     </p>
 
-    <p>Family property is everything either you or your spouse own together or separately on the date you separate. It includes:</p>
+    <p>Family property is everything either you or your spouse own together or
+    separately on the date you separate. It includes:</p>
     <ul>
         <li>the family home</li>
         <li>RRSPs</li>
@@ -32,104 +51,124 @@
     </ul>
     <p>It doesn't matter whose name the property is in.</p>
 
-    <p>
-        See <a href="http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/11025_05#section84" target="_blank">section 84 of the Family Law Act</a> for more about what counts as family property.
+    <p>See
+        <a href="http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/11025_05#section84"
+          target="_blank">section 84 of the Family Law Act</a> for more about
+        what counts as family property.
     </p>
 </div>
 
 <div class="question-well">
-    <h3>How have you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} agreed to deal with your property and debt?</h3>
-    <div class="radio"><label>{% input_field type="radio" name="deal_with_property_debt" value="Equal division" data_target_id="property_debt_division_method" data_reveal_target="false" %}<em>Equal division</em> of family property and debt</label></div>
-    <div class="radio"><label>{% input_field type="radio" name="deal_with_property_debt" value="Unequal division" data_target_id="property_debt_division_method" data_reveal_target="true" %}<em>Unequal division</em> of family property and family debt</label></div>
-    <p>Note: the court will only order an unequal division when an equal division is significantly unfair.</p>
+    <h3>How have you and
+      {% if name_spouse %}{{ name_spouse }}{% else %}your spouse{% endif %}
+      agreed to deal with your property and debt?</h3>
+    <div class="radio">
+        <label>
+            {% input_field type="radio" name="deal_with_property_debt" value="Equal division" data_target_id="property_debt_division_method" data_reveal_target="false" %}
+            <em>Equal division</em> of family property and debt
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            {% input_field type="radio" name="deal_with_property_debt" value="Unequal division" data_target_id="property_debt_division_method" data_reveal_target="true" %}
+            <em>Unequal division</em> of family property and family debt
+        </label>
+    </div>
+    <p>Note: the court will only order an unequal division when an equal
+    division is significantly unfair.</p>
 
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_unequal_division" aria-controls="collapse_unequal_division">
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#collapse_unequal_division"
+         aria-controls="collapse_unequal_division">
         <div>
             When can property be divided unequally?
         </div>
     </div>
     <div class="collapse" id="collapse_unequal_division">
         <div>
-            <p>A court will divide family property or debt unequally only if it would be “significantly unfair” to divide it equally. This means that a court will not order an unequal division in most cases. The court can look at a number of factors when
-                deciding whether to divide property or debt unequally.</p>
-            <p>As well, a couple can divide their property or debt unequally by making an agreement.</p>
-            <p>
-                See
-                <a href="http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/11025_05#section95" target="_blank">section 95</a> of the Family Law Act for more about unequal division of property and debt.
+            <p>A court will divide family property or debt unequally only if it
+            would be “significantly unfair” to divide it equally. This means
+            that a court will not order an unequal division in most cases. The
+            court can look at a number of factors when deciding whether to
+            divide property or debt unequally.</p>
+            <p>As well, a couple can divide their property or debt unequally by
+            making an agreement.</p>
+            <p>See
+                <a href="http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/11025_05#section95"
+                  target="_blank">section 95</a> of the Family Law Act for more
+                about unequal division of property and debt.
             </p>
         </div>
     </div>
 
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_common_law_division" aria-controls="collapse_common_law_division">
-        <div>
-            How is property and debt divided when a common law relationship ends?
-        </div>
-    </div>
-    <div class="collapse" id="collapse_common_law_division">
-        <div>
-            <p>For dividing property and debts, couples who have lived together in a marriage-like relationship for two years are treated like married couples. This means you equally share all the property you acquired during the relationship. If you bought
-                the house while you were in a marriage-like relationship, it doesn't matter who paid the down payment — the house is considered family property and you'll have to divide it equally. (If either of you owned property that was bought before
-                the relationship, you have to share the amount by which the value of the property increased since you started living together.)</p>
-            <p>However, if applying the rule would result in significant unfairness, a judge can order a division that's not 50/50.</p>
-        </div>
-    </div>
-
-    {% if married_marriage_like == 'Living together in a marriage like relationship' %}
-    <div class="information-message bg-danger">
-        <p>In order to be considered a spouse for the purposes of dividing property or debt you must have lived together in a marriage-like relationship for at least two years.</p>
-        <p>Under the law, the start date of a spousal relationship is the day two individuals begin living together in a marriage-like relationship, or the day they were married, whichever is first. The start date of a spousal relationship determines when
-            rights or responsibilities start under the Family Law Act, particularly respecting property division.</p>
-    </div>
-    {% endif %}
 </div>
 
 <div id="property_debt_division_method" class="question-well" hidden>
-    <h3>Please describe how you and your spouse plan to divide your property, assets and your debts. </h3>
-    <p>Because the division of family property and debt can be complex we recommend you get
-        <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/lawyers" target="_blank">legal advice</a> before you make any final decisions.
+    <h3>Please describe how you and your spouse plan to divide your property,
+      assets and your debts. </h3>
+    <p>Because the division of family property and debt can be complex we
+    recommend you get
+        <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/lawyers"
+          target="_blank">legal advice</a> before you make any final decisions.
     </p>
 
-    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_deal_property" aria-controls="collapse_deal_property">
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#collapse_deal_property"
+         aria-controls="collapse_deal_property">
         <div>
             Where to find out more about dealing with Property and Debt
         </div>
     </div>
     <div class="collapse" id="collapse_deal_property">
         <div>
-            <p>The fact sheet Dealing With Debts After Separation (for Married and Common-law Couples) by the Legal Services Society answers a range of questions including:</p>
+            <p>The fact sheet Dealing With Debts After Separation (for Married
+            and Common-law Couples) by the Legal Services Society answers a
+            range of questions including:</p>
             <ul>
                 <li>What is family property?</li>
                 <li>What about property one of us owned before we got together?</li>
                 <li>Can creditors force me to pay back my ex-spouse's debts?</li>
             </ul>
-            <p>The Family Law web site has an online separation agreement tool that details some of the items to consider when
+            <p>The Family Law web site has an online separation agreement tool
+            that details some of the items to consider when
                 <a href="http://www.familylaw.lss.bc.ca/guides/separation/property.php" target="_blank">dividing property</a> and
                 <a href="http://www.familylaw.lss.bc.ca/guides/separation/debt.php" target="_blank">debt</a>.</p>
         </div>
     </div>
     {% input_field type="textarea" name="how_to_divide_property_debt" rows="8" cols="65" class="response-textarea" %}
     <p>
-        To see some examples of how to write what you are asking for, refer to the Supreme Court of B.C. website. The website has a list of
-        <a href="http://www.courts.gov.bc.ca/supreme_court/practice_and_procedure/sc_family_law_orders.aspx" target="_blank">standard terms</a>
-        for most of the usual orders made in family cases.
+        To see some examples of how to write what you are asking for, refer to
+        the Supreme Court of B.C. website. The website has a list of
+        <a href="http://www.courts.gov.bc.ca/supreme_court/practice_and_procedure/sc_family_law_orders.aspx"
+          target="_blank">standard terms</a> for most of the usual orders made
+        in family cases.
     </p>
 </div>
 
 <div class="question-well">
     <h3>Other Property Claims</h3>
-    <p>This section is for property claims not covered by the Family Law Act—property that is not family property. This includes:</p>
+    <p>This section is for property claims not covered by the Family Law
+    Act—property that is not family property. This includes:</p>
     <ul>
-        <li>excluded property, such as gifts or inheritances the other party received while you were together and property owned by the other party at the time you moved in together</li>
+        <li>excluded property, such as gifts or inheritances the other party
+          received while you were together and property owned by the other
+          party at the time you moved in together</li>
         <li>property owned by a third party</li>
-        <li>property you’re claiming on the basis of unjust enrichment (a legal concept used to get a share of property that you’re not entitled to under the Family Law Act)</li>
+        <li>property you’re claiming on the basis of unjust enrichment (a legal
+          concept used to get a share of property that you’re not entitled to
+          under the Family Law Act)</li>
     </ul>
     <p>
-        You can ask for an interest in the property (part ownership) or compensation (money). If the property is real estate, provide the legal description.
+        You can ask for an interest in the property (part ownership) or
+        compensation (money). If the property is real estate, provide the legal
+        description.
     </p>
     <div>
         <label>
-            {% if name_you %} {{ name_you }} {% else %}Claimant 1 {% endif %} and {% if name_spouse %} {{ name_spouse }} {% else %}Claimant 2 {% endif %}
-            ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
+            {% if name_you %}{{ name_you }}{% else %}Claimant 1{% endif %}
+            and {% if name_spouse %}{{ name_spouse }}{% else %}Claimant 2{% endif %}
+            ask for an order respecting an interest in property or for
+            compensation instead of an interest in that property, as follows:
         </label>
     </div>
     {% input_field type="textarea" name="other_property_claims" rows="8" cols="65" class="response-textarea" %}
@@ -143,9 +182,22 @@
                 <h1 class="modal-title">Property and Debt</h1>
             </div>
             <div class="modal-body">
-                <p>{{ name_you }}, next up let's go over some questions pertaining to the division of property and debt. The answers you provide will be used to populate what's called a Draft Final Order (Form 52). </p>
-                <p>A draft final order sets out what orders (decisions) you want the court to make. This will be reviewed by a judge or master.  If the judge or master makes the order you ask for, they'll sign the draft order you filed and it becomes your final court order.</p>
-                <p>If there's a problem with your order and the judge or master doesn't approve it, the court registry will let you know. You might have to draft another version of the order or appear in court to give the judge or master more information about what you wrote in the order.</p>
+                <p>{{ name_you }}, next up let's go over some questions
+                pertaining to the division of property and debt. The answers
+                you provide will be used to populate what's called a Draft
+                Final Order (Form 52). </p>
+
+                <p>A draft final order sets out what orders (decisions) you
+                want the court to make. This will be reviewed by a judge or
+                master.  If the judge or master makes the order you ask for,
+                they'll sign the draft order you filed and it becomes your
+                final court order.</p>
+
+                <p>If there's a problem with your order and the judge or master
+                doesn't approve it, the court registry will let you know. You
+                might have to draft another version of the order or appear in
+                court to give the judge or master more information about what
+                you wrote in the order.</p>
             </div>
             <div class="modal-footer">
                 <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
@@ -164,19 +216,40 @@
     <h3>Where to Find Out More About Dealing with Property and Debt</h3>
     <p>For more information about dealing with Property and Debt, please visit:</p>
     <ul>
-        <li>The <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/dealing-with-property-and-debt" target="_blank">Family Justice section</a> of the BC Government web site. </li>
-        <li><a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/dividePropertyAndDebts.php" target="_blank">Dividing family property and debts</a> on the Family Law in British Columbia website</li>
-        <li><a href="http://www.familylaw.lss.bc.ca/resources/publications/pub.php?pub=347" target="_blank">Living Together or Living Apart</a>, a booklet about the family law basics in B.C.</li>
-        <li><a href="http://www.cbabc.org/For-the-Public/Dial-A-Law/Scripts/Family-Law/124" target="_blank">Dividing Family Assets</a> in the Family Law section of Dial-A-Law</li>
+        <li>The <a
+            href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/dealing-with-property-and-debt"
+            target="_blank">Family Justice section</a> of the BC Government web
+        site. </li>
+        <li><a
+            href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/dividePropertyAndDebts.php"
+            target="_blank">Dividing family property and debts</a> on the
+        Family Law in British Columbia website</li>
+        <li><a
+            href="http://www.familylaw.lss.bc.ca/resources/publications/pub.php?pub=347"
+            target="_blank">Living Together or Living Apart</a>, a booklet
+        about the family law basics in B.C.</li>
+        <li><a
+            href="http://www.cbabc.org/For-the-Public/Dial-A-Law/Scripts/Family-Law/124"
+            target="_blank">Dividing Family Assets</a> in the Family Law
+        section of Dial-A-Law</li>
     </ul>
 
     <h3>Excluded property includes:</h3>
     <ul>
-        <li>any property that each spouse owned before the relationship started</li>
-        <li>gifts and inheritances given to only one spouse during the relationship;</li>
-        <li>compensation payments made to one spouse only for personal injury or loss (unless it was meant to compensate both spouses or involves income that was lost during the relationship)</li>
-        <li>insurance payments made to one spouse only for personal injury or loss (unless it was meant to compensate both spouses or involves income that was lost during the relationship); or</li>
-        <li>property bought during the relationship with excluded property. Excluded property belongs to the spouse who owned, bought, or received it. However, if the property becomes more valuable during the relationship, the increase in value is considered
+        <li>any property that each spouse owned before the relationship
+          started</li>
+        <li>gifts and inheritances given to only one spouse during the
+          relationship;</li>
+        <li>compensation payments made to one spouse only for personal injury
+          or loss (unless it was meant to compensate both spouses or involves
+          income that was lost during the relationship)</li>
+        <li>insurance payments made to one spouse only for personal injury or
+          loss (unless it was meant to compensate both spouses or involves
+          income that was lost during the relationship); or</li>
+        <li>property bought during the relationship with excluded property.
+          Excluded property belongs to the spouse who owned, bought, or
+          received it. However, if the property becomes more valuable during
+          the relationship, the increase in value is considered
             family property.</li>
     </ul>
 </div>
