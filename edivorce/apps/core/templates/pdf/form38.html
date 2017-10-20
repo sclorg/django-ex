@@ -1,4 +1,5 @@
 {% load static %}
+{% load composites %}
 {% load input_field %}
 {% load format_utils %}
 <!doctype html>
@@ -126,8 +127,7 @@
             <li>
               Pursuant to Section 5 of the Name Act, Claimant 1 shall
               bear the name of {{ responses.name_change_you_fullname }}
-              to take effect on the 31st day after the date of this
-              order.
+              to take effect on {% effective_date %}.
             </li>
           {% endif %}
 
@@ -135,8 +135,7 @@
             <li>
               Pursuant to Section 5 of the Name Act, Claimant 2 shall
               bear the name of {{ responses.name_change_spouse_fullname }}
-              to take effect on the 31st day after the date of this
-              order.
+              to take effect on {% effective_date %}.
             </li>
           {% endif %}
 
