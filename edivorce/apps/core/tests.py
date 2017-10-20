@@ -389,7 +389,23 @@ class UserResponseTestCase(TestCase):
         self.assertEqual(is_complete(step, lst)[0], False)
 
         # All required question
+
+        create_response(user, 'name_change_you', 'NO')
+        self.assertEqual(is_complete(step, lst)[0], False)
+
+        create_response(user, 'name_change_spouse', 'NO')
         create_response(user, 'other_orders_detail', 'I want more orders')
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
+        self.assertEqual(is_complete(step, lst)[0], True)
+
+        # make incomplete
+        UserResponse.objects.filter(question_id='name_change_spouse').update(value="YES")
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
+        self.assertEqual(is_complete(step, lst)[0], False)
+
+        create_response(user, 'name_change_spouse_fullname', 'new name')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
         self.assertEqual(is_complete(step, lst)[0], True)
@@ -398,7 +414,7 @@ class UserResponseTestCase(TestCase):
         UserResponse.objects.filter(question_id='other_orders_detail').update(value="")
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value', 'question__conditional_target', 'question__reveal_response', 'question__required')
-        self.assertEqual(is_complete(step, lst)[0], False)
+        self.assertEqual(is_complete(step, lst)[0], True)
 
     def test_other_questions(self):
         step = 'other_questions'
