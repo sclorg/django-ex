@@ -141,15 +141,15 @@ $(function () {
     });
 
     // spinner
-    $('a.spinner').on('click', function (e) {
-        e.preventDefault();
-        var href = $(this).attr('href');
-        $('div#progress-overlay').show();
-        $('div#progress-overlay-spinner').spin('large');
-        setTimeout(function(){
-            window.location.href = href;
-        }, 0);
-    });
+    // $('a.spinner').on('click', function (e) {
+    //     e.preventDefault();
+    //     var href = $(this).attr('href');
+    //     $('div#progress-overlay').show();
+    //     $('div#progress-overlay-spinner').spin('large');
+    //     setTimeout(function(){
+    //         window.location.href = href;
+    //     }, 1);
+    // });
 
     $('a.save-spinner').on('click', function (e) {
         var href = $('a.save-spinner').attr('href');
