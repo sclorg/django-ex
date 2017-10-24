@@ -53,7 +53,7 @@ To run this project in your development machine, follow these steps:
 1. (optional) Create and activate a [virtualenv](https://virtualenv.pypa.io/) (you may want to use [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/)).
 
 2. Ensure that the executable `pg_config` is available on your machine. You can check this using `which pg_config`. If not, install the dependency with one of the following.
-  - Mac OS X: `brew install postgresql` using [Homebrew](https://brew.sh/)
+  - macOS: `brew install postgresql` using [Homebrew](https://brew.sh/)
   - Ubuntu: `sudo apt-get install libpq-dev`
   - [Others](https://stackoverflow.com/a/12037133/8122577)
 
