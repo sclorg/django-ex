@@ -7,12 +7,12 @@ register = template.Library()
 
 
 @register.filter
-def linebreaksul(value):
-    "Converts strings with newlines into <ul><li></li></ul>s"
+def linebreaksli(value):
+    "Converts strings with newlines into <li></li>s"
     value = re.sub(r'\r\n|\r|\n', '\n', value.strip())  # normalize newlines
     lines = re.split('\n', value)
     lines = ['<li>%s</li>' % line for line in lines if line and not line.isspace()]
-    return mark_safe('<ul>%s</ul>' % '\n'.join(lines))
+    return mark_safe('\n'.join(lines))
 
 
 @register.filter
