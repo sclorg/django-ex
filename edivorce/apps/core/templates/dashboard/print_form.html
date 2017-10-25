@@ -350,17 +350,28 @@
           Registration of Divorce)
         </li>
         <li>Completed
-          <a href="http://www.justice.gc.ca/eng/fl-df/divorce/pdf/form.pdf">
+          <a href="http://www.justice.gc.ca/eng/fl-df/divorce/pdf/form.pdf"
+              target="_blank">
             Registration of Divorce form
           </a> (Federal)
         </li>
+        {% if name_change_you == 'YES' or name_change_spouse == 'YES' %}
+        <li>Completed
+          <a href="http://www2.gov.bc.ca/assets/download/83855B903EC14E85904863BC1EE2086C"
+              target="_blank">
+            Identification of Applicant (VSA 512)
+          </a> for anyone requesting a name change
+        </li>
+        {% endif %}
     </ul>
 </div>
 
 <div class="question-well">
     <h2>Assembly Instructions</h2>
+
     <p>Staple each form together and then fasten all forms with a paper clip,
     in the following order:</p>
+
     <ul>
         <li>Notice of Joint Family Claim Form (F1)</li>
         <li>Requisition Form (F35)</li>
@@ -374,6 +385,7 @@
             {% endcomment %}
         {% endif %}
     </ul>
+
     <p>
         If you have other court orders or a written separation agreement, they
         should also be attached to your Affidavit
