@@ -57,22 +57,38 @@
         </p>
         <p>
             We, {% if responses.name_you %}{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
-            {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_country_you and responses.address_to_send_official_document_postal_code_you %}
-              {{ responses.address_to_send_official_document_street_you }}, {{ responses.address_to_send_official_document_city_you }},
-              {% if responses.address_to_send_official_document_prov_you %}
-                  {{ responses.address_to_send_official_document_prov_you }},
-              {% endif %}
-              {% if responses.address_to_send_official_document_country_you == 'Other' %} {{ responses.address_to_send_official_document_other_country_you }}{% else %} {{ responses.address_to_send_official_document_country_you }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_you }}{% else %}<span class="form-entry not-complete"></span>{% endif %},
-            {% if responses.occupation_you %} {{ responses.occupation_you }}{% else %}<span class="form-entry not-complete"></span>{% endif %},<br />
+
+            {% required responses.address_to_send_official_document_street_you %},
+            {% required responses.address_to_send_official_document_city_you size='100' %},
+            {% if responses.address_to_send_official_document_prov_you %}
+                {{ responses.address_to_send_official_document_prov_you }},
+            {% endif %}
+            {% if responses.address_to_send_official_document_country_you == 'Other' %}
+                {% required responses.address_to_send_official_document_other_country_you size='100' %}
+            {% else %}
+                {% required responses.address_to_send_official_document_country_you size='100' %}
+            {% endif %},
+            {% required responses.address_to_send_official_document_postal_code_you size='80' %},
+
+            {% required responses.occupation_you %},<br />
+
             and <br />
+
             {% if responses.name_spouse %}{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
-            {% if responses.address_to_send_official_document_street_spouse and responses.address_to_send_official_document_city_spouse and responses.address_to_send_official_document_country_spouse and responses.address_to_send_official_document_postal_code_spouse %}
-              {{ responses.address_to_send_official_document_street_spouse }}, {{ responses.address_to_send_official_document_city_spouse }},
-              {% if responses.address_to_send_official_document_prov_spouse %}
-                  {{ responses.address_to_send_official_document_prov_spouse }},
-              {% endif %}
-              {% if responses.address_to_send_official_document_country_spouse == 'Other' %} {{ responses.address_to_send_official_document_other_country_spouse }}{% else %} {{ responses.address_to_send_official_document_country_spouse }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_spouse }}{% else %}<span class="form-entry not-complete"></span>{% endif %},
-            {% if responses.occupation_spouse %} {{ responses.occupation_spouse }}{% else %}<span class="form-entry not-complete"></span>{% endif %},<br />
+
+            {% required responses.address_to_send_official_document_street_spouse %},
+            {% required responses.address_to_send_official_document_city_spouse size='100' %},
+            {% if responses.address_to_send_official_document_prov_spouse %}
+                {{ responses.address_to_send_official_document_prov_spouse }},
+            {% endif %}
+            {% if responses.address_to_send_official_document_country_spouse == 'Other' %}
+                {% required responses.address_to_send_official_document_other_country_spouse size='100' %},
+            {% else %}
+                {% required responses.address_to_send_official_document_country_spouse size='100' %},
+            {% endif %}
+            {% required responses.address_to_send_official_document_postal_code_spouse size='100' %},
+
+            {% required responses.occupation_spouse %},<br />
             SWEAR (OR AFFIRM) THAT:
         </p>
         <ol class="numbered-paragraphs">

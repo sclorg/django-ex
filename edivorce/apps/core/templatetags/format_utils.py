@@ -23,3 +23,11 @@ def date_formatter(value):
     d = datetime.strptime(value, '%d/%m/%Y')
     return d.strftime('%d %b %Y')
 
+@register.simple_tag()
+def required(field, size=None):
+    """ Return the required field value or the not-entered span """
+
+    if field.strip():
+        return field
+    style = ('min-width: %spx' % size) if size is not None else ''
+    return '<span class="form-entry not-complete" style="%s"></span>' % style
