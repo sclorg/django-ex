@@ -110,6 +110,7 @@
                     {% endfor %}.
                 {% else %}<span class="form-entry not-complete"></span>{% endif %}
             </li>
+
             <li>
                 I am neither directly nor indirectly a party to an agreement or
                 conspiracy for the purpose of subverting the administration of
@@ -117,14 +118,14 @@
                 fabricate or suppress evidence or to deceive the court.
             </li>
 
-            <li class="force-break">
-                <!-- Keep question #7 together with the sig block, so the sig block is never on a page by iteself. -->
+            <li class="{% if responses.which_claimant == 'Claimant 1' and responses.name_change_you != 'YES' or responses.which_claimant == 'Claimant 2' and responses.name_change_spouse != 'YES' %}force-break{% endif %}">
+                <!-- Keep last item together with the sig block, so the sig block is never on a page by iteself. -->
                 There are no children of the marriage as defined by the <em>Divorce
                 Act</em> (Canada).
             </li>
 
           {% if responses.which_claimant == 'Claimant 1' and responses.name_change_you == 'YES' %}
-            <li>
+            <li class="force-break">
               Pursuant to Section 5 of the Name Act, Claimant 1 shall
               bear the name of {{ responses.name_change_you_fullname }}
               to take effect on {% effective_date %}.
@@ -132,7 +133,7 @@
           {% endif %}
 
           {% if responses.which_claimant == 'Claimant 2' and responses.name_change_spouse == 'YES' %}
-            <li>
+            <li class="force-break">
               Pursuant to Section 5 of the Name Act, Claimant 2 shall
               bear the name of {{ responses.name_change_spouse_fullname }}
               to take effect on {% effective_date %}.

@@ -108,15 +108,18 @@
                 {% endfor %}.
             {% else %}<span class="form-entry not-complete"></span>{% endif %}
           </li>
+
           <li>We are neither directly nor indirectly a party to an agreement or
             conspiracy for the purpose of subverting the administration of
             justice, or to any agreement, understanding or arrangement to
             fabricate or suppress evidence or to deceive the court.</li>
-          <li>There are no children of the marriage as defined by the
+
+          <li class="{% if responses.name_change_you != 'YES' and responses.name_change_spouse != 'YES' %}force-break{% endif %}">
+            There are no children of the marriage as defined by the
             <em>Divorce Act</em> (Canada).</li>
 
         {% if responses.name_change_you == 'YES' %}
-          <li>
+          <li class="{% if responses.name_change_spouse != 'YES' %}force-break{% endif %}">
             Pursuant to Section 5 of the Name Act, Claimant 1 shall
             bear the name of {{ responses.name_change_you_fullname }}
             to take effect on {% effective_date %}.
@@ -124,7 +127,7 @@
         {% endif %}
 
         {% if responses.name_change_spouse == 'YES' %}
-          <li>
+          <li class="force-break">
             Pursuant to Section 5 of the Name Act, Claimant 2 shall
             bear the name of {{ responses.name_change_spouse_fullname }}
             to take effect on {% effective_date %}.
