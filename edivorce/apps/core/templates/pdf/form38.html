@@ -69,21 +69,17 @@
             {% else %}<span class="form-entry not-complete"></span>{% endif %},
             of
 
-            {% if responses.address_to_send_official_document_street_claimant and responses.address_to_send_official_document_city_claimant %}
-                {% required responses.address_to_send_official_document_street_claimant %},
-                {% required responses.address_to_send_official_document_city_claimant size=100 %},
-                {% if responses.address_to_send_official_document_prov_claimant %}
-                    {{ responses.address_to_send_official_document_prov_claimant }},
-                {% endif %}
-                {% if responses.address_to_send_official_document_country_claimant == 'Other' %}
-                    {% required responses.address_to_send_official_document_other_country_claimant size=100 %}
-                {% else %}
-                    {% required responses.address_to_send_official_document_country_claimant size=100 %}
-                {% endif %},
-                {% required responses.address_to_send_official_document_postal_code_claimant size=80 %},
-            {% else %}
-                <span class="form-entry not-complete"></span>,
+            {% required responses.address_to_send_official_document_street_claimant trail=',' %}
+            {% required responses.address_to_send_official_document_city_claimant size=100 trail=',' %}
+            {% if responses.address_to_send_official_document_prov_claimant %}
+                {{ responses.address_to_send_official_document_prov_claimant }},
             {% endif %}
+            {% if responses.address_to_send_official_document_country_claimant == 'Other' %}
+                {% required responses.address_to_send_official_document_other_country_claimant size=100 trail=',' %}
+            {% else %}
+                {% required responses.address_to_send_official_document_country_claimant size=100 trail=',' %}
+            {% endif %}
+            {% required responses.address_to_send_official_document_postal_code_claimant size=100 trail=',' %}
 
             {% required responses.occupation_claimant %}
             <br />
