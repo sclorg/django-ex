@@ -767,7 +767,7 @@
     "fields": {
         "name": "Is your spouse asking for a name change?",
         "description": "For Step 10, Forms 38 and 52's Orders sections",
-        "summary_order": 71,
+        "summary_order": 73,
         "required": "Required"
     },
     "model": "core.question",
@@ -777,7 +777,7 @@
     "fields": {
         "name": "Please enter the full name",
         "description": "For Step 10, Forms 38 and 52's Orders sections",
-        "summary_order": 72,
+        "summary_order": 74,
         "required": "Conditional",
         "conditional_target": "name_change_spouse",
         "reveal_response": "YES"

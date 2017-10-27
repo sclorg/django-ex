@@ -1,6 +1,6 @@
-from django.db.models import Count
 from edivorce.apps.core.models import UserResponse, Question
 from edivorce.apps.core.utils.question_step_mapping import question_step_mapping
+
 
 def get_responses_from_db(bceid_user):
     """ Get UserResponses from the database for a user. """
