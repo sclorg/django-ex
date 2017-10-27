@@ -12,7 +12,7 @@
 <h1><small>Step {% step_order step="other_orders" %}:</small>Other Orders</h1>
 
 <div class="question-well">
-    <h3>Are you asking for a name change?</h3>
+    <h3>Are you asking for a legal name change?</h3>
 
     <div class="btn-radio-group" data-toggle="buttons">
         <label class="btn btn-radio">
@@ -24,6 +24,26 @@
         </label>
     </div>
 
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#name-change-you"
+         aria-controls="name-change-you">
+        <div>
+            Do I need to ask for a legal name change if I took my spouse's last name?
+        </div>
+    </div>
+    <div class="collapse" id="name-change-you">
+        <p>If you took on your spouse’s surname (last name) after marriage
+        and now you decide to go back to using your own surname, you can do
+        this at any time without a <strong>legal</strong> change of
+        name.</p>
+
+        <p>After getting married, you may have chosen to continue using
+        your own surname, or you may have started using your spouse's
+        surname. Assuming your spouse's surname or returning to your
+        surname before marriage does not constitute or require a legal
+        change of name.</p>
+    </div>
+
     <div id="name_change_you_fullname" hidden>
         <h3>Please enter the full name</h3>
         {% input_field type="text" name="name_change_you_fullname" class="form-block input-wide response-textbox" %}
@@ -32,7 +52,7 @@
 </div>
 
 <div class="question-well">
-    <h3>Is your spouse asking for a name change?</h3>
+    <h3>Is your spouse asking for a legal name change?</h3>
 
     <div class="btn-radio-group" data-toggle="buttons">
         <label class="btn btn-radio">
@@ -42,6 +62,24 @@
         <label class="btn btn-radio">
             {% input_field type="radio" name="name_change_spouse" autocomplete="off" value="NO" data_target_id="name_change_spouse_fullname" data_reveal_target="false" %} No
         </label>
+    </div>
+
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#name-change-spouse"
+         aria-controls="name-change-spouse">
+        <div>
+            Does my spouse need to ask for a legal name change if they took my last name?
+        </div>
+    </div>
+    <div class="collapse" id="name-change-spouse">
+        <p>If your spouse took on your surname (last name) after marriage and now
+        they decide to go back to using their own surname, they can do this at
+        any time without a <strong>legal</strong> change of name.</p>
+
+        <p>After getting married, they may have chosen to continue using their
+        own surname, or they may have started using your surname. Assuming your
+        surname or returning to their surname before marriage does not
+        constitute or require a legal change of name.</p>
     </div>
 
     <div id="name_change_spouse_fullname" hidden>
