@@ -22,75 +22,94 @@
 </head>
 
 <body>
-
     <div class="print-wrapper">
-
         <h1 class="text-center">Form F38 <br>(Rule 10-10 (2))</h1>
+
         <p class="text-right">
             Court File No.: <span class="form-entry not-complete">&nbsp;</span>
         </p>
+
         <p class="text-right">
-            Court Registry: {% if responses.court_registry_for_filing %} {{ responses.court_registry_for_filing }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+            Court Registry: {% required responses.court_registry_for_filing %}
         </p>
+
         <p class="text-right">
             This is the <span class="form-entry not-complete"></span> affidavit
         </p>
+
         <p class="text-right">
-            of {% if responses.name_you %}{{ responses.name_you }}{% else %}<span class="form-entry not-complete"></span>{% endif %}
-            and {% if responses.name_spouse %}{{ responses.name_spouse }}{% else %}<span class="form-entry not-complete"></span>{% endif %}
+            of {% required responses.name_you %}
+            and {% required responses.name_spouse %}
             in this case
         </p>
+
         <p class="text-right">
             and was made on <span class="form-entry not-complete"></span>
         </p>
+
         <p class="text-center">
             <em>In the Supreme Court of British Columbia</em>
         </p>
+
         <p>
             Claimant 1: {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
         </p>
+
         <p>
             Claimant 2: {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
         </p>
+
         <p class="text-center">
             <strong>AFFIDAVIT - DESK ORDER DIVORCE</strong>
         </p>
-        <p>
-            We, {% if responses.name_you %}{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
 
-            {% required responses.address_to_send_official_document_street_you %},
-            {% required responses.address_to_send_official_document_city_you size='100' %},
-            {% if responses.address_to_send_official_document_prov_you %}
-                {{ responses.address_to_send_official_document_prov_you }},
-            {% endif %}
-            {% if responses.address_to_send_official_document_country_you == 'Other' %}
-                {% required responses.address_to_send_official_document_other_country_you size='100' %}
-            {% else %}
-                {% required responses.address_to_send_official_document_country_you size='100' %}
-            {% endif %},
-            {% required responses.address_to_send_official_document_postal_code_you size='80' %},
+        <p>
+            We,
+            {% if responses.name_you %}
+                {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}
+            {% else %}<span class="form-entry not-complete"></span>{% endif %},
+            of
+
+            {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you %}
+                {% required responses.address_to_send_official_document_street_you %},
+                {% required responses.address_to_send_official_document_city_you size='100' %},
+                {% if responses.address_to_send_official_document_prov_you %}
+                    {{ responses.address_to_send_official_document_prov_you }},
+                {% endif %}
+                {% if responses.address_to_send_official_document_country_you == 'Other' %}
+                    {% required responses.address_to_send_official_document_other_country_you size='100' %}
+                {% else %}
+                    {% required responses.address_to_send_official_document_country_you size='100' %}
+                {% endif %},
+                {% required responses.address_to_send_official_document_postal_code_you size='80' %},
+            {% else %}<span class="form-entry not-complete"></span>,{% endif %}
 
             {% required responses.occupation_you %},<br />
 
             and <br />
 
-            {% if responses.name_spouse %}{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
+            {% if responses.name_spouse %}
+                {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}
+            {% else %}<span class="form-entry not-complete"></span>{% endif %}, of
 
-            {% required responses.address_to_send_official_document_street_spouse %},
-            {% required responses.address_to_send_official_document_city_spouse size='100' %},
-            {% if responses.address_to_send_official_document_prov_spouse %}
-                {{ responses.address_to_send_official_document_prov_spouse }},
-            {% endif %}
-            {% if responses.address_to_send_official_document_country_spouse == 'Other' %}
-                {% required responses.address_to_send_official_document_other_country_spouse size='100' %},
-            {% else %}
-                {% required responses.address_to_send_official_document_country_spouse size='100' %},
-            {% endif %}
-            {% required responses.address_to_send_official_document_postal_code_spouse size='100' %},
+            {% if responses.address_to_send_official_document_street_spouse and responses.address_to_send_official_document_city_spouse %}
+                {% required responses.address_to_send_official_document_street_spouse %},
+                {% required responses.address_to_send_official_document_city_spouse size='100' %},
+                {% if responses.address_to_send_official_document_prov_spouse %}
+                    {{ responses.address_to_send_official_document_prov_spouse }},
+                {% endif %}
+                {% if responses.address_to_send_official_document_country_spouse == 'Other' %}
+                    {% required responses.address_to_send_official_document_other_country_spouse size='100' %},
+                {% else %}
+                    {% required responses.address_to_send_official_document_country_spouse size='100' %},
+                {% endif %}
+                {% required responses.address_to_send_official_document_postal_code_spouse size='100' %},
+            {% else %}<span class="form-entry not-complete"></span>,{% endif %}
 
             {% required responses.occupation_spouse %},<br />
             SWEAR (OR AFFIRM) THAT:
         </p>
+
         <ol class="numbered-paragraphs">
           <li>We are claimant 1 and claimant 2.</li>
           <li>There is no possibility of reconciliation between my spouse and me.</li>

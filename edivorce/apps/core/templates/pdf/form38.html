@@ -24,49 +24,75 @@
 <body>
 
     <div class="print-wrapper">
-
         <h1 class="text-center">Form F38 <br>(Rule 10-10 (2))</h1>
+
         <p class="text-right">
             Court File No.: <span class="form-entry not-complete">&nbsp;</span>
         </p>
+
         <p class="text-right">
-            Court Registry: {% if responses.court_registry_for_filing %} {{ responses.court_registry_for_filing }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+            Court Registry: {% required responses.court_registry_for_filing %}
         </p>
+
         <p class="text-right">
             This is the <span class="form-entry not-complete"></span> affidavit
         </p>
+
         <p class="text-right">
-            of {% if responses.name_claimant %}{{ responses.name_claimant }}{% else %}<span class="form-entry not-complete"></span>{% endif %} in this case
+            of {% required responses.name_claimant %} in this case
         </p>
+
         <p class="text-right">
             and was made on <span class="form-entry not-complete"></span>
         </p>
+
         <p class="text-center">
             <em>In the Supreme Court of British Columbia</em>
         </p>
+
         <p>
             Claimant 1: {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
         </p>
+
         <p>
             Claimant 2: {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
         </p>
+
         <p class="text-center">
             <strong>AFFIDAVIT - DESK ORDER DIVORCE</strong>
         </p>
+
         <p>
-            I, {% if responses.name_claimant %}{% include "partials/name_with_alias.html" with name=responses.name_claimant use_other_name=responses.any_other_name_claimant other_names=responses.other_name_claimant %}{% else %}<span class="form-entry not-complete"></span>{% endif %}, of
-            {% if responses.address_to_send_official_document_street_claimant and responses.address_to_send_official_document_city_claimant and responses.address_to_send_official_document_country_claimant and responses.address_to_send_official_document_postal_code_claimant %}
-              {{ responses.address_to_send_official_document_street_claimant }}, {{ responses.address_to_send_official_document_city_claimant }},
-              {% if responses.address_to_send_official_document_prov_claimant %}
-                  {{ responses.address_to_send_official_document_prov_claimant }},
-              {% endif %}
-              {% if responses.address_to_send_official_document_country_claimant == 'Other' %} {{ responses.address_to_send_official_document_other_country_claimant }}{% else %} {{ responses.address_to_send_official_document_country_claimant }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_claimant }}{% else %}<span class="form-entry not-complete"></span>{% endif %},
-            {% if responses.occupation_claimant %} {{ responses.occupation_claimant }}{% else %}<span class="form-entry not-complete"></span>{% endif %}, SWEAR (OR AFFIRM) THAT:
+            I,
+            {% if responses.name_claimant %}
+                {% include "partials/name_with_alias.html" with name=responses.name_claimant use_other_name=responses.any_other_name_claimant other_names=responses.other_name_claimant %}
+            {% else %}<span class="form-entry not-complete"></span>{% endif %},
+            of
+
+            {% if responses.address_to_send_official_document_street_claimant and responses.address_to_send_official_document_city_claimant %}
+                {% required responses.address_to_send_official_document_street_claimant %},
+                {% required responses.address_to_send_official_document_city_claimant size=100 %},
+                {% if responses.address_to_send_official_document_prov_claimant %}
+                    {{ responses.address_to_send_official_document_prov_claimant }},
+                {% endif %}
+                {% if responses.address_to_send_official_document_country_claimant == 'Other' %}
+                    {% required responses.address_to_send_official_document_other_country_claimant size=100 %}
+                {% else %}
+                    {% required responses.address_to_send_official_document_country_claimant size=100 %}
+                {% endif %},
+                {% required responses.address_to_send_official_document_postal_code_claimant size=80 %},
+            {% else %}
+                <span class="form-entry not-complete"></span>,
+            {% endif %}
+
+            {% required responses.occupation_claimant %}
+            <br />
+            SWEAR (OR AFFIRM) THAT:
         </p>
 
         <ol class="numbered-paragraphs">
             <li>
-                I am {% if responses.which_claimant %}{{ responses.which_claimant }}{% else %}<span class="form-entry not-complete">{% endif %}</span>.
+                I am {% required responses.which_claimant %}.
             </li>
             <li>
                 There is no possibility of reconciliation between my spouse and me.
@@ -95,13 +121,7 @@
             <li>
                 I was living separate and apart from my spouse at the start of this
                 family law case and I have lived separate and apart from my spouse
-                since
-                {% if responses.separation_date %}
-                  {{ responses.separation_date|date_formatter }},
-                {% else %}
-                  <span class="form-entry not-complete"></span>,
-                {% endif %}
-                except:
+                since {% required responses.separation_date|date_formatter %}, except:
                 {% multiple_values_to_list source=responses.reconciliation_period as periods %}
                 {% if periods != '[]' and responses.try_reconcile_after_separated == 'YES' %}
                     {% for period in periods %}
