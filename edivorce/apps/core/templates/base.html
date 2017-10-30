@@ -12,10 +12,10 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        {% compress css %}
         <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-datepicker3.min.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}">
-        {% compress css %}
         <link rel="stylesheet" type="text/css" href="{% sass_src "css/main.scss" %}" />
         {% endcompress %}
         {% include 'partials/gtm_head.html' %}
@@ -155,7 +155,6 @@
 
         <div id="progress-overlay" style="display: none"><div id="progress-overlay-spinner"></div></div>
 
-        {% load compress %}
         {% compress js %}
         <script type="text/javascript" src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
