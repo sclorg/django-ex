@@ -5,7 +5,7 @@ django-debug-toolbar==1.5
 django-sass-processor==0.5.5
 djangorestframework==3.5.3
 gunicorn==19.4.5
-libsass=0.13.3
+libsass==0.13.3
 psycopg2==2.6.1
 requests==2.13.0
 six==1.10.0
