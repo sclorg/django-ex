@@ -52,6 +52,14 @@ To run this project in your development machine, follow these steps:
 
 9. Open your browser and go to http://127.0.0.1:8000, you will be greeted with the eDivorce homepage.  In dev mode, you can log in with any username and the password 'divorce'.
 
+### SCSS Compilation
+
+SASS compilation is now handled by the internal `django-sass-processor` package.
+In local development, it compiles `*.scss` files it finds into the same directory
+when they're loaded in the browser (thereafter it recompiles on load when it
+detects changes by timestamp difference).  The file is collected into the
+`staticfiles` directory during build, so doesn't add overhead in production.
+
 
 ## OpenShift deployment
 
