@@ -15,8 +15,13 @@ def get_responses_from_db(bceid_user):
     return responses_dict
 
 
-def get_responses_from_db_grouped_by_steps(bceid_user):
-    """ Group questions and responses by steps they belong to """
+def get_responses_from_db_grouped_by_steps(bceid_user, hide_failed_conditionals=False):
+    """
+    Group questions and responses by steps to which they belong
+
+    `hide_failed_conditionals` goes through the responses after grouping and
+    tests their conditionality.  If they fail, the response is blanked.
+    """
     married, married_questions, responses = __get_data(bceid_user)
     responses_dict = {}
 
@@ -38,6 +43,21 @@ def get_responses_from_db_grouped_by_steps(bceid_user):
                      'question__name': answer.question.name,
                      'question__required': answer.question.required,
                      'question_id': answer.question.pk}]
+
+        # This was added for DIV-514, where the user entered a name change for
+        # their spouse but then said 'no', they won't be changing their name.
+        # Since we don't blank related answers, we need to hide it dynamically.
+        # This only works for questions in the same step.
+        if hide_failed_conditionals:
+            values = {q['question_id']: q['value'] for q in lst}
+            for q in lst:
+                if q['question__required'] != 'Conditional':
+                    continue
+                target = q['question__conditional_target']
+                if target not in values:
+                    continue
+                if q['question__reveal_response'] != values[target]:
+                    q['value'] = ''
 
         responses_dict[step] = lst
 

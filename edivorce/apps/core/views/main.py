@@ -184,7 +184,7 @@ def question(request, step):
     template = 'question/%02d_%s.html' % (template_step_order[step], step)
 
     user, _ = __get_bceid_user(request)
-    responses_dict_by_step = get_responses_from_db_grouped_by_steps(user)
+    responses_dict_by_step = get_responses_from_db_grouped_by_steps(user, True)
 
     if step == "review":
         responses_dict = responses_dict_by_step
