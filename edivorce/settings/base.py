@@ -43,7 +43,8 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'edivorce.apps.core',
     'compressor',
-    'crispy_forms'
+    'crispy_forms',
+    'sass_processor',
 )
 
 MIDDLEWARE_CLASSES = (
