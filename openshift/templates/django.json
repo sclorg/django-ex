@@ -11,7 +11,8 @@
       "openshift.io/long-description": "This template defines resources needed to develop a Django based application, including a build configuration and application deployment configuration.  It does not include a database.",
       "openshift.io/provider-display-name": "Red Hat, Inc.",
       "openshift.io/documentation-url": "https://github.com/openshift/django-ex",
-      "openshift.io/support-url": "https://access.redhat.com"
+      "openshift.io/support-url": "https://access.redhat.com",
+      "template.openshift.io/bindable": "false"
     }
   },
   "labels": {
@@ -55,10 +56,7 @@
       "kind": "Route",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${NAME}",
-        "annotations": {
-          "template.openshift.io/expose-uri": "http://{.spec.host}{.spec.path}"
-        }
+        "name": "${NAME}"
       },
       "spec": {
         "host": "${APPLICATION_DOMAIN}",
