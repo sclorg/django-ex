@@ -7,15 +7,59 @@ var reveal = function(el) {
     var id = '#' + el.data("target_id");
     var css_class = el.data("target_class");
     var related_id = el.data("related_id");
-    // hide or show based on target id
+    var reveal_condition = el.data("reveal_condition");
+    var should_reveal = true;
+
+    if (reveal_condition !== undefined) {
+        should_reveal = false;
+        if (reveal_condition.startsWith(">=")) {
+            should_reveal = el.val() >= parseInt(reveal_condition.slice(2), 10);
+        } else if (reveal_condition.startsWith("<=")) {
+            should_reveal = el.val() <= parseInt(reveal_condition.slice(2), 10);
+        } else if (reveal_condition.startsWith("==")) {
+            should_reveal = el.val() === parseInt(reveal_condition.slice(2), 10);
+        } else if (reveal_condition.startsWith("<")) {
+            should_reveal = el.val() < parseInt(reveal_condition.slice(1), 10);
+        } else if (reveal_condition.startsWith(">")) {
+            should_reveal = el.val() > parseInt(reveal_condition.slice(1), 10) ;
+        }
+
+        if (!should_reveal) {
+            if (related_id !== undefined){
+                $('#' + related_id).hide();
+            }
+            if (css_class !== undefined){
+                $('.' + css_class).hide();
+            }
+        }
+    }
+
+    if (should_reveal) {
+        showHideTargetId(el, id, related_id);
+        showHideRevealClass(el, css_class);
+
+        if (el.prop('name') === "provide_certificate_later" || el.prop('name') === "original_marriage_certificate") {
+            if ($('input[name=provide_certificate_later]:checked').val() !== 'YES' && $('input[name=original_marriage_certificate]:checked').val() === 'NO') {
+                $('#is_certificate_in_english').hide();
+            }
+            else {
+                $('#is_certificate_in_english').show();
+            }
+        }
+    }
+};
+
+// hide or show based on target id
+var showHideTargetId = function(el, id, related_id) {
     if (el.data("reveal_target") === true && el.prop('checked')) {
         $(id).show();
         if (related_id !== undefined){
             $('#' + related_id).hide();
         }
         if (id === "#has_children"){
-            reveal($("input[name=any_under_19]:checked"));
+            reveal($("input[name=number_children_over_19]"));
         }
+
         // reveal nested question as well
         if (id ==="#marriage_certificate"){
             reveal($("input[name=provide_certificate_later]:checked"));
@@ -26,24 +70,17 @@ var reveal = function(el) {
             $('#' + related_id).show();
         }
     }
+};
 
-    // hide or show based on target css class
+// Controls show or hiding a target css class
+var showHideRevealClass = function(el, target_css_class) {
     if (el.data("reveal_class") === false) {
-        if (css_class !== undefined){
-            $('.' + css_class).hide();
+        if (target_css_class !== undefined){
+            $('.' + target_css_class).hide();
         }
     } else {
-        if (css_class !== undefined){
-            $('.' + css_class).show();
-        }
-    }
-
-    if (el.prop('name') === "provide_certificate_later" || el.prop('name') === "original_marriage_certificate"){
-        if ($('input[name=provide_certificate_later]:checked').val() !== 'YES' && $('input[name=original_marriage_certificate]:checked').val() === 'NO') {
-            $('#is_certificate_in_english').hide();
-        }
-        else {
-            $('#is_certificate_in_english').show();
+        if (target_css_class !== undefined){
+            $('.' + target_css_class).show();
         }
     }
 };

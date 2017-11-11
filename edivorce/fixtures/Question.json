@@ -73,24 +73,12 @@
 },
 {
     "fields": {
-        "name": "Are any of the children under 19 years old?",
-        "description": "For pre-qualification step 4",
-        "summary_order": 8,
-        "required": "Conditional",
-        "conditional_target": "children_of_marriage",
-        "reveal_response": "YES"
-    },
-    "model": "core.question",
-    "pk": "any_under_19"
-},
-{
-    "fields": {
         "name": "Are you financially supporting any of the children that are 19 years or older?",
         "description": "For pre-qualification step 4, Form 1 3. Info concerning children",
         "summary_order": 9,
         "required": "Conditional",
-        "conditional_target": "any_under_19",
-        "reveal_response": "NO"
+        "conditional_target": "number_children_over_19",
+        "reveal_response": ">0"
     },
     "model": "core.question",
     "pk": "children_financial_support"
@@ -784,5 +772,29 @@
     },
     "model": "core.question",
     "pk": "name_change_spouse_fullname"
+},
+{
+    "fields": {
+        "name": "How many children are under the age of 19?",
+        "description": "For pre-qualification step 4, Form 1 3. Info concerning children",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "children_of_marriage",
+        "reveal_response": "YES"
+    },
+    "pk": "number_children_under_19",
+    "model": "core.question"
+},
+{
+    "fields": {
+        "name": "How many children are 19 years or older?",
+        "description": "For pre-qualification step 4, Form 1 3. Info concerning children",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "children_of_marriage",
+        "reveal_response": "YES"
+    },
+    "pk": "number_children_over_19",
+    "model": "core.question"
 }
 ]

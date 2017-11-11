@@ -5,7 +5,9 @@
 question_step_mapping = {
     'prequalification': ['married_marriage_like', 'lived_in_bc',
                          'lived_in_bc_at_least_year', 'separation_date',
-                         'children_of_marriage', 'any_under_19',
+                         'children_of_marriage',
+                         'number_children_under_19',
+                         'number_children_over_19',
                          'children_financial_support',
                          'original_marriage_certificate',
                          'provide_certificate_later',

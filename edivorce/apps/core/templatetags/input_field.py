@@ -23,6 +23,8 @@ def input_field(context, type, name='', value='', multiple='', **kwargs):
         # set initial value for textbox
         if type == "text" and value == '' and multiple != 'true':
             value = context.get(name, '')
+        elif type == "number":
+            value = context.get(name, '')
         tag = ['<input type="%s" name="%s" value="%s"' % (type, name, value)]
 
         tag = additional_attributes(tag, **kwargs)

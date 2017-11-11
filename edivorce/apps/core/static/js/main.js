@@ -50,7 +50,7 @@ $(function () {
         $(this).parent().find('.radio-with-other').prop('checked', true);
     });
 
-    $("input[type=radio], input[type=checkbox], input[type=text], .response-textarea, .response-dropdown").on("change", ajaxOnChange);
+    $("input[type=number], input[type=radio], input[type=checkbox], input[type=text], .response-textarea, .response-dropdown").on("change", ajaxOnChange);
 
     // If relationship is common law and they want spousal support, update spouse_support_act with hidden input field, spouse_support_act_common_law
     if ($("#spouse_support_act_common_law").length) {
