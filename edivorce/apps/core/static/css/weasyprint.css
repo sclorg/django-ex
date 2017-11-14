@@ -57,6 +57,10 @@ i.fa {
     min-width: 200px;
 }
 
+.form-underline {
+    border-bottom:1px solid #000000;
+}
+
 .form-textarea {
     display: block;
     border: solid 1px #000000;
