@@ -1,104 +1,155 @@
-import uuid
+import datetime
 from ipaddress import ip_address, ip_network
 
-import sys
 from django.conf import settings
 from django.shortcuts import redirect
+from django.utils import timezone
+
+from ..models import BceidUser
+
+login_delta = datetime.timedelta(hours=2)
 
 
-class BceidUser(object):
-    def __init__(self, guid, display_name, user_type, is_authenticated):
-        self.guid = guid
-        self.display_name = display_name
-        self.type = user_type
-        self.is_authenticated = is_authenticated
+class AnonymousUser():
+    """
+    Anonymous user, present mainly to provide authentication checks in templates
+    """
+
+    guid = None
+    display_name = ''
+
+    def is_authenticated(self):
+        return False
+
+    def is_anonymous(self):
+        return True
+
+anonymous_user = AnonymousUser()
 
 
-class BceidMiddleware(object):
-    def process_request(self, request):
+class BceidMiddleware(object):  # pylint: disable=too-few-public-methods
+    """
+    Simple authentication middleware for operating in the BC Government
+    OpenShift environment, with SiteMinder integration.
 
-        # Save SiteMinder headers to session variables.  /login* is the only actual
-        # SiteMinder-protected part of the site, so the headers aren't availabale anywhere else
-        if request.META.get('HTTP_SMGOV_USERGUID', ''):
-            request.session['smgov_userguid'] = request.META.get('HTTP_SMGOV_USERGUID')
+    For our purposes, SiteMinder is configured to add the following headers:
 
-        if request.META.get('HTTP_SMGOV_USERDISPLAYNAME', ''):
-            request.session['smgov_userdisplayname'] = request.META.get('HTTP_SMGOV_USERDISPLAYNAME')
+        SMGOV_USERGUID
+        SMGOV_USERDISPLAYNAME
+        SM_USER
 
-        # get SiteMinder variables from the headers first, then from the session
-        smgov_userguid = request.META.get('HTTP_SMGOV_USERGUID', request.session.get('smgov_userguid', False))
-        smgov_userdisplayname = request.META.get('HTTP_SMGOV_USERDISPLAYNAME', request.session.get('smgov_userdisplayname', False))
+    The first two are provided on pages configured to be protected by
+    SiteMinder, which is currently just /login.  When a user goes to the login
+    page, if the user is logged in, SiteMinder adds those headers with their
+    BCeID values; if they're not logged in, it routes them through its
+    login/signup page and then back to the login page, with those headers in
+    place.  For unprotected pages, those headers are stripped if present,
+    preventing spoofing.
 
-        # HTTP_SM_USER is available on both secure and unsecure pages.  If it has a value then we know
-        # that the user is still logged into BCeID
-        # This is an additional check to make sure we aren't letting users access the site
-        # via their session variables after logging out of bceid
-        has_siteminder_auth = request.META.get('HTTP_SM_USER','') != ''
+    The third header is populated on every request that's proxied through
+    SiteMinder.  For logged in users, it contains their ???; for anonymous
+    users, it's empty.
 
-        # Note: It's still possible that a user has logged out of one BCeID and logged into another BCeID
-        # via www.bceid.ca without clicking the logout link on our app or closing the browser.  This is an
-        # extreme edge case, and it's not pragmatic to code against it at this time.
+    When we detect authentication by the presence of the first two headers, we
+    store those values in the user's session. On all requests, we use them to
+    access a local proxy object for the user (available as request.user).  For
+    users that are not logged in, an Anonymous User substitute is present.
+
+    In a local development environment, we generate a guid based on the login
+    name and treat that guid/login name as guid/display name.
+    """
+
+    def process_request(self, request):  # pylint: disable=too-many-branches
+        """
+        Return None after populating request.user, or necessary redirects.
+
+        If the request is not coming from inside the BC Government data centre,
+        redirect the request through the proxy server.
+
+        If the SiteMinder headers are present, indicating the user has just
+        authenticated, save those headers to the session.
+
+        Get the user's GUID and display name.  If they're present, and the user
+        has authenticated (or we're in a local development environment), add
+        the local proxy user to the request; if not, store the anonymous user
+        instance.
+        """
 
         # make sure the request didn't bypass the proxy
-        if settings.DEPLOYMENT_TYPE != 'localdev' and not self.__request_came_from_proxy(request):
-            print("Redirecting to " + settings.PROXY_BASE_URL + request.path, file=sys.stderr)
+        if (settings.DEPLOYMENT_TYPE != 'localdev' and
+                not self.__request_came_from_proxy(request)):
             return redirect(settings.PROXY_BASE_URL + request.path)
 
-        if settings.DEPLOYMENT_TYPE != 'localdev' and has_siteminder_auth and smgov_userguid:
+        # HTTP_SM_USER is available on both secure and unsecure pages.  If it
+        # has a value then we know that the user is still logged into BCeID.
+        # This is an additional check to make sure we aren't letting users
+        # access the site via their session variables after logging out of bceid
+        #
+        # Note: It's still possible that a user has logged out of one BCeID and
+        # logged into another BCeID via www.bceid.ca without clicking the logout
+        # link on our app or closing the browser.  This is an extreme edge case,
+        # and it's not pragmatic to code against it at this time.
+        siteminder_user = request.META.get('HTTP_SM_USER', '')
+        is_localdev = settings.DEPLOYMENT_TYPE == 'localdev'
+        update_user = False
 
-            # 1. Real BCeID user / logged in
-            request.bceid_user = BceidUser(
-                guid=smgov_userguid,
-                is_authenticated=True,
-                user_type='BCEID',
-                display_name=smgov_userdisplayname
-            )
+        guid = request.META.get('HTTP_SMGOV_USERGUID', '')
+        displayname = request.META.get('HTTP_SMGOV_USERDISPLAYNAME', '')
 
-        elif settings.DEPLOYMENT_TYPE == 'localdev' and request.session.get('fake_bceid_guid', False):
-
-            # 2. Fake BCeID user / logged in
-            request.bceid_user = BceidUser(
-                guid=request.session.get('fake_bceid_guid'),
-                is_authenticated=True,
-                user_type='FAKE',
-                display_name=request.session.get('login_name', '')
-            )
-
+        if guid:
+            request.session['smgov_userguid'] = guid
         else:
+            guid = request.session.get('smgov_userguid')
 
-            # 3.  Anonymous User / not logged in
-            request.bceid_user = BceidUser(
-                guid=None,
-                is_authenticated=False,
-                user_type='ANONYMOUS',
-                display_name=''
-            )
+        if displayname:
+            request.session['smgov_userdisplayname'] = displayname
+        else:
+            displayname = request.session.get('smgov_userdisplayname')
 
-    def process_response(self, request, response):
-        return response
+        if is_localdev:
+            guid = request.session.get('fake_bceid_guid')
+            displayname = request.session.get('login_name')
 
+        if guid and (siteminder_user or is_localdev):
+            request.user, created = BceidUser.objects.get_or_create(user_guid=guid)
+            if created:
+                request.session['first_login'] = True
+            if siteminder_user:
+                if created or not request.user.sm_user:
+                    request.user.sm_user = siteminder_user
+                    update_user = True
+            if request.user.display_name != displayname:
+                request.user.display_name = displayname
+                update_user = True
+            if (request.user.last_login is None or
+                    timezone.now() - request.user.last_login > login_delta):
+                request.user.last_login = timezone.now()
+                update_user = True
+
+            if update_user:
+                request.user.save()
+        else:
+            request.user = anonymous_user
+
+        return None
 
     def __request_came_from_proxy(self, request):
         """
-        Validate that the request is coming from inside the BC Government data centre
+        Return True if the request is coming from inside the BC Government data
+        centre, False otherwise.
+
+        Health checks and static resources are allowed from any source.  The
+        latter is mainly so WeasyPrint can request CSS.
         """
-        # allow all OpenShift health checks
+
         if request.path == settings.FORCE_SCRIPT_NAME + 'health':
             return True
 
-        # allow requests for static assets to bypass the proxy
-        # (this is needed so WeasyPrint can request CSS)
         if request.path.startswith(settings.FORCE_SCRIPT_NAME[:-1] + settings.STATIC_URL):
             return True
 
         bcgov_network = ip_network(settings.BCGOV_NETWORK)
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR', '')
-        forwarded_for = x_forwarded_for.split(',')
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR', '').split(',')
+        forwarded_for = [ip.strip() for ip in x_forwarded_for if ip.strip() != '']
 
-        if len(forwarded_for) == 0:
-            return False
-
-        for ip in forwarded_for:
-            if ip !='' and ip_address(ip) in bcgov_network:
-                return True
-        return False
+        return any([ip_address(ip) in bcgov_network for ip in forwarded_for])

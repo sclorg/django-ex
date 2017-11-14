@@ -52,9 +52,9 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="top_banner-user">
-                            {% if request.bceid_user.is_authenticated %}
+                            {% if request.user.is_authenticated %}
                             <span>
-                                {{ request.bceid_user.display_name}}
+                                {{ request.user.display_name}}
                                 &nbsp;&nbsp;|&nbsp;&nbsp; <a href="{% url 'logout' %}">Log out</a>
                             </span>
                             {% endif %}
@@ -71,7 +71,7 @@
                     <div class="row">
                         <div class="col-md-5">
                             {% block backToDashboard %}
-                            {% if request.bceid_user.is_authenticated %}
+                            {% if request.user.is_authenticated %}
                                 <div class="mid_banner-dash"><a href="{% url 'overview' %}">
                                     <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>View Application Stages</a>
                                 </div>

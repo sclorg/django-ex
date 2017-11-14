@@ -13,11 +13,23 @@ class BceidUser(models.Model):
     user_guid = models.CharField(db_index=True, max_length=32, unique=True, blank=False)
     """ BCEID identifier for user """
 
+    display_name = models.TextField(blank=True)
+    """ BCEID display name """
+
+    sm_user = models.TextField(blank=True)
+    """ SiteMinder user value """
+
     date_joined = models.DateTimeField(default=timezone.now)
     """ First login timestamp """
 
     last_login = models.DateTimeField(default=timezone.now)
     """ Most recent login timestamp """
+
+    def is_authenticated(self):
+        return True
+
+    def is_anonymous(self):
+        return False
 
     def __str__(self):
         return 'BCeID User %s' % self.user_guid
@@ -63,10 +75,10 @@ class UserResponse(models.Model):
     User input
     """
 
-    bceid_user = models.ForeignKey(BceidUser)
+    bceid_user = models.ForeignKey(BceidUser, related_name='responses')
     """ User providing response """
 
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, related_name='responses')
     """ Originating question """
 
     value = models.TextField(blank=True)

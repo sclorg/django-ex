@@ -129,3 +129,4 @@ BASICAUTH_ENABLED = False
 
 # Google Tag Manager (dev/test instance)
 GTM_ID = 'GTM-NJLR7LT'
+

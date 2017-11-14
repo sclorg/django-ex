@@ -4,7 +4,7 @@
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
 {% block progress %}
-    {% if request.bceid_user.is_authenticated %}
+    {% if request.user.is_authenticated %}
         {% include "partials/progress.html" %}
     {% endif %}
 {% endblock %}
