@@ -10,7 +10,6 @@ objects:
   apiVersion: v1
   metadata:
     name: build-and-deploy-to-dev
-    namespace:
     labels:
       name: build-and-deploy-to-dev
     annotations:
@@ -43,7 +42,6 @@ objects:
   apiVersion: v1
   metadata:
     name: deploy-to-prod
-    namespace:
     labels:
       name: deploy-to-prod
     annotations:
@@ -76,7 +74,6 @@ objects:
   apiVersion: v1
   metadata:
     name: deploy-to-test
-    namespace:
     labels:
       name: deploy-to-test
     annotations:
