@@ -1,0 +1,33 @@
+{% load input_field %}
+<td class="table-bordered">
+    <div id="child_name_{{ div_id }}"
+         class="child-field"
+         data-target-form-field="child_name"></div>
+</td>
+<td class="table-bordered">
+    <div id="child_birth_date_{{ div_id }}"
+         class="child-field"
+         data-target-form-field="child_birth_date"></div>
+</td>
+<td class="table-bordered">
+    <div id="child_live_with_{{ div_id }}"
+         class="child-field"
+         data-target-form-field="child_live_with"></div>
+</td>
+<td class="table-bordered">
+    <div id="child_relationship_you_{{ div_id }}"
+         class="child-field"
+         data-target-form-field="child_relationship_to_you"></div>
+</td>
+<td class="table-bordered">
+    <div id="child_relationship_spouse_{{ div_id }}"
+         class="child-field"
+         data-target-form-field="child_relationship_to_spouse"></div>
+</td>
+{% if not exclude_delete_button %}
+<td class="fact-sheet-button">
+    <div class="form-group">
+        <input type="button" class="btn btn-danger btn-delete-child form-control" tabindex="-1" value="Delete" />
+    </div>
+</td>
+{% endif %}

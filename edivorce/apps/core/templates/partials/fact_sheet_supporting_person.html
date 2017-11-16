@@ -1,0 +1,20 @@
+{% load input_field %}
+{% with "fact-sheet-input "|add:input_field_class as input_field_classes %}
+<td class="fact-sheet-answer table-bordered">
+    {% input_field type="text" name=name_field value=name maxlength="70" class=input_field_classes placeholder="Name" %}
+</td>
+<td class="fact-sheet-answer table-bordered">
+    {% input_field type="text" name=relationship_field value=relationship maxlength="150" class=input_field_classes placeholder="" %}
+</td>
+<td class="fact-sheet-answer table-bordered">
+    {% input_field type="textarea" name=reason_field value=reason maxlength="500" multiple='true' class=input_field_classes placeholder="" %}
+</td>
+{% endwith %}
+
+{% if not exclude_delete_button %}
+<td class="fact-sheet-button">
+    <div class="form-group">
+        <input type="button" class="btn btn-danger form-control {{ delete_button_class  }}" tabindex="-1" value="Delete" />
+    </div>
+</td>
+{% endif %}

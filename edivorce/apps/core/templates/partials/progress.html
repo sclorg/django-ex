@@ -39,11 +39,16 @@
         {% if step_status.your_separation == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.your_separation == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-
+    <a href="{% url 'question_steps' 'children' %}" class="progress-question {% if step_status.your_children == 'Complete' %} complete {% endif %} {% if active_page == 'children' %} active {% endif %}">
+        <span class="progress-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+        <span class="progress-content"><small>Step 6</small><br />Your children</span>
+        {% if step_status.your_children == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
+        {% elif step_status.your_children == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
+    </a>
     {% if 'Spousal support' in want_which_orders|load_json or 'Spousal support' in which_orders.0.value|load_json %}
     <a href="{% url 'question_steps' 'support' %}" class="progress-question {% if step_status.spousal_support == 'Complete' %} complete {% endif %} {% if active_page == 'support' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-life-ring" aria-hidden="true"></i></span>
-        <span class="progress-content"><small>Step 6</small><br />Spousal support</span>
+        <span class="progress-content"><small>Step 7</small><br />Spousal support</span>
         {% if step_status.spousal_support == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.spousal_support == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
@@ -78,6 +83,12 @@
         <span class="progress-content"><small>Step {% step_order step="location" %}</small><br />Filing location</span>
         {% if step_status.filing_locations == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.filing_locations == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
+    </a>
+    <a href="{% url 'question_steps' 'fact_sheets' %}" class="progress-question {% if step_status.fact_sheets == 'Complete' %} complete {% endif %} {% if active_page == 'fact_sheets' %} active {% endif %}">
+        <span class="progress-icon"><i class="fa fa-file-text-o" aria-hidden="true"></i></span>
+        <span class="progress-content"><small>Step {% step_order step="fact_sheets" %}</small><br />Fact Sheets</span>
+        {% if step_status.fact_sheets == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
+        {% elif step_status.fact_sheets == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
     <a href="{% url 'question_steps' 'review' %}" class="progress-question {% if active_page == 'review' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-file" aria-hidden="true"></i></span>

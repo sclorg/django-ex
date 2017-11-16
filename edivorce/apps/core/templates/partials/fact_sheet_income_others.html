@@ -1,0 +1,17 @@
+{% load input_field %}
+<td class="fact-sheet-answer table-bordered">
+    {% input_field type="text" name="income_others_name" value=income_others_name maxlength="100" multiple='true' class="fact-sheet-input income-others-input-field" placeholder="Full Name" %}
+</td>
+<td class="fact-sheet-answer table-bordered">
+    <div class="dollar-prefix">
+        {% money_input_field name="income_others_amount" value=income_others_amount class="money fact-sheet-input income-others-input-field input-narrow" step="1" data_sum="true" data_sum_class="income-others-input-field" data_sum_target_id="total_income_others" placeholder="00"  %}
+    </div>
+</td>
+
+{% if not exclude_delete_button %}
+<td class="fact-sheet-button">
+    <div class="form-group">
+        <input type="button" class="btn btn-danger btn-delete-income-others form-control" tabindex="-1" value="Delete" />
+    </div>
+</td>
+{% endif %}

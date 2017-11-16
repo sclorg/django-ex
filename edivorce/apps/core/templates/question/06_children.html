@@ -1,0 +1,332 @@
+{% extends 'base.html' %}
+{% load input_field %}
+{% load step_order %}
+
+{% block title %}{{ block.super }}: Your Children{% endblock %}
+
+{% block progress %}{% include "partials/progress.html" %}{% endblock %}
+
+{% block content %}
+
+<h1>
+    <small>Step {% step_order step="children" %}:</small>Your Children
+    <span class="form-group">
+        <input type="button" id="btn_add_child" class="btn btn-success" value="Add Child"/>
+    </span>
+</h1>
+<div class="question-well">
+    <table id="your_children_table" class="list-builder">
+        <thead>
+            <tr class="list-builder-header">
+                <th class="table-bordered">Child's Name</th>
+                <th class="table-bordered">Birthdate</th>
+                <th class="table-bordered">Child now living with</th>
+                <th class="table-bordered">Relationship to Claimant 1</th>
+                <th class="table-bordered">Relationship to Claimant 2</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr class="child-item-row" data-counter="0">
+                    {% include "partials/your_children_child.html" with exclude_delete_button=True div_id="0" counter="0" %}
+                </tr>
+                <tr class="child-disabled-group" data-counter="0" hidden>
+                    {% include "partials/your_children_child.html" with div_id="hidden" %}
+                </tr>
+            {% if list_of_children and list_of_children != '[]' %}
+                {% multiple_values_to_list source=list_of_children as children %}
+                {% for name, birth_date, live_with, custody, relationship_to_you, relationship_to_spouse  in children %}
+                    <tr class="child-item-row" data-counter="{{ forloop.counter }}">
+                        {% include "partials/your_children_child.html" with div_id=forloop.counter counter=forloop.counter %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <p>
+        Please answer the questions below <strong>for each</strong> of your children.
+        Their name will be added to the list above.
+    </p>
+</div>
+
+<div class="question-well">
+    <h3>What is your child's name?</h3>
+    <div>{% input_field type="text" name="child_name" class="form-block intput-wide responsive-textbox children-input-block" placeholder="First, Middle, Last Name" data_mirror="true" data_mirror_target="#child_name_0" %}</div>
+</div>
+
+
+<div class="question-well">
+    <h3>What is your child's date of birth?</h3>
+    <p>
+        <span class="input-group date date-picker-group">
+            {% input_field type="text" name="child_birth_date" class="date-picker form-control children-input-block" id="childs_birth_date" placeholder="DD/MM/YYYY" data_mirror="true" data_mirror_target="#child_birth_date_0" %}
+            <span class="input-group-addon" >
+                <i class="fa fa-calendar circle"></i>
+            </span>
+        </span>
+    </p>
+</div>
+
+<div class="question-well">
+    <h3>Where/whom does this child currently live with?</h3>
+    <p>Please select one</p>
+    <div class="radio">
+        <label class="tight-spacing">
+            {% input_field type="radio" class="radio-with-other  children-input-block" name="child_live_with" value="Lives with you" data_target_id="other_child_details" data_reveal_target="false" data_mirror="true" data_mirror_target="#child_live_with_0" %}
+            {% if name_you %}{{ name_you }}{% else %}you{% endif %}
+        </label>
+        <p>Child lives primarily (more than 60%) with this parent</p>
+    </div>
+    <div class="radio">
+        <label class="tight-spacing">
+            {% input_field type="radio" class="radio-with-other  children-input-block" name="child_live_with" value="Lives with spouse" data_target_id="other_child_details" data_reveal_target="false" data_mirror="true" data_mirror_target="#child_live_with_0" %}
+            {% if name_spouse %}{{ name_spouse }}{% else %}your spouse{% endif %}
+        </label>
+        <p>Child lives primarily (more than 60%) with this parent</p>
+    </div>
+    <div class="radio">
+        <label class="tight-spacing">
+            {% input_field type="radio" class="radio-with-other  children-input-block" name="child_live_with" value="Lives with both" data_target_id="other_child_details" data_reveal_target="false" data_mirror="true" data_mirror_target="#child_live_with_0" %}
+            Both/Shared
+            {% if name_you %}{{ name_you }}{% else %}you{% endif %} and
+            {% if name_spouse %}{{ name_spouse }}{% else %}your spouse{% endif %}
+        </label>
+        <p>The child live with both parents more or less equally (between 40-60% of the time with each parent)</p>
+    </div>
+
+    <div class="radio">
+        <label>
+            {% input_field type="radio" class="radio-with-other radio-with-textbox children-input-block" name="child_live_with" value="Other" data_target_id="other_child_details" data_reveal_target="true" data_mirror="true" data_mirror_target="#child_live_with_0" %}
+            Other
+            {% input_field type="textarea" class="response-textbox other-textbox input-inline children-input-block" name="child_live_with_other_details" id="other_child_details" maxlength="500" rows="3" tabindex="-1" hidden="" %}
+        </label>
+    </div>
+
+    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseChildLivingOptions" aria-controls="collapseChildLivingOptions">
+        <div>
+            Which option applies if my child is living away from home attending school?
+        </div>
+    </div>
+    <div class="collapse" id="collapseChildLivingOptions">
+        <div>
+            <p>
+                If the child is a dependent living away from home much of the year to attend school, select
+                the parent with whom the child primarily lives when he/she returns home.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="question-well">
+    <h3>The type of parenting arrangement you have can affect the way you calculate child support under the
+        <a href="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step6-etap6.html" target="_blank">
+            Federal Guidelines.
+        </a>
+    </h3>
+    <h3>
+        What is your current parenting arrangement for child (insert name previously entered)?
+    </h3>
+    <div class="radio">
+        <label class="tight-spacing">
+            {% input_field type="radio" class="radio-with-other  children-input-block" name="child_custody" value="Sole custody"%}
+            Sole custody
+        </label>
+        <p>
+            Your child spends more than  60 percent of their time with one of you over the course of a year
+        </p>
+    </div>
+    <div class="radio">
+        <label class="tight-spacing">
+            {% input_field type="radio" class="radio-with-other children-input-block" name="child_custody" value="Split"%}
+            Split
+        </label>
+        <p>
+            You split custody of your children if:
+            <ul>
+                <li>you have more than one child; and</li>
+                <li>you each have sole custody of at least one of the children</li>
+            </ul>
+        </p>
+    </div>
+    <div class="radio">
+        <label class="tight-spacing">
+            {% input_field type="radio" class="radio-with-other children-input-block" name="child_custody" value="Shared/Joint"%}
+            Shared/Joint
+        </label>
+        <p>
+            You share custody of your children if they spend at least 40 percent of the time with each of you in a year
+        </p>
+    </div>
+</div>
+
+<div class="question-well">
+    <h3>What is your relationship to this child?</h3>
+    <div class="radio">
+        <label>{% input_field type="radio" class="radio-with-other children-input-block" name="child_relationship_to_you" value="Natural child" data_mirror="true" data_mirror_target="#child_relationship_you_0"%}Natural child</label>
+    </div>
+    <div class="radio">
+        <label>{% input_field type="radio" class="radio-with-other children-input-block" name="child_relationship_to_you" value="Step child" data_mirror="true" data_mirror_target="#child_relationship_you_0"%}Step child</label>
+    </div>
+    <div class="radio">
+        <label class="tight-spacing">{% input_field type="radio" class="radio-with-other children-input-block" name="child_relationship_to_you" value="Adopted child" data_mirror="true" data_mirror_target="#child_relationship_you_0"%}Adopted child</label>
+        <p>
+            Once a child is legally adopted, he or she becomes the child of the adoptive parent(s) for all purposes.
+        </p>
+    </div>
+
+    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapseParentRights" aria-controls="collapseParentRights">
+        <div>
+            What are a step-parents' rights and responsibilities?
+        </div>
+    </div>
+    <div class="collapse" id="collapseParentRights">
+        <div>
+            <p>
+                If you have stepchildren and you separate from their parent, you may want to continue your relationship
+                with those children. You can try to negotiate an arrangement with the child's parent for you to have
+                regular contact with the child. The only thing you and the other parent can consider when making these
+                decisions is the best interests of the child. You can put these arrangements into an agreement that the
+                two of you write down and sign.
+            </p>
+            <p>As a step-parent, you may be responsible to pay child support if:</p>
+            <ul>
+                <li>you and the child's parent are or were married or lived common-law for at least two years, and</li>
+                <li>you also lived with the child.</li>
+            </ul>
+            <p>You aren't responsible to pay child support for stepchildren unless</p>
+            <ul>
+                <li>
+                    you contributed to the child's support for at least one year during your relationship with the
+                    child's parent, and
+                </li>
+                <li>
+                    the application for support is made within a year of the last time you contributed to the child's support.
+                </li>
+            </ul>
+            <p>
+                For more information on
+                <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/step_parents_rights.php" target="_blank">step-parents' rights and responsibilities</a>
+                please refer to the Family Law of B.C. website.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="question-well">
+    <h3>What is your spouse's relationship to this child?</h3>
+    <div class="radio">
+            <label>{% input_field type="radio" class="radio-with-other children-input-block" name="child_relationship_to_spouse" value="Natural child" data_mirror="true" data_mirror_target="#child_relationship_spouse_0" %}Natural child</label>
+        </div>
+    <div class="radio">
+        <label>{% input_field type="radio" class="radio-with-other children-input-block" name="child_relationship_to_spouse" value="Step child" data_mirror="true" data_mirror_target="#child_relationship_spouse_0"%}Step child</label>
+    </div>
+    <div class="radio">
+        <label class="tight-spacing">{% input_field type="radio" class="radio-with-other children-input-block" name="child_relationship_to_spouse" value="Adopted child" data_mirror="true" data_mirror_target="#child_relationship_spouse_0"%}Adopted child</label>
+        <p>
+            Once a child is legally adopted, he or she becomes the child of the adoptive parent(s) for all purposes.
+        </p>
+    </div>
+</div>
+
+
+<div id="questions_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <h1 class="modal-title">Your children</h1>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Next up, we have questions about your children. If  you and the other parent have lived together
+                    with your children, generally both of you continue to be guardians after you separate. As guardians,
+                    you'll need to figure out how you'll care for and make decisions about your children. That is, how
+                    will you divide or share parenting responsibilities and parenting time? Even though parents share
+                    these responsibilities when they're living together, the law does not assume that any particular
+                    arrangement is in the children's best interests after you split up.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block formBack %}{% prev_step step='children' %}{% endblock %}
+{% block formNext %}{% next_step step='children' %}{% endblock %}
+
+{% block sidebarText %}
+    <p><strong>Sole Custody Example</strong></p>
+    <p>
+        Maria and Pedro have decided to divorce. Their children, Christine and Manuel, are having a hard time coping
+        with the idea. They are afraid of the changes it will mean in their lives.
+    </p>
+    <p>
+        Maria and Pedro want to protect their children as much as possible. They agree that it will probably be better
+        for Christine and Manuel to continue living in the family home with Maria. It is closer to their school and
+        friends than the new place Pedro plans to move to. The children will spend a fair bit of time with Pedro, too,
+        especially on weekends and holidays. But Maria and Pedro calculate that, over the entire year, the children will
+        spend 65% of the time with Maria and 35% of the time with Pedro. This means that Maria will have sole custody
+        for child support purposes, although they have decided that they will have joint custody for decision-making
+        purposes. Pedro will pay support.
+    </p>
+    <p>
+    Source: The
+    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step3-etap3.html" link_text="Federal Child Support Guidelines: Step-by-Step" %}
+    </p>
+
+    <p><strong>Split Custody Example</strong></p>
+    <p>
+        Bill and Janet have decided to go their separate ways and get a divorce. They are having a hard time agreeing on
+        the parenting arrangements for their three children. But there is one thing they do agree on—that it is important
+        to put their children’s best interests first.
+    </p>
+    <p>
+        They both realize that their oldest child, 15-year-old Marc, is particularly close to Bill. After discussing the
+        issue with Marc, they all agree that it will be best for Marc to spend most of the time with his father. With
+        the help of a mediator, Bill and Janet are also able to agree that the two youngest children, three-year-old
+        Caroline and five-year-old Albert, will spend time mainly with Janet.
+    </p>
+    <p>
+        In other words, Marc will spend more than 60% of the time with Bill while Caroline and Albert will spend more
+        than 60% of the time with Janet over the course of a year. This means that Bill and Janet will each have sole
+        custody of at least one of the children. They have a split-custody arrangement.
+    </p>
+    <p>
+    Source: The
+    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step3-etap3.html" link_text="Federal Child Support Guidelines: Step-by-Step" %}
+    </p>
+
+    <p><strong>Shared Custody Example</strong></p>
+    <p>
+        Eight-year-old twins Malia and Emma are very worried. They have just found out that their dad, Raoul, and mom,
+        Lily, have decided to divorce and live in separate homes. Malia and Emma wonder where they will live. They are
+        afraid that if one of their parents lives in a different house, they will hardly ever see that parent again.
+        This happened to one of their friends at school.
+    </p>
+    <p>
+        Raoul and Lily listen to their children’s concerns. They assure Malia and Emma that they both love them very
+        much and will always be their parents. They also explain that the children will get to live in two houses.
+    </p>
+    <p>
+        Lily and Raoul have a number of discussions and take a close look at their family’s situation to come up with a
+        plan that is workable and best for Malia and Emma. They explain to Malia and Emma that they will spend alternate
+        weeks with each parent. They will spend one week with mom, and they will spend the next week with dad. The
+        schedule will vary a bit sometimes. For example, in the summer, Malia and Emma will spend a complete month with
+        each parent. But they should not worry. Mom and dad will work together to ensure that their decisions are in
+        Malia’s and Emma’s best interests.
+    </p>
+    <p>
+        Since Malia and Emma spend at least 40% of the time with each parent, Raoul and Lily have a shared-custody
+        arrangement for child support purposes.
+    </p>
+    <p>
+    Source: The
+    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step3-etap3.html" link_text="Federal Child Support Guidelines: Step-by-Step" %}
+    </p>
+{% endblock %}

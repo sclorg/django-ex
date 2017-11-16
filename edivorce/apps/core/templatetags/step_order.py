@@ -28,18 +28,18 @@ def next_step(context, step):
     want_which_orders = json.loads(context.get('want_which_orders', '[]'))
     current_step_base_order = template_step_order[step]
 
-    next = current_step_base_order + 1
+    next_item = current_step_base_order + 1
 
-    if next == 6 and 'Spousal support' not in want_which_orders:
-        next += 1
+    if next_item == 6 and 'Spousal support' not in want_which_orders:
+        next_item += 1
 
-    if next == 7 and 'Division of property and debts' not in want_which_orders:
-        next += 1
+    if next_item == 7 and 'Division of property and debts' not in want_which_orders:
+        next_item += 1
 
-    if next == 8 and 'Other orders' not in want_which_orders:
-        next += 1
+    if next_item == 8 and 'Other orders' not in want_which_orders:
+        next_item += 1
 
-    return get_step_name(next)
+    return get_step_name(next_item)
 
 
 @register.simple_tag(takes_context=True)

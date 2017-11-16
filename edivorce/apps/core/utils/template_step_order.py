@@ -8,13 +8,16 @@ template_step_order = {
     'respondent': 3,
     'marriage': 4,
     'separation': 5,
-    'support': 6,
-    'property': 7,
-    'other_orders': 8,
-    'other_questions': 9,
-    'location': 10,
-    'review': 11
+    'children': 6,
+    'support': 7,
+    'property': 8,
+    'other_orders': 9,
+    'other_questions': 10,
+    'location': 11,
+    'fact_sheets': 12,
+    'review': 13
 }
+
 
 def get_step_name(step_order):
     """
