@@ -57,6 +57,11 @@ i.fa {
     min-width: 200px;
 }
 
+.form-entry-sm {
+    display: inline-block;
+    min-width: 50px;
+}
+
 .form-underline {
     border-bottom:1px solid #000000;
 }
