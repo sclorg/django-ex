@@ -53,10 +53,11 @@ $(function () {
     $('input[type=number], input[type=radio], input[type=checkbox], input[type=text], .response-textarea, .response-dropdown').on('change', ajaxOnChange);
 
     // The designers want the dependent elements to be revealed as soon as the user completes input but before
-    // they click on the next button.  Using the mouse move event as the trigger for checking whether or not should
-    // reveal dependent elements.
-    $('#has_children').on('mousemove', function(){
-        reveal($('input[name=number_children_over_19]'));
+    // they click on the next button. Using the keypress event with a small timeout to mimic an on change event
+    // that does not require the current element to loose focus.
+    $('input[name=number_children_over_19]').on('keypress', function() {
+        var self = $(this);
+        setTimeout(function(){ self.trigger('change');}, 50);
     });
 
 
