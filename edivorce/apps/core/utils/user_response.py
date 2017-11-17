@@ -1,5 +1,6 @@
 from edivorce.apps.core.models import UserResponse, Question
 from edivorce.apps.core.utils.question_step_mapping import question_step_mapping
+from edivorce.apps.core.utils.step_completeness import evaluate_numeric_condition
 
 
 def get_responses_from_db(bceid_user):
@@ -56,7 +57,11 @@ def get_responses_from_db_grouped_by_steps(bceid_user, hide_failed_conditionals=
                 target = q['question__conditional_target']
                 if target not in values:
                     continue
-                if q['question__reveal_response'] != values[target]:
+                numeric_condition = evaluate_numeric_condition(values[target], q['question__reveal_response'])
+                if numeric_condition is None:
+                    if q['question__reveal_response'] != values[target]:
+                        q['value'] = ''
+                elif numeric_condition is False:
                     q['value'] = ''
 
         responses_dict[step] = lst

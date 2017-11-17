@@ -226,7 +226,7 @@ def prequal_tag(source):
     end_tag = '</td></tr>'
 
     marriage_status = lived_in_bc = live_at_least_year = separation_date = try_reconcile = reconciliation_period = None
-    children_of_marriage = any_under_19 = financial_support = certificate = provide_later = None
+    children_of_marriage = number_children_under_19 = number_children_over_19 = financial_support = certificate = provide_later = None
     provide_later_reason = not_provide_later_reason = in_english = divorce_reason = None
 
     for item in source:
@@ -245,8 +245,10 @@ def prequal_tag(source):
             reconciliation_period = item
         elif q_id == 'children_of_marriage':
             children_of_marriage = item
-        elif q_id == 'any_under_19':
-            any_under_19 = item
+        elif q_id == 'number_children_under_19':
+            number_children_under_19 = item
+        elif q_id == 'number_children_over_19':
+            number_children_over_19 = item
         elif q_id == 'children_financial_support':
             financial_support = item
         elif q_id == 'original_marriage_certificate':
@@ -278,10 +280,12 @@ def prequal_tag(source):
         tags.append(first_column + reconciliation_period['question__name'] + second_column + reconciliation_period_reformat(reconciliation_period['value']) + end_tag)
     if children_of_marriage:
         tags.append(first_column + children_of_marriage['question__name'] + second_column + children_of_marriage['value'] + end_tag)
-    if children_of_marriage and children_of_marriage['value'] == 'YES' and any_under_19:
-        tags.append(first_column + any_under_19['question__name'] + second_column + any_under_19['value'] + end_tag)
-    if children_of_marriage and children_of_marriage['value'] == 'YES' and any_under_19['value'] == 'NO' and financial_support:
-        tags.append(first_column + financial_support['question__name'] + second_column + json.loads(financial_support['value'])[0] + end_tag)
+    if children_of_marriage and children_of_marriage['value'] == 'YES' and number_children_under_19:
+        tags.append(first_column + number_children_under_19['question__name'] + second_column + number_children_under_19['value'] + end_tag)
+    if children_of_marriage and children_of_marriage['value'] == 'YES' and number_children_over_19:
+        tags.append(first_column + number_children_over_19['question__name'] + second_column + number_children_over_19['value'] + end_tag)
+    if children_of_marriage and children_of_marriage['value'] == 'YES' and number_children_over_19 and financial_support and financial_support['value']:
+        tags.append(first_column + financial_support['question__name'] + second_column + '.'.join(json.loads(financial_support['value'])) + end_tag)
     if certificate:
         tags.append(first_column + certificate['question__name'] + second_column + certificate['value'] + end_tag)
     if certificate and certificate['value'] == 'NO' and provide_later:

@@ -2,6 +2,30 @@ from edivorce.apps.core.models import Question
 from edivorce.apps.core.utils.question_step_mapping import question_step_mapping
 
 
+def evaluate_numeric_condition(target, reveal_response):
+    """
+    Tests whether the reveal_response contains a numeric condition.  If so, it will
+    evaluate the numeric condition and return the results of that comparison.
+
+    :param target: the questions value being tested against
+    :param reveal_response: the numeric condition that will be evaluated against
+    :return: boolean result of numeric condition evaluation or None if there is no
+    numeric condition to evaluate.
+    """
+    if reveal_response.startswith('>='):
+        return int(target) >= int(reveal_response[2:])
+    elif reveal_response.startswith('<='):
+        return int(target) <= int(reveal_response[2:])
+    elif reveal_response.startswith('=='):
+        return int(target) == int(reveal_response[2:])
+    elif reveal_response.startswith('<'):
+        return int(target) < int(reveal_response[1:])
+    elif reveal_response.startswith('>'):
+        return int(target) > int(reveal_response[1:])
+    else:
+        return None
+
+
 def get_step_status(responses_by_step):
     status_dict = {}
     for step, lst in responses_by_step.items():
@@ -52,7 +76,7 @@ def is_complete(step, lst):
 
 def __condition_met(reveal_response, target, lst):
     # check whether using a numeric condition
-    numeric_condition_met = __evaluate_numeric_condition(target, reveal_response)
+    numeric_condition_met = evaluate_numeric_condition(target["value"], reveal_response)
     if numeric_condition_met is None:
         if target["value"] != reveal_response:
             return False
@@ -83,27 +107,3 @@ def __has_value(key, lst):
             if answer != "" and answer != "[]" and answer != '[["",""]]':
                 return True
     return False
-
-
-def __evaluate_numeric_condition(target, reveal_response):
-    """
-    Tests whether the reveal_response contains a numeric condition.  If so, it will
-    evaluate the numeric condition and return the results of that comparison.
-
-    :param target: the questions value being tested against
-    :param reveal_response: the numeric condition that will be evaluated against
-    :return: boolean result of numeric condition evaluation or None if there is no
-    numeric condition to evaluate.
-    """
-    if reveal_response.startswith('>='):
-        return int(target["value"]) >= int(reveal_response[2:])
-    elif reveal_response.startswith('<='):
-        return int(target["value"]) <= int(reveal_response[2:])
-    elif reveal_response.startswith('=='):
-        return int(target["value"]) == int(reveal_response[2:])
-    elif reveal_response.startswith('<'):
-        return int(target["value"]) < int(reveal_response[1:])
-    elif reveal_response.startswith('>'):
-        return int(target["value"]) > int(reveal_response[1:])
-    else:
-        return None
