@@ -285,7 +285,7 @@ def prequal_tag(source):
     if children_of_marriage and children_of_marriage['value'] == 'YES' and number_children_over_19:
         tags.append(first_column + number_children_over_19['question__name'] + second_column + number_children_over_19['value'] + end_tag)
     if children_of_marriage and children_of_marriage['value'] == 'YES' and number_children_over_19 and financial_support and financial_support['value']:
-        tags.append(first_column + financial_support['question__name'] + second_column + '.'.join(json.loads(financial_support['value'])) + end_tag)
+        tags.append(first_column + financial_support['question__name'] + second_column + '<br>'.join(json.loads(financial_support['value'])) + end_tag)
     if certificate:
         tags.append(first_column + certificate['question__name'] + second_column + certificate['value'] + end_tag)
     if certificate and certificate['value'] == 'NO' and provide_later:
