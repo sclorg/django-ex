@@ -12,6 +12,9 @@ def evaluate_numeric_condition(target, reveal_response):
     :return: boolean result of numeric condition evaluation or None if there is no
     numeric condition to evaluate.
     """
+    if target == '':  # cannot evaluate if answer is blank
+        return None
+
     if reveal_response.startswith('>='):
         return int(target) >= int(reveal_response[2:])
     elif reveal_response.startswith('<='):
@@ -22,8 +25,8 @@ def evaluate_numeric_condition(target, reveal_response):
         return int(target) < int(reveal_response[1:])
     elif reveal_response.startswith('>'):
         return int(target) > int(reveal_response[1:])
-    else:
-        return None
+
+    return None
 
 
 def get_step_status(responses_by_step):
@@ -43,7 +46,7 @@ def is_complete(step, lst):
     """
     Check required field of question for complete state
     Required: question is always require user response to be complete
-    Conditional: Optional question needed depends on reveal_response value of its conditional_target.
+    Conditional: Optional question needed depends on reveal_response value of conditional_target.
     """
     if not lst:
         return False, []

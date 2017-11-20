@@ -122,8 +122,19 @@ $(function () {
     // For want which order page
     // If either Spousal support or Division of property and debts is not selected show alert message
     // if user still wants to proceed(click next again), let them proceed to next page
+    // DIV-529 Separate alert for child support
     $('#check_order_selected').on('click', function (e) {
         var showAlert = $(this).data('show_alert');
+        var childSupport = $('input[data-target_id=child_support_alert]').prop('checked');
+        var eligible = false;
+        if (!childSupport) {
+          var children = $('#unselected_child_support_alert').data('children-of-marriage');
+          var under19 = $('#unselected_child_support_alert').data('children-number-under-19');
+          var over19 = $('#unselected_child_support_alert').data('children-number-over-19');
+          var reasons = $('#unselected_child_support_alert').data('children-financial-support')
+          reasons = reasons.filter((el) => { return el !== 'NO'; }).length > 0;
+          eligible = children === 'YES' && (under19 > 0 || (over19 > 0 && reasons));
+        }
         var proceedNext = $(this).data('proceed');
         if (!showAlert) {
             $(".checkbox-group input:checkbox").not(":checked").each(function () {
@@ -132,8 +143,10 @@ $(function () {
                 }
             });
         }
-        if (showAlert && !proceedNext) {
+        if ((showAlert || (!childSupport && eligible)) && !proceedNext) {
             $('#unselected_orders_alert').show();
+            if (showAlert) { $('#unselected_spouse_property_alert').show(); }
+            if (!childSupport && eligible) { $('#unselected_child_support_alert').show(); }
             e.preventDefault();
             $(this).data('proceed', true);
         }

@@ -34,6 +34,16 @@ class BceidUser(models.Model):
     def is_anonymous(self):
         return False
 
+    is_staff = True
+
+    is_active = True
+
+    def has_module_perms(self, *args):
+        return True
+
+    def has_perm(self, *args):
+        return True
+
     def __str__(self):
         return 'BCeID User %s' % self.user_guid
 

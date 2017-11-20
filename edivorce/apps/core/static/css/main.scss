@@ -188,6 +188,19 @@ img {
 			left: 27px;
 		}
 	}
+
+  h2 {
+    line-height: initial;
+    margin-bottom: 10px;
+  }
+
+  p + h2 {
+    margin-top: 20px;
+  }
+
+  #unselected_spouse_property_alert {
+    margin-bottom: 20px;
+  }
 }
 
 .checkmark {
@@ -1233,7 +1246,7 @@ textarea {
 		}
 
 		.progress-content {
-			width: 176px;
+			width: 190px;
 			font-size: 14px;
 			line-height: 1.3;
 			color: $body-copy;
