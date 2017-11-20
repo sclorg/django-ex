@@ -17,13 +17,13 @@
     </a>
     <a href="{% url 'question_steps' 'claimant' %}" class="progress-question {% if step_status.your_information == 'Complete' %} complete {% endif %} {% if active_page == 'claimant' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-info" aria-hidden="true"></i></span>
-        <span class="progress-content"><small>Step 2</small><br />Your information</span>
+        <span class="progress-content"><small>Step 2</small><br />Your information (Claimant 1)</span>
         {% if step_status.your_information == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.your_information == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
     <a href="{% url 'question_steps' 'respondent' %}" class="progress-question {% if step_status.your_spouse == 'Complete' %} complete {% endif %} {% if active_page == 'respondent' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
-        <span class="progress-content"><small>Step 3</small><br />Your spouse</span>
+        <span class="progress-content"><small>Step 3</small><br />Your spouse (Claimant 2)</span>
         {% if step_status.your_spouse == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.your_spouse == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
