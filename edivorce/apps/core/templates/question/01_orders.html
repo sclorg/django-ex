@@ -4,19 +4,26 @@
 
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
-{% block progress %}{% include "partials/progress.html" %}{% endblock %}
+{% block progress %}
+{% if not intercepted %}{% include "partials/progress.html" %}{% endif %}
+{% endblock %}
 
 {% block content %}
 
-<h1><small>Step 1:</small>What are you asking for
-    <span class="tooltip-link" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click"
+<h1>
+    {% if not intercepted %}<small>Step 1:</small>{% endif %}
+    What are you asking for
+    (<span class="tooltip-link" data-toggle="tooltip" data-placement="auto"
+          data-html="true" data-trigger="click"
           title="
           <p><b>Orders</b></p>
           <p>A record of a decision made by a judge or master that tells you or
           your spouse what you must do (or not do).  For example: The court has
           made an order that your spouse must pay you $250 on a monthly basis
           to help pay off your combined debt.
-          ">(Orders)<i class="fa fa-question-circle" aria-hidden="true"></i></span>?</h1>
+          ">Orders<i class="fa fa-question-circle" aria-hidden="true"></i>
+    </span>)?
+</h1>
 
 <p class="intro">Please select what you are asking for. Later on you will be
 asked to provide details for each request.</p>
@@ -136,7 +143,7 @@ asked to provide details for each request.</p>
     <div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Child support" %}<b>Child support (Out of scope)</b></label></div>
 {% endcomment %}
 
-<div class="information-message bg-danger" id="unselected_orders_alert" hidden>
+<div class="information-message bg-danger add-top-margin" id="unselected_orders_alert" hidden>
     <p>We've noticed that at this point in time you are not applying for
     spousal support and/or division of property, debt, or a pension. If you
     decide to request these items in the future there are some time limits.</p>
@@ -171,7 +178,7 @@ asked to provide details for each request.</p>
                 not need to appear in court. However a judge needs to review
                 and approve what you are asking for. Orders allow you to tell
                 the court what you want (for example division of property
-                and debt).</p>
+                and debt, child support, spousal support, etc.).</p>
             </div>
             <div class="modal-footer">
                 <a type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Continue</a>
@@ -182,9 +189,15 @@ asked to provide details for each request.</p>
 
 {% endblock %}
 
-{% block formBack %}{% url 'overview' %}{% endblock %}
+{% block formBack %}{% if not intercepted %}{% url 'overview' %}{% endif %}{% endblock %}
 
-{% block formNext %}{% next_step step='orders' %}{% endblock %}
+{% block formNext %}
+    {% if intercepted %}
+        {% url 'overview' %}
+    {% else %}
+        {% next_step step='orders' %}
+    {% endif %}
+{% endblock %}
 
 {% block nextButtonAttribute %}id="check_order_selected" data-proceed="false" data-show_alert="false"{% endblock %}
 

@@ -21,21 +21,16 @@ class UserResponseHandler(APIView):
             # As a result of discussion, decide to escape < and > only
             value = request.data['value'].replace('<', '&lt;').replace('>', '&gt;')
             if request.user.is_authenticated():
-                save_to_db(serializer, question, value, request.user.user_guid)
+                save_to_db(serializer, question, value, request.user)
             else:
                 # only prequalification questions can be answered when you
                 # aren't logged into BCeID
-                if not question_key in question_step_mapping['prequalification']:
+                if question_key not in question_step_mapping['prequalification']:
                     return Response(data="Not logged in",
                                     status=status.HTTP_511_NETWORK_AUTHENTICATION_REQUIRED)
                 save_to_session(request, question, value)
-
         except Question.DoesNotExist:
             return Response(data="Question: '%s' does not exist" % question_key,
                             status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            import traceback
-            traceback.print_exc()
-            print(e)
 
         return Response(status=status.HTTP_200_OK)

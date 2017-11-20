@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import main, system, styleguide, pdf, api, localdev
+from .views import main, system, pdf, api, localdev
 
 handler404 = 'core.views.main.page_not_found'
 handler500 = 'core.views.main.server_error'
@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^overview', main.overview, name="overview"),
     url(r'^success', main.success, name="success"),
     url(r'^incomplete', main.incomplete, name="incomplete"),
+    url(r'^intercept', main.intercept_page, name="intercept"),
     url(r'^dashboard/(?P<nav_step>.*)', main.dashboard_nav, name="dashboard_nav"),
     url(r'^health$', system.health),
     url(r'^legal', main.legal, name="legal"),
@@ -29,5 +30,3 @@ urlpatterns = [
     url(r'^question/(?P<step>.*)$', main.question, name="question_steps"),
     url(r'^$', main.home, name="home"),
 ]
-
-

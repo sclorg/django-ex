@@ -21,7 +21,9 @@ def get_responses_from_db_grouped_by_steps(bceid_user, hide_failed_conditionals=
     Group questions and responses by steps to which they belong
 
     `hide_failed_conditionals` goes through the responses after grouping and
-    tests their conditionality.  If they fail, the response is blanked.
+    tests their conditionality.  If they fail, the response is blanked (this is
+    to hide conditional responses that are no longer applicable but haven't been
+    erased, mainly for the question review page).
     """
     married, married_questions, responses = __get_data(bceid_user)
     responses_dict = {}

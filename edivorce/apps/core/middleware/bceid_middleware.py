@@ -24,6 +24,7 @@ class AnonymousUser():
     def is_anonymous(self):
         return True
 
+
 anonymous_user = AnonymousUser()
 
 

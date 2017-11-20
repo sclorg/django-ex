@@ -25,6 +25,9 @@ class BceidUser(models.Model):
     last_login = models.DateTimeField(default=timezone.now)
     """ Most recent login timestamp """
 
+    has_seen_orders_page = models.BooleanField(default=False)
+    """ Flag for intercept page """
+
     def is_authenticated(self):
         return True
 
@@ -57,7 +60,7 @@ class Question(models.Model):
     """ 'Required', 'Conditional', or '' [blank = not required] """
 
     conditional_target = models.TextField(blank=True)
-    """ For conditionally required questions, this is the other question that it is conditional upon """
+    """ For conditional questions, this is the question it is conditional upon """
 
     reveal_response = models.TextField(blank=True)
     """ The value of the other question that makes this question required """

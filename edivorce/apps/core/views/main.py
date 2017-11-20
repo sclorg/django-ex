@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, render_to_response
 from django.utils import timezone
 from django.template import RequestContext
 
-from ..decorators import bceid_required
+from ..decorators import bceid_required, intercept
 from ..utils.question_step_mapping import list_of_registries
 from ..utils.step_completeness import get_step_status, is_complete
 from ..utils.template_step_order import template_step_order
@@ -138,6 +138,7 @@ def logout(request):
 
 
 @bceid_required
+@intercept
 def overview(request):
     """
     Dashboard: Process overview page.
@@ -217,3 +218,18 @@ def legal(request):
     Legal Information page
     """
     return render(request, 'legal.html', context={'active_page': 'legal'})
+
+
+@bceid_required
+def intercept_page(request):
+    """
+    On intercept, show the Orders page to get the requested orders before the
+    user sees the nav on the left, so that it's already customized to their
+    input.
+    """
+    template = 'question/%02d_%s.html' % (template_step_order['orders'], 'orders')
+    responses_dict = get_responses_from_db(request.user)
+    responses_dict['intercepted'] = True
+
+    return render(request, template_name=template, context=responses_dict)
+
