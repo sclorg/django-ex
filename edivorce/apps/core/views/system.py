@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse
 
 from edivorce.apps.core.models import Question
 
@@ -28,13 +29,13 @@ def current(request):
             request.user.responses.all().delete()
             request.user.delete()
         request.session.flush()
-        return redirect('/current')
+        return redirect(reverse('current'))
 
     if request.GET.get('intercept', False) and request.user.is_authenticated():
         request.user.has_seen_orders_page = False
         request.user.save()
         request.user.responses.filter(question__key='want_which_orders').delete()
-        return redirect('/current')
+        return redirect(reverse('current'))
 
     context = {
         'hide_nav': True,

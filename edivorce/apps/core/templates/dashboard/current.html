@@ -8,8 +8,9 @@
 table.outer { width: 100%; }
 table.outer td { width: 50%; vertical-align: top; }
 td input { padding: 7px 10px; margin-bottom: 2px; }
-table.inner { width: 90%; }
+table.inner { width: 95%; table-layout: fixed; }
 table.inner td { vertical-align: top; }
+table.inner td + td { padding-left: 1em; }
 </style>
 
 <h2>
