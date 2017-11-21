@@ -16,6 +16,7 @@ from unipath import Path
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 BASE_DIR = Path(__file__).parent.parent
+ENVIRONMENT = os.environ.get('ENVIRONMENT_TYPE', 'localdev')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -49,6 +50,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'edivorce.apps.core.middleware.basicauth_middleware.BasicAuthMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -132,3 +134,10 @@ BASICAUTH_ENABLED = False
 # Google Tag Manager (dev/test instance)
 GTM_ID = 'GTM-NJLR7LT'
 
+
+def show_toolbar(request):
+    return ENVIRONMENT in ['localdev', 'dev', 'test']
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+}

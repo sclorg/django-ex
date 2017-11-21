@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^pdf-form(?P<form_number>[0-9]{1,3}(_we|_claimant1|_claimant2)?)$', pdf.form, name="pdf_form"),
     url(r'^prequalification/step_(?P<step>[0-9]{2})$', main.prequalification, name="prequalification"),
     url(r'^question/(?P<step>.*)$', main.question, name="question_steps"),
+    url(r'^current', system.current, name="current"),
     url(r'^$', main.home, name="home"),
 ]

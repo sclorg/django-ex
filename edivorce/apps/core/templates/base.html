@@ -149,6 +149,11 @@
                     <li>
                         <a href="http://www2.gov.bc.ca/gov/content/home/contact-us" target="_blank">Contact Us</a>
                     </li>
+                    {% if show_debug %}
+                    <li>
+                      <em><a href="/current">Debug Current User</a></em>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </footer>

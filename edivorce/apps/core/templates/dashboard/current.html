@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block formbuttons %}{% endblock %}
+{% block sidebar %}{% endblock %}
+
+{% block content %}
+<style>
+table.outer { width: 100%; }
+table.outer td { width: 50%; vertical-align: top; }
+td input { padding: 7px 10px; margin-bottom: 2px; }
+table.inner { width: 90%; }
+table.inner td { vertical-align: top; }
+</style>
+
+<h2>
+  Current User Controls
+  <small>
+    [ <a href="?reset=true" class="confirm-link"
+        data-message="This will delete the user and all responses.
+Are you sure you want to continue?"
+      >Reset User</a> ]
+    [ <a href="#" class="previous-page">Previous Page</a> ]
+  </small>
+</h2>
+
+{% if request.user.is_anonymous %}
+<p>The current user is not logged in.</p>
+{% endif %}
+
+<table class='outer'>
+  <tr>
+    <td>
+
+  {% if not request.user.is_anonymous %}
+      <h3>Responses</h3>
+      <table class='inner'>
+    {% for response in request.user.responses.all %}
+        <tr>
+          <td>{{ response.question.key }}</td>
+          <td>
+            <input
+              type='text'
+              name='{{ response.question.key }}'
+              value='{{ response.value }}'
+            />
+          </td>
+        </tr>
+    {% empty %}
+        <tr>
+          <td colspan="2">No responses yet</td>
+        </tr>
+    {% endfor %}
+      </table>
+  {% endif %}
+
+      <h3>Session Data</h3>
+      <table class='inner'>
+    {% for key, value in request.session.items %}
+      {% if value != None %}
+        <tr>
+          <td>{{ key }}</td>
+          <td>{{ value }}</td>
+        </tr>
+      {% endif %}
+    {% empty %}
+        <tr>
+          <td colspan="2">No session data</td>
+        </tr>
+    {% endfor %}
+      </table>
+
+
+    </td>
+    <td>
+
+  {% if not request.user.is_anonymous %}
+      <h3>User Fields</h3>
+      <table class='inner'>
+        <tr>
+          <td>Has seen orders page</td>
+          <td>
+            {{ request.user.has_seen_orders_page }}<br>
+            [ <a href="?intercept=reset" class="confirm-link"
+                data-message="This will reset the flag triggering the Orders intercept screen preceding the overview.  It also deletes any orders selections you may have made (but it doesn't delete responses on specific orders pages.
+
+Are you sure you want to continue?"
+              >Reset intercept flag</a> ]<br>
+            [ <a href="{% url 'overview' %}">Overview Page</a> ]
+          </td>
+        </tr>
+      </table>
+  {% endif %}
+
+    </td>
+  </tr>
+</table>
+
+{% endblock %}
+
+

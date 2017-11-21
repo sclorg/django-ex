@@ -132,7 +132,7 @@ $(function () {
           var under19 = $('#unselected_child_support_alert').data('children-number-under-19');
           var over19 = $('#unselected_child_support_alert').data('children-number-over-19');
           var reasons = $('#unselected_child_support_alert').data('children-financial-support')
-          reasons = reasons.filter((el) => { return el !== 'NO'; }).length > 0;
+          reasons = (reasons || []).filter((el) => { return el !== 'NO'; }).length > 0;
           eligible = children === 'YES' && (under19 > 0 || (over19 > 0 && reasons));
         }
         var proceedNext = $(this).data('proceed');
@@ -194,8 +194,18 @@ $(function () {
     $('.info-modal').on('click', function (e) {
         e.preventDefault();
         $('#info_modal').modal('show');
-    })
+    });
 
+    $('.confirm-link').on('click', function (e) {
+      if (!confirm($(e.target).data('message'))) {
+        e.preventDefault();
+      }
+    });
+
+    $('.previous-page').on('click', function(e) {
+      e.preventDefault();
+      window.history.back();
+    });
 });
 
 // delete and added field and save the change
