@@ -142,13 +142,13 @@
 
             <tr>
                 <td class="fact-sheet-question"><strong>Total section 7 expenses</strong></td>
-                <td class="fact-sheet-answer">
+                <td class="fact-sheet-answer" readonly>
                     <div class="dollar-prefix">
                         {% money_input_field name="total_section_seven_expenses" id="total_extraordinary_expense_monthly" class="fact-sheet-input money " readonly="" data_mirror="true" data_mirror_target="#total_extraordinary_expense_annually" data_mirror_scale="year_up" %}
                     </div>
                 </td>
 
-                <td class="fact-sheet-answer">
+                <td class="fact-sheet-answer" readonly>
                     <div class="dollar-prefix">
                         {% money_input_field value_src="total_section_seven_expenses" id="total_extraordinary_expense_annually" class="fact-sheet-input money " scale_factor="12" readonly=""%}
                     </div>
@@ -187,7 +187,7 @@
             <tr>
                 <td class="fact-sheet-question">Your proportionate share</td>
                 <td class="fact-sheet-answer"></td>
-                <td class="fact-sheet-answer">
+                <td class="fact-sheet-answer" readonly>
                     <div class="dollar-prefix">
                         {% input_field type="number" name="your_proportionate_share" value="0" readonly="" id="your_proportionate_share" class="fact-sheet-input" %}
                     </div>
@@ -196,7 +196,7 @@
             <tr>
                 <td class="fact-sheet-question">Spouse's proportionate share</td>
                 <td class="fact-sheet-answer"></td>
-                <td class="fact-sheet-answer">
+                <td class="fact-sheet-answer" readonly>
                     <div class="dollar-prefix">
                         {% input_field type="number" name="spouse_proportionate_share" value="0" readonly="" id="spouse_proportionate_share" class="fact-sheet-input"%}
                     </div>
@@ -256,11 +256,11 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
               not been produced in affiliation with, or with the endorsement of the Government of Canada."><i class="fa fa-question-circle" aria-hidden="true"></i>
                     </span>
                 </td>
-                <td class="fact-sheet-answer">
-                    {% input_field type="number" name="your_income" value="0" class="form-control"  readonly="" %}
+                <td class="fact-sheet-answer" readonly>
+                    {% input_field type="number" name="your_income" value="0" class="fact-sheet-input"  readonly="" %}
                 </td>
-                <td class="fact-sheet-answer">
-                    {% input_field type="number" name="your_spouse_income" value="0" class="form-control"  readonly="" %}
+                <td class="fact-sheet-answer" readonly>
+                    {% input_field type="number" name="your_spouse_income" value="0" class="fact-sheet-input"  readonly="" %}
                 </td>
             </tr>
             <tr>
@@ -346,8 +346,8 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
                 <td class="fact-sheet-question">
                    Difference between the Guidelines table amount of the claimant and the Guidelines table amount of the respondent
                 </td>
-                <td class="fact-sheet-answer" colspan="2">
-                    {% input_field type="number" name="difference_between_claimants" value="0" class="form-control" readonly="" %}
+                <td class="fact-sheet-answer" colspan="2" readonly>
+                    {% input_field type="number" name="difference_between_claimants" value="0" class="fact-sheet-input" readonly="" %}
                 </td>
             </tr>
             <tr>
@@ -426,11 +426,11 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
                 <td class="fact-sheet-question">Annual income as per
                     {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-2.html#h-6" link_text="Federal Child Support Guidelines" %}
                 </td>
-                <td class="fact-sheet-answer">
-                    {% input_field type="number" name="your_income" value="0" class="fact-sheet-input form-control"  readonly=""%}
+                <td class="fact-sheet-answer" readonly>
+                    {% input_field type="number" name="your_income" value="0" class="fact-sheet-input"  readonly=""%}
                 </td>
-                <td class="fact-sheet-answer">
-                    {% input_field type="number" name="your_spouse_income" value="0" class="fact-sheet-input form-control"  readonly=""%}
+                <td class="fact-sheet-answer" readonly>
+                    {% input_field type="number" name="your_spouse_income" value="0" class="fact-sheet-input"  readonly=""%}
                 </td>
             </tr>
             <tr>
@@ -456,8 +456,8 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
                 <td class="fact-sheet-question">
                    Difference between the Guidelines table amount of the claimant and the Guidelines table amount of the respondent
                 </td>
-                <td class="fact-sheet-answer" colspan="2">
-                    {% input_field type="number" name="difference_between_claimants" value="0" class="fact-sheet-input form-control" readonly="" %}
+                <td class="fact-sheet-answer" colspan="2" readonly>
+                    {% input_field type="number" name="difference_between_claimants" value="0" class="fact-sheet-input" readonly="" %}
                 </td>
             </tr>
             <tr>

@@ -143,6 +143,11 @@ img {
 .fact-sheet-answer {
 	width: 25%;
 
+	&[readonly] {
+		color: #8c8c8c;
+		background: #f2f2f2;
+	}
+
 	input, textarea {
 		height: 100%;
 		display: table-cell;
