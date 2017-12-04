@@ -185,6 +185,11 @@ img {
 	@extend .table;
 	border-collapse: separate;
 }
+
+.list-builder-hide-column {
+	visibility: collapse;
+}
+
 .child-item-row {
 	height: 50px;
 }

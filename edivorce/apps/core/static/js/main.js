@@ -172,8 +172,7 @@ $(function () {
             clone_group_class: "child-disabled-group",
             reveal_class: "child-item-row",
             customAction: function(settings, newElement) {
-                // $('.'+ settings.reveal_class).removeClass('table-cell-active');
-                // newElement('tr').addClass('table-cell-active');
+                $('.children-questions').show();
 
                 // Want the second list row because that is before the newElement
                 // was appended.
@@ -206,6 +205,15 @@ $(function () {
                 // If the user clicks on the row, then should populate the input fields below the table
                 // with the contents of the row.
                 newElement.on('click', populateChildInputFields);
+            },
+            customDeleteAction: function(settings, element) {
+                $('[type=radio]').prop('checked', false);
+                $('.children-input-block').each(function() {
+                    resetChildrenInputBlock($(this), 'null');
+                });
+                $('.children-questions').hide();
+                deleteAddedTableRow(element);
+                $('#btn_save_child').trigger('click');
             }
         }
     ];
@@ -224,6 +232,7 @@ $(function () {
     };
 
     var populateChildInputFields = function() {
+        $('.children-questions').show();
         $('.child-item-row').removeClass('table-cell-active');
         $(this).closest('tr').addClass('table-cell-active');
 
@@ -245,6 +254,20 @@ $(function () {
     };
 
     $('.child-item-row').on('click', populateChildInputFields);
+    $('#btn_save_child').on('click', function() {
+        var childrenData = [];
+        // The hidden row is the first now so make sure to skip it.
+        $('#your_children_table').find('tbody:first').find('tr:gt(0)').each(function() {
+           var childData = {};
+            $(this).find('.child-field').each(function() {
+               childData[$(this).attr('data-target-form-field')] = $(this).text();
+            });
+
+            childrenData.push(childData);
+        });
+        var jsonChildrenData = JSON.stringify(childrenData);
+        ajaxCall($(this).prop('name'), jsonChildrenData);
+    });
 
     $("#btn_add_reconciliation_periods").on('click', function () {
         $('#reconciliation_period_fields').append($('#reconciliation_period_group').children().clone());
@@ -473,7 +496,7 @@ var deleteAddedField = function(e){
     field.find('input:text').first().triggerHandler('change');
 };
 
-var deleteAddedTableRow = function() {
+var deleteAddedTableRow = function(element) {
     // If the element being removed contained the sum attribute, cache the addend
     // class and sum target id so that can remove the element then recalculate the
     // total with the remaining elements.
@@ -485,19 +508,28 @@ var deleteAddedTableRow = function() {
         sumTargetId = sumTargetElement.data('sum_target_id');
     }
 
-    $(this).closest('tr').remove();
+    element.closest('tr').remove();
     if (sumClass && sumTargetId) {
         sumFields('.' + sumClass, '#' + sumTargetId);
     }
 };
 
 var registerTableRowAddRemoveHandlers = function(settings) {
+    var cleanUp = function() {
+        if (settings.hasOwnProperty('customDeleteAction')) {
+            settings.customDeleteAction(settings, $(this));
+        } else {
+            deleteAddedTableRow($(this));
+        }
+    };
+
+    $(settings.delete_button_selector).on('click', cleanUp);
     $(settings.add_button_selector).on('click', function() {
         var newRow = $('.' + settings.clone_group_class).clone();
         newRow.show();
         newRow.removeClass(settings.clone_group_class);
         newRow.addClass(settings.reveal_class);
-        newRow.find(settings.delete_button_selector).on('click', deleteAddedTableRow);
+        newRow.find(settings.delete_button_selector).on('click', cleanUp);
         newRow.find(settings.input_field_selector)
             .on('change', ajaxOnChange)
             .on('focus', function() {

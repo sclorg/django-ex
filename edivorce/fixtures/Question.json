@@ -796,5 +796,15 @@
     },
     "pk": "number_children_over_19",
     "model": "core.question"
+},
+{
+    "fields": {
+        "name": "Your children",
+        "description": "For Step 6, Your children",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "claimant_children"
 }
 ]

@@ -7,6 +7,12 @@ var ajaxOnChange = function () {
     }
     // show/hide additional information if needed
     reveal(el);
+
+    var skipAjax = el.attr('data-skip_ajax');
+    if (skipAjax !== undefined && skipAjax === "true") {
+        return;
+    }
+    
     var question = el.prop('name');
     var value = getValue(el, question);
     var isValid = true;
