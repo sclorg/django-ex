@@ -215,6 +215,17 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
 <div class="question-well">
     <h1>Fact Sheet B Shared Custody</h1>
 
+    <div class="question-well">
+        <h3>Number of children</h3>
+        <p>
+        This is the number of children for which you and your spouse have a <b>shared parenting arrangement</b>
+        (the child spends at least 40 percent of the time with each of you in a year). If you and your spouse
+        have a split parenting arrangement for any other children, do not include them in this set of questions.
+        </p>
+        {% input_field type="number" name="number_of_children" class="form-control input-narrow" readyonly="" %}
+    </div>
+    <br />
+
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -225,23 +236,17 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
         </thead>
         <tbody>
             <tr>
-                <td class="fact-sheet-question">
-                    Number of children<br />
-                    This is the number of children for which you and your spouse have a <b>shared parenting arrangement</b>
-                    (the child spends least 40 percent of the time with each of you in a year). If you and your spouse
-                    have a split parenting arrangement for any other children, do not include them in this set of questions.
-                </td>
-                <td class="fact-sheet-answer" colspan="2">{% input_field type="number" name="number_of_children" class="form-control" readyonly="" %}</td>
+
             </tr>
             <tr>
                 <td class="fact-sheet-question">
                     What is the approximate amount of time the children spend with each parent?
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="time_spent_with_you" value="0" class="form-control"  %}
+                    {% input_field type="number" name="time_spent_with_you" value="0" class="fact-sheet-input"  %}
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="time_spent_with_spouse" value="0" class="form-control" %}
+                    {% input_field type="number" name="time_spent_with_spouse" value="0" class="fact-sheet-input" %}
                 </td>
             </tr>
             <tr>
@@ -277,10 +282,10 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
                     )?
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="your_child_support_paid" value="0" class="form-control" %}
+                    {% input_field type="number" name="your_child_support_paid" value="0" class="fact-sheet-input" %}
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="your_spouse_child_support_paid" value="0" class="form-control" %}
+                    {% input_field type="number" name="your_spouse_child_support_paid" value="0" class="fact-sheet-input" %}
                 </td>
             </tr>
             <tr>
@@ -365,108 +370,6 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
                     ) to be paid annually
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="extra_ordinary_expenses_you" value="0" class="form-control" %}
-                </td>
-                <td class="fact-sheet-answer">
-                    {% input_field type="number" name="extra_ordinary_expenses_spouse" value="0" class="form-control" %}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    Any other relevant information regarding the conditions, means, needs and other circumstances of
-                    each spouse or of any child for whom support is sought?
-                    {% input_field type="textarea" name="additional_relevant_spouse_children_info" value="" maxlength="500" rows="3" class="form-control" %}
-                </td>
-            </tr>
-            <tr>
-                <td class="fact-sheet-question">
-                   Amount of child support to be paid per month by < Claimant 1 or Claimant 2>
-                </td>
-                <td colspan="2">
-                    {{ difference_between_claimants }}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<div class="question-well">
-    <h1>Fact Sheet B Shared Custody</h1>
-
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Claimant</th>
-                <th>Respondent</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="fact-sheet-question">
-                    Number of children<br />
-                    This is the number of children for which you and your spouse have a <b>shared parenting arrangement</b>
-                    (the child spends least 40 percent of the time with each of you in a year). If you and your spouse
-                    have a split parenting arrangement for any other children, do not include them in this set of questions.
-                </td>
-                <td class="fact-sheet-answer" colspan="2">{% input_field type="number" name="number_of_children_shared" class="fact-sheet-input" readyonly="" %}</td>
-            </tr>
-            <tr>
-                <td class="fact-sheet-question">
-                    What is the approximate amount of time the children spend with each parent?
-                </td>
-                <td class="fact-sheet-answer">
-                    {% input_field type="number" name="time_spent_with_you" value="0" class="fact-sheet-input"  %}
-                </td>
-                <td class="fact-sheet-answer">
-                    {% input_field type="number" name="time_spent_with_spouse" value="0" class="fact-sheet-input" %}
-                </td>
-            </tr>
-            <tr>
-                <td class="fact-sheet-question">Annual income as per
-                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-2.html#h-6" link_text="Federal Child Support Guidelines" %}
-                </td>
-                <td class="fact-sheet-answer" readonly>
-                    {% input_field type="number" name="your_income" value="0" class="fact-sheet-input"  readonly=""%}
-                </td>
-                <td class="fact-sheet-answer" readonly>
-                    {% input_field type="number" name="your_spouse_income" value="0" class="fact-sheet-input"  readonly=""%}
-                </td>
-            </tr>
-            <tr>
-                <td class="fact-sheet-question">What is the monthly amount for child support (as per
-                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-11.html#h-15" link_text="Federal Child Support Guidelines" %}
-                    )?
-
-                    {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_amounted_needed" %}
-                </td>
-                <td class="fact-sheet-answer">
-                    {% input_field type="number" name="your_child_support_paid" value="0" class="fact-sheet-input" %}
-                </td>
-                <td class="fact-sheet-answer">
-                    {% input_field type="number" name="your_spouse_child_support_paid" value="0" class="fact-sheet-input" %}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-
-                </td>
-            </tr>
-            <tr>
-                <td class="fact-sheet-question">
-                   Difference between the Guidelines table amount of the claimant and the Guidelines table amount of the respondent
-                </td>
-                <td class="fact-sheet-answer" colspan="2" readonly>
-                    {% input_field type="number" name="difference_between_claimants" value="0" class="fact-sheet-input" readonly="" %}
-                </td>
-            </tr>
-            <tr>
-                <td class="fact-sheet-question">
-                    Special or extraordinary expenses (as per
-                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/section-7.html" link_text="Section 7 of the Federal Child Support Guidelines" %}
-                    ) to be paid annually
-                </td>
-                <td class="fact-sheet-answer">
                     {% input_field type="number" name="extra_ordinary_expenses_you" value="0" class="fact-sheet-input" %}
                 </td>
                 <td class="fact-sheet-answer">
@@ -477,7 +380,7 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
                 <td colspan="3">
                     Any other relevant information regarding the conditions, means, needs and other circumstances of
                     each spouse or of any child for whom support is sought?
-                    {% input_field type="textarea" name="additional_relevant_spouse_children_info" value="" maxlength="500" rows="3" class="fact-sheet-input form-control" %}
+                    {% input_field type="textarea" name="additional_relevant_spouse_children_info" value="" maxlength="500" rows="3" class="fact-sheet-input" %}
                 </td>
             </tr>
             <tr>
@@ -485,7 +388,7 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
                    Amount of child support to be paid per month by < Claimant 1 or Claimant 2>
                 </td>
                 <td colspan="2">
-                    {{ total_claimant_paid_child_support }}
+                    {{ difference_between_claimants }}
                 </td>
             </tr>
         </tbody>
@@ -954,7 +857,6 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
 
 <div class="question-well">
     <h1>Fact Sheet F Income over $150,000</h1>
-    <p><strong>Unusual or excessive debts</strong></p>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -1062,11 +964,11 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
         </p>
         <div class="btn-radio-group" data-toggle="buttons">
             <label class="btn btn-radio">
-                {% input_field type="radio" name="agree_to_child_support_amount" autocomplete="off" value="YES" data_target_id="enter_agreed_appropriate_amount" data_reveal_target="true" %} Yes
+                {% input_field type="radio" name="agree_to_child_support_amount" autocomplete="off" value="YES" data_target_id="enter_agreed_appropriate_amount" data_reveal_target="false" %} Yes
             </label>
 
             <label class="btn btn-radio">
-                {% input_field type="radio" name="agree_to_child_support_amount" autocomplete="off" value="NO" data_target_id="enter_agreed_appropriate_amount" data_reveal_target="false" %} No
+                {% input_field type="radio" name="agree_to_child_support_amount" autocomplete="off" value="NO" data_target_id="enter_agreed_appropriate_amount" data_reveal_target="true" %} No
             </label>
         </div>
         <div id="enter_agreed_appropriate_amount" hidden>
