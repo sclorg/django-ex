@@ -19,9 +19,9 @@ def money_input_field(context, input_type='number', name='', value_src=None, val
     """
     if value == '':
         if value_src is None:
-            value = float(context.get(name, ''))
+            value = float(context.get(name, 0.0))
         else:
-            value = float(context.get(value_src, ''))
+            value = float(context.get(value_src, 0.0))
     if scale_factor:
         value = float(value) * float(scale_factor)
 
