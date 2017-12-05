@@ -241,12 +241,16 @@ $(function () {
         $(this).find('.child-field').each(function() {
             var fieldName = $(this).attr('data-target-form-field');
             var targetInput = $("input[name='" +fieldName + "']");
+            if (targetInput.length === 0) {
+                targetInput = $("textarea[name='" +fieldName + "']");
+            }
 
             var mirrorTargetId = replaceSuffix(targetInput.attr('data-mirror_target'), activeChildRow);
             targetInput.attr('data-mirror_target', mirrorTargetId);
 
             if (targetInput.prop('type') === 'text' || targetInput.prop('type') === 'textarea') {
                 targetInput.val($(this).text());
+                targetInput.show();
             } else if (targetInput.prop('type') === 'radio') {
                 targetInput.filter("[value='" + $(this).text() + "']").prop('checked', true);
             }

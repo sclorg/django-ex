@@ -36,7 +36,7 @@
                 {% for child  in children %}
                     <tr class="child-item-row" data-counter="{{ forloop.counter }}">
                     {{  child.name }}
-                        {% include "partials/your_children_child.html" with name=child.child_name birth_date=child.child_birth_date live_with=child.child_live_with custody=child.child_custody live_with=child.child_live_with relationship_to_you=child.child_relationship_to_you relationship_to_spouse=child.child_relationship_to_spouse div_id=forloop.counter counter=forloop.counter %}
+                        {% include "partials/your_children_child.html" with name=child.child_name birth_date=child.child_birth_date live_with=child.child_live_with custody=child.child_custody live_with=child.child_live_with relationship_to_you=child.child_relationship_to_you relationship_to_spouse=child.child_relationship_to_spouse other_details=child.child_live_with_other_details div_id=forloop.counter counter=forloop.counter %}
                     </tr>
                 {% endfor %}
             {% endif %}
@@ -102,7 +102,7 @@
                 <label>
                     {% input_field type="radio" class="radio-with-other radio-with-textbox children-input-block" name="child_live_with" value="Other" data_target_id="other_child_details" data_reveal_target="true" data_mirror="true" data_mirror_target="#child_live_with_0" data_skip_ajax="true" %}
                     Other
-                    {% input_field type="textarea" class="response-textbox other-textbox input-inline children-input-block" name="child_live_with_other_details" id="other_child_details" maxlength="500" rows="3" tabindex="-1" hidden="" data_skip_ajax="true" %}
+                    {% input_field type="textarea" class="response-textbox other-textbox input-inline children-input-block" name="child_live_with_other_details" id="other_child_details" maxlength="500" rows="3" tabindex="-1" hidden="" data_mirror="true" data_mirror_target="#child_live_with_other_details_0" data_skip_ajax="true" %}
                 </label>
             </div>
 
