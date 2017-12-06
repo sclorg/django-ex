@@ -806,5 +806,15 @@
     },
     "model": "core.question",
     "pk": "claimant_children"
+},
+{
+    "fields": {
+        "name": "Do you have a separation agreement that sets out what you've agreed to around parenting and child support?",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "have_separation_agreement"
 }
 ]

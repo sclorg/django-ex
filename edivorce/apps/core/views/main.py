@@ -169,11 +169,12 @@ def dashboard_nav(request, nav_step):
 
 
 @bceid_required
-def question(request, step):
+def question(request, step, sub_step=None):
     """
     View for rendering main divorce questionaire questions
     """
-    template = 'question/%02d_%s.html' % (template_step_order[step], step)
+    sub_page_template = '_{}'.format(sub_step) if sub_step else ''
+    template = 'question/%02d_%s%s.html' % (template_step_order[step], step, sub_page_template)
 
     responses_dict_by_step = get_responses_from_db_grouped_by_steps(request.user, True)
 
@@ -189,6 +190,8 @@ def question(request, step):
     # If page is filing location page, add registries dictionary for list of court registries
     if step == "location":
         responses_dict['registries'] = sorted(list_of_registries)
+
+    responses_dict['sub_step'] = sub_step
 
     return render(request, template_name=template, context=responses_dict)
 

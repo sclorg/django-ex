@@ -48,7 +48,7 @@
         {% elif step_status.your_separation == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i> Completed</span> {% endif %}
     </a>
 
-    <a href="{% url 'question_steps' 'children' %}" class="progress-question {% if step_status.your_children == 'Complete' %} complete {% endif %}">
+    <a href="{% url 'question_steps' 'children' 'your_children'%}" class="progress-question {% if step_status.your_children == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step 6</small><br />Your children</span>
         {% if step_status.your_children == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i> Started</span>

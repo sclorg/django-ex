@@ -39,12 +39,28 @@
         {% if step_status.your_separation == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.your_separation == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' 'children' %}" class="progress-question {% if step_status.your_children == 'Complete' %} complete {% endif %} {% if active_page == 'children' %} active {% endif %}">
+
+    <div class="progress-question collapse-trigger {% if step_status.your_children == 'Complete' %} complete {% endif %} {% if active_page == 'children' %} active {% endif %}"
+       data-toggle="collapse" aria-expanded="false" data-target="#children_nav" aria-controls="children_nav">
         <span class="progress-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step 6</small><br />Your children</span>
         {% if step_status.your_children == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.your_children == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
-    </a>
+    </div>
+
+    <ul class="collapse {% if active_page == 'children' %} in {% endif %}" id="children_nav">
+        <li>
+            <a href="{% url 'question_steps' 'children' 'your_children'%}" class="progress-question {% if sub_step == 'your_children' %} active {% endif %}">
+                <span class="progress-content">Your children</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'question_steps' 'children' 'what_for'%}" class="progress-question {% if sub_step == 'what_for' %} active {% endif %}">
+                <span class="progress-content">What are you asking for</span>
+            </a>
+        </li>
+    </ul>
+
     {% if 'Spousal support' in want_which_orders|load_json or 'Spousal support' in which_orders.0.value|load_json %}
     <a href="{% url 'question_steps' 'support' %}" class="progress-question {% if step_status.spousal_support == 'Complete' %} complete {% endif %} {% if active_page == 'support' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-life-ring" aria-hidden="true"></i></span>
