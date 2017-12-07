@@ -829,12 +829,22 @@
 },
 {
     "fields": {
-        "name": "If you are asking for an order respecting parenting arrangements or contact please describe what you are asking for",
+        "name": "If you are asking for an order respecting parenting arrangements or contact please describe what you are asking for.",
         "description": "For Step 6, Your children - What are you asking for",
         "summary_order": 0,
         "required": "Required"
     },
     "model": "core.question",
     "pk": "order_respecting_arrangement"
+},
+{
+    "fields": {
+        "name": "If you are asking for an order for child support please describe what you are asking for.",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "order_for_child_support"
 }
 ]

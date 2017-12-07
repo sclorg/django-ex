@@ -215,7 +215,58 @@
             </a> which sets out standard terms for most of the usual orders made in family cases.
         </p>
 
+        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_parenting_arrangement" aria-controls="collapse_separation_agreement">
+            <div>
+                What should I consider when determining parenting arrangements?
+            </div>
+        </div>
+        <div class="collapse" id="collapse_parenting_arrangement">
+            <div>
+                <p><strong>Parenting arrangements</strong></p>
+                <p>
+                    If you and your <strong>spouse</strong> (married or unmarried) have dependent children
+                    (usually under age 19), you need to make arrangements for taking care of the children when you
+                    separate. <strong>Parenting arrangements</strong> include:
+                </p>
+                <ul>
+                    <li>who will make decisions about the children,</li>
+                    <li>where the children are going to live, and </li>
+                    <li>how much time the children will spend with each parent who is a guardian.</li>
+                </ul>
+            </div>
+        </div>
+
         {% input_field type="textarea" name="order_respecting_arrangement" class="response-textarea form-control" maxlength="20000" rows="15"%}
+    </div>
+
+    <div class="question-well">
+        <h3>If you are asking for an
+                        <span class="tooltip-link"
+              data-toggle="tooltip" data-placement="right" data-html="true"
+              title="
+                <b>Child Support Definition</b>
+                <p>Parents have a duty under the law to support their children, even if one parent doesn't see or take
+                care of the children. The money one parent pays to the other parent to help provide for the daily
+                needs of the children is called child support or maintenance.</p>
+                ">
+                order for child support<i class="fa fa-question-circle" aria-hidden="true"></i>
+            </span>
+            please describe what you are asking for.
+        </h3>
+        <p>
+            Child support is determined according to the federal government’s
+            <a href="http://www.justice.gc.ca/eng/fl-df/child-enfant/cst-orpe.html" target="_blank">
+                child support guidelines
+            </a>. If you're not sure how to write what you are asking for, you can refer to the
+            <a href="http://www.courts.gov.bc.ca/supreme_court/practice_and_procedure/family_law_orders/picklist_family_orders.pdf" target="_blank">
+                The Supreme Court Family Order Pick List
+            </a> which sets out standard terms for most of the usual orders made in family cases. Refer to the fact sheet
+            <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/child_support.php" target="_blank">
+                Child Support
+            </a> by the Legal Services Society for more information.
+        </p>
+
+        {% input_field type="textarea" name="order_for_child_support" class="response-textarea form-control" maxlength="20000" rows="15"%}
     </div>
 
 {% endblock content %}
