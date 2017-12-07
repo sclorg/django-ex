@@ -100,6 +100,57 @@
 
     </div>
 
+    <div class="question-well">
+        <h3>Do you have a
+            <span class="tooltip-link"
+              data-toggle="tooltip" data-placement="right" data-html="true"
+              title="
+                <b>Court Order Definition</b>
+                <p>A record of a decision made by a judge or master that tells you or your spouse what you must do
+                (or not do).  For example: The court has made an order that your spouse must pay you $900 on a monthly
+                 basis to help cover the costs of supporting the children.
+                 </p>
+                ">
+                court order <i class="fa fa-question-circle" aria-hidden="true"></i>
+            </span>
+            about parenting and support of the children?</h3>
+        <div class="btn-radio-group" data-toggle="buttons">
+            <label class="btn btn-radio">
+                {% input_field type="radio" name="have_court_order" autocomplete="off" value="YES" data_target_id="court_order_details" data_reveal_target="true" %} Yes
+            </label>
+
+            <label class="btn btn-radio">
+                {% input_field type="radio" name="have_court_order" autocomplete="off" value="NO" data_target_id="court_order_details" data_reveal_target="false" %} No
+            </label>
+        </div>
+
+        <div class="information-message bg-danger" id="court_order_details" hidden>
+            <p>
+                Refer to that separation agreement or court order when filling out the documents for divorce.
+                You'll also need to attach a copy as an
+                <span class="tooltip-link"
+                  data-toggle="tooltip" data-placement="right" data-html="true"
+                  title="
+                    <b>Exhibit Definition</b>
+                    <p>A document, record, or object admitted as evidence in court or before a tribunal. A document
+                    attached to and made part of an affidavit.
+                     </p>
+                    ">
+                    exhibit<i class="fa fa-question-circle" aria-hidden="true"></i>
+                </span>
+                you file with the court.
+            </p>
+            <p>
+               If you wish to file your separation agreement, the parts of the agreement that deal with parenting and
+                support can be enforced as if they were in a court order. More information on
+                <a href="http://www.familylaw.lss.bc.ca/guides/mini/fileAgreementSC.php" target="_blank">
+                    how to file your agreement
+                </a>
+                can be found on the Family Law website.
+            </p>
+        </div>
+    </div>
+
 {% endblock content %}
 
 

@@ -816,5 +816,15 @@
     },
     "model": "core.question",
     "pk": "have_separation_agreement"
+},
+{
+    "fields": {
+        "name": "Do you have a court order about parenting and support of the children?",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "have_court_order"
 }
 ]
