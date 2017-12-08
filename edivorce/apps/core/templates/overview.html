@@ -117,7 +117,7 @@
 
 
 {% if not request.session.first_login and not request.session.viewed_dashboard_during_session %}
-<div id="questions_modal" class="modal fade" tabindex="-1" role="dialog">
+<div id="questions_modal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -137,7 +137,7 @@
     </div>
 </div>
 {% elif request.session.first_login and not request.session.viewed_dashboard_during_session %}
-<div id="terms_modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+<div id="terms_modal" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
