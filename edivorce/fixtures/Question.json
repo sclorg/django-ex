@@ -846,5 +846,15 @@
     },
     "model": "core.question",
     "pk": "order_for_child_support"
+},
+{
+    "fields": {
+        "name": "Please indicate which act you are asking for support under.",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "child_support_act"
 }
 ]
