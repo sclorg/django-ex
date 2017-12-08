@@ -59,6 +59,11 @@
                 <span class="progress-content">What are you asking for</span>
             </a>
         </li>
+        <li>
+            <a href="{% url 'question_steps' 'children' 'income_expenses'%}" class="progress-question {% if sub_step == 'income_expenses' %} active {% endif %}">
+                <span class="progress-content">Income & expenses</span>
+            </a>
+        </li>
     </ul>
 
     {% if 'Spousal support' in want_which_orders|load_json or 'Spousal support' in which_orders.0.value|load_json %}

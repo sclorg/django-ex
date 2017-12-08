@@ -11,6 +11,12 @@ $('input:radio, input:checkbox').each(function () {
     }
 });
 
+$('input[type=number]').each(function() {
+    if ($(this).is(':visible')) {
+        reveal($(this));
+    }
+});
+
 $(window).load(function(){
     $('#questions_modal, #terms_modal').modal('show');
 });
@@ -468,7 +474,7 @@ var mirrorOnChange = function() {
                 source_value = scaled_value.toFixed(2);
             }
         }
-        if (target_element.is('div')) {
+        if (target_element.is('div') || target_element.is('span')) {
             target_element.text(source_value);
         } else {
             target_element.val(source_value);

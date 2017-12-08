@@ -69,6 +69,10 @@ var showHideTargetId = function(el, id, related_id) {
         if (related_id !== undefined){
             $('#' + related_id).show();
         }
+
+        if (id === "#annual_gross_income") {
+            reveal($("input[name=agree_to_child_support_amount]:checked"));
+        }
     }
 };
 
