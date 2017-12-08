@@ -14,8 +14,7 @@ def form(request, form_number):
     """
     View for rendering PDF's and previews
     """
-    user = BceidUser.objects.get(user_guid=request.bceid_user.guid)
-    responses = get_responses_from_db(user)
+    responses = get_responses_from_db(request.user)
 
     if form_number == "38_claimant1":
         form_number = "38"
