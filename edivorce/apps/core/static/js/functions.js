@@ -70,9 +70,22 @@ var showHideTargetId = function(el, id, related_id) {
             $('#' + related_id).show();
         }
 
-        if (id === "#annual_gross_income") {
-            reveal($("input[name=agree_to_child_support_amount]:checked"));
-        }
+        var revealCheckboxes = [
+            {
+                matchIdSelector: "#annual_gross_income",
+                radioSelector: "input[name=agree_to_child_support_amount]:checked"
+            },
+            {
+                matchIdSelector: "#spouse_annual_gross_income",
+                radioSelector: "input[name=spouse_agree_to_child_support_amount]:checked"
+            }
+        ];
+
+        revealCheckboxes.forEach(function(option) {
+           if (id === option.matchIdSelector) {
+               reveal($(option.radioSelector));
+           }
+        });
     }
 };
 
