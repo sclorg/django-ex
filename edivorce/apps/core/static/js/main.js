@@ -53,6 +53,13 @@ $(function () {
     //                                                  contents have changed.
     $('[data-mirror="true"]').on('change', mirrorOnChange);
 
+
+    // All of the input fields in the row will be saved as a single object
+    // via an ajax call to the server.
+    //      data-save_row=[true|false] - indicates whether all columns in row that contain an input field will
+    //                                      be persisted to the server.
+    $('[data-save_row="true"]').on('change', saveListControlRow);
+
     // Only close Terms and Conditions when user check the I agree checkbox
     $('#terms_agree_button').on('click', function() {
         $('#terms_warning').remove();
@@ -123,7 +130,7 @@ $(function () {
 
     var listControlGroups = [
         {
-            table_selector: "#debt_table",
+            table_selector: "#claimant_debts",
             add_button_selector: "#btn_add_debt",
             delete_button_selector: ".btn-delete-debt",
             input_field_selector: ".debt-input-field",
@@ -435,6 +442,33 @@ $(function () {
     });
 });
 
+var saveListControlRow = function(tableId) {
+    var payload = [];
+    var saveSelector = $(this).attr('data-save_select');
+
+    var saveKey = null;
+    var tableRows = null;
+
+    if (!tableId.hasOwnProperty('originalEvent')) {
+        saveKey = tableId;
+        tableRows = $('#'+tableId).find('tbody:first').find('tr:gt(0)');
+    } else {
+        saveKey = $(this).closest('table').prop('id');
+        tableRows = $(this).closest('tbody').find('tr:gt(0)');
+    }
+
+    tableRows.each(function() {
+        var item = {};
+        $(this).find(saveSelector).each(function() {
+            item[$(this).prop('name')] = $(this).val();
+        });
+        payload.push(item);
+    });
+
+    var jsonPayload = JSON.stringify(payload);
+    ajaxCall(saveKey, jsonPayload);
+};
+
 var replaceSuffix = function(str, suffix) {
     if (str !== undefined && str.lastIndexOf('_') !== -1) {
         str = str.substr(0, str.lastIndexOf('_'));
@@ -510,7 +544,7 @@ var deleteAddedTableRow = function(element) {
     // If the element being removed contained the sum attribute, cache the addend
     // class and sum target id so that can remove the element then recalculate the
     // total with the remaining elements.
-    var sumTargetElement = $(this).closest('tr').find('[data-sum="true"]');
+    var sumTargetElement = element.closest('tr').find('[data-sum="true"]');
     var sumClass = null;
     var sumTargetId = null;
     if (sumTargetElement !== undefined) {
@@ -518,10 +552,15 @@ var deleteAddedTableRow = function(element) {
         sumTargetId = sumTargetElement.data('sum_target_id');
     }
 
+    var tableId = element.closest('table').prop('id');
+
     element.closest('tr').remove();
     if (sumClass && sumTargetId) {
         sumFields('.' + sumClass, '#' + sumTargetId);
     }
+
+    // we want to save the list if we remove an item.
+    $.proxy(saveListControlRow, element)(tableId);
 };
 
 var registerTableRowAddRemoveHandlers = function(settings) {
@@ -553,6 +592,7 @@ var registerTableRowAddRemoveHandlers = function(settings) {
             var sumTargetId = $(this).data('sum_target_id');
             sumFields('.' + sumClass, '#' + sumTargetId);
         });
+        newRow.find('[data-save_row="true"]').on('change', saveListControlRow);
 
         $(settings.table_selector).find('tbody:first').append(newRow);
 

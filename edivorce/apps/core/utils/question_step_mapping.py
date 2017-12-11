@@ -56,7 +56,8 @@ question_step_mapping = {
                       'spouse_total_guideline_amount',
                       'spouse_agree_to_child_support_amount',
                       'spouse_agreed_child_support_amount',
-                      'spouse_reason_child_support_amount'
+                      'spouse_reason_child_support_amount',
+                      'you_spouse_entered_agreement'
                       ],
     'spousal_support': ['spouse_support_details', 'spouse_support_act'],
     'property_and_debt': ['deal_with_property_debt',

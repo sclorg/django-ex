@@ -19,9 +19,12 @@ def money_input_field(context, input_type='number', name='', value_src=None, val
     """
     if value == '':
         if value_src is None:
-            value = float(context.get(name, 0.0))
+            value = context.get(name, 0.0)
         else:
-            value = float(context.get(value_src, 0.0))
+            value = context.get(value_src, 0.0)
+
+    value = value if value != '' else 0.0
+
     if scale_factor:
         value = float(value) * float(scale_factor)
 
@@ -42,7 +45,7 @@ def money_input_field(context, input_type='number', name='', value_src=None, val
 @register.simple_tag(takes_context=True)
 def input_field(context, type, name='', value='', multiple='', **kwargs):
     """
-    Usage:  when specifying data attributes in templates, use "data_" intead of "data-".
+    Usage:  when specifying data attributes in templates, use "data_" instead of "data-".
     """
     if type == "textarea":
         tag = ['<textarea name="' + name + '"']

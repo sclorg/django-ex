@@ -19,7 +19,7 @@
             <span class="tooltip-link"
                   data-toggle="tooltip" data-placement="right" data-html="true"
                   title="
-                    <b>Annual Gross Income Definition</b>
+                    <b>annual gross income</b>
                     <p>
                         The Federal Guidelines use gross income (a person’s income before taxes and deductions)
                          because it is considered a fairer reflection of income. Net income allows many
@@ -72,9 +72,8 @@
                 </ul>
                 <p>
                     Source:
-                    <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-2.html#h-6" target="_blank">
-                        Federal Child Support Guidelines
-                    </a>, Department of Justice
+                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" link_text="Federal Child Support Guidelines" %}
+                    , Department of Justice
                 </p>
             </div>
         </div>
@@ -95,9 +94,8 @@
                 </p>
             </div>
         </div>
-    </div>
 
-    <div class="question-well" id="you_fact_sheet_f" hidden>
+        <div class="question-well" id="you_fact_sheet_f" hidden>
     <h1>Fact Sheet F Income over $150,000</h1>
     <table class="table table-bordered">
         <thead>
@@ -237,12 +235,14 @@
     </div>
 </div>
 
+    </div>
+
     <div class="question-well">
         <h3>What is your spouse's
             <span class="tooltip-link"
                   data-toggle="tooltip" data-placement="right" data-html="true"
                   title="
-                    <b>Annual Gross Income Definition</b>
+                    <b>annual gross income</b>
                     <p>
                         The Federal Guidelines use gross income (a person’s income before taxes and deductions)
                          because it is considered a fairer reflection of income. Net income allows many
@@ -459,6 +459,358 @@
 
 
     </div>
+
+    <div class="question-well">
+        <h3>
+            My spouse and I have entered into an agreement as to income pursuant to section 15 (2) of the Guidelines, a
+            copy of which agreement is attached.
+        </h3>
+        <p>
+            For this option you will need to provide the court with another form called the
+            <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/f9.pdf?forcedownload=true"
+                   target="_blank">Agreement as to Annual Income (F9)</a>.
+        </p>
+
+        <div class="btn-radio-group" data-toggle="buttons">
+            <label class="btn btn-radio">
+                {% input_field type="radio" name="you_spouse_entered_agreement" autocomplete="off" value="YES" data_target_id="agreement_warning_message"  data_reveal_target="true" %} YES
+            </label>
+
+            <label class="btn btn-radio">
+                {% input_field type="radio" name="you_spouse_entered_agreement" autocomplete="off" value="NO" data_target_id="agreement_warning_message"  data_reveal_target="false" %} NO
+            </label>
+        </div>
+
+        <div class="information-message bg-danger" id="agreement_warning_message" hidden>
+            <p>
+                You must provide the court with an Agreement as to Annual Income (form 9). This form is not
+                available in this online divorce assistant but you can obtain the
+                <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/f9.pdf?forcedownload=true"
+                   target="_blank">F9 form</a>
+                on the B.C. Government Courthouse Services website.
+            </p>
+            <p>If you file an Agreement as to Annual Income, you must also file:</p>
+            <ul>
+                <li>A copy of the most recent personal income tax return filed by the payor, including any attachments.</li>
+                <li>
+                    A copy of the most recent notice of assessment or reassessment that the Canada Revenue Agency has
+                    issued to the payor.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="question-well">
+        <h3>Are you or your spouse claiming undue hardship?</h3>
+        <p>
+            The Child Support Guidelines tables contain the base amounts for child support. If you our your spouse feel
+            that the child support amount will not leave enough money, you can claim that you will suffer
+            <span class="tooltip-link"
+                  data-toggle="tooltip" data-placement="right" data-html="true"
+                  title="
+                    <b>undue hardship</b>
+                    <p>
+                        Circumstances that show the amount of child support under the child support guidelines is too
+                        high or low. Must create &quot;undue&quot; (exceptional, excessive or disproportionate) difficulty
+                        for the person making the claim.
+                     </p>
+                     <p>
+                     A term used by the Child Support Guidelines to describe circumstances when payment of the table
+                     amount of child support would cause financial difficulty for the payor or the recipient, potentially
+                     justifying an award of support in an amount different than the table amount. See &quot;child support,&quot;
+                     &quot;Child Support Guidelines&quot; and &quot;table amount.&quot;
+                     </p>
+                    ">
+                    undue hardship<i class="fa fa-question-circle" aria-hidden="true"></i>.
+            </span>
+        </p>
+
+        <div class="btn-radio-group" data-toggle="buttons">
+            <label class="btn btn-radio">
+                {% input_field type="radio" name="claiming_undue_hardship" autocomplete="off" value="YES" data_target_id="fact_sheet_e"  data_reveal_target="true" %} YES
+            </label>
+
+            <label class="btn btn-radio">
+                {% input_field type="radio" name="claiming_undue_hardship" autocomplete="off" value="NO" data_target_id="undue_amount_question"  data_reveal_target="true" %} NO
+            </label>
+        </div>
+
+        <div id="fact_sheet_e" class="question-well" hidden>
+            <h1>Fact Sheet E Undue Hardship</h1>
+            <p><strong>Unusual or excessive debts</strong></p>
+            <p>
+                What are the unusual or excessive debts that you owe? These are debts that were taken on to support the family
+                before you separated (e.g. student loans). The debt can also be due to earning a living (e.g. vehicle,
+                specialized equipment).
+            </p>
+            <table id="claimant_debts" class="list-builder">
+                <thead>
+                    <tr class="list-builder-header">
+                        <th class="table-bordered">Debt name</th>
+                        <th class="table-bordered">What are the terms of this debt?</th>
+                        <th class="table-bordered">Monthly amount</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr class="debt-group" hidden>
+                            {% include "partials/fact_sheet_excessive_debt.html" with debt_monthly_amount=0%}
+                        </tr>
+                    {% if claimant_debts and claimant_debts != '[]' %}
+                        {% multiple_values_to_list source=claimant_debts as debts %}
+                        {% for debt in debts %}
+                            <tr class="debt-item-row">
+                                {% include "partials/fact_sheet_excessive_debt.html" with debt_name=debt.debt_name debt_terms=debt.debt_terms debt_monthly_amount=debt.debt_monthly_amount %}
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr class="debt-item-row">
+                            {% include "partials/fact_sheet_excessive_debt.html" with debt_monthly_amount=0 exclude_delete_button=True%}
+                        </tr>
+                    {% endif %}
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <input type="button" id="btn_add_debt" class="btn btn-success" value="Add Debt"/>
+            </div>
+            <br />
+            <p><strong>Unusually high expenses for parenting time, contact with, or access to a child.</strong></p>
+            <p>
+                For example, airfare and accommodation to visit the child in another city.
+            </p>
+            <table id="expense_table" class="list-builder">
+                <thead>
+                    <tr class="list-builder-header">
+                        <th class="table-bordered">What is the expense</th>
+                        <th class="table-bordered">Amount</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr class="expense-item-row">
+                            {% include "partials/fact_sheet_expense.html" with expense_amount=0 exclude_delete_button=True %}
+                        </tr>
+                        <tr class="expense-group" hidden>
+                            {% include "partials/fact_sheet_expense.html" with expense_amount=0%}
+                        </tr>
+                    {% if list_of_expenses and list_of_expenses != '[]' %}
+                        {% multiple_values_to_list source=list_of_expenses as expenses %}
+                        {% for name, amount in expenses %}
+                            <tr class="expense-item-row">
+                                {% include "partials/fact_sheet_expense.html" with expense_name=name expense_amount=amount %}
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="list-builder-button">
+                            <div class="form-group">
+                                <input type="button" id="btn_add_expense" class="btn btn-success" value="Add Expense"/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <br />
+            <p><strong>Supporting another person</strong></p>
+            <p>
+               Legal duty to support any other person, such as a former spouse or a new spouse who is too ill or disabled to be able to support himself or herself.
+            </p>
+            <table id="supporting_non_dependent_table" class="list-builder">
+                <thead>
+                    <tr class="list-builder-header">
+                        <th class="table-bordered">Name of person</th>
+                        <th class="table-bordered">Relationship</th>
+                        <th class="table-bordered">Describe reason(s) for support</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr class="supporting-non-dependent-item-row">
+                            {% include "partials/fact_sheet_supporting_person.html" with exclude_delete_button=True name_field="supporting_non_dependents_name" relationship_field="supporting_non_dependent_relationship" reason_field="supporting_non_dependent_reason" input_field_class="supporting-non-dependent-input-field" delete_button_class="btn-delete-supporting-non-dependent"%}
+                        </tr>
+                        <tr class="supporting-non-dependent-group" hidden>
+                            {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_non_dependents_name" relationship_field="supporting_non_dependent_relationship" reason_field="supporting_non_dependent_reason" input_field_class="supporting-non-dependent-input-field" delete_button_class="btn-delete-supporting-non-dependent" %}
+                        </tr>
+                    {% if list_of_supporting_non_dependents and list_of_supporting_non_dependents != '[]' %}
+                        {% multiple_values_to_list source=list_of_supporting_non_dependents as supporting_non_dependents %}
+                        {% for name, relationship, reason in supporting_non_dependents %}
+                            <tr class="supporting-non-dependent-item-row">
+                                {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_non_dependents_name" relationship_field="supporting_non_dependent_relationship" reason_field="supporting_non_dependent_reason" input_field_class="supporting-non-dependent-input-field" delete_button_class="btn-delete-supporting-non-dependent" name=name relationship=relationship reason=reason %}
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="list-builder-button">
+                            <div class="form-group">
+                                <input type="button" id="btn_add_supporting_non_dependent" class="btn btn-success" value="Add Person"/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br />
+            <p><strong>Supporting dependent child/children from another relationship.</strong></p>
+            <p>
+               List the names of any other children for whom you have a legal duty to make support payments to.
+                Do not include the names of any children for whom you are asking for support for as a part of this
+                divorce application.
+            </p>
+            <table id="supporting_dependent_table" class="list-builder">
+                <thead>
+                    <tr class="list-builder-header">
+                        <th class="table-bordered">Child's name</th>
+                        <th class="table-bordered">Relationship</th>
+                        <th class="table-bordered">Describe reason(s) for support</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr class="supporting-dependent-item-row">
+                            {% include "partials/fact_sheet_supporting_person.html" with exclude_delete_button=True name_field="supporting_dependents_name" relationship_field="supporting_dependent_relationship" reason_field="supporting_dependent_reason" input_field_class="supporting-dependent-input-field" delete_button_class="btn-delete-supporting-dependent"%}
+                        </tr>
+                        <tr class="supporting-dependent-group" hidden>
+                            {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_dependents_name" relationship_field="supporting_dependent_relationship" reason_field="supporting_dependent_reason" input_field_class="supporting-dependent-input-field" delete_button_class="btn-delete-supporting-dependent" %}
+                        </tr>
+                    {% if list_of_supporting_dependents and list_of_supporting_dependents != '[]' %}
+                        {% multiple_values_to_list source=list_of_supporting_dependents as supporting_dependents %}
+                        {% for name, relationship, reason in supporting_dependents %}
+                            <tr class="supporting-dependent-item-row">
+                                {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_dependents_name" relationship_field="supporting_dependent_relationship" reason_field="supporting_dependent_reason" input_field_class="supporting-dependent-input-field" delete_button_class="btn-delete-supporting-dependent" name=name relationship=relationship reason=reason %}
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="list-builder-button">
+                            <div class="form-group">
+                                <input type="button" id="btn_add_supporting_dependent" class="btn btn-success" value="Add Person"/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br />
+            <p><strong>Support for a disabled or ill person.</strong></p>
+            <table id="supporting_disabled_table" class="list-builder">
+                <thead>
+                    <tr class="list-builder-header">
+                        <th class="table-bordered">Child's name</th>
+                        <th class="table-bordered">Relationship</th>
+                        <th class="table-bordered">Describe reason(s) for support</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr class="supporting-disabled-item-row">
+                            {% include "partials/fact_sheet_supporting_person.html" with exclude_delete_button=True name_field="supporting_disabled_name" relationship_field="supporting_disabled_relationship" reason_field="supporting_disabled_reason" input_field_class="supporting-disabled-input-field" delete_button_class="btn-delete-supporting-disabled"%}
+                        </tr>
+                        <tr class="supporting-disabled-group" hidden>
+                            {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_disabled_name" relationship_field="supporting_disabled_relationship" reason_field="supporting_disabled_reason" input_field_class="supporting-disabled-input-field" delete_button_class="btn-delete-supporting-disabled" %}
+                        </tr>
+                    {% if list_of_supporting_disabled and list_of_supporting_disabled != '[]' %}
+                        {% multiple_values_to_list source=list_of_supporting_disabled as supporting_disabled %}
+                        {% for name, relationship, reason in supporting_disabled %}
+                            <tr class="supporting-disabled-item-row">
+                                {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_disabled_name" relationship_field="supporting_disabled_relationship" reason_field="supporting_disabled_reason" input_field_class="supporting-disabled-input-field" delete_button_class="btn-delete-supporting-disabled" name=name relationship=relationship reason=reason %}
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="list-builder-button">
+                            <div class="form-group">
+                                <input type="button" id="btn_add_supporting_disabled" class="btn btn-success" value="Add Person"/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Other undue hardship circumstances</p>
+            {% input_field type="textarea" name="undue_hardship" value="" maxlength="500"  multiple='true' class="fact-sheet-input form-control" placeholder="" %}
+
+            <br />
+            <p><strong>Income of Other Persons in Household</strong></p>
+            <table id="income_others_table" class="list-builder">
+                <thead>
+                    <tr class="list-builder-header">
+                        <th class="table-bordered">Name of person</th>
+                        <th class="table-bordered">Annual income</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr class="income-others-item-row">
+                            {% include "partials/fact_sheet_income_others.html" with exclude_delete_button=True income_others_amount=0%}
+                        </tr>
+                        <tr class="income-others-group" hidden>
+                            {% include "partials/fact_sheet_income_others.html" with income_others_amount=0%}
+                        </tr>
+                    {% if list_of_income_others and list_of_income_others != '[]' %}
+                        {% multiple_values_to_list source=list_of_income_others as incomes %}
+                        {% for name, amount in incomes %}
+                            <tr class="income-others-item-row">
+                                {% include "partials/fact_sheet_income_others.html" with income_others_name=name income_others_amount=amount %}
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="list-builder-button">
+                            <div class="form-group">
+                                <input type="button" id="btn_add_income_others" class="btn btn-success" value="Add Person"/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td>Total</td>
+                        <td>
+                            <p id="total_income_others"></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="undue_amount_question" hidden>
+
+        </div>
+    </div>
+
 {% endblock %}
 
 
@@ -553,4 +905,86 @@
         This is a copy of an official work that is published by the Government of Canada and that this copy has not
         been produced in affiliation with, or with the endorsement of the Government of Canada.
     </p>
+
+
+
+    <div id="fact-sheet-f-side-bar">
+    <p><strong>Whose Income is Needed </strong></p>
+    <p>
+        If the paying parent earns more than $150,000 per year, you may need to calculate both incomes.
+        The Federal Guidelines provide two options:
+    </p>
+    <p>
+        You can use the tables to determine the child support amount for the first $150,000. Then add the percentage
+        listed in the tables for the portion of income over $150,000. If you choose this option, you would only need
+        to calculate the paying parent’s income.
+    </p>
+    <p>
+        or
+    </p>
+    <p>
+        You can use the tables to determine the child support amount for the first $150,000. You can then determine an
+        amount for the portion of income over $150,000 by looking at the condition, means, needs and other circumstances
+        of the child and the financial ability of each of you to contribute. If you choose this option, you would need
+        to calculate both incomes.
+    </p>
+    <p>
+        In some cases:
+    </p>
+    <ul>
+        <li>
+            You may need to calculate your child’s income—for example, if the child is over the age of majority and you
+            are taking his or her financial means into consideration to determine a child support amount.
+        </li>
+        <li>
+            You may need to calculate the income of every member of both households to compare the standards of living
+            if either of you is claiming undue hardship.
+        </li>
+    </ul>
+    <p>
+        Source:
+        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step5-etap5.html#h7" link_text="Federal Child Support Guidelines" %}
+        Department of Justice
+    </p>
+
+    </div>
+
+    <div class="fact-sheet-e-side-bar">
+        <p><strong>What is "undue hardship"?</strong></p>
+        <p>
+            The person paying or the person receiving child support can ask for a different amount than what's listed in
+            the guidelines tables if that amount would cause them undue hardship. The payor may experience undue hardship
+            trying to pay the child support, or the recipient may experience undue hardship trying to support the child or
+            children with the amount given. The courts have said that "undue" means excessive, exceptional, or
+            disproportionate. This can be a hard thing to prove. The person making the claim must report all income coming
+            into their household, including any income or contribution from a new spouse or partner. This includes any
+            contribution to household expenses, and any rental income, dividend income, investment income, and business
+            income. If the payor makes this claim, the recipient must also provide information about their income.
+        </p>
+        <p><strong>How to determine undue hardship</strong></p>
+        <p>
+            To determine undue hardship under the Federal Child Support Guidelines, you need to compare the standards of
+            living in both households. To do this, you need to:
+        </p>
+        <ul>
+            <li>
+                calculate the income of every member of both households; adjust each person’s income according to the rules
+                set out in the Federal Guidelines; and
+            </li>
+            <li>
+                calculate the household income ratio.
+            </li>
+        </ul>
+        <p>
+            The Federal Child Support Guidelines Step-by-Step Guide has a
+            {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/w3a-f3a.html#s3" link_text="worksheet" %}
+            to help you with the calculation to figure out whether there is undue hardship in your situation.
+        </p>
+        <p>
+            Source:
+            {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Federal Child Support Guidelines" %}
+            , Department of Justice
+        </p>
+    </div>
+
 {% endblock %}

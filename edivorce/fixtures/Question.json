@@ -870,7 +870,7 @@
 {
     "fields": {
         "name": "How many child(ren) are you asking for support?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "annual_gross_income",
@@ -882,7 +882,7 @@
 {
     "fields": {
         "name": "What is the Child Support Guidelines amount for $150,000?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "annual_gross_income",
@@ -894,7 +894,7 @@
 {
     "fields": {
         "name": "What is the % of income over $150,000 from the Child Support Guidlines?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "annual_gross_income",
@@ -906,7 +906,7 @@
 {
     "fields": {
         "name": "What is the child support amount to be paid on the portion of income over $150,000?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "annual_gross_income",
@@ -918,7 +918,7 @@
 {
     "fields": {
         "name": "Guidelines table amount",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "annual_gross_income",
@@ -930,7 +930,7 @@
 {
     "fields": {
         "name": "What is the amount that you and your spouse have agreed to?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "annual_gross_income",
@@ -942,7 +942,7 @@
 {
     "fields": {
         "name": "What is the amount that you and your spouse have agreed to?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "agree_to_child_support_amount",
@@ -954,7 +954,7 @@
 {
     "fields": {
         "name": "Why do you think the court should approve your proposed amount?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "agree_to_child_support_amount",
@@ -976,7 +976,7 @@
 {
     "fields": {
         "name": "How many child(ren) are you asking for support?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "spouse_annual_gross_income",
@@ -988,7 +988,7 @@
 {
     "fields": {
         "name": "What is the Child Support Guidelines amount for $150,000?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "spouse_annual_gross_income",
@@ -1000,7 +1000,7 @@
 {
     "fields": {
         "name": "What is the % of income over $150,000 from the Child Support Guidlines?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "spouse_annual_gross_income",
@@ -1012,7 +1012,7 @@
 {
     "fields": {
         "name": "What is the child support amount to be paid on the portion of income over $150,000?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "spouse_annual_gross_income",
@@ -1024,7 +1024,7 @@
 {
     "fields": {
         "name": "Guidelines table amount",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "spouse_annual_gross_income",
@@ -1036,7 +1036,7 @@
 {
     "fields": {
         "name": "What is the amount that you and your spouse have agreed to?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "spouse_annual_gross_income",
@@ -1048,7 +1048,7 @@
 {
     "fields": {
         "name": "What is the amount that you and your spouse have agreed to?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "spouse_agree_to_child_support_amount",
@@ -1060,7 +1060,7 @@
 {
     "fields": {
         "name": "Why do you think the court should approve your proposed amount?",
-        "description": "Fact Sheet F",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "spouse_agree_to_child_support_amount",
@@ -1068,6 +1068,38 @@
     },
     "model": "core.question",
     "pk": "spouse_reason_child_support_amount"
+},
+{
+    "fields": {
+        "name": "My spouse and I have entered into an agreement as to income pursuant to section 15 (2) of the Guidelines, a copy of which agreement is attached.",
+        "description": "For Step 6, Your children - Income & expenses",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "you_spouse_entered_agreement"
+},
+{
+    "fields": {
+        "name": "Are you or your spouse claiming undue hardship?",
+        "description": "For Step 6, Your children - Income & expenses",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "claiming_undue_hardship"
+},
+{
+    "fields": {
+        "name": "Unusual or excessive debts",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claiming_undue_hardship",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "claimant_debts"
 }
 
 ]
