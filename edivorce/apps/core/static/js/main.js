@@ -357,32 +357,7 @@ $(function () {
             $('.invalid-date').parent().siblings('.form-group').find('.reconciliation-from-date').focus();
         }
     });
-    
-    // For Fact Sheet A, automatically sum up the values in the various expense fields and provide the user with a total
-    // in the total field.
-    $('[data-mirror=true]').on('change', function(e) {
-        var target_id = $(this).data("mirror_target_id");
-        var scale_factor_identifier = $(this).data("mirror_scale");
-        var broadcast_change = $(this).data("mirror_broadcast_change");
 
-        if (target_id !== "undefined" && scale_factor_identifier !== "undefined") {
-            var scaled_value = parseFloat($(this).val());
-            if (scaled_value !== 0) {
-                if (scale_factor_identifier === "year_up") {
-                    scaled_value *= 12;
-                } else if (scale_factor_identifier === "month_down") {
-                    scaled_value /= 12;
-                }
-
-                var target_element = $('#' + target_id);
-                target_element.val(scaled_value.toFixed(2));
-
-                if (broadcast_change !== "undefined" && broadcast_change) {
-                    target_element.trigger("change");
-                }
-            }
-        }
-    });
 
     $('.money').on('change', function() {
         var value = parseFloat($(this).val());

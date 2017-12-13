@@ -8,6 +8,8 @@ var reveal = function(el) {
     var css_class = el.data("target_class");
     var related_id = el.data("related_id");
     var reveal_condition = el.data("reveal_condition");
+    var invert_target = el.data("invert_target");
+
     var should_reveal = true;
 
     if (reveal_condition !== undefined) {
@@ -25,12 +27,21 @@ var reveal = function(el) {
         }
 
         if (!should_reveal) {
-            if (related_id !== undefined){
+            if (related_id !== undefined) {
                 $('#' + related_id).hide();
             }
-            if (css_class !== undefined){
+            if (css_class !== undefined) {
                 $('.' + css_class).hide();
             }
+            if (invert_target !== undefined) {
+                $(invert_target).show();
+            }
+        }
+    } else if (invert_target !== undefined) {
+        if (el.data("reveal_target")) {
+            $(invert_target).hide();
+        } else {
+            $(invert_target).show();
         }
     }
 
@@ -69,24 +80,24 @@ var showHideTargetId = function(el, id, related_id) {
         if (related_id !== undefined){
             $('#' + related_id).show();
         }
-
-        var revealCheckboxes = [
-            {
-                matchIdSelector: "#annual_gross_income",
-                radioSelector: "input[name=agree_to_child_support_amount]:checked"
-            },
-            {
-                matchIdSelector: "#spouse_annual_gross_income",
-                radioSelector: "input[name=spouse_agree_to_child_support_amount]:checked"
-            }
-        ];
-
-        revealCheckboxes.forEach(function(option) {
-           if (id === option.matchIdSelector) {
-               reveal($(option.radioSelector));
-           }
-        });
     }
+
+    var revealCheckboxes = [
+        {
+            matchIdSelector: "#annual_gross_income",
+            radioSelector: "input[name=agree_to_child_support_amount]:checked"
+        },
+        {
+            matchIdSelector: "#spouse_annual_gross_income",
+            radioSelector: "input[name=spouse_agree_to_child_support_amount]:checked"
+        }
+    ];
+
+    revealCheckboxes.forEach(function(option) {
+       if (id === option.matchIdSelector) {
+           reveal($(option.radioSelector));
+       }
+    });
 };
 
 // Controls show or hiding a target css class

@@ -859,6 +859,16 @@
 },
 {
     "fields": {
+        "name": "How will you and your spouse be calculating your income?",
+        "description": "For Step 6, Your children - Income & expenses",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "how_will_calculate_income"
+},
+{
+    "fields": {
         "name": "What is your annual gross income as per the Federal Child Support Guidelines?",
         "description": "For Step 6, Your children - Income & expenses",
         "summary_order": 0,
@@ -1068,16 +1078,6 @@
     },
     "model": "core.question",
     "pk": "spouse_reason_child_support_amount"
-},
-{
-    "fields": {
-        "name": "My spouse and I have entered into an agreement as to income pursuant to section 15 (2) of the Guidelines, a copy of which agreement is attached.",
-        "description": "For Step 6, Your children - Income & expenses",
-        "summary_order": 0,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "you_spouse_entered_agreement"
 },
 {
     "fields": {
