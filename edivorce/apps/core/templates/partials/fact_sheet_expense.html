@@ -1,10 +1,10 @@
 {% load input_field %}
 <td class="fact-sheet-answer table-bordered">
-    {% input_field type="text" name="expense_name" value=expense_name maxlength="100" multiple='true' class="fact-sheet-input expense-input-field" placeholder="What is the expense" %}
+    {% input_field type="text" name="expense_name" value=expense_name maxlength="100" multiple='true' class="fact-sheet-input expense-input-field" placeholder="What is the expense" data_save_row="true" data_save_select=".expense-input-field" data_skip_ajax="true" %}
 </td>
 <td class="fact-sheet-answer table-bordered">
     <div class="dollar-prefix">
-        {% money_input_field name="expense_amount" value=expense_amount multiple='true' class="money fact-sheet-input expense-input-field" placeholder="00.00"  %}
+        {% money_input_field name="expense_amount" value=expense_amount multiple='true' class="money fact-sheet-input expense-input-field" placeholder="00.00"  data_save_row="true" data_save_select=".expense-input-field" data_skip_ajax="true" %}
     </div>
 </td>
 {% if not exclude_delete_button %}

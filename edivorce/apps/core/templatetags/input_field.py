@@ -54,7 +54,10 @@ def input_field(context, type, name='', value='', multiple='', **kwargs):
 
         tag.append('>')
 
-        tag.append(context.get(name, ''))
+        if value == '':
+            tag.append(context.get(name, ''))
+        else:
+            tag.append(value)
 
         tag.append('</textarea>')
     else:

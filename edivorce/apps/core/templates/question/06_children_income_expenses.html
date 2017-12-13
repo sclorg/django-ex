@@ -606,7 +606,7 @@
                         {% multiple_values_to_list source=claimant_debts as debts %}
                         {% for debt in debts %}
                             <tr class="debt-item-row">
-                                {% include "partials/fact_sheet_excessive_debt.html" with debt_name=debt.debt_name debt_terms=debt.debt_terms debt_monthly_amount=debt.debt_monthly_amount %}
+                                {% include "partials/fact_sheet_excessive_debt.html" with debt_name=debt.debt_name debt_terms=debt.debt_terms debt_monthly_amount=debt.debt_monthly_amount exclude_delete_button=forloop.first %}
                             </tr>
                         {% endfor %}
                     {% else %}
@@ -628,11 +628,12 @@
                 <input type="button" id="btn_add_debt" class="btn btn-success" value="Add Debt"/>
             </div>
             <br />
+
             <p><strong>Unusually high expenses for parenting time, contact with, or access to a child.</strong></p>
             <p>
                 For example, airfare and accommodation to visit the child in another city.
             </p>
-            <table id="expense_table" class="list-builder">
+            <table id="claimant_expenses" class="list-builder">
                 <thead>
                     <tr class="list-builder-header">
                         <th class="table-bordered">What is the expense</th>
@@ -641,33 +642,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                        <tr class="expense-item-row">
-                            {% include "partials/fact_sheet_expense.html" with expense_amount=0 exclude_delete_button=True %}
-                        </tr>
                         <tr class="expense-group" hidden>
                             {% include "partials/fact_sheet_expense.html" with expense_amount=0%}
                         </tr>
-                    {% if list_of_expenses and list_of_expenses != '[]' %}
-                        {% multiple_values_to_list source=list_of_expenses as expenses %}
-                        {% for name, amount in expenses %}
+                    {% if claimant_expenses and claimant_expenses != '[{}]' %}
+                        {% multiple_values_to_list source=claimant_expenses as expenses %}
+                        {% for expense in expenses %}
                             <tr class="expense-item-row">
-                                {% include "partials/fact_sheet_expense.html" with expense_name=name expense_amount=amount %}
+                                {% include "partials/fact_sheet_expense.html" with expense_name=expense.expense_name expense_amount=expense.expense_amount exclude_delete_button=forloop.first %}
                             </tr>
                         {% endfor %}
+                    {% else %}
+                        <tr class="expense-item-row">
+                            {% include "partials/fact_sheet_expense.html" with expense_amount=0 exclude_delete_button=True %}
+                        </tr>
                     {% endif %}
                 </tbody>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td class="list-builder-button">
-                            <div class="form-group">
-                                <input type="button" id="btn_add_expense" class="btn btn-success" value="Add Expense"/>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
+            <div>
+                <input type="button" id="btn_add_expense" class="btn btn-success" value="Add Expense"/>
+            </div>
 
 
             <br />
@@ -675,7 +669,7 @@
             <p>
                Legal duty to support any other person, such as a former spouse or a new spouse who is too ill or disabled to be able to support himself or herself.
             </p>
-            <table id="supporting_non_dependent_table" class="list-builder">
+            <table id="supporting_non_dependents" class="list-builder">
                 <thead>
                     <tr class="list-builder-header">
                         <th class="table-bordered">Name of person</th>
@@ -685,34 +679,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                        <tr class="supporting-non-dependent-item-row">
-                            {% include "partials/fact_sheet_supporting_person.html" with exclude_delete_button=True name_field="supporting_non_dependents_name" relationship_field="supporting_non_dependent_relationship" reason_field="supporting_non_dependent_reason" input_field_class="supporting-non-dependent-input-field" delete_button_class="btn-delete-supporting-non-dependent"%}
-                        </tr>
                         <tr class="supporting-non-dependent-group" hidden>
-                            {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_non_dependents_name" relationship_field="supporting_non_dependent_relationship" reason_field="supporting_non_dependent_reason" input_field_class="supporting-non-dependent-input-field" delete_button_class="btn-delete-supporting-non-dependent" %}
+                            {% include "partials/fact_sheet_supporting_person.html" with name_field="non_dependent_name" relationship_field="non_dependent_relationship" reason_field="non_dependent_reason" input_field_class="supporting-non-dependent-input-field" save_selector=".supporting-non-dependent-input-field" delete_button_class="btn-delete-supporting-non-dependent" %}
                         </tr>
-                    {% if list_of_supporting_non_dependents and list_of_supporting_non_dependents != '[]' %}
-                        {% multiple_values_to_list source=list_of_supporting_non_dependents as supporting_non_dependents %}
-                        {% for name, relationship, reason in supporting_non_dependents %}
+                    {% if supporting_non_dependents and supporting_non_dependents != '[{}]' %}
+                        {% multiple_values_to_list source=supporting_non_dependents as non_dependents %}
+                        {% for non_dependent in non_dependents %}
                             <tr class="supporting-non-dependent-item-row">
-                                {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_non_dependents_name" relationship_field="supporting_non_dependent_relationship" reason_field="supporting_non_dependent_reason" input_field_class="supporting-non-dependent-input-field" delete_button_class="btn-delete-supporting-non-dependent" name=name relationship=relationship reason=reason %}
+                                {% include "partials/fact_sheet_supporting_person.html" with name_field="non_dependent_name" relationship_field="non_dependent_relationship" reason_field="non_dependent_reason" input_field_class="supporting-non-dependent-input-field" save_selector=".supporting-non-dependent-input-field" delete_button_class="btn-delete-supporting-non-dependent" name=non_dependent.non_dependent_name relationship=non_dependent.non_dependent_relationship reason=non_dependent.non_dependent_reason exclude_delete_button=forloop.first %}
                             </tr>
                         {% endfor %}
+                    {% else %}
+                        <tr class="supporting-non-dependent-item-row">
+                            {% include "partials/fact_sheet_supporting_person.html" with name_field="non_dependent_name" relationship_field="non_dependent_relationship" reason_field="non_dependent_reason" input_field_class="supporting-non-dependent-input-field" save_selector=".supporting-non-dependent-input-field" delete_button_class="btn-delete-supporting-non-dependent" exclude_delete_button=True %}
+                        </tr>
                     {% endif %}
                 </tbody>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="list-builder-button">
-                            <div class="form-group">
-                                <input type="button" id="btn_add_supporting_non_dependent" class="btn btn-success" value="Add Person"/>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
+            <div class="form-group">
+                <input type="button" id="btn_add_supporting_non_dependent" class="btn btn-success" value="Add Person"/>
+            </div>
 
             <br />
             <p><strong>Supporting dependent child/children from another relationship.</strong></p>
@@ -721,7 +707,7 @@
                 Do not include the names of any children for whom you are asking for support for as a part of this
                 divorce application.
             </p>
-            <table id="supporting_dependent_table" class="list-builder">
+            <table id="supporting_dependents" class="list-builder">
                 <thead>
                     <tr class="list-builder-header">
                         <th class="table-bordered">Child's name</th>
@@ -731,38 +717,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                        <tr class="supporting-dependent-item-row">
-                            {% include "partials/fact_sheet_supporting_person.html" with exclude_delete_button=True name_field="supporting_dependents_name" relationship_field="supporting_dependent_relationship" reason_field="supporting_dependent_reason" input_field_class="supporting-dependent-input-field" delete_button_class="btn-delete-supporting-dependent"%}
-                        </tr>
                         <tr class="supporting-dependent-group" hidden>
-                            {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_dependents_name" relationship_field="supporting_dependent_relationship" reason_field="supporting_dependent_reason" input_field_class="supporting-dependent-input-field" delete_button_class="btn-delete-supporting-dependent" %}
+                            {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_dependent_name" relationship_field="supporting_dependent_relationship" reason_field="supporting_dependent_reason" input_field_class="supporting-dependent-input-field" delete_button_class="btn-delete-supporting-dependent" save_selector=".supporting-dependent-input-field" %}
                         </tr>
-                    {% if list_of_supporting_dependents and list_of_supporting_dependents != '[]' %}
-                        {% multiple_values_to_list source=list_of_supporting_dependents as supporting_dependents %}
-                        {% for name, relationship, reason in supporting_dependents %}
+                    {% if supporting_dependents and supporting_dependents != '[{}]' %}
+                        {% multiple_values_to_list source=supporting_dependents as dependents %}
+                        {% for dependent in dependents %}
                             <tr class="supporting-dependent-item-row">
-                                {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_dependents_name" relationship_field="supporting_dependent_relationship" reason_field="supporting_dependent_reason" input_field_class="supporting-dependent-input-field" delete_button_class="btn-delete-supporting-dependent" name=name relationship=relationship reason=reason %}
+                                {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_dependent_name" relationship_field="supporting_dependent_relationship" reason_field="supporting_dependent_reason" input_field_class="supporting-dependent-input-field" delete_button_class="btn-delete-supporting-dependent" save_selector=".supporting-dependent-input-field" name=dependent.supporting_dependent_name relationship=dependent.supporting_dependent_relationship reason=dependent.supporting_dependent_reason exclude_delete_button=forloop.first %}
                             </tr>
                         {% endfor %}
+                    {% else %}
+                        <tr class="supporting-dependent-item-row">
+                            {% include "partials/fact_sheet_supporting_person.html" with exclude_delete_button=True name_field="supporting_dependent_name" relationship_field="supporting_dependent_relationship" reason_field="supporting_dependent_reason" input_field_class="supporting-dependent-input-field" delete_button_class="btn-delete-supporting-dependent" save_selector=".supporting-dependent-input-field"%}
+                        </tr>
                     {% endif %}
                 </tbody>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="list-builder-button">
-                            <div class="form-group">
-                                <input type="button" id="btn_add_supporting_dependent" class="btn btn-success" value="Add Person"/>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
+            <div class="form-group">
+                <input type="button" id="btn_add_supporting_dependent" class="btn btn-success" value="Add Person"/>
+            </div>
 
             <br />
             <p><strong>Support for a disabled or ill person.</strong></p>
-            <table id="supporting_disabled_table" class="list-builder">
+            <table id="supporting_disabled" class="list-builder">
                 <thead>
                     <tr class="list-builder-header">
                         <th class="table-bordered">Child's name</th>
@@ -772,19 +750,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                        <tr class="supporting-disabled-item-row">
-                            {% include "partials/fact_sheet_supporting_person.html" with exclude_delete_button=True name_field="supporting_disabled_name" relationship_field="supporting_disabled_relationship" reason_field="supporting_disabled_reason" input_field_class="supporting-disabled-input-field" delete_button_class="btn-delete-supporting-disabled"%}
-                        </tr>
                         <tr class="supporting-disabled-group" hidden>
-                            {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_disabled_name" relationship_field="supporting_disabled_relationship" reason_field="supporting_disabled_reason" input_field_class="supporting-disabled-input-field" delete_button_class="btn-delete-supporting-disabled" %}
+                            {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_disabled_name" relationship_field="supporting_disabled_relationship" reason_field="supporting_disabled_reason" input_field_class="supporting-disabled-input-field" delete_button_class="btn-delete-supporting-disabled" save_selector=".supporting-disabled-input-field" %}
                         </tr>
-                    {% if list_of_supporting_disabled and list_of_supporting_disabled != '[]' %}
-                        {% multiple_values_to_list source=list_of_supporting_disabled as supporting_disabled %}
-                        {% for name, relationship, reason in supporting_disabled %}
+                    {% if supporting_disabled and supporting_disabled != '[{}]' %}
+                        {% multiple_values_to_list source=supporting_disabled as dependents %}
+                        {% for dependent in dependents %}
                             <tr class="supporting-disabled-item-row">
-                                {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_disabled_name" relationship_field="supporting_disabled_relationship" reason_field="supporting_disabled_reason" input_field_class="supporting-disabled-input-field" delete_button_class="btn-delete-supporting-disabled" name=name relationship=relationship reason=reason %}
+                                {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_disabled_name" relationship_field="supporting_disabled_relationship" reason_field="supporting_disabled_reason" input_field_class="supporting-disabled-input-field" delete_button_class="btn-delete-supporting-disabled" name=dependent.supporting_disabled_name relationship=dependent.supporting_disabled_relationship reason=dependent.supporting_disabled_reason save_selector=".supporting-disabled-input-field" exclude_delete_button=forloop.first %}
                             </tr>
                         {% endfor %}
+                    {% else %}
+                        <tr class="supporting-disabled-item-row">
+                            {% include "partials/fact_sheet_supporting_person.html" with exclude_delete_button=True name_field="supporting_disabled_name" relationship_field="supporting_disabled_relationship" reason_field="supporting_disabled_reason" input_field_class="supporting-disabled-input-field" delete_button_class="btn-delete-supporting-disabled" exclude_delete_button=True save_selector=".supporting-disabled-input-field"%}
+                        </tr>
                     {% endif %}
                 </tbody>
                 <tbody>
@@ -806,7 +785,7 @@
 
             <br />
             <p><strong>Income of Other Persons in Household</strong></p>
-            <table id="income_others_table" class="list-builder">
+            <table id="income_others" class="list-builder">
                 <thead>
                     <tr class="list-builder-header">
                         <th class="table-bordered">Name of person</th>
@@ -815,19 +794,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                        <tr class="income-others-item-row">
-                            {% include "partials/fact_sheet_income_others.html" with exclude_delete_button=True income_others_amount=0%}
-                        </tr>
                         <tr class="income-others-group" hidden>
                             {% include "partials/fact_sheet_income_others.html" with income_others_amount=0%}
                         </tr>
-                    {% if list_of_income_others and list_of_income_others != '[]' %}
-                        {% multiple_values_to_list source=list_of_income_others as incomes %}
-                        {% for name, amount in incomes %}
+                    {% if income_others and income_others != '[{}]' %}
+                        {% multiple_values_to_list source=income_others as incomes %}
+                        {% for income in incomes %}
                             <tr class="income-others-item-row">
-                                {% include "partials/fact_sheet_income_others.html" with income_others_name=name income_others_amount=amount %}
+                                {% include "partials/fact_sheet_income_others.html" with income_others_name=income.income_others_name income_others_amount=income.income_others_amount exclude_delete_button=forloop.first %}
                             </tr>
                         {% endfor %}
+                    {% else %}
+                        <tr class="income-others-item-row">
+                            {% include "partials/fact_sheet_income_others.html" with exclude_delete_button=True income_others_amount=0%}
+                        </tr>
                     {% endif %}
                 </tbody>
                 <tbody>

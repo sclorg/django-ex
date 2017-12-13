@@ -1100,6 +1100,77 @@
     },
     "model": "core.question",
     "pk": "claimant_debts"
+},
+{
+    "fields": {
+        "name": "Unusually high expenses for parenting time, contact with, or access to a child.",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claiming_undue_hardship",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "claimant_expenses"
+},
+{
+    "fields": {
+        "name": "Supporting another person",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claiming_undue_hardship",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "supporting_non_dependents"
+},
+{
+    "fields": {
+        "name": "Supporting dependent child/children from another relationship.",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claiming_undue_hardship",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "supporting_dependents"
+},
+{
+    "fields": {
+        "name": "Support for a disabled or ill person.",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claiming_undue_hardship",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "supporting_disabled"
+},
+{
+    "fields": {
+        "name": "Other undue hardship circumstances",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claiming_undue_hardship",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "undue_hardship"
+},
+{
+    "fields": {
+        "name": "Income of Other Persons in Household",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claiming_undue_hardship",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "income_others"
 }
-
 ]

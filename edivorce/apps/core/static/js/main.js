@@ -35,11 +35,10 @@ $(function () {
     //      data-sum_class=[class name] - all elements with the same sum class identifier will be
     //                                      addends of the same sum.
     //      data-sum_target_id=[target id] - id of the html element where result of sum will be written
-    $('[data-sum="true"]').on('change', function() {
-        var sum_class = $(this).data('sum_class');
-        var sum_target_id = $(this).data('sum_target_id');
-        sumFields('.' + sum_class, '#' + sum_target_id);
-    });
+    $('[data-sum="true"]').on('change', sumFieldOnChange);
+
+    // On page load make sure all sum totals are populated.
+    $('[data-sum="true"]').each(sumFieldOnChange);
 
     // All elements tagged with the following mirror related data attributes
     // will have the value of the input fields mirror in other html elements.
@@ -138,7 +137,7 @@ $(function () {
             reveal_class: "debt-item-row"
         },
         {
-            table_selector: "#expense_table",
+            table_selector: "#claimant_expenses",
             add_button_selector: "#btn_add_expense",
             delete_button_selector: ".btn-delete-expense",
             input_field_selector: ".expense-input-field",
@@ -146,7 +145,7 @@ $(function () {
             reveal_class: "expense-item-row"
         },
         {
-            table_selector: "#supporting_non_dependent_table",
+            table_selector: "#supporting_non_dependents",
             add_button_selector: "#btn_add_supporting_non_dependent",
             delete_button_selector: ".btn-delete-supporting-non-dependent",
             input_field_selector: ".supporting-non-dependent-input-field",
@@ -154,7 +153,7 @@ $(function () {
             reveal_class: "supporting-non-dependent-item-row"
         },
         {
-            table_selector: "#supporting_dependent_table",
+            table_selector: "#supporting_dependents",
             add_button_selector: "#btn_add_supporting_dependent",
             delete_button_selector: ".btn-delete-supporting-dependent",
             input_field_selector: ".supporting-dependent-input-field",
@@ -162,7 +161,7 @@ $(function () {
             reveal_class: "supporting-dependent-item-row"
         },
         {
-            table_selector: "#supporting_disabled_table",
+            table_selector: "#supporting_disabled",
             add_button_selector: "#btn_add_supporting_disabled",
             delete_button_selector: ".btn-delete-supporting-disabled",
             input_field_selector: ".supporting-disabled-input-field",
@@ -170,7 +169,7 @@ $(function () {
             reveal_class: "supporting-disabled-item-row"
         },
         {
-            table_selector: "#income_others_table",
+            table_selector: "#income_others",
             add_button_selector: "#btn_add_income_others",
             delete_button_selector: ".btn-delete-income-others",
             input_field_selector: ".income-others-input-field",
@@ -444,6 +443,8 @@ var saveListControlRow = function(tableId) {
     ajaxCall(saveKey, jsonPayload);
 };
 
+
+
 var replaceSuffix = function(str, suffix) {
     if (str !== undefined && str.lastIndexOf('_') !== -1) {
         str = str.substr(0, str.lastIndexOf('_'));
@@ -523,8 +524,8 @@ var deleteAddedTableRow = function(element) {
     var sumClass = null;
     var sumTargetId = null;
     if (sumTargetElement !== undefined) {
-        sumClass = sumTargetElement.data('sum_class');
-        sumTargetId = sumTargetElement.data('sum_target_id');
+        sumClass = sumTargetElement.attr('data-sum_class');
+        sumTargetId = sumTargetElement.attr('data-sum_target_id');
     }
 
     var tableId = element.closest('table').prop('id');
@@ -535,7 +536,22 @@ var deleteAddedTableRow = function(element) {
     }
 
     // we want to save the list if we remove an item.
-    $.proxy(saveListControlRow, element)(tableId);
+    var payload = [];
+    var saveKey = tableId;
+    var tableElement = $('#'+tableId);
+    var tableRows = tableElement.find('tbody:first').find('tr:gt(0)');
+    var saveSelector = tableElement.find('[data-save_select]:first').attr('data-save_select');
+
+    tableRows.each(function() {
+        var item = {};
+        $(this).find(saveSelector).each(function() {
+            item[$(this).prop('name')] = $(this).val();
+        });
+        payload.push(item);
+    });
+
+    var jsonPayload = JSON.stringify(payload);
+    ajaxCall(saveKey, jsonPayload);
 };
 
 var registerTableRowAddRemoveHandlers = function(settings) {
@@ -562,11 +578,7 @@ var registerTableRowAddRemoveHandlers = function(settings) {
             .on('focusout', function() {
                 $(this).closest('td').removeClass('table-cell-active');
             });
-        newRow.find('[data-sum="true"]').on('change', function() {
-            var sumClass = $(this).data('sum_class');
-            var sumTargetId = $(this).data('sum_target_id');
-            sumFields('.' + sumClass, '#' + sumTargetId);
-        });
+        newRow.find('[data-sum="true"]').on('change', sumFieldOnChange);
         newRow.find('[data-save_row="true"]').on('change', saveListControlRow);
 
         $(settings.table_selector).find('tbody:first').append(newRow);
@@ -575,6 +587,12 @@ var registerTableRowAddRemoveHandlers = function(settings) {
             settings.customAction(settings, newRow);
         }
     });
+};
+
+var sumFieldOnChange = function() {
+    var sumClass = $(this).attr('data-sum_class');
+    var sumTargetId = $(this).attr('data-sum_target_id');
+    sumFields('.' + sumClass, '#' + sumTargetId);
 };
 
 var sumFields = function(addend_selector, sum_selector) {
