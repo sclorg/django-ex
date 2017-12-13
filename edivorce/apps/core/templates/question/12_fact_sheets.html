@@ -950,7 +950,7 @@ Including the monthly Guidelines table amount under Schedule 1 of the Guidelines
                     Guidelines table amount
                 </td>
                 <td class="fact-sheet-answer">
-                    {% if child_support_amount_under_high_income %}
+                    {% if child_support_amount_under_high_income and child_support_amount_over_high_income%}
                         {{  child_support_amount_under_high_income|add:child_support_amount_over_high_income }}
                     {% endif %}
                 </td>
