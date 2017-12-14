@@ -25,7 +25,7 @@
                 Under these rules, the total income shown on line 150 of your most recent income tax return or your
                 notice of assessment is a good place to start. The Federal Child Support Guidelines Step by Step
                 Guide has a
-                <a href="" target="_blank">worksheet</a> you can use to help calculate your annual income.
+                worksheet you can use to help calculate your annual income.
             </p>
         </div>
 
@@ -577,7 +577,7 @@
             </label>
 
             <label class="btn btn-radio">
-                {% input_field type="radio" name="claiming_undue_hardship" autocomplete="off" value="NO" data_target_id="undue_amount_question"  data_reveal_target="true" %} NO
+                {% input_field type="radio" name="claiming_undue_hardship" autocomplete="off" value="NO" data_target_id="fact_sheet_e"  data_reveal_target="false" %} NO
             </label>
         </div>
 
@@ -614,14 +614,6 @@
                             {% include "partials/fact_sheet_excessive_debt.html" with debt_monthly_amount=0 exclude_delete_button=True%}
                         </tr>
                     {% endif %}
-                </tbody>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                 </tbody>
             </table>
             <div>
@@ -696,7 +688,7 @@
                     {% endif %}
                 </tbody>
             </table>
-            <div class="form-group">
+            <div>
                 <input type="button" id="btn_add_supporting_non_dependent" class="btn btn-success" value="Add Person"/>
             </div>
 
@@ -734,7 +726,7 @@
                     {% endif %}
                 </tbody>
             </table>
-            <div class="form-group">
+            <div>
                 <input type="button" id="btn_add_supporting_dependent" class="btn btn-success" value="Add Person"/>
             </div>
 
@@ -766,19 +758,10 @@
                         </tr>
                     {% endif %}
                 </tbody>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="list-builder-button">
-                            <div class="form-group">
-                                <input type="button" id="btn_add_supporting_disabled" class="btn btn-success" value="Add Person"/>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
+            <div class="form-group">
+                <input type="button" id="btn_add_supporting_disabled" class="btn btn-success" value="Add Person"/>
+            </div>
 
             <p>Other undue hardship circumstances</p>
             {% input_field type="textarea" name="undue_hardship" value="" maxlength="500"  multiple='true' class="fact-sheet-input form-control" placeholder="" %}
@@ -812,17 +795,6 @@
                 </tbody>
                 <tbody>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td class="list-builder-button">
-                            <div class="form-group">
-                                <input type="button" id="btn_add_income_others" class="btn btn-success" value="Add Person"/>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody>
-                    <tr>
                         <td>Total</td>
                         <td>
                             <p id="total_income_others"></p>
@@ -830,10 +802,10 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-
-        <div id="undue_amount_question" hidden>
-
+            <div>
+                <input type="button" id="btn_add_income_others" class="btn btn-success" value="Add Person"/>
+            </div>
+            <div id="undue_amount_question" hidden></div>
         </div>
     </div>
 
