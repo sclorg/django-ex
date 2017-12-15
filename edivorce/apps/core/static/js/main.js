@@ -59,6 +59,64 @@ $(function () {
     //                                      be persisted to the server.
     $('[data-save_row="true"]').on('change', saveListControlRow);
 
+
+    var fraction = function(part1, part2) {
+        part1 = parseFloat(part1);
+        part2 = parseFloat(part2);
+        if (part1 + part2 === 0) {
+            return 0;
+        } else {
+            return part1 / (part1 + part2);
+        }
+    };
+
+    // Calculates the proportionate percentage of claimantOne to the sum of claimantOne
+    // and claimantTwo. The result is a value between [0,100] inclusive.
+    var calcPercentage = function(targetElement, claimantOne, claimantTwo) {
+        targetElement.val(Math.round(fraction(claimantOne, claimantTwo) * 100));
+    };
+
+    // Calculates the proportionate amount of claimantOne to the sum of claimantOne
+    // and claimantTwo. The result is a value between [0,claimantOne] inclusive.
+    var calcPercentageAmount = function (targetElement, claimantOne, claimantTwo) {
+        var amount = parseFloat(claimantOne) * fraction(claimantOne, claimantTwo);
+        targetElement.val(amount.toFixed(2));
+    };
+
+    // We want a way to dynamically calculate what proportion a given number is
+    // relative to the sum of that number with another number. Our specific use
+    // case is calculating the proportion of a given claimant's child support
+    // payment relative to their spouse. We calculate these proportions based off
+    // of each claimant's income.
+    //      data-calc_percentage=[true|false]   - whether to compute amount between [0,100] inclusive.
+    //      data-calc_proportions=[true|false]  - whether to compute amount between [0, value at data-claimant_one_selector]
+    //      data-claimant_one_selector=[any jQuery input selector] - the input field that will contain claimant one
+    //                                              income information. When the value in this input field changes the
+    //                                              proportionate amounts will automatically get recalculated.
+    //      data-claimant_two_selector=[any jQuery input selector] - the input field that will contain claimant two
+    //                                              income information.
+    $('[data-calc_percentage="true"], [data-calc_proportions="true"]').each(function() {
+        var self = $(this);
+        var claimantOneElement = $($(this).attr('data-claimant_one_selector'));
+        var claimantTwoElement = $($(this).attr('data-claimant_two_selector'));
+        var calcFunction = calcPercentage;
+        if ($(this).attr('data-calc_proportions') !== undefined) {
+            calcFunction = calcPercentageAmount;
+        }
+
+        // Calculate and populate the field on initialization of page.
+        calcFunction(self, claimantOneElement.val(), claimantTwoElement.val());
+
+        // Calculate and populate the fields whenever there is a change in the input
+        // selectors.
+        claimantOneElement.on('change', function() {
+            calcFunction(self, claimantOneElement.val(), claimantTwoElement.val());
+        });
+        claimantTwoElement.on('change', function() {
+            calcFunction(self, claimantOneElement.val(), claimantTwoElement.val());
+        });
+    });
+
     // Only close Terms and Conditions when user check the I agree checkbox
     $('#terms_agree_button').on('click', function() {
         $('#terms_warning').remove();

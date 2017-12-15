@@ -23,6 +23,7 @@ def date_formatter(value):
     d = datetime.strptime(value, '%d/%m/%Y')
     return d.strftime('%d %b %Y')
 
+
 @register.simple_tag()
 def required(field, size=None, trail=''):
     """ Return the required field value or the not-entered span """

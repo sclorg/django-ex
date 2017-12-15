@@ -1172,5 +1172,147 @@
     },
     "model": "core.question",
     "pk": "income_others"
+},
+{
+    "fields": {
+        "name": "Are there any special and extraordinary expenses?",
+        "description": "For Step 6, Your children - Income & expenses",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "special_extraordinary_expenses"
+},
+{
+    "fields": {
+        "name": "Child care expenses for when the recipient works or goes to school",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+    },
+    "model": "core.question",
+    "pk": "child_care_expenses"
+},
+{
+    "fields": {
+        "name": "Any healthcare premiums you pay to your employer or other provider to provide the coverage to your children rather than yourself",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+    },
+    "model": "core.question",
+    "pk": "children_healthcare_premiums"
+},
+{
+    "fields": {
+        "name": "Health related expenses that exceed insurance reimbursement by at least $100",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+    },
+    "model": "core.question",
+    "pk": "health_related_expenses"
+},
+{
+    "fields": {
+        "name": "Extraordinary primary, secondary or other educational expenses",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+    },
+    "model": "core.question",
+    "pk": "extraordinary_educational_expenses"
+},
+{
+    "fields": {
+        "name": "Post-secondary school expenses",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+    },
+    "model": "core.question",
+    "pk": "post_secondary_expenses"
+},
+{
+    "fields": {
+        "name": "Extraordinary extracurricular activities expenses",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+    },
+    "model": "core.question",
+    "pk": "extraordinary_extracurricular_expenses"
+},
+{
+    "fields": {
+        "name": "Total section 7 expenses",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+    },
+    "model": "core.question",
+    "pk": "total_section_seven_expenses"
+},
+{
+    "fields": {
+        "name": "Your proportionate share",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+    },
+    "model": "core.question",
+    "pk": "your_proportionate_share_percent"
+},
+{
+    "fields": {
+        "name": "Your proportionate share",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+    },
+    "model": "core.question",
+    "pk": "your_proportionate_share_amount"
+},
+{
+    "fields": {
+        "name": "Spouse's proportionate share",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+    },
+    "model": "core.question",
+    "pk": "spouse_proportionate_share_percent"
+},
+{
+    "fields": {
+        "name": "Spouse's proportionate share",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+    },
+    "model": "core.question",
+    "pk": "spouse_proportionate_share_amount"
 }
 ]

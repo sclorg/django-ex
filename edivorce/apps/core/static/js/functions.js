@@ -113,29 +113,28 @@ var showHideRevealClass = function(el, target_css_class) {
     }
 };
 
-// Controls Checkbox behaviour for children_financial_support
-// If No is checked, un-check all Yes checkboxes
-// If Yes is checked, un-check No checkbox
-// Once checkbox is checked, always at least one box will be checked
-var childSupportCheckboxControl = function(el) {
+// Controls Checkbox behaviour for a checkbox group.
+// If a checkbox with the data-checkbox_radio_state_set=false is checked, un-check all checkboxes with
+// data-checkbox_radio_state_set=true.
+// If a checkbox with the data-checkbox_radio_state_set=true is checked, un-check all checkboxes with
+// data-checkbox_radio_state_set=false.
+// Once a checkbox is checked, at least one box will always be checked.
+//      data-checkbox_radio=[true|false] - specifies which check boxes are part of of checkbox radio control
+//      data-checkbox_radio_state_set=[true|false] - specifies whether part of the negative or positive checkbox
+//                                                  radio state.  When an check box in the negative state is checked
+//                                                  all checkboxes in the opposite state will be unchecked. Visa versa.
+var checkboxRadioControl = function(el) {
     var boxName = el.prop("name");
-    // Make sure at least one box is checked
-    if ($(".checkbox-group").find("input[type=checkbox]:checked").length === 0){
+    if (el.closest('.checkbox-group').find("input[type=checkbox]:checked").length === 0){
         el.prop('checked', true);
-    }
-    else {
-        if (el.val() === "NO") {
-            $("input[name=" + boxName + "]").each(function () {
-                if ($(this).val() !== "NO") {
-                    $(this).prop('checked', false);
-                }
+    } else {
+        if (el.attr('data-checkbox_radio_state_set') === "false") {
+            $("input[name=" + boxName + "]").filter('[data-checkbox_radio_state_set="true"]').each(function () {
+                $(this).prop('checked', false);
             });
-        }
-        else {
-            $("input[name=" + boxName + "]").each(function () {
-                if ($(this).val() === "NO") {
-                    $(this).prop('checked', false);
-                }
+        } else {
+            $("input[name=" + boxName + "]").filter('[data-checkbox_radio_state_set="false"]').each(function () {
+                $(this).prop('checked', false);
             });
         }
     }
@@ -171,9 +170,8 @@ var getValue = function(el, question){
     var value = [];
     // if checkbox, get list of values.
     if (el.is("input[type=checkbox]")){
-        // special behaviour for question children_financial_support
-        if (question === "children_financial_support"){
-            childSupportCheckboxControl(el);
+        if (el.attr('data-checkbox_radio') === "true") {
+            checkboxRadioControl(el);
         }
         el.parents(".checkbox-group").find("input[type=checkbox]:checked").each(function(){
             value.push($(this).val());
