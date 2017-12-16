@@ -45,7 +45,7 @@ asked to provide details for each request.</p>
     <div class="question-well">
         <div class="checkbox">
             <label>
-                {% input_field type="checkbox" name="want_which_orders" value="Spousal support" data_target_id="spouse_support_alert" data_reveal_target="true" %}
+                {% input_field type="checkbox" name="want_which_orders" value="Spousal support" data_target_id="spouse_support_alert" data_invert_target=".orders-alert" data_reveal_target="true"  %}
                 <b>Spousal support</b>
             </label>
         </div>
@@ -146,7 +146,7 @@ asked to provide details for each request.</p>
     <div class="question-well">
         <div class="checkbox">
           <label>
-            {% input_field type="checkbox" name="want_which_orders" value="Child support" data_target_id="child_support_alert" data_reveal_target="true" %}
+            {% input_field type="checkbox" name="want_which_orders" value="Child support" data_target_id="child_support_alert" data_invert_target=".orders-alert" data_reveal_target="true" %}
             <b>Child Support</b>
           </label>
           <span class="tooltip-link" data-toggle="tooltip" data-placement="auto"
@@ -202,8 +202,8 @@ asked to provide details for each request.</p>
     <div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Child support" %}<b>Child support (Out of scope)</b></label></div>
 {% endcomment %}
 
-<div class="information-message bg-danger add-top-margin" id="unselected_orders_alert" hidden>
-    <div id="unselected_spouse_property_alert" hidden>
+<div class="information-message bg-danger add-top-margin orders-alert" id="unselected_orders_alert" hidden>
+    <div class="orders-alert" id="unselected_spouse_property_alert" hidden>
         <p>We've noticed that at this point in time you are not applying for
         spousal support and/or division of property, debt, or a pension. If you
         decide to request these items in the future there are some time

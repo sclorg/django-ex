@@ -38,10 +38,18 @@ var reveal = function(el) {
             }
         }
     } else if (invert_target !== undefined) {
-        if (el.data("reveal_target")) {
-            $(invert_target).hide();
+        if ((el.is(':checkbox') || el.is(':radio')) && el.data("reveal_target")) {
+            if (el.prop('checked')) {
+                $(invert_target).hide();
+            } else {
+                $(invert_target).show();
+            }
         } else {
-            $(invert_target).show();
+            if (el.data("reveal_target")) {
+                $(invert_target).hide();
+            } else {
+                $(invert_target).show();
+            }
         }
     }
 
