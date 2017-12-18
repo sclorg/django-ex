@@ -81,7 +81,7 @@
                      </p>
                      <p>
                      Source:
-                     <a href='http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-2.html#h-6' target='_blank'>Federal Child Support Guidelines</a>, Department of Justice
+                     <a href='http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-2.html#h-6' target='_blank'>Federal Child Support Guidelines Step-by-Step Guide</a>, Department of Justice
                      </p>
                     ">
                     annual gross income <i class="fa fa-question-circle" aria-hidden="true"></i>
@@ -129,7 +129,7 @@
                     </ul>
                     <p>
                         Source:
-                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" link_text="Federal Child Support Guidelines" %}
+                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" link_text="Federal Child Support Guidelines Step-by-Step Guide" %}
                         , Department of Justice
                     </p>
                 </div>
@@ -183,7 +183,7 @@
                         </td>
                         <td class="fact-sheet-answer">
                             <div class="dollar-prefix">
-                                {% money_input_field name="child_support_amount_under_high_income" class="fact-sheet-input guideline-amount" data_sum="true" data_sum_class="guideline-amount" data_sum_target_id="total_amount" %}
+                                {% money_input_field name="child_support_amount_under_high_income" class="fact-sheet-input guideline-amount money" data_sum="true" data_sum_class="guideline-amount" data_sum_target_id="total_amount" %}
                             </div>
                         </td>
                     </tr>
@@ -194,7 +194,9 @@
                             ?
                         </td>
                         <td class="fact-sheet-answer">
-                            {% input_field type="number" name="percent_income_over_high_income_limit" class="fact-sheet-input" %}
+                            <div class="percent-prefix">
+                                {% input_field type="number" name="percent_income_over_high_income_limit" class="fact-sheet-input" %}
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -327,7 +329,7 @@
                      </p>
                      <p>
                      Source:
-                     <a href='http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-2.html#h-6' target='_blank'>Federal Child Support Guidelines</a>, Department of Justice
+                     <a href='http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-2.html#h-6' target='_blank'>Federal Child Support Guidelines Step-by-Step Guide</a>, Department of Justice
                      </p>
                     ">
                     annual gross income <i class="fa fa-question-circle" aria-hidden="true"></i>
@@ -375,7 +377,7 @@
                     </ul>
                     <p>
                         Source:
-                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" link_text="Federal Child Support Guidelines" %}
+                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" link_text="Federal Child Support Guidelines Step-by-Step Guide" %}
                         , Department of Justice
                     </p>
                 </div>
@@ -437,7 +439,9 @@
                             ?
                         </td>
                         <td class="fact-sheet-answer">
-                            {% input_field type="number" name="spouse_percent_income_over_high_income_limit" class="fact-sheet-input" %}
+                            <div class="percent-prefix">
+                                {% input_field type="number" name="spouse_percent_income_over_high_income_limit" class="fact-sheet-input" %}
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -915,7 +919,7 @@
         </div>
 
         <div id="fact_sheet_a" class="question-well" hidden>
-            <h1>Fact Sheet A Special or Extraordinary Expenses More Information</h1>
+            <h1>Fact Sheet A Special or Extraordinary Expenses</h1>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -1124,7 +1128,7 @@
 {% endblock %}
 
 
-{% block formBack %}{% prev_step step='children' %}{% endblock %}
+{% block formBack %}{% prev_step step='children' sub_step='income_expenses' %}{% endblock %}
 {% block formNext %}{% next_step step='children' %}{% endblock %}
 
 {% block sidebarText %}

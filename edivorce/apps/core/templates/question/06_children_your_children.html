@@ -54,7 +54,8 @@
 
         <div class="question-well">
             <h3>What is your child's name?</h3>
-            <div>{% input_field type="text" name="child_name" class="form-block intput-wide responsive-textbox children-input-block" placeholder="First, Middle, Last Name" data_mirror="true" data_mirror_target="#child_name_0" data_skip_ajax="true" %}</div>
+            <p>First, Middle, Last Name</p>
+            {% input_field type="text" name="child_name" class="form-block input-wide response-textbox children-input-block" placeholder="First, Middle, Last Name" data_mirror="true" data_mirror_target="#child_name_0" data_skip_ajax="true" %}
         </div>
 
 
@@ -283,8 +284,8 @@
 </div>
 {% endblock %}
 
-{% block formBack %}{% prev_step step='children' %}{% endblock %}
-{% block formNext %}{% next_step step='children' %}{% endblock %}
+{% block formBack %}{% prev_step step='children' sub_step='your_children' %}{% endblock %}
+{% block formNext %}{% next_step step='children' sub_step='your_children' %}{% endblock %}
 
 {% block sidebarText %}
     <p><strong>Sole Custody Example</strong></p>

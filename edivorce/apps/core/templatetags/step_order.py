@@ -1,8 +1,63 @@
 from django import template
 import json
-from ..utils.template_step_order import template_step_order, get_step_name
+
+from django.core.urlresolvers import reverse
+
+from ..utils.template_step_order import template_step_order, template_sub_step_order, get_step_name, \
+    get_step_or_sub_step_name
 
 register = template.Library()
+
+
+def _get_next_step(context, step, sub_step, direction):
+    want_which_orders = json.loads(context.get('want_which_orders', '[]'))
+    sub_step_name = _get_next_sub_step(step, sub_step, want_which_orders, direction=direction)
+    if sub_step_name is not None:
+        return sub_step_name
+
+    current_step_base_order = template_step_order[step]
+    next_item = _adjust_for_orders(current_step_base_order, want_which_orders, direction=direction)
+
+    # The next page or previous page could land on a sub step page so need to do lookup to find
+    # out where may fall.
+    return get_step_or_sub_step_name(next_item, direction=direction)
+
+
+def _get_next_sub_step(step, sub_step, want_which_orders, direction):
+    current_step_base_order = template_step_order[step]
+    if template_sub_step_order.get(step, None) is not None:
+        current_sub_step_base_order = template_sub_step_order[step].get(sub_step, None)
+        if current_sub_step_base_order is not None:
+            if direction == 'next':
+                next_item = current_sub_step_base_order + 1
+            else:
+                next_item = current_sub_step_base_order - 1
+            next_sub_step = get_step_name(template_sub_step_order[step], next_item)
+            if next_sub_step is not None:
+                return reverse('question_steps', kwargs={'step': step, 'sub_step': next_sub_step})
+
+        next_item = _adjust_for_orders(current_step_base_order, want_which_orders, direction=direction)
+        return reverse('question_steps', kwargs={'step': get_step_name(template_step_order, next_item)})
+    return None
+
+
+def _adjust_for_orders(next_item, want_which_orders, direction):
+    addend = 1
+    if direction != 'next':
+        addend = -1
+
+    next_item += addend
+
+    if next_item == 7 and 'Spousal support' not in want_which_orders:
+        next_item += addend
+
+    if next_item == 8 and 'Division of property and debts' not in want_which_orders:
+        next_item += addend
+
+    if next_item == 9 and 'Other orders' not in want_which_orders:
+        next_item += addend
+
+    return next_item
 
 
 @register.simple_tag(takes_context=True)
@@ -24,41 +79,13 @@ def step_order(context, step):
 
 
 @register.simple_tag(takes_context=True)
-def next_step(context, step):
-    want_which_orders = json.loads(context.get('want_which_orders', '[]'))
-    current_step_base_order = template_step_order[step]
-
-    next_item = current_step_base_order + 1
-
-    if next_item == 6 and 'Spousal support' not in want_which_orders:
-        next_item += 1
-
-    if next_item == 7 and 'Division of property and debts' not in want_which_orders:
-        next_item += 1
-
-    if next_item == 8 and 'Other orders' not in want_which_orders:
-        next_item += 1
-
-    return get_step_name(next_item)
+def next_step(context, step, sub_step=None):
+    return _get_next_step(context, step, sub_step, 'next')
 
 
 @register.simple_tag(takes_context=True)
-def prev_step(context, step):
-    want_which_orders = json.loads(context.get('want_which_orders', '[]'))
-    current_step_base_order = template_step_order[step]
-
-    prev = current_step_base_order - 1
-
-    if prev == 8 and 'Other orders' not in want_which_orders:
-        prev -= 1
-
-    if prev == 7 and 'Division of property and debts' not in want_which_orders:
-        prev -= 1
-
-    if prev == 6 and 'Spousal support' not in want_which_orders:
-        prev -= 1
-
-    return get_step_name(prev)
+def prev_step(context, step, sub_step=None):
+    return _get_next_step(context, step, sub_step, 'previous')
 
 
 def __parse_json_which_orders_selected(context):

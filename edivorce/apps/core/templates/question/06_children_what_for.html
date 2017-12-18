@@ -236,7 +236,7 @@
             </div>
         </div>
 
-        {% input_field type="textarea" name="order_respecting_arrangement" class="response-textarea form-control" maxlength="20000" rows="15"%}
+        {% input_field type="textarea" name="order_respecting_arrangement" class="response-textarea form-control" maxlength="20000" rows="7"%}
     </div>
 
     <div class="question-well">
@@ -266,7 +266,7 @@
             </a> by the Legal Services Society for more information.
         </p>
 
-        {% input_field type="textarea" name="order_for_child_support" class="response-textarea form-control" maxlength="20000" rows="15"%}
+        {% input_field type="textarea" name="order_for_child_support" class="response-textarea form-control" maxlength="20000" rows="7"%}
     </div>
 
     <div class="question-well">
@@ -316,8 +316,8 @@
 {% endblock content %}
 
 
-{% block formBack %}{% prev_step step='children' %}{% endblock %}
-{% block formNext %}{% next_step step='children' %}{% endblock %}
+{% block formBack %}{% prev_step step='children' sub_step='what_for' %}{% endblock %}
+{% block formNext %}{% next_step step='children' sub_step='what_for' %}{% endblock %}
 
 {% block sidebarText %}
     <p><strong>What does the law mean by “best interests of the child”?</strong></p>
