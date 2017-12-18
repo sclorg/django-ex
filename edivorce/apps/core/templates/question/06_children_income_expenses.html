@@ -182,7 +182,9 @@
                             {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_guideline_amount" %}
                         </td>
                         <td class="fact-sheet-answer">
-                            {% input_field type="number" name="child_support_amount_under_high_income" class="fact-sheet-input guideline-amount" data_sum="true" data_sum_class="guideline-amount" data_sum_target_id="total_amount" %}
+                            <div class="dollar-prefix">
+                                {% money_input_field name="child_support_amount_under_high_income" class="fact-sheet-input guideline-amount" data_sum="true" data_sum_class="guideline-amount" data_sum_target_id="total_amount" %}
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -248,7 +250,9 @@
                             </div>
                         </td>
                         <td class="fact-sheet-answer">
-                            {% input_field type="number" name="amount_income_over_high_income_limit" class="fact-sheet-input guideline-amount" data_sum="true" data_sum_class="guideline-amount" data_sum_target_id="total_amount" %}
+                            <div class="dollar-prefix">
+                                {% money_input_field name="amount_income_over_high_income_limit" class="fact-sheet-input guideline-amount money" data_sum="true" data_sum_class="guideline-amount" data_sum_target_id="total_amount" %}
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -256,7 +260,9 @@
                             Guidelines table amount
                         </td>
                         <td class="fact-sheet-answer" readonly>
-                            {% input_field type="number" name="total_guideline_amount" id="total_amount" class="fact-sheet-input" readonly="" data_mirror="true" data_mirror_target="#agreed_total_amount" data_mirror_broadcast_change="true" %}
+                            <div class="dollar-prefix">
+                                {% money_input_field name="total_guideline_amount" id="total_amount" class="fact-sheet-input money" readonly="" data_mirror="true" data_mirror_target="#agreed_total_amount" data_mirror_broadcast_change="true" %}
+                            </div>
                         </td>
                     </tr>
                     </tbody>
@@ -419,7 +425,9 @@
                             {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_spouse_guideline_amount" %}
                         </td>
                         <td class="fact-sheet-answer">
-                            {% input_field type="number" name="spouse_child_support_amount_under_high_income" class="fact-sheet-input spouse-guideline-amount" data_sum="true" data_sum_class="spouse-guideline-amount" data_sum_target_id="spouse_total_amount" %}
+                            <div class="dollar-prefix">
+                                {% money_input_field name="spouse_child_support_amount_under_high_income" class="fact-sheet-input spouse-guideline-amount money" data_sum="true" data_sum_class="spouse-guideline-amount" data_sum_target_id="spouse_total_amount" %}
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -485,7 +493,9 @@
                             </div>
                         </td>
                         <td class="fact-sheet-answer">
-                            {% input_field type="number" name="spouse_amount_income_over_high_income_limit" class="fact-sheet-input spouse-guideline-amount" data_sum="true" data_sum_class="spouse-guideline-amount" data_sum_target_id="spouse_total_amount" %}
+                            <div class="dollar-prefix">
+                                {% money_input_field name="spouse_amount_income_over_high_income_limit" class="fact-sheet-input spouse-guideline-amount money" data_sum="true" data_sum_class="spouse-guideline-amount" data_sum_target_id="spouse_total_amount" %}
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -493,7 +503,9 @@
                             Guidelines table amount
                         </td>
                         <td class="fact-sheet-answer" readonly>
-                            {% input_field type="number" name="spouse_total_guideline_amount" id="spouse_total_amount" class="fact-sheet-input" readonly="" data_mirror="true" data_mirror_target="#spouse_agreed_total_amount" data_mirror_broadcast_change="true" %}
+                            <div class="dollar-prefix">
+                                {% money_input_field name="spouse_total_guideline_amount" id="spouse_total_amount" class="fact-sheet-input money" readonly="" data_mirror="true" data_mirror_target="#spouse_agreed_total_amount" data_mirror_broadcast_change="true" %}
+                            </div>
                         </td>
                     </tr>
                     </tbody>
@@ -822,9 +834,13 @@
                 </tbody>
                 <tbody>
                     <tr>
-                        <td>Total</td>
-                        <td>
-                            <p id="total_income_others"></p>
+                        <td class="table-bordered">
+                            Total
+                        </td>
+                        <td class="fact-sheet-answer table-bordered" readonly>
+                            <div class="dollar-prefix">
+                                {% money_input_field id="total_income_others" class="fact-sheet-input money" readonly="" %}
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -1039,7 +1055,7 @@
 
                     <td class="fact-sheet-answer" readonly>
                         <div class="dollar-prefix">
-                            {% money_input_field value_src="total_section_seven_expenses" id="total_extraordinary_expense_annually" class="fact-sheet-input money " scale_factor="12" readonly="" %}
+                            {% money_input_field value_src="totaInl_section_seven_expenses" id="total_extraordinary_expense_annually" class="fact-sheet-input money " scale_factor="12" readonly="" %}
                         </div>
                     </td>
                 </tr>
