@@ -420,8 +420,6 @@ div.percent-prefix {
 	color: $brand-links;
 	border-bottom: dotted 1px $brand-links;
 	cursor: pointer;
-	word-break: break-all;
-	display: inline-block;
 
 	&:hover {
 		color: $brand-blue;
