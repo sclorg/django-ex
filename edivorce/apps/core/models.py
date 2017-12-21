@@ -28,6 +28,9 @@ class BceidUser(models.Model):
     has_seen_orders_page = models.BooleanField(default=False)
     """ Flag for intercept page """
 
+    has_accepted_terms = models.BooleanField(default=False)
+    """ Flag for accepting terms of service """
+
     def is_authenticated(self):
         return True
 

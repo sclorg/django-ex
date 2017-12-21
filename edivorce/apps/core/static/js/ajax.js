@@ -1,10 +1,7 @@
 // when change triggered, collect user input data, validate data and POST via ajax
 var ajaxOnChange = function () {
     var el = $(this);
-    // Skip ajax call for checkbox on terms and condition
-    if (el.is("#terms_checkbox")){
-        return;
-    }
+
     // show/hide additional information if needed
     reveal(el);
 

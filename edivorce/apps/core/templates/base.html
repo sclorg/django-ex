@@ -160,6 +160,46 @@
 
         <div id="progress-overlay" style="display: none"><div id="progress-overlay-spinner"></div></div>
 
+{% if request.user.is_authenticated and not request.user.has_accepted_terms and request.path != '/current' %}
+        <div id="terms_modal" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <i class="fa fa-file" aria-hidden="true"></i>
+                        <h1 class="modal-title">Online Divorce Assistant Terms of Use</h1>
+                    </div>
+                    <div class="modal-body">
+                        <p>Version 1.0, March 31, 2017</p>
+                        <p>The Online Divorce Assistant application is provided as a public service by the Government of British Columbia, Box 9411, Victoria, British Columbia, Canada V8W 9V1.</p>
+                        <p>
+                            <strong>User Agreement</strong><br />
+                            Every person who accesses the Online Divorce Assistant application ("User" or "You") agrees to the Terms of Use in this document and to the fact that the Government of British Columbia may amend these terms from time to time. The Government of British Columbia reserves the right, at its discretion, to change, modify, add, or remove portions of these terms at any time. Please check these terms periodically for changes. Your continued use of the Online Divorce Assistant application following the posting of changes to these terms will mean you accept these changes.
+                        </p>
+                        <p>
+                            <strong>Privacy Protection</strong><br />
+                            The Online Divorce Assistant application does not collect personal information about Users without their consent, and has set up means to keep personal information confidential. However, the Government of British Columbia does collect aggregate data about Users' use of the Online Divorce Assistant application to better understand general User trends at an aggregate level and improve web performance, web services, and website maintenance.
+                        </p>
+                        <p>
+                            An Internet Protocol (IP) network domain name (e.g. shaw.ca) and a partial, non-specific IP address (e.g. 216.10.100.xx) of the computer you are using may be collected and stored on servers located outside Canada. Other information that the Online Divorce Assistant collects (e.g. email addresses) is stored in Canada.
+                        </p>
+                        <p>
+                            The anonymity of Users is therefore reasonably protected but not fully guaranteed. The Online Divorce Assistant applications management of personal information is described more fully on the Government of British Columbia's Privacy Policy page.
+                        </p>
+                        <p>
+                            Absent the use of encryption, the internet and email are not secure media and privacy cannot be ensured. The Government of British Columbia will not be responsible for any damages you or any third party may suffer as a result of the transmission of confidential information that you make to any party through the internet email links provided on the Online Divorce Assistant. The Government of British Columbia is not responsible for any errors or any changes made to any transmitted information. Should you decide to transmit information using internet email links, you do so at your own risk.
+                        </p>
+                        <div class="checkbox" id="terms_and_conditions">
+                            <label> <input type="checkbox" name="has_accepted_terms" value="true" id="terms_checkbox"naked> I agree to the Online Divorce Assistant Terms of Use </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" id="terms_agree_button" class="btn btn-primary btn-lg">Accept and continue</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endif %}
+
         {% compress js %}
         <script type="text/javascript" src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/vendor/bootstrap.min.js' %}"></script>

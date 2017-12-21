@@ -17,6 +17,7 @@ class AnonymousUser():
 
     guid = None
     display_name = ''
+    has_accepted_terms = False
 
     def is_authenticated(self):
         return False

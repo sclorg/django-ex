@@ -197,7 +197,11 @@ var radioWithTextboxControl = function(el){
 var getValue = function(el, question){
     var value = [];
     // if checkbox, get list of values.
-    if (el.is("input[type=checkbox]")){
+    if (el.is("input[type=checkbox]")) {
+        if (el.is('[naked]')) {
+          return el.is(':checked') ? 'true' : 'false';
+        }
+
         if (el.attr('data-checkbox_radio') === "true") {
             checkboxRadioControl(el);
         }

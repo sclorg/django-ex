@@ -78,6 +78,17 @@ Are you sure you want to continue?"
       <h3>User Fields</h3>
       <table class='inner'>
         <tr>
+          <td>Has accepted terms of service</td>
+          <td>
+            {{ request.user.has_accepted_terms }}<br>
+            [ <a href="?terms=reset" class="confirm-link"
+                data-message="This will toggle the flag set when the user accepted the terms of service.
+
+Are you sure you want to continue?"
+              >Toggle terms flag</a> ]
+          </td>
+        </tr>
+        <tr>
           <td>Has seen orders page</td>
           <td>
             {{ request.user.has_seen_orders_page }}<br>
