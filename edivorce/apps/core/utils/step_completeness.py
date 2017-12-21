@@ -16,15 +16,15 @@ def evaluate_numeric_condition(target, reveal_response):
         return None
 
     if reveal_response.startswith('>='):
-        return int(target) >= int(reveal_response[2:])
+        return float(target) >= float(reveal_response[2:])
     elif reveal_response.startswith('<='):
-        return int(target) <= int(reveal_response[2:])
+        return float(target) <= float(reveal_response[2:])
     elif reveal_response.startswith('=='):
-        return int(target) == int(reveal_response[2:])
+        return float(target) == float(reveal_response[2:])
     elif reveal_response.startswith('<'):
-        return int(target) < int(reveal_response[1:])
+        return float(target) < float(reveal_response[1:])
     elif reveal_response.startswith('>'):
-        return int(target) > int(reveal_response[1:])
+        return float(target) > float(reveal_response[1:])
 
     return None
 
