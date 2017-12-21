@@ -1,5 +1,9 @@
-from django import template
+from datetime import datetime
 import json
+
+from django import template
+
+from ..models import UserResponse
 
 register = template.Library()
 
@@ -62,8 +66,21 @@ def input_field(context, type, name='', value='', multiple='', **kwargs):
         tag.append('</textarea>')
     else:
         # set initial value for textbox
-        if type == "text" and value == '' and multiple != 'true':
-            value = context.get(name, '')
+        if type == "text":
+            if value == '' and multiple != 'true':
+                value = context.get(name, '')
+            if 'date-picker' in kwargs.get('class', ''):  # DIV-573
+                try:
+                    date = datetime.strptime(value, '%d/%m/%Y')
+                    value = f'{date:%b} {date.day}, {date:%Y}'
+                    if context['request'].user.is_authenticated():
+                        UserResponse.objects.filter(
+                            bceid_user=context['request'].user, question=name
+                        ).update(value=value)
+                    else:
+                        context['request'].session[name] = value
+                except ValueError:
+                    pass  # conversion to current format not needed
         elif type == "number":
             value = context.get(name, '')
         tag = ['<input type="%s" name="%s" value="%s"' % (type, name, value)]

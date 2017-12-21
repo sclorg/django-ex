@@ -271,6 +271,9 @@ var validateEmail = function(el){
     }
 };
 
+var $DateFormat = 'M d, yyyy';
+var MomentFormat = 'MMM D, YYYY';
+
 // check if value in date field is in DD/MM/YYYY format
 // and check if it is valid date and it is today or earlier
 var validateDate = function(el){
@@ -284,9 +287,10 @@ var validateDate = function(el){
         return true;
     }
 
+    var date = new Date(el.val());
     var isFuture = el.is('.date-picker-future');
     if (isValidDate(el.val(), isFuture)) {
-        el.val(formatDate(stringToDate(el.val())));
+        el.val(moment(stringToDate(el.val())).format('MMM D, YYYY'));
         return true;
     }
 

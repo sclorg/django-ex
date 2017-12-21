@@ -684,7 +684,8 @@ var date_picker = function (selector, showOnFocus) {
         endDate = "0d";
     }
     $(selector).datepicker({
-        format: "dd/mm/yyyy",
+        format: "M d, yyyy",
+        // format: "dd/mm/yyyy",
         startDate: startDate,
         endDate: endDate,
         autoclose: true,

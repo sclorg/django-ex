@@ -12,7 +12,7 @@ var ajaxOnChange = function () {
     if (skipAjax !== undefined && skipAjax === "true") {
         return;
     }
-    
+
     var question = el.prop('name');
     var value = getValue(el, question);
     var isValid = true;
