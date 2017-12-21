@@ -48,19 +48,19 @@
         {% elif step_status.your_children == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
     </div>
 
-    <ul class="collapse {% if active_page == 'children' %} in {% endif %}" id="children_nav">
+    <ul class="collapse {% if active_page == 'children' %} in {% endif %} progress-sub-menu" id="children_nav">
         <li>
-            <a href="{% url 'question_steps' 'children' 'your_children'%}" class="progress-question {% if sub_step == 'your_children' %} active {% endif %}">
+            <a href="{% url 'question_steps' 'children' 'your_children'%}" class="progress-sub-question {% if sub_step == 'your_children' %} active {% endif %}">
                 <span class="progress-content">Your children</span>
             </a>
         </li>
         <li>
-            <a href="{% url 'question_steps' 'children' 'what_for'%}" class="progress-question {% if sub_step == 'what_for' %} active {% endif %}">
+            <a href="{% url 'question_steps' 'children' 'what_for'%}" class="progress-sub-question {% if sub_step == 'what_for' %} active {% endif %}">
                 <span class="progress-content">What are you asking for</span>
             </a>
         </li>
         <li>
-            <a href="{% url 'question_steps' 'children' 'income_expenses'%}" class="progress-question {% if sub_step == 'income_expenses' %} active {% endif %}">
+            <a href="{% url 'question_steps' 'children' 'income_expenses'%}" class="progress-sub-question {% if sub_step == 'income_expenses' %} active {% endif %}">
                 <span class="progress-content">Income & expenses</span>
             </a>
         </li>

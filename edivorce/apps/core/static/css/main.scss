@@ -1429,6 +1429,53 @@ textarea {
 			}
 		}
 	}
+
+	.progress-sub-menu {
+
+		list-style-type: none;
+
+		li {
+			display:inline-block;
+    		padding: 5px 10px 5px 22px;
+			border-left:2px solid $brand-gold;
+		}
+
+
+		.progress-sub-question {
+			width: 190px;
+			font-size: 14px;
+			line-height: 1.3;
+			color: $body-copy;
+
+			@media (min-width: 1920px) {
+				font-size: 16px;
+				width: 190px;
+			}
+
+			.progress-content {
+				width: 190px;
+				font-size: 14px;
+				line-height: 1.3;
+				@media (min-width: 1920px) {
+					font-size: 16px;
+					width: 190px;
+				}
+			}
+
+			&:focus,
+			&:hover {
+				color: $brand-gold;
+				text-decoration: none;
+				font-weight: 700;
+			}
+
+			&.active {
+				color: $brand-gold;
+				text-decoration: none;
+				font-weight: 700;
+			}
+		}
+	}
 }
 
 .dashnav-column .progress-question {
