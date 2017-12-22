@@ -380,6 +380,13 @@ $(function () {
         if ($(".checkbox-group input:checkbox").not(":checked").length === 0 ) {
             $("#unselected_orders_alert").hide();
         }
+
+        // If the user has clicked the next button once, then make
+        if($('#check_order_selected').data('proceed') === true) {
+            if ($('.show-order-alert-input').not(':checked').length > 0 ) {
+                $("#unselected_orders_alert").show();
+            }
+        }
     });
 
     $('#check_order_selected').on('click', function (e) {

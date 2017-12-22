@@ -45,7 +45,7 @@ asked to provide details for each request.</p>
     <div class="question-well">
         <div class="checkbox">
             <label>
-                {% input_field type="checkbox" name="want_which_orders" value="Spousal support" data_target_id="spouse_support_alert" data_invert_target=".orders-alert-spouse-support" data_reveal_target="true"  %}
+                {% input_field type="checkbox" name="want_which_orders" value="Spousal support" class="show-order-alert-input" data_target_id="spouse_support_alert" data_invert_target=".orders-alert-spouse-support" data_reveal_target="true"  %}
                 <b>Spousal support</b>
             </label>
         </div>
@@ -115,7 +115,7 @@ asked to provide details for each request.</p>
     </div>
 
     <div class="question-well">
-        <div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Division of property and debts" id="child_support" data_target_id="property_division_alert" data_invert_target=".orders-alert-property" data_reveal_target="true" %}<b>Division of property and debts</b></label></div>
+        <div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Division of property and debts" id="child_support" class="show-order-alert-input" data_target_id="property_division_alert" data_invert_target=".orders-alert-property" data_reveal_target="true" %}<b>Division of property and debts</b></label></div>
 
         <p>
           Anything you own including real estate, bank accounts, cars and
@@ -146,7 +146,7 @@ asked to provide details for each request.</p>
     <div class="question-well">
         <div class="checkbox">
           <label>
-            {% input_field type="checkbox" name="want_which_orders" value="Child support" data_target_id="child_support_alert" data_invert_target=".orders-alert-child-support" data_reveal_target="true" %}
+            {% input_field type="checkbox" name="want_which_orders" value="Child support" class="show-order-alert-input" data_target_id="child_support_alert" data_invert_target=".orders-alert-child-support" data_reveal_target="true" %}
             <b>Child Support</b>
           </label>
           <span class="tooltip-link" data-toggle="tooltip" data-placement="auto"
