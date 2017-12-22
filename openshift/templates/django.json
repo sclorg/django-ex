@@ -102,7 +102,7 @@
             "from": {
               "kind": "ImageStreamTag",
               "namespace": "${NAMESPACE}",
-              "name": "python:3.5"
+              "name": "python:${PYTHON_VERSION}"
             },
             "env": [
               {
@@ -247,6 +247,13 @@
       "required": true,
       "description": "The OpenShift Namespace where the ImageStream resides.",
       "value": "openshift"
+    },
+    {
+      "name": "PYTHON_VERSION",
+      "displayName": "Version of Python Image",
+      "description": "Version of Python image to be used (3.4, 3.5, 3.6 or latest).",
+      "value": "3.6",
+      "required": true
     },
     {
       "name": "MEMORY_LIMIT",
