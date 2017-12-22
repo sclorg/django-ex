@@ -26,11 +26,16 @@
         of forms</a> that may be required for a Joint Divorce can also be found on the Family Law
         in B.C. website.
     </p>
-
-    {% if debug %}
     <hr>
-    <p>Unanswered: {{ missed_questions }}</p>
-    {% endif %}
+    <p>Below are the unanswered questions. Please click on the link to go back and answer the question:</p>
+    <ul>
+        {% for missed_question in missed_questions %}
+        <li>
+            <a href="{{ missed_question.step_url }}">{{ missed_question.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+
 
 </div>
 

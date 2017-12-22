@@ -7,7 +7,7 @@ from django.template import RequestContext
 
 from ..decorators import bceid_required, intercept
 from ..utils.question_step_mapping import list_of_registries
-from ..utils.step_completeness import get_step_status, is_complete
+from ..utils.step_completeness import get_step_status, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
 from ..utils.user_response import get_responses_from_db, copy_session_to_db, \
     get_responses_from_db_grouped_by_steps, get_responses_from_session, \
@@ -67,11 +67,12 @@ def incomplete(request):
     This page is shown if the user misses any pre-qualification questions
     """
     prequal_responses = get_responses_from_session_grouped_by_steps(request)['prequalification']
-    _, missed_questions = is_complete('prequalification', prequal_responses)
+    _, missed_question_keys = is_complete('prequalification', prequal_responses)
+    missed_questions = get_formatted_incomplete_list(missed_question_keys)
 
     responses_dict = get_responses_from_session(request)
     responses_dict.append(('debug', settings.DEBUG, ))
-    responses_dict.append(('missed_questions', str(missed_questions), ))
+    responses_dict.append(('missed_questions', missed_questions, ))
 
     return render(request, 'incomplete.html', context=responses_dict)
 

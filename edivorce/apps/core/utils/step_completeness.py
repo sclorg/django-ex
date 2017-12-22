@@ -1,5 +1,7 @@
+from django.core.urlresolvers import reverse
+
 from edivorce.apps.core.models import Question
-from edivorce.apps.core.utils.question_step_mapping import question_step_mapping
+from edivorce.apps.core.utils.question_step_mapping import question_step_mapping, pre_qual_step_question_mapping
 
 
 def evaluate_numeric_condition(target, reveal_response):
@@ -75,6 +77,26 @@ def is_complete(step, lst):
                         missing_responses += [question.key]
 
     return complete, missing_responses
+
+
+def get_formatted_incomplete_list(missed_question_keys):
+    """
+    Returns a list of dicts that contain the following information for the question
+    that was not answered.  Each dict contains the name of the question, as stored in
+    the database, and the url of the page where the question is found.
+
+    :param missed_question_keys:
+    :return: list of dicts.
+    """
+    missed_questions = []
+    for missed_question in Question.objects.filter(key__in=missed_question_keys):
+        for step, questions in pre_qual_step_question_mapping.items():
+            if missed_question.key in questions:
+                missed_questions.append({
+                    'title': missed_question.name,
+                    'step_url': reverse('prequalification', kwargs={'step': step})
+                })
+    return missed_questions
 
 
 def __condition_met(reveal_response, target, lst):

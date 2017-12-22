@@ -1,4 +1,39 @@
 """
+    Mapping between steps in the pre-qualification stage and the questions on each
+    step. Useful for showing a human readable link and message when a question is not
+    answered. The user can click the link to take them back to the step containing the
+    unanswered question.
+"""
+pre_qual_step_question_mapping = {
+    '01': {
+        'married_marriage_like'
+    },
+    '02': {
+        'lived_in_bc',
+        'lived_in_bc_at_least_year'
+    },
+    '03': {
+        'separation_date',
+        'try_reconcile_after_separated',
+        'reconciliation_period'
+    },
+    '04': {
+        'children_of_marriage',
+        'number_children_under_19',
+        'number_children_over_19',
+        'children_financial_support'
+    },
+    '05': {
+        'original_marriage_certificate',
+        'provide_certificate_later',
+        'marriage_certificate_in_english'
+    },
+    '06': {
+        'divorce_reason',
+    }
+}
+
+"""
     Mapping between questions and steps
     Usage: For each step title, list all questions_keys belong to that step
 """
