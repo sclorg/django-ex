@@ -72,7 +72,7 @@ def input_field(context, type, name='', value='', multiple='', **kwargs):
             if 'date-picker' in kwargs.get('class', ''):  # DIV-573
                 try:
                     date = datetime.strptime(value, '%d/%m/%Y')
-                    value = f'{date:%b} {date.day}, {date:%Y}'
+                    value = date.strftime('%b %d, %Y')
                     if context['request'].user.is_authenticated():
                         UserResponse.objects.filter(
                             bceid_user=context['request'].user, question=name
