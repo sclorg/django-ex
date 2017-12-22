@@ -376,6 +376,12 @@ $(function () {
     // If either Spousal support or Division of property and debts is not selected show alert message
     // if user still wants to proceed(click next again), let them proceed to next page
     // DIV-529 Separate alert for child support
+    $('input[name="want_which_orders"]').on('click', function() {
+        if ($(".checkbox-group input:checkbox").not(":checked").length === 0 ) {
+            $("#unselected_orders_alert").hide();
+        }
+    });
+
     $('#check_order_selected').on('click', function (e) {
         var showAlert = $(this).data('show_alert');
         var childSupport = $('input[data-target_id=child_support_alert]').prop('checked');
@@ -389,17 +395,31 @@ $(function () {
           eligible = children === 'YES' && (under19 > 0 || (over19 > 0 && reasons));
         }
         var proceedNext = $(this).data('proceed');
+        var showPropertyAlert = false;
+        var showSpousalAlert = false;
         if (!showAlert) {
             $(".checkbox-group input:checkbox").not(":checked").each(function () {
-                if ($(this).val() === 'Division of property and debts' || $(this).val() === 'Spousal support') {
+                if ($(this).val() === 'Division of property and debts') {
+                    showPropertyAlert = true;
+                    showAlert = true;
+                }
+                if ($(this).val() === 'Spousal support') {
+                    showSpousalAlert = true;
                     showAlert = true;
                 }
             });
         }
         if ((showAlert || (!childSupport && eligible)) && !proceedNext) {
             $('#unselected_orders_alert').show();
-            if (showAlert) { $('#unselected_spouse_property_alert').show(); }
-            if (!childSupport && eligible) { $('#unselected_child_support_alert').show(); }
+            if (showPropertyAlert) {
+                $('#unselected_property_alert').show();
+            }
+            if (showSpousalAlert) {
+                $('#unselected_spouse_alert').show();
+            }
+            if (!childSupport && eligible) {
+                $('#unselected_child_support_alert').show();
+            }
             e.preventDefault();
             $(this).data('proceed', true);
         }

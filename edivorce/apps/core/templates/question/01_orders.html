@@ -45,7 +45,7 @@ asked to provide details for each request.</p>
     <div class="question-well">
         <div class="checkbox">
             <label>
-                {% input_field type="checkbox" name="want_which_orders" value="Spousal support" data_target_id="spouse_support_alert" data_invert_target=".orders-alert" data_reveal_target="true"  %}
+                {% input_field type="checkbox" name="want_which_orders" value="Spousal support" data_target_id="spouse_support_alert" data_invert_target=".orders-alert-spouse-support" data_reveal_target="true"  %}
                 <b>Spousal support</b>
             </label>
         </div>
@@ -115,7 +115,7 @@ asked to provide details for each request.</p>
     </div>
 
     <div class="question-well">
-        <div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Division of property and debts" id="child_support" data_target_id="property_division_alert" data_reveal_target="true" %}<b>Division of property and debts</b></label></div>
+        <div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Division of property and debts" id="child_support" data_target_id="property_division_alert" data_invert_target=".orders-alert-property" data_reveal_target="true" %}<b>Division of property and debts</b></label></div>
 
         <p>
           Anything you own including real estate, bank accounts, cars and
@@ -146,7 +146,7 @@ asked to provide details for each request.</p>
     <div class="question-well">
         <div class="checkbox">
           <label>
-            {% input_field type="checkbox" name="want_which_orders" value="Child support" data_target_id="child_support_alert" data_invert_target=".orders-alert" data_reveal_target="true" %}
+            {% input_field type="checkbox" name="want_which_orders" value="Child support" data_target_id="child_support_alert" data_invert_target=".orders-alert-child-support" data_reveal_target="true" %}
             <b>Child Support</b>
           </label>
           <span class="tooltip-link" data-toggle="tooltip" data-placement="auto"
@@ -202,20 +202,14 @@ asked to provide details for each request.</p>
     <div class="checkbox"><label>{% input_field type="checkbox" name="want_which_orders" value="Child support" %}<b>Child support (Out of scope)</b></label></div>
 {% endcomment %}
 
-<div class="information-message bg-danger add-top-margin orders-alert" id="unselected_orders_alert" hidden>
-    <div class="orders-alert" id="unselected_spouse_property_alert" hidden>
-        <p>We've noticed that at this point in time you are not applying for
+<div class="information-message bg-danger add-top-margin" id="unselected_orders_alert" hidden>
+    <p>
+        We've noticed that at this point in time you are not applying for
         spousal support and/or division of property, debt, or a pension. If you
-        decide to request these items in the future there are some time
-        limits.</p>
+        decide to request these items in the future there are some time limits.
+    </p>
 
-        <h2>Division of Property and Debts</h2>
-
-        <p>If you were married, you must apply to divide property within two
-        years after you get an order for divorce. If you were living in a
-        marriage-like relationship for at least two years, you must apply
-        within two years of the date you separated.</p>
-
+    <div class="orders-alert-spouse-support" id="unselected_spouse_alert" hidden>
         <h2>Spousal Support</h2>
 
         <p>If you were married, you must apply for spousal support under the
@@ -227,7 +221,15 @@ asked to provide details for each request.</p>
         apply within two years of the date you separated.</p>
     </div>
 
-    <div id="unselected_child_support_alert"
+    <div class="orders-alert-property" id="unselected_property_alert" hidden>
+        <h2>Division of Property and Debts</h2>
+        <p>If you were married, you must apply to divide property within two
+        years after you get an order for divorce. If you were living in a
+        marriage-like relationship for at least two years, you must apply
+        within two years of the date you separated.</p>
+    </div>
+
+    <div class="orders-alert-child-support" id="unselected_child_support_alert"
         data-children-of-marriage="{{ children_of_marriage }}"
         data-children-number-under-19="{{ number_children_under_19 }}"
         data-children-number-over-19="{{ number_children_over_19 }}"
