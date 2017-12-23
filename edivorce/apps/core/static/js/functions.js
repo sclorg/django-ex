@@ -3,12 +3,16 @@
 // data-target_id: id of information section
 // data-reveal_target: reveal target_id section if true
 // data-related_id: id of information section which needed to be hide when target_id section is shown or vice versa
+// data-reveal_control_group: the selector for checkbox items that all behave as one group.  As long as one of them
+//                          is checked, the target_id or target_class will be shown.  Otherwise
+//                          if they are all unchecked, the target_id will be hidden.
 var reveal = function(el) {
     var id = '#' + el.data("target_id");
     var css_class = el.data("target_class");
     var related_id = el.data("related_id");
     var reveal_condition = el.data("reveal_condition");
     var invert_target = el.data("invert_target");
+    var reveal_control_group = el.data("reveal_control_group");
 
     var should_reveal = true;
 
@@ -54,7 +58,7 @@ var reveal = function(el) {
     }
 
     if (should_reveal) {
-        showHideTargetId(el, id, related_id);
+        showHideTargetId(el, id, related_id, reveal_control_group);
         showHideRevealClass(el, css_class);
 
         if (el.prop('name') === "provide_certificate_later" || el.prop('name') === "original_marriage_certificate") {
@@ -69,19 +73,26 @@ var reveal = function(el) {
 };
 
 // hide or show based on target id
-var showHideTargetId = function(el, id, related_id) {
+var showHideTargetId = function(el, id, related_id, reveal_control_group) {
     if (el.data("reveal_target") === true && el.prop('checked')) {
         $(id).show();
-        if (related_id !== undefined){
+        if (related_id !== undefined) {
             $('#' + related_id).hide();
         }
-        if (id === "#has_children"){
+        if (id === "#has_children") {
             reveal($("input[name=number_children_over_19]"));
         }
 
         // reveal nested question as well
-        if (id ==="#marriage_certificate"){
+        if (id === "#marriage_certificate") {
             reveal($("input[name=provide_certificate_later]:checked"));
+        }
+    } else if (reveal_control_group !== undefined) {
+        if ($(reveal_control_group).is(':checked').length === 0) {
+            $(id).hide();
+            if (related_id !== undefined){
+                $('#' + related_id).show();
+            }
         }
     } else {
         $(id).hide();
