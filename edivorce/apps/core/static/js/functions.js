@@ -1,3 +1,12 @@
+// Internet Explorer 11 implementation of String does not have the startsWith function
+// so manually add it to prevent an error on load.
+if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(searchString, position){
+      position = position || 0;
+      return this.substr(position, searchString.length) === searchString;
+  };
+}
+
 // Show or Hide Information Section
 // Using following data attributes:
 // data-target_id: id of information section
