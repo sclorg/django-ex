@@ -397,8 +397,8 @@ $(function () {
           var children = $('#unselected_child_support_alert').data('children-of-marriage');
           var under19 = $('#unselected_child_support_alert').data('children-number-under-19');
           var over19 = $('#unselected_child_support_alert').data('children-number-over-19');
-          var reasons = $('#unselected_child_support_alert').data('children-financial-support')
-          reasons = (reasons || []).filter((el) => { return el !== 'NO'; }).length > 0;
+          var reasons = $('#unselected_child_support_alert').data('children-financial-support');
+          reasons = (reasons || []).filter(function(el){ return el !== 'NO'; }).length > 0;
           eligible = children === 'YES' && (under19 > 0 || (over19 > 0 && reasons));
         }
         var proceedNext = $(this).data('proceed');
