@@ -174,6 +174,94 @@
        </div>
     </div>
 </div>
+{% if number_children_seeking_support|add:"0" > 0 %}
+<div class="review-well clearfix">
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#collapseF37a"
+         aria-controls="collapseF37a">
+       <div>
+           <span>Child Support Affidavit (F37) - signing together</span>
+       </div>
+    </div>
+    <p class="review-buttons">
+        <a href="{% url 'pdf_form' '37' %}" class="btn btn-primary spinner"
+            target="_blank"><i class="fa fa-print" aria-hidden="true"></i>
+            Review and Print
+        </a>
+    </p>
+    <div class="clearfix"> </div>
+    <div class="collapse" id="collapseF37a">
+       <div>
+           <p>$40 per affidavit (if sworn at a court registry)</p>
+           <p>
+               Since your divorce won't require an appearance before a judge, you must fill out and
+               swear/affirm<i class="fa fa-question-circle" data-toggle="tooltip"
+                  data-placement="auto" data-html="true" data-trigger="click"
+                  title="
+                    <b>Swear/Affirm</b>
+                    <br /><br />
+                    To &ldquo;take an oath&rdquo; in front of a lawyer, notary
+                    public, or commissioner for taking affidavits that
+                    statements made in court or the contents of an affidavit
+                    are true to the best of your knowledge and belief that your
+                    oath is &ldquo;under an immediate sense of responsibility
+                    to God&rdquo;. A non-religious alternative is to affirm.
+                  "
+                  aria-hidden="true"></i>
+               a Child Support
+               Affidavit<i class="fa fa-question-circle" data-toggle="tooltip"
+                  data-placement="auto" data-html="true" data-trigger="click"
+                  title="
+                    <b>Affidavit</b>
+                    <br /><br />
+                    A document that contains facts that you swear under
+                    oath or affirm to be true.  A lawyer, notary public, or
+                    commissioner for taking affidavits must witness your
+                    signature and sign your affidavit.
+                  "
+                  aria-hidden="true"></i>
+               Form (F38). This document gives information about the children and child support.
+           </p>
+           <p>
+               You'll notice that some of the information in the affidavit is the same as what's in your Notice of
+               Joint Family Claim Form (F1). Because the Notice of Joint Family Claim is not a sworn document, and
+               the judge/master must have sworn evidence to make a decision, you must swear or affirm that the
+               information in these affidavits is true.
+           </p>
+       </div>
+    </div>
+    <div class="collapse-trigger empty">
+       <div>
+           <span>Child Support Affidavit (F37) - signing separately</span>
+       </div>
+    </div>
+    <div class="collapse empty">
+        <div>
+          Claimant 1
+        </div>
+    </div>
+    <p class="review-buttons">
+        <a href="{% url 'pdf_form' '37_claimant1' %}" class="btn btn-primary spinner"
+            target="_blank"><i class="fa fa-print" aria-hidden="true"></i>
+            Review and Print
+        </a>
+    </p>
+    <div class="clearfix"> </div>
+    <div class="collapse empty">
+        <div>
+          Claimant 2
+        </div>
+    </div>
+    <p class="review-buttons">
+        <a href="{% url 'pdf_form' '37_claimant2' %}" class="btn btn-primary spinner"
+            target="_blank"><i class="fa fa-print" aria-hidden="true"></i>
+            Review and Print
+        </a>
+    </p>
+    <div class="clearfix"> </div>
+</div>
+{% endif %}
+
 
 {% if married_marriage_like == 'Legally married' %}
 <div class="review-well clearfix">
@@ -223,26 +311,6 @@
                   aria-hidden="true"></i>
                 Desk Order Divorce Form (F38). This document sets out the facts
                 of your marriage and separation.
-           </p>
-           <p>
-                Please follow these steps to ensure your affidavit does not get
-                rejected:
-           </p>
-           <ul>
-               <li>Both you and your spouse need to swear/affirm the affidavit.</li>
-               <li>Take <b>photo identification</b> with you. The person who
-                 will swear/affirm the documents for you must be sure you are
-                 both who you say you are.
-               <li>One affidavit must be sworn/affirmed <b>at the time of
-                   filing.</b></li>
-           </ul>
-           <p>
-               You'll notice that some of the information in the affidavit is
-               the same as what's in your Notice of Joint Family Claim Form
-               (F1). Because the Notice of Joint Family Claim is not a sworn
-               document, and the judge/master must have sworn evidence to make
-               a decision, you must swear or affirm that the information in
-               these affidavits is true.
            </p>
        </div>
     </div>
@@ -315,8 +383,8 @@
     <h2>Signing Your Affidavit Forms</h2>
     <p>
         The affidavit will need to be sworn or affirmed. You can either
-        <b>jointly</b> prepare one Affidavit — Desk Order Divorce form (F38) or
-        complete two versions and <b>swear/affirm them separately.</b>
+        <b>jointly</b> prepare {% if number_children_seeking_support|add:"0" > 0  %}one Child Support Affidavit (F37) and{% endif %} one Affidavit — Desk Order Divorce form (F38) or
+        complete two versions {% if number_children_seeking_support|add:"0" > 0 %}of each{% endif %} and <b>swear/affirm them separately.</b>
     </p>
 
     <table class="table table-bordered">
@@ -330,15 +398,37 @@
                 when at the registry.
             </td>
             <td>
-                <p>Either you or your spouse can sign and swear/affirm ahead of
+                <p>
+                    Either you or your spouse can sign and swear/affirm ahead of
                 time, but the 2nd party will need to sign when at the
-                registry.</p>
-                <p>If one of you decides to swear/affirm ahead of time, at the
-                time of filing the application, both affidavits must have been
-                notarized within 30 days prior to filing.</p>
+                registry, after the Notice of Joint Family Claim has been filed.
+                </p>
+                <p>
+                    If one of you decides to swear/affirm ahead of time, at the time of filing the application,
+                    all affidavits must have been notarized within 30 days prior to filing.
+                </p>
             </td>
         </tr>
     </table>
+    <p>
+        Please follow these steps to ensure your affidavit does not get rejected:
+    </p>
+    <ul>
+        <li>Both you and your spouse need to swear/affirm the affidavit.</li>
+        <li>
+            Take <strong>photo identification</strong> with you. The person who will swear/affirm the documents for
+            you must be sure you are both who you say you are.
+        </li>
+        <li>
+            One affidavit must be sworn/affirmed <strong>after the Notice of Joint Family Claim</strong> has been filed
+            and within 30 days of filing the affidavit.  This can be done at the registry immediately after filing the Claim.
+        </li>
+        {% if number_children_seeking_support|add:"0" > 0  %}
+        <li>
+            You'll need to swear both the Child Support Affidavit (F37) as well as the Affidavit Desk Order Divorce (F38).
+        </li>
+        {% endif %}
+    </ul>
 </div>
 {% endif %}
 
@@ -377,6 +467,9 @@
         <li>Requisition Form (F35)</li>
         <li>Draft Final Order Form (F52)</li>
         <li>Certificate of Pleadings Form (F36)</li>
+        {% if number_children_seeking_support|add:"0" > 0 %}
+        <li>Child Support Affidavit (F37)</li>
+        {% endif %}
         {% if married_marriage_like == 'Legally married' %}
             <li>Affidavit — Desk Order Divorce Form (F38)</li>
         {% else %}
