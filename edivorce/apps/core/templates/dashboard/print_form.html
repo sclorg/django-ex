@@ -174,7 +174,7 @@
        </div>
     </div>
 </div>
-{% if number_children_seeking_support|add:"0" > 0 %}
+{% if children_of_marriage == 'YES' %}
 <div class="review-well clearfix">
     <div class="collapse-trigger collapsed" data-toggle="collapse"
          aria-expanded="false" data-target="#collapseF37a"
@@ -383,8 +383,8 @@
     <h2>Signing Your Affidavit Forms</h2>
     <p>
         The affidavit will need to be sworn or affirmed. You can either
-        <b>jointly</b> prepare {% if number_children_seeking_support|add:"0" > 0  %}one Child Support Affidavit (F37) and{% endif %} one Affidavit — Desk Order Divorce form (F38) or
-        complete two versions {% if number_children_seeking_support|add:"0" > 0 %}of each{% endif %} and <b>swear/affirm them separately.</b>
+        <b>jointly</b> prepare {% if children_of_marriage == 'YES'  %}one Child Support Affidavit (F37) and{% endif %} one Affidavit — Desk Order Divorce form (F38) or
+        complete two versions {% if children_of_marriage == 'YES' %}of each{% endif %} and <b>swear/affirm them separately.</b>
     </p>
 
     <table class="table table-bordered">
@@ -423,7 +423,7 @@
             One affidavit must be sworn/affirmed <strong>after the Notice of Joint Family Claim</strong> has been filed
             and within 30 days of filing the affidavit.  This can be done at the registry immediately after filing the Claim.
         </li>
-        {% if number_children_seeking_support|add:"0" > 0  %}
+        {% if children_of_marriage == 'YES'  %}
         <li>
             You'll need to swear both the Child Support Affidavit (F37) as well as the Affidavit Desk Order Divorce (F38).
         </li>
@@ -467,7 +467,7 @@
         <li>Requisition Form (F35)</li>
         <li>Draft Final Order Form (F52)</li>
         <li>Certificate of Pleadings Form (F36)</li>
-        {% if number_children_seeking_support|add:"0" > 0 %}
+        {% if children_of_marriage == 'YES' %}
         <li>Child Support Affidavit (F37)</li>
         {% endif %}
         {% if married_marriage_like == 'Legally married' %}
