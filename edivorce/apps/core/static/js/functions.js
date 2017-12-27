@@ -17,58 +17,58 @@ if (!String.prototype.startsWith) {
 //                          if they are all unchecked, the target_id will be hidden.
 var reveal = function(el) {
     var id = '#' + el.data("target_id");
-    var css_class = el.data("target_class");
-    var related_id = el.data("related_id");
-    var reveal_condition = el.data("reveal_condition");
-    var invert_target = el.data("invert_target");
-    var reveal_control_group = el.data("reveal_control_group");
+    var cssClass = el.data("target_class");
+    var relatedId = el.data("related_id");
+    var revealCondition = el.data("reveal_condition");
+    var invertTarget = el.data("invert_target");
+    var revealControlGroup = el.data("reveal_control_group");
 
-    var should_reveal = true;
+    var shouldReveal = true;
 
-    if (reveal_condition !== undefined) {
-        should_reveal = false;
-        if (reveal_condition.startsWith(">=")) {
-            should_reveal = el.val() >= parseInt(reveal_condition.slice(2), 10);
-        } else if (reveal_condition.startsWith("<=")) {
-            should_reveal = el.val() <= parseInt(reveal_condition.slice(2), 10);
-        } else if (reveal_condition.startsWith("==")) {
-            should_reveal = el.val() === parseInt(reveal_condition.slice(2), 10);
-        } else if (reveal_condition.startsWith("<")) {
-            should_reveal = el.val() < parseInt(reveal_condition.slice(1), 10);
-        } else if (reveal_condition.startsWith(">")) {
-            should_reveal = el.val() > parseInt(reveal_condition.slice(1), 10) ;
+    if (revealCondition !== undefined) {
+        shouldReveal = false;
+        if (revealCondition.startsWith(">=")) {
+            shouldReveal = el.val() >= parseFloat(revealCondition.slice(2));
+        } else if (revealCondition.startsWith("<=")) {
+            shouldReveal = el.val() <= parseFloat(revealCondition.slice(2));
+        } else if (revealCondition.startsWith("==")) {
+            shouldReveal = el.val() === parseFloat(revealCondition.slice(2));
+        } else if (revealCondition.startsWith("<")) {
+            shouldReveal = el.val() < parseFloat(revealCondition.slice(1));
+        } else if (revealCondition.startsWith(">")) {
+            shouldReveal = el.val() > parseFloat(revealCondition.slice(1));
         }
 
-        if (!should_reveal) {
-            if (related_id !== undefined) {
-                $('#' + related_id).hide();
+        if (!shouldReveal) {
+            if (relatedId !== undefined) {
+                $('#' + relatedId).hide();
             }
-            if (css_class !== undefined) {
-                $('.' + css_class).hide();
+            if (cssClass !== undefined) {
+                $('.' + cssClass).hide();
             }
-            if (invert_target !== undefined) {
-                $(invert_target).show();
+            if (invertTarget !== undefined) {
+                $(invertTarget).show();
             }
         }
-    } else if (invert_target !== undefined) {
+    } else if (invertTarget !== undefined) {
         if ((el.is(':checkbox') || el.is(':radio')) && el.data("reveal_target")) {
             if (el.prop('checked')) {
-                $(invert_target).hide();
+                $(invertTarget).hide();
             } else {
-                $(invert_target).show();
+                $(invertTarget).show();
             }
         } else {
             if (el.data("reveal_target")) {
-                $(invert_target).hide();
+                $(invertTarget).hide();
             } else {
-                $(invert_target).show();
+                $(invertTarget).show();
             }
         }
     }
 
-    if (should_reveal) {
-        showHideTargetId(el, id, related_id, reveal_control_group);
-        showHideRevealClass(el, css_class);
+    if (shouldReveal) {
+        showHideTargetId(el, id, relatedId, revealControlGroup);
+        showHideRevealClass(el, cssClass);
 
         if (el.prop('name') === "provide_certificate_later" || el.prop('name') === "original_marriage_certificate") {
             if ($('input[name=provide_certificate_later]:checked').val() !== 'YES' && $('input[name=original_marriage_certificate]:checked').val() === 'NO') {
@@ -82,11 +82,11 @@ var reveal = function(el) {
 };
 
 // hide or show based on target id
-var showHideTargetId = function(el, id, related_id, reveal_control_group) {
+var showHideTargetId = function(el, id, relatedId, revealControlGroup) {
     if (el.data("reveal_target") === true && el.prop('checked')) {
         $(id).show();
-        if (related_id !== undefined) {
-            $('#' + related_id).hide();
+        if (relatedId !== undefined) {
+            $('#' + relatedId).hide();
         }
         if (id === "#has_children") {
             reveal($("input[name=number_children_over_19]"));
@@ -96,17 +96,17 @@ var showHideTargetId = function(el, id, related_id, reveal_control_group) {
         if (id === "#marriage_certificate") {
             reveal($("input[name=provide_certificate_later]:checked"));
         }
-    } else if (reveal_control_group !== undefined) {
-        if ($(reveal_control_group).is(':checked').length === 0) {
+    } else if (revealControlGroup !== undefined) {
+        if ($(revealControlGroup).is(':checked').length === 0) {
             $(id).hide();
-            if (related_id !== undefined){
-                $('#' + related_id).show();
+            if (relatedId !== undefined){
+                $('#' + relatedId).show();
             }
         }
     } else {
         $(id).hide();
-        if (related_id !== undefined){
-            $('#' + related_id).show();
+        if (relatedId !== undefined){
+            $('#' + relatedId).show();
         }
     }
 
@@ -129,14 +129,14 @@ var showHideTargetId = function(el, id, related_id, reveal_control_group) {
 };
 
 // Controls show or hiding a target css class
-var showHideRevealClass = function(el, target_css_class) {
+var showHideRevealClass = function(el, targetCssClass) {
     if (el.data("reveal_class") === false) {
-        if (target_css_class !== undefined){
-            $('.' + target_css_class).hide();
+        if (targetCssClass !== undefined){
+            $('.' + targetCssClass).hide();
         }
     } else {
-        if (target_css_class !== undefined){
-            $('.' + target_css_class).show();
+        if (targetCssClass !== undefined){
+            $('.' + targetCssClass).show();
         }
     }
 };
