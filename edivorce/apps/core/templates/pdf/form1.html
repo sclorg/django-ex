@@ -28,7 +28,7 @@
             Court File No.: <span class="form-entry not-complete">&nbsp;</span>
         </p>
         <p class="text-right">
-            Court Registry: {% if responses.court_registry_for_filing %} {{ responses.court_registry_for_filing }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+            Court Registry: {% response responses.court_registry_for_filing %}
         </p>
         <h3 class="text-center">
             In the Supreme Court of British Columbia
@@ -56,23 +56,46 @@
                     <td colspan="2"> Claimant 1 and Claimant 2: </td>
                 </tr>
                 <tr>
-                    <td><i class="fa {% if responses.when_were_you_live_married_like %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} began to live together in a marriage-like relationship on [<em>dd/mmm/yyyy</em>]</td>
-                    <td colname="c2"> {% if responses.when_were_you_live_married_like %} {{ responses.when_were_you_live_married_like|date_formatter }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
+                    <td>
+                      <span class="td-list-item">{% checkbox responses.when_were_you_live_married_like %}</span>
+                      began to live together in a marriage-like relationship on [<em>dd mmm yyyy</em>]
+                    </td>
+                    <td colname="c2">
+                      {% response responses.when_were_you_live_married_like as_date=True %}
+                    </td>
                 </tr>
                 <tr>
-                    <td><i class="fa {% if responses.when_were_you_married %} fa-check-square-o" aria-hidden="true"></i> {% else %} fa-square-o" aria-hidden="true"></i> {% endif %} were married on  [<em>dd/mmm/yyyy</em>]</td>
-                    <td colname="c2"> {% if responses.when_were_you_married %} {{ responses.when_were_you_married|date_formatter }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
+                    <td>
+                      <span class="td-list-item">{% checkbox responses.when_were_you_married %}</span>
+                      were married on  [<em>dd mmm yyyy</em>]
+                    </td>
+                    <td colname="c2">
+                      {% response responses.when_were_you_married as_date=True %}
+                    </td>
                 </tr>
                 <tr>
-                    <td><i class="fa {% if responses.separation_date %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} separated on [dd/mmm/yyyy]</td>
-                    <td colname="c2"> {% if responses.separation_date %} {{ responses.separation_date|date_formatter }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
+                    <td>
+                      <span class="td-list-item">{% checkbox responses.separation_date %}</span>
+                      separated on [dd mmm yyyy]
+                    </td>
+                    <td colname="c2">
+                      {% response responses.separation_date as_date=True %}
+                    </td>
                 </tr>
                 <tr>
-                    <td><i class="fa fa-square-o" aria-hidden="true"></i> were divorced from each other by order made on [<em>dd/mmm/yyyy</em>]</td>
-                    <td colname="c2"> <span class="form-entry not-complete">&nbsp;</span></td>
+                    <td>
+                      <span class="td-list-item">{% checkbox False %}</span>
+                      were divorced from each other by order made on [<em>dd mmm yyyy</em>]
+                    </td>
+                    <td colname="c2"><span class="form-entry not-complete">&nbsp;</span></td>
                 </tr>
                 <tr>
-                    <td><i class="fa {% if responses.married_marriage_like == 'Living together in a marriage like relationship' %}fa-check-square-o{% else %}fa-square-o{% endif %}" aria-hidden="true"></i> were never married </td>
+                    <td>
+                      <span class="td-list-item">
+                        {% checkbox married_marriage_like='Living together in a marriage like relationship' %}
+                      </span>
+                      were never married
+                    </td>
                     <td colname="c2"> </td>
                 </tr>
             </tbody>
@@ -82,82 +105,127 @@
         <table class="table table-bordered">
             <tbody>
                 <tr>
-                    {% check_list source=responses.want_which_orders value='A legal end to the marriage' as order_wanted %}
-                    <td colspan="3"> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for a divorce order. </td>
+                    <td colspan="3">
+                      <span class="td-list-item">
+                        {% checkbox want_which_orders='A legal end to the marriage' %}
+                      </span>
+                      Claimant 1 and Claimant 2 are asking for a divorce order.
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="3"> <strong> A. Personal information: </strong> </td>
+                    <td colspan="3"><strong>A. Personal information:</strong></td>
                 </tr>
                 <tr>
                     <td> </td>
-                    <td colname="c2"> <strong> Claimant 1 </strong> </td>
-                    <td colname="c3"> <strong> Claimant 2 </strong> </td>
+                    <td colname="c2"><strong>Claimant 1</strong></td>
+                    <td colname="c3"><strong>Claimant 2</strong></td>
                 </tr>
                 <tr>
-                    <td> Birthdate: [<em>dd/mmm/yyyy</em>] </td>
-                    <td colname="c2">{% if responses.birthday_you %} {{ responses.birthday_you|date_formatter }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
-                    <td colname="c3">{% if responses.birthday_spouse %} {{ responses.birthday_spouse|date_formatter }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
+                    <td> Birthdate: [<em>dd mmm yyyy</em>] </td>
+                    <td colname="c2">{% response responses.birthday_you as_date=True %}</td>
+                    <td colname="c3">{% response responses.birthday_spouse as_date=True %}</td>
                 </tr>
                 <tr>
-                    <td> Ordinarily resident in British Columbia since: [<em>dd/mmm/yyyy</em>] </td>
-                    <td colname="c2">{% if responses.lived_in_bc_you == 'Since birth' %} {{ responses.birthday_you|date_formatter }}
-                                     {% elif responses.lived_in_bc_you == 'Moved to B.C. on' %} {{ responses.moved_to_bc_date_you|date_formatter }}
-                                     {% elif responses.lived_in_bc_you == 'Do not live in B.C.' %}
-                                     {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
-                    <td colname="c3">{% if responses.lived_in_bc_spouse == 'Since birth' %} {{ responses.birthday_spouse|date_formatter }}
-                                     {% elif responses.lived_in_bc_spouse == 'Moved to B.C. on' %} {{ responses.moved_to_bc_date_spouse|date_formatter }}
-                                     {% elif responses.lived_in_bc_spouse == 'Does not live in B.C.' %}
-                                     {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}</td>
+                    <td> Ordinarily resident in British Columbia since: [<em>dd mmm yyyy</em>] </td>
+                    <td colname="c2">
+                      {% if responses.lived_in_bc_you == 'Since birth' %}
+                        {% response responses.birthday_you as_date=True %}
+                      {% elif responses.lived_in_bc_you == 'Moved to B.C. on' %}
+                        {% response responses.moved_to_bc_date_you as_date=True %}
+                      {% else %}
+                        <span class="form-entry not-complete">&nbsp;</span>
+                      {% endif %}
+                    </td>
+                    <td colname="c3">
+                      {% if responses.lived_in_bc_spouse == 'Since birth' %}
+                        {% response responses.birthday_spouse as_date=True %}
+                      {% elif responses.lived_in_bc_spouse == 'Moved to B.C. on' %}
+                        {% response responses.moved_to_bc_date_spouse as_date=True %}
+                      {% else %}
+                        <span class="form-entry not-complete">&nbsp;</span>
+                      {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <td> Surname at birth: </td>
-                    <td colname="c2">{% if responses.last_name_born_you %} {{ responses.last_name_born_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
-                    <td colname="c3">{% if responses.last_name_born_spouse %} {{ responses.last_name_born_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
+                    <td colname="c2">{% response responses.last_name_born_you %}</td>
+                    <td colname="c3">{% response responses.last_name_born_spouse %}</td>
                 </tr>
                 <tr>
                     <td> Surname immediately before marriage: </td>
-                    <td colname="c2">{% if responses.last_name_before_married_you %} {{ responses.last_name_before_married_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
-                    <td colname="c3">{% if responses.last_name_before_married_spouse %} {{ responses.last_name_before_married_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </td>
+                    <td colname="c2">{% response responses.last_name_before_married_you %}</td>
+                    <td colname="c3">{% response responses.last_name_before_married_spouse %}</td>
                 </tr>
                 <tr>
                     <td valign="top"> Marital status immediately before marriage: </td>
                     <td colname="c2">
-                        <p><i class="fa {% if responses.marital_status_before_you == 'Never married' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} never married</p>
-                        <p><i class="fa {% if responses.marital_status_before_you == 'Divorced' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} divorced</p>
-                        <p><i class="fa {% if responses.marital_status_before_you == 'Widowed' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} widowed</p>
+                      <p>{% checkbox marital_status_before_you='Never married' %} never married</p>
+                      <p>{% checkbox marital_status_before_you='Divorced' %} divorced</p>
+                      <p>{% checkbox marital_status_before_you='Widowed' %} widowed</p>
                     </td>
                     <td colname="c3">
-                        <p><i class="fa {% if responses.marital_status_before_spouse == 'Never married' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} never married</p>
-                        <p><i class="fa {% if responses.marital_status_before_spouse == 'Divorced' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} divorced</p>
-                        <p><i class="fa {% if responses.marital_status_before_spouse == 'Widowed' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} widowed</p>
+                      <p>{% checkbox marital_status_before_spouse='Never married' %} never married</p>
+                      <p>{% checkbox marital_status_before_spouse='Divorced' %} divorced</p>
+                      <p>{% checkbox marital_status_before_spouse='Widowed' %} widowed</p>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="1"> Place of marriage: [<em>city or town; province or state (optional); country</em>] </td>
-                    <td colspan="2">{% if responses.where_were_you_married_city and responses.where_were_you_married_country %}
-                        {{responses.where_were_you_married_city}}; {% if responses.where_were_you_married_prov %}{{responses.where_were_you_married_prov}};{% endif %}
-                            {% if responses.where_were_you_married_country == 'Other' %} {{ responses.where_were_you_married_other_country }}
-                            {% else %} {{responses.where_were_you_married_country}}{% endif %}
-                        {% else %}<span class="form-entry not-complete">&nbsp;</span>{% endif %}</td>
+                    <td colspan="1">
+                      Place of marriage: [<em>city or town; province or state (optional); country</em>]
+                    </td>
+                    <td colspan="2">
+                      {% if responses.where_were_you_married_city and responses.where_were_you_married_country %}
+                        {% response responses.where_were_you_married_city %};
+                        {% if responses.where_were_you_married_prov %}
+                          {% response responses.where_were_you_married_prov %};
+                        {% endif %}
+                        {% if responses.where_were_you_married_country == 'Other' %}
+                          {% response responses.where_were_you_married_other_country %}
+                        {% else %}
+                          {% response responses.where_were_you_married_country %}
+                        {% endif %}
+                      {% else %}
+                        <span class="form-entry not-complete">&nbsp;</span>
+                      {% endif %}
+                    </td>
                 </tr>
             </tbody>
         </table>
         <table class="table table-bordered table-fixed">
             <tbody>
                 <tr>
-                    <td colspan="2"> <strong> B. Grounds for claim for divorce: </strong></td>
+                    <td colspan="2"><strong>B. Grounds for claim for divorce:</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="2"> (i) <i class="fa {% if responses.separation_date %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} Claimant 1 and Claimant 2 have lived separate and apart since {% if responses.separation_date %} {{ responses.separation_date|date_formatter }} {% else %} <span class="form-entry not-complete">&nbsp;</span>{% endif %}</td>
+                    <td colspan="2">
+                      <span class="td-list-item">(i) {% checkbox responses.separation_date %}</span>
+                      Claimant 1 and Claimant 2 have lived separate and apart
+                      since {% response responses.separation_date %}
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <strong> AND </strong ></em> </td>
-                </tr>
-                <tr>
-                    <td colspan="2"> <i class="fa {% if responses.try_reconcile_after_separated == 'NO' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} Claimant 1 and Claimant 2 have not lived together since then </td>
-                </tr>
-                <tr>
-                    <td colspan="2"> <i class="fa {% if responses.try_reconcile_after_separated == 'YES' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} Claimant 1 and Claimant 2 have lived together again during the following period(s), in an unsuccessful attempt to reconcile: [<em>give dates of period(s)</em>] </td>
+                    <td colspan="2">
+                      <strong>AND</strong><br><br>
+                      <div>
+                        <span class="td-list-item">
+                          {% checkbox try_reconcile_after_separated='NO' %}
+                        </span>
+                        <div class="td-list-text">
+                          Claimant 1 and Claimant 2 have not lived together since then
+                        </div>
+                      </div>
+                      <div>
+                        <span class="td-list-item">
+                          {% checkbox try_reconcile_after_separated='YES' %}
+                        </span>
+                        <div class="td-list-text">
+                          Claimant 1 and Claimant 2 have lived together again
+                          during the following period(s), in an unsuccessful
+                          attempt to reconcile: <br>
+                          [<em>give dates of period(s)</em>]<br><br>
+                        </div>
+                      </div>
+                    </td>
                 </tr>
                 <tr>
                     {% multiple_values_to_list source=responses.reconciliation_period as periods %}
@@ -178,46 +246,104 @@
                     {% endif %}
                 </tr>
                 <tr>
-                    <td colspan="2"> (ii) <i class="fa fa-square-o" aria-hidden="true"></i> <strong> Other grounds </strong> , under section 8 (2) (b) of the <em> Divorce Act </em> (Canada): <span class="form-entry form-textarea not-complete">&nbsp;</span>
+                    <td colspan="2">
+                      <span class="td-list-item">(ii) {% checkbox False %}</span>
+                      <div class="td-list-text">
+                        <strong>Other grounds</strong>,
+                        under section 8 (2) (b) of the <em> Divorce Act </em> (Canada):
+                        <span class="form-entry form-textarea not-complete">&nbsp;</span>
+                      </div>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <strong> AND </strong> <br /><i class="fa fa-square-o" aria-hidden="true"></i> There has been no condonation of any act relied on under section 8 (2) (b) of the <em> Divorce Act </em> (Canada) as a ground for divorce.</td>
+                    <td colspan="2">
+                      <strong>AND</strong><br><br>
+                      <span class="td-list-item">{% checkbox False %}</span>
+                      <div class="td-list-text">
+                        There has been no condonation of any act relied on under
+                        section 8 (2) (b) of the <em> Divorce Act </em> (Canada)
+                        as a ground for divorce.
+                      </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
         <table class="table table-bordered table-fixed">
             <tbody>
                 <tr>
-                    <td colspan="2"> <strong> C. Claimant 1 and Claimant 2 confirm that: </strong> [<em>Check both of the following boxes.</em>] </td>
+                    <td colspan="2">
+                      <strong>C. Claimant 1 and Claimant 2 confirm
+                      that:</strong> [<em>Check both of the following
+                    boxes.</em>]
+                    </td>
                 </tr>
                 <tr>
-                    {% check_list source=responses.no_reconciliation_possible value='I agree' as is_no_reconciliation %}
-                    <td colspan="2"> <i class="fa {% if is_no_reconciliation %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There is no possibility of reconciliation. </td>
+                    <td colspan="2">
+                      <span class="td-list-item">{% checkbox no_reconciliation_possible='I agree' %}</span>
+                      There is no possibility of reconciliation.
+                    </td>
                 </tr>
                 <tr>
-                    {% check_list source=responses.no_collusion value='I agree' as is_no_collusion %}
-                    <td colspan="2"> <i class="fa {% if is_no_collusion %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There has been no collusion, as defined in section 11 (4) of the <em> Divorce Act </em> (Canada), in relation to this claim for divorce. </td>
+                    <td colspan="2">
+                      <span class="td-list-item">{% checkbox no_collusion='I agree' %}</span>
+                      There has been no collusion, as defined in section 11 (4)
+                      of the <em> Divorce Act </em> (Canada), in relation to
+                      this claim for divorce.
+                    </td>
                 </tr>
             </tbody>
         </table>
         <table class="table table-bordered table-fixed">
             <tbody>
                 <tr>
-                    <td colspan="2"> <strong> D. Proof of marriage: </strong><br />[<em>Check whichever one of the following boxes is correct and complete any required information.</em>] </td>
+                    <td colspan="2">
+                      <strong>D. Proof of marriage:</strong>
+                      [<em>Check whichever one of the following boxes is
+                        correct and complete any required information.</em>]
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <i class="fa {% if responses.original_marriage_certificate == 'YES' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} A certificate of marriage or registration of marriage has been filed. </td>
+                    <td colspan="2">
+                      <span class="td-list-item">{% checkbox original_marriage_certificate='YES' %}</span>
+                      A certificate of marriage or registration of marriage has been filed.
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <i class="fa {% if responses.original_marriage_certificate == 'NO' and responses.provide_certificate_later == 'YES' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} A certificate of marriage or registration of marriage is not being filed with this notice of joint family claim because
-                        <span class="form-entry form-textarea not-complete">{% if responses.provide_certificate_later_reason and responses.original_marriage_certificate == 'NO' and responses.provide_certificate_later == 'YES' %} {{ responses.provide_certificate_later_reason }}</span> {% else %} &nbsp;</span> {% endif %}
+                    <td colspan="2">
+                      <span class="td-list-item">
+                        {% checkbox original_marriage_certificate='NO' provide_certificate_later='YES' %}
+                      </span>
+                      <div class="td-list-text">
+                        A certificate of marriage or registration of marriage
+                        is not being filed with this notice of joint family
+                        claim because
+                        <span class="form-entry form-textarea not-complete">
+                          {% if responses.provide_certificate_later_reason and responses.original_marriage_certificate == 'NO' and responses.provide_certificate_later == 'YES' %}
+                            {{ responses.provide_certificate_later_reason }}
+                          {% endif %}
+                        </span>
                         <p>and the certificate will be filed before this claim is set down for trial or an application is made for an order of divorce.</p>
+                      </div>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <i class="fa {% if responses.original_marriage_certificate == 'NO' and not responses.provide_certificate_later == 'YES' %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} It is impossible to obtain a certificate of marriage or registration of marriage because:
-                        <span class="form-entry form-textarea not-complete">{% if responses.not_provide_certificate_reason and responses.original_marriage_certificate == 'NO' and not responses.provide_certificate_later == 'YES' %} {{ responses.not_provide_certificate_reason|striptags|linebreaksbr }}</span> {% else %} &nbsp;</span> {% endif %}
+                    <td colspan="2">
+                      <span class="td-list-item">
+                        {% if responses.provide_certificate_later != 'YES' %}
+                          {% checkbox original_marriage_certificate='NO' %}
+                        {% else %}
+                          {% checkbox False %}
+                        {% endif %}
+                      </span>
+                      <div class="td-list-text">
+                        It is impossible to obtain a certificate of marriage or
+                        registration of marriage because:
+                        <span class="form-entry form-textarea not-complete">
+                          {% if responses.not_provide_certificate_reason and responses.original_marriage_certificate == 'NO' and not responses.provide_certificate_later == 'YES' %}
+                            {{ responses.not_provide_certificate_reason|striptags|linebreaksbr }}
+                          {% endif %}
+                        </span>
+                      </div>
                     </td>
                 </tr>
             </tbody>
@@ -227,90 +353,144 @@
         <table class="table table-bordered">
             <tbody>
                 <tr>
-                    <td> <strong> Children: </strong> [<em>Check whichever one of the following boxes is correct and complete any required information.</em>] </td>
-                </tr>
-                <tr>
-                    {% check_list source=responses.children_financial_support value='NO' as children_of_marriage %}
-                    <td><i class="fa {% if responses.children_of_marriage == 'NO' or children_of_marriage%} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There are no children of the marriage, as defined by the <em> Divorce Act </em> (Canada), or children of whom Claimant 1 and Claimant 2 are parents within the meaning of the <em> Family Law Act </em> . </td>
-                </tr>
-                <tr>
-                    <td align="center"> [OR] </td>
-                </tr>
-                <tr>
-                    <td> <i class="fa {% if responses.children_of_marriage == 'YES' and not children_of_marriage %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} There are children of the marriage, as defined by the <em> Divorce Act </em> (Canada), or children of whom Claimant 1 and Claimant 2 are parents within the meaning of the <em> Family Law Act </em> , and those children are: </td>
-                </tr>
-                <tr>
                     <td>
-                        <table class="table table-fixed table-bordered">
-                            <tr>
-                                <td align="center"> Full name: </td>
-                                <td align="center"> Birth date:<br />[<em>dd/mmm/yyyy</em>] </td>
-                                <td align="center"> Resides with: </td>
-                            </tr>
-                            <tr>
-                                <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
-                                <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
-                                <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
-                            </tr>
-                            <tr>
-                                <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
-                                <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
-                                <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
-                            </tr>
-                            <tr>
-                                <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
-                                <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
-                                <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" align="center">[<em> if more space is required - attach page and state "See Attached"</em>] </td>
-                            </tr>
-                        </table>
-                    </td>
+                      <strong>Children:</strong>
+                      [<em>Check whichever one of the following boxes is
+                        correct and complete any required information.</em>]
+                      <br><br>
+                      <span class="td-list-item">{% checkbox children_of_marriage='NO' %}</span>
+                      <div class="td-list-text">
+                        There are no children of the marriage, as defined by
+                        the <em>Divorce Act</em> (Canada), or children of whom
+                        Claimant 1 and Claimant 2 are parents within the meaning
+                        of the <em>Family Law Act</em>.
+                      </div>
+                      <br><strong>OR</strong><br><br>
+                      <span class="td-list-item">{% checkbox children_of_marriage='YES' %}</span>
+                      <div class="td-list-text">
+                          There are children of the marriage, as defined by the
+                          <em>Divorce Act</em> (Canada), or children of whom
+                          Claimant 1 and Claimant 2 are parents within the meaning
+                          of the <em> Family Law Act </em> , and those children
+                          are:<br><br>
 
+                          <table class="table table-fixed table-bordered">
+                              <tr>
+                                  <th align="center">Full name:</th>
+                                  <th align="center">Birth date:<br />[<em>dd mmm yyyy</em>]</th>
+                                  <th align="center">Resides with:</th>
+                              </tr
+      {% for child in responses.children %}
+                              <tr>
+                                  <td align="center">{{ child.child_name }}</td>
+                                  <td align="center">{{ child.child_birth_date|date_formatter }} &nbsp;</td>
+                                  <td align="center">{{ child.child_live_with }}</td>
+                              </tr>
+      {% endfor %}
+                              <tr>
+                                  <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
+                                  <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
+                                  <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
+                              </tr>
+                              <tr>
+                                  <td colspan="3" style="text-align: center">
+                                    [<em>if more space is required - attach page and state "See Attached"</em>]
+                                  </td>
+                              </tr>
+                          </table>
+                      </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
-        {% comment "Out of scope for now %}
+
         <h3>4. Orders asked for in relation to children</h3>
         <table class="table table-bordered">
             <tbody>
                 <tr>
+                  <td colname="c2">
+                    <span class="td-list-item">
+                      A. {% checkbox responses.order_respecting_arrangement %}
+                    </span>
+                      <div class="td-list-text">
+                          Claimant 1 and Claimant 2 are asking for the following
+                          order respecting arrangements for parenting or
+                          contact:
+                          <span class="form-entry form-textarea not-complete form-list-textarea">
+                              {{ responses.order_respecting_arrangement }}
+                          </span>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
                     <td colname="c2">
-                        A <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for the following order respecting arrangements for parenting or contact: <span class="form-entry form-textarea not-complete">&nbsp;</span>
+                        <span class="td-list-item">
+                          B. {% checkbox responses.order_for_child_support %}
+                        </span>
+                        <div class="td-list-text">
+                            Claimant 1 and Claimant 2 are asking for an order for
+                            child support as follows:
+                            <span class="form-entry form-textarea not-complete form-list-textarea">
+                              {{ responses.order_for_child_support }}
+                            </span>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td colname="c2">
-                        B <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for child support as follows: <span class="form-entry form-textarea not-complete">&nbsp;</span>
-
+                        <span class="td-list-item">
+                          C. {% checkbox responses.child_support_act %}
+                        </span>
+                        <div class="td-list-text">
+                          Claimant 1 and Claimant 2 are asking for the orders
+                          under paragraphs A and B of this section under the
+                          following statute(s):<br>
+                          [<em>Check one or both of the following boxes, as
+                            applicable.</em>]<br><br>
+                          {% checkbox child_support_act='the Divorce Act (Canada)' %}
+                          the <em>Divorce Act</em> (Canada)
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          {% checkbox child_support_act='the Family Law Act' %}
+                          the <em>Family Law Act</em>
+                        </div>
                     </td>
-                </tr>
-                <tr>
-                    <td colname="c2"> C <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for the orders under paragraphs A and B of this section under the following statute(s): <em> [Check one or both of the following boxes, as applicable.] </em>                        </td>
-                </tr>
-                <tr>
-                    <td> <i class="fa fa-square-o" aria-hidden="true"></i> the <em> Divorce Act </em> (Canada) <i class="fa fa-square-o" aria-hidden="true"></i> the <em> Family Law Act </em> </td>
                 </tr>
             </tbody>
         </table>
-        {% endcomment %}
 
         <h3>5. Spousal support</h3>
         <table class="table table-bordered">
             <tbody>
                 <tr>
-                    {% check_list source=responses.want_which_orders value='Spousal support' as order_wanted %}
-                    <td colname="c2"> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for spousal support as follows:
-                      <span class="form-entry form-textarea not-complete">{% if order_wanted and responses.spouse_support_details %}<ul>{{responses.spouse_support_details|striptags|linebreaksli }}</ul>{% else %} &nbsp; {% endif %}</span>
+                    <td colname="c2">
+                      <span class="td-list-item">{% checkbox want_which_orders='Spousal support' %}</span>
+                        <div class="td-list-text">
+                          Claimant 1 and Claimant 2 are asking for an order for spousal support as follows:<br>
+                          <span class="form-entry form-textarea not-complete">
+                          {% if 'Spousal support' in orders and responses.spouse_support_details %}
+                          <ul>{{responses.spouse_support_details|striptags|linebreaksli }}</ul>
+                          {% endif %}
+                          </span>
+                        </div>
                     </td>
                 </tr>
                 <tr>
-                    <td colname="c2"> <i class="fa {% if responses.spouse_support_act and order_wanted %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} Claimant 1 and Claimant 2 are asking for an order for spousal support under [<em>Check one or both of the following boxes, as applicable.</em>] </td>
-                </tr>
-                <tr>
-                    <td> <i class="fa {% if responses.spouse_support_act == 'The Divorce Act (Canada)' and order_wanted %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} the <em> Divorce Act </em> (Canada)
-                         <i class="fa {% if responses.spouse_support_act == 'The Family Law Act' and order_wanted %} fa-check-square-o" aria-hidden="true"></i>{% else %} fa-square-o" aria-hidden="true"></i> {% endif %} the <em> Family Law Act </em> </td>
+                    <td colname="c2">
+                        <span class="td-list-item">
+                          {% checkbox responses.spouse_support_act want_which_orders='Spousal support' %}
+                        </span>
+                        <div class="td-list-text">
+                          Claimant 1 and Claimant 2 are asking for an order for spousal support under:<br>
+                         [<em>Check one or both of the following boxes, as applicable.</em>]
+                          <br><br>
+                          {% checkbox want_which_orders='Spousal support' spouse_support_act='The Divorce Act (Canada)' %}
+                          the <em> Divorce Act </em> (Canada)
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          {% checkbox want_which_orders='Spousal support' spouse_support_act='The Family Law Act' %}
+
+                          the <em> Family Law Act </em>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -319,26 +499,52 @@
         <table class="table table-bordered">
             <tbody>
                 <tr>
-                    <td> <strong> A Property claims under the <em> Family Law Act </em> </strong> </td>
-                </tr>
-                <tr>
-                    {% check_list source=responses.want_which_orders value='Division of property and debts' as order_wanted %}
-                    <td> <i class="fa {% if order_wanted %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 are asking for an order for: <br /><em> </td>
-                </tr>
-                <tr>
-                    <td> <i class="fa {% if responses.deal_with_property_debt == 'Equal division' and order_wanted %} fa-check-square-o {% else %} fa-square-o{% endif %}" aria-hidden="true"></i> an equal division of family property and family debt </td>
-                </tr>
-                <tr>
-                    <td> <i class="fa {% if responses.deal_with_property_debt == 'Unequal division' and order_wanted %} fa-check-square-o {% else %} fa-square-o{% endif %}" aria-hidden="true"></i> an unequal division of family property and family debt as follows:
-                      <span class="form-entry form-textarea not-complete">{% if responses.deal_with_property_debt == 'Unequal division' and responses.how_to_divide_property_debt and order_wanted %}<ul>{{ responses.how_to_divide_property_debt|striptags|linebreaksli }}</ul>{% else %}&nbsp;{% endif %}</span>
+                    <td>
+                      <div><strong>A. Property claims under the <em>Family Law Act</em></strong><br><br></div>
+                      <span class="td-list-item">
+                        {% checkbox want_which_orders='Division of property and debts' %}
+                      </span>
+                      <div class="td-list-text">
+                        Claimant 1 and Claimant 2 are asking for an order for:<br><br>
+                        <div>
+                          <span class="td-list-item">
+                            {% checkbox want_which_orders='Division of property and debts' deal_with_property_debt='Equal division' %}
+                          </span>
+                          <div class="td-list-text">
+                            an equal division of family property and family debt<br><br>
+                          </div>
+                        </div>
+                        <div>
+                          <span class="td-list-item">
+                            {% checkbox want_which_orders='Division of property and debts' deal_with_property_debt='Unequal division' %}
+                          </span>
+                          <div class="td-list-text">
+                            an unequal division of family property and family debt as follows:
+                            <span class="form-entry form-textarea not-complete">
+                              {% if responses.deal_with_property_debt == 'Unequal division' and responses.how_to_divide_property_debt and responses.want_which_orders == 'Division of property and debts' %}
+                              <ul>{{ responses.how_to_divide_property_debt|striptags|linebreaksli }}</ul>
+                              {% endif %}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                 </tr>
                 <tr>
-                    <td> <strong> B Other property claims </strong> </td>
-                </tr>
-                <tr>
-                    <td> <i class="fa {% if responses.other_property_claims %} fa-check-square-o {% else %} fa-square-o{% endif %}" aria-hidden="true"></i> Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows:
-                      <span class="form-entry form-textarea not-complete">{% if responses.other_property_claims %} <ul>{{ responses.other_property_claims|striptags|linebreaksli }}</ul> {% else %}&nbsp;{% endif %}</span> </td>
+                    <td>
+                      <div><strong>B. Other property claims</strong><br><br></div>
+                      <span class="td-list-item">{% checkbox responses.other_property_claims %}</span>
+                        <div class="td-list-text">
+                          Claimant 1 and Claimant 2 ask for an order respecting
+                          an interest in property or for compensation instead
+                          of an interest in that property, as follows:<br>
+                          <span class="form-entry form-textarea not-complete">
+                            {% if responses.other_property_claims %}
+                              <ul>{{ responses.other_property_claims|striptags|linebreaksli }}</ul>
+                            {% endif %}
+                          </span>
+                      </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -349,7 +555,14 @@
                 <tr>
                     {% check_list source=responses.want_which_orders value='Other orders' as order_wanted %}
                     <td>
-                        <i class="fa {% if order_wanted and responses.other_orders_detail or responses.name_change_you == 'YES' or  responses.name_change_spouse == 'YES' %} fa-check-square-o {% else %} fa-square-o {% endif %}" aria-hidden="true"></i>
+                      <span class="td-list-item">
+                        {% if order_wanted and responses.other_orders_detail or responses.name_change_you == 'YES' or responses.name_change_spouse == 'YES' %}
+                          {% checkbox %}
+                        {% else %}
+                          {% checkbox False %}
+                        {% endif %}
+                      </span>
+                        <div class="td-list-text">
                         Claimant 1 and Claimant 2 are asking for an order in the
                         following terms:
 
@@ -374,13 +587,12 @@
                               to take effect on {% effective_date %}.
                             </li>
                           {% endif %}
-
-
                           </ul>
                         </span>
                         <p class="text-center">
                             [<em>set out terms of proposed order</em>]
                         </p>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -388,32 +600,75 @@
 
         <h3 class="force-break">8. Claimants' addresses for service</h3>
         <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <td>
-                        <p>Claimant 1:
-                          {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_country_you and responses.address_to_send_official_document_postal_code_you %}
-                          {{ responses.address_to_send_official_document_street_you }}, {{ responses.address_to_send_official_document_city_you }},
-                          {% if responses.address_to_send_official_document_prov_you %}
-                              {{ responses.address_to_send_official_document_prov_you }},
-                          {% endif %}
-                          {% if responses.address_to_send_official_document_country_you == 'Other' %} {{ responses.address_to_send_official_document_other_country_you }}{% else %} {{ responses.address_to_send_official_document_country_you }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
-                        <p>Fax (optional) {% if responses.address_to_send_official_document_fax_you %} {{ responses.address_to_send_official_document_fax_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
-                        <p>E-mail (optional) {% if responses.address_to_send_official_document_email_you %} {{ responses.address_to_send_official_document_email_you }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
-                    </td>
-                    <td colname="c2">
-                        <p>Claimant 2:
-                          {% if responses.address_to_send_official_document_street_spouse and responses.address_to_send_official_document_city_spouse and responses.address_to_send_official_document_country_spouse and responses.address_to_send_official_document_postal_code_spouse %}
-                          {{ responses.address_to_send_official_document_street_spouse }}, {{ responses.address_to_send_official_document_city_spouse }},
-                          {% if responses.address_to_send_official_document_prov_spouse %}
-                          {{ responses.address_to_send_official_document_prov_spouse }},
-                          {% endif %}
-                          {% if responses.address_to_send_official_document_country_spouse == 'Other' %} {{ responses.address_to_send_official_document_other_country_spouse }}{% else %} {{ responses.address_to_send_official_document_country_spouse }}{% endif %}, {{ responses.address_to_send_official_document_postal_code_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
-                        <p>Fax (optional) {% if responses.address_to_send_official_document_fax_spouse %} {{ responses.address_to_send_official_document_fax_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
-                        <p>E-mail (optional) {% if responses.address_to_send_official_document_email_spouse %} {{ responses.address_to_send_official_document_email_spouse }} {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %} </p>
-                    </td>
-                </tr>
-            </tbody>
+          <tbody>
+            <tr>
+              <td>
+                <p>Claimant 1:
+                {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_country_you and responses.address_to_send_official_document_postal_code_you %}
+                  {{ responses.address_to_send_official_document_street_you }}, {{ responses.address_to_send_official_document_city_you }},
+                  {% if responses.address_to_send_official_document_prov_you %}
+                    {{ responses.address_to_send_official_document_prov_you }},
+                  {% endif %}
+                  {% if responses.address_to_send_official_document_country_you == 'Other' %}
+                    {{ responses.address_to_send_official_document_other_country_you }}
+                  {% else %}
+                    {{ responses.address_to_send_official_document_country_you }}
+                  {% endif %},
+                  {{ responses.address_to_send_official_document_postal_code_you }}
+                {% else %}
+                  <span class="form-entry not-complete">&nbsp;</span>
+                {% endif %}
+                </p>
+                <p>Fax (optional)
+                {% if responses.address_to_send_official_document_fax_you %}
+                  {{ responses.address_to_send_official_document_fax_you }}
+                {% else %}
+                  <span class="form-entry not-complete">&nbsp;</span>
+                {% endif %}
+                </p>
+                <p>E-mail (optional)
+                {% if responses.address_to_send_official_document_email_you %}
+                  {{ responses.address_to_send_official_document_email_you }}
+                {% else %}
+                  <span class="form-entry not-complete">&nbsp;</span>
+                {% endif %}
+                </p>
+              </td>
+              <td colname="c2">
+                <p>Claimant 2:
+                  {% if responses.address_to_send_official_document_street_spouse and responses.address_to_send_official_document_city_spouse and responses.address_to_send_official_document_country_spouse and responses.address_to_send_official_document_postal_code_spouse %}
+                    {{ responses.address_to_send_official_document_street_spouse }}, {{ responses.address_to_send_official_document_city_spouse }},
+                    {% if responses.address_to_send_official_document_prov_spouse %}
+                      {{ responses.address_to_send_official_document_prov_spouse }},
+                    {% endif %}
+                    {% if responses.address_to_send_official_document_country_spouse == 'Other' %} {{ responses.address_to_send_official_document_other_country_spouse }}
+                    {% else %}
+                    {{ responses.address_to_send_official_document_country_spouse }}
+                    {% endif %},
+                    {{ responses.address_to_send_official_document_postal_code_spouse }}
+                  {% else %}
+                    <span class="form-entry not-complete">&nbsp;</span>
+                  {% endif %}
+                </p>
+                <p>
+                  Fax (optional)
+                  {% if responses.address_to_send_official_document_fax_spouse %}
+                    {{ responses.address_to_send_official_document_fax_spouse }}
+                  {% else %}
+                  <span class="form-entry not-complete">&nbsp;</span>
+                  {% endif %}
+                </p>
+                <p>
+                  E-mail (optional)
+                  {% if responses.address_to_send_official_document_email_spouse %}
+                    {{ responses.address_to_send_official_document_email_spouse }}
+                  {% else %}
+                    <span class="form-entry not-complete">&nbsp;</span>
+                  {% endif %}
+                </p>
+              </td>
+            </tr>
+          </tbody>
         </table>
 
         <table class="table sig-table">
@@ -426,7 +681,7 @@
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
+                    <td class="sig-col2 sig-line-text">[dd mmm yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
                         <p>
@@ -434,8 +689,6 @@
                         </p>
                         <p>
                             <i class="fa fa-square-o" aria-hidden="true"></i> Claimant 1 <i class="fa fa-square-o" aria-hidden="true"></i> lawyer for Claimant 1
-                            jj:q
-
                         </p>
                     </td>
                 </tr>
@@ -452,7 +705,7 @@
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
+                    <td class="sig-col2 sig-line-text">[dd mmm yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
                         <p>
@@ -495,7 +748,7 @@
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
+                    <td class="sig-col2 sig-line-text">[dd mmm yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
                         <p>
@@ -518,17 +771,17 @@
             I, <span class="form-entry not-complete">&nbsp;</span> , lawyer for <span class="form-entry not-complete">&nbsp;</span> [<em>name of party</em>], <br />certify that I have complied with section 9 of the <em> Divorce Act </em> (Canada), which
             says:
         </p>
-        <p class="schIndent1">
+        <p>
             <strong> 9 </strong> (1) It is the duty of every barrister, solicitor, lawyer or advocate who undertakes to act on behalf of a spouse in a divorce proceeding
         </p>
-        <p class="schIndent2">
+        <p>
             (a) to draw to the attention of the spouse the provisions of this Act that have as their object the reconciliation of spouses, and
         </p>
-        <p class="schIndent2">
+        <p>
             (b) to discuss with the spouse the possibility of the reconciliation of the spouses and to inform the spouse of the marriage counselling or guidance facilities known to him or her that might be able to assist the spouses to achieve a reconciliation, unless
             the circumstances of the case are of such a nature that it would clearly not be appropriate to do so.
         </p>
-        <p class="schIndent1">
+        <p>
             (2) It is the duty of every barrister, solicitor, lawyer or advocate who undertakes to act on behalf of a spouse in a divorce proceeding to discuss with the spouse the advisability of negotiating the matters that may be the subject of a support order
             or a custody order and to inform the spouse of the mediation facilities known to him or her that might be able to assist the spouses in negotiating those matters.
         </p>
@@ -543,7 +796,7 @@
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
+                    <td class="sig-col2 sig-line-text">[dd mmm yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
                         <p>

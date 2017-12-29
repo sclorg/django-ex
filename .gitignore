@@ -69,4 +69,5 @@ target/
 # Noise
 .DS_Store
 .sass-cache/
-edivorce/apps/core/static/css/main.css.map
+*.map
+

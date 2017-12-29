@@ -1,3 +1,5 @@
+import json
+
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 import requests
@@ -16,7 +18,15 @@ def form(request, form_number):
     """
     responses = get_responses_from_db(request.user)
 
-    if form_number == "38_claimant1":
+    if form_number == "1":
+        # Add an array of children that includes blanks for possible children
+        under = int(responses.get('number_children_under_19') or 0)
+        over = int(responses.get('number_children_under_19') or 0)
+        actual = json.loads(responses.get('claimant_children', '[]'))
+        total = len(actual)
+        responses["children"] = [actual[i] if i < total else {}
+                                 for i in range(0, max(under + over, total))]
+    elif form_number == "38_claimant1":
         form_number = "38"
         responses = __add_claimant_info(responses, '_you')
         responses["which_claimant"] = "Claimant 1"
@@ -25,11 +35,10 @@ def form(request, form_number):
         responses = __add_claimant_info(responses, '_spouse')
         responses["which_claimant"] = "Claimant 2"
 
-    return __render_form(request, 'form%s' % form_number,
-                       {
-                           "css_root": settings.WEASYPRINT_CSS_LOOPBACK,
-                           "responses" : responses
-                       })
+    return __render_form(request, 'form%s' % form_number, {
+        "css_root": settings.WEASYPRINT_CSS_LOOPBACK,
+        "responses": responses
+    })
 
 
 def __render_form(request, form_name, context):

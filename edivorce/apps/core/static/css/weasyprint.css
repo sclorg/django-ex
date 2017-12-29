@@ -86,6 +86,14 @@ i.fa {
     table-layout: fixed;
 }
 
+.table-fixed th {
+    text-align: center;
+}
+
+.table-fixed td {
+    text-align: left;
+}
+
 .sig-table td.underline {
     border-bottom: 1px solid black;
 }
@@ -121,3 +129,29 @@ ol.numbered-paragraphs li {
   padding-left: 1.5em;
 }
 
+.list-td {
+  padding-left: 4em; 
+}
+
+.td-list-item {
+  margin-left: -0.75em;
+  display: inline-block;
+  width: 5em;
+  float: left;
+  text-align: right;
+  padding-right: 0.5em;
+}
+
+.td-list-item .fa {
+  margin-top: -5px;
+  width: 30px;
+  text-align: left;
+}
+
+.td-list-text {
+  padding-left: 4em;
+}
+
+.td-list-text .form-textarea {
+  margin-left: 0em;
+}
