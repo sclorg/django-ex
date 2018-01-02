@@ -235,7 +235,7 @@ $(function () {
             reveal_class: "income-others-item-row"
         },
         {
-            table_selector: "#your_children_table",
+            table_selector: "#claimant_children",
             add_button_selector: "#btn_add_child",
             delete_button_selector: ".btn-delete-child",
             input_field_selector: ".child-field",
@@ -275,6 +275,7 @@ $(function () {
                 // If the user clicks on the row, then should populate the input fields below the table
                 // with the contents of the row.
                 newElement.on('click', populateChildInputFields);
+                $('.children-list').hide();
             },
             customDeleteAction: function(settings, element) {
                 $('[type=radio]').prop('checked', false);
@@ -303,10 +304,10 @@ $(function () {
 
     var populateChildInputFields = function() {
         $('.children-questions').show();
-        $('.child-item-row').removeClass('table-cell-active');
-        $(this).closest('tr').addClass('table-cell-active');
+        $('.children-list').hide();
 
         $('[type=radio]').prop('checked', false);
+
         var activeChildRow = $(this).attr('data-counter');
         $(this).find('.child-field').each(function() {
             var fieldName = $(this).attr('data-target-form-field');
@@ -328,10 +329,14 @@ $(function () {
     };
 
     $('.child-item-row').on('click', populateChildInputFields);
-    $('#btn_save_child').on('click', function() {
+    $('#btn_save_child').on('click', function(e) {
+        e.preventDefault();
+        $('.children-questions').hide();
+        $('.children-list').show();
+
         var childrenData = [];
         // The hidden row is the first now so make sure to skip it.
-        $('#your_children_table').find('tbody:first').find('tr:gt(0)').each(function() {
+        $('#claimant_children').find('tbody:first').find('tr:gt(0)').each(function() {
            var childData = {};
             $(this).find('.child-field').each(function() {
                childData[$(this).attr('data-target-form-field')] = $(this).text();
@@ -630,7 +635,20 @@ var deleteAddedTableRow = function(element) {
     tableRows.each(function() {
         var item = {};
         $(this).find(saveSelector).each(function() {
-            item[$(this).prop('name')] = $(this).val();
+            var fieldKey = $(this).prop('name');
+
+            // For some tables, the contents of the tables cells are div instead of input fields.
+            // In that case, check if the data-target-form-field attribute is set, that will contain
+            // the field names to be saved.
+            if (fieldKey === undefined) {
+                fieldKey = $(this).attr('data-target-form-field')
+            }
+
+            var fieldValue = $(this).val();
+            if ($(this).is('div')) {
+                fieldValue = $(this).text();
+            }
+            item[fieldKey] = fieldValue;
         });
         payload.push(item);
     });
@@ -712,7 +730,6 @@ var date_picker = function (selector, showOnFocus) {
     }
     $(selector).datepicker({
         format: "M d, yyyy",
-        // format: "dd/mm/yyyy",
         startDate: startDate,
         endDate: endDate,
         autoclose: true,
