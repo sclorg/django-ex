@@ -377,14 +377,14 @@ $(function () {
     // if user still wants to proceed(click next again), let them proceed to next page
     // DIV-529 Separate alert for child support
     $('input[name="want_which_orders"]').on('click', function() {
-        if ($(".checkbox-group input:checkbox").not(":checked").length === 0 ) {
-            $("#unselected_orders_alert").hide();
+        if ($('.show-order-alert-input').not(':checked').length === 0 ) {
+            $('#unselected_orders_alert').hide();
         }
 
         // If the user has clicked the next button once, then make
         if($('#check_order_selected').data('proceed') === true) {
             if ($('.show-order-alert-input').not(':checked').length > 0 ) {
-                $("#unselected_orders_alert").show();
+                $('#unselected_orders_alert').show();
             }
         }
     });
