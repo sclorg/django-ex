@@ -1314,5 +1314,101 @@
     },
     "model": "core.question",
     "pk": "spouse_proportionate_share_amount"
+},
+{
+    "fields": {
+        "name": "Number of children",
+        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "number_of_children"
+},
+{
+    "fields": {
+        "name": "What is the approximate amount of time the children spend with each parent?",
+        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "time_spent_with_you"
+},
+{
+    "fields": {
+        "name": "What is the approximate amount of time the children spend with each parent?",
+        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "time_spent_with_spouse"
+},
+{
+    "fields": {
+        "name": "What is the monthly amount for child support (as per Federal Child Support Guidelines)?",
+        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "your_child_support_paid"
+},
+{
+    "fields": {
+        "name": "What is the monthly amount for child support (as per Federal Child Support Guidelines)?",
+        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "your_spouse_child_support_paid"
+},
+{
+    "fields": {
+        "name": "Special or extraordinary expenses (as per Section 7 of the Federal Child Support Guidelines) to be paid annually",
+        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "extra_ordinary_expenses_you"
+},
+{
+    "fields": {
+        "name": "Special or extraordinary expenses (as per Section 7 of the Federal Child Support Guidelines) to be paid annually",
+        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "extra_ordinary_expenses_spouse"
+},
+{
+    "fields": {
+        "name": "Any other relevant information regarding the conditions, means, needs and other circumstances of each spouse or of any child for whom support is sought?",
+        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "additional_relevant_spouse_children_info"
 }
 ]

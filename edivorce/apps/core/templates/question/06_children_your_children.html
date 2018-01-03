@@ -285,10 +285,10 @@
                     What is the approximate amount of time the children spend with each parent?
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="time_spent_with_you" value="0" class="fact-sheet-input"  %}
+                    {% input_field type="number" name="time_spent_with_you" class="fact-sheet-input"  %}
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="time_spent_with_spouse" value="0" class="fact-sheet-input" %}
+                    {% input_field type="number" name="time_spent_with_spouse" class="fact-sheet-input" %}
                 </td>
             </tr>
             <tr>
@@ -329,12 +329,12 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="your_child_support_paid" value="0" class="fact-sheet-input" %}
+                        {% money_input_field name="your_child_support_paid" class="fact-sheet-input claimants-child-support-amounts" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_between_claimants]" %}
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="your_spouse_child_support_paid" value="0" class="fact-sheet-input" %}
+                        {% money_input_field name="your_spouse_child_support_paid" class="fact-sheet-input claimants-child-support-amounts" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_between_claimants]" %}
                     </div>
                 </td>
             </tr>
@@ -402,7 +402,7 @@
                    Difference between the Guidelines table amount of the claimant and the Guidelines table amount of the respondent
                 </td>
                 <td class="fact-sheet-answer" colspan="2" readonly>
-                    {% input_field type="number" name="difference_between_claimants" value="0" class="fact-sheet-input" readonly="" %}
+                    {% input_field type="number" name="difference_between_claimants" value="" class="fact-sheet-input" readonly="" %}
                 </td>
             </tr>
             <tr>
@@ -420,25 +420,25 @@
                     ) to be paid annually
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="extra_ordinary_expenses_you" value="0" class="fact-sheet-input" %}
+                    {% input_field type="number" name="extra_ordinary_expenses_you" class="fact-sheet-input" %}
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="extra_ordinary_expenses_spouse" value="0" class="fact-sheet-input" %}
+                    {% input_field type="number" name="extra_ordinary_expenses_spouse" class="fact-sheet-input" %}
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
                     Any other relevant information regarding the conditions, means, needs and other circumstances of
                     each spouse or of any child for whom support is sought?
-                    {% input_field type="textarea" name="additional_relevant_spouse_children_info" value="" maxlength="500" rows="3" class="fact-sheet-input" %}
+                    {% input_field type="textarea" name="additional_relevant_spouse_children_info" maxlength="500" rows="3" class="fact-sheet-input form-control response-textarea" %}
                 </td>
             </tr>
             <tr>
                 <td class="fact-sheet-question">
                    Amount of child support to be paid per month by < Claimant 1 or Claimant 2>
                 </td>
-                <td colspan="2">
-                    {{ difference_between_claimants }}
+                <td class="fact-sheet-answer" colspan="2" readonly>
+                    {% input_field type="number" name="difference_between_claimants" value="" class="fact-sheet-input" readonly="" %}
                 </td>
             </tr>
         </tbody>

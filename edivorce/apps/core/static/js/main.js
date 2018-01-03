@@ -59,6 +59,16 @@ $(function () {
     //                                      be persisted to the server.
     $('[data-save_row="true"]').on('change', saveListControlRow);
 
+    // All elements tagged with the following delta related data attributes
+    // will have the delta between the two amounts calculated and the result written to
+    // the html elements at the delta target selector. Will store the absolute value of the difference
+    // of the terms.
+    //      data-calc_delta=[true|false] - indicates input field should be included as term in the delta
+    //      data-delta_term_selector=[selector] - all elements with the same delta class identifier will be
+    //                                      addends of the delta.
+    //      data-delta_target_selector=[selector] - all of the html elements where result of difference will be written
+    $('[data-calc_delta="true"]').on('change', deltaFieldOnChange);
+    $('[data-calc_delta="true"]').each(deltaFieldOnChange);
 
     var fraction = function(part1, part2) {
         part1 = parseFloat(part1);
@@ -772,6 +782,20 @@ var sumFields = function(addend_selector, sum_selector) {
             $(sum_selector).trigger("change");
         }
     }
+};
+
+
+var deltaFieldOnChange = function() {
+    var deltaTermSelector = $(this).attr('data-delta_term_selector');
+    var deltaTargetSelector = $(this).attr('data-delta_target_selector');
+
+    var delta = 0;
+    $(deltaTermSelector).each(function(){
+        delta = Math.abs($(this).val() - delta);
+    });
+    $(deltaTargetSelector).each(function() {
+       $(this).val(delta);
+    });
 };
 
 // Configuration for datepicker
