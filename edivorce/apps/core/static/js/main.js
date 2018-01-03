@@ -276,6 +276,7 @@ $(function () {
                 // with the contents of the row.
                 newElement.on('click', populateChildInputFields);
                 $('.children-list').hide();
+                $('.fact-sheets').hide();
             },
             customDeleteAction: function(settings, element) {
                 $('[type=radio]').prop('checked', false);
@@ -305,6 +306,7 @@ $(function () {
     var populateChildInputFields = function() {
         $('.children-questions').show();
         $('.children-list').hide();
+        $('.fact-sheets').hide();
 
         $('[type=radio]').prop('checked', false);
 
@@ -328,6 +330,57 @@ $(function () {
         });
     };
 
+    var populateChildrenFactSheets = function() {
+        var childrenData = [];
+
+        // The hidden row is the first now so make sure to skip it.
+        $('#claimant_children').find('tbody:first').find('tr:gt(0)').each(function() {
+           var childData = {};
+            $(this).find('.child-field').each(function() {
+               childData[$(this).attr('data-target-form-field')] = $(this).text();
+            });
+
+            childrenData.push(childData);
+        });
+
+        var childWithBoth = false;
+        var childWithYou = 0;
+        var childWithSpouse = 0;
+        var childWithOther = 0;
+        childrenData.forEach(function(child) {
+            if (child.child_live_with === 'Lives with both') {
+                childWithBoth |= true;
+            }
+            if (childrenData.length > 1 ) {
+                if (child.child_live_with === 'Lives with you' ) {
+                    childWithYou += 1;
+                }
+                if (child.child_live_with === 'Lives with spouse') {
+                    childWithSpouse +=1 ;
+                }
+                if (child.child_live_with === 'Other') {
+                    childWithOther +=1 ;
+                }
+            }
+        });
+
+        // show fact sheet b
+        if (childWithBoth) {
+            $('#fact_sheet_b').show();
+        } else {
+            $('#fact_sheet_b').hide();
+        }
+
+        // show fact sheet c
+        if (childWithYou === 1 && (childWithSpouse > 0 || childWithOther > 0 || childWithBoth)) {
+            $('#fact_sheet_c').show();
+        } else if (childWithSpouse === 1 && (childWithYou > 0 || childWithOther > 0 || childWithBoth)) {
+            $('#fact_sheet_c').show();
+        } else {
+            $('#fact_sheet_c').hide();
+        }
+    };
+
     $('.child-item-row').on('click', populateChildInputFields);
     $('#btn_save_child').on('click', function(e) {
         e.preventDefault();
@@ -341,11 +394,15 @@ $(function () {
             $(this).find('.child-field').each(function() {
                childData[$(this).attr('data-target-form-field')] = $(this).text();
             });
-
             childrenData.push(childData);
         });
         var jsonChildrenData = JSON.stringify(childrenData);
         ajaxCall($(this).prop('name'), jsonChildrenData);
+        populateChildrenFactSheets();
+    });
+
+    $('#claimant_children').each(function(){
+        populateChildrenFactSheets();
     });
 
     $("#btn_add_reconciliation_periods").on('click', function () {
@@ -701,7 +758,7 @@ var sumFieldOnChange = function() {
 var sumFields = function(addend_selector, sum_selector) {
     var total = 0.0;
     $(addend_selector).each(function () {
-        if ($(this).val() !== undefined && $(this).val().length != 0) {
+        if ($(this).val() !== undefined && $(this).val().length !== 0) {
             total += parseFloat($(this).val());
         }
     });
