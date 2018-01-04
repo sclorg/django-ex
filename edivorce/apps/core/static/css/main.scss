@@ -147,6 +147,7 @@ input[type=number]::-webkit-outer-spin-button {
 .table > thead > tr > td,
 .table > thead > tr > th {
 	padding: 12px 16px;
+	vertical-align: top;
 }
 
 .fact-sheet-question{
@@ -956,6 +957,21 @@ textarea {
 		-webkit-transition: 0.1s ease-in-out all;
 		transition: 0.1s ease-in-out all;
 	}
+
+	h3 {
+		margin-top: 0;
+	}
+
+	p {
+		max-width: 90%;
+	}
+}
+
+.question-well-border-less {
+	min-height: 20px;
+	padding: 25px 25px 25px 0;
+	margin-top: 25px;
+	background: #ffffff;
 
 	h3 {
 		margin-top: 0;
