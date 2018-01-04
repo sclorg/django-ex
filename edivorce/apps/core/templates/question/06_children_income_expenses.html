@@ -1117,6 +1117,76 @@
             </p>
         </div>
     </div>
+
+    {% if children_financial_support != 'NO'%}
+    <div id="fact_sheet_d" class="question-well">
+        <h1>Fact Sheet D Child(ren) 19 Years or Older</h1>
+
+        <div class="question-well">
+            <p>
+                How many child(ren) are 19 years or older for whom you are asking for support?
+            </p>
+            <div>
+                {% input_field type="number" name="number_children_over_19_need_support" class="fact-sheet-input input-narrow" %}
+            </div>
+        </div>
+
+        <div class="question-well">
+            <p>
+                What is the monthly amount that {{ conditional_logic_based_on_input }} will be paying for child support
+                (as per
+                {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-5.html#h-9" link_text="Schedule 1" %}
+                .
+                of the
+                {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-11.html#h-15" link_text="Federal Child Support Guidelines" %}
+                )?
+            </p>
+            <div>
+                <div class="dollar-prefix">
+                    {% money_input_field name="total_spouse_paid_child_support" class="fact-sheet-input money input-narrow" %}
+                </div>
+            </div>
+            {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_calculate_amounts" %}
+        </div>
+
+        <div class="question-well">
+            <p>
+                Do you and your spouse agree that the monthly Guidelines table amount for child support is appropriate?
+            </p>
+            <div class="btn-radio-group" data-toggle="buttons">
+                <label class="btn btn-radio">
+                    {% input_field type="radio" name="agree_to_child_support_amount" class="fact-sheet-input" autocomplete="off" value="YES" data_target_id="enter_appropriate_amount" data_reveal_target="true" %}
+                    Yes
+                </label>
+
+                <label class="btn btn-radio">
+                    {% input_field type="radio" name="agree_to_child_support_amount" class="fact-sheet-input" autocomplete="off" value="NO" data_target_id="enter_appropriate_amount" data_reveal_target="false" %}
+                    No
+                </label>
+            </div>
+            <div id="enter_appropriate_amount" hidden>
+                <p>
+                    What would be the appropriate amount?
+                </p>
+
+                <div class="dollar-prefix">
+                    {% money_input_field name="total_spouse_paid_child_support" class="fact-sheet-input money" %}
+                </div>
+                <p>
+                    Please describe - Why do you think the court should approve your proposed amount?
+                </p>
+                <p>
+                    Describe the condition, means, needs, and other circumstances of the child, and the financial
+                    ability of
+                    each parent to provide support to the child.
+                </p>
+                <div>
+                    {% input_field type="textarea" name="suggested_child_support" class="fact-sheet-input form-control response-textarea" maxlength="512" rows="5" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}
 
 
