@@ -460,7 +460,7 @@
                     How many children spend more than 60 percent of their time with you and for whom you are asking for support?
                 </td>
                 <td class="fact-sheet-answer table-bordered">
-                    {% input_field type="number" name="number_of_children_claimant" value="0" class="fact-sheet-input" %}
+                    {% input_field type="number" name="number_of_children_claimant" class="fact-sheet-input" %}
                 </td>
             </tr>
             <tr>
@@ -491,7 +491,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="spouse_annual_income" value="0.0" class="fact-sheet-input money" %}
+                        {% money_input_field name="spouse_annual_income" class="fact-sheet-input money" %}
                     </div>
                 </td>
             </tr>
@@ -505,7 +505,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="total_spouse_paid_child_support" value="0.0" class="fact-sheet-input money" %}
+                        {% money_input_field name="total_spouse_paid_child_support" class="fact-sheet-input money claimants-child-support-paid" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts]" %}
                     </div>
                 </td>
             </tr>
@@ -537,7 +537,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="claimant_annual_income" value="0.0" class="fact-sheet-input money" %}
+                        {% money_input_field name="claimant_annual_income" class="fact-sheet-input money" %}
                     </div>
                 </td>
             </tr>
@@ -552,7 +552,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="total_spouse_paid_child_support" value="0.0" class="fact-sheet-input money" %}
+                        {% money_input_field name="total_paid_child_support" class="fact-sheet-input money claimants-child-support-paid" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts]" %}
                     </div>
                 </td>
             </tr>
@@ -560,8 +560,10 @@
                 <td class="fact-sheet-question">
                     Difference between Guidelines table amounts
                 </td>
-                <td class="fact-sheet-answer">
-                    <label id="difference_payment_amounts"></label>
+                <td class="fact-sheet-answer" readonly>
+                    <div class="dollar-prefix">
+                        {% money_input_field name="difference_payment_amounts" class="fact-sheet-input" readonly="" %}
+                    </div>
                 </td>
             </tr>
         </tbody>
