@@ -779,6 +779,7 @@ var registerTableRowAddRemoveHandlers = function(settings) {
             });
         newRow.find('[data-sum="true"]').on('change', sumFieldOnChange);
         newRow.find('[data-save_row="true"]').on('change', saveListControlRow);
+        newRow.find('textarea').autogrow({onInitialize: true});
 
         $(settings.table_selector).find('tbody:first').append(newRow);
 
