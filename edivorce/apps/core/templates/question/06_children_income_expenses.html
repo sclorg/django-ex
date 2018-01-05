@@ -92,7 +92,7 @@
                 ?
             </h3>
             <div class="dollar-prefix">
-                {% money_input_field name="annual_gross_income" value="" class="money form-block response-textbox" data_target_id="annual_gross_income" data_related_id="you_fact_sheet_f" data_reveal_target="true" data_reveal_condition=">150000" %}
+                {% money_input_field name="annual_gross_income" value="" class="money form-block response-textbox" %}
             </div>
 
             <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
@@ -153,166 +153,6 @@
                     </p>
                 </div>
             </div>
-
-            <div class="question-well-border-less" id="you_fact_sheet_f" hidden>
-                <h1>Fact Sheet F Income over $150,000</h1>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>Amount</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="fact-sheet-question">
-                            How many child(ren) are you asking for support?
-                        </td>
-                        <td class="fact-sheet-answer">
-                            {% input_field type="number" name="number_children_seeking_support" class="fact-sheet-input" %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fact-sheet-question">
-                            <p>
-                                What is the monthly
-                                {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Child Support Guidelines" %}
-                                amount for $150,000?
-                            </p>
-                            {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_guideline_amount" %}
-                        </td>
-                        <td class="fact-sheet-answer">
-                            <div class="dollar-prefix">
-                                {% money_input_field name="child_support_amount_under_high_income" class="fact-sheet-input guideline-amount money" data_sum="true" data_sum_class="guideline-amount" data_sum_target_id="total_amount" %}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fact-sheet-question">
-                            What is the % of income over $150,000 from the
-                            {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Child Support Guidelines" %}
-                            ?
-                        </td>
-                        <td class="fact-sheet-answer">
-                            <div class="percent-prefix">
-                                {% input_field type="number" name="percent_income_over_high_income_limit" class="fact-sheet-input" %}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fact-sheet-question">
-                            <p>
-                                What is the monthly child support amount to be paid on the portion of income over $150,000?
-                            </p>
-                            <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
-                                 data-target="#collapse_high_income_amounts"
-                                 aria-controls="collapse_high_income_amounts">
-                                <div>
-                                    How can I determine this amount?
-                                </div>
-                            </div>
-                            <div class="collapse" id="collapse_high_income_amounts">
-                                <div>
-                                    <p>
-                                        The child support tables only show an amount for the first $150,000 of income.
-                                        You have
-                                        two choices for determining how much child support should be paid on the portion
-                                        of
-                                        income over $150,000:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            you can multiply the amount of income over $150,000 by the percentage shown
-                                            in the
-                                            table for the province or territory where the paying parent lives; or
-                                        </li>
-                                        <li>
-                                            you can agree on an additional amount of support based on the condition,
-                                            means,
-                                            needs and other circumstances of your children and your financial ability to
-                                            contribute.
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        To speak to someone in person, you can call the Department of Justice Canada's
-                                        Family
-                                        Law Information Line at 1-888-373-2222. When you call, be ready to tell them:
-                                    </p>
-                                    <ul>
-                                        <li>Where the paying parent lives</li>
-                                        <li>Whether both parents live in the same province or territory, and</li>
-                                        <li>The number of children to be supported</li>
-                                    </ul>
-                                    <p>
-                                        Source:
-                                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Federal Child Support Guidelines" %}
-                                        , Department of Justice
-                                    </p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="fact-sheet-answer">
-                            <div class="dollar-prefix">
-                                {% money_input_field name="amount_income_over_high_income_limit" class="fact-sheet-input guideline-amount money" data_sum="true" data_sum_class="guideline-amount" data_sum_target_id="total_amount" %}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fact-sheet-question">
-                            Guidelines table amount
-                        </td>
-                        <td class="fact-sheet-answer" readonly>
-                            <div class="dollar-prefix">
-                                {% money_input_field name="total_guideline_amount" id="total_amount" class="fact-sheet-input money" readonly="" data_mirror="true" data_mirror_target="#agreed_total_amount" data_mirror_broadcast_change="true" %}
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <div class="question-well-border-less">
-                    <p>
-                        Do you and your spouse agree that $<span
-                            id="agreed_total_amount">{{ total_guideline_amount }}</span> is the child support amount?
-                    </p>
-                    <div class="btn-radio-group" data-toggle="buttons">
-                        <label class="btn btn-radio">
-                            {% input_field type="radio" name="agree_to_child_support_amount" autocomplete="off" value="YES" data_target_id="enter_agreed_appropriate_amount" data_reveal_target="false" %}
-                            YES
-                        </label>
-
-                        <label class="btn btn-radio">
-                            {% input_field type="radio" name="agree_to_child_support_amount" autocomplete="off" value="NO" data_target_id="enter_agreed_appropriate_amount" data_reveal_target="true" %}
-                            NO
-                        </label>
-                    </div>
-                    <div id="enter_agreed_appropriate_amount" hidden>
-                        <p>
-                            What is the amount that you and your spouse have agreed to?
-                        </p>
-                        <p>
-                            That differs from the Child Support Guidelines table amount
-                        </p>
-                        <div>
-                            <div class="dollar-prefix">
-                                {% money_input_field name="agreed_child_support_amount" value="" class="fact-sheet-input money" %}
-                            </div>
-                        </div>
-                        <p>
-                            Why do you think the court should approve your proposed amount?
-                        </p>
-                        <p>
-                            Discuss the conditions, means, needs and other circumstances of the child, and the financial
-                            ability of
-                            each parent to support the child/children.
-                        </p>
-                        <div>
-                            {% input_field type="textarea" name="reason_child_support_amount" class="fact-sheet-input form-control response-textarea" maxlength="1000" rows="6" %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
         <div class="question-well">
@@ -340,7 +180,7 @@
                 ?
             </h3>
             <div class="dollar-prefix">
-                {% money_input_field name="spouse_annual_gross_income" value="" class="money form-block response-textbox" data_target_id="spouse_annual_gross_income" data_related_id="spouse_fact_sheet_f" data_reveal_target="true" data_reveal_condition=">150000" %}
+                {% money_input_field name="spouse_annual_gross_income" value="" class="money form-block response-textbox" %}
             </div>
 
             <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
@@ -398,168 +238,6 @@
                     </p>
                 </div>
             </div>
-
-            <div class="question-well-border-less" id="spouse_fact_sheet_f" hidden>
-                <h1>Fact Sheet F Income over $150,000</h1>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>Amount</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="fact-sheet-question">
-                            How many child(ren) are you asking for support?
-                        </td>
-                        <td class="fact-sheet-answer">
-                            {% input_field type="number" name="spouse_number_children_seeking_support" class="fact-sheet-input" %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fact-sheet-question">
-                            <p>
-                                What is the monthly
-                                {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Child Support Guidelines" %}
-                                amount for $150,000?
-                            </p>
-                            {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_spouse_guideline_amount" %}
-                        </td>
-                        <td class="fact-sheet-answer">
-                            <div class="dollar-prefix">
-                                {% money_input_field name="spouse_child_support_amount_under_high_income" class="fact-sheet-input spouse-guideline-amount money" data_sum="true" data_sum_class="spouse-guideline-amount" data_sum_target_id="spouse_total_amount" %}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fact-sheet-question">
-                            What is the % of income over $150,000 from the
-                            {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Child Support Guidelines" %}
-                            ?
-                        </td>
-                        <td class="fact-sheet-answer">
-                            <div class="percent-prefix">
-                                {% input_field type="number" name="spouse_percent_income_over_high_income_limit" class="fact-sheet-input" %}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fact-sheet-question">
-                            <p>
-                                What is the monthly child support amount to be paid on the portion of income over $150,000?
-                            </p>
-                            <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
-                                 data-target="#collapse_spouse_high_income_amounts"
-                                 aria-controls="collapse_spouse_high_income_amounts">
-                                <div>
-                                    How can I determine this amount?
-                                </div>
-                            </div>
-                            <div class="collapse" id="collapse_spouse_high_income_amounts">
-                                <div>
-                                    <p>
-                                        The child support tables only show an amount for the first $150,000 of income.
-                                        You have
-                                        two choices for determining how much child support should be paid on the portion
-                                        of
-                                        income over $150,000:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            you can multiply the amount of income over $150,000 by the percentage shown
-                                            in the
-                                            table for the province or territory where the paying parent lives; or
-                                        </li>
-                                        <li>
-                                            you can agree on an additional amount of support based on the condition,
-                                            means,
-                                            needs and other circumstances of your children and your financial ability to
-                                            contribute.
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        To speak to someone in person, you can call the Department of Justice Canada's
-                                        Family
-                                        Law Information Line at 1-888-373-2222. When you call, be ready to tell them:
-                                    </p>
-                                    <ul>
-                                        <li>Where the paying parent lives</li>
-                                        <li>Whether both parents live in the same province or territory, and</li>
-                                        <li>The number of children to be supported</li>
-                                    </ul>
-                                    <p>
-                                        Source:
-                                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Federal Child Support Guidelines" %}
-                                        , Department of Justice
-                                    </p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="fact-sheet-answer">
-                            <div class="dollar-prefix">
-                                {% money_input_field name="spouse_amount_income_over_high_income_limit" class="fact-sheet-input spouse-guideline-amount money" data_sum="true" data_sum_class="spouse-guideline-amount" data_sum_target_id="spouse_total_amount" %}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fact-sheet-question">
-                            Guidelines table amount
-                        </td>
-                        <td class="fact-sheet-answer" readonly>
-                            <div class="dollar-prefix">
-                                {% money_input_field name="spouse_total_guideline_amount" id="spouse_total_amount" class="fact-sheet-input money" readonly="" data_mirror="true" data_mirror_target="#spouse_agreed_total_amount" data_mirror_broadcast_change="true" %}
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <div class="question-well-border-less">
-                    <p>
-                        Do you and your spouse agree that $<span
-                            id="spouse_agreed_total_amount">{{ spouse_total_guideline_amount }}</span> is the child
-                        support amount?
-                    </p>
-                    <div class="btn-radio-group" data-toggle="buttons">
-                        <label class="btn btn-radio">
-                            {% input_field type="radio" name="spouse_agree_to_child_support_amount" autocomplete="off" value="YES" data_target_id="spouse_enter_agreed_appropriate_amount" data_reveal_target="false" %}
-                            YES
-                        </label>
-
-                        <label class="btn btn-radio">
-                            {% input_field type="radio" name="spouse_agree_to_child_support_amount" autocomplete="off" value="NO" data_target_id="spouse_enter_agreed_appropriate_amount" data_reveal_target="true" %}
-                            NO
-                        </label>
-                    </div>
-                    <div id="spouse_enter_agreed_appropriate_amount" hidden>
-                        <p>
-                            What is the amount that you and your spouse have agreed to?
-                        </p>
-                        <p>
-                            That differs from the Child Support Guidelines table amount
-                        </p>
-                        <div>
-                            <div class="dollar-prefix">
-                                {% money_input_field name="spouse_agreed_child_support_amount" value="" class="fact-sheet-input money form-block response-textbox" %}
-                            </div>
-                        </div>
-                        <p>
-                            Why do you think the court should approve your proposed amount?
-                        </p>
-                        <p>
-                            Discuss the conditions, means, needs and other circumstances of the child, and the financial
-                            ability of
-                            each parent to support the child/children.
-                        </p>
-                        <div>
-                            {% input_field type="textarea" name="spouse_reason_child_support_amount" class="fact-sheet-input form-control response-textarea" maxlength="1000" rows="6" %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
     </div>
 
@@ -1139,81 +817,11 @@
             </p>
         </div>
     </div>
-
-    {% if children_financial_support != 'NO'%}
-    <div id="fact_sheet_d" class="question-well">
-        <h1>Fact Sheet D Child(ren) 19 Years or Older</h1>
-
-        <div class="question-well">
-            <p>
-                How many child(ren) are 19 years or older for whom you are asking for support?
-            </p>
-            <div>
-                {% input_field type="number" name="number_children_over_19_need_support" class="fact-sheet-input input-narrow" %}
-            </div>
-        </div>
-
-        <div class="question-well">
-            <p>
-                What is the monthly amount that {{ conditional_logic_based_on_input }} will be paying for child support
-                (as per
-                {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-5.html#h-9" link_text="Schedule 1" %}
-                .
-                of the
-                {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-11.html#h-15" link_text="Federal Child Support Guidelines" %}
-                )?
-            </p>
-            <div>
-                <div class="dollar-prefix">
-                    {% money_input_field name="total_spouse_paid_child_support" class="fact-sheet-input money input-narrow form-block response-textbox" %}
-                </div>
-            </div>
-            {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_calculate_amounts" %}
-        </div>
-
-        <div class="question-well">
-            <p>
-                Do you and your spouse agree that the monthly Guidelines table amount for child support is appropriate?
-            </p>
-            <div class="btn-radio-group" data-toggle="buttons">
-                <label class="btn btn-radio">
-                    {% input_field type="radio" name="agree_to_child_support_amount" class="fact-sheet-input" autocomplete="off" value="YES" data_target_id="enter_appropriate_amount" data_reveal_target="true" %}
-                    Yes
-                </label>
-
-                <label class="btn btn-radio">
-                    {% input_field type="radio" name="agree_to_child_support_amount" class="fact-sheet-input" autocomplete="off" value="NO" data_target_id="enter_appropriate_amount" data_reveal_target="false" %}
-                    No
-                </label>
-            </div>
-            <div id="enter_appropriate_amount" hidden>
-                <p>
-                    What would be the appropriate amount?
-                </p>
-
-                <div class="dollar-prefix">
-                    {% money_input_field name="total_spouse_paid_child_support" class="fact-sheet-input money form-block response-textbox" %}
-                </div>
-                <p>
-                    Please describe - Why do you think the court should approve your proposed amount?
-                </p>
-                <p>
-                    Describe the condition, means, needs, and other circumstances of the child, and the financial
-                    ability of
-                    each parent to provide support to the child.
-                </p>
-                <div>
-                    {% input_field type="textarea" name="suggested_child_support" class="fact-sheet-input form-control response-textarea" maxlength="512" rows="5" %}
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
 {% endblock %}
 
 
 {% block formBack %}{% prev_step step='children' sub_step='income_expenses' %}{% endblock %}
-{% block formNext %}{% next_step step='children' %}{% endblock %}
+{% block formNext %}{% next_step step='children' sub_step='income_expenses' %}{% endblock %}
 
 {% block sidebarText %}
     <p><strong>When you may need to adjust your income</strong></p>
@@ -1303,49 +911,6 @@
         This is a copy of an official work that is published by the Government of Canada and that this copy has not
         been produced in affiliation with, or with the endorsement of the Government of Canada.
     </p>
-
-
-
-    <div id="fact-sheet-f-side-bar">
-    <p><strong>Whose Income is Needed </strong></p>
-    <p>
-        If the paying parent earns more than $150,000 per year, you may need to calculate both incomes.
-        The Federal Guidelines provide two options:
-    </p>
-    <p>
-        You can use the tables to determine the child support amount for the first $150,000. Then add the percentage
-        listed in the tables for the portion of income over $150,000. If you choose this option, you would only need
-        to calculate the paying parent’s income.
-    </p>
-    <p>
-        or
-    </p>
-    <p>
-        You can use the tables to determine the child support amount for the first $150,000. You can then determine an
-        amount for the portion of income over $150,000 by looking at the condition, means, needs and other circumstances
-        of the child and the financial ability of each of you to contribute. If you choose this option, you would need
-        to calculate both incomes.
-    </p>
-    <p>
-        In some cases:
-    </p>
-    <ul>
-        <li>
-            You may need to calculate your child’s income—for example, if the child is over the age of majority and you
-            are taking his or her financial means into consideration to determine a child support amount.
-        </li>
-        <li>
-            You may need to calculate the income of every member of both households to compare the standards of living
-            if either of you is claiming undue hardship.
-        </li>
-    </ul>
-    <p>
-        Source:
-        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step5-etap5.html#h7" link_text="Federal Child Support Guidelines" %}
-        Department of Justice
-    </p>
-
-    </div>
 
     <div class="fact-sheet-e-side-bar">
         <p><strong>What is "undue hardship"?</strong></p>
