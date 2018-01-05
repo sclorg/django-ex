@@ -241,6 +241,12 @@ input[type=number]::-webkit-outer-spin-button {
 	white-space: nowrap;
 }
 
+#claimant_children > thead > tr > th:nth-last-child(-n+2),
+#claimant_children > tbody > tr > td:nth-last-child(-n+2) {
+	width: 1px;
+	white-space: nowrap;
+}
+
 .list-builder {
 	@extend .table;
 	border-collapse: collapse;
