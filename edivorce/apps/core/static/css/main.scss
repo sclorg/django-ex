@@ -186,6 +186,44 @@ input[type=number]::-webkit-outer-spin-button {
 	}
 }
 
+.fact-sheet-control {
+	&[readonly] {
+		color: #8c8c8c;
+		background: #f2f2f2;
+	}
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	font-size: 16px;
+
+	a {
+		color: #494949;
+		i {
+			color: #494949;
+		}
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
+	&:hover {
+		background: #d4dce5;
+	}
+}
+
+.fact-sheet-button {
+	a {
+		color: #494949;
+		i {
+			color: #494949;
+			&:hover {
+				color: #385dbc;
+			}
+		}
+	}
+}
+
 .table-cell-active {
 	border: 1px solid #66afe9;
 	border-radius: 4px;
@@ -204,15 +242,20 @@ input[type=number]::-webkit-outer-spin-button {
 
 .list-builder {
 	@extend .table;
-	border-collapse: separate;
+	border-collapse: collapse;
 }
 
 .list-builder-hide-column {
 	display: none;
+	border: none;
 }
 
 .child-item-row {
 	height: 50px;
+	// exclude last 3 columns because contain buttons
+	&:hover td:not(:nth-last-child(-n+3)) {
+		background: #d4dce5;
+	}
 }
 
 div.dollar-prefix {

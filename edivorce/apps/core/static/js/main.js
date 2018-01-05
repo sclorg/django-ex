@@ -246,7 +246,7 @@ $(function () {
         },
         {
             table_selector: "#claimant_children",
-            add_button_selector: "#btn_add_child",
+            add_button_selector: ".btn-add-child",
             delete_button_selector: ".btn-delete-child",
             input_field_selector: ".child-field",
             clone_group_class: "child-disabled-group",
@@ -275,7 +275,8 @@ $(function () {
 
                 // When click the delete button for a row, make sure any handlers attached to the inputs
                 // have been cleared.
-                newElement.find(settings.delete_button_selector).on('click', function() {
+                newElement.find(settings.delete_button_selector).on('click', function(e) {
+                    e.preventDefault();
                     $('[type=radio]').prop('checked', false);
                     $('.children-input-block').each(function() {
                         resetChildrenInputBlock($(this), 'null');
@@ -725,7 +726,8 @@ var deleteAddedTableRow = function(element) {
 };
 
 var registerTableRowAddRemoveHandlers = function(settings) {
-    var cleanUp = function() {
+    var cleanUp = function(e) {
+        e.preventDefault();
         if (settings.hasOwnProperty('customDeleteAction')) {
             settings.customDeleteAction(settings, $(this));
         } else {
@@ -734,7 +736,8 @@ var registerTableRowAddRemoveHandlers = function(settings) {
     };
 
     $(settings.delete_button_selector).on('click', cleanUp);
-    $(settings.add_button_selector).on('click', function() {
+    $(settings.add_button_selector).on('click', function(e) {
+        e.preventDefault();
         var newRow = $('.' + settings.clone_group_class).clone();
         newRow.show();
         newRow.removeClass(settings.clone_group_class);

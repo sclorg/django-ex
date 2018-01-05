@@ -14,13 +14,13 @@
 <div class="question-well children-list">
     <table id="claimant_children" class="list-builder">
         <thead>
-            <tr class="list-builder-header">
+            <tr class="">
                 <th class="table-bordered">Child's Name</th>
                 <th class="table-bordered">Birth date</th>
                 <th class="table-bordered">Child now living with</th>
                 <th class="table-bordered">Relationship to Claimant 1</th>
                 <th class="table-bordered">Relationship to Claimant 2</th>
-                <th></th>
+                <th class="list-builder-hide-column"></th>
                 <th class="list-builder-hide-column"></th>
             </tr>
         </thead>
@@ -38,10 +38,14 @@
             {% endfor %}
         {% endif %}
         </tbody>
+        <tbody>
+            <tr>
+                <td id="btn_add_child" class="btn-add-child fact-sheet-control" colspan="5" readonly>
+                    <a href="#add"><i class="fa fa-plus btn-add-child"></i>   Add Child</a>
+                </td>
+            </tr>
+        </tbody>
     </table>
-    <div class="form-button">
-        <input type="button" id="btn_add_child" class="btn btn-success" value="Add Child"/>
-    </div>
 </div>
 
 <div class="children-questions" hidden>
