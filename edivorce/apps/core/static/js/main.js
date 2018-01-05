@@ -198,7 +198,7 @@ $(function () {
     var listControlGroups = [
         {
             table_selector: "#claimant_debts",
-            add_button_selector: "#btn_add_debt",
+            add_button_selector: ".btn-add-debt",
             delete_button_selector: ".btn-delete-debt",
             input_field_selector: ".debt-input-field",
             clone_group_class: "debt-group",
@@ -206,7 +206,7 @@ $(function () {
         },
         {
             table_selector: "#claimant_expenses",
-            add_button_selector: "#btn_add_expense",
+            add_button_selector: ".btn-add-expense",
             delete_button_selector: ".btn-delete-expense",
             input_field_selector: ".expense-input-field",
             clone_group_class: "expense-group",
@@ -214,7 +214,7 @@ $(function () {
         },
         {
             table_selector: "#supporting_non_dependents",
-            add_button_selector: "#btn_add_supporting_non_dependent",
+            add_button_selector: ".btn-add-supporting-non-dependent",
             delete_button_selector: ".btn-delete-supporting-non-dependent",
             input_field_selector: ".supporting-non-dependent-input-field",
             clone_group_class: "supporting-non-dependent-group",
@@ -222,7 +222,7 @@ $(function () {
         },
         {
             table_selector: "#supporting_dependents",
-            add_button_selector: "#btn_add_supporting_dependent",
+            add_button_selector: ".btn-add-supporting-dependent",
             delete_button_selector: ".btn-delete-supporting-dependent",
             input_field_selector: ".supporting-dependent-input-field",
             clone_group_class: "supporting-dependent-group",
@@ -230,7 +230,7 @@ $(function () {
         },
         {
             table_selector: "#supporting_disabled",
-            add_button_selector: "#btn_add_supporting_disabled",
+            add_button_selector: ".btn-add-supporting-disabled",
             delete_button_selector: ".btn-delete-supporting-disabled",
             input_field_selector: ".supporting-disabled-input-field",
             clone_group_class: "supporting-disabled-group",
@@ -238,7 +238,7 @@ $(function () {
         },
         {
             table_selector: "#income_others",
-            add_button_selector: "#btn_add_income_others",
+            add_button_selector: ".btn-add-income-others",
             delete_button_selector: ".btn-delete-income-others",
             input_field_selector: ".income-others-input-field",
             clone_group_class: "income-others-group",

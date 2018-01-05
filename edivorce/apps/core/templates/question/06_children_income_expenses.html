@@ -651,10 +651,14 @@
                         </tr>
                     {% endif %}
                 </tbody>
+                <tbody>
+                    <tr>
+                        <td class="btn-add-debt fact-sheet-control" colspan="3" readonly>
+                            <a href=""><i class="fa fa-plus btn-add-debt"></i>   Add Debt</a>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-            <div>
-                <input type="button" id="btn_add_debt" class="btn btn-success" value="Add Debt"/>
-            </div>
             <br />
 
             <p><strong>Unusually high expenses for parenting time, contact with, or access to a child.</strong></p>
@@ -686,10 +690,14 @@
                         </tr>
                     {% endif %}
                 </tbody>
+                <tbody>
+                    <tr>
+                        <td class="btn-add-expense fact-sheet-control" colspan="2" readonly>
+                            <a href=""><i class="fa fa-plus btn-add-expense"></i>   Add Expense</a>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-            <div>
-                <input type="button" id="btn_add_expense" class="btn btn-success" value="Add Expense"/>
-            </div>
 
 
             <br />
@@ -723,10 +731,14 @@
                         </tr>
                     {% endif %}
                 </tbody>
+                <tbody>
+                    <tr>
+                        <td class="btn-add-supporting-non-dependent fact-sheet-control" colspan="3" readonly>
+                            <a href=""><i class="fa fa-plus btn-add-supporting-non-dependent"></i>   Add Person</a>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-            <div>
-                <input type="button" id="btn_add_supporting_non_dependent" class="btn btn-success" value="Add Person"/>
-            </div>
 
             <br />
             <p><strong>Supporting dependent child/children from another relationship.</strong></p>
@@ -761,10 +773,14 @@
                         </tr>
                     {% endif %}
                 </tbody>
+                <tbody>
+                    <tr>
+                        <td class="btn-add-supporting-dependent fact-sheet-control" colspan="3" readonly>
+                            <a href=""><i class="fa fa-plus btn-add-supporting-dependent"></i>   Add Person</a>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-            <div>
-                <input type="button" id="btn_add_supporting_dependent" class="btn btn-success" value="Add Person"/>
-            </div>
 
             <br />
             <p><strong>Support for a disabled or ill person.</strong></p>
@@ -794,10 +810,15 @@
                         </tr>
                     {% endif %}
                 </tbody>
+                <tbody>
+                    <tr>
+                        <td class="btn-add-supporting-disabled fact-sheet-control" colspan="3" readonly>
+                            <a href=""><i class="fa fa-plus btn-add-supporting-disabled"></i>   Add Person</a>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-            <div class="form-group">
-                <input type="button" id="btn_add_supporting_disabled" class="btn btn-success" value="Add Person"/>
-            </div>
+
 
             <p>Other undue hardship circumstances</p>
             {% input_field type="textarea" name="undue_hardship" value="" maxlength="500"  multiple='true' class="fact-sheet-input form-control" placeholder="" %}
@@ -841,10 +862,15 @@
                         </td>
                     </tr>
                 </tbody>
+                <tbody>
+                    <tr>
+                        <td class="btn-add-income-others fact-sheet-control" colspan="2" readonly>
+                            <a href="" tabindex="-1"><i class="fa fa-plus btn-add-income-others"></i>   Add Person</a>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-            <div>
-                <input type="button" id="btn_add_income_others" class="btn btn-success" value="Add Person"/>
-            </div>
+
             <div id="undue_amount_question" hidden></div>
         </div>
     </div>

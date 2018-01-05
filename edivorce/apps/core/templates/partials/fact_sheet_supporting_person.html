@@ -14,8 +14,6 @@
 
 {% if not exclude_delete_button %}
 <td class="fact-sheet-button">
-    <div class="form-group">
-        <input type="button" class="btn btn-danger form-control {{ delete_button_class  }}" tabindex="-1" value="Delete" />
-    </div>
+    <a href="#" tabindex="-1"><i class="fa fa-times {{ delete_button_class  }}"></i></a>
 </td>
 {% endif %}

@@ -182,7 +182,7 @@ input[type=number]::-webkit-outer-spin-button {
 	}
 
 	input {
-		text-align: right;
+		text-align: left;
 	}
 }
 
@@ -235,14 +235,17 @@ input[type=number]::-webkit-outer-spin-button {
 	border: none;
 }
 
-.table > thead > tr.list-builder-header {
-	border-top: 1px solid #ddd;
-	border-right: 1px solid #ddd;
+.table > thead > tr.list-builder-header > th:last-child,
+.table > tbody > tr > td:last-child {
+	width: 1px;
+	white-space: nowrap;
 }
 
 .list-builder {
 	@extend .table;
 	border-collapse: collapse;
+	width: 100%;
+	table-layout: fixed;
 }
 
 .list-builder-hide-column {
@@ -250,7 +253,7 @@ input[type=number]::-webkit-outer-spin-button {
 	border: none;
 }
 
-.child-item-row {
+.child-item-row, {
 	height: 50px;
 	// exclude last 3 columns because contain buttons
 	&:hover td:not(:nth-last-child(-n+3)) {
@@ -272,6 +275,10 @@ div.dollar-prefix {
 		align-items: center;
 		justify-content: center;
 	}
+
+	input {
+		text-align: right;
+	}
 }
 
 div.percent-prefix {
@@ -287,6 +294,10 @@ div.percent-prefix {
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
+	}
+
+	input {
+		text-align: right;
 	}
 }
 
