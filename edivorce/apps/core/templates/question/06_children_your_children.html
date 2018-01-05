@@ -250,12 +250,6 @@
             </p>
         </div>
     </div>
-
-    <span class="form-buttons clearfix">
-        <a class="btn btn-primary" href="#" id="btn_save_child" name="claimant_children">
-            <i class="fa fa-floppy-o"></i>&nbsp Save Child
-        </a>
-    </span>
 </div>
 
 <div id="fact_sheet_b" class="question-well fact-sheets" hidden>
@@ -599,8 +593,18 @@
 </div>
 {% endblock %}
 
-{% block formBack %}{% prev_step step='children' sub_step='your_children' %}{% endblock %}
-{% block formNext %}{% next_step step='children' sub_step='your_children' %}{% endblock %}
+{% block formbuttons %}
+<div id="children_review_buttons" class="form-buttons clearfix">
+    <a class="btn btn-primary" href="{% prev_step step='children' sub_step='your_children' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
+    <a class="btn btn-success pull-right" href="{% next_step step='children' sub_step='your_children' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
+    <a class="btn btn-primary pull-right save-spinner" href="{% url 'overview' %}"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;Save and return later</a>
+</div>
+<div id="child_edit_buttons" class="form-buttons clearfix" hidden>
+    <a class="btn btn-primary" id="btn_revert_child" href="#"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
+    <a class="btn btn-success pull-right" id="btn_save_child" name="claimant_children" href="#">Save changes&nbsp;&nbsp;&nbsp;<i class="fa fa-floppy-o"></i></a>
+    <a class="btn btn-primary pull-right save-spinner" href="{% url 'overview' %}"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;Save and return later</a>
+</div>
+{% endblock %}
 
 {% block sidebarText %}
     <p><strong>Sole Custody Example</strong></p>

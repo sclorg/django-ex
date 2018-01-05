@@ -253,6 +253,7 @@ $(function () {
             reveal_class: "child-item-row",
             customAction: function(settings, newElement) {
                 $('.children-questions').show();
+                enableChildrenFooterNav({page:'edit'});
 
                 // Want the second list row because that is before the newElement
                 // was appended.
@@ -318,6 +319,7 @@ $(function () {
         $('.children-questions').show();
         $('.children-list').hide();
         $('.fact-sheets').hide();
+        enableChildrenFooterNav({page:'edit'});
 
         $('[type=radio]').prop('checked', false);
 
@@ -392,24 +394,35 @@ $(function () {
         }
     };
 
+    var returnToParent = function(options) {
+        $('.children-questions').hide();
+        $('.children-list').show();
+        enableChildrenFooterNav({page:'review'});
+
+        if (options !== undefined && options.persist) {
+            var childrenData = [];
+            // The hidden row is the first row so make sure to skip it.
+            $('#claimant_children').find('tbody:first').find('tr:gt(0)').each(function () {
+                var childData = {};
+                $(this).find('.child-field').each(function () {
+                    childData[$(this).attr('data-target-form-field')] = $(this).text();
+                });
+                childrenData.push(childData);
+            });
+            var jsonChildrenData = JSON.stringify(childrenData);
+            ajaxCall($(this).prop('name'), jsonChildrenData);
+        }
+        populateChildrenFactSheets();
+    };
+
     $('.child-item-row').on('click', populateChildInputFields);
     $('#btn_save_child').on('click', function(e) {
         e.preventDefault();
-        $('.children-questions').hide();
-        $('.children-list').show();
-
-        var childrenData = [];
-        // The hidden row is the first now so make sure to skip it.
-        $('#claimant_children').find('tbody:first').find('tr:gt(0)').each(function() {
-           var childData = {};
-            $(this).find('.child-field').each(function() {
-               childData[$(this).attr('data-target-form-field')] = $(this).text();
-            });
-            childrenData.push(childData);
-        });
-        var jsonChildrenData = JSON.stringify(childrenData);
-        ajaxCall($(this).prop('name'), jsonChildrenData);
-        populateChildrenFactSheets();
+        returnToParent({persist: true});
+    });
+    $('#btn_revert_child').on('click', function(e) {
+        e.preventDefault();
+        returnToParent({persist: false});
     });
 
     $('#claimant_children').each(function(){
@@ -573,6 +586,17 @@ $(function () {
       window.history.back();
     });
 });
+
+var enableChildrenFooterNav = function(page) {
+    if (page.page === 'edit') {
+        $('#children_review_buttons').hide();
+        $('#child_edit_buttons').show();
+    } else if (page.page === 'review') {
+        $('#children_review_buttons').show();
+        $('#child_edit_buttons').hide();
+    }
+    window.scrollTo(0, 0);
+};
 
 var saveListControlRow = function(tableId) {
     var payload = [];
