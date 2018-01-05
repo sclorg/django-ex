@@ -92,7 +92,7 @@
                 ?
             </h3>
             <div class="dollar-prefix">
-                {% money_input_field name="annual_gross_income" value="" class="money" data_target_id="annual_gross_income" data_related_id="you_fact_sheet_f" data_reveal_target="true" data_reveal_condition=">150000" %}
+                {% money_input_field name="annual_gross_income" value="" class="money form-block response-textbox" data_target_id="annual_gross_income" data_related_id="you_fact_sheet_f" data_reveal_target="true" data_reveal_condition=">150000" %}
             </div>
 
             <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
@@ -340,7 +340,7 @@
                 ?
             </h3>
             <div class="dollar-prefix">
-                {% money_input_field name="spouse_annual_gross_income" value="" class="money" data_target_id="spouse_annual_gross_income" data_related_id="spouse_fact_sheet_f" data_reveal_target="true" data_reveal_condition=">150000" %}
+                {% money_input_field name="spouse_annual_gross_income" value="" class="money form-block response-textbox" data_target_id="spouse_annual_gross_income" data_related_id="spouse_fact_sheet_f" data_reveal_target="true" data_reveal_condition=">150000" %}
             </div>
 
             <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
@@ -541,7 +541,7 @@
                         </p>
                         <div>
                             <div class="dollar-prefix">
-                                {% money_input_field name="spouse_agreed_child_support_amount" value="" class="fact-sheet-input money" %}
+                                {% money_input_field name="spouse_agreed_child_support_amount" value="" class="fact-sheet-input money form-block response-textbox" %}
                             </div>
                         </div>
                         <p>
@@ -659,7 +659,6 @@
                     </tr>
                 </tbody>
             </table>
-            <br />
 
             <p><strong>Unusually high expenses for parenting time, contact with, or access to a child.</strong></p>
             <p>
@@ -699,8 +698,6 @@
                 </tbody>
             </table>
 
-
-            <br />
             <p><strong>Supporting another person</strong></p>
             <p>
                Legal duty to support any other person, such as a former spouse or a new spouse who is too ill or disabled to be able to support himself or herself.
@@ -740,7 +737,6 @@
                 </tbody>
             </table>
 
-            <br />
             <p><strong>Supporting dependent child/children from another relationship.</strong></p>
             <p>
                List the names of any other children for whom you have a legal duty to make support payments to.
@@ -782,7 +778,6 @@
                 </tbody>
             </table>
 
-            <br />
             <p><strong>Support for a disabled or ill person.</strong></p>
             <table id="supporting_disabled" class="list-builder">
                 <thead>
@@ -820,10 +815,11 @@
             </table>
 
 
-            <p>Other undue hardship circumstances</p>
+            <p>Other undue hardship circumstances
             {% input_field type="textarea" name="undue_hardship" value="" maxlength="500"  multiple='true' class="fact-sheet-input form-control" placeholder="" %}
+            </p>
 
-            <br />
+
             <p><strong>Income of Other Persons in Household</strong></p>
             <table id="income_others" class="list-builder list-builder-compact">
                 <thead>
@@ -1169,7 +1165,7 @@
             </p>
             <div>
                 <div class="dollar-prefix">
-                    {% money_input_field name="total_spouse_paid_child_support" class="fact-sheet-input money input-narrow" %}
+                    {% money_input_field name="total_spouse_paid_child_support" class="fact-sheet-input money input-narrow form-block response-textbox" %}
                 </div>
             </div>
             {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_calculate_amounts" %}
@@ -1196,7 +1192,7 @@
                 </p>
 
                 <div class="dollar-prefix">
-                    {% money_input_field name="total_spouse_paid_child_support" class="fact-sheet-input money" %}
+                    {% money_input_field name="total_spouse_paid_child_support" class="fact-sheet-input money form-block response-textbox" %}
                 </div>
                 <p>
                     Please describe - Why do you think the court should approve your proposed amount?
