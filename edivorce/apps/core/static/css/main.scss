@@ -246,6 +246,11 @@ input[type=number]::-webkit-outer-spin-button {
 	border-collapse: collapse;
 	width: 100%;
 	table-layout: fixed;
+	margin-bottom: 48px;
+}
+
+.list-builder-compact {
+	margin-bottom: 25px;
 }
 
 .list-builder-hide-column {
@@ -1018,6 +1023,7 @@ textarea {
 
 	p {
 		max-width: 90%;
+		margin-bottom: 20px;
 	}
 }
 
