@@ -28,6 +28,8 @@ $(function () {
         placement:'auto right'
     });
 
+    $('textarea').autogrow({onInitialize: true});
+
     // All elements tagged with the following sum related data attributes
     // will be added together and the result written to the html element
     // at the sum target id.
