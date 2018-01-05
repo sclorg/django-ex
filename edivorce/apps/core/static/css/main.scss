@@ -236,7 +236,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .table > thead > tr.list-builder-header > th:last-child,
-.table > tbody > tr > td:last-child {
+.table > tbody > tr > td:last-child not:first-child {
 	width: 1px;
 	white-space: nowrap;
 }
@@ -258,7 +258,7 @@ input[type=number]::-webkit-outer-spin-button {
 	border: none;
 }
 
-.child-item-row, {
+.child-item-row {
 	height: 50px;
 	// exclude last 3 columns because contain buttons
 	&:hover td:not(:nth-last-child(-n+3)) {
@@ -767,8 +767,9 @@ input {
 		margin-bottom: 2px;
 	}
 }
-.radio p {
+.radio p, .checkbox p {
 	margin-bottom: 8px;
+	margin-left: 21px;
 }
 
 textarea {
