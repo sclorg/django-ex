@@ -421,7 +421,7 @@ $(function () {
                 childrenData.push(childData);
             });
             var jsonChildrenData = JSON.stringify(childrenData);
-            ajaxCall($(this).prop('name'), jsonChildrenData);
+            ajaxCall('claimant_children', jsonChildrenData);
         }
         populateChildrenFactSheets();
     };
