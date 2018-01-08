@@ -100,7 +100,7 @@ $(function () {
         var calcPercentage = function(targetElement, claimantOne, claimantTwo) {
             targetElement.val(Math.round(fraction(claimantOne, claimantTwo) * 100));
         };
-        
+
         var self = $(this);
         var claimantOneElement = $($(this).attr('data-claimant_one_selector'));
         var claimantTwoElement = $($(this).attr('data-claimant_two_selector'));
