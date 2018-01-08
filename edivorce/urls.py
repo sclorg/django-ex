@@ -4,7 +4,7 @@ from django.contrib import admin
 
 urlpatterns = []
 
-if settings.ENVIRONMENT in ['localdev', 'dev']:
+if settings.ENVIRONMENT in ['localdev', 'dev', 'test']:
     import debug_toolbar
     urlpatterns.append(url(r'^__debug__/', include(debug_toolbar.urls)),)
 
