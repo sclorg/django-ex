@@ -410,10 +410,19 @@
     </div>
 {% endif %}
 
-{% if annual_gross_income > 150000 %}
+{% if annual_gross_income|add:"0" > 150000 %}
     <div id="annual_gross_income_question">
         <div class="question-well" id="you_fact_sheet_f">
             <h1>Fact Sheet F Income over $150,000</h1>
+            <p>
+                Since you have previously indicated that the payor's income is over $150,000 you will need to provide
+                answers to the next set of questions. The child support guideline table you previously entered only goes
+                to $150,000. Income beyond that point requires a 2 stage calculation, the amount payable at $150,000 +
+                the amount payable on the income in excess of $150,000. This takes into account other factors such as
+                the financial ability of each parent, maintaining a certain quality of life, etc. It is no longer a
+                matter of there being money simply to look after the needs of the child, but rather the level of care
+                factoring in the family's lifestyle.
+            </p>
             <table class="table table-bordered">
                 <thead>
                 <tr>
