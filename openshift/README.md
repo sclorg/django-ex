@@ -305,3 +305,47 @@ You can look at the combined stdout and stderr of a given pod with this command:
 
 This can be useful to observe the correct functioning of your application.
 
+
+## Debugging Tips
+
+If you are getting an "Internal Server Error" message on the test or prod environments, follow the steps below to enter debug mode.  
+
+1. Use either use the terminal window in the OpenShift console or the ```oc rsh``` command to get to the command line on the postgresql pod.
+
+```
+vi edivorce/settings/openshift.py
+```
+
+at the very bottom of the file add the line:
+```
+DEBUG = True 
+```
+
+In order to load the new configuration you need to restart gunicorn.  But we can't restart gunicorn in the normal way because we don't have sudo access inside the openshift pod.  
+
+type the command 
+
+```
+ps - x
+```
+
+You'll get a list of processes, and you need to find the correct PIDs
+
+```
+ PID TTY      STAT   TIME COMMAND                                                                                                                                                                                                                                                                                         
+     1 ?        Ss     0:00 /opt/app-root/bin/python3 /opt/app-root/bin/gunicorn wsgi --bind=0.0.0.0:8080 --access-logfile=- --config gunicorn_config.py                                                                                                                                                                    
+   38 ?        S      0:02 /opt/app-root/bin/python3 /opt/app-root/bin/gunicorn wsgi --bind=0.0.0.0:8080 --access-logfile=- --config gunicorn_config.py                                                                                                                                                                    
+   39 ?        S      0:02 /opt/app-root/bin/python3 /opt/app-root/bin/gunicorn wsgi --bind=0.0.0.0:8080 --access-logfile=- --config gunicorn_config.py                                                                                                                                                                    
+   40 ?        S      0:02 /opt/app-root/bin/python3 /opt/app-root/bin/gunicorn wsgi --bind=0.0.0.0:8080 --access-logfile=- --config gunicorn_config.py                                                                                                                                                                    
+   41 ?        S      0:02 /opt/app-root/bin/python3 /opt/app-root/bin/gunicorn wsgi --bind=0.0.0.0:8080 --access-logfile=- --config gunicorn_config.py                                                                                                                                                                    
+   50 ?        Ss     0:00 /bin/sh                                                                                                                                 
+```
+
+Kill all the gunicorn processes EXCEPT #1.  #1 is the master process and it will restart the others for us
+
+```
+kill 38 39 40 41
+```
+
+Wait a 30 seconds type ps -x.  Ensuring that new PIDs have been created.  
+Now you can see the yellow Django debug screen!!!
