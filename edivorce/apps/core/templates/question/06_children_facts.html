@@ -340,7 +340,7 @@
 
         <div class="question-well">
             <p>
-                What is the monthly amount that {{ conditional_logic_based_on_input }} will be paying for child support
+                What is the monthly amount that {% if child_support_payor %}{{ child_support_payor }}{% else %}the payor{% endif %} will be paying for child support
                 (as per
                 {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-5.html#h-9" link_text="Schedule 1" %}
                 .
@@ -362,12 +362,12 @@
             </p>
             <div class="btn-radio-group" data-toggle="buttons">
                 <label class="btn btn-radio">
-                    {% input_field type="radio" name="agree_to_child_support_amount" class="fact-sheet-input" autocomplete="off" value="YES" data_target_id="enter_appropriate_amount" data_reveal_target="true" %}
+                    {% input_field type="radio" name="agree_to_child_support_amount" class="fact-sheet-input" autocomplete="off" value="YES" data_target_id="enter_appropriate_amount" data_reveal_target="false" %}
                     Yes
                 </label>
 
                 <label class="btn btn-radio">
-                    {% input_field type="radio" name="agree_to_child_support_amount" class="fact-sheet-input" autocomplete="off" value="NO" data_target_id="enter_appropriate_amount" data_reveal_target="false" %}
+                    {% input_field type="radio" name="agree_to_child_support_amount" class="fact-sheet-input" autocomplete="off" value="NO" data_target_id="enter_appropriate_amount" data_reveal_target="true" %}
                     No
                 </label>
             </div>
