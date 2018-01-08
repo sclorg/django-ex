@@ -77,91 +77,51 @@
                 {% input_field type="radio" class="radio-with-other  children-input-block" name="child_live_with" value="Lives with you" data_target_id="other_child_details" data_reveal_target="false" data_mirror="true" data_mirror_target="#child_live_with_0" data_skip_ajax="true" %}
                 {% if name_you %}{{ name_you }}{% else %}You{% endif %}
             </label>
-            <p>Child lives primarily (more than 60%) with this parent</p>
+            <p>Child lives primarily (more than 60%) with this parent. This is referred to as sole custody.</p>
         </div>
         <div class="radio">
             <label class="tight-spacing">
                 {% input_field type="radio" class="radio-with-other  children-input-block" name="child_live_with" value="Lives with spouse" data_target_id="other_child_details" data_reveal_target="false" data_mirror="true" data_mirror_target="#child_live_with_0" data_skip_ajax="true" %}
                 {% if name_spouse %}{{ name_spouse }}{% else %}Your spouse{% endif %}
             </label>
-            <p>Child lives primarily (more than 60%) with this parent</p>
+            <p>Child lives primarily (more than 60%) with this parent.  This is  referred to as sole custody.</p>
         </div>
         <div class="radio">
             <label class="tight-spacing">
                 {% input_field type="radio" class="radio-with-other  children-input-block" name="child_live_with" value="Lives with both" data_target_id="other_child_details" data_reveal_target="false" data_mirror="true" data_mirror_target="#child_live_with_0" data_skip_ajax="true" %}
-                Both/Shared
+                Both parents -
                 {% if name_you %}{{ name_you }}{% else %}you{% endif %} and
                 {% if name_spouse %}{{ name_spouse }}{% else %}your spouse{% endif %}
             </label>
-            <p>The child live with both parents more or less equally (between 40-60% of the time with each
-                parent)</p>
-        </div>
-
-        <div class="radio">
-            <label>
-                {% input_field type="radio" class="radio-with-other radio-with-textbox children-input-block" name="child_live_with" value="Other" data_target_id="other_child_details" data_reveal_target="true" data_mirror="true" data_mirror_target="#child_live_with_0" data_skip_ajax="true" %}
-                Other
-                {% input_field type="textarea" class="response-textbox other-textbox input-inline children-input-block" name="child_live_with_other_details" id="other_child_details" maxlength="500" rows="3" tabindex="-1" hidden="" data_mirror="true" data_mirror_target="#child_live_with_other_details_0" data_skip_ajax="true" %}
-            </label>
-        </div>
-
-        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
-             data-target="#collapseChildLivingOptions" aria-controls="collapseChildLivingOptions">
-            <div>
-                Which option applies if my child is living away from home attending school?
-            </div>
-        </div>
-        <div class="collapse" id="collapseChildLivingOptions">
-            <div>
-                <p>
-                    If the child is a dependent living away from home much of the year to attend school, select
-                    the parent with whom the child primarily lives when he/she returns home.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="question-well">
-        <h3>
-            What is your current parenting arrangement for child (insert name previously entered)?
-        </h3>
-        <p>The type of parenting arrangement you have can affect the way you calculate child support under the
-            <a href="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step6-etap6.html" target="_blank">
-                Federal Guidelines.
-            </a>
-        </p>
-        <div class="radio">
-            <label class="tight-spacing">
-                {% input_field type="radio" class="radio-with-other  children-input-block" name="child_custody" value="Sole custody"  data_mirror="true" data_mirror_target="#child_custody_0" data_skip_ajax="true" %}
-                Sole custody
-            </label>
             <p>
-                Your child spends more than 60 percent of their time with one of you over the course of a year
+                The child live with both parents more or less equally (between 40-60% of the time with each parent).
+                This is referred to as shared custody.
             </p>
         </div>
-        <div class="radio">
-            <label class="tight-spacing">
-                {% input_field type="radio" class="radio-with-other children-input-block" name="child_custody" value="Split"  data_mirror="true" data_mirror_target="#child_custody_0" data_skip_ajax="true" %}
-                Split
-            </label>
-            <p>
-                You split custody of your children if:
-            <ul>
-                <li>you have more than one child; and</li>
-                <li>you each have sole custody of at least one of the children</li>
-            </ul>
-            </p>
-        </div>
-        <div class="radio">
-            <label class="tight-spacing">
-                {% input_field type="radio" class="radio-with-other children-input-block" name="child_custody" value="Shared/Joint"  data_mirror="true" data_mirror_target="#child_custody_0" data_skip_ajax="true" %}
-                Shared/Joint
-            </label>
-            <p>
-                You share custody of your children if they spend at least 40 percent of the time with each of you in
-                a year
-            </p>
-        </div>
+
+    {# Future releases will use the feature below. #}
+{#        <div class="radio">#}
+{#            <label>#}
+{#                {% input_field type="radio" class="radio-with-other radio-with-textbox children-input-block" name="child_live_with" value="Other" data_target_id="other_child_details" data_reveal_target="true" data_mirror="true" data_mirror_target="#child_live_with_0" data_skip_ajax="true" %}#}
+{#                Other#}
+{#                {% input_field type="textarea" class="response-textbox other-textbox input-inline children-input-block" name="child_live_with_other_details" id="other_child_details" maxlength="500" rows="3" tabindex="-1" hidden="" data_mirror="true" data_mirror_target="#child_live_with_other_details_0" data_skip_ajax="true" %}#}
+{#            </label>#}
+{#        </div>#}
+{##}
+{#        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"#}
+{#             data-target="#collapseChildLivingOptions" aria-controls="collapseChildLivingOptions">#}
+{#            <div>#}
+{#                Which option applies if my child is living away from home attending school?#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="collapse" id="collapseChildLivingOptions">#}
+{#            <div>#}
+{#                <p>#}
+{#                    If the child is a dependent living away from home much of the year to attend school, select#}
+{#                    the parent with whom the child primarily lives when he/she returns home.#}
+{#                </p>#}
+{#            </div>#}
+{#        </div>#}
     </div>
 
     <div class="question-well">
