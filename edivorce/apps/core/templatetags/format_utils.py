@@ -80,3 +80,9 @@ def checkbox(context, *args, **kwargs):
     return mark_safe('<i class="fa fa%s-square-o" aria-hidden="true"></i>' %
                      ('-check' if args_pass and kwargs_pass else ''))
 
+@register.filter
+def claimantize(value, claimant='1'):
+    """ Replace 'you' with 'claimant 1' and 'spouse' with 'claimant 2' """
+    value = value.replace('you', 'claimant %s' % claimant)
+    value = value.replace('spouse', 'claimant %s' % '2' if claimant == '1' else '1')
+    return value

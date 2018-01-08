@@ -213,6 +213,7 @@
                         <div class="td-list-text">
                           Claimant 1 and Claimant 2 have not lived together since then
                         </div>
+                        <br>
                       </div>
                       <div>
                         <span class="td-list-item">
@@ -223,27 +224,27 @@
                           during the following period(s), in an unsuccessful
                           attempt to reconcile: <br>
                           [<em>give dates of period(s)</em>]<br><br>
+
+                          <table class="table table-bordered table-fixed">
+  {% multiple_values_to_list source=responses.reconciliation_period as periods %}
+  {% if periods and responses.try_reconcile_after_separated == 'YES' %}
+    {% for period in periods %}
+                            <tr>
+                              <td>From: {{ period|first|date_formatter }}</td>
+                              <td>To: {{ period|last|date_formatter }}</td>
+                            </tr>
+    {% endfor %}
+  {% else %}
+                            <tr>
+                              <td>From: <span class="form-entry not-complete">&nbsp;</span></td>
+                              <td>To: <span class="form-entry not-complete">&nbsp;</span></td>
+                            </tr>
+  {% endif %}
+                          </table>
+
                         </div>
                       </div>
                     </td>
-                </tr>
-                <tr>
-                    {% multiple_values_to_list source=responses.reconciliation_period as periods %}
-                    {% if periods and responses.try_reconcile_after_separated == 'YES' %}
-                        <td>
-                            {% for period in periods %}
-                                <p>from: {{period | first |date_formatter }}</p>
-                            {% endfor %}
-                        </td>
-                        <td>
-                            {% for period in periods %}
-                                <p>to: {{period | last |date_formatter }}</p>
-                            {% endfor %}
-                        </td>
-                    {% else %}
-                        <td><p>From: <span class="form-entry not-complete">&nbsp;</span></p></td>
-                        <td><p>To: <span class="form-entry not-complete">&nbsp;</span></p></td>
-                    {% endif %}
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -384,7 +385,7 @@
                               <tr>
                                   <td align="center">{{ child.child_name }}</td>
                                   <td align="center">{{ child.child_birth_date|date_formatter }} &nbsp;</td>
-                                  <td align="center">{{ child.child_live_with }}</td>
+                                  <td align="center">{{ child.child_live_with|claimantize }}</td>
                               </tr>
       {% endfor %}
                               <tr>
@@ -417,7 +418,7 @@
                           order respecting arrangements for parenting or
                           contact:
                           <span class="form-entry form-textarea not-complete form-list-textarea">
-                              {{ responses.order_respecting_arrangement }}
+                            <ul>{{ responses.order_respecting_arrangement|striptags|linebreaksli }}</ul>
                           </span>
                       </div>
                   </td>
@@ -431,7 +432,7 @@
                             Claimant 1 and Claimant 2 are asking for an order for
                             child support as follows:
                             <span class="form-entry form-textarea not-complete form-list-textarea">
-                              {{ responses.order_for_child_support }}
+                              <ul>{{ responses.order_for_child_support|striptags|linebreaksli }}</ul>
                             </span>
                         </div>
                     </td>
@@ -467,7 +468,7 @@
                         <div class="td-list-text">
                           Claimant 1 and Claimant 2 are asking for an order for spousal support as follows:<br>
                           <span class="form-entry form-textarea not-complete">
-                          {% if 'Spousal support' in orders and responses.spouse_support_details %}
+                          {% if 'Spousal support' in responses.want_which_orders and responses.spouse_support_details %}
                           <ul>{{responses.spouse_support_details|striptags|linebreaksli }}</ul>
                           {% endif %}
                           </span>
@@ -497,56 +498,56 @@
 
         <h3>6. Property and debt</h3>
         <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <td>
-                      <div><strong>A. Property claims under the <em>Family Law Act</em></strong><br><br></div>
-                      <span class="td-list-item">
-                        {% checkbox want_which_orders='Division of property and debts' %}
+          <tbody>
+            <tr>
+              <td>
+                <div><strong>A. Property claims under the <em>Family Law Act</em></strong><br><br></div>
+                <span class="td-list-item">
+                  {% checkbox want_which_orders='Division of property and debts' %}
+                </span>
+                <div class="td-list-text">
+                  Claimant 1 and Claimant 2 are asking for an order for:<br><br>
+                  <div>
+                    <span class="td-list-item">
+                      {% checkbox want_which_orders='Division of property and debts' deal_with_property_debt='Equal division' %}
+                    </span>
+                    <div class="td-list-text">
+                      an equal division of family property and family debt<br><br>
+                    </div>
+                  </div>
+                  <div>
+                    <span class="td-list-item">
+                      {% checkbox want_which_orders='Division of property and debts' deal_with_property_debt='Unequal division' %}
+                    </span>
+                    <div class="td-list-text">
+                      an unequal division of family property and family debt as follows:
+                      <span class="form-entry form-textarea not-complete">
+                        {% if responses.deal_with_property_debt == 'Unequal division' and responses.how_to_divide_property_debt and 'Division of property and debts' in responses.want_which_orders %}
+                        <ul>{{ responses.how_to_divide_property_debt|striptags|linebreaksli }}</ul>
+                        {% endif %}
                       </span>
-                      <div class="td-list-text">
-                        Claimant 1 and Claimant 2 are asking for an order for:<br><br>
-                        <div>
-                          <span class="td-list-item">
-                            {% checkbox want_which_orders='Division of property and debts' deal_with_property_debt='Equal division' %}
-                          </span>
-                          <div class="td-list-text">
-                            an equal division of family property and family debt<br><br>
-                          </div>
-                        </div>
-                        <div>
-                          <span class="td-list-item">
-                            {% checkbox want_which_orders='Division of property and debts' deal_with_property_debt='Unequal division' %}
-                          </span>
-                          <div class="td-list-text">
-                            an unequal division of family property and family debt as follows:
-                            <span class="form-entry form-textarea not-complete">
-                              {% if responses.deal_with_property_debt == 'Unequal division' and responses.how_to_divide_property_debt and responses.want_which_orders == 'Division of property and debts' %}
-                              <ul>{{ responses.how_to_divide_property_debt|striptags|linebreaksli }}</ul>
-                              {% endif %}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                      <div><strong>B. Other property claims</strong><br><br></div>
-                      <span class="td-list-item">{% checkbox responses.other_property_claims %}</span>
-                        <div class="td-list-text">
-                          Claimant 1 and Claimant 2 ask for an order respecting
-                          an interest in property or for compensation instead
-                          of an interest in that property, as follows:<br>
-                          <span class="form-entry form-textarea not-complete">
-                            {% if responses.other_property_claims %}
-                              <ul>{{ responses.other_property_claims|striptags|linebreaksli }}</ul>
-                            {% endif %}
-                          </span>
-                      </div>
-                    </td>
-                </tr>
-            </tbody>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div><strong>B. Other property claims</strong><br><br></div>
+                <span class="td-list-item">{% checkbox responses.other_property_claims %}</span>
+                  <div class="td-list-text">
+                    Claimant 1 and Claimant 2 ask for an order respecting
+                    an interest in property or for compensation instead
+                    of an interest in that property, as follows:<br>
+                    <span class="form-entry form-textarea not-complete">
+                      {% if responses.other_property_claims %}
+                        <ul>{{ responses.other_property_claims|striptags|linebreaksli }}</ul>
+                      {% endif %}
+                    </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
         </table>
 
         <h3>7. Other</h3>
