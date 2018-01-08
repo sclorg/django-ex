@@ -72,28 +72,6 @@ $(function () {
     $('[data-calc_delta="true"]').on('change', deltaFieldOnChange);
     $('[data-calc_delta="true"]').each(deltaFieldOnChange);
 
-    var fraction = function(part1, part2) {
-        part1 = parseFloat(part1);
-        part2 = parseFloat(part2);
-        if (part1 + part2 === 0) {
-            return 0;
-        } else {
-            return part1 / (part1 + part2);
-        }
-    };
-
-    // Calculates the proportionate percentage of claimantOne to the sum of claimantOne
-    // and claimantTwo. The result is a value between [0,100] inclusive.
-    var calcPercentage = function(targetElement, claimantOne, claimantTwo) {
-        targetElement.val(Math.round(fraction(claimantOne, claimantTwo) * 100));
-    };
-
-    // Calculates the proportionate amount of claimantOne to the sum of claimantOne
-    // and claimantTwo. The result is a value between [0,claimantOne] inclusive.
-    var calcPercentageAmount = function (targetElement, claimantOne, claimantTwo) {
-        var amount = parseFloat(claimantOne) * fraction(claimantOne, claimantTwo);
-        targetElement.val(amount.toFixed(2));
-    };
 
     // We want a way to dynamically calculate what proportion a given number is
     // relative to the sum of that number with another number. Our specific use
@@ -101,31 +79,74 @@ $(function () {
     // payment relative to their spouse. We calculate these proportions based off
     // of each claimant's income.
     //      data-calc_percentage=[true|false]   - whether to compute amount between [0,100] inclusive.
-    //      data-calc_proportions=[true|false]  - whether to compute amount between [0, value at data-claimant_one_selector]
     //      data-claimant_one_selector=[any jQuery input selector] - the input field that will contain claimant one
     //                                              income information. When the value in this input field changes the
     //                                              proportionate amounts will automatically get recalculated.
     //      data-claimant_two_selector=[any jQuery input selector] - the input field that will contain claimant two
     //                                              income information.
-    $('[data-calc_percentage="true"], [data-calc_proportions="true"]').each(function() {
+    $('[data-calc_percentage="true"]').each(function() {
+        var fraction = function(part1, part2) {
+            part1 = parseFloat(part1);
+            part2 = parseFloat(part2);
+            if (part1 + part2 === 0) {
+                return 0;
+            } else {
+                return part1 / (part1 + part2);
+            }
+        };
+
+        // Calculates the proportionate percentage of claimantOne to the sum of claimantOne
+        // and claimantTwo. The result is a value between [0,100] inclusive.
+        var calcPercentage = function(targetElement, claimantOne, claimantTwo) {
+            targetElement.val(Math.round(fraction(claimantOne, claimantTwo) * 100));
+        };
+        
         var self = $(this);
         var claimantOneElement = $($(this).attr('data-claimant_one_selector'));
         var claimantTwoElement = $($(this).attr('data-claimant_two_selector'));
-        var calcFunction = calcPercentage;
-        if ($(this).attr('data-calc_proportions') !== undefined) {
-            calcFunction = calcPercentageAmount;
-        }
 
         // Calculate and populate the field on initialization of page.
-        calcFunction(self, claimantOneElement.val(), claimantTwoElement.val());
+        calcPercentage(self, claimantOneElement.val(), claimantTwoElement.val());
 
         // Calculate and populate the fields whenever there is a change in the input
         // selectors.
         claimantOneElement.on('change', function() {
-            calcFunction(self, claimantOneElement.val(), claimantTwoElement.val());
+            calcPercentage(self, claimantOneElement.val(), claimantTwoElement.val());
+            self.trigger('change');
         });
         claimantTwoElement.on('change', function() {
-            calcFunction(self, claimantOneElement.val(), claimantTwoElement.val());
+            calcPercentage(self, claimantOneElement.val(), claimantTwoElement.val());
+            self.trigger('change');
+        });
+    });
+
+    // Scale the value in the data-quantity element by the scale factor in the data-scale_factor
+    // element, and store the result in the element with the data-scale attribute set.
+    // Our specific use case is calculating the proportion of a given claimant's child support
+    // payment relative to their spouse. We calculate these proportions based off of each claimant's income.
+    //      data-scale=[true|false]   - whether to store scaled product in current element
+    //      data-quantity=[any jQuery input selector] - the input field that will contain the factor that will be scaled.
+    //      data-scale_factor=[any jQuery input selector] - the input field that will contain the scale that will be applied.
+    $('[data-scale="true"]').each(function(){
+        var self = $(this);
+        var quantityElement = $($(this).attr('data-quantity'));
+        var scaleFactorElement = $($(this).attr('data-scale_factor'));
+
+        // Calculates the proportionate amount of claimantOne to the sum of claimantOne
+        // and claimantTwo. The result is a value between [0,claimantOne] inclusive.
+        var scale = function (targetElement, claimantAmount, proportionFactor) {
+            var amount = parseFloat(proportionFactor) / 100 * parseFloat(claimantAmount);
+            targetElement.val(amount.toFixed(2));
+        };
+
+        scale(self, quantityElement.val(), scaleFactorElement.val());
+
+        quantityElement.on('change', function() {
+            scale(self, quantityElement.val(), scaleFactorElement.val());
+        });
+
+        scaleFactorElement.on('change', function() {
+            scale(self, quantityElement.val(), scaleFactorElement.val());
         });
     });
 
@@ -804,21 +825,21 @@ var sumFieldOnChange = function() {
     sumFields('.' + sumClass, '#' + sumTargetId);
 };
 
-var sumFields = function(addend_selector, sum_selector) {
+var sumFields = function(addendSelector, sumSelector) {
     var total = 0.0;
-    $(addend_selector).each(function () {
+    $(addendSelector).each(function () {
         if ($(this).val() !== undefined && $(this).val().length !== 0) {
             total += parseFloat($(this).val());
         }
     });
     total = total.toFixed(2);
-    if (addend_selector !== undefined) {
-        if ($(sum_selector).is("p")) {
-            $(sum_selector).text(total);
+    if (addendSelector !== undefined) {
+        if ($(sumSelector).is("p")) {
+            $(sumSelector).text(total);
         }
         else {
-            $(sum_selector).val(total);
-            $(sum_selector).trigger("change");
+            $(sumSelector).val(total);
+            $(sumSelector).trigger("change");
         }
     }
 };

@@ -751,7 +751,7 @@
 
                     <td class="fact-sheet-answer" readonly>
                         <div class="dollar-prefix">
-                            {% money_input_field value_src="totaInl_section_seven_expenses" id="total_extraordinary_expense_annually" class="fact-sheet-input money " scale_factor="12" readonly="" %}
+                            {% money_input_field value_src="total_section_seven_expenses" id="total_extraordinary_expense_annually" class="fact-sheet-input money " scale_factor="12" readonly="" %}
                         </div>
                     </td>
                 </tr>
@@ -792,7 +792,7 @@
                     </td>
                     <td class="fact-sheet-answer" readonly>
                         <div class="dollar-prefix">
-                            {% money_input_field name="your_proportionate_share_amount" id="your_proportionate_share_amount" class="fact-sheet-input money" data_calc_proportions="true" data_claimant_one_selector="input[name='annual_gross_income']" data_claimant_two_selector="input[name='spouse_annual_gross_income']" readonly="" %}
+                            {% money_input_field name="your_proportionate_share_amount" id="your_proportionate_share_amount" class="fact-sheet-input money" data_scale="true" data_quantity="#total_extraordinary_expense_monthly" data_scale_factor="input[name='your_proportionate_share_percent']" readonly="" %}
                         </div>
                     </td>
                 </tr>
@@ -803,7 +803,7 @@
                     </td>
                     <td class="fact-sheet-answer" readonly>
                         <div class="dollar-prefix">
-                            {% money_input_field name="spouse_proportionate_share_amount" id="spouse_proportionate_share_amount" class="fact-sheet-input money" data_calc_proportions="true" data_claimant_one_selector="input[name='spouse_annual_gross_income']" data_claimant_two_selector="input[name='annual_gross_income']" readonly="" %}
+                            {% money_input_field name="spouse_proportionate_share_amount" id="spouse_proportionate_share_amount" class="fact-sheet-input money" data_scale="true" data_quantity="#total_extraordinary_expense_monthly" data_scale_factor="input[name='spouse_proportionate_share_percent']" readonly="" %}
                         </div>
                     </td>
                 </tr>
