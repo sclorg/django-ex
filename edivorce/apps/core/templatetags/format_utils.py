@@ -1,14 +1,19 @@
-from django import template
 from datetime import datetime
+import locale
 import re
+
+from django import template
 from django.utils.safestring import mark_safe
+from django.utils.timesince import timesince
+
+locale.setlocale(locale.LC_ALL, 'en_CA.utf-8')
 
 register = template.Library()
 
 
 @register.filter
 def linebreaksli(value):
-    "Converts strings with newlines into <li></li>s"
+    """ Converts strings with newlines into <li></li>s """
     value = re.sub(r'\r\n|\r|\n', '\n', value.strip())  # normalize newlines
     lines = re.split('\n', value)
     lines = ['<li>%s</li>' % line for line in lines if line and not line.isspace()]
@@ -17,22 +22,20 @@ def linebreaksli(value):
 
 @register.filter
 def date_formatter(value):
-    """
-        Changes date format from dd/mm/yyyy to dd/mmm/yyyy
-    """
+    """ Changes date format from dd/mm/yyyy to dd/mmm/yyyy """
 
     if value is None or value == '':
         return ''
 
     try:
-        d = datetime.strptime(value, '%d/%m/%Y')
+        date = datetime.strptime(value, '%d/%m/%Y')
     except ValueError:
-        d = None
+        date = None
 
-    if d is None:
-        d = datetime.strptime(value, '%b %d, %Y')
+    if date is None:
+        date = datetime.strptime(value, '%b %d, %Y')
 
-    return d.strftime('%d %b %Y')
+    return date.strftime('%d %b %Y')
 
 
 @register.simple_tag()
@@ -83,6 +86,37 @@ def checkbox(context, *args, **kwargs):
 @register.filter
 def claimantize(value, claimant='1'):
     """ Replace 'you' with 'claimant 1' and 'spouse' with 'claimant 2' """
-    value = value.replace('you', 'claimant %s' % claimant)
-    value = value.replace('spouse', 'claimant %s' % '2' if claimant == '1' else '1')
+    value = value.replace('you', 'claimant\xa0%s' % claimant)
+    value = value.replace('spouse', 'claimant\xa0%s' % '2' if claimant == '1' else '1')
     return value
+
+@register.filter
+def age(date):
+    """
+    Return the difference between now and date in the largest unit.
+
+    This uses Django's timesince filter but takes only the first term,
+    printing '46 years' instead of print '46 years, 7 months'.
+    """
+    try:
+        birth = datetime.strptime(date, '%b %d, %Y')
+    except ValueError:
+        try:
+            birth = datetime.strptime(date, '%b %d, %Y')
+        except ValueError:
+            birth = None
+    if birth is not None:
+        return timesince(birth).split(',')[0]
+    return ''
+
+
+@register.filter
+def money(amount):
+    """ Return a properly formatted currency string including symbol """
+
+    try:
+        return locale.currency(float(amount), grouping=True)
+    except ValueError:
+        pass
+
+    return ''

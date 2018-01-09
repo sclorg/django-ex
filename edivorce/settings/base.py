@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'rest_framework',
     'debug_toolbar',
     'edivorce.apps.core',
@@ -97,14 +98,13 @@ REST_FRAMEWORK = {
 
 LANGUAGE_CODE = 'en-us'
 
+USE_TZ = True
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
 USE_L10N = True
-
-USE_TZ = True
-
+USE_THOUSANDS_SEPARATOR = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/

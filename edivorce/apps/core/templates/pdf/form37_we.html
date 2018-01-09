@@ -1,0 +1,327 @@
+{% load static %}
+{% load composites %}
+{% load input_field %}
+{% load format_utils %}
+{% load humanize %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Form 37, Joint</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/bootstrap-slim.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/weasyprint.css" />
+
+    {% include 'partials/gtm_head.html' %}
+</head>
+
+<body>
+    <div class="print-wrapper">
+        <h3 class="text-center">Form F37<br />(Rule 10-10(2))</h3>
+
+        <p class="text-right">
+            Court File No.: <span class="form-entry not-complete form-underline">&nbsp;</span>
+        </p>
+
+        <p class="text-right">
+            Court Registry: {% response responses.court_registry_for_filing %}
+        </p>
+
+        <p class="text-right">
+            This is the <span class="form-entry-sm not-complete form-underline"></span> affidavit<br>
+            of {% required responses.name_you %} and<br>
+            {% required responses.name_spouse %} in this case,<br>
+            and was made on <span class="form-entry-md not-complete form-underline"></span>
+        </p>
+
+        <h3 class="text-center">
+            In the Supreme Court of British Columbia
+        </h3>
+
+        <p>&nbsp;</p>
+
+        <p>Claimant 1:</p>
+
+        <p>{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}</p>
+
+        <p>Claimant 1:</p>
+
+        <p>{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}</p>
+
+        <h1 class="text-center">
+            CHILD SUPPORT AFFIDAVIT
+        </h1>
+
+        <p>
+            We,
+            {% if responses.name_you %}
+                {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}
+            {% else %}<span class="form-entry not-complete"></span>{% endif %},
+            of
+
+            {% required responses.address_to_send_official_document_street_you trail=',' %}
+            {% required responses.address_to_send_official_document_city_you size=100 trail=',' %}
+            {% if responses.address_to_send_official_document_prov_you %}
+                {{ responses.address_to_send_official_document_prov_you }},
+            {% endif %}
+            {% if responses.address_to_send_official_document_country_you == 'Other' %}
+                {% required responses.address_to_send_official_document_other_country_you size=100 trail=',' %}
+            {% else %}
+                {% required responses.address_to_send_official_document_country_you size=100 trail=',' %}
+            {% endif %}
+            {% required responses.address_to_send_official_document_postal_code_you size=100 trail=',' %}
+
+            {% required responses.occupation_you %},<br />
+
+            and <br />
+
+            {% if responses.name_spouse %}
+                {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}
+            {% else %}<span class="form-entry not-complete"></span>{% endif %}, of
+
+            {% required responses.address_to_send_official_document_street_spouse trail=',' %}
+            {% required responses.address_to_send_official_document_city_spouse size=100 trail=',' %}
+            {% if responses.address_to_send_official_document_prov_spouse %}
+                {{ responses.address_to_send_official_document_prov_spouse }},
+            {% endif %}
+            {% if responses.address_to_send_official_document_country_spouse == 'Other' %}
+                {% required responses.address_to_send_official_document_other_country_spouse size=100 trail=',' %}
+            {% else %}
+                {% required responses.address_to_send_official_document_country_spouse size=100 trail=',' %}
+            {% endif %}
+            {% required responses.address_to_send_official_document_postal_code_spouse size=100 trail=',' %}
+
+            {% required responses.occupation_spouse %},<br />
+            SWEAR (OR AFFIRM) THAT:
+        </p>
+
+        <ol class="numbered-paragraphs">
+          <li>We are claimant 1 and claimant 2.</li>
+
+          <li>
+            <p>The following is true to the best of my information and belief.</p>
+
+            <p>(a) Parties:</p>
+
+            <table class="table table-fixed table-bordered">
+              <tr>
+                <th style="text-align: left">Claimant 1's name</th>
+                <th style="text-align: left">Province of residence</th>
+              </tr>
+              <tr>
+                <td>{% response responses.name_you %}</td>
+                <td>{% response responses.address_to_send_official_document_prov_you %}</td>
+              </tr>
+              <tr>
+                <th style="text-align: left">Claimant 2's name</th>
+                <th style="text-align: left">Province of residence</th>
+              </tr>
+              <tr>
+                <td>{% response responses.name_spouse %}</td>
+                <td>{% response responses.address_to_send_official_document_prov_spouse %}</td>
+              </tr>
+            </table>
+
+            <p>(b) Children:</p>
+
+            <table class="table table-bordered">
+              <tr>
+                <th>Child's name</th>
+                <th>Birthdate</th>
+                <th>Age</th>
+                <th>Child now living with</th>
+                <th>Relationship to claimant&nbsp;1</th>
+                <th>Relationship to claimant&nbsp;2</th>
+              </tr>
+  {% for child in responses.children %}
+              <tr>
+                <td>{{ child.child_name }}</td>
+                <td>{{ child.child_birth_date|date_formatter }} &nbsp;</td>
+                <td>{{ child.child_birth_date|age }}</td>
+                <td>{{ child.child_live_with|claimantize }}</td>
+                <td>{{ child.child_relationship_to_you }}</td>
+                <td>{{ child.child_relationship_to_spouse }}</td>
+              </tr>
+  {% endfor %}
+            </table>
+
+          </li>
+
+          <li>
+  {% if derived.wants_child_support %}
+            The Notice of Joint Family Claim includes a claim for a child
+            support order.
+  {% else %}
+            The Notice of Joint Family Claim never included a claim for a child
+            support order.
+  {% endif %}
+          </li>
+
+          <li>
+            <ol style="list-style-type: lower-alpha">
+              <li>Claimant 1's annual income as determined under sections 15 to
+                20 of the Guidelines: $amount</li>
+              <li>Claimant 2's annual income as determined under sections 15 to
+                20 of the Guidelines: $amount</li>
+              <li>Claimant 1 and Claimant 2 have entered into an agreement as
+                to income pursuant to section 15(2) of the Guidelines, a copy
+                of which agreement is attached.</li>
+              <li>Section 4 is omitted as inapplicable.</li>
+            </ol>
+          </li>
+
+          <li>  <!-- 5 -->
+  {% if derived.has_fact_sheets %}
+            I have completed and attached to this Affidavit:<br>
+            {% if derived.show_fact_sheet_b %}Supplementary Child Support Fact Sheet B<br>{% endif %}
+            {% if derived.show_fact_sheet_c %}Supplementary Child Support Fact Sheet C<br>{% endif %}
+            {% if derived.show_fact_sheet_d %}Supplementary Child Support Fact Sheet D<br>{% endif %}
+            {% if derived.show_fact_sheet_e %}Supplementary Child Support Fact Sheet E<br>{% endif %}
+            {% if derived.show_fact_sheet_f %}Supplementary Child Support Fact Sheet F<br>{% endif %}
+  {% else %}
+            The monthly amount in Schedule 1 of the Guidelines is
+            {{ derived.schedule_1_amount|money }}, payable by
+            {{ derived.schedule_1_payor }}.
+  {% endif %}
+          </li>
+
+          <li>  <!-- 6 -->
+            The proposed order sets out that $amount is the amount of child
+            support payable by Claimant 1 or Claimant 2 which amount accords
+            with the Guidelines.
+            <br><br>
+            The proposed order by consent, pursuant to section 15.1(7) of  the
+            Divorce Act (Canada) or section 150(2) of   the Family Law Act,
+            sets out that $amount is the amount of child support payable by
+            Claimant 1 orClaimant 2, which amount is different than the amount
+            required by the Guidelines.
+            <br><br>
+            The proposed order sets out that $amount is the amount of child
+            support payable by Claimant 1 or Claimant 2, which amount is
+            different than the amount required by the Guidelines, but the
+            following special provisions, within the meaning of section 15.1(5)
+            of the Divorce Act(Canada), have been made: describe
+            <br><br>
+            The proposed order sets out that $amount is the amount of child
+            support payable by Claimant 1 or Claimant 2, in accordance with the
+            agreement referred to in section 4(c) of this Affidavit.
+            <br><br>
+            The proposed order does not include child support but the following
+            arrangements have been made for the support of the child: describe
+          </li>
+
+          <li>  <!-- 7 -->
+  {% if 'None' in responses.special_extraordinary_expenses %}
+            Expenses under section 7 of the Child Support Guidelines are not
+            included in the proposed order.
+  {% else %}
+            I have completed and attached to this affidavit Supplementary
+            Child Support Fact Sheet A (special expenses), and the amount set
+            out in the proposed order for the expenses under section 7 of the
+            Guidelines is $amount.
+  {% endif %}
+          </li>
+
+          <li>  <!-- 8 -->
+            Medical coverage is available for the children under Claimant 1's
+            medical insurance plan.
+            <br><br>
+            Medical coverage is available for the children under Claimant 2's
+            medical insurance plan.
+            <br><br>
+            Medical coverage is not available for the children under either of
+            the party’s medical insurance plans.
+          </li>
+
+          <li>  <!-- 9 -->
+  {% if responses.have_court_order == 'YES' %}
+            Attached as Exhibit {{ exhibits.pop }} is the order in force
+            that deals with the support of the children.
+  {% else %}
+            There is no order of any court in force dealing with support of the
+            children.
+  {% endif %}
+          </li>
+
+          <li>  <!-- 10 -->
+  {% if responses.have_separation_agreement == 'YES' %}
+            Attached as Exhibit {{ exhibits.pop }} is the written
+            agreement that deals with the support of the children.
+  {% else %}
+            There is no agreement dealing with support of the children.
+  {% endif %}
+          </li>
+
+          <li class="force-break">  <!-- 11 -->
+            The amount of arrears of child support, as at date, under any
+            existing order or written agreement is nil or$amount.
+          </li>
+
+        </ol>
+
+        <p>&nbsp;</p>
+
+        <table class="notary-signature">
+            <tbody>
+                <tr>
+                    <td class=""> SWORN (OR AFFIRMED) BEFORE ME</td>
+                    <td class="parens"> ) </td>
+                    <td class=""> </td>
+                </tr>
+                <tr>
+                    <td class="">at <span class="form-entry not-complete">&nbsp;</span>, British Columbia</td>
+                    <td class="parens"> ) </td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class="">on</td>
+                    <td class="parens"> ) </td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class=""></td>
+                    <td class="parens"> ) </td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class=""></td>
+                    <td class="parens"> ) </td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class=""></td>
+                    <td class="parens"> ) </td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class=""></td>
+                    <td class="parens"> ) </td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class="signature-above">A commissioner for taking</td>
+                    <td class="parens"> ) </td>
+                    <td class="signature-above">{{ responses.name_you|upper }}</td>
+                </tr>
+                <tr>
+                    <td class="">affidavits for British Columbia</td>
+                    <td class="parens"> ) </td>
+                    <td class=""></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>&nbsp;</p>
+
+        <small>Printed on {% now "F jS, Y" %} from https://justice.gov.bc.ca/divorce</small>
+    </div>
+</body>
+
+</html>

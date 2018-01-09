@@ -57,6 +57,11 @@ i.fa {
     min-width: 200px;
 }
 
+.form-entry-md {
+    display: inline-block;
+    min-width: 100px;
+}
+
 .form-entry-sm {
     display: inline-block;
     min-width: 50px;
@@ -154,4 +159,21 @@ ol.numbered-paragraphs li {
 
 .td-list-text .form-textarea {
   margin-left: 0em;
+}
+
+.notary-signature {
+  width: 100%;
+}
+
+.notary-signature td {
+  width: 47%;
+}
+
+.notary-signature td.signature-above {
+  border-top: solid 1px black !important;
+}
+
+.notary-signature td.parens {
+  text-align: center;
+  width: 6%;
 }
