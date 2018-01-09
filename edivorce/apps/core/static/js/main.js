@@ -367,24 +367,18 @@ $(function () {
     };
 
     var evaluateFactSheetShowCriteria = function(childrenData) {
-        var childWithBoth = false;
+        var childWithBoth = 0;
         var childWithYou = 0;
         var childWithSpouse = 0;
-        var childWithOther = 0;
         childrenData.forEach(function(child) {
-            if (child.child_live_with === 'Lives with both') {
-                childWithBoth |= true;
+            if (child.child_live_with === 'Lives with you' ) {
+                childWithYou += 1;
             }
-            if (childrenData.length > 1 ) {
-                if (child.child_live_with === 'Lives with you' ) {
-                    childWithYou += 1;
-                }
-                if (child.child_live_with === 'Lives with spouse') {
-                    childWithSpouse +=1 ;
-                }
-                if (child.child_live_with === 'Other') {
-                    childWithOther +=1 ;
-                }
+            if (child.child_live_with === 'Lives with spouse') {
+                childWithSpouse +=1;
+            }
+            if (child.child_live_with === 'Lives with both') {
+                childWithBoth += 1;
             }
         });
 
@@ -396,9 +390,12 @@ $(function () {
         }
 
         // show fact sheet c
-        if (childWithYou === 1 && (childWithSpouse > 0 || childWithOther > 0 || childWithBoth)) {
+        // When the claimants have indicated that they have more than one child, then show fact sheet c if each
+        // claimant has sole custody of at least one of the children or if one claimant has sole custody of at least one
+        // child and the both claimants have shared custody of the remaining children.
+        if (childWithYou && (childWithSpouse || childWithBoth)) {
             $('#fact_sheet_c').show();
-        } else if (childWithSpouse === 1 && (childWithYou > 0 || childWithOther > 0 || childWithBoth)) {
+        } else if (childWithSpouse && (childWithYou || childWithBoth)) {
             $('#fact_sheet_c').show();
         } else {
             $('#fact_sheet_c').hide();
