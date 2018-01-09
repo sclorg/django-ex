@@ -9,6 +9,54 @@
 {% block content %}
 <h1><small>Step {% step_order step="children" %}:</small>Children - Payor & medical expenses</h1>
 
+    <div class="question-well">
+        <h3>Who is the
+            <span class="tooltip-link"
+                  data-toggle="tooltip" data-placement="right" data-html="true"
+                  title="
+                    <b>Payor</b>
+                    <p>The person who pays child support.</p>
+                    ">
+                    payor<i class="fa fa-question-circle" aria-hidden="true"></i>
+                </span>
+            ?
+        </h3>
+        <p>
+            Please select one
+        </p>
+
+        <div class="radio">
+            <label>
+                {% input_field type="radio" name="child_support_payor" autocomplete="off" value="Myself (Claimant 1)" %} Myself (Claimant 1)
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                {% input_field type="radio" name="child_support_payor" autocomplete="off" value="My Spouse (Claimant 2)" %} My Spouse (Claimant 2)
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                {% input_field type="radio" name="child_support_payor" autocomplete="off" value="Both myself and my spouse" %} Both myself and my spouse
+            </label>
+        </div>
+
+        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_determine_payor" aria-controls="collapse_determine_payor">
+            <div>
+                How do I determine who is the payor?
+            </div>
+        </div>
+        <div class="collapse" id="collapse_determine_payor">
+            <div>
+                <p>
+                    The parent who the child lives with most of the time is entitled to child support from the other
+                    parent. If a child spends equal (or almost equal) time with both parents, the parent with the higher
+                    income will usually have to pay child support.
+                </p>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 
