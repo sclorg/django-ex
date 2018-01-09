@@ -79,7 +79,7 @@ def show_fact_sheet_d(responses):
     """
 
     support = json.loads(responses.get('children_financial_support', '[]'))
-    return len(support) > 0 and "NO" not in support
+    return len(support) > 0 and 'NO' not in support and responses.get('children_of_marriage', '') == 'YES'
 
 
 def show_fact_sheet_e(responses):
