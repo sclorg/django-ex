@@ -65,6 +65,11 @@
             </a>
         </li>
         <li>
+            <a href="{% url 'question_steps' 'children' 'payor_medical'%}" class="progress-sub-question {% if sub_step == 'payor_medical' %} active {% endif %}">
+                <span class="progress-content">Payor & medical expenses</span>
+            </a>
+        </li>
+        <li>
             <a href="{% url 'question_steps' 'children' 'facts'%}" class="progress-sub-question {% if sub_step == 'facts' %} active {% endif %}">
                 <span class="progress-content">Other fact sheets</span>
             </a>

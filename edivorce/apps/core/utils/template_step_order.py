@@ -23,7 +23,8 @@ template_sub_step_order = {
         'your_children': 1,
         'what_for': 2,
         'income_expenses': 3,
-        'facts': 4
+        'payor_medical': 4,
+        'facts': 5
     }
 }
 

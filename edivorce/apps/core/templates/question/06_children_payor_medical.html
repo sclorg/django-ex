@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load input_field %}
+{% load step_order %}
+
+{% block title %}{{ block.super }}: Your Children {% endblock %}
+
+{% block progress %}{% include "partials/progress.html" %}{% endblock %}
+
+{% block content %}
+<h1><small>Step {% step_order step="children" %}:</small>Children - Payor & medical expenses</h1>
+
+{% endblock %}
+
+
+{% block formBack %}{% prev_step step='children' sub_step='payor_medical' %}{% endblock %}
+{% block formNext %}{% next_step step='children' sub_step='payor_medical' %}{% endblock %}
+
+{% block sidebarText %}
+    <p><strong>Who pays who?</strong></p>
+    <p>
+        The parent who the child lives with most of the time is entitled to get child support from the other parent
+        (the payor). This is to help with the costs of raising the child. If a child spends the same or almost the same
+        amount of time with each parent, then parent with the higher income may have to pay child support to the other
+        parent.
+    </p>
+    <p><strong>What is the 40 percent principle?</strong></p>
+    <p>
+        When a child lives with a payor 40 percent of the time or more, that parent can argue that they don't have to pay
+        as much support as the guidelines say. The judge or master may agree and order lower support amounts.
+    </p>
+    <p>
+        When a payor makes this request, the judge or master will consider how often the children are with the payor,
+        as well as the gross annual income of each parent and extra costs of sharing parenting time. The court will
+        also consider other factors, such as the circumstances of both parents and of the child being supported.
+    </p>
+    <p><strong>Child Support Officers – Ministry of Justice</strong></p>
+    <p>
+        For more information about the child support guidelines, a Child Support Office is available in Kelowna,
+        Nanaimo, Surrey and Vancouver.  If you don’t live in a community with a Child Support Office you can phone the
+        following numbers for assistance:
+    </p>
+    <p>
+        Greater Vancouver: 604 660-2084
+    </p>
+    <p>
+        Elsewhere in B.C.: 1-888-227-7734 (call no charge) (1)
+    </p>
+{% endblock %}
