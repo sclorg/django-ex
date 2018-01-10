@@ -33,17 +33,17 @@
 
         <div class="radio">
             <label>
-                {% input_field type="radio" name="child_support_payor" autocomplete="off" value="Myself (Claimant 1)" %} Myself (Claimant 1)
+                {% input_field type="radio" name="child_support_payor" autocomplete="off" value="Myself (Claimant 1)" %} {% if name_you %}{{ name_you }} {% else %} Myself {% endif %}(Claimant 1)
             </label>
         </div>
         <div class="radio">
             <label>
-                {% input_field type="radio" name="child_support_payor" autocomplete="off" value="My Spouse (Claimant 2)" %} My Spouse (Claimant 2)
+                {% input_field type="radio" name="child_support_payor" autocomplete="off" value="My Spouse (Claimant 2)" %} {% if name_spouse %}{{ name_spouse }} {% else %} My spouse {% endif %} (Claimant 2)
             </label>
         </div>
         <div class="radio">
             <label>
-                {% input_field type="radio" name="child_support_payor" autocomplete="off" value="Both myself and my spouse" %} Both myself and my spouse
+                {% input_field type="radio" name="child_support_payor" autocomplete="off" value="Both myself and my spouse" %} Both {% if name_you %}{{ name_you }} {% else %} myself {% endif %} and {% if name_spouse %}{{ name_spouse }} {% else %} my spouse {% endif %}
             </label>
         </div>
 
