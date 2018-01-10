@@ -6,7 +6,7 @@ from django import template
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
 
-locale.setlocale(locale.LC_ALL, 'en_CA.utf-8')
+locale.setlocale(locale.LC_ALL, 'en_CA.UTF-8')
 
 register = template.Library()
 
