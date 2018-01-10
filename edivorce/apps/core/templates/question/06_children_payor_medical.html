@@ -9,6 +9,12 @@
 {% block content %}
 <h1><small>Step {% step_order step="children" %}:</small>Children - Payor & medical expenses</h1>
 
+    <div id="__claimant_names" hidden>
+        <input name="name_you" value="{{ name_you }}" title="name_you" hidden />
+        <input name="name_spouse" value="{{ name_spouse }}" title="name_spouse" hidden />
+        <input name="claimant_children" value="{{ claimant_children }}" title="claimant_children" hidden />
+    </div>
+
     <div class="question-well">
         <h3>Who is the
             <span class="tooltip-link"
@@ -55,6 +61,105 @@
                 </p>
             </div>
         </div>
+    </div>
+
+    <div class="question-well" id="monthly_amount_question" hidden>
+        <h3>What is the monthly child support amount (as per
+            <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-5.html#h-9" target="_blank">Schedule 1</a>
+            of the guidelines) that is payable by <span class="__name-of-payor"></span></h3>
+        <div class="dollar-prefix">
+            {% money_input_field name="payor_monthly_child_support_amount" class="money form-block response-textbox children-input-block" %}
+        </div>
+
+        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_determine_payor_amount" aria-controls="collapse_determine_payor_amount">
+            <div>
+                How do I determine what amount needs to be paid?
+            </div>
+        </div>
+        <div class="collapse" id="collapse_determine_payor_amount">
+            <div>
+                <p>
+                    Child support orders made in British Columbia are based on the
+                    <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-1.html" target="_blank">
+                        Federal Child Support Guidelines.
+                    </a>These guidelines contain clear rules that courts use to set child support as well as tables
+                    that list the amount of child support the payor has to pay. These amounts are based on how much he
+                    or she earns and how many children the payor must support. Each province has its own table; use the
+                    one for the province where the payor lives.
+                </p>
+                <p>
+                    To figure out how much child support the payor will be paying under the guidelines:
+                </p>
+                <ul>
+                    <li>Use the
+                        <a href="http://www.justice.gc.ca/eng/fl-df/child-enfant/2017/look-rech.asp" target="_blank">
+                            Child Support Table Lookup tool
+                        </a> (effective from November 22, 2017) to calculate the
+                        correct amount of child support.
+                    </li>
+                </ul>
+                <p>
+                    or
+                </p>
+                <ul>
+                    <li>Refer to the
+                        <a href="http://www.justice.gc.ca/eng/fl-df/child-enfant/ft-tf.html" target="_blank">
+                            Federal Child Support Tables
+                        </a>. Make sure you view the table pertaining to the province where the payor lives.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_schedule_one" aria-controls="collapse_schedule_one">
+            <div>
+                 What is Schedule 1?
+            </div>
+        </div>
+        <div class="collapse" id="collapse_schedule_one">
+            <div>
+                <p>
+                    Schedule 1 refers to the federal child support tables which set out the amount of monthly child
+                    support payments for each province on the basis of the annual income of the spouse ordered to pay
+                    child support (the “support payer”) and the number of children for whom a table amount is payable.
+                </p>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>If...</th>
+                            <th>Then…</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>you both live in the same province or territory</td>
+                        <td>use the table for that province or territory.</td>
+                    </tr>
+                    <tr>
+                        <td>you live in different provinces or territories and one of you has sole custody and the other
+                            parent must pay support
+                        </td>
+                        <td>use the table for the province or territory where the paying parent lives.</td>
+                    </tr>
+                    <tr>
+                        <td>you live in different provinces or territories and you share or split custody</td>
+                        <td>use the tables for both provinces or territories where you reside to determine what you
+                            would each pay to the other parent.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>one of you lives outside Canada</td>
+                        <td>use the table for the province or territory where the parent in Canada lives. The laws of
+                            the other country may apply in some cases. You may want to consult a lawyer. You may also
+                            find information relating to <a target="_blank" href="http://www.justice.gc.ca/eng/fl-df/enforce-execution/enforce-execut.html">interjurisdictional
+                                support</a> useful.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
     </div>
 
 {% endblock %}

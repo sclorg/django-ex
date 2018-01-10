@@ -36,7 +36,7 @@ def money_input_field(context, input_type='number', name='', value_src=None, val
     if kwargs.get('step', None):
         step = kwargs.get('step')
 
-    tag = ['<input type="{}" value="{:.2f}" step="{}" '.format(input_type, float(value), step)]
+    tag = ['<input type="{}" value="{:.2f}" step="{}" min="0" '.format(input_type, float(value), step)]
 
     if name != '':
         tag.append('name="{}"'.format(name))

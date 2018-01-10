@@ -458,6 +458,49 @@ $(function () {
         populateChildrenFactSheets();
     });
 
+    var updateClaimantName = function() {
+        var payor = '';
+        var element = $('#__claimant_names');
+        $("input[name='child_support_payor']:checked").each(function() {
+           if ($(this).val() === 'Myself (Claimant 1)') {
+               payor = element.find('input[name="name_you"]').val() || 'Claimant 1';
+           } else if ($(this).val() === 'My Spouse (Claimant 2)') {
+               payor = element.find('input[name="name_spouse"]').val() || 'Claimant 2';
+           } else if ($(this).val() === 'Both myself and my spouse') {
+               payor = (element.find('input[name="name_you"]').val() || 'Claimant 1') + ' and ' +
+                   (element.find('input[name="name_spouse"]').val() || 'Claimant 2');
+           }
+        });
+
+        $('.__name-of-payor').text(payor);
+
+        // Check custody conditions and only show additional question of amount payor will pay
+        // if all of the children are in sole custody of payor.
+        var children = JSON.parse($('input[name="claimant_children"]').val());
+
+        var payorElement = $("input[name='child_support_payor']:checked").val();
+        var soleCustodyCondition = null;
+        if (payorElement === 'Myself (Claimant 1)') {
+            soleCustodyCondition = 'Lives with you'
+        } else if (payorElement === 'My Spouse (Claimant 2)') {
+            soleCustodyCondition = 'Lives with spouse';
+        }
+
+        var hasSoleCustody = children.every(function(child){
+            return soleCustodyCondition && child.child_live_with === soleCustodyCondition
+        });
+
+        if (hasSoleCustody) {
+            $('#monthly_amount_question').show();
+        } else {
+            $('#monthly_amount_question').hide();
+        }
+    };
+
+    $('#__claimant_names').each(updateClaimantName);
+    $('input[name="child_support_payor"]').on('change', updateClaimantName);
+
+
     $("#btn_add_reconciliation_periods").on('click', function () {
         $('#reconciliation_period_fields').append($('#reconciliation_period_group').children().clone());
         // add event lister for newly added from_date field, to_date field, delete button, and date picker

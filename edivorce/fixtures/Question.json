@@ -1514,6 +1514,15 @@
     },
     "model": "core.question",
     "pk": "child_support_payor"
+},
+{
+    "fields": {
+        "name": "Who is the payor?",
+        "description": "For Step 6, Your children - Payor & medical expenses",
+        "summary_order": 0,
+        "required": "Conditional"
+    },
+    "model": "core.question",
+    "pk": "payor_monthly_child_support_amount"
 }
-
 ]
