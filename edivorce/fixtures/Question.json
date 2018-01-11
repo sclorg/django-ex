@@ -1544,5 +1544,41 @@
     },
     "model": "core.question",
     "pk": "child_support_in_order_reason"
+},
+{
+    "fields": {
+        "name": "Does this amount match with what is specified in the current Federal Child Support Guidelines amount based on the income of the payor(s)?",
+        "description": "For Step 6, Your children - Payor & medical expenses",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "child_support_in_order_reason",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "does_payour_amount_match_guidelines"
+},
+{
+    "fields": {
+        "name": "Do you and the other parent agree (have consented) on the child support amount?",
+        "description": "For Step 6, Your children - Payor & medical expenses",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "does_payour_amount_match_guidelines",
+        "reveal_response": "NO"
+    },
+    "model": "core.question",
+    "pk": "claimants_agree_to_child_support_amount"
+},
+{
+    "fields": {
+        "name": "What special provisions have been made?",
+        "description": "For Step 6, Your children - Payor & medical expenses",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimants_agree_to_child_support_amount",
+        "reveal_response": "NO"
+    },
+    "model": "core.question",
+    "pk": "child_support_payment_special_provisions"
 }
 ]
