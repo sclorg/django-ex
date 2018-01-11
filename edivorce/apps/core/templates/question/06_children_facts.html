@@ -224,7 +224,7 @@
 {% endif %}
 
     <div id="fact_sheet_b" class="question-well fact-sheets" hidden>
-    <h1>Shared Custody (Fact Sheet B)</h1>
+    <h1>Shared Living Arrangement (Fact Sheet B)</h1>
     <p>
         Since you have previously indicated that the child/children will live with both parents more or less equally
         (between 40 to 60% of the time with each parent) we need you to answer the questions below in order for the
@@ -237,7 +237,7 @@
         (the child spends at least 40 percent of the time with each of you in a year). If you and your spouse
         have a split parenting arrangement for any other children, do not include them in this set of questions.
         </p>
-        {% input_field type="number" name="number_of_children" class="form-control input-narrow" readyonly="" %}
+        {% input_field type="number" name="number_of_children" class="form-control input-narrow" min="0" %}
     </div>
     <br />
 
@@ -255,10 +255,10 @@
                     What is the approximate amount of time the children spend with each parent?
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="time_spent_with_you" class="fact-sheet-input"  %}
+                    {% input_field type="number" name="time_spent_with_you" class="fact-sheet-input" min="0" %}
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="time_spent_with_spouse" class="fact-sheet-input" %}
+                    {% input_field type="number" name="time_spent_with_spouse" class="fact-sheet-input" min="0" %}
                 </td>
             </tr>
             <tr>
@@ -418,7 +418,7 @@
 </div>
 
     <div id="fact_sheet_c" class="question-well fact-sheets" hidden>
-    <h1>Split Custody (Fact Sheet C)</h1>
+    <h1>Split Living Arrangement (Fact Sheet C)</h1>
     <p>
         Since you have previously indicated that you and your spouse have more than one child and each of you has
         sole custody of at least one of the children, we need you to answer the next set of questions in order for the
