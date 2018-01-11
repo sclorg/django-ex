@@ -1524,5 +1524,25 @@
     },
     "model": "core.question",
     "pk": "payor_monthly_child_support_amount"
+},
+{
+    "fields": {
+        "name": "What is the monthly child support amount proposed in the order to be paid by",
+        "description": "For Step 6, Your children - Payor & medical expenses",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "child_support_in_order"
+},
+{
+    "fields": {
+        "name": "We are not asking for child support to be included in the order",
+        "description": "For Step 6, Your children - Payor & medical expenses",
+        "summary_order": 0,
+        "required": "Conditional"
+    },
+    "model": "core.question",
+    "pk": "child_support_in_order_reason"
 }
 ]

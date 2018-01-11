@@ -66,9 +66,9 @@
     <div class="question-well" id="monthly_amount_question" hidden>
         <h3>What is the monthly child support amount (as per
             <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-5.html#h-9" target="_blank">Schedule 1</a>
-            of the guidelines) that is payable by <span class="__name-of-payor"></span></h3>
+            of the guidelines) that is payable by <span class="__name-of-payor"></span>?</h3>
         <div class="dollar-prefix">
-            {% money_input_field name="payor_monthly_child_support_amount" class="money form-block response-textbox children-input-block" %}
+            {% money_input_field name="payor_monthly_child_support_amount" class="money form-block response-textbox children-input-block" data_mirror="true" data_mirror_target="#child_support_amount_label" %}
         </div>
 
         <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_determine_payor_amount" aria-controls="collapse_determine_payor_amount">
@@ -162,6 +162,47 @@
 
     </div>
 
+    <div class="question-well">
+        <h3>What is the monthly child support amount
+                <span class="tooltip-link"
+                  data-toggle="tooltip" data-placement="right" data-html="true"
+                  title="
+                    <b>Proposed in the order</b>
+                    <p>When you file your completed divorce forms at the court registry they will include the &quot;order&quot;
+                    you want made. Basically you're asking the court (via a judge) to approve what you are asking for
+                    and/or have agreed upon (e.g. monthly child support amount).
+                    </p>
+                    ">
+                    proposed in the order<i class="fa fa-question-circle" aria-hidden="true"></i>
+                </span>
+             to be paid by <span class="__name-of-payor"></span>?
+        </h3>
+        <div class="radio">
+            <label>
+                {% input_field type="radio" name="child_support_in_order" value="YES" data_target_id="does_amount_match" data_reveal_target="true" %}$ <span id="child_support_amount_label">{{ payor_monthly_child_support_amount }}</span>
+            </label>
+        </div>
+
+        {% if how_will_calculate_income != 'entered agreement' %}
+        <div class="radio">
+            <label>
+                {% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_id="does_amount_match" data_reveal_target="false" %}We are not asking for child support to be included in the order
+            </label>
+            <p>
+                Please describe what arrangements have made for the support of the child (ren)?
+                {% input_field type="textarea" name="child_support_in_order_reason" class="other-textbox response-textarea form-control" tabindex="-1" maxlength="500" rows="3" %}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="question-well" id="does_amount_match" hidden>
+        <h3>Does this amount match with what is specified in the current
+            <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-1.html" target="_blank">
+                Federal Child Support Guidelines
+            </a>amount based on the income of the payor(s)?
+        </h3>
+    </div>
 {% endblock %}
 
 
