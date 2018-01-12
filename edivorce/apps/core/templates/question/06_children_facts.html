@@ -399,10 +399,14 @@
                     ) to be paid annually
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="extra_ordinary_expenses_you" class="fact-sheet-input" %}
+                    <div class="dollar-prefix">
+                        {% money_input_field name="extra_ordinary_expenses_you" class="money sfact-sheet-input" %}
+                    </div>
                 </td>
                 <td class="fact-sheet-answer">
-                    {% input_field type="number" name="extra_ordinary_expenses_spouse" class="fact-sheet-input" %}
+                    <div class="dollar-prefix">
+                        {% money_input_field name="extra_ordinary_expenses_spouse" class="money fact-sheet-input" %}
+                    </div>
                 </td>
             </tr>
             <tr>
