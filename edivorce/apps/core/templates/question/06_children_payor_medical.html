@@ -230,6 +230,33 @@
         <h3>What special provisions have been made?</h3>
         {% input_field type="textarea" name="child_support_payment_special_provisions" class="response-textarea form-control" tabindex="-1" maxlength="1000" rows="3" %}
     </div>
+
+    <div class="question-well">
+        <h3>Is medical coverage available for the children?</h3>
+        <div class="btn-radio-group" data-toggle="buttons">
+            <label class="btn btn-radio">
+                {% input_field type="radio"  name="medical_coverage_available" autocomplete="off" value="YES" data_target_id="who_plan_is_coverage_under" data_reveal_class="true"  data_reveal_target="true" %} Yes
+            </label>
+
+            <label class="btn btn-radio">
+                {% input_field type="radio"  name="medical_coverage_available" autocomplete="off" value="NO" data_target_id="who_plan_is_coverage_under" data_reveal_class="false" data_reveal_target="false" %} No
+            </label>
+        </div>
+    </div>
+
+    <div class="question-well" id="who_plan_is_coverage_under" hidden>
+        <h3>Whose plan is the coverage under?</h3>
+        <div class="radio">
+            <label>
+                {% input_field type="radio" name="whose_plan_is_coverage_under" value="My plan" %} My plan
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                {% input_field type="radio" name="whose_plan_is_coverage_under" value="Spouse" %} Spouse
+            </label>
+        </div>
+    </div>
 {% endblock %}
 
 

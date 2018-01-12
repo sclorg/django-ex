@@ -1580,5 +1580,27 @@
     },
     "model": "core.question",
     "pk": "child_support_payment_special_provisions"
+},
+{
+    "fields": {
+        "name": "Is medical coverage available for the children?",
+        "description": "For Step 6, Your children - Payor & medical expenses",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "medical_coverage_available"
+},
+{
+    "fields": {
+        "name": "What special provisions have been made?",
+        "description": "For Step 6, Your children - Payor & medical expenses",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "medical_coverage_available",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "whose_plan_is_coverage_under"
 }
 ]
