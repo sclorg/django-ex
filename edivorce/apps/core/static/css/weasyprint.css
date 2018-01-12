@@ -163,6 +163,7 @@ ol.numbered-paragraphs li {
 
 .notary-signature {
   width: 100%;
+  margin-top: 4em;
 }
 
 .notary-signature td {
@@ -176,4 +177,46 @@ ol.numbered-paragraphs li {
 .notary-signature td.parens {
   text-align: center;
   width: 6%;
+}
+
+.new-paragraph {
+  margin-top: 0.5em;
+}
+
+.indented {
+  margin-left: 4em;
+}
+
+.user-entered {
+  white-space: pre-line;
+}
+
+.fact-sheet {
+  page-break-before: always;
+}
+
+.fact-sheet h3 {
+  text-align: center;
+}
+
+.fact-sheet .table.table-bordered tbody tr th {
+  text-align: center;
+  font-weight: normal;
+}
+
+.fact-sheet .table.table-bordered tbody tr .line-number {
+  text-align: center;
+  width: 2em;
+}
+
+.fact-sheet .table.table-bordered tbody tr .amount {
+}
+
+.fact-sheet .table.table-bordered tbody tr .amount .actual {
+  float: right;
+}
+
+.fact-sheet .table.table-bordered tbody tr .percentage,
+.fact-sheet .table.table-bordered tbody tr .total {
+  text-align: right;
 }

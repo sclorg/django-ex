@@ -31,8 +31,21 @@ DERIVED_DATA = [
     'show_fact_sheet_f',
     'has_fact_sheets',
     'schedule_1_amount',
-    'schedule_1_payor',
-    'fact_sheet_a_total',
+    'child_support_payor',
+    'annual_child_care_expenses',
+    'annual_children_healthcare_premiums',
+    'annual_health_related_expenses',
+    'annual_extraordinary_educational_expenses',
+    'annual_post_secondary_expenses',
+    'annual_extraordinary_extracurricular_expenses',
+    'total_section_seven_expenses',
+    'annual_total_section_seven_expenses',
+    'total_gross_income',
+    'claimant_1_share_proportion',
+    'claimant_1_share',
+    'claimant_2_share_proportion',
+    'claimant_2_share',
+    'total_monthly_support_1_and_a',
 ]
 
 
@@ -178,19 +191,166 @@ def has_fact_sheets(responses, derived):
 def schedule_1_amount(responses, derived):
     """ Return the amount as defined in schedule 1 for child support """
 
-    return 155689.333
+    try:
+        return float(responses.get('order_monthly_child_support_amount', 0))
+    except ValueError:
+        return 0
 
 
-def schedule_1_payor(responses, derived):
-    """ Return the amount as defined in schedule 1 for child support """
+def child_support_payor(responses, derived):
+    """ Return the payor phrased for the affidavit """
 
-    return 'Claimant 1'
+    payor = responses.get('child_support_payor', '')
+    if payor == 'Myself (Claimant 1)':
+        return 'Claimant 1'
+    elif payor == 'My Spouse (Claimant 2)':
+        return 'Claimant 2'
+    elif payor == 'Both myself and my spouse':
+        return 'both Claimant 1 and Claimant 2'
+
+    return ''
 
 
-def fact_sheet_a_total(responses, derived):
-    """ Return the total amount of special expenses from Fact Sheet A """
+def annual_child_care_expenses(responses, derived):
+    """ Return the annual cost of the monthly cost of child care expense """
 
-    return 0
+    try:
+        return 12 * float(responses.get('child_care_expenses', 0))
+    except ValueError:
+        return 0
 
 
+def annual_children_healthcare_premiums(responses, derived):
+    """ Return the annual cost of the monthly cost of child health care premiums """
 
+    try:
+        return 12 * float(responses.get('children_healthcare_premiums', 0))
+    except ValueError:
+        return 0
+
+
+def annual_health_related_expenses(responses, derived):
+    """ Return the annual cost of the monthly cost of health related expense """
+
+    try:
+        return 12 * float(responses.get('health_related_expenses', 0))
+    except ValueError:
+        return 0
+
+
+def annual_extraordinary_educational_expenses(responses, derived):
+    """ Return the annual cost of the monthly cost of educational expense """
+
+    try:
+        return 12 * float(responses.get('extraordinary_educational_expenses', 0))
+    except ValueError:
+        return 0
+
+
+def annual_post_secondary_expenses(responses, derived):
+    """ Return the annual cost of the monthly cost of post secondary expense """
+
+    try:
+        return 12 * float(responses.get('post_secondary_expenses', 0))
+    except ValueError:
+        return 0
+
+
+def annual_extraordinary_extracurricular_expenses(responses, derived):
+    """ Return the annual cost of the monthly cost of education expense """
+
+    try:
+        return 12 * float(responses.get('extraordinary_extracurricular_expenses', 0))
+    except ValueError:
+        return 0
+
+
+def total_section_seven_expenses(responses, derived):
+    """ Return the monthly cost of section 7 expense """
+
+    try:
+        return float(responses.get('total_section_seven_expenses', 0))
+    except ValueError:
+        return 0
+
+
+def annual_total_section_seven_expenses(responses, derived):
+    """ Return the annual cost of the monthly cost of section 7 expense """
+
+    return 12 * derived['total_section_seven_expenses']
+
+
+def total_gross_income(responses, derived):
+    """ Return the total gross income of both claimants """
+
+    try:
+        claimant_1 = float(responses.get('annual_gross_income', 0))
+    except ValueError:
+        claimant_1 = 0
+
+    try:
+        claimant_2 = float(responses.get('spouse_annual_gross_income', 0))
+    except ValueError:
+        claimant_2 = 0
+
+    return claimant_1 + claimant_2
+
+
+def claimant_1_share_proportion(responses, derived):
+    """
+    Return the proportionate share of claimant 1 for child support, based on
+    annual income.
+    """
+
+    try:
+        income = float(responses.get('annual_gross_income', 0))
+    except ValueError:
+        income = 0
+
+    if derived['total_gross_income'] == 0:
+        return 0
+    return income / derived['total_gross_income'] * 1000 // 1 / 10
+
+
+def claimant_1_share(responses, derived):
+    """
+    Return the proportionate share of claimant 1 for child support, based on
+    annual income.
+    """
+
+    proportion = derived['claimant_1_share_proportion'] / 100
+    return derived['total_section_seven_expenses'] * proportion
+
+
+def claimant_2_share_proportion(responses, derived):
+    """
+    Return the proportionate share of claimant 2 for child support, based on
+    annual income.
+    """
+
+    if derived['total_gross_income'] == 0:
+        return 0
+    return 100 - derived['claimant_1_share_proportion'] * 10 // 1 / 10
+
+
+def claimant_2_share(responses, derived):
+    """
+    Return the proportionate share of claimant 2 for child support, based on
+    annual income.
+    """
+
+    proportion = derived['claimant_2_share_proportion'] / 100
+    return derived['total_section_seven_expenses'] * proportion
+
+
+def total_monthly_support_1_and_a(responses, derived):
+    """ Return the combined schedule 1 and section 7 monthly amounts """
+
+    total = derived['schedule_1_amount']
+    if derived['child_support_payor'] == 'Claimant 1':
+        total += derived['claimant_1_share']
+    elif derived['child_support_payor'] == 'Claimant 2':
+        total += derived['claimant_2_share']
+    else:
+        total += derived['total_section_seven_expenses']
+    return total

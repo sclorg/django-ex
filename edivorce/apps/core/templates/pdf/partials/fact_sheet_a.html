@@ -1,0 +1,126 @@
+{% load format_utils %}
+<div class="fact-sheet">
+  <h3>
+    Supplementary Child Support Fact Sheet A<br>
+    Special or Extraordinary Expenses
+  </h3>
+
+  <p>Section 7 expenses (net of tax credits and contribution from child, etc.):</p>
+
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Annual</th>
+        <th>Monthly</th>
+      </tr>
+      <tr>
+        <td class="line-number">A</td>
+        <td>Child Care Expenses</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.annual_child_care_expenses|money:False }}</span>
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ responses.child_care_expenses|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">B</td>
+        <td>Portion of medical and dental premiums attributable to the child(ren)</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.annual_children_healthcare_premiums|money:False }}</span>
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ responses.children_healthcare_premiums|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">C</td>
+        <td>Health related expenses that exceed insurance reimbursement by at least $100</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.annual_health_related_expenses|money:False }}</span>
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ responses.health_related_expenses|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">D</td>
+        <td>Extraordinary primary, secondary or other educational expenses</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.annual_extraordinary_educational_expenses|money:False }}</span>
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ responses.extraordinary_educational_expenses|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">E</td>
+        <td>Post-secondary school expenses</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.annual_post_secondary_expenses|money:False }}</span>
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ responses.post_secondary_expenses|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">F</td>
+        <td>Extraordinary extracurricular activities expenses</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.annual_extraordinary_extracurricular_expenses|money:False }}</span>
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ responses.extraordinary_extracurricular_expenses|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">G</td>
+        <td class="total">Total section 7 expenses</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.annual_total_section_seven_expenses|money:False }}</span>
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ responses.total_section_seven_expenses|money:False }}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Parties’ respective proportionate shares of the total net monthly section 7
+    expenses referred to at Line G above:
+  </p>
+
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th></th>
+        <th>Percentage</th>
+        <th>Monthly</th>
+      </tr>
+      <tr>
+        <td>Claimant 1's proportionate share</td>
+        <td class="percentage">{{ derived.claimant_1_share_proportion|stringformat:".1f" }} %</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.claimant_1_share|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Claimant 2's proportionate share</td>
+        <td class="percentage">{{ derived.claimant_2_share_proportion|stringformat:".1f" }} %</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.claimant_2_share|money:False }}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Total monthly child support payable by {{ derived.child_support_payor }},
+    including the monthly Guidelines table amount under Schedule 1 of the
+    Guidelines and the section 7 expenses, is
+    {{ derived.total_monthly_support_1_and_a|money }}
+  </p>
+</div>

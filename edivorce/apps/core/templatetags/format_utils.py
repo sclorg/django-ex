@@ -22,7 +22,7 @@ def linebreaksli(value):
 
 @register.filter
 def date_formatter(value):
-    """ Changes date format from dd/mm/yyyy to dd/mmm/yyyy """
+    """ Changes date format from dd/mm/yyyy to dd mmm yyyy """
 
     if value is None or value == '':
         return ''
@@ -111,11 +111,11 @@ def age(date):
 
 
 @register.filter
-def money(amount):
+def money(amount, symbol=True):
     """ Return a properly formatted currency string including symbol """
 
     try:
-        return locale.currency(float(amount), grouping=True)
+        return locale.currency(float(amount), symbol, grouping=True)
     except ValueError:
         pass
 
