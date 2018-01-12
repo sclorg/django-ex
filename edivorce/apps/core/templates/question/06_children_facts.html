@@ -582,13 +582,8 @@
 
         <div class="question-well">
             <p>
-                What is the monthly amount that {% if child_support_payor %}{{ child_support_payor|lower }}{% else %}the payor{% endif %} will be paying for child support
-                (as per
-                {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-5.html#h-9" link_text="Schedule 1" %}
-                .
-                of the
-                {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-11.html#h-15" link_text="Federal Child Support Guidelines" %}
-                )?
+                What is the monthly amount that {% if child_support_payor %}{{ child_support_payor|lower }}{% else %}the payor{% endif %}
+                will be paying for child support (as per Schedule 1 of the Federal Child Support Guidelines)?
             </p>
             <div>
                 <div class="dollar-prefix">
