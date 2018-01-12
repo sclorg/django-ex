@@ -378,7 +378,9 @@
                    Difference between the Guidelines table amount of the claimant and the Guidelines table amount of the respondent
                 </td>
                 <td class="fact-sheet-answer" colspan="2" readonly>
-                    {% input_field type="number" name="difference_between_claimants" value="" class="fact-sheet-input" readonly="" %}
+                    <div class="dollar-prefix">
+                        {% money_input_field name="difference_between_claimants" value="" class="money fact-sheet-input" readonly="" %}
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -416,7 +418,9 @@
                    Amount of child support to be paid per month by {% if child_support_payor %}{{ child_support_payor|lower }}{% else %}the payor{% endif %}
                 </td>
                 <td class="fact-sheet-answer" colspan="2" readonly>
-                    {% input_field type="number" name="difference_between_claimants" value="" class="fact-sheet-input" readonly="" %}
+                    <div class="dollar-prefix">
+                        {% money_input_field name="difference_between_claimants" value="" class="money fact-sheet-input" readonly="" %}
+                    </div>
                 </td>
             </tr>
         </tbody>
