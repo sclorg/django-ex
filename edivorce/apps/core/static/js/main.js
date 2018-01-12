@@ -474,23 +474,16 @@ $(function () {
 
         $('.__name-of-payor').text(payor);
 
-        // Check custody conditions and only show additional question of amount payor will pay
-        // if all of the children are in sole custody of payor.
+        // check who has sole custody
         var children = JSON.parse($('input[name="claimant_children"]').val());
-
-        var payorElement = $("input[name='child_support_payor']:checked").val();
-        var soleCustodyCondition = null;
-        if (payorElement === 'Myself (Claimant 1)') {
-            soleCustodyCondition = 'Lives with you'
-        } else if (payorElement === 'My Spouse (Claimant 2)') {
-            soleCustodyCondition = 'Lives with spouse';
-        }
-
-        var hasSoleCustody = children.every(function(child){
-            return soleCustodyCondition && child.child_live_with === soleCustodyCondition
+        var youHaveSoleCustody = children.every(function(child){
+            return child.child_live_with === 'Lives with you'
+        });
+        var spouseHasSoleCustody = children.every(function(child){
+            return child.child_live_with === 'Lives with spouse'
         });
 
-        if (hasSoleCustody) {
+        if (youHaveSoleCustody || spouseHasSoleCustody) {
             $('#monthly_amount_question').show();
         } else {
             $('#monthly_amount_question').hide();
