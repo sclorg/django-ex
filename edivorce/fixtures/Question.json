@@ -1602,5 +1602,27 @@
     },
     "model": "core.question",
     "pk": "whose_plan_is_coverage_under"
+},
+{
+    "fields": {
+        "name": "Are there any child support payments (in arrears) that have not been paid (as of today's date) under an existing order or written agreement?",
+        "description": "For Step 6, Your children - Payor & medical expenses",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "child_support_payments_in_arrears"
+},
+{
+    "fields": {
+        "name": "What is the amount as of today's date?",
+        "description": "For Step 6, Your children - Payor & medical expenses",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "child_support_payments_in_arrears",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "child_support_arrears_amount"
 }
 ]
