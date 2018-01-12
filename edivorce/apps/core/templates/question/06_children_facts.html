@@ -273,12 +273,12 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                    {% money_input_field name="annual_gross_income" value="" class="fact-sheet-input"  %}
+                    {% money_input_field id="fact_b_annual_gross_income" name="annual_gross_income" value="" class="fact-sheet-input"  data_mirror="true" data_mirror_target="#fact_c_annual_gross_income" %}
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="spouse_annual_gross_income" value="" class="fact-sheet-input" %}
+                        {% money_input_field id="fact_b_spouse_annual_gross_income" name="spouse_annual_gross_income" value="" class="fact-sheet-input" data_mirror="true" data_mirror_target="#fact_c_spouse_annual_gross_income" %}
                     </div>
                 </td>
             </tr>
@@ -467,7 +467,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="spouse_annual_gross_income" class="fact-sheet-input money" %}
+                        {% money_input_field id="fact_c_spouse_annual_gross_income" name="spouse_annual_gross_income" class="fact-sheet-input money" data_mirror="true" data_mirror_target="#fact_b_spouse_annual_gross_income" %}
                     </div>
                 </td>
             </tr>
@@ -513,7 +513,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="annual_gross_income" class="fact-sheet-input money" %}
+                        {% money_input_field id="fact_c_annual_gross_income" name="annual_gross_income" class="fact-sheet-input money" data_mirror="true" data_mirror_target="#fact_b_annual_gross_income" %}
                     </div>
                 </td>
             </tr>
