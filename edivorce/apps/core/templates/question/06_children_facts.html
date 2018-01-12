@@ -178,8 +178,6 @@
 </span>
         of the total net monthly Section 7 expenses referred to above:</p>
     <br>
-    <input name="annual_gross_income" value="{{ annual_gross_income }}" hidden />
-    <input name="spouse_annual_gross_income" value="{{ spouse_annual_gross_income }}" hidden />
 
     <table class="table table-bordered">
         <thead>
@@ -273,14 +271,14 @@
               not been produced in affiliation with, or with the endorsement of the Government of Canada."><i class="fa fa-question-circle" aria-hidden="true"></i>
                     </span>
                 </td>
-                <td class="fact-sheet-answer" readonly>
+                <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                    {% money_input_field name="annual_gross_income" value="" class="fact-sheet-input"  readonly="" %}
+                    {% money_input_field name="annual_gross_income" value="" class="fact-sheet-input"  %}
                     </div>
                 </td>
-                <td class="fact-sheet-answer" readonly>
+                <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="spouse_annual_gross_income" value="" class="fact-sheet-input"  readonly="" %}
+                        {% money_input_field name="spouse_annual_gross_income" value="" class="fact-sheet-input" %}
                     </div>
                 </td>
             </tr>
@@ -407,7 +405,7 @@
             </tr>
             <tr>
                 <td class="fact-sheet-question">
-                   Amount of child support to be paid per month by < Claimant 1 or Claimant 2>
+                   Amount of child support to be paid per month by {% if child_support_payor %}{{ child_support_payor|lower }}{% else %}the payor{% endif %}
                 </td>
                 <td class="fact-sheet-answer" colspan="2" readonly>
                     {% input_field type="number" name="difference_between_claimants" value="" class="fact-sheet-input" readonly="" %}
@@ -469,7 +467,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="spouse_annual_income" class="fact-sheet-input money" %}
+                        {% money_input_field name="spouse_annual_gross_income" class="fact-sheet-input money" %}
                     </div>
                 </td>
             </tr>
@@ -515,7 +513,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="claimant_annual_income" class="fact-sheet-input money" %}
+                        {% money_input_field name="annual_gross_income" class="fact-sheet-input money" %}
                     </div>
                 </td>
             </tr>
@@ -567,7 +565,7 @@
 
         <div class="question-well">
             <p>
-                What is the monthly amount that {% if child_support_payor %}{{ child_support_payor }}{% else %}the payor{% endif %} will be paying for child support
+                What is the monthly amount that {% if child_support_payor %}{{ child_support_payor|lower }}{% else %}the payor{% endif %} will be paying for child support
                 (as per
                 {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-5.html#h-9" link_text="Schedule 1" %}
                 .
