@@ -287,22 +287,14 @@ div.dollar-prefix {
 	}
 }
 
-div.percent-prefix {
-	position: relative;
-
-	&:before {
-		content: '% ';
-		top: 0;
-		height: 100%;
-		padding-left: 5px;
-		position: absolute;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-	}
+div.percent-suffix {
+	border: none;
 
 	input {
+		border: none;
+		padding:0px;
+		outline: none;
+		width: 90%;
 		text-align: right;
 	}
 }
