@@ -177,7 +177,10 @@
         </h3>
         <div class="radio">
             <label>
-                {% input_field type="radio" name="child_support_in_order" value="YES" data_target_id="does_amount_match" data_reveal_target="true" %}$ <span id="child_support_amount_label">{{ payor_monthly_child_support_amount }}</span>
+                {% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="YES" data_target_id="does_amount_match" data_reveal_target="true" %}
+                <div class="dollar-prefix">
+                    {% money_input_field name="order_monthly_child_support_amount" class="money form-block response-textbox children-input-block" data_mirror="true" data_mirror_target="#child_support_amount_label" %}
+                </div>
             </label>
         </div>
 
@@ -187,7 +190,7 @@
                 {% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_id="does_amount_match" data_reveal_target="false" %}We are not asking for child support to be included in the order
             </label>
             <p>
-                Please describe what arrangements have made for the support of the child (ren)?
+                Please describe what arrangements have been made for the support of the child (ren)?
                 {% input_field type="textarea" name="child_support_in_order_reason" class="other-textbox response-textarea form-control" tabindex="-1" maxlength="500" rows="3" %}
             </p>
         </div>
