@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load input_field %}
 {% load step_order %}
+{% load format_utils %}
 
 {% block title %}{{ block.super }}: Your Children {% endblock %}
 
@@ -420,7 +421,7 @@
             </tr>
             <tr>
                 <td class="fact-sheet-question">
-                   Amount of child support to be paid per month by {% if child_support_payor %}{{ child_support_payor|lower }}{% else %}the payor{% endif %}
+                   Amount of child support to be paid per month by {% payorize %}
                 </td>
                 <td class="fact-sheet-answer" colspan="2" readonly>
                     <div class="dollar-prefix">

@@ -120,3 +120,20 @@ def money(amount, symbol=True):
         pass
 
     return ''
+
+
+@register.simple_tag(takes_context=True)
+def payorize(context):
+    payor = 'the payor'
+    child_support_payor = context.get('child_support_payor', None)
+    if child_support_payor == 'Myself (Claimant 1)':
+        payor = context.get('name_you', child_support_payor)
+    elif child_support_payor == 'My Spouse (Claimant 2)':
+        payor = context.get('name_spouse', child_support_payor)
+    elif child_support_payor == 'Both myself and my spouse':
+        payor = '{} and {}'.format(context.get('name_you', 'myself'),
+                                   context.get('name_spouse', 'my spouse'))
+    return payor
+
+
+
