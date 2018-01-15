@@ -1,4 +1,5 @@
 {% load format_utils %}
+{% if derived.show_fact_sheet_a %}
 <div class="fact-sheet">
   <h3>
     Supplementary Child Support Fact Sheet A<br>
@@ -7,13 +8,13 @@
 
   <p>Section 7 expenses (net of tax credits and contribution from child, etc.):</p>
 
-  <table class="table table-bordered">
+  <table class="table table-fixed table-bordered">
     <tbody>
       <tr>
-        <th></th>
-        <th></th>
-        <th>Annual</th>
-        <th>Monthly</th>
+        <th class="line-number" style="width: 5%"></th>
+        <th style="width: 65%"></th>
+        <th style="width: 15%">Annual</th>
+        <th style="width: 15%">Monthly</th>
       </tr>
       <tr>
         <td class="line-number">A</td>
@@ -124,3 +125,4 @@
     {{ derived.total_monthly_support_1_and_a|money }}
   </p>
 </div>
+{% endif %}

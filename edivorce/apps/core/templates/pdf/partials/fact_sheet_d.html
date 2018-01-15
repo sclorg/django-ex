@@ -1,0 +1,39 @@
+{% load format_utils %}
+{% if derived.show_fact_sheet_d %}
+<div class="fact-sheet">
+  <h3>
+    Supplementary Child Support Fact Sheet D:<br>
+    Child(ren) 19 Years or Older
+  </h3>
+
+  <ol class="parens-list">
+    <li>
+      Number of child(ren) 19 years of age or older for whom support is claimed:
+      {{ responses.number_children_over_19_need_support }}
+    </li>
+    <li>
+      Child support is to be paid by {{ derived.child_support_payor }} (the “payor”)
+    </li>
+    <li>
+      Monthly Guidelines table amount of the payor under Schedule 1 of the Guidelines:
+      {{ derived.schedule_1_amount|money }}
+    </li>
+  </ol>
+
+  {% if responses.does_payour_amount_match_guidelines	== 'YES' %}
+    <p>
+      The person swearing this affidavit says that the Guidelines table amount
+      is appropriate.
+    </p>
+  {% else %}
+    <p>
+      The person swearing this affidavit says that the Guidelines table amount
+      is inappropriate and that the appropriate amount would be
+      {{ responses.order_monthly_child_support_amount|money }}
+      for the following reasons:
+    </p>
+    <p>
+    </p>
+  {% endif %}
+</div>
+{% endif %}

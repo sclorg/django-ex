@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load format_utils %}
 {% load step_order %}
 {% load format_utils %}
 
@@ -637,7 +638,7 @@
     </div>
 {% endif %}
 
-{% if annual_gross_income|add:"0" > 150000 %}
+{% if annual_gross_income|integer > 150000 %}
     <div id="annual_gross_income_question">
         <div class="question-well" id="you_fact_sheet_f">
             <h1>Income over $150,000 (Fact Sheet F)</h1>

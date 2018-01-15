@@ -1,0 +1,85 @@
+{% load format_utils %}
+{% if derived.show_fact_sheet_b %}
+<div class="fact-sheet">
+  <h3>
+    Supplementary Child Support Fact Sheet B:<br>
+    If the Circumstances Described in s. 9 of the Child Support Guidelines Exist
+  </h3>
+
+  <table class="table table-fixed table-bordered">
+    <tbody>
+      <tr>
+        <th style="width: 70%;"></th>
+        <th style="width: 15%;">Claimant 1</th>
+        <th style="width: 15%;">Claimant 2</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="percentage">{{ derived.claimant_1_share_proportion|stringformat:".1f" }} %</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.claimant_1_share|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">Number of children: {{ responses.number_of_children }}</td>
+      </tr>
+      <tr>
+        <td>Approximate percentage of time children spend with each parent</td>
+        <td class="percentage">{{ responses.time_spent_with_you }} %</td>
+        <td class="percentage">{{ responses.time_spent_with_spouse }} %</td>
+      </tr>
+      <tr>
+        <td>Annual Guidelines Income</td>
+        <td class="amount">$
+          <span class="actual">{{ responses.annual_gross_income|money:False }}</span>
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ responses.spouse_annual_gross_income|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Guidelines Table Amount</td>
+        <td class="amount">$
+          <span class="actual">{{ responses.total_paid_child_support|money:False }}</span>
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ responses.total_spouse_paid_child_support|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Difference between the Guidelines table amount of Claimant 1 and the
+          Guidelines table amount of Claimant 2
+        </td>
+        <td colspan="2" class="amount">$
+          <span class="actual">{{ derived.guideline_amounts_difference|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Section 7 expenses paid directly by each party</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.claimant_1_share|money:False }}</span>
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ derived.claimant_2_share|money:False }}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Any other relevant information regarding the conditions, means, needs and
+    other circumstances of each spouse or of any child for whom support is
+    sought:
+  </p>
+
+  <p style="min-height: 4em;">{{ responses.additional_relevant_spouse_children_info }}</p>
+
+  <p>
+    It is proposed that child support in the amount of
+    {{ derived.total_monthly_support_1_and_a|money }}
+    per month be paid by {{ derived.child_support_payor }}.
+  </p>
+
+</div>
+{% endif %}

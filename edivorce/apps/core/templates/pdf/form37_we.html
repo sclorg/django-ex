@@ -165,7 +165,8 @@
           </li>
 
           <li>
-            <ol style="list-style-type: lower-alpha">
+  {% if responses.how_will_calculate_income == 'using specific rules' %}
+            <ol style="list-style-type: lower-alpha;">
               <li>Claimant 1's annual income as determined under sections 15 to
                 20 of the Guidelines:
                 {{ responses.annual_gross_income|money }}
@@ -174,11 +175,14 @@
                 20 of the Guidelines:
                 {{ responses.spouse_annual_gross_income|money }}
               </li>
-              <li>Claimant 1 and Claimant 2 have entered into an agreement as
-                to income pursuant to section 15(2) of the Guidelines, a copy
-                of which agreement is attached.</li>
-              <li>Section 4 is omitted as inapplicable.</li>
             </ol>
+  {% elif responses.how_will_calculate_income == 'entered agreement' %}
+            Claimant 1 and Claimant 2 have entered into an agreement as to
+            income pursuant to section 15(2) of the Guidelines, a copy of which
+            agreement is attached.
+  {% else %}
+            Section 4 is omitted as inapplicable.
+  {% endif %}
           </li>
 
           <li>  <!-- 5 -->
@@ -301,6 +305,11 @@
         {% include 'pdf/partials/notary_signature.html' with name=responses.name_you %}
         {% include 'pdf/partials/notary_signature.html' with name=responses.name_spouse %}
         {% include 'pdf/partials/fact_sheet_a.html' %}
+        {% include 'pdf/partials/fact_sheet_b.html' %}
+        {% include 'pdf/partials/fact_sheet_c.html' %}
+        {% include 'pdf/partials/fact_sheet_d.html' %}
+        {% include 'pdf/partials/fact_sheet_e.html' %}
+        {% include 'pdf/partials/fact_sheet_f.html' %}
 
         <small>Printed on {% now "F jS, Y" %} from https://justice.gov.bc.ca/divorce</small>
     </div>

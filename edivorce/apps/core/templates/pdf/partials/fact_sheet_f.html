@@ -1,0 +1,67 @@
+{% load format_utils %}
+{% if derived.show_fact_sheet_f %}
+<div class="fact-sheet">
+  <h3>
+    Supplementary Child Support Fact Sheet F:<br>
+    Income Over $150,000
+  </h3>
+
+  <table class="table table-fixed table-bordered">
+    <tbody>
+      <tr>
+        <td class="line-number" style="width: 5%;">A</td>
+        <td style="width: 80%;">
+          Number of children for whom support is claimed:
+          {{ responses.number_children_seeking_support }}
+        </td>
+        <td class="amount" style="width: 15%;"></td>
+      </tr>
+      <tr>
+        <td class="line-number">B</td>
+        <td>Guidelines table amount for $150,000</td>
+        <td class="amount">$
+          <span class="actual">{{ responses.child_support_amount_under_high_income|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">C</td>
+        <td>
+          Plus {{ responses.percent_income_over_high_income_limit }}%
+          of income over $150,000
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ responses.amount_income_over_high_income_limit|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">D</td>
+        <td class="total">Guidelines table amount</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.high_income_amount|money:False }}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  {% if responses.does_payour_amount_match_guidelines	== 'YES' %}
+    <p>
+      We have agreed on the Guidelines table amount set out at Line D above as
+      the amount of child support.
+    </p>
+  {% else %}
+    <p>
+      We have agreed on an amount of child support that differs from the Guidelines table amount and the amount of child support agreed on is:
+      <ol class="parens-list">
+        <li>{{ responses.order_monthly_child_support_amount|money }}, and</li>
+        <li>
+          <p>differs from the Guidelines table amount because:</p>
+          <p>reasons</p>
+        </li>
+      </ol>
+    </p>
+    <p>
+    </p>
+  {% endif %}
+
+</div>
+{% endif %}

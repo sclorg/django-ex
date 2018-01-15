@@ -1,3 +1,6 @@
+# pylint: disable=invalid-name
+""" Template formatting helpers """
+
 from datetime import datetime
 import locale
 import re
@@ -83,12 +86,14 @@ def checkbox(context, *args, **kwargs):
     return mark_safe('<i class="fa fa%s-square-o" aria-hidden="true"></i>' %
                      ('-check' if args_pass and kwargs_pass else ''))
 
+
 @register.filter
 def claimantize(value, claimant='1'):
     """ Replace 'you' with 'claimant 1' and 'spouse' with 'claimant 2' """
     value = value.replace('you', 'claimant\xa0%s' % claimant)
     value = value.replace('spouse', 'claimant\xa0%s' % '2' if claimant == '1' else '1')
     return value
+
 
 @register.filter
 def age(date):
@@ -136,4 +141,29 @@ def payorize(context):
     return payor
 
 
+@register.filter
+def child_or_children(value):
+    """ Return num followed by 'child' or 'children' as appropriate """
 
+    try:
+        value = int(value)
+    except ValueError:
+        return ''
+
+    if value == 1:
+        return '1 child'
+
+    return '%d children'
+
+
+@register.filter
+def integer(value):
+    """ Return value as an int or nothing """
+
+    try:
+        print(value)
+        print(float(value))
+        print(int(float(value)))
+        return int(float(value))
+    except ValueError:
+        return ''

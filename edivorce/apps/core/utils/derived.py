@@ -1,4 +1,4 @@
-# pylint: disable=W0613
+# pylint: disable=W0613,C0103
 """Values derived from a user's responses.
 
 This module provides functions to take a set of responses from a user and create
@@ -46,6 +46,15 @@ DERIVED_DATA = [
     'claimant_2_share_proportion',
     'claimant_2_share',
     'total_monthly_support_1_and_a',
+    'guideline_amounts_difference',
+    'claimant_debts',
+    'claimant_expenses',
+    'supported_dependents',
+    'supported_non_dependents',
+    'supported_disabled',
+    'others_income',
+    'total_others_income',
+    'high_income_amount',
 ]
 
 
@@ -168,12 +177,12 @@ def show_fact_sheet_f(responses, derived):
     """
 
     try:
-        annual = int(responses.get('annual_gross_income', 0))
+        annual = float(responses.get('annual_gross_income', 0))
     except ValueError:
         annual = 0
 
     try:
-        spouses = int(responses.get('spouse_annual_gross_income', 0))
+        spouses = float(responses.get('spouse_annual_gross_income', 0))
     except ValueError:
         spouses = 0
 
@@ -314,7 +323,7 @@ def claimant_1_share_proportion(responses, derived):
 
 def claimant_1_share(responses, derived):
     """
-    Return the proportionate share of claimant 1 for child support, based on
+    Return the proportionate amount of claimant 1 for child support, based on
     annual income.
     """
 
@@ -335,7 +344,7 @@ def claimant_2_share_proportion(responses, derived):
 
 def claimant_2_share(responses, derived):
     """
-    Return the proportionate share of claimant 2 for child support, based on
+    Return the proportionate amount of claimant 2 for child support, based on
     annual income.
     """
 
@@ -354,3 +363,106 @@ def total_monthly_support_1_and_a(responses, derived):
     else:
         total += derived['total_section_seven_expenses']
     return total
+
+
+def guideline_amounts_difference(responses, derived):
+    """
+    Return the difference between the guideline amounts to be paid by
+    claimant 1 and claimant 2
+    """
+
+    try:
+        amount_1 = float(responses.get('total_paid_child_support', 0))
+    except ValueError:
+        amount_1 = 0
+
+    try:
+        amount_2 = float(responses.get('total_spouse_paid_child_support', 0))
+    except ValueError:
+        amount_2 = 0
+
+    return abs(amount_1 - amount_2)
+
+
+def claimant_debts(responses, derived):
+    """ Return the parsed array of claimant_debts """
+
+    try:
+        return json.loads(responses.get('claimant_debts', []))
+    except ValueError:
+        return []
+
+
+def claimant_expenses(responses, derived):
+    """ Return the parsed array of claimant_expenses """
+
+    try:
+        return json.loads(responses.get('claimant_expenses', []))
+    except ValueError:
+        return []
+
+
+def supported_dependents(responses, derived):
+    """ Return the parsed array of supporting_dependents """
+
+    try:
+        return json.loads(responses.get('supporting_dependents', []))
+    except ValueError:
+        return []
+
+
+def supported_non_dependents(responses, derived):
+    """ Return the parsed array of supporting_non_dependents """
+
+    try:
+        return json.loads(responses.get('supporting_non_dependents', []))
+    except ValueError:
+        return []
+
+
+def supported_disabled(responses, derived):
+    """ Return the parsed array of supporting_disabled """
+
+    try:
+        return json.loads(responses.get('supporting_disabled', []))
+    except ValueError:
+        return []
+
+
+def others_income(responses, derived):
+    """ Return the parsed array of income_others """
+
+    try:
+        return json.loads(responses.get('income_others', []))
+    except ValueError:
+        return []
+
+
+def total_others_income(responses, derived):
+    """ Return the total of other incomes """
+
+    total = 0.0
+
+    for income in derived['others_income']:
+        try:
+            total += float(income['income_others_amount'])
+        except ValueError:
+            pass
+
+    return total
+
+
+def high_income_amount(responses, derived):
+    """ Return the guidelines table amount for a high income earner """
+
+    try:
+        under = float(responses.get('child_support_amount_under_high_income', 0))
+    except ValueError:
+        under = 0
+
+    try:
+        over = float(responses.get('amount_income_over_high_income_limit', 0))
+    except ValueError:
+        over = 0
+
+    return under + over

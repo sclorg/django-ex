@@ -1,0 +1,180 @@
+{% load format_utils %}
+{% if derived.show_fact_sheet_e %}
+<div class="fact-sheet">
+  <h3>
+    Supplementary Child Support Fact Sheet E:<br>
+    Undue Hardship
+  </h3>
+
+  <ol>
+  {% if derived.claimant_debts %}
+    <li>
+      <p>
+        Responsibility for unusually high debts reasonably incurred to support
+        the family before separation or in order to earn a living
+      </p>
+
+      <table class="table table-fixed table-bordered">
+        <tbody>
+          <tr>
+            <th style="text-align: left; width: 40%;">Debt Owed To</th>
+            <th style="text-align: left; width: 40%;">Terms of Debt</th>
+            <th style="width: 20%;">Monthly Amount</th>
+          </tr>
+    {% for debt in derived.claimant_debts %}
+          <tr>
+            <td>{{ debt.debt_name }}</td>
+            <td>{{ debt.debt_terms }}</td>
+            <td class="amount">$
+              <span class="actual">{{ debt.debt_monthly_amount|money:False }}</span>
+            </td>
+          </tr>
+    {% endfor %}
+        </tbody>
+      </table>
+    </li>
+  {% endif %}
+
+  {% if derived.claimant_expenses %}
+    <li>
+      <p>
+        Unusually high expenses for exercising parenting time or contact with,
+        or access to a child
+      </p>
+
+      <table class="table table-fixed table-bordered">
+        <tbody>
+          <tr>
+            <th style="text-align: left; width: 80%;">Details of Expense</th>
+            <th style="width: 20%;">Amount</th>
+          </tr>
+    {% for expense in derived.claimant_expenses %}
+          <tr>
+            <td>{{ expense.expense_name }}</td>
+            <td class="amount">$
+              <span class="actual">{{ expense.expense_amount|money:False }}</span>
+            </td>
+          </tr>
+    {% endfor %}
+        </tbody>
+      </table>
+    </li>
+  {% endif %}
+
+  {% if derived.supported_non_dependents %}
+    <li>
+      <p>
+        Legal duty under a court order or separation agreement to support
+        another person
+      </p>
+
+      <table class="table table-fixed table-bordered">
+        <tbody>
+          <tr>
+            <th style="text-align: left; width: 20%;">Name of Person</th>
+            <th style="text-align: left; width: 20%;">Relationship</th>
+            <th style="text-align: left; width: 60%;">Nature of Duty</th>
+          </tr>
+    {% for supported in derived.supported_non_dependents %}
+          <tr>
+            <td>{{ supported.non_dependent_name }}</td>
+            <td>{{ supported.non_dependent_relationship }}</td>
+            <td>{{ supported.non_dependent_reason }}</td>
+          </tr>
+    {% endfor %}
+        </tbody>
+      </table>
+    </li>
+  {% endif %}
+
+  {% if derived.supported_dependents %}
+    <li>
+      <p>Legal duty to support a child, other than a child for whom support is claimed, who is</p>
+      <ol class="parens-list">
+        <li>Under age 19, or</li>
+        <li>
+          19 or older but unable to support himself or herself because of
+          illness, disability or other cause
+        </li>
+      </ol>
+
+      <table class="table table-fixed table-bordered">
+        <tbody>
+          <tr>
+            <th style="text-align: left; width: 20%;">Name of Person</th>
+            <th style="text-align: left; width: 20%;">Relationship</th>
+            <th style="text-align: left; width: 60%;">Nature of Duty</th>
+          </tr>
+    {% for supported in derived.supported_dependents %}
+          <tr>
+            <td>{{ supported.supporting_dependent_name }}</td>
+            <td>{{ supported.supporting_dependent_relationship }}</td>
+            <td>{{ supported.supporting_dependent_reason }}</td>
+          </tr>
+    {% endfor %}
+        </tbody>
+      </table>
+    </li>
+  {% endif %}
+
+  {% if derived.supported_disabled %}
+    <li>
+      <p>
+        Legal duty to support a person who is unable to support himself or
+        herself because of illness ordisability
+      </p>
+
+      <table class="table table-fixed table-bordered">
+        <tbody>
+          <tr>
+            <th style="text-align: left; width: 20%;">Name of Person</th>
+            <th style="text-align: left; width: 20%;">Relationship</th>
+            <th style="text-align: left; width: 60%;">Nature of Duty</th>
+          </tr>
+    {% for supported in derived.supported_disabled %}
+          <tr>
+            <td>{{ supported.supporting_disabled_name }}</td>
+            <td>{{ supported.supporting_disabled_relationship }}</td>
+            <td>{{ supported.supporting_disabled_reason }}</td>
+          </tr>
+    {% endfor %}
+        </tbody>
+      </table>
+  {% endif %}
+    </li>
+
+    <li>
+      <p>Other undue hardship circumstances:</p>
+      <p>{{ responses.undue_hardship|linebreaksbr }}</p>
+    </li>
+
+  </ol>
+
+  {% if derived.others_income %}
+  <h3>Income of Other Persons in Household</h3>
+
+  <table class="table table-fixed table-bordered">
+    <tbody>
+      <tr>
+        <th style="width: 80%;">Name of Person</th>
+        <th style="width: 20%;">Annual Income</th>
+      </tr>
+    {% for income in derived.others_income %}
+      <tr>
+        <td>{{ income.income_others_name }}</td>
+        <td class="amount">$
+          <span class="actual">{{ income.income_others_amount|money:False }}</span>
+        </td>
+      </tr>
+    {% endfor %}
+      <tr>
+        <td class="total">Total</td>
+        <td class="amount">$
+          <span class="actual">{{ derived.total_others_income|money:False }}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+{% endif %}

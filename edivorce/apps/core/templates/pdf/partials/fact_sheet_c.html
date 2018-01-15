@@ -1,0 +1,72 @@
+{% load format_utils %}
+{% if derived.show_fact_sheet_c %}
+<div class="fact-sheet">
+  <h3>
+    Supplementary Child Support Fact Sheet C:<br>
+    If the Circumstances Described in s. 8 of the Child Support Guidelines Exist
+  </h3>
+
+  <table class="table table-fixed table-bordered">
+    <tbody>
+      <tr>
+        <th style="width: 5%;"></th>
+        <th style="width: 80%;"></th>
+        <th style="width: 15%;">Amount</th>
+      </tr>
+      <tr>
+        <td class="line-number">A</td>
+        <td>Number of children principally resident with Claimant 1 for whom support is claimed</td>
+        <td class="amount">
+          <span class="actual">{{ responses.number_of_children_claimant }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">B</td>
+        <td>Claimant 2's annual Guidelines income</td>
+        <td class="amount">$
+          <span class="actual">{{ responses.spouse_annual_gross_income|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">C</td>
+        <td>
+          Guidelines table amount payable by Claimant 2 for
+          {{ responses.number_of_children_claimant|child_or_children }}
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ responses.total_spouse_paid_child_support|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">D</td>
+        <td>Number of children principally resident with Claimant 2 for whom support is claimed</td>
+        <td class="amount">
+          <span class="actual">{{ responses.number_of_children_claimant }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">E</td>
+        <td>Claimant 1's annual Guidelines income</td>
+        <td class="amount">$
+          <span class="actual">{{ responses.annual_gross_income|money:False }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="line-number">F</td>
+        <td>
+          Guidelines table amount payable by Claimant 1 for
+          {{ responses.number_of_children_claimant|child_or_children }}
+        </td>
+        <td class="amount">$
+          <span class="actual">{{ responses.total_paid_child_support|money:False }}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Difference between the Guidelines table amounts at Lines C and F:
+    {{ derived.guideline_amounts_difference|money }}
+  </p>
+</div>
+{% endif %}
