@@ -249,15 +249,9 @@
 
     <div class="question-well" id="who_plan_is_coverage_under" hidden>
         <h3>Whose plan is the coverage under?</h3>
-        <div class="radio">
-            <label>
-                {% input_field type="radio" name="whose_plan_is_coverage_under" value="My plan" %} My plan
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                {% input_field type="radio" name="whose_plan_is_coverage_under" value="Spouse" %} Spouse
-            </label>
+        <div class="checkbox-group">
+            <div class="checkbox"><label>{% input_field type="checkbox" name="whose_plan_is_coverage_under" value="My plan" %} My plan</label></div>
+            <div class="checkbox"><label>{% input_field type="checkbox" name="whose_plan_is_coverage_under" value="Spouse" %} Spouse</label></div>
         </div>
     </div>
 
