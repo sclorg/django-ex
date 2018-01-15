@@ -194,7 +194,8 @@
             <td class="fact-sheet-question">Your proportionate share</td>
             <td class="fact-sheet-answer" readonly>
                 <div class="percent-suffix">
-                    {% input_field type="number" name="your_proportionate_share_percent" value="0" readonly="" id="your_proportionate_share_percent" class="fact-sheet-input" data_calc_percentage="true" data_claimant_one_selector="input[name='annual_gross_income']" data_claimant_two_selector="input[name='spouse_annual_gross_income']" %} %
+                    {% input_field type="number" name="your_proportionate_share_percent" value="0" readonly="" id="your_proportionate_share_percent" class="fact-sheet-input" data_calc_percentage="true" data_claimant_one_selector="input[name='annual_gross_income']" data_claimant_two_selector="input[name='spouse_annual_gross_income']" %}
+                    <label>%</label>
                 </div>
             </td>
             <td class="fact-sheet-answer" readonly>
@@ -207,7 +208,8 @@
             <td class="fact-sheet-question">Spouse's proportionate share</td>
             <td class="fact-sheet-answer" readonly>
                 <div class="percent-suffix">
-                    {% input_field type="number" name="spouse_proportionate_share_percent" value="0" readonly="" id="spouse_proportionate_share_percent" class="fact-sheet-input" data_calc_percentage="true" data_claimant_one_selector="input[name='spouse_annual_gross_income']" data_claimant_two_selector="input[name='annual_gross_income']" %} %
+                    {% input_field type="number" name="spouse_proportionate_share_percent" value="0" readonly="" id="spouse_proportionate_share_percent" class="fact-sheet-input" data_calc_percentage="true" data_claimant_one_selector="input[name='spouse_annual_gross_income']" data_claimant_two_selector="input[name='annual_gross_income']" %}
+                    <label>%</label>
                 </div>
             </td>
             <td class="fact-sheet-answer" readonly>
@@ -260,12 +262,14 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="percent-suffix">
-                        {% input_field type="number" name="time_spent_with_you" class="fact-sheet-input" min="0" %} %
+                        {% input_field type="number" name="time_spent_with_you" class="fact-sheet-input" min="0" %}
+                        <label>%</label>
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="percent-suffix">
-                        {% input_field type="number" name="time_spent_with_spouse" class="fact-sheet-input" min="0" %} %
+                        {% input_field type="number" name="time_spent_with_spouse" class="fact-sheet-input" min="0" %}
+                        <label>%</label>
                     </div>
                 </td>
             </tr>
@@ -737,8 +741,9 @@
                         ?
                     </td>
                     <td class="fact-sheet-answer">
-                        <div class="percent-prefix">
+                        <div class="percent-suffix">
                             {% input_field type="number" name="percent_income_over_high_income_limit" class="fact-sheet-input" %}
+                            <label>%</label>
                         </div>
                     </td>
                 </tr>

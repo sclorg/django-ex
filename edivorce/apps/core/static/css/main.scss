@@ -289,13 +289,19 @@ div.dollar-prefix {
 
 div.percent-suffix {
 	border: none;
+	width: 100%;
 
 	input {
 		border: none;
 		padding:0px;
 		outline: none;
-		width: 90%;
+		width: 85%;
 		text-align: right;
+	}
+	label {
+		width: 10%;
+		display: inline;
+		font-weight: normal;
 	}
 }
 
