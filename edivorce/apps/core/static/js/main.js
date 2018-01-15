@@ -599,6 +599,16 @@ $(function () {
         $(this).val(value.toFixed(2));
     });
 
+    $('.positive-integer').on('keypress', function(e) {
+        // keyCode [95-105] - number page
+        // keyCode [48-57] - 0-9
+        // keyCode [8] - backspace
+        // keyCode [37-40] - directional arrows
+        if (!((e.which > 95 && e.which < 106) || (e.which > 47 && e.which < 58) || e.which === 8 || (e.keyCode > 36 && e.keyCode < 41))) {
+            e.preventDefault();
+        }
+    });
+
     $('.fact-sheet-input').on('focus', function() {
         $(this).closest('td').addClass('table-cell-active');
     }).on('focusout', function() {

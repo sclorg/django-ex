@@ -244,7 +244,7 @@
         (the child spends at least 40 percent of the time with each of you in a year). If you and your spouse
         have a split parenting arrangement for any other children, do not include them in this set of questions.
         </p>
-        {% input_field type="number" name="number_of_children" class="form-control input-narrow" min="0" %}
+        {% input_field type="number" name="number_of_children" class="form-control input-narrow positive-integer" min="0" %}
     </div>
     <br />
 
@@ -582,7 +582,7 @@
                 How many child(ren) are 19 years or older for whom you are asking for support?
             </p>
             <div>
-                {% input_field type="number" name="number_children_over_19_need_support" class="fact-sheet-input input-narrow" %}
+                {% input_field type="number" name="number_children_over_19_need_support" class="fact-sheet-input input-narrow positive-integer" %}
             </div>
         </div>
 
