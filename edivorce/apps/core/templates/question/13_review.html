@@ -9,7 +9,14 @@
 
 {% block content %}
 <h1><small>Step {% step_order step="review" %}:</small>Review</h1>
-
+<p>
+    Please review the answers you have provided. If any changes need to be made click the green "Edit" button which will
+    take you back to the section in which a given question was posed.
+</p>
+<p>
+    If all of your answers look accurate and complete then proceed to the next step -
+    <a href="{% url 'dashboard_nav' 'print_form' %}">Review and Print your Divorce Forms</a>.
+</p>
 <div class="question-well step-review">
     <div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_prequal" aria-controls="collapse_changed_name">
     	<div>

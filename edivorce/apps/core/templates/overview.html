@@ -94,15 +94,9 @@
         {% if step_status.filing_locations == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i> Started</span>
         {% elif step_status.filing_locations == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i> Completed</span> {% endif %}
     </a>
-    <a href="{% url 'question_steps' 'fact_sheets' %}" class="progress-question {% if step_status.fact_sheets == 'Complete' %} complete {% endif %}">
-        <span class="progress-icon"><i class="fa fa-file-text-o" aria-hidden="true"></i></span>
-        <span class="progress-content"><small>Step {% step_order step="fact_sheets" %}</small><br />Fact Sheets</span>
-        {% if step_status.fact_sheets == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i> Started</span>
-        {% elif step_status.fact_sheets == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i> Completed</span> {% endif %}
-    </a>
     <a href="{% url 'question_steps' 'review' %}" class="progress-question {% if active_page == 'review' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-file" aria-hidden="true"></i></span>
-        <span class="progress-content"><small>Step {% step_order step="review" %}</small><br />Review</span>
+        <span class="progress-content"><small>Step {% step_order step="review" %}</small><br />Review your answers</span>
     </a>
 </div>
 
