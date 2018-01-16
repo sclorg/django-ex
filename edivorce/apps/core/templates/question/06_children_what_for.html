@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% load input_field %}
 {% load step_order %}
 
@@ -303,6 +304,8 @@
                     division of property or debts, a family law protection order, or orders related to guardianship.
                     The Divorce Act does not deal with these.
                 </p>
+                <img src="{% static 'img/which_laws_apply.png' %}" />
+                <p></p>
                 <p>
                     There are big differences in how the Divorce Act and the Family Law Act deal with some issues,
                     especially parenting. For more information, see the fact sheet
