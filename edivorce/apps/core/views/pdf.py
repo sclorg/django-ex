@@ -30,19 +30,19 @@ def form(request, form_number):
         responses['children'] = [actual[i] if i < total else {}
                                  for i in range(0, max(under + over, total))]
 
-    if form_number == "37_joint":
-        form_number = "37"
+    if form_number == "37":
+        responses["which_claimant"] = 'both'
     elif form_number == "37_claimant1":
         form_number = "37"
         responses = __add_claimant_info(responses, '_you')
-        responses["which_claimant"] = "Claimant 1"
-    elif form_number == "37_claimant2":
-        form_number = "37"
+        responses['which_claimant'] = 'Claimant 1'
+    elif form_number == '37_claimant2':
+        form_number = '37'
         responses = __add_claimant_info(responses, '_spouse')
-        responses["which_claimant"] = "Claimant 2"
+        responses['which_claimant'] = 'Claimant 2'
 
-    if form_number == "38_claimant1":
-        form_number = "38"
+    if form_number == '38_claimant1':
+        form_number = '38'
         responses = __add_claimant_info(responses, '_you')
         responses['which_claimant'] = 'Claimant 1'
     elif form_number == '38_claimant2':

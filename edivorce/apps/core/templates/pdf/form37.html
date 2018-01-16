@@ -51,7 +51,7 @@
 
         <p>{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}</p>
 
-        <p>Claimant 1:</p>
+        <p>Claimant 2:</p>
 
         <p>{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}</p>
 
@@ -60,7 +60,9 @@
         </h1>
 
         <p>
-            We,
+  {% if responses.which_claimant == 'both' %}We{% else %}I{% endif %},
+
+  {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 1' %}
             {% if responses.name_you %}
                 {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}
             {% else %}<span class="form-entry not-complete"></span>{% endif %},
@@ -79,9 +81,11 @@
             {% required responses.address_to_send_official_document_postal_code_you size=100 trail=',' %}
 
             {% required responses.occupation_you %},<br />
+  {% endif %}
 
-            and <br />
+  {% if responses.which_claimant == 'both' %}and<br />{% endif %}
 
+  {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 2' %}
             {% if responses.name_spouse %}
                 {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}
             {% else %}<span class="form-entry not-complete"></span>{% endif %}, of
@@ -99,11 +103,18 @@
             {% required responses.address_to_send_official_document_postal_code_spouse size=100 trail=',' %}
 
             {% required responses.occupation_spouse %},<br />
+  {% endif %}
             SWEAR (OR AFFIRM) THAT:
         </p>
 
         <ol class="numbered-paragraphs">
-          <li>We are claimant 1 and claimant 2.</li>
+          <li>
+  {% if responses.which_claimant == 'both' %}
+            We are claimant 1 and claimant 2.
+  {% else %}
+            I am {{ responses.which_claimant }}.
+  {% endif %}
+          </li>
 
           <li>
             <p>The following is true to the best of my information and belief.</p>
@@ -203,7 +214,7 @@
           </li>
 
           <li>  <!-- 6 -->
-  {% if responses.have_separation_agreement == 'YES' %}  <!-- 6d -->
+  {% if responses.how_will_calculate_income == 'entered agreement' %}  <!-- 6d -->
             The proposed order sets out that
             {{ responses.order_monthly_child_support_amount|money }}
             is the amount of child support payable by
@@ -302,8 +313,11 @@
 
         </ol>
 
+  {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 1' %}
         {% include 'pdf/partials/notary_signature.html' with name=responses.name_you %}
+  {% elif responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 2' %}
         {% include 'pdf/partials/notary_signature.html' with name=responses.name_spouse %}
+  {% endif %}
         {% include 'pdf/partials/fact_sheet_a.html' %}
         {% include 'pdf/partials/fact_sheet_b.html' %}
         {% include 'pdf/partials/fact_sheet_c.html' %}
