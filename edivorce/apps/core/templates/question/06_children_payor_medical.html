@@ -205,7 +205,7 @@
         </h3>
         <div class="radio">
             <label>
-                {% input_field type="radio" name="does_payour_amount_match_guidelines" value="YES" data_target_id="amount_does_not_match" data_reveal_target="false" %} Yes
+                {% input_field type="radio" name="does_payour_amount_match_guidelines" value="YES" data_target_id="amount_does_not_match" data_reveal_target="false" data_reveal_force_hide_group=".hide-grouping" %} Yes
             </label>
         </div>
         <div class="radio">
@@ -215,7 +215,7 @@
         </div>
     </div>
 
-    <div class="question-well" id="amount_does_not_match" hidden>
+    <div class="question-well hide-grouping" id="amount_does_not_match" hidden>
         <h3>Do you and the other parent agree (have consented) on the child support amount?</h3>
         <div class="radio">
             <label>
@@ -229,7 +229,7 @@
         </div>
     </div>
 
-    <div class="question-well" id="what_special_provisions" hidden>
+    <div class="question-well hide-grouping" id="what_special_provisions" hidden>
         <h3>What special provisions have been made?</h3>
         {% input_field type="textarea" name="child_support_payment_special_provisions" class="response-textarea form-control" tabindex="-1" maxlength="1000" rows="3" %}
     </div>

@@ -105,6 +105,16 @@ var showHideTargetId = function(el, id, relatedId, revealControlGroup) {
         }
     } else {
         $(id).hide();
+
+        // This is the bit of a hack/workaround but so far this is the only case
+        // where we have a none nested related questions.  When the first
+        // question is hidden, all elements in the force_hide group should also
+        // be hidden.
+        if (el.data("reveal_force_hide_group")) {
+            $(el.data("reveal_force_hide_group")).hide();
+            $(el.data("reveal_force_hide_group")).find(':radio').prop('checked', false);
+        }
+
         if (relatedId !== undefined){
             $('#' + relatedId).show();
         }
