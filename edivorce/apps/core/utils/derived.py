@@ -400,7 +400,7 @@ def claimant_debts(responses, derived):
     """ Return the parsed array of claimant_debts """
 
     try:
-        return json.loads(responses.get('claimant_debts', []))
+        return json.loads(responses.get('claimant_debts', '[]'))
     except ValueError:
         return []
 
@@ -409,7 +409,7 @@ def claimant_expenses(responses, derived):
     """ Return the parsed array of claimant_expenses """
 
     try:
-        return json.loads(responses.get('claimant_expenses', []))
+        return json.loads(responses.get('claimant_expenses', '[]'))
     except ValueError:
         return []
 
@@ -418,7 +418,7 @@ def supported_dependents(responses, derived):
     """ Return the parsed array of supporting_dependents """
 
     try:
-        return json.loads(responses.get('supporting_dependents', []))
+        return json.loads(responses.get('supporting_dependents', '[]'))
     except ValueError:
         return []
 
@@ -427,7 +427,7 @@ def supported_non_dependents(responses, derived):
     """ Return the parsed array of supporting_non_dependents """
 
     try:
-        return json.loads(responses.get('supporting_non_dependents', []))
+        return json.loads(responses.get('supporting_non_dependents', '[]'))
     except ValueError:
         return []
 
@@ -436,7 +436,7 @@ def supported_disabled(responses, derived):
     """ Return the parsed array of supporting_disabled """
 
     try:
-        return json.loads(responses.get('supporting_disabled', []))
+        return json.loads(responses.get('supporting_disabled', '[]'))
     except ValueError:
         return []
 
@@ -445,7 +445,7 @@ def others_income(responses, derived):
     """ Return the parsed array of income_others """
 
     try:
-        return json.loads(responses.get('income_others', []))
+        return json.loads(responses.get('income_others', '[]'))
     except ValueError:
         return []
 
