@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, render_to_response
 from django.utils import timezone
 from django.template import RequestContext
 
+from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import bceid_required, intercept
 from ..utils.question_step_mapping import list_of_registries
 from ..utils.step_completeness import get_step_status, is_complete, get_formatted_incomplete_list
@@ -193,6 +194,7 @@ def question(request, step, sub_step=None):
         responses_dict['registries'] = sorted(list_of_registries)
 
     responses_dict['sub_step'] = sub_step
+    responses_dict['derived'] = get_derived_data(get_responses_from_db(request.user))
 
     return render(request, template_name=template, context=responses_dict)
 

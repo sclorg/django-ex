@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django import template
 import json
 
@@ -38,7 +40,7 @@ def process_list(lst, question_key):
     else:
         for value in lst:
             if value and not value.isspace():
-                tag.append('<li>' + value + '</li>')
+                tag.append('<li>' + str(value) + '</li>')
     tag.append('</ul>')
     return ''.join(tag)
 
@@ -49,68 +51,153 @@ def format_row(question, response):
     )
 
 
-@register.simple_tag
-def format_children(source):
+def format_head(headings):
+    if len(headings) == 0:
+        return '', []
+
+    tags = ["<tr>"]
+    head_order = list()
+    for key in headings[0].keys():
+        tags.append('<th>{}</th>'.format(key.replace('_', ' ').title()))
+        head_order.append(key)
+    tags.append('</tr>')
+    return ''.join(tags), head_order
+
+
+def process_fact_sheet_list(data, header):
+    tags = list()
+    for item in data:
+        tags.append('<tr>')
+        for key in header:
+            tags.append('<td>{}</td>'.format(item.get(key, '')))
+        tags.append('</tr>')
+    return ''.join(tags)
+
+
+def format_fact_sheet(title, responses):
+    if len(responses) == 0:
+        return ''
+
+    tags = ['<tr><td colspan="2">']
+    tags.append('<h3>{}</h3>'.format(title))
+
+    for response in responses:
+        value = response['value']
+        try:
+            value = json.loads(response['value'])
+        except:
+            pass
+
+        if isinstance(value, list):
+            thead, header = format_head(value)
+            tags.append("""
+                <p></p>
+                <p><strong>{0}</strong></p>
+                <table class="table table-bordered table-striped">
+                <thead>
+                    {1}
+                </thead>
+                <tbody>
+            """.format(response['question__name'], thead))
+
+            tags.append(process_fact_sheet_list(value, header))
+
+            tags.append("""
+            </tbody>
+            </table>
+            """)
+    tags.append('</td></tr>')
+    return ''.join(tags)
+
+
+@register.simple_tag(takes_context=True)
+def format_children(context, source):
     """
 
     :param source:
     :return:
     """
-    question_to_heading = {
-        'Your Children': {
-          'claimant_children'
-        },
-        'What are you asking for?': {
-            'have_separation_agreement',
-            'have_court_order',
-            'order_respecting_arrangement',
-            'order_for_child_support',
-            'child_support_act'
-        },
-        'Income & expenses': {
-            'how_will_calculate_income',
-            'annual_gross_income',
-            'spouse_annual_gross_income'
-        },
-        'Are you or your spouse claiming undue hardship?': {
-            'special_extraordinary_expenses'
-        },
-        'Payor & medical expenses': {
-            'child_support_payor',
-            'claimants_agree_to_child_support_amount',
-            'medical_coverage_available',
-            'child_support_payments_in_arrears'
-        },
-        'Other fact sheets': {
-            
-        }
-    }
+    question_to_heading = OrderedDict()
+    question_to_heading['Your Children'] = [
+        'claimant_children'
+    ]
+    question_to_heading['What are you asking for?'] = [
+        'have_separation_agreement',
+        'have_court_order',
+        'order_respecting_arrangement',
+        'order_for_child_support',
+        'child_support_act'
+    ]
+    question_to_heading['Income & expenses'] = [
+        'how_will_calculate_income',
+        'annual_gross_income',
+        'spouse_annual_gross_income'
+    ]
+    question_to_heading['Are you or your spouse claiming undue hardship?'] = [
+        'special_extraordinary_expenses',
+        'claiming_undue_hardship',
+        'Undue Hardship (Fact Sheet E)'
+    ]
+    question_to_heading['Payor & medical expenses'] = [
+        'child_support_payor',
+        'claimants_agree_to_child_support_amount',
+        'medical_coverage_available',
+        'child_support_payments_in_arrears'
+    ]
+    question_to_heading['Other fact sheets'] = [
+    ]
+
+    fact_sheet_mapping = OrderedDict()
+    fact_sheet_mapping['Undue Hardship (Fact Sheet E)'] = [
+        'claimant_debts',
+        'claimant_expenses',
+        'supporting_non_dependents',
+        'supporting_dependents',
+        'supporting_disabled',
+        'undue_hardship',
+        'income_others',
+        'total_income_others',
+    ]
 
     tags = []
     # process mapped questions first
     working_source = source.copy()
     for title, questions in question_to_heading.items():
         tags.append(format_row('<strong>{}</strong>'.format(title), ''))
-        for item in working_source:
-            q_id = item['question_id']
-            if q_id in questions:
-                if q_id == 'claimant_children':
-                    for child in json.loads(item['value']):
-                        tags.append(format_row('Child\'s name', child['child_name']))
-                        tags.append(format_row('Birth date', child['child_birth_date']))
-                        tags.append(format_row('Child living with', child['child_live_with']))
-                        tags.append(format_row('Relationship to yourself (claimant 1)', child['child_relationship_to_you']))
-                        tags.append(format_row('Relationship to your spouse (claimant 2)', child['child_relationship_to_spouse']))
-                else:
-                    value = item['value']
-                    try:
-                        value = json.loads(item['value'])
-                    except:
-                        pass
-                    if isinstance(value, list):
-                        tags.append(format_row(item['question__name'], process_list(value, q_id)))
-                    else:
-                        tags.append(format_row(item['question__name'], value))
+
+        for question in questions:
+            if question in fact_sheet_mapping:
+                show_fact_sheet = False
+                if question == 'Undue Hardship (Fact Sheet E)' and context['derived']['show_fact_sheet_e']:
+                    show_fact_sheet = True
+
+                if show_fact_sheet:
+                    responses = list(filter(lambda x: x['question_id'] in fact_sheet_mapping[question], working_source))
+                    tags.append(format_fact_sheet(question, responses))
+            else:
+                item = list(filter(lambda x: x['question_id'] == question, working_source))
+
+                if len(item):
+                    item = item.pop()
+                    q_id = item['question_id']
+                    if q_id in questions:
+                        if q_id == 'claimant_children':
+                            for child in json.loads(item['value']):
+                                tags.append(format_row('Child\'s name', child['child_name']))
+                                tags.append(format_row('Birth date', child['child_birth_date']))
+                                tags.append(format_row('Child living with', child['child_live_with']))
+                                tags.append(format_row('Relationship to yourself (claimant 1)', child['child_relationship_to_you']))
+                                tags.append(format_row('Relationship to your spouse (claimant 2)', child['child_relationship_to_spouse']))
+                        else:
+                            value = item['value']
+                            try:
+                                value = json.loads(item['value'])
+                            except:
+                                pass
+                            if isinstance(value, list):
+                                tags.append(format_row(item['question__name'], process_list(value, q_id)))
+                            else:
+                                tags.append(format_row(item['question__name'], value))
     return ''.join(tags)
 
 
