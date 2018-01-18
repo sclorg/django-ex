@@ -241,3 +241,7 @@ ol.parens-list > li:before {
 .th-left {
   text-align: left !important;
 }
+
+.no-wrap {
+  white-space: nowrap;
+}
