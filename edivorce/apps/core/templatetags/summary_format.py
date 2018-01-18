@@ -107,7 +107,10 @@ def format_children(source):
                         value = json.loads(item['value'])
                     except:
                         pass
-                    tags.append(format_row(item['question__name'], value))
+                    if isinstance(value, list):
+                        tags.append(format_row(item['question__name'], process_list(value, q_id)))
+                    else:
+                        tags.append(format_row(item['question__name'], value))
     return ''.join(tags)
 
 
