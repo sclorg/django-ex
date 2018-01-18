@@ -43,6 +43,33 @@ def process_list(lst, question_key):
     return ''.join(tag)
 
 
+def format_row(question, response):
+    return '<tr><td width="75%" style="padding-right: 5%">{0}</td><td width="25%">{1}</td></tr>'.format(
+        question, response
+    )
+
+
+@register.simple_tag
+def format_children(source):
+    """
+
+    :param source:
+    :return:
+    """
+    tags = []
+    for item in source:
+        q_id = item['question_id']
+        if q_id == 'claimant_children':
+            tags.append(format_row('<strong>{}</strong>'.format(item['question__name']), ''))
+            for child in json.loads(item['value']):
+                tags.append(format_row('Child\'s name', child['child_name']))
+                tags.append(format_row('Birth date', child['child_birth_date']))
+                tags.append(format_row('Child living with', child['child_live_with']))
+                tags.append(format_row('Relationship to yourself (claimant 1)', child['child_relationship_to_you']))
+                tags.append(format_row('Relationship to your spouse (claimant 2)', child['child_relationship_to_spouse']))
+    return ''.join(tags)
+
+
 @register.simple_tag
 def combine_address(source):
     """

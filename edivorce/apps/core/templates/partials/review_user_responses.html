@@ -18,6 +18,8 @@
                 {% marriage_tag source=questions %}
             {% elif step == 'other_questions' %}
                 {% combine_address source=questions %}
+            {% elif step == 'your_children' %}
+                {% format_children source=questions %}
             {% else %}
                 {% for question in questions %}
                     <tr>
