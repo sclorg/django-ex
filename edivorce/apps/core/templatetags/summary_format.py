@@ -67,6 +67,14 @@ def format_children(source):
                 tags.append(format_row('Child living with', child['child_live_with']))
                 tags.append(format_row('Relationship to yourself (claimant 1)', child['child_relationship_to_you']))
                 tags.append(format_row('Relationship to your spouse (claimant 2)', child['child_relationship_to_spouse']))
+        else:
+            value = item['value']
+            try:
+                value = json.loads(item['value'])
+            except:
+                pass
+
+            tags.append(format_row(item['question__name'], value))
     return ''.join(tags)
 
 
