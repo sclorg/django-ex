@@ -59,7 +59,7 @@
                     <td>
                       <span class="td-list-item">{% checkbox responses.when_were_you_live_married_like %}</span>
                       began to live together in a marriage-like relationship on
-                      <span class="no-wrap">[<em>dd mmm yyyy</em>]</span>
+                      <em class="no-wrap">[dd mmm yyyy]</em>
                     </td>
                     <td colname="c2">
                       {% response responses.when_were_you_live_married_like as_date=True %}
@@ -68,7 +68,7 @@
                 <tr>
                     <td>
                       <span class="td-list-item">{% checkbox responses.when_were_you_married %}</span>
-                      were married on <span class="no-wrap">[<em>dd mmm yyyy</em>]</span>
+                      were married on <em class="no-wrap">[dd mmm yyyy]</em>
                     </td>
                     <td colname="c2">
                       {% response responses.when_were_you_married as_date=True %}
@@ -77,7 +77,7 @@
                 <tr>
                     <td>
                       <span class="td-list-item">{% checkbox responses.separation_date %}</span>
-                      separated on <span class="no-wrap">[<em>dd mmm yyyy</em>]</span>
+                      separated on <em class="no-wrap">[dd mmm yyyy]</em>
                     </td>
                     <td colname="c2">
                       {% response responses.separation_date as_date=True %}
@@ -87,7 +87,7 @@
                     <td>
                       <span class="td-list-item">{% checkbox False %}</span>
                       were divorced from each other by order made on
-                      <span class="no-wrap">[<em>dd mmm yyyy</em>]</span>
+                      <em class="no-wrap">[dd mmm yyyy]</em>
                     </td>
                     <td colname="c2"><span class="form-entry not-complete">&nbsp;</span></td>
                 </tr>
@@ -123,14 +123,14 @@
                     <td colname="c3"><strong>Claimant 2</strong></td>
                 </tr>
                 <tr>
-                    <td>Birthdate: <span class="no-wrap">[<em>dd mmm yyyy</em>]</span></td>
+                    <td>Birthdate: <em class="no-wrap">[dd mmm yyyy]</em></td>
                     <td colname="c2">{% response responses.birthday_you as_date=True %}</td>
                     <td colname="c3">{% response responses.birthday_spouse as_date=True %}</td>
                 </tr>
                 <tr>
                     <td>
                       Ordinarily resident in British Columbia since:
-                      <span class="no-wrap">[<em>dd mmm yyyy</em>]</span>
+                      <em class="no-wrap">[dd mmm yyyy]</em>
                     </td>
                     <td colname="c2">
                       {% if responses.lived_in_bc_you == 'Since birth' %}
