@@ -57,6 +57,8 @@ DERIVED_DATA = [
     'total_others_income',
     'high_income_amount',
     'total_monthly_b',
+    'medical_covered_by_1',
+    'medical_covered_by_2',
 ]
 
 
@@ -162,7 +164,8 @@ def show_fact_sheet_d(responses, derived):
     """
 
     support = json.loads(responses.get('children_financial_support', '[]'))
-    return len(support) > 0 and 'NO' not in support and responses.get('children_of_marriage', '') == 'YES'
+    return (len(support) > 0 and
+            'NO' not in support and responses.get('children_of_marriage', '') == 'YES')
 
 
 def show_fact_sheet_e(responses, derived):
@@ -486,3 +489,19 @@ def total_monthly_b(responses, derived):
     difference = derived['guideline_amounts_difference']
 
     return difference
+
+
+def medical_covered_by_1(responses, derived):
+    """ Return whether the children are covered under Claimant 1's plan """
+
+    if responses.get('medical_coverage_available', 'NO') == 'YES':
+        return 'My plan' in responses.get('whose_plan_is_coverage_under', '')
+    return False
+
+
+def medical_covered_by_2(responses, derived):
+    """ Return whether the children are covered under Claimant 2's plan """
+
+    if responses.get('medical_coverage_available', 'NO') == 'YES':
+        return 'Spouse' in responses.get('whose_plan_is_coverage_under', '')
+    return False

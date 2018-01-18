@@ -269,15 +269,18 @@
           </li>
 
           <li>  <!-- 8 -->
-  {% if responses.medical_coverage_available %}
-            Medical coverage is not available for the children under either of
-            the party’s medical insurance plans.
-  {% elif responses.whose_plan_is_coverage_under == 'My plan' %}
+  {% if derived.medical_covered_by_1 and derived.medical_covered_by_2 %}
+            Medical coverage is available for the children under Claimant 1's
+            and Claimant 2's medical insurance plans.
+  {% elif derived.medical_covered_by_1 %}
             Medical coverage is available for the children under Claimant 1's
             medical insurance plan.
-  {% else %}
+  {% elif derived.medical_covered_by_1 %}
             Medical coverage is available for the children under Claimant 2's
             medical insurance plan.
+  {% else %}
+            Medical coverage is not available for the children under either of
+            the party’s medical insurance plans.
   {% endif %}
           </li>
 
