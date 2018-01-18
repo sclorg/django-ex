@@ -56,25 +56,58 @@ def format_children(source):
     :param source:
     :return:
     """
-    tags = []
-    for item in source:
-        q_id = item['question_id']
-        if q_id == 'claimant_children':
-            tags.append(format_row('<strong>{}</strong>'.format(item['question__name']), ''))
-            for child in json.loads(item['value']):
-                tags.append(format_row('Child\'s name', child['child_name']))
-                tags.append(format_row('Birth date', child['child_birth_date']))
-                tags.append(format_row('Child living with', child['child_live_with']))
-                tags.append(format_row('Relationship to yourself (claimant 1)', child['child_relationship_to_you']))
-                tags.append(format_row('Relationship to your spouse (claimant 2)', child['child_relationship_to_spouse']))
-        else:
-            value = item['value']
-            try:
-                value = json.loads(item['value'])
-            except:
-                pass
+    question_to_heading = {
+        'Your Children': {
+          'claimant_children'
+        },
+        'What are you asking for?': {
+            'have_separation_agreement',
+            'have_court_order',
+            'order_respecting_arrangement',
+            'order_for_child_support',
+            'child_support_act'
+        },
+        'Income & expenses': {
+            'how_will_calculate_income',
+            'annual_gross_income',
+            'spouse_annual_gross_income'
+        },
+        'Are you or your spouse claiming undue hardship?': {
+            'special_extraordinary_expenses'
+        },
+        'Payor & medical expenses': {
+            'child_support_payor',
+            'claimants_agree_to_child_support_amount',
+            'medical_coverage_available',
+            'child_support_payments_in_arrears'
+        },
+        'Other fact sheets': {
+            
+        }
+    }
 
-            tags.append(format_row(item['question__name'], value))
+    tags = []
+    # process mapped questions first
+    working_source = source.copy()
+    for title, questions in question_to_heading.items():
+        tags.append(format_row('<strong>{}</strong>'.format(title), ''))
+        for item in working_source:
+            q_id = item['question_id']
+            if q_id in questions:
+                if q_id == 'claimant_children':
+                    for child in json.loads(item['value']):
+                        tags.append(format_row('Child\'s name', child['child_name']))
+                        tags.append(format_row('Birth date', child['child_birth_date']))
+                        tags.append(format_row('Child living with', child['child_live_with']))
+                        tags.append(format_row('Relationship to yourself (claimant 1)', child['child_relationship_to_you']))
+                        tags.append(format_row('Relationship to your spouse (claimant 2)', child['child_relationship_to_spouse']))
+                else:
+                    value = item['value']
+                    try:
+                        value = json.loads(item['value'])
+                    except:
+                        pass
+                    tags.append(format_row(item['question__name'], value))
     return ''.join(tags)
 
 
