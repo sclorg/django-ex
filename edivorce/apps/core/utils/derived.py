@@ -45,6 +45,7 @@ DERIVED_DATA = [
     'claimant_1_share',
     'claimant_2_share_proportion',
     'claimant_2_share',
+    'payor_section_seven_expenses',
     'total_monthly_support_1_and_a',
     'guideline_amounts_difference',
     'claimant_debts',
@@ -55,6 +56,7 @@ DERIVED_DATA = [
     'others_income',
     'total_others_income',
     'high_income_amount',
+    'total_monthly_b',
 ]
 
 
@@ -283,6 +285,16 @@ def total_section_seven_expenses(responses, derived):
         return 0
 
 
+def payor_section_seven_expenses(responses, derived):
+    """ Return the monthly cost of section 7 expense for the identified payor """
+
+    if derived['child_support_payor'] == 'Claimant 1':
+        return derived['claimant_1_share']
+    elif derived['child_support_payor'] == 'Claimant 2':
+        return derived['claimant_2_share']
+    return derived['total_section_seven_expenses']
+
+
 def annual_total_section_seven_expenses(responses, derived):
     """ Return the annual cost of the monthly cost of section 7 expense """
 
@@ -372,12 +384,12 @@ def guideline_amounts_difference(responses, derived):
     """
 
     try:
-        amount_1 = float(responses.get('total_paid_child_support', 0))
+        amount_1 = float(responses.get('your_child_support_paid', 0))
     except ValueError:
         amount_1 = 0
 
     try:
-        amount_2 = float(responses.get('total_spouse_paid_child_support', 0))
+        amount_2 = float(responses.get('your_spouse_child_support_paid', 0))
     except ValueError:
         amount_2 = 0
 
@@ -466,3 +478,11 @@ def high_income_amount(responses, derived):
         over = 0
 
     return under + over
+
+
+def total_monthly_b(responses, derived):
+    """ Return the total amount payable by the payor for Fact Sheet B """
+
+    difference = derived['guideline_amounts_difference']
+
+    return difference

@@ -165,7 +165,7 @@
 
           </li>
 
-          <li>
+          <li>  <!-- 3 -->
   {% if derived.wants_child_support %}
             The Notice of Joint Family Claim includes a claim for a child
             support order.
@@ -175,7 +175,7 @@
   {% endif %}
           </li>
 
-          <li>
+          <li>  <!-- 4 -->
   {% if responses.how_will_calculate_income == 'using specific rules' %}
             <ol style="list-style-type: lower-alpha;">
               <li>Claimant 1's annual income as determined under sections 15 to
@@ -264,7 +264,7 @@
             Child Support Fact Sheet A (special expenses), and the amount set
             out in the proposed order for the expenses under section 7 of the
             Guidelines is
-            {{ responses.total_section_seven_expenses|money }}.
+            {{ derived.payor_section_seven_expenses|money }}.
   {% endif %}
           </li>
 

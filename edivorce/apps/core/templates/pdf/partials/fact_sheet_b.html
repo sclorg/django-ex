@@ -40,10 +40,10 @@
       <tr>
         <td>Guidelines Table Amount</td>
         <td class="amount">$
-          <span class="actual">{{ responses.total_paid_child_support|money:False }}</span>
+          <span class="actual">{{ responses.your_child_support_paid|money:False }}</span>
         </td>
         <td class="amount">$
-          <span class="actual">{{ responses.total_spouse_paid_child_support|money:False }}</span>
+          <span class="actual">{{ responses.your_spouse_child_support_paid|money:False }}</span>
         </td>
       </tr>
       <tr>
@@ -73,11 +73,15 @@
     sought:
   </p>
 
-  <p style="min-height: 4em;">{{ responses.additional_relevant_spouse_children_info }}</p>
+  {% if responses.additional_relevant_spouse_children_info %}
+  <p>{{ responses.additional_relevant_spouse_children_info }}</p>
+  {% else %}
+  <p style="min-height: 4em;"></p>
+  {% endif %}
 
   <p>
     It is proposed that child support in the amount of
-    {{ derived.total_monthly_support_1_and_a|money }}
+    {{ derived.total_monthly_b|money }}
     per month be paid by {{ derived.child_support_payor }}.
   </p>
 
