@@ -106,7 +106,7 @@
             SWEAR (OR AFFIRM) THAT:
         </p>
 
-        <ol class="numbered-paragraphs">
+        <ol class="numbered-paragraphs force-break-last">
           <li>We are claimant 1 and claimant 2.</li>
           <li>There is no possibility of reconciliation between my spouse and me.</li>
           <li>We believe that the facts set out in the notice of family claim are true.</li>
@@ -145,12 +145,12 @@
             justice, or to any agreement, understanding or arrangement to
             fabricate or suppress evidence or to deceive the court.</li>
 
-          <li class="{% if responses.name_change_you != 'YES' and responses.name_change_spouse != 'YES' %}force-break{% endif %}">
+          <li>
             There are no children of the marriage as defined by the
             <em>Divorce Act</em> (Canada).</li>
 
         {% if responses.name_change_you == 'YES' %}
-          <li class="{% if responses.name_change_spouse != 'YES' %}force-break{% endif %}">
+          <li>
             Pursuant to Section 5 of the Name Act, Claimant 1 shall
             bear the name of {{ responses.name_change_you_fullname }}
             to take effect on {% effective_date %}.
@@ -158,7 +158,7 @@
         {% endif %}
 
         {% if responses.name_change_spouse == 'YES' %}
-          <li class="force-break">
+          <li>
             Pursuant to Section 5 of the Name Act, Claimant 2 shall
             bear the name of {{ responses.name_change_spouse_fullname }}
             to take effect on {% effective_date %}.

@@ -88,13 +88,13 @@
             </p>
     {% endif %}
 
-        <div class="avoid-break">
+        <div>
 
     {% if derived.wants_spousal_support or derived.wants_property_division or derived.wants_child_support or derived.wants_other_orders %}
             <p>THIS COURT ORDERS that BY CONSENT:</p>
     {% endif %}
 
-            <ol class="numbered-paragraphs">
+            <ol class="numbered-paragraphs force-break-last">
     {% if derived.wants_spousal_support %}
                 <li>{{ responses.spouse_support_details }}</li>
     {% endif %}

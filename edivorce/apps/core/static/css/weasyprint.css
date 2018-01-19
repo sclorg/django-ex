@@ -245,3 +245,8 @@ ol.parens-list > li:before {
 .no-wrap {
   white-space: nowrap;
 }
+
+ol.force-break-last li:last-child {
+  page-break-before: always;
+}
+

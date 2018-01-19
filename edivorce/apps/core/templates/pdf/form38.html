@@ -86,7 +86,7 @@
             SWEAR (OR AFFIRM) THAT:
         </p>
 
-        <ol class="numbered-paragraphs">
+        <ol class="numbered-paragraphs force-break-last">
             <li>
                 I am {% required responses.which_claimant %}.
             </li>
@@ -134,14 +134,13 @@
                 fabricate or suppress evidence or to deceive the court.
             </li>
 
-            <li class="{% if responses.which_claimant == 'Claimant 1' and responses.name_change_you != 'YES' or responses.which_claimant == 'Claimant 2' and responses.name_change_spouse != 'YES' %}force-break{% endif %}">
-                <!-- Keep last item together with the sig block, so the sig block is never on a page by iteself. -->
+            <li>
                 There are no children of the marriage as defined by the <em>Divorce
                 Act</em> (Canada).
             </li>
 
           {% if responses.which_claimant == 'Claimant 1' and responses.name_change_you == 'YES' %}
-            <li class="force-break">
+            <li>
               Pursuant to Section 5 of the Name Act, Claimant 1 shall
               bear the name of {{ responses.name_change_you_fullname }}
               to take effect on {% effective_date %}.
@@ -149,7 +148,7 @@
           {% endif %}
 
           {% if responses.which_claimant == 'Claimant 2' and responses.name_change_spouse == 'YES' %}
-            <li class="force-break">
+            <li>
               Pursuant to Section 5 of the Name Act, Claimant 2 shall
               bear the name of {{ responses.name_change_spouse_fullname }}
               to take effect on {% effective_date %}.
