@@ -50,33 +50,10 @@
             <tbody>
                 <tr>
                     <td> BEFORE A JUDGE OF THE COURT </td>
-                    <td>
-                        <span class="form-entry not-complete"></span>
-                    </td>
+                    <td><span class="form-entry not-complete"></span></td>
                 </tr>
-
             </tbody>
         </table>
-
-        {% comment "This section is out of scope" %}
-        <div>
-            <p>
-                <em>[Select whichever one of the 4 following provisions is correct, provide any required information and remove the provisions that have not been selected so that they do not appear in the form when the form is filed.]</em>
-            </p>
-            <p>
-                This family law case coming on for trial at <span class="form-entry not-complete">&nbsp;</span>, on <span class="form-entry not-complete"></span>, and on hearing <span class="form-entry not-complete">&nbsp;</span>, [<em>add the following if applicable: the lawyer for</em>] claimant 1 and <span class="form-entry not-complete">&nbsp;</span>,
-                [<em>add the following if applicable: the lawyer for</em>] claimant 2, and on considering the evidence put forward [<em>add the following if applicable:</em> AND JUDGMENT being reserved to this date];
-            </p>
-            <p>
-                This family law case coming on for hearing at <span class="form-entry not-complete">&nbsp;</span> on <span class="form-entry not-complete"></span> and on hearing <span class="form-entry not-complete"></span> and <span class="form-entry not-complete"></span>,
-                and on considering the evidence put forward;
-            </p>
-            <p>
-                This family law case coming on for summary trial under Rule 11-3 of the Supreme Court Family Rules at <span class="form-entry not-complete">&nbsp;</span> on <span class="form-entry not-complete"></span>, and on hearing <span class="form-entry not-complete"></span> and <span class="form-entry not-complete"></span>,
-                and on considering the evidence put forward;
-            </p>
-        </div>
-        {% endcomment %}
 
         <p>
             This family law case coming on as an undefended family law case
@@ -84,7 +61,7 @@
             Family Rules, and on considering the evidence put forward;
         </p>
 
-        {% if 'A legal end to the marriage' in responses.want_which_orders|load_json %}
+    {% if derived.wants_divorce_order %}
             <p>THIS COURT ORDERS that</p>
 
             <p>
@@ -109,56 +86,67 @@
                 are divorced from each other, the divorce to take effect on
                 {% effective_date %}.
             </p>
-        {% endif %}
+    {% endif %}
 
         <div class="avoid-break">
 
-        {% if 'Division of property and debts' in responses.want_which_orders|load_json or 'Spousal support' in responses.want_which_orders|load_json or 'Other orders' in responses.want_which_orders|load_json %}
-            <p>
-                THIS COURT ORDERS that BY CONSENT:
-            </p>
+    {% if derived.wants_spousal_support or derived.wants_property_division or derived.wants_child_support or derived.wants_other_orders %}
+            <p>THIS COURT ORDERS that BY CONSENT:</p>
+    {% endif %}
 
             <ol class="numbered-paragraphs">
-              {% if 'Spousal support' in responses.want_which_orders|load_json and responses.spouse_support_details %}
+    {% if derived.wants_spousal_support %}
                 <li>{{ responses.spouse_support_details }}</li>
-              {% endif %}
+    {% endif %}
 
-              {% if 'Division of property and debts' in responses.want_which_orders|load_json %}
+    {% if derived.wants_property_division %}
                 <li>
-                    {% if responses.deal_with_property_debt == 'Equal division' %}
+        {% if responses.deal_with_property_debt == 'Equal division' %}
                         Equal division of property and debts.
-                    {% else %}
+        {% else %}
                         {{ responses.how_to_divide_property_debt }}
-                    {% endif %}
-                    <br>
-                    {{ responses.other_property_claims }}
+        {% endif %}
+                    <br>{{ responses.other_property_claims }}
                 </li>
-              {% endif %}
+    {% endif %}
 
-              {% if responses.name_change_you == 'YES' %}
+    {% if derived.wants_child_support %}
+        {% for order in derived.pursuant_parenting_arrangement %}
+                <li>{{ order }}</li>
+        {% endfor %}
+
+        {% for order in derived.pursuant_child_support %}
+                <li>{{ order }}</li>
+        {% endfor %}
+    {% endif %}
+
+    {% if derived.wants_other_orders %}
+        {% if responses.name_change_you == 'YES' %}
                 <li>
                   Pursuant to Section 5 of the Name Act, Claimant 1 shall
                   bear the name of {{ responses.name_change_you_fullname }}
                   to take effect on {% effective_date %}.
                 </li>
-              {% endif %}
+        {% endif %}
 
-              {% if responses.name_change_spouse == 'YES' %}
+        {% if responses.name_change_spouse == 'YES' %}
                 <li>
                   Pursuant to Section 5 of the Name Act, Claimant 2 shall
                   bear the name of {{ responses.name_change_spouse_fullname }}
                   to take effect on {% effective_date %}.
                 </li>
-              {% endif %}
-
-              {% if 'Other orders' in responses.want_which_orders|load_json and responses.other_orders_detail.trim %}
-                <li>{{ responses.other_orders_detail }}</li>
-              {% endif %}
-            </ol>
         {% endif %}
 
+        {% if responses.other_orders_detail.trim %}
+                <li>{{ responses.other_orders_detail }}</li>
+        {% endif %}
+            </ol>
+    {% endif %}
+
             <p>
-                THE FOLLOWING PARTIES APPROVE THE FORM OF THIS ORDER AND CONSENT TO EACH OF THE ORDERS, IF ANY, THAT ARE INDICATED ABOVE AS BEING BY CONSENT:
+                THE FOLLOWING PARTIES APPROVE THE FORM OF THIS ORDER AND
+                CONSENT TO EACH OF THE ORDERS, IF ANY, THAT ARE INDICATED ABOVE
+                AS BEING BY CONSENT:
             </p>
 
             <br><br>

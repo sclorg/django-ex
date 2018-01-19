@@ -59,6 +59,8 @@ DERIVED_DATA = [
     'total_monthly_b',
     'medical_covered_by_1',
     'medical_covered_by_2',
+    'pursuant_parenting_arrangement',
+    'pursuant_child_support',
 ]
 
 
@@ -505,3 +507,38 @@ def medical_covered_by_2(responses, derived):
     if responses.get('medical_coverage_available', 'NO') == 'YES':
         return 'Spouse' in responses.get('whose_plan_is_coverage_under', '')
     return False
+
+
+def pursuant_parenting_arrangement(responses, derived):
+    """
+    Return a list of parenting arrangement bullet points, prefaced by the
+    correct 'pursuant to' phrase.
+    """
+
+    act = responses.get('child_support_act', '')
+    act = 'Pursuant to %s,' % act if act != '' else act
+    try:
+        arrangements = responses.get('order_respecting_arrangement', '').split('\n')
+        print(arrangements)
+        return ['%s %s' % (act, arrangement.strip())
+                for arrangement in arrangements
+                if len(arrangement.strip()) > 0]
+    except ValueError:
+        return []
+
+
+def pursuant_child_support(responses, derived):
+    """
+    Return a list of child support bullet points, prefaced by the correct
+    'pursuant to' phrase.
+    """
+
+    act = responses.get('child_support_act', '')
+    act = 'Pursuant to %s,' % act if act != '' else act
+    try:
+        arrangements = responses.get('order_for_child_support', '').split('\n')
+        return ['%s %s' % (act, arrangement.strip())
+                for arrangement in arrangements
+                if len(arrangement.strip()) > 0]
+    except ValueError:
+        return []
