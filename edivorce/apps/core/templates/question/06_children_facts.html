@@ -312,12 +312,12 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="your_child_support_paid" class="fact-sheet-input claimants-child-support-amounts" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_between_claimants]" %}
+                        {% money_input_field id="fact_b_your_child_support_paid" name="your_child_support_paid" class="fact-sheet-input claimants-child-support-amounts" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_between_claimants]" data_mirror="true" data_mirror_target="#fact_c_your_child_support_paid" %}
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="your_spouse_child_support_paid" class="fact-sheet-input claimants-child-support-amounts" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_between_claimants]" %}
+                        {% money_input_field id="fact_b_your_spouse_child_support_paid" name="your_spouse_child_support_paid" class="fact-sheet-input claimants-child-support-amounts" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_between_claimants]" data_mirror="true" data_mirror_target="#fact_c_your_spouse_child_support_paid" %}
                     </div>
                 </td>
             </tr>
@@ -504,7 +504,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="total_spouse_paid_child_support" class="fact-sheet-input money claimants-child-support-paid" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts]" %}
+                        {% money_input_field id="fact_c_your_spouse_child_support_paid" name="your_spouse_child_support_paid" class="fact-sheet-input money claimants-child-support-paid" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts]" data_mirror="true" data_mirror_target="#fact_b_your_spouse_child_support_paid" %}
                     </div>
                 </td>
             </tr>
@@ -551,7 +551,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="total_paid_child_support" class="fact-sheet-input money claimants-child-support-paid" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts]" %}
+                        {% money_input_field id="fact_c_your_child_support_paid" name="your_child_support_paid" class="fact-sheet-input money claimants-child-support-paid" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts]" data_mirror="true" data_mirror_target="#fact_b_your_child_support_paid" %}
                     </div>
                 </td>
             </tr>
