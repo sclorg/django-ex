@@ -1190,7 +1190,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "special_extraordinary_expenses",
-        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+        "reveal_response": ""
     },
     "model": "core.question",
     "pk": "child_care_expenses"
@@ -1202,7 +1202,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "special_extraordinary_expenses",
-        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+        "reveal_response": ""
     },
     "model": "core.question",
     "pk": "children_healthcare_premiums"
@@ -1214,7 +1214,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "special_extraordinary_expenses",
-        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+        "reveal_response": ""
     },
     "model": "core.question",
     "pk": "health_related_expenses"
@@ -1226,7 +1226,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "special_extraordinary_expenses",
-        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+        "reveal_response": ""
     },
     "model": "core.question",
     "pk": "extraordinary_educational_expenses"
@@ -1238,7 +1238,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "special_extraordinary_expenses",
-        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+        "reveal_response": ""
     },
     "model": "core.question",
     "pk": "post_secondary_expenses"
@@ -1250,7 +1250,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "special_extraordinary_expenses",
-        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+        "reveal_response": ""
     },
     "model": "core.question",
     "pk": "extraordinary_extracurricular_expenses"
@@ -1262,7 +1262,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "special_extraordinary_expenses",
-        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+        "reveal_response": ""
     },
     "model": "core.question",
     "pk": "total_section_seven_expenses"
@@ -1274,7 +1274,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "special_extraordinary_expenses",
-        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+        "reveal_response": ""
     },
     "model": "core.question",
     "pk": "your_proportionate_share_percent"
@@ -1286,7 +1286,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "special_extraordinary_expenses",
-        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+        "reveal_response": ""
     },
     "model": "core.question",
     "pk": "your_proportionate_share_amount"
@@ -1298,7 +1298,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "special_extraordinary_expenses",
-        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+        "reveal_response": ""
     },
     "model": "core.question",
     "pk": "spouse_proportionate_share_percent"
@@ -1310,7 +1310,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "special_extraordinary_expenses",
-        "reveal_response": "Children's Child Care|Medical|Education|Extraordinary extracurricular activity expenses"
+        "reveal_response": ""
     },
     "model": "core.question",
     "pk": "spouse_proportionate_share_amount"
@@ -1488,7 +1488,8 @@
         "name": "Do you and your spouse agree that the monthly Guidelines table amount for child support is appropriate?",
         "description": "For Step 6, Your children - Income & expenses - Fact Sheet D Child(ren) 19 Years or Older",
         "summary_order": 0,
-        "required": "Conditional"
+        "required": "Conditional",
+        "reveal_response": ""
     },
     "model": "core.question",
     "pk": "agree_to_child_support_amount"

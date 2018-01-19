@@ -88,6 +88,9 @@ def format_fact_sheet(title, responses):
         except:
             pass
 
+        if not value:
+            continue
+
         if isinstance(value, list):
             thead, header = format_head(value)
             tags.append("""
@@ -101,8 +104,17 @@ def format_fact_sheet(title, responses):
             """.format(response['question__name'], thead))
 
             tags.append(process_fact_sheet_list(value, header))
-
+        else:
             tags.append("""
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th></th>
+                    <th></th>
+                </thead>
+                <tbody>
+            """)
+            tags.append(format_row(response['question__name'], value))
+        tags.append("""
             </tbody>
             </table>
             """)
@@ -145,9 +157,55 @@ def format_children(context, source):
         'child_support_payments_in_arrears'
     ]
     question_to_heading['Other fact sheets'] = [
+        'Special or Extraordinary Expenses (Fact Sheet A)',
+        'Shared Living Arrangement (Fact Sheet B)',
+        'Split Living Arrangement (Fact Sheet C)',
+        'Child(ren) 19 Years or Older (Fact Sheet D)',
+        'Income over $150,000 (Fact Sheet F)'
     ]
 
     fact_sheet_mapping = OrderedDict()
+    fact_sheet_mapping['Special or Extraordinary Expenses (Fact Sheet A)'] = [
+        'child_care_expenses',
+        'children_healthcare_premiums',
+        'health_related_expenses',
+        'extraordinary_educational_expenses',
+        'post_secondary_expenses',
+        'extraordinary_extracurricular_expenses',
+        'total_section_seven_expenses',
+        'your_proportionate_share_percent',
+        'your_proportionate_share_amount',
+        'spouse_proportionate_share_percent',
+        'spouse_proportionate_share_amount'
+    ]
+    fact_sheet_mapping['Shared Living Arrangement (Fact Sheet B)'] = [
+        'number_of_children',
+        'time_spent_with_you',
+        'time_spent_with_spouse',
+        'annual_gross_income',
+        'spouse_annual_gross_income',
+        'your_child_support_paid',
+        'your_spouse_child_support_paid',
+        'extra_ordinary_expenses_you',
+        'extra_ordinary_expenses_spouse',
+        'additional_relevant_spouse_children_info',
+        'difference_between_claimants'
+    ]
+    fact_sheet_mapping['Split Living Arrangement (Fact Sheet C)'] = [
+        'number_of_children_claimant',
+        'spouse_annual_gross_income',
+        'total_spouse_paid_child_support',
+        'annual_gross_income',
+        'total_paid_child_support'
+        'difference_payment_amounts'
+    ]
+    fact_sheet_mapping['Child(ren) 19 Years or Older (Fact Sheet D)'] = [
+        'number_children_over_19_need_support',
+        'total_spouse_paid_child_support',
+        'agree_to_child_support_amount',
+        'total_spouse_paid_child_support',
+        'suggested_child_support'
+    ]
     fact_sheet_mapping['Undue Hardship (Fact Sheet E)'] = [
         'claimant_debts',
         'claimant_expenses',
@@ -156,7 +214,16 @@ def format_children(context, source):
         'supporting_disabled',
         'undue_hardship',
         'income_others',
-        'total_income_others',
+        'total_income_others'
+    ]
+    fact_sheet_mapping['Income over $150,000 (Fact Sheet F)'] = [
+        'number_children_seeking_support',
+        'child_support_amount_under_high_income',
+        'percent_income_over_high_income_limit',
+        'amount_income_over_high_income_limit',
+        'total_guideline_amount',
+        'agree_to_child_support_amount',
+        'reason_child_support_amount'
     ]
 
     tags = []
@@ -168,10 +235,20 @@ def format_children(context, source):
         for question in questions:
             if question in fact_sheet_mapping:
                 show_fact_sheet = False
-                if question == 'Undue Hardship (Fact Sheet E)' and context['derived']['show_fact_sheet_e']:
+                if question == 'Special or Extraordinary Expenses (Fact Sheet A)' and context['derived']['show_fact_sheet_a']:
+                    show_fact_sheet = True
+                elif question == 'Shared Living Arrangement (Fact Sheet B)' and context['derived']['show_fact_sheet_b']:
+                    show_fact_sheet = True
+                elif question == 'Split Living Arrangement (Fact Sheet C)' and context['derived']['show_fact_sheet_c']:
+                    show_fact_sheet = True
+                elif question == 'Child(ren) 19 Years or Older (Fact Sheet D)' and context['derived']['show_fact_sheet_d']:
+                    show_fact_sheet = True
+                elif question == 'Undue Hardship (Fact Sheet E)' and context['derived']['show_fact_sheet_e']:
+                    show_fact_sheet = True
+                elif question == 'Income over $150,000 (Fact Sheet F)' and context['derived']['show_fact_sheet_f']:
                     show_fact_sheet = True
 
-                if show_fact_sheet:
+                if show_fact_sheet and len(fact_sheet_mapping[question]):
                     responses = list(filter(lambda x: x['question_id'] in fact_sheet_mapping[question], working_source))
                     tags.append(format_fact_sheet(question, responses))
             else:
