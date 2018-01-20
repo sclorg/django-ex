@@ -78,7 +78,7 @@ class BceidMiddleware(object):  # pylint: disable=too-few-public-methods
         """
 
         # make sure the request didn't bypass the proxy
-        if (settings.DEPLOYMENT_TYPE != 'localdev' and
+        if (settings.DEPLOYMENT_TYPE not in ['localdev', 'minishift'] and
                 not self.__request_came_from_proxy(request)):
             return redirect(settings.PROXY_BASE_URL + request.path)
 
@@ -92,7 +92,7 @@ class BceidMiddleware(object):  # pylint: disable=too-few-public-methods
         # link on our app or closing the browser.  This is an extreme edge case,
         # and it's not pragmatic to code against it at this time.
         siteminder_user = request.META.get('HTTP_SM_USER', '')
-        is_localdev = settings.DEPLOYMENT_TYPE == 'localdev'
+        is_localdev = settings.DEPLOYMENT_TYPE in ['localdev', 'minishift']
         update_user = False
 
         guid = request.META.get('HTTP_SMGOV_USERGUID', '')

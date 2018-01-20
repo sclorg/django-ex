@@ -20,7 +20,7 @@ def bceid(request):
 
         # convert the login name to a guid
         hex_name = decode(binascii.hexlify(str.encode(login_name)))[0]
-        fake_guid = uuid.UUID(hex_name.rjust(32, '0')).urn[9:]
+        fake_guid = hex_name.rjust(32, '0')
 
         # save the guid in a session variable
         request.session['login_name'] = login_name

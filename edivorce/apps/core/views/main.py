@@ -82,7 +82,7 @@ def register(request):
     """
     Sets a session variable and redirects users to register for BCeID
     """
-    if settings.DEPLOYMENT_TYPE == 'localdev':
+    if settings.DEPLOYMENT_TYPE in ['localdev', 'minishift']:
         return render(request, 'localdev/register.html')
 
     request.session['went_to_register'] = True
@@ -95,7 +95,7 @@ def login(request):
     logged into BCeID will get a login page.  Users who are logged into
     BCeID will be redirected to the dashboard
     """
-    if settings.DEPLOYMENT_TYPE == 'localdev' and not request.session.get('fake_bceid_guid'):
+    if settings.DEPLOYMENT_TYPE in ['localdev', 'minishift'] and not request.session.get('fake_bceid_guid'):
         return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
 
     if not request.user.is_authenticated():
@@ -133,7 +133,7 @@ def logout(request):
 
     response = redirect(settings.LOGOUT_URL)
 
-    if settings.DEPLOYMENT_TYPE == 'localdev':
+    if settings.DEPLOYMENT_TYPE in ['localdev', 'minishift']:
         response = redirect('/')
 
     return response

@@ -21,7 +21,7 @@ def current(request):
     """
     Debug tool usable in dev and test environments, available at /current
     """
-    if settings.ENVIRONMENT not in ['localdev', 'dev', 'test']:
+    if settings.ENVIRONMENT not in ['localdev', 'dev', 'test', 'minishift']:
         raise Http404()
 
     if request.GET.get('reset', False):

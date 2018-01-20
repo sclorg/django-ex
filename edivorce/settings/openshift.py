@@ -48,6 +48,7 @@ COMPRESS_OFFLINE = True
 DEPLOYMENT_TYPE = os.getenv('ENVIRONMENT_TYPE')
 
 PROXY_URL_PREFIX = ''
+PROXY_BASE_URL = 'https://justice.gov.bc.ca'
 
 if DEPLOYMENT_TYPE == 'dev':
     PROXY_URL_PREFIX = "/divorce-dev"
@@ -64,6 +65,11 @@ if DEPLOYMENT_TYPE == 'prod':
     # Google Tag Manager (Production)
     GTM_ID = 'GTM-W4Z2SPS'
 
+if DEPLOYMENT_TYPE == 'minishift':
+    DEBUG = True
+    REGISTER_URL = '#'
+    PROXY_BASE_URL = ''
+
 # Internal Relative Urls
 FORCE_SCRIPT_NAME = PROXY_URL_PREFIX + '/'
 STATIC_URL = PROXY_URL_PREFIX + '/static/'
@@ -74,7 +80,6 @@ WEASYPRINT_CSS_LOOPBACK = 'http://edivorce-django:8080'
 WEASYPRINT_CSS_LOOPBACK += PROXY_URL_PREFIX
 
 # External URLs
-PROXY_BASE_URL = 'https://justice.gov.bc.ca'
 LOGOUT_URL_TEMPLATE = 'https://logon.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
 LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
 
@@ -84,6 +89,8 @@ BASICAUTH_USERNAME = os.getenv('BASICAUTH_USERNAME', '')
 BASICAUTH_PASSWORD = os.getenv('BASICAUTH_PASSWORD', '')
 
 # Lock down the session cookie settings
-SESSION_COOKIE_SECURE=True
-SESSION_COOKIE_PATH = PROXY_URL_PREFIX
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+if DEPLOYMENT_TYPE != 'minishift':
+    SESSION_COOKIE_PATH = PROXY_URL_PREFIX
+    SESSION_COOKIE_SECURE=True

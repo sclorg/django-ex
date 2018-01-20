@@ -334,7 +334,7 @@ parameters:
   value: jag-csb-edivorce-tools
   required: true
 - name: ENVIRONMENT_TYPE
-  displayName: Type of environnment (dev,test or prod).
+  displayName: Type of environnment (dev,test,prod or minishift).
   required: true
 - name: PROXY_NETWORK
   displayName: Network of upstream proxy (CIDR notation 0.0.0.0/0)
