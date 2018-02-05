@@ -150,6 +150,7 @@ def overview(request):
     # Add step status dictionary
     responses_dict_by_step['step_status'] = get_step_status(responses_dict_by_step)
     responses_dict_by_step['active_page'] = 'overview'
+    responses_dict_by_step['derived'] = get_derived_data(get_responses_from_db(request.user))
 
     response = render(request, 'overview.html', context=responses_dict_by_step)
 

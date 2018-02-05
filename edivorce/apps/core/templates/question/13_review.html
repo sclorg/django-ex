@@ -107,10 +107,11 @@
 	</div>
 </div>
 
+{% if derived.has_children_of_marriage %}
 <div class="question-well step-review">
 	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_6" aria-controls="collapse_changed_name">
 		<div>
-			Step 6: Your children
+			Step {% step_order step="children" %}: Your children
 		</div>
 	</div>
 	<p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'children' 'your_children' %}">Edit</a> </p>
@@ -121,13 +122,13 @@
 		</div>
 	</div>
 </div>
-
+{% endif %}
 
 {% if 'Spousal support' in which_orders.0.value|load_json %}
 <div class="question-well step-review">
 	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_7" aria-controls="collapse_changed_name">
 		<div>
-			Step 7: Spousal support
+			Step {% step_order step="support" %}: Spousal support
 		</div>
 	</div>
 	<p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'support' %}">Edit</a> </p>

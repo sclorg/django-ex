@@ -47,18 +47,19 @@
         {% if step_status.your_separation == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i> Started</span>
         {% elif step_status.your_separation == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i> Completed</span> {% endif %}
     </a>
-
+    {% if children_of_marriage == 'YES' or derived.has_children_of_marriage %}
     <a href="{% url 'question_steps' 'children' 'your_children'%}" class="progress-question {% if step_status.your_children == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
-        <span class="progress-content"><small>Step 6</small><br />Your children</span>
+        <span class="progress-content"><small>Step {% step_order step="children" %}</small><br />Your children</span>
         {% if step_status.your_children == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i> Started</span>
         {% elif step_status.your_children == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i> Completed</span> {% endif %}
     </a>
+    {% endif %}
 
     {% if 'Spousal support' in which_orders.0.value|load_json %}
     <a href="{% url 'question_steps' 'support' %}" class="progress-question {% if step_status.spousal_support == 'Complete' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-life-ring" aria-hidden="true"></i></span>
-        <span class="progress-content"><small>Step 7</small><br />Spousal support</span>
+        <span class="progress-content"><small>Step {% step_order step="support" %}</small><br />Spousal support</span>
         {% if step_status.spousal_support == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i> Started</span>
         {% elif step_status.spousal_support == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i> Completed</span> {% endif %}
     </a>

@@ -11,19 +11,24 @@ register = template.Library()
 
 def _get_next_step(context, step, sub_step, direction):
     want_which_orders = json.loads(context.get('want_which_orders', '[]'))
-    sub_step_name = _get_next_sub_step(step, sub_step, want_which_orders, direction=direction)
+    children_of_marriage = context.get('children_of_marriage', None)
+    sub_step_name = _get_next_sub_step(step, sub_step, want_which_orders,
+                                       children_of_marriage=children_of_marriage,
+                                       direction=direction)
     if sub_step_name is not None:
         return sub_step_name
 
     current_step_base_order = template_step_order[step]
-    next_item = _adjust_for_orders(current_step_base_order, want_which_orders, direction=direction)
+    next_item = _adjust_for_orders(current_step_base_order, want_which_orders,
+                                   children_of_marriage=children_of_marriage,
+                                   direction=direction)
 
     # The next page or previous page could land on a sub step page so need to do lookup to find
     # out where may fall.
     return get_step_or_sub_step_name(next_item, direction=direction)
 
 
-def _get_next_sub_step(step, sub_step, want_which_orders, direction):
+def _get_next_sub_step(step, sub_step, want_which_orders, children_of_marriage, direction):
     current_step_base_order = template_step_order[step]
     if template_sub_step_order.get(step, None) is not None:
         current_sub_step_base_order = template_sub_step_order[step].get(sub_step, None)
@@ -36,17 +41,22 @@ def _get_next_sub_step(step, sub_step, want_which_orders, direction):
             if next_sub_step is not None:
                 return reverse('question_steps', kwargs={'step': step, 'sub_step': next_sub_step})
 
-        next_item = _adjust_for_orders(current_step_base_order, want_which_orders, direction=direction)
+        next_item = _adjust_for_orders(current_step_base_order, want_which_orders,
+                                       children_of_marriage=children_of_marriage,
+                                       direction=direction)
         return reverse('question_steps', kwargs={'step': get_step_name(template_step_order, next_item)})
     return None
 
 
-def _adjust_for_orders(next_item, want_which_orders, direction):
+def _adjust_for_orders(next_item, want_which_orders, children_of_marriage=None, direction=None):
     addend = 1
     if direction != 'next':
         addend = -1
 
     next_item += addend
+
+    if next_item == 6 and 'YES' != children_of_marriage:
+        next_item += addend
 
     if next_item == 7 and 'Spousal support' not in want_which_orders:
         next_item += addend
@@ -65,6 +75,12 @@ def step_order(context, step):
     want_which_orders = __parse_json_which_orders_selected(context)
     base_order = template_step_order[step]
     order = base_order
+
+    if base_order > 5 and (
+            context.get('children_of_marriage', None) != 'YES' and
+            context.get('derived', dict()).get('has_children_of_marriage', None) is False
+    ):
+        order -= 1
 
     if base_order > 6 and 'Spousal support' not in want_which_orders:
         order -= 1

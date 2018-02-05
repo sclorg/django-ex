@@ -18,6 +18,7 @@ import json
 DERIVED_DATA = [
     'orders_wanted',
     'children',
+    'has_children_of_marriage',
     'wants_divorce_order',
     'wants_spousal_support',
     'wants_property_division',
@@ -84,6 +85,12 @@ def children(responses, derived):
     """ Return a list of child dicts, parsed from ``claimants_children`` """
 
     return json.loads(responses.get('claimant_children', '[]'))
+
+
+def has_children_of_marriage(responses, derived):
+    """ Returns whether or not the their are children of marriage for claim"""
+
+    return responses.get('children_of_marriage', '') == 'YES'
 
 
 def wants_divorce_order(responses, derived):
@@ -167,7 +174,7 @@ def show_fact_sheet_d(responses, derived):
 
     support = json.loads(responses.get('children_financial_support', '[]'))
     return (len(support) > 0 and
-            'NO' not in support and responses.get('children_of_marriage', '') == 'YES')
+            'NO' not in support and has_children_of_marriage(responses, derived))
 
 
 def show_fact_sheet_e(responses, derived):
