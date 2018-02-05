@@ -201,7 +201,7 @@
             </td>
             <td class="fact-sheet-answer" readonly>
                 <div class="dollar-prefix">
-                    {% money_input_field name="your_proportionate_share_amount" id="your_proportionate_share_amount" class="fact-sheet-input money" data_scale="true" data_quantity="#total_extraordinary_expense_monthly" data_scale_factor="input[name='your_proportionate_share_percent']" readonly="" %}
+                    {% money_input_field name="your_proportionate_share_amount" id="your_proportionate_share_amount" class="fact-sheet-input money child-support-amounts" data_scale="true" data_quantity="#total_extraordinary_expense_monthly" data_scale_factor="input[name='your_proportionate_share_percent']" readonly="" %}
                 </div>
             </td>
         </tr>
@@ -215,16 +215,19 @@
             </td>
             <td class="fact-sheet-answer" readonly>
                 <div class="dollar-prefix">
-                    {% money_input_field name="spouse_proportionate_share_amount" id="spouse_proportionate_share_amount" class="fact-sheet-input money" data_scale="true" data_quantity="#total_extraordinary_expense_monthly" data_scale_factor="input[name='spouse_proportionate_share_percent']" readonly="" %}
+                    {% money_input_field name="spouse_proportionate_share_amount" id="spouse_proportionate_share_amount" class="fact-sheet-input money child-support-amounts" data_scale="true" data_quantity="#total_extraordinary_expense_monthly" data_scale_factor="input[name='spouse_proportionate_share_percent']" readonly="" %}
                 </div>
             </td>
         </tr>
         </tbody>
     </table>
     <br>
+    <p><strong>Claimant {% payorize %}</strong></p>
     <p>Total monthly child support payment amount
         Including the monthly Guidelines table amount under Schedule 1 of the Guidelines and the section 7
         expenses is:
+        <span id="child_support_payor" hidden>{{ child_support_payor }}</span>
+        <span id="schedule_one_amount" hidden>{{ payor_monthly_child_support_amount }}</span>
         <span id="total_child_support_payment"></span>
     </p>
 </div>

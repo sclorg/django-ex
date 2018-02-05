@@ -189,6 +189,33 @@ $(function () {
     });
 
 
+    // Fact Sheet A
+    // Dynamically calculate total child support payment for payor
+    var calcTotalChildSupportPayment = function() {
+        var payor = $('#child_support_payor').text();
+        var yourShare = parseFloat($('#your_proportionate_share_amount').val());
+        var spouseShare = parseFloat($('#spouse_proportionate_share_amount').val());
+        var payorShare = 0;
+
+        if (payor === 'Myself (Claimant 1)') {
+            payorShare = yourShare;
+        }
+        else if (payor === 'My Spouse (Claimant 2)') {
+            payorShare = spouseShare;
+        }
+        else if (payor === 'Both myself and my spouse') {
+            payorShare = yourShare + spouseShare;
+        }
+
+        return payorShare + parseFloat($('#schedule_one_amount').text() || 0);
+    };
+
+    $('#total_child_support_payment').text(calcTotalChildSupportPayment());
+    $('#total_extraordinary_expense_monthly').on('change', function() {
+        $('#total_child_support_payment').text(calcTotalChildSupportPayment());
+    });
+
+
     // If relationship is common law and they want spousal support, update spouse_support_act with hidden input field, spouse_support_act_common_law
     if ($("#spouse_support_act_common_law").length) {
         var el = $("#spouse_support_act_common_law");
