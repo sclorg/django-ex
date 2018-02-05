@@ -1492,7 +1492,7 @@
         "reveal_response": ""
     },
     "model": "core.question",
-    "pk": "agree_to_child_support_amount"
+    "pk": "agree_to_guideline_child_support_amount"
 },
 {
     "fields": {
@@ -1500,7 +1500,7 @@
         "description": "For Step 6, Your children - Income & expenses - Fact Sheet D Child(ren) 19 Years or Older",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "agree_to_child_support_amount",
+        "conditional_target": "agree_to_guideline_child_support_amount",
         "reveal_response": "YES"
     },
     "model": "core.question",
