@@ -63,6 +63,7 @@
         </div>
     </div>
 
+    {% if claiming_undue_hardship == 'NO' %}
     <div class="question-well" id="monthly_amount_question" hidden>
         <h3>What is the monthly child support amount (as per
             <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-5.html#h-9" target="_blank">Schedule 1</a>
@@ -159,7 +160,7 @@
             </div>
         </div>
     </div>
-
+    {% endif %}
     <div class="question-well">
         <h3>What is the monthly child support amount
                 <span class="tooltip-link"
