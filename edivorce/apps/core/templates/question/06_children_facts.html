@@ -3,6 +3,7 @@
 {% load format_utils %}
 {% load step_order %}
 {% load format_utils %}
+{% load load_json %}
 
 {% block title %}{{ block.super }}: Your Children {% endblock %}
 
@@ -14,7 +15,8 @@
         {{ claimant_children }}
     </div>
 
-{% if special_extraordinary_expenses != 'None' %}
+
+{% if 'None' not in special_extraordinary_expenses|load_json %}
     <div id="fact_sheet_a" class="question-well">
     <h1>Special or Extraordinary Expenses (Fact Sheet A)</h1>
     <table class="table table-bordered">
