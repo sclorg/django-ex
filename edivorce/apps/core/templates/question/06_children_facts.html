@@ -17,7 +17,7 @@
 
 
 {% if 'None' not in special_extraordinary_expenses|load_json %}
-    <div id="fact_sheet_a" class="question-well">
+    <div id="fact_sheet_a" class="question-well fact-sheets">
     <h1>Special or Extraordinary Expenses (Fact Sheet A)</h1>
     <table class="table table-bordered">
         <thead>
@@ -575,7 +575,7 @@
 </div>
 
 {% if children_of_marriage == 'YES' and 'NO' not in children_financial_support %}
-    <div id="fact_sheet_d" class="question-well">
+    <div id="fact_sheet_d" class="question-well fact-sheets">
         <h1>Child(ren) 19 Years or Older (Fact Sheet D)</h1>
         <p>
             Since you have previously indicated that you have a child/children 19 years of age or older for whom support
@@ -645,7 +645,7 @@
 
 {% if annual_gross_income|integer > 150000 %}
     <div id="annual_gross_income_question">
-        <div class="question-well" id="you_fact_sheet_f">
+        <div class="question-well fact-sheets" id="you_fact_sheet_f">
             <h1>Income over $150,000 (Fact Sheet F)</h1>
             <p>
                 Since you have previously indicated that the payor's income is over $150,000 you will need to provide
@@ -856,6 +856,10 @@
         </div>
     </div>
 {% endif %}
+
+    <div id="no_fact_sheet_notice" class="question-well" hidden>
+        <h1>You have no fact sheets to complete at this time!</h1>
+    </div>
 
 {% endblock %}
 

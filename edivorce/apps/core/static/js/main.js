@@ -675,6 +675,9 @@ $(function () {
         $(this).closest('td').removeClass('table-cell-active');
     });
 
+    if ($('.fact-sheets:visible').length === 0) {
+        $('#no_fact_sheet_notice').show();
+    }
 
     // spinner
     // $('a.spinner').on('click', function (e) {
