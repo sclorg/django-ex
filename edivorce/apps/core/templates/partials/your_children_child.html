@@ -29,11 +29,10 @@
          data-save_select=".child-field"
          data-target-form-field="child_relationship_to_spouse">{{ relationship_to_spouse }}</div>
 </td>
-{% if not exclude_delete_button %}
-<td class="fact-sheet-button">
-    <a href="#"><i class="fa fa-times btn-delete-child"></i></a>
+<td class="fact-sheet-button" hidden>
+    <a href="#" class="btn-edit-child"><i class="fa fa-pencil"></i></a>
+    <a href="#" class="btn-delete-child" data-toggle="modal" data-target="#deleteConfirmModal"><i class="fa fa-times"></i></a>
 </td>
-{% endif %}
 <td class="list-builder-hide-column">
     <div id="child_live_with_other_details_{{ div_id }}"
          class="child-field"

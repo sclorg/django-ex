@@ -471,7 +471,40 @@ $(function () {
         populateChildrenFactSheets();
     };
 
-    $('.child-item-row').on('click', populateChildInputFields);
+    // Options to enable/disable edit and delete controls from
+    // each child now.  Also, options to show appropriate tooltips
+    // for each control.
+    $('.btn-edit-child').on('click', function() {
+        // Mimic what would happen if the parent row would be clicked.
+        // this should initiate a transition to another screen where the
+        // child details will be shown.
+        $(this).parent('tr').click();
+    }).hover(function() {
+        $(this).tooltip({
+            placement:'auto right',
+            title: 'Edit details'
+        });
+        $(this).tooltip('show');
+    }, function() {
+        $(this).tooltip('hide');
+    });
+    $('.btn-delete-child').hover(function() {
+        $(this).tooltip({
+            placement:'auto right',
+            title: 'Delete Child'
+        });
+        $(this).tooltip('show');
+    }, function() {
+        $(this).tooltip('hide');
+    });
+    $('.child-item-row')
+        .on('click', populateChildInputFields)
+        .hover(function() {
+            $(this).find('.fact-sheet-button').show();
+        }, function() {
+            $(this).find('.fact-sheet-button').hide();
+        });
+
     $('#btn_save_child').on('click', function(e) {
         e.preventDefault();
         returnToParent({persist: true});
