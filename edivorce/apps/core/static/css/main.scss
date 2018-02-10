@@ -1740,6 +1740,7 @@ textarea {
 	border-bottom-right-radius: 10px;
 }
 
+#delete_child_modal,
 #info_modal,
 #questions_modal,
 #terms_modal {
@@ -1761,12 +1762,35 @@ textarea {
 		}
 	}
 
+	.modal-body {
+		padding: 36px 64px;
+
+		p {
+			font-size: 18px;
+			margin-top: 12px;
+		}
+	}
+
 	.modal-footer {
 		text-align: center;
 		border: none;
 		padding-bottom: 18px;
 	}
 }
+
+#delete_child_modal {
+	text-align: center;
+	vertical-align: middle;
+	margin-top: 112px;
+	font-size: 18px;
+
+	.modal-footer {
+		text-align: center;
+		border: none;
+		padding-bottom: 18px;
+	}
+}
+
 /* Spinner */
 div#progress-overlay {
 	position: fixed;

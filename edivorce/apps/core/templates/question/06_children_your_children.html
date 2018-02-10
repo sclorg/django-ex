@@ -236,6 +236,22 @@
         </div>
     </div>
 </div>
+
+<div id="delete_child_modal" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Please confirm that you want to delete this child?</p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" id="confirm_delete_child" class="btn btn-danger btn-lg">Delete Child</a>
+                <a type="button" id="cancel_delete_child" class="btn btn-primary btn-lg">Cancel</a>
+                <span id="delete_child_id" hidden></span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal-backgrop in"></div>
 {% endblock %}
 

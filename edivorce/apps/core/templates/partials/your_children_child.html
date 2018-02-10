@@ -1,37 +1,37 @@
 {% load input_field %}
-<td class="table-bordered">
+<td class="table-bordered child-item-cell">
     <div id="child_name_{{ div_id }}"
          class="child-field"
          data-save_select=".child-field"
          data-target-form-field="child_name">{{ name }}</div>
 </td>
-<td class="table-bordered">
+<td class="table-bordered child-item-cell">
     <div id="child_birth_date_{{ div_id }}"
          class="child-field"
          data-save_select=".child-field"
          data-target-form-field="child_birth_date">{{ birth_date }}</div>
 </td>
-<td class="table-bordered">
+<td class="table-bordered child-item-cell">
     <div id="child_live_with_{{ div_id }}"
          class="child-field"
          data-save_select=".child-field"
          data-target-form-field="child_live_with">{{ live_with }}</div>
 </td>
-<td class="table-bordered">
+<td class="table-bordered child-item-cell">
     <div id="child_relationship_you_{{ div_id }}"
          class="child-field"
          data-save_select=".child-field"
          data-target-form-field="child_relationship_to_you">{{ relationship_to_you }}</div>
 </td>
-<td class="table-bordered">
+<td class="table-bordered child-item-cell">
     <div id="child_relationship_spouse_{{ div_id }}"
          class="child-field"
          data-save_select=".child-field"
          data-target-form-field="child_relationship_to_spouse">{{ relationship_to_spouse }}</div>
 </td>
-<td class="fact-sheet-button" hidden>
+<td class="fact-sheet-button child-item-cell" hidden>
     <a href="#" class="btn-edit-child"><i class="fa fa-pencil"></i></a>
-    <a href="#" class="btn-delete-child" data-toggle="modal" data-target="#deleteConfirmModal"><i class="fa fa-times"></i></a>
+    <a href="#" class="btn-delete-child" id="delete_child_{{ div_id }}" data-toggle="modal" data-target="#delete_child_modal"><i class="fa fa-times"></i></a>
 </td>
 <td class="list-builder-hide-column">
     <div id="child_live_with_other_details_{{ div_id }}"
