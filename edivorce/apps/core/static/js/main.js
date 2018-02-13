@@ -245,16 +245,6 @@ $(function () {
     // show warning message if other name field is already at its maximum number when the page rendered
     showWarningOtherName();
 
-    var deleteChildData = function(settings, element) {
-        $('[type=radio]').prop('checked', false);
-        $('.children-input-block').each(function() {
-            resetChildrenInputBlock($(this), 'null');
-        });
-        $('.children-questions').hide();
-        deleteAddedTableRow(element);
-        $('#btn_save_child').trigger('click');
-    };
-
     var listControlGroups = [
         {
             table_selector: "#claimant_debts",
@@ -322,7 +312,7 @@ $(function () {
                 // Update the child id suffix so that now which row in table to update with these values.
                 var updatedChildCounter = parseInt(childCounter, 10) + 1;
                 newElement.closest('tr').attr('data-counter', updatedChildCounter);
-                newElement.find(settings.input_field_selector).each(function () {
+                newElement.find(settings.input_field_selector + ', ' + settings.delete_button_selector).each(function () {
                     var fieldId = replaceSuffix($(this).attr('id'), updatedChildCounter);
                     $(this).attr('id', fieldId);
                 });
@@ -346,54 +336,16 @@ $(function () {
 
                 // If the user clicks on the row, then should populate the input fields below the table
                 // with the contents of the row.
-                newElement.on('click', populateChildInputFields);
                 $('.children-list').hide();
                 $('.fact-sheets').hide();
+
+                initializeChildRowControls(newElement);
             },
             customDeleteAction: function(){}
         }
     ];
     listControlGroups.forEach(registerTableRowAddRemoveHandlers);
 
-    var resetChildrenInputBlock = function(element, childCounter) {
-        if (element.prop('type') === 'text' || element.prop('type') === 'textarea') {
-            element.val('');
-        }
-
-        element.find('[data-mirror="true"]').off('change');
-        element.find('[data-mirror="true"]').on('change', mirrorOnChange);
-
-        var mirrorTargetId = replaceSuffix(element.attr('data-mirror_target'), childCounter);
-        element.attr('data-mirror_target', mirrorTargetId);
-    };
-
-    var populateChildInputFields = function() {
-        $('.children-questions').show();
-        $('.children-list').hide();
-        $('.fact-sheets').hide();
-        enableChildrenFooterNav({page:'edit'});
-
-        $('[type=radio]').prop('checked', false);
-
-        var activeChildRow = $(this).attr('data-counter');
-        $(this).find('.child-field').each(function() {
-            var fieldName = $(this).attr('data-target-form-field');
-            var targetInput = $("input[name='" +fieldName + "']");
-            if (targetInput.length === 0) {
-                targetInput = $("textarea[name='" +fieldName + "']");
-            }
-
-            var mirrorTargetId = replaceSuffix(targetInput.attr('data-mirror_target'), activeChildRow);
-            targetInput.attr('data-mirror_target', mirrorTargetId);
-
-            if (targetInput.prop('type') === 'text' || targetInput.prop('type') === 'textarea') {
-                targetInput.val($(this).text());
-                targetInput.show();
-            } else if (targetInput.prop('type') === 'radio') {
-                targetInput.filter("[value='" + $(this).text() + "']").prop('checked', true);
-            }
-        });
-    };
 
     var evaluateFactSheetShowCriteria = function(childrenData) {
         var childWithBoth = 0;
@@ -452,61 +404,6 @@ $(function () {
         evaluateFactSheetShowCriteria(childrenData);
     };
 
-        // Options to enable/disable edit and delete controls from
-    // each child now.  Also, options to show appropriate tooltips
-    // for each control.
-    var initializeRowControls = function() {
-        $('.btn-edit-child').on('click', function() {
-            // Mimic what would happen if the parent row would be clicked.
-            // this should initiate a transition to another screen where the
-            // child details will be shown.
-            $(this).parent('tr').click();
-        }).hover(function() {
-            $(this).tooltip({
-                placement:'auto right',
-                title: 'Edit details'
-            });
-            $(this).tooltip('show');
-        }, function() {
-            $(this).tooltip('hide');
-        });
-        $('.btn-delete-child').hover(function() {
-            $(this).tooltip({
-                placement:'auto right',
-                title: 'Delete Child'
-            });
-            $(this).tooltip('show');
-        }, function() {
-            $(this).tooltip('hide');
-        });
-        $('.child-item-cell')
-            .on('click', function() {
-                if ($(this).hasClass('fact-sheet-button'))
-                    return;
-                populateChildInputFields($(this));
-            })
-            .hover(function() {
-                $(this).parent('tr').find('.fact-sheet-button').show();
-            }, function() {
-                $(this).parent('tr').find('.fact-sheet-button').hide();
-            });
-
-        $('#delete_child_modal').on('show.bs.modal', function(event) {
-            $('#delete_child_id').text(event.relatedTarget.id);
-        });
-        $('#confirm_delete_child').on('click', function(event) {
-            var deleteButtonId = $('#delete_child_id').text();
-            deleteChildData(undefined, $('#' + deleteButtonId));
-            $('#delete_child_modal').modal('hide');
-        });
-
-        $('#cancel_delete_child').on('click', function() {
-            $('#delete_child_modal').modal('hide');
-        });
-
-    };
-
-    initializeRowControls();
 
     var returnToParent = function(options) {
         $('.children-questions').hide();
@@ -527,9 +424,9 @@ $(function () {
             ajaxCall('claimant_children', jsonChildrenData);
         }
         populateChildrenFactSheets();
-
-        initializeRowControls();
     };
+
+    initializeChildRowControls($('body'));
 
     $('#btn_save_child').on('click', function(e) {
         e.preventDefault();
@@ -751,6 +648,98 @@ $(function () {
     });
 });
 
+
+// Options to enable/disable edit and delete controls from
+// each child now.  Also, options to show appropriate tooltips
+// for each control.
+var initializeChildRowControls = function(element) {
+    element.find('.btn-edit-child').on('click', function() {
+        // Mimic what would happen if the parent row would be clicked.
+        // this should initiate a transition to another screen where the
+        // child details will be shown.
+        $(this).parent('tr').click();
+    }).hover(function() {
+        $(this).tooltip({
+            placement:'auto right',
+            title: 'Edit details'
+        });
+        $(this).tooltip('show');
+    }, function() {
+        $(this).tooltip('hide');
+    });
+    element.find('.btn-delete-child').hover(function() {
+        $(this).tooltip({
+            placement:'auto right',
+            title: 'Delete Child'
+        });
+        $(this).tooltip('show');
+    }, function() {
+        $(this).tooltip('hide');
+    });
+    element.find('.child-item-cell')
+        .on('click', function() {
+            if ($(this).hasClass('fact-sheet-button'))
+                return;
+            populateChildInputFields($(this));
+        })
+        .hover(function() {
+            $(this).parent('tr').find('.fact-sheet-button').show();
+        }, function() {
+            $(this).parent('tr').find('.fact-sheet-button').hide();
+        });
+
+    element.find('#delete_child_modal').on('show.bs.modal', function(event) {
+        $('#delete_child_id').text(event.relatedTarget.id);
+    });
+    element.find('#confirm_delete_child').on('click', function() {
+        var deleteButtonId = $('#delete_child_id').text();
+        deleteChildData(undefined, $('#' + deleteButtonId));
+        $('#delete_child_modal').modal('hide');
+    });
+
+    element.find('#cancel_delete_child').on('click', function() {
+        $('#delete_child_modal').modal('hide');
+    });
+};
+
+var populateChildInputFields = function(element) {
+    $('.children-questions').show();
+    $('.children-list').hide();
+    $('.fact-sheets').hide();
+    enableChildrenFooterNav({page:'edit'});
+
+    $('[type=radio]').prop('checked', false);
+
+    var activeChildRow = element.attr('data-counter');
+    element.find('.child-field').each(function() {
+        var fieldName = $(this).attr('data-target-form-field');
+        var targetInput = $("input[name='" +fieldName + "']");
+        if (targetInput.length === 0) {
+            targetInput = $("textarea[name='" +fieldName + "']");
+        }
+
+        var mirrorTargetId = replaceSuffix(targetInput.attr('data-mirror_target'), activeChildRow);
+        targetInput.attr('data-mirror_target', mirrorTargetId);
+
+        if (targetInput.prop('type') === 'text' || targetInput.prop('type') === 'textarea') {
+            targetInput.val($(this).text());
+            targetInput.show();
+        } else if (targetInput.prop('type') === 'radio') {
+            targetInput.filter("[value='" + $(this).text() + "']").prop('checked', true);
+        }
+    });
+};
+
+var deleteChildData = function(settings, element) {
+    $('[type=radio]').prop('checked', false);
+    $('.children-input-block').each(function() {
+        resetChildrenInputBlock($(this), 'null');
+    });
+    $('.children-questions').hide();
+    deleteAddedTableRow(element);
+    $('#btn_save_child').trigger('click');
+};
+
 var enableChildrenFooterNav = function(page) {
     if (page.page === 'edit') {
         $('#children_review_buttons').hide();
@@ -760,6 +749,18 @@ var enableChildrenFooterNav = function(page) {
         $('#child_edit_buttons').hide();
     }
     window.scrollTo(0, 0);
+};
+
+var resetChildrenInputBlock = function(element, childCounter) {
+    if (element.prop('type') === 'text' || element.prop('type') === 'textarea') {
+        element.val('');
+    }
+
+    element.find('[data-mirror="true"]').off('change');
+    element.find('[data-mirror="true"]').on('change', mirrorOnChange);
+
+    var mirrorTargetId = replaceSuffix(element.attr('data-mirror_target'), childCounter);
+    element.attr('data-mirror_target', mirrorTargetId);
 };
 
 var saveListControlRow = function(tableId) {
