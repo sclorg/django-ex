@@ -336,13 +336,11 @@ def claimant_1_share_proportion(responses, derived):
     """
 
     try:
-        income = float(responses.get('annual_gross_income', 0))
+        share = float(responses.get('your_proportionate_share_percent', 0))
     except ValueError:
-        income = 0
+        share = 0
 
-    if derived['total_gross_income'] == 0:
-        return 0
-    return income / derived['total_gross_income'] * 1000 // 1 / 10
+    return share
 
 
 def claimant_1_share(responses, derived):
@@ -361,9 +359,12 @@ def claimant_2_share_proportion(responses, derived):
     annual income.
     """
 
-    if derived['total_gross_income'] == 0:
-        return 0
-    return 100 - derived['claimant_1_share_proportion'] * 10 // 1 / 10
+    try:
+        share = float(responses.get('spouse_proportionate_share_percent', 0))
+    except ValueError:
+        share = 0
+
+    return share
 
 
 def claimant_2_share(responses, derived):

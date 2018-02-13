@@ -98,12 +98,15 @@ $(function () {
         // Calculates the proportionate percentage of claimantOne to the sum of claimantOne
         // and claimantTwo. The result is a value between [0,100] inclusive.
         var calcPercentage = function(targetElement, claimantOne, claimantTwo) {
-            targetElement.val(Math.round(fraction(claimantOne, claimantTwo) * 100));
+            targetElement.val(Math.round(fraction(claimantOne, claimantTwo) * 1000) / 10);
+            targetElement.change();
         };
 
         var self = $(this);
         var claimantOneElement = $($(this).attr('data-claimant_one_selector'));
         var claimantTwoElement = $($(this).attr('data-claimant_two_selector'));
+
+        self.on('change', ajaxOnChange);
 
         // Calculate and populate the field on initialization of page.
         calcPercentage(self, claimantOneElement.val(), claimantTwoElement.val());
@@ -112,11 +115,9 @@ $(function () {
         // selectors.
         claimantOneElement.on('change', function() {
             calcPercentage(self, claimantOneElement.val(), claimantTwoElement.val());
-            self.trigger('change');
         });
         claimantTwoElement.on('change', function() {
             calcPercentage(self, claimantOneElement.val(), claimantTwoElement.val());
-            self.trigger('change');
         });
     });
 
