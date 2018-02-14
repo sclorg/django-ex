@@ -658,7 +658,7 @@ var initializeChildRowControls = function(element) {
         // Mimic what would happen if the parent row would be clicked.
         // this should initiate a transition to another screen where the
         // child details will be shown.
-        $(this).parent('tr').click();
+        $(this).closest('tr').find('.child-item-cell').first().click();
     }).hover(function() {
         $(this).tooltip({
             placement:'auto right',
@@ -681,7 +681,7 @@ var initializeChildRowControls = function(element) {
         .on('click', function() {
             if ($(this).hasClass('fact-sheet-button'))
                 return;
-            populateChildInputFields($(this));
+            populateChildInputFields($(this).parent('tr'));
         })
         .hover(function() {
             $(this).parent('tr').find('.fact-sheet-button').show();
