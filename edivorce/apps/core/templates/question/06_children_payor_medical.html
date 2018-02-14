@@ -180,9 +180,9 @@
             <label>
 
                 {% if how_will_calculate_income != 'entered agreement' %}
-                    {% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="YES" data_target_id="does_amount_match" data_reveal_target="true" %}
+                    {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="YES" data_target_id="does_amount_match" data_reveal_target="true" %}
                 {% else %}
-                    {% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="YES" %}
+                    {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="YES" %}
                 {% endif %}
                 <div class="dollar-prefix">
                     {% money_input_field name="order_monthly_child_support_amount" class="money form-block response-textbox children-input-block" data_mirror="true" data_mirror_target="#child_support_amount_label" %}
