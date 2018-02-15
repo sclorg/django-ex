@@ -91,12 +91,17 @@ i.fa {
     table-layout: fixed;
 }
 
+.table-fixed tr {
+  page-break-inside: avoid;
+}
+
 .table-fixed th {
     text-align: center;
 }
 
 .table-fixed td {
     text-align: left;
+    page-break-inside: avoid;
 }
 
 .sig-table td.underline {
