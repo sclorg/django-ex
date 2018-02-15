@@ -386,13 +386,15 @@
                                   <th align="center">Birth date<br />[<em>dd mmm yyyy</em>]</th>
                                   <th align="center">Resides with</th>
                               </tr
-      {% for child in responses.children %}
+      {% if responses.children_of_marriage == 'YES' %}
+          {% for child in responses.children %}
                               <tr>
                                   <td align="center">{{ child.child_name }}</td>
                                   <td align="center">{{ child.child_birth_date|date_formatter }} &nbsp;</td>
                                   <td align="center">{{ child.child_live_with|claimantize }}</td>
                               </tr>
-      {% endfor %}
+          {% endfor %}
+      {% endif %}
                               <tr>
                                   <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
                                   <td align="center"> <span class="form-entry not-complete">&nbsp;</span> </td>
@@ -416,14 +418,16 @@
                 <tr>
                   <td colname="c2">
                     <span class="td-list-item">
-                      A. {% checkbox responses.order_respecting_arrangement %}
+                      A. {% checkbox responses.order_respecting_arrangement children_of_marriage='YES' %}
                     </span>
                       <div class="td-list-text">
                           Claimant 1 and Claimant 2 are asking for the following
                           order respecting arrangements for parenting or
                           contact:
                           <span class="form-entry form-textarea not-complete form-list-textarea">
+    {% if responses.children_of_marriage == 'YES' %}
                             <ul>{{ responses.order_respecting_arrangement|striptags|linebreaksli }}</ul>
+    {% endif %}
                           </span>
                       </div>
                   </td>
@@ -431,13 +435,15 @@
                 <tr>
                     <td colname="c2">
                         <span class="td-list-item">
-                          B. {% checkbox responses.order_for_child_support %}
+                          B. {% checkbox responses.order_for_child_support children_of_marriage='YES' %}
                         </span>
                         <div class="td-list-text">
                             Claimant 1 and Claimant 2 are asking for an order for
                             child support as follows:
                             <span class="form-entry form-textarea not-complete form-list-textarea">
+    {% if responses.children_of_marriage == 'YES' %}
                               <ul>{{ responses.order_for_child_support|striptags|linebreaksli }}</ul>
+    {% endif %}
                             </span>
                         </div>
                     </td>
@@ -445,7 +451,7 @@
                 <tr>
                     <td colname="c2">
                         <span class="td-list-item">
-                          C. {% checkbox responses.child_support_act %}
+                          C. {% checkbox responses.child_support_act children_of_marriage='YES' %}
                         </span>
                         <div class="td-list-text">
                           Claimant 1 and Claimant 2 are asking for the orders
@@ -453,10 +459,10 @@
                           following statute(s):<br>
                           [<em>Check one or both of the following boxes, as
                             applicable.</em>]<br><br>
-                          {% checkbox child_support_act='the Divorce Act (Canada)' %}
+                          {% checkbox child_support_act='the Divorce Act (Canada)' children_of_marriage='YES' %}
                           the <em>Divorce Act</em> (Canada)
                           &nbsp;&nbsp;&nbsp;&nbsp;
-                          {% checkbox child_support_act='the Family Law Act' %}
+                          {% checkbox child_support_act='the Family Law Act' children_of_marriage='YES' %}
                           the <em>Family Law Act</em>
                         </div>
                     </td>

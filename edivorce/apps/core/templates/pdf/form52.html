@@ -110,7 +110,7 @@
                 </li>
     {% endif %}
 
-    {% if derived.wants_child_support %}
+    {% if responses.children_of_marriage == 'YES' and derived.wants_child_support %}
         {% for order in derived.pursuant_parenting_arrangement %}
                 <li>{{ order }}</li>
         {% endfor %}
