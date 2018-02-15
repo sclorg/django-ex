@@ -88,10 +88,14 @@ def checkbox(context, *args, **kwargs):
 
 
 @register.filter
-def claimantize(value, claimant='1'):
-    """ Replace 'you' with 'claimant 1' and 'spouse' with 'claimant 2' """
-    value = value.replace('you', 'claimant\xa0%s' % claimant)
-    value = value.replace('spouse', 'claimant\xa0%s' % '2' if claimant == '1' else '1')
+def claimantize(value):
+    """ Summarize 'lives with' as Claimant 1, 2, or both """
+    if 'you' in value:
+        return 'Claimant 1'
+    elif 'spouse' in value:
+        return 'Claimant 2'
+    elif 'both' in value:
+        return 'Both'
     return value
 
 
