@@ -206,9 +206,9 @@ def show_fact_sheet_f(responses, derived):
 def has_fact_sheets(responses, derived):
     """ Return whether or not the user is submitting fact sheets """
 
-    return any([derived['show_fact_sheet_a'], derived['show_fact_sheet_b'],
-                derived['show_fact_sheet_c'], derived['show_fact_sheet_d'],
-                derived['show_fact_sheet_e'], derived['show_fact_sheet_f'], ])
+    return any([derived['show_fact_sheet_b'], derived['show_fact_sheet_c'],
+                derived['show_fact_sheet_d'], derived['show_fact_sheet_e'],
+                derived['show_fact_sheet_f'], ])
 
 
 def schedule_1_amount(responses, derived):
