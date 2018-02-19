@@ -21,10 +21,10 @@ template_step_order = {
 template_sub_step_order = {
     'children': {
         'your_children': 1,
-        'what_for': 2,
-        'income_expenses': 3,
+        'income_expenses': 2,
+        'facts': 3,
         'payor_medical': 4,
-        'facts': 5
+        'what_for': 5
     }
 }
 

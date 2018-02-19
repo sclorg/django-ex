@@ -56,25 +56,26 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'question_steps' 'children' 'what_for'%}" class="progress-sub-question {% if sub_step == 'what_for' %} active {% endif %}">
-                <span class="progress-content">What are you asking for</span>
-            </a>
-        </li>
-        <li>
             <a href="{% url 'question_steps' 'children' 'income_expenses'%}" class="progress-sub-question {% if sub_step == 'income_expenses' %} active {% endif %}">
                 <span class="progress-content">Income & expenses</span>
             </a>
         </li>
         <li>
-            <a href="{% url 'question_steps' 'children' 'payor_medical'%}" class="progress-sub-question {% if sub_step == 'payor_medical' %} active {% endif %}">
-                <span class="progress-content">Payor & medical expenses</span>
+            <a href="{% url 'question_steps' 'children' 'facts'%}" class="progress-sub-question {% if sub_step == 'facts' %} active {% endif %}">
+                <span class="progress-content">Fact sheets</span>
             </a>
         </li>
         <li>
-            <a href="{% url 'question_steps' 'children' 'facts'%}" class="progress-sub-question {% if sub_step == 'facts' %} active {% endif %}">
-                <span class="progress-content">Other fact sheets</span>
+            <a href="{% url 'question_steps' 'children' 'payor_medical'%}" class="progress-sub-question {% if sub_step == 'payor_medical' %} active {% endif %}">
+                <span class="progress-content">Medical expenses</span>
             </a>
         </li>
+        <li>
+            <a href="{% url 'question_steps' 'children' 'what_for'%}" class="progress-sub-question {% if sub_step == 'what_for' %} active {% endif %}">
+                <span class="progress-content">What are you asking for</span>
+            </a>
+        </li>
+
     </ul>
     {% endif %}
 
