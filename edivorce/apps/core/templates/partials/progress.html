@@ -41,18 +41,18 @@
     </a>
 
     {% if children_of_marriage == 'YES' or derived.has_children_of_marriage %}
-    <div class="progress-question collapse-trigger {% if step_status.your_children == 'Complete' %} complete {% endif %} {% if active_page == 'children' %} active {% endif %}"
+    <a href="{% url 'question_steps' 'children' 'your_children' %}" class="progress-question collapse-trigger {% if step_status.your_children == 'Complete' %} complete {% endif %} {% if active_page == 'children' %} active {% endif %}"
        data-toggle="collapse" aria-expanded="false" data-target="#children_nav" aria-controls="children_nav">
         <span class="progress-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step {% step_order step="children" %}</small><br />Your children</span>
         {% if step_status.your_children == 'Started' %}<span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
         {% elif step_status.your_children == 'Complete' %}<span class="progress-status"><i class="fa fa-check" aria-hidden="true"></i></span> {% endif %}
-    </div>
+    </a>
 
     <ul class="collapse {% if active_page == 'children' %} in {% endif %} progress-sub-menu" id="children_nav">
         <li>
             <a href="{% url 'question_steps' 'children' 'your_children'%}" class="progress-sub-question {% if sub_step == 'your_children' %} active {% endif %}">
-                <span class="progress-content">Your children</span>
+                <span class="progress-content">Children details</span>
             </a>
         </li>
         <li>
