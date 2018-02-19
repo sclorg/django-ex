@@ -474,8 +474,8 @@ $(function () {
         }
     };
 
-    $('#__claimant_names').each(updateClaimantName);
-    $('input[name="child_support_payor"]').on('change', updateClaimantName);
+    // $('#__claimant_names').each(updateClaimantName);
+    // $('input[name="child_support_payor"]').on('change', updateClaimantName);
 
 
     $("#btn_add_reconciliation_periods").on('click', function () {
@@ -598,10 +598,6 @@ $(function () {
     }).on('focusout', function() {
         $(this).closest('td').removeClass('table-cell-active');
     });
-
-    if ($('.fact-sheets:visible').length === 0) {
-        $('#no_fact_sheet_notice').show();
-    }
 
     // spinner
     // $('a.spinner').on('click', function (e) {

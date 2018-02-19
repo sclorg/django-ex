@@ -248,312 +248,100 @@
         </div>
     </div>
 
-
-    <div class="question-well">
-        <h3>Are you or your spouse claiming undue hardship?</h3>
-        <p>
-            The Child Support Guidelines tables contain the base amounts for child support. If you our your spouse feel
-            that the child support amount will not leave enough money, you can claim that you will suffer
-            <span class="tooltip-link"
-                  data-toggle="tooltip" data-placement="right" data-html="true"
-                  title="
-                    <b>Undue hardship</b>
-                    <p>
-                        Circumstances that show the amount of child support under the child support guidelines is too
-                        high or low. Must create &quot;undue&quot; (exceptional, excessive or disproportionate) difficulty
-                        for the person making the claim.
-                     </p>
-                     <p>
-                     A term used by the Child Support Guidelines to describe circumstances when payment of the table
-                     amount of child support would cause financial difficulty for the payor or the recipient, potentially
-                     justifying an award of support in an amount different than the table amount. See &quot;child support,&quot;
-                     &quot;Child Support Guidelines&quot; and &quot;table amount.&quot;
-                     </p>
-                    ">
-                    undue hardship<i class="fa fa-question-circle" aria-hidden="true"></i>.
-            </span>
-        </p>
-
-        <div class="btn-radio-group" data-toggle="buttons">
-            <label class="btn btn-radio">
-                {% input_field type="radio" name="claiming_undue_hardship" autocomplete="off" value="YES" data_target_id="fact_sheet_e"  data_reveal_target="true" %} YES
-            </label>
-
-            <label class="btn btn-radio">
-                {% input_field type="radio" name="claiming_undue_hardship" autocomplete="off" value="NO" data_target_id="fact_sheet_e"  data_reveal_target="false" %} NO
-            </label>
+    <div class="question-well" id="monthly_amount_question">
+        <h3>What is the monthly child support amount (as per
+            <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-5.html#h-9" target="_blank">Schedule 1</a>
+            of the guidelines) that is payable by claimant?</h3>
+        <div class="dollar-prefix">
+            {% money_input_field name="payor_monthly_child_support_amount" class="money positive-integer form-block response-textbox children-input-block" data_mirror="true" data_mirror_target="#child_support_amount_label" %}
         </div>
 
-        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
-             data-target="#collapse_undue_hardship_situations"
-             aria-controls="collapse_undue_hardship_situations">
+        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_determine_payor_amount" aria-controls="collapse_determine_payor_amount">
             <div>
-                What situations are considered to be undue hardship?
+                How do I determine what amount needs to be paid?
             </div>
         </div>
-        <div class="collapse" id="collapse_undue_hardship_situations">
+        <div class="collapse" id="collapse_determine_payor_amount">
             <div>
-                <p>The types of situations that might result in undue hardship include:</p>
+                <p>
+                    Child support orders made in British Columbia are based on the
+                    <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-1.html" target="_blank">
+                        Federal Child Support Guidelines.
+                    </a>These guidelines contain clear rules that courts use to set child support as well as tables
+                    that list the amount of child support the payor has to pay. These amounts are based on how much he
+                    or she earns and how many children the payor must support. Each province has its own table; use the
+                    one for the province where the payor lives.
+                </p>
+                <p>
+                    To figure out how much child support the payor will be paying under the guidelines:
+                </p>
                 <ul>
-                    <li>having an unusual or excessive amount of debt,</li>
-                    <li>having to make other support payments to children of another family (for example, from a previous marriage),</li>
-                    <li>having to support a disabled or ill person, and</li>
-                    <li>having to spend a lot of money to visit the child (for example, airfare to another city).</li>
+                    <li>Use the
+                        <a href="http://www.justice.gc.ca/eng/fl-df/child-enfant/2017/look-rech.asp" target="_blank">
+                            Child Support Table Lookup tool
+                        </a> (effective from November 22, 2017) to calculate the
+                        correct amount of child support.
+                    </li>
+                </ul>
+                <p>
+                    or
+                </p>
+                <ul>
+                    <li>Refer to the
+                        <a href="http://www.justice.gc.ca/eng/fl-df/child-enfant/ft-tf.html" target="_blank">
+                            Federal Child Support Tables
+                        </a>. Make sure you view the table pertaining to the province where the payor lives.
+                    </li>
                 </ul>
             </div>
         </div>
-        <div id="fact_sheet_e" class="question-well-border-less" hidden>
-            <h1>Fact Sheet E Undue Hardship</h1>
-            <p>
-                Since you have previously indicated that you will be claiming undue hardship you will need to provide
-                answers to the next set of questions. A claim for undue hardship can only be considered if the parent
-                making the claim can show that their household’s standard of living is not higher than the standard of
-                living in the household of the other parent. Often, income alone (which is all that is used to calculate
-                the guideline amount) does not reflect other circumstances that may impact a households’ finances.
-            </p>
-            <p><strong>Unusual or excessive debts</strong></p>
-            <p>
-                What are the unusual or excessive debts that you owe? These are debts that were taken on to support the family
-                before you separated (e.g. student loans). The debt can also be due to earning a living (e.g. vehicle,
-                specialized equipment).
-            </p>
-            <table id="claimant_debts" class="list-builder">
-                <thead>
-                    <tr class="list-builder-header">
-                        <th class="table-bordered">Debt name</th>
-                        <th class="table-bordered">What are the
-                            <span class="tooltip-link"
-                                  data-toggle="tooltip" data-placement="right" data-html="true"
-                                  title="
-                                    <b>Terms of this Debt</b>
-                                    <p>For example, how much is owed, what is the rate of interest,
-                                    when it must be repaid.</p>
-                                    ">
-                                terms of this debt<i class="fa fa-question-circle" aria-hidden="true"></i>
-                            </span>?
-                        </th>
-                        <th class="table-bordered">Monthly amount</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                        <tr class="debt-group" hidden>
-                            {% include "partials/fact_sheet_excessive_debt.html" with debt_monthly_amount=0%}
+        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_schedule_one" aria-controls="collapse_schedule_one">
+            <div>
+                 What is Schedule 1?
+            </div>
+        </div>
+        <div class="collapse" id="collapse_schedule_one">
+            <div>
+                <p>
+                    Schedule 1 refers to the federal child support tables which set out the amount of monthly child
+                    support payments for each province on the basis of the annual income of the spouse ordered to pay
+                    child support (the “support payer”) and the number of children for whom a table amount is payable.
+                </p>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>If...</th>
+                            <th>Then…</th>
                         </tr>
-                        {% multiple_values_to_list source=claimant_debts as debts %}
-                        {% for debt in debts %}
-                            <tr class="debt-item-row">
-                                {% include "partials/fact_sheet_excessive_debt.html" with debt_name=debt.debt_name debt_terms=debt.debt_terms debt_monthly_amount=debt.debt_monthly_amount exclude_delete_button=forloop.first %}
-                            </tr>
-                        {% endfor %}
-                </tbody>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr>
-                        <td class="btn-add-debt fact-sheet-control" colspan="3" readonly>
-                            <a href=""><i class="fa fa-plus btn-add-debt"></i>   Add Debt</a>
-                        </td>
+                        <td>you both live in the same province or territory</td>
+                        <td>use the table for that province or territory.</td>
                     </tr>
-                </tbody>
-            </table>
-
-            <p><strong>Unusually high expenses for parenting time, contact with, or access to a child.</strong></p>
-            <p>
-                For example, airfare and accommodation to visit the child in another city.
-            </p>
-            <table id="claimant_expenses" class="list-builder">
-                <thead>
-                    <tr class="list-builder-header">
-                        <th class="table-bordered">Expense</th>
-                        <th class="table-bordered">Amount</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="expense-group" hidden>
-                        {% include "partials/fact_sheet_expense.html" with expense_amount=0%}
-                    </tr>
-                    {% multiple_values_to_list source=claimant_expenses as expenses %}
-                    {% for expense in expenses %}
-                        <tr class="expense-item-row">
-                            {% include "partials/fact_sheet_expense.html" with expense_name=expense.expense_name expense_amount=expense.expense_amount exclude_delete_button=forloop.first %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-                <tbody>
                     <tr>
-                        <td class="btn-add-expense fact-sheet-control" colspan="2" readonly>
-                            <a href=""><i class="fa fa-plus btn-add-expense"></i>   Add Expense</a>
+                        <td>you live in different provinces or territories and one of you has sole custody and the other
+                            parent must pay support
                         </td>
+                        <td>use the table for the province or territory where the paying parent lives.</td>
                     </tr>
-                </tbody>
-            </table>
-
-            <p><strong>Supporting another person</strong></p>
-            <p>
-               Legal duty to support any other person, such as a former spouse or a new spouse who is too ill or disabled to be able to support himself or herself.
-            </p>
-            <table id="supporting_non_dependents" class="list-builder">
-                <thead>
-                    <tr class="list-builder-header">
-                        <th class="table-bordered">Name of person</th>
-                        <th class="table-bordered">Relationship</th>
-                        <th class="table-bordered">Describe reason(s) for support</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="supporting-non-dependent-group" hidden>
-                        {% include "partials/fact_sheet_supporting_person.html" with name_field="non_dependent_name" relationship_field="non_dependent_relationship" reason_field="non_dependent_reason" input_field_class="supporting-non-dependent-input-field" save_selector=".supporting-non-dependent-input-field" delete_button_class="btn-delete-supporting-non-dependent" %}
-                    </tr>
-                    {% multiple_values_to_list source=supporting_non_dependents as non_dependents %}
-                    {% for non_dependent in non_dependents %}
-                        <tr class="supporting-non-dependent-item-row">
-                            {% include "partials/fact_sheet_supporting_person.html" with name_field="non_dependent_name" relationship_field="non_dependent_relationship" reason_field="non_dependent_reason" input_field_class="supporting-non-dependent-input-field" save_selector=".supporting-non-dependent-input-field" delete_button_class="btn-delete-supporting-non-dependent" name=non_dependent.non_dependent_name relationship=non_dependent.non_dependent_relationship reason=non_dependent.non_dependent_reason exclude_delete_button=forloop.first %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-                <tbody>
                     <tr>
-                        <td class="btn-add-supporting-non-dependent fact-sheet-control" colspan="3" readonly>
-                            <a href=""><i class="fa fa-plus btn-add-supporting-non-dependent"></i>   Add Person</a>
+                        <td>you live in different provinces or territories and you share or split custody</td>
+                        <td>use the tables for both provinces or territories where you reside to determine what you
+                            would each pay to the other parent.
                         </td>
                     </tr>
-                </tbody>
-            </table>
-
-            <p><strong>Supporting dependent child/children from another relationship.</strong></p>
-            <p>
-               List the names of any other children for whom you have a legal duty to make support payments to.
-                Do not include the names of any children for whom you are asking for support for as a part of this
-                divorce application.
-            </p>
-            <table id="supporting_dependents" class="list-builder">
-                <thead>
-                    <tr class="list-builder-header">
-                        <th class="table-bordered">Child's name</th>
-                        <th class="table-bordered">Relationship</th>
-                        <th class="table-bordered">Describe reason(s) for support</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="supporting-dependent-group" hidden>
-                        {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_dependent_name" relationship_field="supporting_dependent_relationship" reason_field="supporting_dependent_reason" input_field_class="supporting-dependent-input-field" delete_button_class="btn-delete-supporting-dependent" save_selector=".supporting-dependent-input-field" %}
-                    </tr>
-                    {% multiple_values_to_list source=supporting_dependents as dependents %}
-                    {% for dependent in dependents %}
-                        <tr class="supporting-dependent-item-row">
-                            {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_dependent_name" relationship_field="supporting_dependent_relationship" reason_field="supporting_dependent_reason" input_field_class="supporting-dependent-input-field" delete_button_class="btn-delete-supporting-dependent" save_selector=".supporting-dependent-input-field" name=dependent.supporting_dependent_name relationship=dependent.supporting_dependent_relationship reason=dependent.supporting_dependent_reason exclude_delete_button=forloop.first %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-                <tbody>
                     <tr>
-                        <td class="btn-add-supporting-dependent fact-sheet-control" colspan="3" readonly>
-                            <a href=""><i class="fa fa-plus btn-add-supporting-dependent"></i>   Add Person</a>
+                        <td>one of you lives outside Canada</td>
+                        <td>use the table for the province or territory where the parent in Canada lives. The laws of
+                            the other country may apply in some cases. You may want to consult a lawyer. You may also
+                            find information relating to <a target="_blank" href="http://www.justice.gc.ca/eng/fl-df/enforce-execution/enforce-execut.html">interjurisdictional
+                                support</a> useful.
                         </td>
                     </tr>
-                </tbody>
-            </table>
-
-            <p><strong>Support for a disabled or ill person.</strong></p>
-            <table id="supporting_disabled" class="list-builder">
-                <thead>
-                    <tr class="list-builder-header">
-                        <th class="table-bordered">Name of person</th>
-                        <th class="table-bordered">Relationship</th>
-                        <th class="table-bordered">Describe reason(s) for support</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="supporting-disabled-group" hidden>
-                        {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_disabled_name" relationship_field="supporting_disabled_relationship" reason_field="supporting_disabled_reason" input_field_class="supporting-disabled-input-field" delete_button_class="btn-delete-supporting-disabled" save_selector=".supporting-disabled-input-field" %}
-                    </tr>
-                    {% multiple_values_to_list source=supporting_disabled as dependents %}
-                    {% for dependent in dependents %}
-                        <tr class="supporting-disabled-item-row">
-                            {% include "partials/fact_sheet_supporting_person.html" with name_field="supporting_disabled_name" relationship_field="supporting_disabled_relationship" reason_field="supporting_disabled_reason" input_field_class="supporting-disabled-input-field" delete_button_class="btn-delete-supporting-disabled" name=dependent.supporting_disabled_name relationship=dependent.supporting_disabled_relationship reason=dependent.supporting_disabled_reason save_selector=".supporting-disabled-input-field" exclude_delete_button=forloop.first %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-                <tbody>
-                    <tr>
-                        <td class="btn-add-supporting-disabled fact-sheet-control" colspan="3" readonly>
-                            <a href=""><i class="fa fa-plus btn-add-supporting-disabled"></i>   Add Person</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-            <p class="fact-sheet-table-inline-question">
-                Other undue hardship circumstances
-                {% input_field type="textarea" name="undue_hardship" value="" maxlength="500"  multiple='true' class="fact-sheet-input form-control response-textarea" placeholder="" %}
-            </p>
-
-
-            <p><strong>Income of Other Persons in Household</strong></p>
-            <p>
-                Enter the name (s) and income for any other persons in your household (e.g. co-parent, step parent)
-                who have a
-                <span class="tooltip-link"
-                          data-toggle="tooltip"
-                          data-placement="right"
-                          data-html="true"
-                          title="<b>Duty to support</b><br />
-                          Parents and guardians have a responsibility (duty) under the law to financially support their
-                          children, whether or not they see or take care of the children.  A parent, for the purposes
-                          of child support, may include a stepparent if they were living together, in a relationship,
-                          with the child’s parent and the child during the child’s life.  The duty of a stepparent or
-                          non-parent guardian to provide support is secondary to that of the child’s parents.">
-                    duty to support<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>
-
-
-                a child.
-            </p>
-            <table id="income_others" class="list-builder list-builder-compact">
-                <thead>
-                    <tr class="list-builder-header">
-                        <th class="table-bordered">Name of person</th>
-                        <th class="table-bordered">Annual income</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="income-others-group" hidden>
-                        {% include "partials/fact_sheet_income_others.html" with income_others_amount=0%}
-                    </tr>
-                    {% multiple_values_to_list source=income_others as incomes %}
-                    {% for income in incomes %}
-                        <tr class="income-others-item-row">
-                            {% include "partials/fact_sheet_income_others.html" with income_others_name=income.income_others_name income_others_amount=income.income_others_amount exclude_delete_button=forloop.first %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-                <tbody>
-                    <tr>
-                        <td class="table-bordered">
-                            Total
-                        </td>
-                        <td class="fact-sheet-answer table-bordered" readonly>
-                            <div class="dollar-prefix">
-                                {% money_input_field id="total_income_others" class="fact-sheet-input money" readonly="" %}
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody>
-                    <tr>
-                        <td class="btn-add-income-others fact-sheet-control" colspan="2" readonly>
-                            <a href="" tabindex="-1"><i class="fa fa-plus btn-add-income-others"></i>   Add Person</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div id="undue_amount_question" hidden></div>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -618,6 +406,215 @@
             </div>
         </div>
     </div>
+
+    <div id="fact_sheet_a" class="question-well fact-sheets" hidden>
+    <h1>Special or Extraordinary Expenses (Fact Sheet A)</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Monthly</th>
+            <th>Annually</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="fact-sheet-question">Child care expenses for when the recipient works or goes to school
+            </td>
+            <td class="fact-sheet-answer table-bordered">
+                <div class="dollar-prefix">
+                    {% money_input_field name="child_care_expenses" id="child_care_expenses_month" class="fact-sheet-input money extraordinary-expense-monthly" data_sum="true" data_sum_class="extraordinary-expense-monthly" data_sum_target_id="total_extraordinary_expense_monthly" data_mirror="true" data_mirror_target="#child_care_expenses_year" data_mirror_scale="year_up" %}
+                </div>
+            </td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix">
+                    {% money_input_field value_src="child_care_expenses" id="child_care_expenses_year" class="fact-sheet-input money extraordinary_expense_annually" scale_factor="12" data_mirror="true" data_mirror_target="#child_care_expenses_month" data_mirror_scale="month_down" data_mirror_broadcast_change="true" %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="fact-sheet-question">Any healthcare premiums you pay to your employer or other provider
+                to provide the coverage to your children rather than yourself
+            </td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix">
+                    {% money_input_field name="children_healthcare_premiums" id="children_healthcare_premiums_month" class="fact-sheet-input money extraordinary-expense-monthly" data_sum="true" data_sum_class="extraordinary-expense-monthly" data_sum_target_id="total_extraordinary_expense_monthly" data_mirror="true" data_mirror_target="#children_healthcare_premiums_year" data_mirror_scale="year_up" %}
+                </div>
+            </td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix">
+                    {% money_input_field value_src="children_healthcare_premiums" id="children_healthcare_premiums_year" class="fact-sheet-input money extraordinary_expense_annually" scale_factor="12" data_mirror="true" data_mirror_target="#children_healthcare_premiums_month" data_mirror_scale="month_down" data_mirror_broadcast_change="true" %}
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="fact-sheet-question">
+            <span class="tooltip-link"
+                  data-toggle="tooltip"
+                  data-placement="right"
+                  data-html="true"
+                  title="<b>Health related expenses</b><br />Includes orthodontic treatments, counselling, physiotherapy, occupational
+                  therapy, speech therapy, hearing therapy, prescription drugs, hearing aids, glasses,
+                  and contact lenses">
+                Health related expenses<i class="fa fa-question-circle" aria-hidden="true"></i>
+            </span>
+                that exceed insurance reimbursement by at least $100
+            </td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix">
+                    {% money_input_field name="health_related_expenses" id="health_related_expenses_month" class="fact-sheet-input money  extraordinary-expense-monthly" data_sum="true" data_sum_class="extraordinary-expense-monthly" data_sum_target_id="total_extraordinary_expense_monthly" data_mirror="true" data_mirror_target="#health_related_expenses_year" data_mirror_scale="year_up" %}
+                </div>
+            </td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix">
+                    {% money_input_field value_src="health_related_expenses" id="health_related_expenses_year" class="fact-sheet-input money  extraordinary_expense_annually" scale_factor="12" data_mirror="true" data_mirror_target="#health_related_expenses_month" data_mirror_scale="month_down" data_mirror_broadcast_change="true" %}
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="fact-sheet-question">
+                Extraordinary primary, secondary or other
+                <span class="tooltip-link"
+                      data-toggle="tooltip"
+                      data-placement="right"
+                      data-html="true"
+                      title="<b>Educational expenses</b><br />
+                      <ul><li>Tutoring</li><li>Private school (if the child was
+                  attending private school before the separation and the parents can afford the expense</li></ul>">
+            educational expenses <i class="fa fa-question-circle" aria-hidden="true"></i>
+            </span>
+            </td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix">
+                    {% money_input_field name="extraordinary_educational_expenses" id="extraordinary_educational_expenses_month" class="fact-sheet-input money  extraordinary-expense-monthly" data_sum="true" data_sum_class="extraordinary-expense-monthly" data_sum_target_id="total_extraordinary_expense_monthly" data_mirror="true" data_mirror_target="#extraordinary_educational_expenses_year" data_mirror_scale="year_up" %}
+                </div>
+            </td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix">
+                    {% money_input_field value_src="extraordinary_educational_expenses" id="extraordinary_educational_expenses_year" class="fact-sheet-input money  extraordinary_expense_annually" scale_factor="12" data_mirror="true" data_mirror_target="#extraordinary_educational_expenses_month" data_mirror_scale="month_down" data_mirror_broadcast_change="true" %}
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="fact-sheet-question">Post-secondary school expenses</td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix">
+                    {% money_input_field name="post_secondary_expenses" id="post_secondary_expenses_month" class="fact-sheet-input extraordinary-expense-monthly" data_sum="true" data_sum_class="extraordinary-expense-monthly" data_sum_target_id="total_extraordinary_expense_monthly" data_mirror="true" data_mirror_target="#post_secondary_expenses_year" data_mirror_scale="year_up" %}
+                </div>
+            </td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix">
+                    {% money_input_field value_src="post_secondary_expenses" id="post_secondary_expenses_year" class="fact-sheet-input money  extraordinary_expense_annually" scale_factor="12" data_mirror="true" data_mirror_target="#post_secondary_expenses_month" data_mirror_scale="month_down" data_mirror_broadcast_change="true" %}
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="fact-sheet-question">Extraordinary
+                <span class="tooltip-link"
+                      data-toggle="tooltip"
+                      data-placement="right"
+                      data-html="true"
+                      title="<b>Extracurricular activities</b><br />
+                  Expenses for activities in which the child excels and is shown to be particularly gifted
+                  (for example, expenses for a child who is a gifted figure skater, but not expenses for
+                  general skating lessons)">
+                extracurricular activities
+                <i class="fa fa-question-circle" aria-hidden="true"></i>
+            </span>
+                expenses
+            </td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix">
+                    {% money_input_field name="extraordinary_extracurricular_expenses" id="extraordinary_extracurricular_expenses_month" class="fact-sheet-input money  extraordinary-expense-monthly" data_sum="true" data_sum_class="extraordinary-expense-monthly" data_sum_target_id="total_extraordinary_expense_monthly" data_mirror="true" data_mirror_target="#extraordinary_extracurricular_expenses_year" data_mirror_scale="year_up" %}
+                </div>
+            </td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix">
+                    {% money_input_field value_src="extraordinary_extracurricular_expenses" id="extraordinary_extracurricular_expenses_year" class="fact-sheet-input money  extraordinary_expense_annually" scale_factor="12" data_mirror="true" data_mirror_target="#extraordinary_extracurricular_expenses_month" data_mirror_scale="month_down" data_mirror_broadcast_change="true" %}
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="fact-sheet-question"><strong>Total section 7 expenses</strong></td>
+            <td class="fact-sheet-answer" readonly>
+                <div class="dollar-prefix">
+                    {% money_input_field name="total_section_seven_expenses" id="total_extraordinary_expense_monthly" class="fact-sheet-input money " readonly="" data_mirror="true" data_mirror_target="#total_extraordinary_expense_annually" data_mirror_scale="year_up" %}
+                </div>
+            </td>
+
+            <td class="fact-sheet-answer" readonly>
+                <div class="dollar-prefix">
+                    {% money_input_field value_src="total_section_seven_expenses" id="total_extraordinary_expense_annually" class="fact-sheet-input money " scale_factor="12" readonly="" %}
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <p>Parties respective
+        <span class="tooltip-link"
+              data-toggle="tooltip"
+              data-placement="right"
+              data-html="true"
+              title="<b>Proportionate share</b><br />
+      Proportionate share means that the amount determined to be payable by each parent is calculated in
+      relation to their respective incomes. For example, if claimant 1 earns $65k and claimant 2 earns $35K,
+      claimant 1’s share is 65% and claimant 2’s share is 35%. To calculate your proportionate share, divide
+      your income by the total of both your incomes, then multiply this number (usually a decimal form, such as
+      0.65) by the actual cost of special or extraordinary expenses.">
+    proportionate shares
+    <i class="fa fa-question-circle" aria-hidden="true"></i>
+</span>
+        of the total net monthly Section 7 expenses referred to above:</p>
+    <br>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Percentage</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="fact-sheet-question">Your proportionate share</td>
+            <td class="fact-sheet-answer" readonly>
+                <div class="percent-suffix">
+                    {% input_field type="number" name="your_proportionate_share_percent" value="0" readonly="" id="your_proportionate_share_percent" class="fact-sheet-input" data_calc_percentage="true" data_claimant_one_selector="input[name='annual_gross_income']" data_claimant_two_selector="input[name='spouse_annual_gross_income']" %}
+                    <label>%</label>
+                </div>
+            </td>
+            <td class="fact-sheet-answer" readonly>
+                <div class="dollar-prefix">
+                    {% money_input_field name="your_proportionate_share_amount" id="your_proportionate_share_amount" class="fact-sheet-input money child-support-amounts" data_scale="true" data_quantity="#total_extraordinary_expense_monthly" data_scale_factor="input[name='your_proportionate_share_percent']" readonly="" %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="fact-sheet-question">Spouse's proportionate share</td>
+            <td class="fact-sheet-answer" readonly>
+                <div class="percent-suffix">
+                    {% input_field type="number" name="spouse_proportionate_share_percent" value="0" readonly="" id="spouse_proportionate_share_percent" class="fact-sheet-input" data_calc_percentage="true" data_claimant_one_selector="input[name='spouse_annual_gross_income']" data_claimant_two_selector="input[name='annual_gross_income']" %}
+                    <label>%</label>
+                </div>
+            </td>
+            <td class="fact-sheet-answer" readonly>
+                <div class="dollar-prefix">
+                    {% money_input_field name="spouse_proportionate_share_amount" id="spouse_proportionate_share_amount" class="fact-sheet-input money child-support-amounts" data_scale="true" data_quantity="#total_extraordinary_expense_monthly" data_scale_factor="input[name='spouse_proportionate_share_percent']" readonly="" %}
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 {% endblock %}
 
 
