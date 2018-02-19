@@ -95,7 +95,7 @@ def claimantize(value):
     elif 'spouse' in value:
         return 'Claimant 2'
     elif 'both' in value:
-        return 'Both'
+        return 'Claimant 1 & Claimant 2'
     return value
 
 
