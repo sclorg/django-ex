@@ -3,6 +3,8 @@ from collections import OrderedDict
 from django import template
 import json
 
+from django.core.urlresolvers import reverse
+
 register = template.Library()
 
 
@@ -51,6 +53,10 @@ def format_row(question, response):
     )
 
 
+def format_review_row_heading(title, style=""):
+    return '<tr><td colspan="2" class="{1}"><b>{0}</b></td></tr>'.format(title, style)
+
+
 def format_head(headings):
     if len(headings) == 0:
         return '', []
@@ -74,52 +80,8 @@ def process_fact_sheet_list(data, header):
     return ''.join(tags)
 
 
-def format_fact_sheet(title, responses):
-    if len(responses) == 0:
-        return ''
-
-    tags = ['<tr><td colspan="2">']
-    tags.append('<h3>{}</h3>'.format(title))
-
-    for response in responses:
-        value = response['value']
-        try:
-            value = json.loads(response['value'])
-        except:
-            pass
-
-        if not value:
-            continue
-
-        if isinstance(value, list):
-            thead, header = format_head(value)
-            tags.append("""
-                <p></p>
-                <p><strong>{0}</strong></p>
-                <table class="table table-bordered table-striped">
-                <thead>
-                    {1}
-                </thead>
-                <tbody>
-            """.format(response['question__name'], thead))
-
-            tags.append(process_fact_sheet_list(value, header))
-        else:
-            tags.append("""
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <th></th>
-                    <th></th>
-                </thead>
-                <tbody>
-            """)
-            tags.append(format_row(response['question__name'], value))
-        tags.append("""
-            </tbody>
-            </table>
-            """)
-    tags.append('</td></tr>')
-    return ''.join(tags)
+def format_fact_sheet(title, url, style=''):
+    return '<tr><td colspan="2" class="{0}"><a href="{1}"><b>{2}</b></a></td></tr>'.format(style, url, title)
 
 
 @register.simple_tag(takes_context=True)
@@ -130,107 +92,60 @@ def format_children(context, source):
     :return:
     """
     question_to_heading = OrderedDict()
-    question_to_heading['Your Children'] = [
+    question_to_heading['Children details'] = [
         'claimant_children'
     ]
+    question_to_heading['Income & expenses'] = [
+        'how_will_calculate_income',
+        'annual_gross_income',
+        'spouse_annual_gross_income',
+        'payor_monthly_child_support_amount',
+        'special_extraordinary_expenses',
+        'Special or Extraordinary Expenses (Fact Sheet A)',
+    ]
+    question_to_heading['Fact sheets'] = [
+        'Shared Living Arrangement (Fact Sheet B)',
+        'Split Living Arrangement (Fact Sheet C)',
+        'child_support_payor',
+        'Child(ren) 19 Years or Older (Fact Sheet D)',
+        'Income over $150,000 (Fact Sheet F)',
+        'claiming_undue_hardship',
+        'Undue Hardship (Fact Sheet E)'
+    ]
+    question_to_heading['Medical expenses'] = [
+        'medical_coverage_available',
+        'whose_plan_is_coverage_under',
+        'child_support_payments_in_arrears',
+        'child_support_arrears_amount'
+    ]
     question_to_heading['What are you asking for?'] = [
+        'child_support_in_order',
+        'order_monthly_child_support_amount',
+        'child_support_in_order_reason',
+        'does_payour_amount_match_guidelines',
+        'claimants_agree_to_child_support_amount',
+        'child_support_payment_special_provisions',
+        'agree_to_child_support_amount',
         'have_separation_agreement',
         'have_court_order',
         'order_respecting_arrangement',
         'order_for_child_support',
         'child_support_act'
     ]
-    question_to_heading['Income & expenses'] = [
-        'how_will_calculate_income',
-        'annual_gross_income',
-        'spouse_annual_gross_income'
-    ]
-    question_to_heading['Are you or your spouse claiming undue hardship?'] = [
-        'special_extraordinary_expenses',
-        'claiming_undue_hardship',
-        'Undue Hardship (Fact Sheet E)'
-    ]
-    question_to_heading['Payor & medical expenses'] = [
-        'child_support_payor',
-        'claimants_agree_to_child_support_amount',
-        'medical_coverage_available',
-        'child_support_payments_in_arrears'
-    ]
-    question_to_heading['Other fact sheets'] = [
-        'Special or Extraordinary Expenses (Fact Sheet A)',
-        'Shared Living Arrangement (Fact Sheet B)',
-        'Split Living Arrangement (Fact Sheet C)',
-        'Child(ren) 19 Years or Older (Fact Sheet D)',
-        'Income over $150,000 (Fact Sheet F)'
-    ]
 
     fact_sheet_mapping = OrderedDict()
-    fact_sheet_mapping['Special or Extraordinary Expenses (Fact Sheet A)'] = [
-        'child_care_expenses',
-        'children_healthcare_premiums',
-        'health_related_expenses',
-        'extraordinary_educational_expenses',
-        'post_secondary_expenses',
-        'extraordinary_extracurricular_expenses',
-        'total_section_seven_expenses',
-        'your_proportionate_share_percent',
-        'your_proportionate_share_amount',
-        'spouse_proportionate_share_percent',
-        'spouse_proportionate_share_amount'
-    ]
-    fact_sheet_mapping['Shared Living Arrangement (Fact Sheet B)'] = [
-        'number_of_children',
-        'time_spent_with_you',
-        'time_spent_with_spouse',
-        'annual_gross_income',
-        'spouse_annual_gross_income',
-        'your_child_support_paid',
-        'your_spouse_child_support_paid',
-        'extra_ordinary_expenses_you',
-        'extra_ordinary_expenses_spouse',
-        'additional_relevant_spouse_children_info',
-        'difference_between_claimants'
-    ]
-    fact_sheet_mapping['Split Living Arrangement (Fact Sheet C)'] = [
-        'number_of_children_claimant',
-        'spouse_annual_gross_income',
-        'total_spouse_paid_child_support',
-        'annual_gross_income',
-        'total_paid_child_support'
-        'difference_payment_amounts'
-    ]
-    fact_sheet_mapping['Child(ren) 19 Years or Older (Fact Sheet D)'] = [
-        'number_children_over_19_need_support',
-        'total_spouse_paid_child_support',
-        'agree_to_child_support_amount',
-        'total_spouse_paid_child_support',
-        'suggested_child_support'
-    ]
-    fact_sheet_mapping['Undue Hardship (Fact Sheet E)'] = [
-        'claimant_debts',
-        'claimant_expenses',
-        'supporting_non_dependents',
-        'supporting_dependents',
-        'supporting_disabled',
-        'undue_hardship',
-        'income_others',
-        'total_income_others'
-    ]
-    fact_sheet_mapping['Income over $150,000 (Fact Sheet F)'] = [
-        'number_children_seeking_support',
-        'child_support_amount_under_high_income',
-        'percent_income_over_high_income_limit',
-        'amount_income_over_high_income_limit',
-        'total_guideline_amount',
-        'agree_to_child_support_amount',
-        'reason_child_support_amount'
-    ]
+    fact_sheet_mapping['Special or Extraordinary Expenses (Fact Sheet A)'] = reverse('question_steps', args=['children', 'income_expenses'])
+    fact_sheet_mapping['Shared Living Arrangement (Fact Sheet B)'] = reverse('question_steps', args=['children', 'facts'])
+    fact_sheet_mapping['Split Living Arrangement (Fact Sheet C)'] = reverse('question_steps', args=['children', 'facts'])
+    fact_sheet_mapping['Child(ren) 19 Years or Older (Fact Sheet D)'] = reverse('question_steps', args=['children', 'facts'])
+    fact_sheet_mapping['Undue Hardship (Fact Sheet E)'] = reverse('question_steps', args=['children', 'facts'])
+    fact_sheet_mapping['Income over $150,000 (Fact Sheet F)'] = reverse('question_steps', args=['children', 'facts'])
 
     tags = []
     # process mapped questions first
     working_source = source.copy()
     for title, questions in question_to_heading.items():
-        tags.append(format_row('<strong>{}</strong>'.format(title), ''))
+        tags.append(format_review_row_heading(title))
 
         for question in questions:
             if question in fact_sheet_mapping:
@@ -249,8 +164,7 @@ def format_children(context, source):
                     show_fact_sheet = True
 
                 if show_fact_sheet and len(fact_sheet_mapping[question]):
-                    responses = list(filter(lambda x: x['question_id'] in fact_sheet_mapping[question], working_source))
-                    tags.append(format_fact_sheet(question, responses))
+                    tags.append(format_fact_sheet(question, fact_sheet_mapping[question]))
             else:
                 item = list(filter(lambda x: x['question_id'] == question, working_source))
 
@@ -259,12 +173,15 @@ def format_children(context, source):
                     q_id = item['question_id']
                     if q_id in questions:
                         if q_id == 'claimant_children':
+                            child_counter = 1
                             for child in json.loads(item['value']):
+                                tags.append(format_review_row_heading('Child {}'.format(child_counter), 'review-child-heading'))
                                 tags.append(format_row('Child\'s name', child['child_name']))
                                 tags.append(format_row('Birth date', child['child_birth_date']))
                                 tags.append(format_row('Child living with', child['child_live_with']))
                                 tags.append(format_row('Relationship to yourself (claimant 1)', child['child_relationship_to_you']))
                                 tags.append(format_row('Relationship to your spouse (claimant 2)', child['child_relationship_to_spouse']))
+                                child_counter = child_counter + 1
                         else:
                             value = item['value']
                             try:
