@@ -183,8 +183,6 @@ def format_children(context, source):
                                 tags.append(format_row('Relationship to yourself (claimant 1)', child['child_relationship_to_you']))
                                 tags.append(format_row('Relationship to your spouse (claimant 2)', child['child_relationship_to_spouse']))
                                 child_counter = child_counter + 1
-                            tags.append('</tbody>')
-                            tags.append('<tbody class="review-table-spacer">')
                         else:
                             value = item['value']
                             try:
@@ -195,6 +193,8 @@ def format_children(context, source):
                                 tags.append(format_row(item['question__name'], process_list(value, q_id)))
                             else:
                                 tags.append(format_row(item['question__name'], value))
+        tags.append('</tbody>')
+        tags.append('<tbody class="review-table-spacer">')
     tags.append('</tbody>')
     return ''.join(tags)
 
