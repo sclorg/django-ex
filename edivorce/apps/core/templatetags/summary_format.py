@@ -48,13 +48,13 @@ def process_list(lst, question_key):
 
 
 def format_row(question, response):
-    return '<tr><td width="75%" style="padding-right: 5%">{0}</td><td width="25%">{1}</td></tr>'.format(
+    return '<tr><td width="75%" class="table-bordered" style="padding-right: 5%">{0}</td><td class="table-bordered" width="25%">{1}</td></tr>'.format(
         question, response
     )
 
 
 def format_review_row_heading(title, style=""):
-    return '<tr><td colspan="2" class="{1}"><b>{0}</b></td></tr>'.format(title, style)
+    return '<tr><td colspan="2" class="table-bordered {1}"><b>{0}</b></td></tr>'.format(title, style)
 
 
 def format_head(headings):
@@ -81,7 +81,7 @@ def process_fact_sheet_list(data, header):
 
 
 def format_fact_sheet(title, url, style=''):
-    return '<tr><td colspan="2" class="{0}"><a href="{1}"><b>{2}</b></a></td></tr>'.format(style, url, title)
+    return '<tr><td colspan="2" class="table-bordered {0}"><a href="{1}"><b>{2}</b></a></td></tr>'.format(style, url, title)
 
 
 @register.simple_tag(takes_context=True)
@@ -144,6 +144,7 @@ def format_children(context, source):
     tags = []
     # process mapped questions first
     working_source = source.copy()
+    tags.append('<tbody>')
     for title, questions in question_to_heading.items():
         tags.append(format_review_row_heading(title))
 
@@ -178,10 +179,12 @@ def format_children(context, source):
                                 tags.append(format_review_row_heading('Child {}'.format(child_counter), 'review-child-heading'))
                                 tags.append(format_row('Child\'s name', child['child_name']))
                                 tags.append(format_row('Birth date', child['child_birth_date']))
-                                tags.append(format_row('Child living with', child['child_live_with']))
+                                tags.append(format_row('Child now living with', child['child_live_with']))
                                 tags.append(format_row('Relationship to yourself (claimant 1)', child['child_relationship_to_you']))
                                 tags.append(format_row('Relationship to your spouse (claimant 2)', child['child_relationship_to_spouse']))
                                 child_counter = child_counter + 1
+                            tags.append('</tbody>')
+                            tags.append('<tbody class="review-table-spacer">')
                         else:
                             value = item['value']
                             try:
@@ -192,6 +195,7 @@ def format_children(context, source):
                                 tags.append(format_row(item['question__name'], process_list(value, q_id)))
                             else:
                                 tags.append(format_row(item['question__name'], value))
+    tags.append('</tbody>')
     return ''.join(tags)
 
 

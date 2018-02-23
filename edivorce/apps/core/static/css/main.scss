@@ -1190,6 +1190,13 @@ textarea {
 	background-color: #D4DCE5;
 }
 
+.review-table-spacer {
+	&::before  {
+		content: '';
+	  	display: block;
+	  	height: 25px;
+	}
+}
 .print-form-action {
 	display: inline-block;
 	float: right;
