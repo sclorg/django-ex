@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load input_field %}
 {% load step_order %}
+{% load load_json %}
 
 {% block title %}{{ block.super }}: Your Children {% endblock %}
 
@@ -222,6 +223,8 @@
 
     </div>
 
+
+    {% if 'Child support' in want_which_orders|load_json %}
     <div class="question-well">
         <h3>Do you have a
             <span class="tooltip-link"
@@ -271,6 +274,7 @@
             </p>
         </div>
     </div>
+
 
     <div class="question-well">
         <h3>If you are asking for an
@@ -389,6 +393,7 @@
 
         {% input_field type="textarea" name="order_for_child_support" class="response-textarea form-control" maxlength="20000" rows="7"%}
     </div>
+    {% endif %}
 
     <div class="question-well">
         <h3>Please indicate which act you are asking for support under.</h3>
