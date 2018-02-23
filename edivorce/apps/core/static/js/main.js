@@ -442,40 +442,19 @@ $(function () {
         populateChildrenFactSheets();
     });
 
-    var updateClaimantName = function() {
-        var payor = '';
-        var element = $('#__claimant_names');
-        $("input[name='child_support_payor']:checked").each(function() {
-           if ($(this).val() === 'Myself (Claimant 1)') {
-               payor = element.find('input[name="name_you"]').val() || 'Claimant 1';
-           } else if ($(this).val() === 'My Spouse (Claimant 2)') {
-               payor = element.find('input[name="name_spouse"]').val() || 'Claimant 2';
-           } else if ($(this).val() === 'Both myself and my spouse') {
-               payor = (element.find('input[name="name_you"]').val() || 'Claimant 1') + ' and ' +
-                   (element.find('input[name="name_spouse"]').val() || 'Claimant 2');
-           }
-        });
 
-        $('.__name-of-payor').text(payor);
-
-        // check who has sole custody
-        var children = JSON.parse($('input[name="claimant_children"]').val());
-        var youHaveSoleCustody = children.every(function(child){
-            return child.child_live_with === 'Lives with you'
-        });
-        var spouseHasSoleCustody = children.every(function(child){
-            return child.child_live_with === 'Lives with spouse'
-        });
-
-        if (youHaveSoleCustody || spouseHasSoleCustody) {
-            $('#monthly_amount_question').show();
+    var showHideFactSheetF = function() {
+        var claimant = $(this).val();
+        if ( claimant === 'Myself (Claimant 1)' && parseFloat($('input[name="annual_gross_income"]').val()) > 150000) {
+            $('#fact_sheet_f').show();
+        } else if ( claimant === 'My Spouse (Claimant 2)' && parseFloat($('input[name="spouse_annual_gross_income"]').val()) > 150000) {
+            $('#fact_sheet_f').show();
         } else {
-            $('#monthly_amount_question').hide();
+            $('#fact_sheet_f').hide();
         }
     };
 
-    // $('#__claimant_names').each(updateClaimantName);
-    // $('input[name="child_support_payor"]').on('change', updateClaimantName);
+    $('input[name="child_support_payor"]').on('click', showHideFactSheetF).filter(':checked').each(showHideFactSheetF);
 
 
     $("#btn_add_reconciliation_periods").on('click', function () {
