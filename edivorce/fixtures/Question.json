@@ -1508,6 +1508,17 @@
 },
 {
     "fields": {
+        "name": "What would be the appropriate amount?",
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet D Child(ren) 19 Years or Older",
+        "summary_order": 0,
+        "required": "Conditional",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "appropriate_spouse_paid_child_support"
+},
+{
+    "fields": {
         "name": "Please describe - Why do you think the court should approve your proposed amount?",
         "description": "For Step 6, Your children - Income & expenses - Fact Sheet D Child(ren) 19 Years or Older",
         "summary_order": 0,
