@@ -1425,6 +1425,18 @@
 },
 {
     "fields": {
+        "name": "How many children spend more than 60 percent of their time with your spouse and for whom you are obliged to pay support?",
+        "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "number_of_children_claimant_spouse"
+},
+{
+    "fields": {
         "name": "How do I calculate annual income?",
         "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
         "summary_order": 0,
