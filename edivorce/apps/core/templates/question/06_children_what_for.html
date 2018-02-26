@@ -3,6 +3,7 @@
 {% load input_field %}
 {% load step_order %}
 {% load load_json %}
+{% load format_utils %}
 
 {% block title %}{{ block.super }}: Your Children {% endblock %}
 
@@ -24,7 +25,7 @@
                     ">
                     proposed in the order<i class="fa fa-question-circle" aria-hidden="true"></i>
                 </span>
-             to be paid by <span class="__name-of-payor"></span>?
+             to be paid by {% payorize %}?
         </h3>
         <div class="radio">
             <label>
