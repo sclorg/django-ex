@@ -189,6 +189,7 @@ def show_fact_sheet_f(responses, derived):
     """
     If one of the claimants earns over $150,000, Fact Sheet F is indicated.
     """
+    payor = child_support_payor(responses, derived)
 
     try:
         annual = float(responses.get('annual_gross_income', 0))
@@ -200,7 +201,7 @@ def show_fact_sheet_f(responses, derived):
     except ValueError:
         spouses = 0
 
-    return annual > 150000 or spouses > 150000
+    return (payor == 'Claimant 1' and annual > 150000) or (payor == 'Claimant 2' and spouses > 150000)
 
 
 def has_fact_sheets(responses, derived):
