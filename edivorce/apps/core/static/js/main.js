@@ -443,8 +443,9 @@ $(function () {
     });
 
 
-    var showHideFactSheetF = function() {
+    var payorCallback = function() {
         var claimant = $(this).val();
+
         if ( claimant === 'Myself (Claimant 1)' && parseFloat($('input[name="annual_gross_income"]').val()) > 150000) {
             $('#fact_sheet_f').show();
         } else if ( claimant === 'My Spouse (Claimant 2)' && parseFloat($('input[name="spouse_annual_gross_income"]').val()) > 150000) {
@@ -452,9 +453,17 @@ $(function () {
         } else {
             $('#fact_sheet_f').hide();
         }
+
+        if (claimant === 'Myself (Claimant 1)') {
+            $('.payor-placeholder').text($('#__name_you').text());
+        } else if (claimant === 'My Spouse (Claimant 2)') {
+            $('.payor-placeholder').text($('#__name_spouse').text())
+        } else {
+            $('.payor-placeholder').text('the payor');
+        }
     };
 
-    $('input[name="child_support_payor"]').on('click', showHideFactSheetF).filter(':checked').each(showHideFactSheetF);
+    $('input[name="child_support_payor"]').on('click', payorCallback).filter(':checked').each(payorCallback);
 
 
     $("#btn_add_reconciliation_periods").on('click', function () {

@@ -365,6 +365,8 @@
     <div class="question-well">
         {% money_input_field name="annual_gross_income" hidden="true" %}
         {% money_input_field name="spouse_annual_gross_income" hidden="true" %}
+        <span id="__name_you" hidden>{{ name_you }}</span>
+        <span id="__name_spouse" hidden>{{ name_spouse }}</span>
 
         <h3>Who is the
             <span class="tooltip-link"
@@ -433,7 +435,7 @@
 
         <div class="question-well">
             <p>
-                What is the monthly amount that payor will be paying for child support (as per Schedule 1 of the Federal Child Support Guidelines)?
+                What is the monthly amount that <span class="payor-placeholder">payor</span> will be paying for child support (as per Schedule 1 of the Federal Child Support Guidelines)?
             </p>
             <div>
                 <div class="dollar-prefix">
