@@ -216,7 +216,7 @@ def schedule_1_amount(responses, derived):
     """ Return the amount as defined in schedule 1 for child support """
 
     try:
-        return float(responses.get('order_monthly_child_support_amount', 0))
+        return float(responses.get('payor_monthly_child_support_amount', 0))
     except ValueError:
         return 0
 
