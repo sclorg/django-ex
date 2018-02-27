@@ -31,7 +31,7 @@
             <label>
 
                 {% if how_will_calculate_income != 'entered agreement' %}
-                    {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="YES" data_target_class="support-amount-match" data_reveal_target="true" %}
+                    {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="YES" data_target_class="support-amount-match" data_reveal_class="true" %}
                 {% else %}
                     {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="YES" %}
                 {% endif %}
@@ -44,7 +44,7 @@
         {% if how_will_calculate_income != 'entered agreement' %}
         <div class="radio">
             <label>
-                {% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_class="support-amount-match" data_reveal_target="false" %}We are not asking for child support to be included in the order
+                {% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_class="support-amount-match" data_reveal_class="false" %}We are not asking for child support to be included in the order
             </label>
             <p>
                 Please describe what arrangements have been made for the support of the child (ren)?
