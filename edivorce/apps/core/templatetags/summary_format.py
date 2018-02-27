@@ -103,7 +103,7 @@ def format_children(context, source):
         'special_extraordinary_expenses',
         'Special or Extraordinary Expenses (Fact Sheet A)',
     ]
-    question_to_heading['Fact sheets'] = [
+    question_to_heading['Payor & Fact Sheets'] = [
         'Shared Living Arrangement (Fact Sheet B)',
         'Split Living Arrangement (Fact Sheet C)',
         'child_support_payor',
@@ -112,7 +112,7 @@ def format_children(context, source):
         'claiming_undue_hardship',
         'Undue Hardship (Fact Sheet E)'
     ]
-    question_to_heading['Medical expenses'] = [
+    question_to_heading['Medical & other expenses'] = [
         'medical_coverage_available',
         'whose_plan_is_coverage_under',
         'child_support_payments_in_arrears',
