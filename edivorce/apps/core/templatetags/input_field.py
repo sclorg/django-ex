@@ -1,4 +1,5 @@
 from datetime import datetime
+from decimal import Decimal, ROUND_HALF_UP
 import json
 
 from django import template
@@ -9,7 +10,7 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def money_input_field(context, input_type='number', name='', value_src=None, value='', scale_factor=None, **kwargs):
+def money_input_field(context, input_type='number', name='', value_src=None, value='', scale_factor=None, scale_to_monthly=None, **kwargs):
     """
 
     :param context:
@@ -31,6 +32,8 @@ def money_input_field(context, input_type='number', name='', value_src=None, val
 
     if scale_factor:
         value = float(value) * float(scale_factor)
+    if scale_to_monthly:
+        value = Decimal(float(value) / 12).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
     step = '0.01'
     if kwargs.get('step', None):

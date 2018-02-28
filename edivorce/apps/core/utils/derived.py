@@ -239,7 +239,7 @@ def annual_child_care_expenses(responses, derived):
     """ Return the annual cost of the monthly cost of child care expense """
 
     try:
-        return 12 * float(responses.get('child_care_expenses', 0))
+        return float(responses.get('annual_child_care_expenses', 0))
     except ValueError:
         return 0
 
@@ -248,7 +248,7 @@ def annual_children_healthcare_premiums(responses, derived):
     """ Return the annual cost of the monthly cost of child health care premiums """
 
     try:
-        return 12 * float(responses.get('children_healthcare_premiums', 0))
+        return float(responses.get('annual_children_healthcare_premiums', 0))
     except ValueError:
         return 0
 
@@ -257,7 +257,7 @@ def annual_health_related_expenses(responses, derived):
     """ Return the annual cost of the monthly cost of health related expense """
 
     try:
-        return 12 * float(responses.get('health_related_expenses', 0))
+        return float(responses.get('annual_health_related_expenses', 0))
     except ValueError:
         return 0
 
@@ -266,7 +266,7 @@ def annual_extraordinary_educational_expenses(responses, derived):
     """ Return the annual cost of the monthly cost of educational expense """
 
     try:
-        return 12 * float(responses.get('extraordinary_educational_expenses', 0))
+        return float(responses.get('annual_extraordinary_educational_expenses', 0))
     except ValueError:
         return 0
 
@@ -275,7 +275,7 @@ def annual_post_secondary_expenses(responses, derived):
     """ Return the annual cost of the monthly cost of post secondary expense """
 
     try:
-        return 12 * float(responses.get('post_secondary_expenses', 0))
+        return float(responses.get('annual_post_secondary_expenses', 0))
     except ValueError:
         return 0
 
@@ -284,7 +284,7 @@ def annual_extraordinary_extracurricular_expenses(responses, derived):
     """ Return the annual cost of the monthly cost of education expense """
 
     try:
-        return 12 * float(responses.get('extraordinary_extracurricular_expenses', 0))
+        return float(responses.get('annual_extraordinary_extracurricular_expenses', 0))
     except ValueError:
         return 0
 
@@ -311,7 +311,10 @@ def payor_section_seven_expenses(responses, derived):
 def annual_total_section_seven_expenses(responses, derived):
     """ Return the annual cost of the monthly cost of section 7 expense """
 
-    return 12 * derived['total_section_seven_expenses']
+    try:
+        return float(responses.get('annual_total_section_seven_expenses', 0))
+    except ValueError:
+        return 0
 
 
 def total_gross_income(responses, derived):

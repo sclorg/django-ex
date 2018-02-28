@@ -1197,6 +1197,16 @@
 },
 {
     "fields": {
+        "name": "Annual child care expenses for when the recipient works or goes to school",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional"
+    },
+    "model": "core.question",
+    "pk": "annual_child_care_expenses"
+},
+{
+    "fields": {
         "name": "Any healthcare premiums you pay to your employer or other provider to provide the coverage to your children rather than yourself",
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
@@ -1206,6 +1216,18 @@
     },
     "model": "core.question",
     "pk": "children_healthcare_premiums"
+},
+{
+    "fields": {
+        "name": "Any annual healthcare premiums you pay to your employer or other provider to provide the coverage to your children rather than yourself",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "annual_children_healthcare_premiums"
 },
 {
     "fields": {
@@ -1221,6 +1243,18 @@
 },
 {
     "fields": {
+        "name": "Annual health related expenses that exceed insurance reimbursement by at least $100",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "annual_health_related_expenses"
+},
+{
+    "fields": {
         "name": "Extraordinary primary, secondary or other educational expenses",
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
@@ -1230,6 +1264,18 @@
     },
     "model": "core.question",
     "pk": "extraordinary_educational_expenses"
+},
+{
+    "fields": {
+        "name": "Annual extraordinary primary, secondary or other educational expenses",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "annual_extraordinary_educational_expenses"
 },
 {
     "fields": {
@@ -1245,6 +1291,18 @@
 },
 {
     "fields": {
+        "name": "Annual Post-secondary school expenses",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "annual_post_secondary_expenses"
+},
+{
+    "fields": {
         "name": "Extraordinary extracurricular activities expenses",
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
@@ -1257,6 +1315,18 @@
 },
 {
     "fields": {
+        "name": "Annual extraordinary extracurricular activities expenses",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "annual_extraordinary_extracurricular_expenses"
+},
+{
+    "fields": {
         "name": "Total section 7 expenses",
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
@@ -1266,6 +1336,18 @@
     },
     "model": "core.question",
     "pk": "total_section_seven_expenses"
+},
+{
+    "fields": {
+        "name": "Annual total section 7 expenses",
+        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "annual_total_section_seven_expenses"
 },
 {
     "fields": {

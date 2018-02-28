@@ -53,6 +53,7 @@ $(function () {
     //                                                  so any listener attached to target element are notified that
     //                                                  contents have changed.
     $('[data-mirror="true"]').on('change', mirrorOnChange);
+    $('[data-mirror_on_pressed="true"]').on('keyup', mirrorOnChange);
 
 
     // All of the input fields in the row will be saved as a single object
