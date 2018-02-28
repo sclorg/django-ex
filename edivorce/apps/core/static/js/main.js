@@ -805,7 +805,13 @@ var replaceSuffix = function(str, suffix) {
 //      data-mirror_broadcast_change=[true|false] - after change the target element will trigger a change event so
 //                                                  so any listener attached to target element are notified that
 //                                                  contents have changed.
-var mirrorOnChange = function() {
+var mirrorOnChange = function(e) {
+    // Don't mirror the change if the keypressed was tab. This is to prevent unnecessary calculations that may result
+    // in some fields changing because scaling up to annual produces a slightly different result, due to rounding, than
+    // scaling down.
+    if (e.which === 9) {
+        return;
+    }
     var target_select = $(this).attr("data-mirror_target");
     var scale_factor_identifier = $(this).attr("data-mirror_scale");
     var broadcast_change = $(this).attr("data-mirror_broadcast_change");
