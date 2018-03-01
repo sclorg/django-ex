@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <div class="question-well hide-grouping" id="amount_does_not_match" hidden>
+    <div class="question-well support-amount-match hide-grouping" id="amount_does_not_match" hidden>
         <h3>Do you and the other parent agree (have consented) on the child support amount?</h3>
         <div class="radio">
             <label>
@@ -86,51 +86,34 @@
         </div>
     </div>
 
-    <div class="question-well hide-grouping" id="what_special_provisions" hidden>
+    <div class="question-well hide-grouping support-amount-match" id="what_special_provisions" hidden>
         <h3>What special provisions have been made?</h3>
         {% input_field type="textarea" name="child_support_payment_special_provisions" class="response-textarea form-control" tabindex="-1" maxlength="1000" rows="3" %}
     </div>
-
-
-    <div class="question-well hide-grouping support-amount-match" id="you_spouse_agree" hidden>
-        <h3>
-            Do you and your spouse agree that $<span
-                id="child_support_amount_label">{{ order_monthly_child_support_amount }}</span> is the child support amount?
-        </h3>
-        <div class="btn-radio-group" data-toggle="buttons">
-            <label class="btn btn-radio">
-                {% input_field type="radio" name="agree_to_child_support_amount" autocomplete="off" value="YES" data_target_id="enter_agreed_appropriate_amount" data_reveal_target="false" %}
-                YES
-            </label>
-
-            <label class="btn btn-radio">
-                {% input_field type="radio" name="agree_to_child_support_amount" autocomplete="off" value="NO" data_target_id="enter_agreed_appropriate_amount" data_reveal_target="true" %}
-                NO
-            </label>
-        </div>
-        <div id="enter_agreed_appropriate_amount" hidden>
-            <h3>
-                What is the amount that you and your spouse have agreed to (that differs from the Child Support Guidelines table amount)?
-            </h3>
-            <div>
-                <div class="dollar-prefix">
-                    {% money_input_field name="agreed_child_support_amount" value="" class="fact-sheet-input money" %}
-                </div>
-            </div>
-            <h3>
-                Why do you think the court should approve your proposed amount?
-            </h3>
-            <p>
-                Discuss the conditions, means, needs and other circumstances of the child, and the financial
-                ability of
-                each parent to support the child/children.
-            </p>
-            <div>
-                {% input_field type="textarea" name="reason_child_support_amount" class="fact-sheet-input form-control response-textarea" maxlength="1000" rows="6" %}
-            </div>
-        </div>
-    </div>
-
+{##}
+{#        <div class="question-well hide-grouping support-amount-match" id="you_spouse_agree" hidden>#}
+{#            <div id="enter_agreed_appropriate_amount">#}
+{#                <h3>#}
+{#                    What is the amount that you and your spouse have agreed to (that differs from the Child Support Guidelines table amount)?#}
+{#                </h3>#}
+{#                <div>#}
+{#                    <div class="dollar-prefix">#}
+{#                        {% money_input_field name="agreed_child_support_amount" value="" class="fact-sheet-input money" %}#}
+{#                    </div>#}
+{#                </div>#}
+{#                <h3>#}
+{#                    Why do you think the court should approve your proposed amount?#}
+{#                </h3>#}
+{#                <p>#}
+{#                    Discuss the conditions, means, needs and other circumstances of the child, and the financial#}
+{#                    ability of#}
+{#                    each parent to support the child/children.#}
+{#                </p>#}
+{#                <div>#}
+{#                    {% input_field type="textarea" name="reason_child_support_amount" class="fact-sheet-input form-control response-textarea" maxlength="1000" rows="6" %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
 
     <div class="question-well">
         <h3>Do you have a separation agreement that sets out what you've agreed to around parenting and child support?</h3>

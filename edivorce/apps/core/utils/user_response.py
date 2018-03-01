@@ -57,6 +57,19 @@ def get_responses_from_db_grouped_by_steps(bceid_user, hide_failed_conditionals=
                 if q['question__required'] != 'Conditional':
                     continue
                 target = q['question__conditional_target']
+                if target.startswith('['):
+                    targets = target.strip('[]').split(',')
+                    filtered_targets = [t for t in targets if t not in values]
+                    # filtered_targets = list(filter(lambda t: t not in values, targets))
+                    if len(filtered_targets):
+                        continue
+
+                    reveal_responses = dict(zip(targets, q['question__reveal_response'].strip('[]').split(',')))
+                    present = [val for key, val in reveal_responses.items() if val != values[key]]
+                    if len(present):
+                        q['value'] = ''
+                    continue
+
                 if target not in values:
                     continue
                 numeric_condition = evaluate_numeric_condition(values[target], q['question__reveal_response'])

@@ -955,7 +955,7 @@
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "agree_to_child_support_amount",
+        "conditional_target": "claimants_agree_to_child_support_amount",
         "reveal_response": "NO"
     },
     "model": "core.question",
@@ -967,7 +967,7 @@
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "agree_to_child_support_amount",
+        "conditional_target": "claimants_agree_to_child_support_amount",
         "reveal_response": "NO"
     },
     "model": "core.question",
@@ -1669,7 +1669,7 @@
         "description": "For Step 6, Your children - Payor & medical expenses",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "child_support_in_order_reason",
+        "conditional_target": "child_support_in_order",
         "reveal_response": "YES"
     },
     "model": "core.question",
@@ -1681,8 +1681,8 @@
         "description": "For Step 6, Your children - Payor & medical expenses",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "does_payour_amount_match_guidelines",
-        "reveal_response": "NO"
+        "conditional_target": "[does_payour_amount_match_guidelines,child_support_in_order]",
+        "reveal_response": "[NO,YES]"
     },
     "model": "core.question",
     "pk": "claimants_agree_to_child_support_amount"
@@ -1693,8 +1693,8 @@
         "description": "For Step 6, Your children - Payor & medical expenses",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimants_agree_to_child_support_amount",
-        "reveal_response": "NO"
+        "conditional_target": "[claimants_agree_to_child_support_amount,does_payour_amount_match_guidelines,child_support_in_order]",
+        "reveal_response": "[NO,NO,YES]"
     },
     "model": "core.question",
     "pk": "child_support_payment_special_provisions"

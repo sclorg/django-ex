@@ -208,6 +208,9 @@ def format_children(context, source):
                                 pass
                             if isinstance(value, list):
                                 tags.append(format_row(item['question__name'], process_list(value, q_id)))
+                            elif isinstance(value, str):
+                                if len(value):
+                                    tags.append(format_row(item['question__name'], value))
                             else:
                                 tags.append(format_row(item['question__name'], value))
         tags.append('</tbody>')
