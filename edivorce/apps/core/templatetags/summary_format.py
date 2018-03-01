@@ -141,6 +141,8 @@ def format_children(context, source):
     fact_sheet_mapping['Undue Hardship (Fact Sheet E)'] = reverse('question_steps', args=['children', 'facts'])
     fact_sheet_mapping['Income over $150,000 (Fact Sheet F)'] = reverse('question_steps', args=['children', 'facts'])
 
+    child_support_orders = {'have_court_order', 'order_respecting_arrangement', 'order_for_child_support'}
+
     tags = []
     # process mapped questions first
     working_source = source.copy()
@@ -167,6 +169,11 @@ def format_children(context, source):
                 if show_fact_sheet and len(fact_sheet_mapping[question]):
                     tags.append(format_fact_sheet(question, fact_sheet_mapping[question]))
             else:
+
+                # skip child support order related questions if user did not select that option
+                if question in child_support_orders and context['derived']['wants_child_support'] is False:
+                    continue
+
                 item = list(filter(lambda x: x['question_id'] == question, working_source))
 
                 if len(item):
