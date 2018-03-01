@@ -23,13 +23,7 @@ def reformat_value(source, question_key):
     except:
         if question_key == 'spouse_support_details' or question_key == 'other_orders_detail'\
                 or question_key == 'provide_certificate_later_reason' or question_key == 'not_provide_certificate_reason':
-            text_list = source.split('\n')
-            tag = ["<ul>"]
-            for value in text_list:
-                if value and not value.isspace():
-                    tag.append('<li>' + value + '</li>')
-            tag.append('</ul>')
-            return ''.join(tag)
+            return reformat_list(source)
         return source
 
 
@@ -45,6 +39,19 @@ def process_list(lst, question_key):
                 tag.append('<li>' + str(value) + '</li>')
     tag.append('</ul>')
     return ''.join(tag)
+
+
+def reformat_list(source):
+    text_list = source.split('\n')
+    if len(text_list) > 1:
+        tag = ["<ul>"]
+        for value in text_list:
+            if value and not value.isspace():
+                tag.append('<li>' + value + '</li>')
+        tag.append('</ul>')
+        return ''.join(tag)
+    else:
+        return text_list.pop()
 
 
 def format_row(question, response):
@@ -170,11 +177,14 @@ def format_children(context, source):
                     tags.append(format_fact_sheet(question, fact_sheet_mapping[question]))
             else:
 
-                # skip child support order related questions if user did not select that option
-                if question in child_support_orders and context['derived']['wants_child_support'] is False:
-                    continue
-
                 item = list(filter(lambda x: x['question_id'] == question, working_source))
+
+                # skip child support order related questions if user did not select that option
+                if question in child_support_orders:
+                    item = item.pop()
+                    if context['derived']['wants_child_support'] is True:
+                        tags.append(format_row(item['question__name'], reformat_list(item['value'])))
+                    continue
 
                 if len(item):
                     item = item.pop()
