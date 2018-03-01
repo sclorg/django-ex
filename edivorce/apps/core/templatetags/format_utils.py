@@ -165,9 +165,6 @@ def integer(value):
     """ Return value as an int or nothing """
 
     try:
-        print(value)
-        print(float(value))
-        print(int(float(value)))
         return int(float(value))
     except ValueError:
         return ''

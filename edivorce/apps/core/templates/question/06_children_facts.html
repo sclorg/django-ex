@@ -416,7 +416,7 @@
     </div>
 
 
-{% if children_of_marriage == 'YES' and 'NO' not in children_financial_support %}
+{% if children_of_marriage == 'YES' and 'NO' not in children_financial_support|load_json and number_children_over_19|integer > 0 %}
     <div id="fact_sheet_d" class="question-well fact-sheets">
         <h1>Child(ren) 19 Years or Older (Fact Sheet D)</h1>
         <p>

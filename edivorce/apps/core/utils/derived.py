@@ -172,8 +172,13 @@ def show_fact_sheet_d(responses, derived):
     over 19, Fact Sheet D is indicated.
     """
 
+    try:
+        children_over_19 = float(responses.get('number_children_over_19', 0))
+    except ValueError:
+        children_over_19 = 0
+
     support = json.loads(responses.get('children_financial_support', '[]'))
-    return (len(support) > 0 and
+    return (len(support) > 0 and children_over_19 > 0 and
             'NO' not in support and has_children_of_marriage(responses, derived))
 
 
