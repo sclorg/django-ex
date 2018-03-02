@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load input_field %}
 {% load step_order %}
+{% load load_json %}
 
 {% block title %}{{ block.super }}: Your Children{% endblock %}
 
@@ -11,6 +12,46 @@
 <h1>
     <small>Step {% step_order step="children" %}:</small>Children Details
 </h1>
+<p>
+    Please enter the names of the
+    <span class="tooltip-link"
+                          data-toggle="tooltip"
+                          data-placement="right"
+                          data-html="true"
+                          title="<b>Children of the marriage</b><br /><br />
+              Child of the marriage means a child of two spouses or former spouses who, at the material time,<br />
+              <ul>
+                <li>is under the age of majority and who has not withdrawn from their charge, or</li>
+                <li>is the age of majority or over and under their charge but unable, by reason of illness,
+                disability or other cause, to withdraw from their charge or to obtain the necessaries of life; (enfant à charge)?</li>
+              </ul>
+              More details on the definition of <a href=&quot;http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step2-etap2.html#h4&quot; target=&quot;_blank&quot;>&quot;child of marriage&quot; </a>can be found on the Department of Justice website.
+">
+        children of the marriage.<i class="fa fa-question-circle" aria-hidden="true"></i>
+    </span>
+    This includes:
+</p>
+<ul>
+    <li>Any children who are under 19 (includes step children and adopted children)</li>
+    <li>Any children who are over 19 and require support, commonly referred to as dependents (e.g. due to disability, illness, attending post secondary institution)</li>
+</ul>
+<p>
+    You do not need to provide the names of any children who are <strong>over 19</strong> (age of majority in B.C.)
+    and <strong>are independent.</strong>
+</p>
+
+{% if 'Child support' not in want_which_orders|load_json %}
+    <p><strong>Please note: Not asking for child support but have children</strong></p>
+    <p>
+        Even though you are not asking for an order for child support, you will still need to answer some questions
+        about your children. If you're asking for a divorce, the court won't make an order unless they're satisfied
+        that reasonable arrangements have been made for the children.
+    </p>
+    <p>
+        "Arrangements for parenting" refers to who will be responsible for making decisions about the children and if
+        and how they will spend time with each parent.
+    </p>
+{% endif %}
 <div class="question-well children-list">
     <table id="claimant_children" class="list-builder">
         <thead>
