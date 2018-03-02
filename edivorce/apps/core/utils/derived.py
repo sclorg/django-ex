@@ -33,6 +33,7 @@ DERIVED_DATA = [
     'has_fact_sheets',
     'schedule_1_amount',
     'child_support_payor',
+    'child_support_payor_by_name',
     'annual_child_care_expenses',
     'annual_children_healthcare_premiums',
     'annual_health_related_expenses',
@@ -238,6 +239,21 @@ def child_support_payor(responses, derived):
         return 'both Claimant 1 and Claimant 2'
 
     return ''
+
+
+def child_support_payor_by_name(responses, derived):
+    """ Return the payor by name"""
+
+    payor = 'the payor'
+    support_payor = child_support_payor(responses, derived)
+    if support_payor == 'Claimant 1':
+        payor = responses.get('name_you', support_payor)
+    elif support_payor == 'Claimant 2':
+        payor = responses.get('name_spouse', support_payor)
+    elif support_payor == 'both Claimant 1 and Claimant 2':
+        payor = '{} and {}'.format(responses.get('name_you', 'myself'),
+                                   responses.get('name_spouse', 'my spouse'))
+    return payor
 
 
 def annual_child_care_expenses(responses, derived):

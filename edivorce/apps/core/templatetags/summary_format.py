@@ -126,7 +126,7 @@ def format_children(context, source):
         'child_support_arrears_amount'
     ]
     question_to_heading['What are you asking for?'] = [
-        'child_support_in_order',
+        # 'child_support_in_order',
         'order_monthly_child_support_amount',
         'child_support_in_order_reason',
         'does_payour_amount_match_guidelines',
@@ -183,6 +183,7 @@ def format_children(context, source):
                 if question in child_support_orders:
                     item = item.pop()
                     if context['derived']['wants_child_support'] is True:
+                        # make sure free form text is reformted to be bullet list.
                         tags.append(format_row(item['question__name'], reformat_list(item['value'])))
                     continue
 
@@ -206,13 +207,17 @@ def format_children(context, source):
                                 value = json.loads(item['value'])
                             except:
                                 pass
+                            question_name = item['question__name']
+                            if question == 'order_monthly_child_support_amount':
+                                question_name = '{} {}'.format(question_name, context['derived']['child_support_payor_by_name'])
+
                             if isinstance(value, list):
-                                tags.append(format_row(item['question__name'], process_list(value, q_id)))
+                                tags.append(format_row(question_name, process_list(value, q_id)))
                             elif isinstance(value, str):
                                 if len(value):
-                                    tags.append(format_row(item['question__name'], value))
+                                    tags.append(format_row(question_name, value))
                             else:
-                                tags.append(format_row(item['question__name'], value))
+                                tags.append(format_row(question_name, value))
         tags.append('</tbody>')
         tags.append('<tbody class="review-table-spacer">')
     tags.append('</tbody>')
