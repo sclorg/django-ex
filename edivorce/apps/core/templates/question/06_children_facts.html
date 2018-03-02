@@ -44,7 +44,13 @@
         <tbody>
             <tr>
                 <td class="fact-sheet-question">
-                    What is the approximate amount of time the children spend with each parent?
+                    <p>
+                        What is the approximate amount of time the children spend with each parent?
+                    </p>
+                    <p>
+                        Note: This includes time that a parent is responsible for the children, even if they are not
+                        physically with that parent (for example the child is at school).
+                    </p>
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="percent-suffix">
@@ -56,6 +62,30 @@
                     <div class="percent-suffix">
                         {% input_field type="number" name="time_spent_with_spouse" class="fact-sheet-input" min="0" %}
                         <label>%</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_percentage_time" aria-controls="collapse_percentage_time">
+                        <div>
+                            How do I determine the percentage of time spent with each parent?
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapse_percentage_time">
+                        <div>
+                            <p>For more information please refer to:</p>
+                            <ul>
+                                <li>
+                                    The <a href="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step3-etap3.html#h5"
+                                           target="_blank">Federal Child Support Guidelines: Step-by-Step Guide</a>
+                                </li>
+                                <li>
+                                    The <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/child_support.php#fortyPercentPrinciple"
+                                           target="_blank">child support</a> page on the Family Law in B.C. website.
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </td>
             </tr>
