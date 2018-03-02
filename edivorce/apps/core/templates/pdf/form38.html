@@ -22,7 +22,6 @@
 </head>
 
 <body>
-
     <div class="print-wrapper">
         <h1 class="text-center">Form F38 <br>(Rule 10-10 (2))</h1>
 
@@ -63,38 +62,65 @@
         </p>
 
         <p>
-            I,
-            {% if responses.name_claimant %}
-                {% include "partials/name_with_alias.html" with name=responses.name_claimant use_other_name=responses.any_other_name_claimant other_names=responses.other_name_claimant %}
+    {% if responses.which_claimant == 'both' %}We{% else %}I{% endif %},
+    {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 1' %}
+            {% if responses.name_you %}
+                {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}
             {% else %}<span class="form-entry not-complete"></span>{% endif %},
             of
 
-            {% required responses.address_to_send_official_document_street_claimant trail=',' %}
-            {% required responses.address_to_send_official_document_city_claimant size=100 trail=',' %}
-            {% if responses.address_to_send_official_document_prov_claimant %}
-                {{ responses.address_to_send_official_document_prov_claimant }},
+            {% required responses.address_to_send_official_document_street_you trail=',' %}
+            {% required responses.address_to_send_official_document_city_you size=100 trail=',' %}
+            {% if responses.address_to_send_official_document_prov_you %}
+                {{ responses.address_to_send_official_document_prov_you }},
             {% endif %}
-            {% if responses.address_to_send_official_document_country_claimant == 'Other' %}
-                {% required responses.address_to_send_official_document_other_country_claimant size=100 trail=',' %}
+            {% if responses.address_to_send_official_document_country_you == 'Other' %}
+                {% required responses.address_to_send_official_document_other_country_you size=100 trail=',' %}
             {% else %}
-                {% required responses.address_to_send_official_document_country_claimant size=100 trail=',' %}
+                {% required responses.address_to_send_official_document_country_you size=100 trail=',' %}
             {% endif %}
-            {% required responses.address_to_send_official_document_postal_code_claimant size=100 trail=',' %}
+            {% required responses.address_to_send_official_document_postal_code_you size=100 trail=',' %}
 
-            {% required responses.occupation_claimant %}
+            {% required responses.occupation_you %},<br />
+    {% endif %}
+    {% if responses.which_claimant == 'both' %}and<br />{% endif %}
+
+    {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 2' %}
+            {% if responses.name_spouse %}
+                {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}
+            {% else %}<span class="form-entry not-complete"></span>{% endif %}, of
+
+            {% required responses.address_to_send_official_document_street_spouse trail=',' %}
+            {% required responses.address_to_send_official_document_city_spouse size=100 trail=',' %}
+            {% if responses.address_to_send_official_document_prov_spouse %}
+                {{ responses.address_to_send_official_document_prov_spouse }},
+            {% endif %}
+            {% if responses.address_to_send_official_document_country_spouse == 'Other' %}
+                {% required responses.address_to_send_official_document_other_country_spouse size=100 trail=',' %}
+            {% else %}
+                {% required responses.address_to_send_official_document_country_spouse size=100 trail=',' %}
+            {% endif %}
+            {% required responses.address_to_send_official_document_postal_code_spouse size=100 trail=',' %}
+
+    {% endif %}
             <br />
             SWEAR (OR AFFIRM) THAT:
         </p>
 
         <ol class="numbered-paragraphs force-break-last">
             <li>
-                I am {% required responses.which_claimant %}.
+    {% if responses.which_claimant == 'both' %}
+              We are claimant 1 and claimant 2.
+    {% else %}
+              I am {{ responses.which_claimant }}.
+    {% endif %}
             </li>
             <li>
                 There is no possibility of reconciliation between my spouse and me.
             </li>
             <li>
-                I believe that the facts set out in the notice of family claim are true.
+              {% if responses.which_claimant == 'both' %}We{% else %}I{% endif %}
+              believe that the facts set out in the notice of family claim are true.
             </li>
 
             {% if responses.original_marriage_certificate == 'YES' %}
@@ -108,15 +134,24 @@
                   It is impossible to obtain a certificate of marriage or a
                   certified copy of the registration of marriage and instead, in
                   accordance with section 52 (1) (a) of the <em>Evidence
-                  Act</em>, I refer to the affidavit of <span class="form-entry
+                  Act</em>,
+                  {% if responses.which_claimant == 'both' %}We{% else %}I{% endif %}
+                  refer to the affidavit of <span class="form-entry
                   not-complete"></span>, a person who was present at the marriage
                   ceremony, which affidavit is filed in this family law case.
                 </li>
             {% endif %}
 
             <li>
-                I was living separate and apart from my spouse at the start of this
-                family law case and I have lived separate and apart from my spouse
+              {% if responses.which_claimant == 'both' %}
+                Claimant 1 and Claimant 2 were
+              {% else %}
+                I was
+              {% endif %}
+                living separate and apart from my spouse at the start of this
+                family law case and
+                {% if responses.which_claimant == 'both' %}we{% else %}I{% endif %}
+                have lived separate and apart from my spouse
                 since {% required responses.separation_date|date_formatter %}, except:
                 {% multiple_values_to_list source=responses.reconciliation_period as periods %}
                 {% if periods != '[]' and responses.try_reconcile_after_separated == 'YES' %}
@@ -128,78 +163,87 @@
             </li>
 
             <li>
-                I am neither directly nor indirectly a party to an agreement or
+                {% if responses.which_claimant == 'both' %}We are{% else %}I am{% endif %}
+                neither directly nor indirectly a party to an agreement or
                 conspiracy for the purpose of subverting the administration of
                 justice, or to any agreement, understanding or arrangement to
                 fabricate or suppress evidence or to deceive the court.
             </li>
 
             <li>
-                There are no children of the marriage as defined by the <em>Divorce
-                Act</em> (Canada).
+    {% if responses.children_of_marriage == 'YES' %}
+            <p>
+              There are children of the marriage as defined by
+              {{ responses.child_support_act }}, and
+            </p>
+
+            <ol class='parens-list'>
+              <li><p>those children are</p>
+                <table class="table table-fixed table-bordered">
+                  <tr>
+                    <th style="text-align: left">Name</th>
+                    <th style="text-align: left">Age</th>
+                    <th style="text-align: left">Birthdate [<em>dd/mmm/yyyy</em>]</th>
+                  </tr>
+        {% for child in responses.children %}
+                  <tr>
+                    <td>{{ child.child_name }}&nbsp;</td>
+                    <td>{{ child.child_birth_date|age }}</td>
+                    <td>{{ child.child_birth_date|date_formatter }}</td>
+                  </tr>
+        {% endfor %}
+                </table>
+              </li>
+
+              <li>
+                {% if responses.which_claimant == 'both' %}We{% else %}I{% endif %}
+                have sworn/affirmed a child support affidavit in Form F37, and
+              </li>
+
+              <li>
+                <p>the following arrangements for parenting have been made:</p>
+        {% if responses.order_respecting_arrangement %}
+                <ul>{{ responses.order_respecting_arrangement|striptags|linebreaksli }}</ul>
+        {% else %}
+                <div style="min-height: 1.5in"></div>
+        {% endif %}
+              </li>
+            </ol>
+    {% else %}
+            There are no children of the marriage as defined by the
+            <em>Divorce Act</em> (Canada).
+    {% endif %}
             </li>
 
-          {% if responses.which_claimant == 'Claimant 1' and responses.name_change_you == 'YES' %}
+    {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 1' %}
+        {% if responses.name_change_you == 'YES' %}
             <li>
               Pursuant to Section 5 of the Name Act, Claimant 1 shall
               bear the name of {{ responses.name_change_you_fullname }}
               to take effect on {% effective_date %}.
             </li>
-          {% endif %}
+        {% endif %}
+    {% endif %}
 
-          {% if responses.which_claimant == 'Claimant 2' and responses.name_change_spouse == 'YES' %}
+    {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 2' %}
+        {% if responses.name_change_spouse == 'YES' %}
             <li>
               Pursuant to Section 5 of the Name Act, Claimant 2 shall
               bear the name of {{ responses.name_change_spouse_fullname }}
               to take effect on {% effective_date %}.
             </li>
-          {% endif %}
+        {% endif %}
+    {% endif %}
 
         </ol>
 
-        <br><br><br>
-        <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <td colname="c1"> SWORN (OR AFFIRMED) BEFORE </td>
-                    <td colname="c2"> ) </td>
-                    <td colname="c3"> </td>
-                </tr>
-                <tr>
-                    <td colname="c1"> ME at <span class="form-entry not-complete">&nbsp;</span>, British Columbia </td>
-                    <td colname="c2"> ) </td>
-                    <td colname="c3"> </td>
-                </tr>
-                <tr>
-                    <td colname="c1"> on <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span> . </td>
-                    <td colname="c2"> ) </td>
-                    <td colname="c3"> <span class="form-entry not-complete">&nbsp;</span> </td>
-                </tr>
-                <tr>
-                    <td colname="c1"> </td>
-                    <td colname="c2"> ) </td>
-                    <td colname="c3"> </td>
-                </tr>
-                <tr>
-                    <td colname="c1"> <span class="form-entry not-complete">&nbsp;</span> </td>
-                    <td colname="c2"> ) </td>
-                    <td colname="c3"> </td>
-                </tr>
-                <tr>
-                    <td colname="c1"> A commissioner for taking </td>
-                    <td colname="c2"> ) </td>
-                    <td colname="c3"> </td>
-                </tr>
-                <tr>
-                    <td colname="c1"> affidavits for British Columbia </td>
-                    <td colname="c2"> ) </td>
-                    <td colname="c3"> </td>
-                </tr>
-            </tbody>
-        </table>
-        <p>
-            <span class="form-entry not-complete">&nbsp;</span><span class="form-entry not-complete">&nbsp;</span>
-        </p>
+    {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 1' %}
+        {% include 'pdf/partials/notary_signature.html' with name=responses.name_you %}
+    {% endif %}
+    {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 2' %}
+        {% include 'pdf/partials/notary_signature.html' with name=responses.name_spouse %}
+    {% endif %}
+
         <hr />
         <small>Printed on {% now "F jS, Y" %} from https://justice.gov.bc.ca/divorce</small>
     </div>

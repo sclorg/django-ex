@@ -12,8 +12,8 @@ from ..decorators import bceid_required
 from ..utils.derived import get_derived_data
 from ..utils.user_response import get_responses_from_db
 
-letters = 'abcdefghijklmnopqrstuvwxyz'
-exhibits = list(letters.upper()[::-1])
+EXHIBITS = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'[::-1])
+
 
 @bceid_required
 def form(request, form_number):
@@ -21,7 +21,8 @@ def form(request, form_number):
 
     responses = get_responses_from_db(request.user)
 
-    if form_number == '1' or form_number.startswith('37'):
+    if (form_number == '1' or form_number.startswith('37') or
+            form_number.startswith('38')):
         # Add an array of children that includes blanks for possible children
         under = int(responses.get('number_children_under_19') or 0)
         over = int(responses.get('number_children_under_19') or 0)
@@ -41,7 +42,9 @@ def form(request, form_number):
         responses = __add_claimant_info(responses, '_spouse')
         responses['which_claimant'] = 'Claimant 2'
 
-    if form_number == '38_claimant1':
+    if form_number == "38":
+        responses["which_claimant"] = 'both'
+    elif form_number == '38_claimant1':
         form_number = '38'
         responses = __add_claimant_info(responses, '_you')
         responses['which_claimant'] = 'Claimant 1'
@@ -54,7 +57,7 @@ def form(request, form_number):
         'css_root': settings.WEASYPRINT_CSS_LOOPBACK,
         'responses': responses,
         'derived': get_derived_data(responses),
-        'exhibits': exhibits[:],
+        'exhibits': EXHIBITS[:],
     })
 
 

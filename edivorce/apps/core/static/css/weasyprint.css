@@ -234,6 +234,10 @@ ol.parens-list {
 ol.parens-list > li {
   list-style: none;
   position: relative;
+  padding-left: 0;
+}
+ol.parens-list > li > ul > li {
+  padding-left: 0;
 }
 
 ol.parens-list > li:before {
@@ -242,6 +246,7 @@ ol.parens-list > li:before {
   position: absolute;
   left: -2.5em;
 }
+
 
 .th-left {
   text-align: left !important;

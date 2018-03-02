@@ -119,49 +119,55 @@
           <li>
             <p>The following is true to the best of my information and belief.</p>
 
-            <p>(a) Parties:</p>
+            <ol class="parens-list">
+              <li>
+                <p>Parties:</p>
 
-            <table class="table table-fixed table-bordered">
-              <tr>
-                <th style="text-align: left">Claimant 1's name</th>
-                <th style="text-align: left">Province of residence</th>
-              </tr>
-              <tr>
-                <td>{% response responses.name_you %}</td>
-                <td>{% response responses.address_to_send_official_document_prov_you %}</td>
-              </tr>
-              <tr>
-                <th style="text-align: left">Claimant 2's name</th>
-                <th style="text-align: left">Province of residence</th>
-              </tr>
-              <tr>
-                <td>{% response responses.name_spouse %}</td>
-                <td>{% response responses.address_to_send_official_document_prov_spouse %}</td>
-              </tr>
-            </table>
+                <table class="table table-fixed table-bordered">
+                  <tr>
+                    <th style="text-align: left">Claimant 1's name</th>
+                    <th style="text-align: left">Province of residence</th>
+                  </tr>
+                  <tr>
+                    <td>{% response responses.name_you %}</td>
+                    <td>{% response responses.address_to_send_official_document_prov_you %}</td>
+                  </tr>
+                  <tr>
+                    <th style="text-align: left">Claimant 2's name</th>
+                    <th style="text-align: left">Province of residence</th>
+                  </tr>
+                  <tr>
+                    <td>{% response responses.name_spouse %}</td>
+                    <td>{% response responses.address_to_send_official_document_prov_spouse %}</td>
+                  </tr>
+                </table>
+              </li>
 
-            <p class="force-break">(b) Children:</p>
+              <li>
+                <p class="force-break">Children:</p>
 
-            <table class="table table-bordered">
-              <tr>
-                <th>Child's name</th>
-                <th>Birthdate</th>
-                <th>Age</th>
-                <th>Child now living with</th>
-                <th>Relationship to claimant&nbsp;1</th>
-                <th>Relationship to claimant&nbsp;2</th>
-              </tr>
+                <table class="table table-bordered">
+                  <tr>
+                    <th>Child's name</th>
+                    <th>Birthdate</th>
+                    <th>Age</th>
+                    <th>Child now living with</th>
+                    <th>Relationship to claimant&nbsp;1</th>
+                    <th>Relationship to claimant&nbsp;2</th>
+                  </tr>
   {% for child in responses.children %}
-              <tr>
-                <td>{{ child.child_name }}</td>
-                <td>{{ child.child_birth_date|date_formatter }} &nbsp;</td>
-                <td>{{ child.child_birth_date|age }}</td>
-                <td>{{ child.child_live_with|claimantize }}</td>
-                <td>{{ child.child_relationship_to_you }}</td>
-                <td>{{ child.child_relationship_to_spouse }}</td>
-              </tr>
+                  <tr>
+                    <td>{{ child.child_name }}</td>
+                    <td>{{ child.child_birth_date|date_formatter }} &nbsp;</td>
+                    <td>{{ child.child_birth_date|age }}</td>
+                    <td>{{ child.child_live_with|claimantize }}</td>
+                    <td>{{ child.child_relationship_to_you }}</td>
+                    <td>{{ child.child_relationship_to_spouse }}</td>
+                  </tr>
   {% endfor %}
-            </table>
+                </table>
+              </li>
+            </ol>
 
           </li>
 
@@ -177,7 +183,7 @@
 
           <li>  <!-- 4 -->
   {% if responses.how_will_calculate_income == 'using specific rules' %}
-            <ol style="list-style-type: lower-alpha;">
+            <ol class="parens-list">
               <li>Claimant 1's annual income as determined under sections 15 to
                 20 of the Guidelines:
                 {{ responses.annual_gross_income|money }}
@@ -318,7 +324,8 @@
 
   {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 1' %}
         {% include 'pdf/partials/notary_signature.html' with name=responses.name_you %}
-  {% elif responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 2' %}
+  {% endif %}
+  {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 2' %}
         {% include 'pdf/partials/notary_signature.html' with name=responses.name_spouse %}
   {% endif %}
         {% include 'pdf/partials/fact_sheet_a.html' %}
