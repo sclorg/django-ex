@@ -463,18 +463,44 @@ $(function () {
     var payorCallback = function() {
         var claimant = $(this).val();
 
-        if ( claimant === 'Myself (Claimant 1)' && parseFloat($('input[name="annual_gross_income"]').val()) > 150000) {
+        var toggleFactSheetTable = function(table_suffix, claimant_name_selector, hide) {
             $('#fact_sheet_f').show();
-        } else if ( claimant === 'My Spouse (Claimant 2)' && parseFloat($('input[name="spouse_annual_gross_income"]').val()) > 150000) {
-            $('#fact_sheet_f').show();
+            if (hide) {
+                $('#fact_sheet_f_table_' + table_suffix).hide();
+            } else {
+                $('#fact_sheet_f_table_' + table_suffix).show();
+            }
+
+            if (claimant_name_selector) {
+                $('#fact_sheet_f_payor_title_' + table_suffix).text($(claimant_name_selector).text());
+            }
+        };
+
+        if (claimant === 'Myself (Claimant 1)' && parseFloat($('input[name="annual_gross_income"]').val()) > 150000) {
+            toggleFactSheetTable('1', '#__name_you');
+            toggleFactSheetTable('2', null, true)
+        } else if (claimant === 'My Spouse (Claimant 2)' && parseFloat($('input[name="spouse_annual_gross_income"]').val()) > 150000) {
+            toggleFactSheetTable('2', '#__name_spouse');
+            toggleFactSheetTable('1', null, true)
+        } else if (claimant === 'Both myself and my spouse') {
+            if (parseFloat($('input[name="annual_gross_income"]').val()) > 150000) {
+                toggleFactSheetTable('1', '#__name_you');
+            }
+            if (parseFloat($('input[name="spouse_annual_gross_income"]').val()) > 150000) {
+                toggleFactSheetTable('2', '#__name_spouse');
+            }
         } else {
             $('#fact_sheet_f').hide();
+            $('#fact_sheet_f_table_1').hide();
+            $('#fact_sheet_f_table_2').hide();
         }
 
         if (claimant === 'Myself (Claimant 1)') {
             $('.payor-placeholder').text($('#__name_you').text());
         } else if (claimant === 'My Spouse (Claimant 2)') {
-            $('.payor-placeholder').text($('#__name_spouse').text())
+            $('.payor-placeholder').text($('#__name_spouse').text());
+        } else if (claimant === 'Both myself and my spouse') {
+            $('.payor-placeholder').text($('#__name_you').text() + ' and ' + $('#__name_spouse').text());
         } else {
             $('.payor-placeholder').text('the payor');
         }

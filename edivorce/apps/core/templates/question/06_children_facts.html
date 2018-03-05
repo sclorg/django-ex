@@ -577,111 +577,12 @@
             </div>
         </div>
 
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th></th>
-                <th>Amount</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="fact-sheet-question">
-                    How many child(ren) are you asking for support?
-                </td>
-                <td class="fact-sheet-answer">
-                    {% input_field type="number" name="number_children_seeking_support" class="fact-sheet-input" %}
-                </td>
-            </tr>
-            <tr>
-                <td class="fact-sheet-question">
-                    <p>
-                        What is the monthly
-                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Child Support Guidelines" %}
-                        amount for $150,000?
-                    </p>
-                    {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_guideline_amount" %}
-                </td>
-                <td class="fact-sheet-answer">
-                    <div class="dollar-prefix">
-                        {% money_input_field name="child_support_amount_under_high_income" class="fact-sheet-input guideline-amount money" data_sum="true" data_sum_class="guideline-amount" data_sum_target_id="total_amount" %}
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="fact-sheet-question">
-                    What is the % of income over $150,000 from the
-                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Child Support Guidelines" %}
-                    ?
-                </td>
-                <td class="fact-sheet-answer">
-                    <div class="percent-suffix">
-                        {% input_field type="number" name="percent_income_over_high_income_limit" class="fact-sheet-input" %}
-                        <label>%</label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="fact-sheet-question">
-                    <p>
-                        What is the monthly child support amount to be paid on the portion of income over
-                        $150,000?
-                    </p>
-                    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
-                         data-target="#collapse_high_income_amounts"
-                         aria-controls="collapse_high_income_amounts">
-                        <div>
-                            How can I determine this amount?
-                        </div>
-                    </div>
-                    <div class="collapse" id="collapse_high_income_amounts">
-                        <div>
-                            <p>
-                                The child support tables only show an amount for the first $150,000 of income.
-                                You have
-                                two choices for determining how much child support should be paid on the portion
-                                of
-                                income over $150,000:
-                            </p>
-                            <ul>
-                                <li>
-                                    you can multiply the amount of income over $150,000 by the percentage shown
-                                    in the
-                                    table for the province or territory where the paying parent lives; or
-                                </li>
-                                <li>
-                                    you can agree on an additional amount of support based on the condition,
-                                    means,
-                                    needs and other circumstances of your children and your financial ability to
-                                    contribute.
-                                </li>
-                            </ul>
-                            <p>
-                                Source:
-                                {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Federal Child Support Guidelines" %}
-                                , Department of Justice
-                            </p>
-                        </div>
-                    </div>
-                </td>
-                <td class="fact-sheet-answer">
-                    <div class="dollar-prefix">
-                        {% money_input_field name="amount_income_over_high_income_limit" class="fact-sheet-input guideline-amount money" data_sum="true" data_sum_class="guideline-amount" data_sum_target_id="total_amount" %}
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="fact-sheet-question">
-                    Guidelines table amount
-                </td>
-                <td class="fact-sheet-answer" readonly>
-                    <div class="dollar-prefix">
-                        {% money_input_field name="total_guideline_amount" id="total_amount" class="fact-sheet-input money" readonly="" data_mirror="true" data_mirror_target="#agreed_total_amount" data_mirror_broadcast_change="true" %}
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div id="fact_sheet_f_table_1" hidden>
+            {% include "partials/fact_sheet_f_table.html" with table_id=1 claimant_id='you' %}
+        </div>
+        <div id="fact_sheet_f_table_2" hidden>
+            {% include "partials/fact_sheet_f_table.html" with table_id=2 claimant_id='spouse' %}
+        </div>
     </div>
 
 

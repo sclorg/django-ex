@@ -887,7 +887,19 @@
         "reveal_response": ">150000"
     },
     "model": "core.question",
-    "pk": "number_children_seeking_support"
+    "pk": "number_children_seeking_support_you"
+},
+{
+    "fields": {
+        "name": "How many child(ren) are you asking for support?",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "annual_gross_income",
+        "reveal_response": ">150000"
+    },
+    "model": "core.question",
+    "pk": "number_children_seeking_support_spouse"
 },
 {
     "fields": {
@@ -899,7 +911,19 @@
         "reveal_response": ">150000"
     },
     "model": "core.question",
-    "pk": "child_support_amount_under_high_income"
+    "pk": "child_support_amount_under_high_income_you"
+},
+{
+    "fields": {
+        "name": "What is the Child Support Guidelines amount for $150,000?",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "annual_gross_income",
+        "reveal_response": ">150000"
+    },
+    "model": "core.question",
+    "pk": "child_support_amount_under_high_income_spouse"
 },
 {
     "fields": {
@@ -911,7 +935,19 @@
         "reveal_response": ">150000"
     },
     "model": "core.question",
-    "pk": "percent_income_over_high_income_limit"
+    "pk": "percent_income_over_high_income_limit_you"
+},
+{
+    "fields": {
+        "name": "What is the % of income over $150,000 from the Child Support Guidlines?",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "annual_gross_income",
+        "reveal_response": ">150000"
+    },
+    "model": "core.question",
+    "pk": "percent_income_over_high_income_limit_spouse"
 },
 {
     "fields": {
@@ -923,7 +959,19 @@
         "reveal_response": ">150000"
     },
     "model": "core.question",
-    "pk": "amount_income_over_high_income_limit"
+    "pk": "amount_income_over_high_income_limit_you"
+},
+{
+    "fields": {
+        "name": "What is the child support amount to be paid on the portion of income over $150,000?",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "annual_gross_income",
+        "reveal_response": ">150000"
+    },
+    "model": "core.question",
+    "pk": "amount_income_over_high_income_limit_spouse"
 },
 {
     "fields": {
@@ -935,7 +983,19 @@
         "reveal_response": ">150000"
     },
     "model": "core.question",
-    "pk": "total_guideline_amount"
+    "pk": "total_guideline_amount_you"
+},
+{
+    "fields": {
+        "name": "Guidelines table amount",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "annual_gross_income",
+        "reveal_response": ">150000"
+    },
+    "model": "core.question",
+    "pk": "total_guideline_amount_spouse"
 },
 {
     "fields": {
