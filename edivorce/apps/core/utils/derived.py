@@ -30,6 +30,8 @@ DERIVED_DATA = [
     'show_fact_sheet_d',
     'show_fact_sheet_e',
     'show_fact_sheet_f',
+    'show_fact_sheet_f_you',
+    'show_fact_sheet_f_spouse',
     'has_fact_sheets',
     'schedule_1_amount',
     'child_support_payor',
@@ -195,6 +197,16 @@ def show_fact_sheet_f(responses, derived):
     """
     If one of the claimants earns over $150,000, Fact Sheet F is indicated.
     """
+    return show_fact_sheet_f_you(responses, derived) or show_fact_sheet_f_spouse(responses, derived)
+
+
+def show_fact_sheet_f_you(responses, derived):
+    """
+
+    :param responses:
+    :param derived:
+    :return:
+    """
     payor = child_support_payor(responses, derived)
 
     try:
@@ -202,12 +214,24 @@ def show_fact_sheet_f(responses, derived):
     except ValueError:
         annual = 0
 
-    try:
-        spouses = float(responses.get('spouse_annual_gross_income', 0))
-    except ValueError:
-        spouses = 0
+    return (payor == 'Claimant 1' or payor == 'both Claimant 1 and Claimant 2') and annual > 150000
 
-    return (payor == 'Claimant 1' and annual > 150000) or (payor == 'Claimant 2' and spouses > 150000)
+
+def show_fact_sheet_f_spouse(responses, derived):
+    """
+
+    :param responses:
+    :param derived:
+    :return:
+    """
+    payor = child_support_payor(responses, derived)
+
+    try:
+        annual = float(responses.get('spouse_annual_gross_income', 0))
+    except ValueError:
+        annual = 0
+
+    return (payor == 'Claimant 2' or payor == 'both Claimant 1 and Claimant 2') and annual > 150000
 
 
 def has_fact_sheets(responses, derived):
@@ -552,7 +576,6 @@ def pursuant_parenting_arrangement(responses, derived):
     act = 'Pursuant to %s,' % act if act != '' else act
     try:
         arrangements = responses.get('order_respecting_arrangement', '').split('\n')
-        print(arrangements)
         return ['%s %s' % (act, arrangement.strip())
                 for arrangement in arrangements
                 if len(arrangement.strip()) > 0]

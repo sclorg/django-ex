@@ -170,7 +170,8 @@ def format_children(context, source):
                     show_fact_sheet = True
                 elif question == 'Undue Hardship (Fact Sheet E)' and context['derived']['show_fact_sheet_e']:
                     show_fact_sheet = True
-                elif question == 'Income over $150,000 (Fact Sheet F)' and context['derived']['show_fact_sheet_f']:
+                elif question == 'Income over $150,000 (Fact Sheet F)' and (
+                        context['derived']['show_fact_sheet_f_you'] or context['derived']['show_fact_sheet_f_spouse']):
                     show_fact_sheet = True
 
                 if show_fact_sheet and len(fact_sheet_mapping[question]):

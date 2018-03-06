@@ -168,3 +168,13 @@ def integer(value):
         return int(float(value))
     except ValueError:
         return ''
+
+
+@register.simple_tag()
+def lookup(obj, property, money_format=None):
+    """ Return the value of a dynamic property within an object"""
+    val = obj.get(property, '')
+    # if money_format:
+    #     return money(val)
+    # else:
+    return val

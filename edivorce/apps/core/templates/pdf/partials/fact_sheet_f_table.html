@@ -1,0 +1,48 @@
+{% load format_utils %}
+<h3>
+Supplementary Child Support Fact Sheet F:<br>
+Income Over $150,000
+</h3>
+<table class="table table-fixed table-bordered">
+<tbody>
+  <tr>
+    <td class="line-number" style="width: 5%;">A</td>
+    <td style="width: 80%;">
+        Number of children for whom support is claimed:
+        {% lookup responses 'number_children_seeking_support_'|add:claimant_id %}
+    </td>
+    <td class="amount" style="width: 15%;"></td>
+  </tr>
+  <tr>
+    <td class="line-number">B</td>
+    <td>Guidelines table amount for $150,000</td>
+    <td class="amount">$
+      <span class="actual">
+          {% lookup responses 'child_support_amount_under_high_income_'|add:claimant_id True %}
+      </span>
+    </td>
+  </tr>
+  <tr>
+    <td class="line-number">C</td>
+    <td>
+      Plus
+        {% lookup responses 'percent_income_over_high_income_limit_'|add:claimant_id %}%
+      of income over $150,000
+    </td>
+    <td class="amount">$
+      <span class="actual">
+          {% lookup responses 'amount_income_over_high_income_limit_'|add:claimant_id True %}
+      </span>
+    </td>
+  </tr>
+  <tr>
+    <td class="line-number">D</td>
+    <td class="total">Guidelines table amount</td>
+    <td class="amount">$
+      <span class="actual">
+          {% lookup responses 'total_guideline_amount_'|add:claimant_id True %}
+      </span>
+    </td>
+  </tr>
+</tbody>
+</table>
