@@ -138,7 +138,7 @@ $(function () {
         // and claimantTwo. The result is a value between [0,claimantOne] inclusive.
         var scale = function (targetElement, claimantAmount, proportionFactor) {
             var amount = parseFloat(proportionFactor) / 100 * parseFloat(claimantAmount);
-            targetElement.val(amount.toFixed(2));
+            targetElement.val(amount.toFixed(2)).change();
         };
 
         scale(self, quantityElement.val(), scaleFactorElement.val());
@@ -195,8 +195,10 @@ $(function () {
     // Dynamically calculate total child support payment for payor
     var calcTotalChildSupportPayment = function() {
         var payor = $('#child_support_payor').text();
-        var yourShare = parseFloat($('#your_proportionate_share_amount').val());
-        var spouseShare = parseFloat($('#spouse_proportionate_share_amount').val());
+        var yourShare = parseFloat($('#your_proportionate_share_amount').text()) || 0;
+        var spouseShare = parseFloat($('#spouse_proportionate_share_amount').text()) || 0;
+        var fact_sheet_b_proposed_amount = parseFloat($('#fact_sheet_b_proposed_amount').text()) || 0;
+        var fact_sheet_c_proposed_amount = parseFloat($('#fact_sheet_c_proposed_amount').text()) || 0;
         var payorShare = 0;
 
         if (payor === 'Myself (Claimant 1)') {
@@ -209,7 +211,7 @@ $(function () {
             payorShare = yourShare + spouseShare;
         }
 
-        return payorShare + parseFloat($('#schedule_one_amount').text() || 0);
+        return (payorShare + fact_sheet_b_proposed_amount + fact_sheet_c_proposed_amount).toFixed(2);
     };
 
     $('#total_child_support_payment').text(calcTotalChildSupportPayment());
@@ -1014,8 +1016,7 @@ var sumFields = function(addendSelector, sumSelector) {
             $(sumSelector).text(total);
         }
         else {
-            $(sumSelector).val(total);
-            $(sumSelector).trigger("change");
+            $(sumSelector).val(total).change();
         }
     }
 };
@@ -1030,7 +1031,7 @@ var deltaFieldOnChange = function() {
         delta = Math.abs($(this).val() - delta);
     });
     $(deltaTargetSelector).each(function() {
-       $(this).val(delta);
+       $(this).val(delta).change();
     });
 };
 

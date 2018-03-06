@@ -18,7 +18,7 @@ Income Over $150,000
     <td>Guidelines table amount for $150,000</td>
     <td class="amount">$
       <span class="actual">
-          {% lookup responses 'child_support_amount_under_high_income_'|add:claimant_id True %}
+          {% lookup responses 'child_support_amount_under_high_income_'|add:claimant_id %}
       </span>
     </td>
   </tr>
@@ -31,7 +31,7 @@ Income Over $150,000
     </td>
     <td class="amount">$
       <span class="actual">
-          {% lookup responses 'amount_income_over_high_income_limit_'|add:claimant_id True %}
+          {% lookup responses 'amount_income_over_high_income_limit_'|add:claimant_id %}
       </span>
     </td>
   </tr>
@@ -40,7 +40,7 @@ Income Over $150,000
     <td class="total">Guidelines table amount</td>
     <td class="amount">$
       <span class="actual">
-          {% lookup responses 'total_guideline_amount_'|add:claimant_id True %}
+          {% lookup responses 'total_guideline_amount_'|add:claimant_id %}
       </span>
     </td>
   </tr>

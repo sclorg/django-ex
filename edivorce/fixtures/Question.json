@@ -1519,6 +1519,18 @@
 },
 {
     "fields": {
+        "name": "Difference between the Guidelines table amount of the claimant and the Guidelines table amount of the respondent",
+        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "difference_between_claimants"
+},
+{
+    "fields": {
         "name": "Special or extraordinary expenses (as per Section 7 of the Federal Child Support Guidelines) to be paid annually",
         "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
         "summary_order": 0,
@@ -1624,6 +1636,18 @@
     },
     "model": "core.question",
     "pk": "total_paid_child_support"
+},
+{
+    "fields": {
+        "name": "Difference between Guidelines table amounts",
+        "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "difference_payment_amounts"
 },
 {
     "fields": {

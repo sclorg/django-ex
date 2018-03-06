@@ -171,10 +171,6 @@ def integer(value):
 
 
 @register.simple_tag()
-def lookup(obj, property, money_format=None):
+def lookup(obj, property):
     """ Return the value of a dynamic property within an object"""
-    val = obj.get(property, '')
-    # if money_format:
-    #     return money(val)
-    # else:
-    return val
+    return obj.get(property, '')
