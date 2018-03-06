@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^dashboard/(?P<nav_step>.*)', main.dashboard_nav, name="dashboard_nav"),
     url(r'^health$', system.health),
     url(r'^legal', main.legal, name="legal"),
+    url(r'^acknowledgements', main.acknowledgements, name="acknowledgements"),
 
     # url(r'^headers$', system.headers),
 

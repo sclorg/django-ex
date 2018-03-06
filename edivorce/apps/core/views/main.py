@@ -227,6 +227,12 @@ def legal(request):
     return render(request, 'legal.html', context={'active_page': 'legal'})
 
 
+def acknowledgements(request):
+    """
+    Acknowledgements page
+    """
+    return render(request, 'acknowledgements.html', context={'active_page': 'acknowledgements'})
+
 @bceid_required
 def intercept_page(request):
     """
