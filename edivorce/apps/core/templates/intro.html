@@ -3,10 +3,10 @@
 {% block title %}{{ block.super }}: Intro{% endblock %}
 
 {% block container %}intro-page{% endblock %}
+{% block container_col %}shroud{% endblock %}
 
 {% block content %}
-
-<h1>Make Your Divorce Process Manageable</h1>
+    <h1>Make Your Joint<span class="footnote-marker">*</span> Divorce Process Manageable</h1>
 
 <p class="intro">Forms, deadlines, tasks... Divorce can be a difficult enough time as it is without having to navigate through confusing legal language. That's why this online tool is here: to help you get through the details, procedures, and paperwork.</p>
 
@@ -43,6 +43,11 @@
     <strong>Returning User?</strong><a href="{% url 'login' %}"><br />Log in with BCeID</a>
 </p>
 
+<p class="footnote">
+        Joint divorce means making an application for a divorce together with your spouse. It means that you and your
+        spouse agree about getting a divorce and that you agree about all of the family law issues relevant to your
+        situation, such as spousal support, and the division of family property and debts.
+</p>
 {% endblock %}
 
 {% block formbuttons %}

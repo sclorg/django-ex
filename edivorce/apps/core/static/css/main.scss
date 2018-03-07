@@ -1256,6 +1256,7 @@ textarea {
 	height: 100%;
 	overflow: hidden;
 	background: #fdfdfd;
+	position: relative;
 
 	.col {
 		-webkit-box-flex: 1;
@@ -1265,6 +1266,18 @@ textarea {
 		-webkit-box-ordinal-group: 4;
 		-ms-flex-order: 3;
 		order: 3;
+
+		&.shroud {
+			&:before {
+				content: "";
+				position: absolute;
+				width: 100%;
+				display: block;
+				height: 100%;
+				background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 90%);
+				//z-index: 1;
+			}
+		}
 	}
 
 	.content-column {
@@ -1272,6 +1285,7 @@ textarea {
 		/* padding: 35px 50px 50px 50px;*/
 		max-width: 1280px;
 		padding: 36px 6% 50px;
+		position: relative;
 	}
 
 	.progress-column {
@@ -1352,6 +1366,7 @@ textarea {
 			padding: 0 20px;
 			text-align: center;
 			color: #ffffff;
+			position: relative;
 
 			h1,
 			h2,
@@ -1753,6 +1768,20 @@ textarea {
 	background: #f5f5f5;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
+}
+
+.footnote-marker {
+    font-size: 18px;
+    top: -10px;
+    position: relative;
+    display: inline-block;
+    left: 1px;
+    margin-right: 1px;
+}
+
+.footnote {
+	margin-top: 72px;
+	font-size: 14px;
 }
 
 #delete_child_modal,
