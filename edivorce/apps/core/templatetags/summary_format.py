@@ -135,6 +135,7 @@ def format_children(context, source):
         'agree_to_child_support_amount',
         'have_separation_agreement',
         'have_court_order',
+        'what_parenting_arrangements',
         'order_respecting_arrangement',
         'order_for_child_support',
         'child_support_act'
@@ -148,7 +149,7 @@ def format_children(context, source):
     fact_sheet_mapping['Undue Hardship (Fact Sheet E)'] = reverse('question_steps', args=['children', 'facts'])
     fact_sheet_mapping['Income over $150,000 (Fact Sheet F)'] = reverse('question_steps', args=['children', 'facts'])
 
-    child_support_orders = {'have_court_order', 'order_respecting_arrangement', 'order_for_child_support'}
+    child_support_orders = {'have_court_order', 'what_parenting_arrangements', 'order_respecting_arrangement', 'order_for_child_support'}
 
     tags = []
     # process mapped questions first

@@ -829,7 +829,17 @@
 },
 {
     "fields": {
-        "name": "If you are asking for an order respecting parenting arrangements or contact please describe what you are asking for.",
+        "name": "What parenting arrangements have been made for the children of the marriage?",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 0,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "what_parenting_arrangements"
+},
+{
+    "fields": {
+        "name": "If you are asking the court to include an order about parenting arrangements or contact with a child, please indicate the orders you are asking for below.",
         "description": "For Step 6, Your children - What are you asking for",
         "summary_order": 0,
         "required": "Required"
