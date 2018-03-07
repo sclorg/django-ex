@@ -262,19 +262,13 @@
         can grant an order for divorce.
     </p>
     <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Amount</th>
-            </tr>
-        </thead>
         <tbody>
             <tr>
                 <td class="fact-sheet-question">
-                    How many children spend more than 60 percent of their time with you and for whom you are asking for support?
+                    How many children spend more than <strong>60 percent of their time</strong> with you and for whom you are asking for support?
                 </td>
                 <td class="fact-sheet-answer table-bordered">
-                    {% input_field type="number" name="number_of_children_claimant" class="positive-integer fact-sheet-input" %}
+                    {% input_field type="number" name="number_of_children_claimant" class="positive-integer fact-sheet-input number-spinner" min="0"%}
                 </td>
             </tr>
             <tr>
