@@ -234,14 +234,16 @@
                 <td colspan="3">
                     <p>
                         Any other relevant information regarding the conditions, means, needs and other circumstances of
-                    each spouse or of any child for whom support is sought?
+                        each spouse or of any child for whom support is sought?
                     </p>
                     {% input_field type="textarea" name="additional_relevant_spouse_children_info" maxlength="500" rows="3" class="fact-sheet-input form-control response-textarea" %}
                 </td>
             </tr>
             <tr>
                 <td class="fact-sheet-question">
-                   Amount of child support to be paid per month by {% payorize %}
+                    <p>Amount of child support to be paid per month by <span class="payor-placeholder">payor</span></p>
+                    <p>Please note: this value will be calculated for you after you have indicated
+                        <a href="#who_is_payor">who is the payor</a>.</p>
                 </td>
                 <td class="fact-sheet-answer" colspan="2" readonly>
                     <div class="dollar-prefix">
@@ -386,7 +388,7 @@
     </table>
 </div>
 
-    <div class="question-well">
+    <div class="question-well" id="who_is_payor">
         {% money_input_field name="annual_gross_income" hidden="true" %}
         {% money_input_field name="spouse_annual_gross_income" hidden="true" %}
         <span id="__name_you" hidden>{{ name_you }}</span>
