@@ -10,25 +10,5 @@
         {% include 'pdf/partials/fact_sheet_f_table.html' with claimant_id='spouse'%}
     {% endif %}
 
-  {% if responses.does_payour_amount_match_guidelines	== 'YES' %}
-    <p>
-      We have agreed on the Guidelines table amount set out at Line D above as
-      the amount of child support.
-    </p>
-  {% else %}
-    <p>
-      We have agreed on an amount of child support that differs from the Guidelines table amount and the amount of child support agreed on is:
-      <ol class="parens-list">
-        <li>{{ responses.order_monthly_child_support_amount|money }}, and</li>
-        <li>
-          <p>differs from the Guidelines table amount because:</p>
-          <p>{{ responses.reason_child_support_amount|linebreaksbr }}</p>
-        </li>
-      </ol>
-    </p>
-    <p>
-    </p>
-  {% endif %}
-
 </div>
 {% endif %}

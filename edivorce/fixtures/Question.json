@@ -1009,7 +1009,7 @@
 },
 {
     "fields": {
-        "name": "What is the amount that you and your spouse have agreed to?",
+        "name": "Do you and your spouse agree that amount is he child support amount?",
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
@@ -1017,11 +1017,23 @@
         "reveal_response": ">150000"
     },
     "model": "core.question",
-    "pk": "agree_to_child_support_amount"
+    "pk": "agree_to_child_support_amount_you"
 },
 {
     "fields": {
-        "name": "What is the amount that you and your spouse have agreed to?",
+        "name": "Do you and your spouse agree that amount is he child support amount?",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "annual_gross_income",
+        "reveal_response": ">150000"
+    },
+    "model": "core.question",
+    "pk": "agree_to_child_support_amount_spouse"
+},
+{
+    "fields": {
+        "name": "What is the amount that you and your spouse have agreed to (that differs from the Child Support Guidelines table amount)?",
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
@@ -1029,7 +1041,19 @@
         "reveal_response": "NO"
     },
     "model": "core.question",
-    "pk": "agreed_child_support_amount"
+    "pk": "agreed_child_support_amount_you"
+},
+{
+    "fields": {
+        "name": "What is the amount that you and your spouse have agreed to (that differs from the Child Support Guidelines table amount)?",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimants_agree_to_child_support_amount",
+        "reveal_response": "NO"
+    },
+    "model": "core.question",
+    "pk": "agreed_child_support_amount_spouse"
 },
 {
     "fields": {
@@ -1041,7 +1065,19 @@
         "reveal_response": "NO"
     },
     "model": "core.question",
-    "pk": "reason_child_support_amount"
+    "pk": "reason_child_support_amount_you"
+},
+{
+    "fields": {
+        "name": "Why do you think the court should approve your proposed amount?",
+        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimants_agree_to_child_support_amount",
+        "reveal_response": "NO"
+    },
+    "model": "core.question",
+    "pk": "reason_child_support_amount_spouse"
 },
 {
     "fields": {

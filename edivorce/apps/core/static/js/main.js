@@ -1,5 +1,5 @@
 // Reveal sections as the form is loading
-$('input:radio, input:checkbox').each(function () {
+var reveal_input_elements = function () {
     if ($(this).is(':checked')) {
         if ($(this).is(':visible')) {
             reveal($(this));
@@ -9,7 +9,9 @@ $('input:radio, input:checkbox').each(function () {
             $(this).parent().addClass('active');
         }
     }
-});
+};
+
+$('input:radio, input:checkbox').each(reveal_input_elements);
 
 $('input[type=number]').each(function() {
     if ($(this).is(':visible')) {
@@ -470,7 +472,9 @@ $(function () {
             if (hide) {
                 $('#fact_sheet_f_table_' + table_suffix).hide();
             } else {
-                $('#fact_sheet_f_table_' + table_suffix).show();
+                var fact_sheet_table_element = $('#fact_sheet_f_table_' + table_suffix);
+                fact_sheet_table_element.show();
+                fact_sheet_table_element.find('input:radio, input:checkbox').each(reveal_input_elements);
             }
 
             if (claimant_name_selector) {

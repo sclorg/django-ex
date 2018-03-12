@@ -174,3 +174,9 @@ def integer(value):
 def lookup(obj, property):
     """ Return the value of a dynamic property within an object"""
     return obj.get(property, '')
+
+
+@register.simple_tag(takes_context=True)
+def agreed_child_support_amount(context, claimant_id):
+    """Return the agree amount for the specific claimant fact sheet table."""
+    return linebreaksli(context.get('amount_income_over_high_income_limit_{}'.format(claimant_id), ''))

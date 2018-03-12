@@ -46,3 +46,24 @@ Income Over $150,000
   </tr>
 </tbody>
 </table>
+
+
+  {% if responses.does_payour_amount_match_guidelines	== 'YES' %}
+    <p>
+      We have agreed on the Guidelines table amount set out at Line D above as
+      the amount of child support.
+    </p>
+  {% else %}
+    <p>
+      We have agreed on an amount of child support that differs from the Guidelines table amount and the amount of child support agreed on is:
+      <ol class="parens-list">
+        <li>{% lookup responses 'agreed_child_support_amount_'|add:claimant_id %}, and</li>
+        <li>
+          <p>differs from the Guidelines table amount because:</p>
+          <p>{% lookup responses 'reason_child_support_amount_'|add:claimant_id %}</p>
+        </li>
+      </ol>
+    </p>
+    <p>
+    </p>
+  {% endif %}
