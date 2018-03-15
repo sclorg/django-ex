@@ -33,12 +33,20 @@
             <em> In the Supreme Court of British Columbia </em>
         </p>
         <p>
-            Claimant 1: {% if responses.name_you %} {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
-                        {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+          <span class="claimant-label">Claimant 1:</span>
+{% if responses.name_you %}
+  {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
+{% else %}
+          <span class="form-entry not-complete">&nbsp;</span>
+{% endif %}
         </p>
         <p>
-            Claimant 2: {% if responses.name_spouse %} {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
-                        {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+          <span class="claimant-label">Claimant 2:</span>
+{% if responses.name_spouse %}
+  {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
+{% else %}
+          <span class="form-entry not-complete">&nbsp;</span>
+{% endif %}
         </p>
         <h2 align="center">
            CERTIFICATE OF PLEADINGS
@@ -59,7 +67,7 @@
                 </tr>
             </tbody>
         </table>
-        <hr />
+        <hr style="margin-top: 5in;" />
         <small>Printed on {% now "F jS, Y" %} from https://justice.gov.bc.ca/divorce</small>
     </div>
 </body>
