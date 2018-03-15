@@ -36,8 +36,15 @@
 
         <p class="text-right">
             This is the <span class="form-entry-sm not-complete form-underline"></span> affidavit<br>
-            of {% required responses.name_you %} and<br>
-            {% required responses.name_spouse %} in this case,<br>
+            of
+{% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 1' %}
+            {% required responses.name_you %}
+{% endif %}
+{% if responses.which_claimant == 'both' %}and<br>{% endif %}
+{% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 2' %}
+            {% required responses.name_spouse %}
+{% endif %}
+            in this case,<br>
             and was made on <span class="form-entry-md not-complete form-underline"></span>
         </p>
 
