@@ -21,7 +21,7 @@
 
 <body>
 
-    <div class="print-wrapper">
+    <div class="print-wrapper f35">
 
         <h1 class="text-center">Form F35 <br>(Rule 10-10 (2))</h1>
         <p class="text-right">
@@ -34,12 +34,20 @@
             <em> In the Supreme Court of British Columbia </em>
         </p>
         <p>
-            Claimant 1: {% if responses.name_you %} {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
-                        {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+          <span class="claimant-label">Claimant 1:</span>
+{% if responses.name_you %}
+  {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
+{% else %}
+          <span class="form-entry not-complete">&nbsp;</span>
+{% endif %}
         </p>
         <p>
-            Claimant 2: {% if responses.name_spouse %} {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
-                        {% else %} <span class="form-entry not-complete">&nbsp;</span> {% endif %}
+          <span class="claimant-label">Claimant 2:</span>
+{% if responses.name_spouse %}
+  {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
+{% else %}
+          <span class="form-entry not-complete">&nbsp;</span>
+{% endif %}
         </p>
         <h2 class="text-center">
            REQUISITION
@@ -59,62 +67,29 @@
             <strong>FILED WITH THIS REQUISITION ARE:</strong>
         </p>
 
-        <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> draft of the order sought;
-        </p>
-        <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> proof that the case is an undefended family law case;
-        </p>
-        <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> certificate of the registrar in Form F36;
-        </p>
-        <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> filing fee.
-        </p>
-        <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> proof of service of the notice of family claim or counterclaim, as the case may be.
-        </p>
-        <p class="schIndent1">
-            <i class="fa fa-square-o" aria-hidden="true"></i> Child Support Affidavit in Form F37.
-        </p>
-        <p class="schIndent1 force-break">
-            <i class="fa fa-square-o" aria-hidden="true"></i> affidavit in Form F38.
-        </p>
-
-        <br><br><br>
-        <table class="table sig-table">
-            <tbody>
-                <tr>
-                    <td class="sig-col1">Date:</td>
-                    <td class="sig-col2 underline"></td>
-                    <td class="sig-col3"></td>
-                    <td class="sig-col4 underline"></td>
-                </tr>
-                <tr>
-                    <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
-                    <td class="sig-col3"></td>
-                    <td class="sig-col4 sig-line-text">
-                        <p>Signature of</p>
-                        <p><i class="fa fa-square-o" aria-hidden="true"></i> filing party <i class="fa fa-square-o" aria-hidden="true"></i> lawyer for filing party(ies)</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="sig-col1"></td>
-                    <td class="sig-col2">&nbsp;</td>
-                    <td class="sig-col3"></td>
-                    <td class="sig-col4 underline"></td>
-                </tr>
-                <tr>
-                    <td class="sig-col1"></td>
-                    <td class="sig-col2"></td>
-                    <td class="sig-col3"></td>
-                    <td class="sig-col4 sig-line-text"> [Print name] </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <br><br>
+        <div class="checkbox-list">
+          <p>
+            <span class="fake-checkbox"></span> draft of the order sought;
+          </p>
+          <p>
+            <span class="fake-checkbox"></span> proof that the case is an undefended family law case;
+          </p>
+          <p>
+            <span class="fake-checkbox"></span> certificate of the registrar in Form F36;
+          </p>
+          <p>
+            <span class="fake-checkbox"></span> filing fee.
+          </p>
+          <p>
+            <span class="fake-checkbox"></span> proof of service of the notice of family claim or counterclaim, as the case may be.
+          </p>
+          <p>
+            <span class="fake-checkbox"></span> Child Support Affidavit in Form F37.
+          </p>
+          <p>
+            <span class="fake-checkbox"></span> affidavit in Form F38.
+          </p>
+        </div>
 
         <table class="table sig-table">
             <tbody>
@@ -123,33 +98,56 @@
                     <td class="sig-col2 underline"></td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 underline"></td>
+                    <td class="sig-col3"></td>
+                    <td class="sig-col5 underline"></td>
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
                     <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
-                        <p>Signature of</p>
-                        <p><i class="fa fa-square-o" aria-hidden="true"></i> filing party <i class="fa fa-square-o" aria-hidden="true"></i> lawyer for filing party(ies)</p>
+                      <p>Signature of</p>
+                      <p style="white-space: nowrap">
+                      <span class="fake-checkbox"></span> filing party
+                          <span class="fake-checkbox"></span> lawyer for filing party(ies)
+                        </p>
                     </td>
-                </tr>
-                <tr>
-                    <td class="sig-col1"></td>
-                    <td class="sig-col2">&nbsp;</td>
                     <td class="sig-col3"></td>
-                    <td class="sig-col4 underline"></td>
-                </tr>
-                <tr>
-                    <td class="sig-col1"></td>
-                    <td class="sig-col2"></td>
-                    <td class="sig-col3"></td>
-                    <td class="sig-col4 sig-line-text"> [Print name] </td>
+                    <td class="sig-col5 sig-line-text">
+                        <p>[Print name]<p>
+                    </td>
                 </tr>
             </tbody>
         </table>
-        <p class="text-right">
-            <span class="form-entry not-complete"></span>
-        </p>
+
+        <table class="table sig-table">
+            <tbody>
+                <tr>
+                    <td class="sig-col1">Date:</td>
+                    <td class="sig-col2 underline"></td>
+                    <td class="sig-col3"></td>
+                    <td class="sig-col4 underline"></td>
+                    <td class="sig-col3"></td>
+                    <td class="sig-col5 underline"></td>
+                </tr>
+                <tr>
+                    <td class="sig-col1"></td>
+                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
+                    <td class="sig-col3"></td>
+                    <td class="sig-col4 sig-line-text">
+                      <p>Signature of</p>
+                      <p style="white-space: nowrap">
+                      <span class="fake-checkbox"></span> filing party
+                          <span class="fake-checkbox"></span> lawyer for filing party(ies)
+                        </p>
+                    </td>
+                    <td class="sig-col3"></td>
+                    <td class="sig-col5 sig-line-text">
+                        <p>[Print name]<p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <hr />
         <small>Printed on {% now "F jS, Y" %} from https://justice.gov.bc.ca/divorce</small>
     </div>

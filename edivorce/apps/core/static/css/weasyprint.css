@@ -43,7 +43,7 @@ h3 {
 
 hr {
     border-top: 1px solid #000000;
-    margin: 40px 0;
+    margin: 40px 0 0;
 }
 
 i.fa {
@@ -79,12 +79,17 @@ i.fa {
     min-height: 200px;
 }
 
+.claimant-label {
+  float: left;
+}
+
 .form-entry_claimant {
     text-align: center;
     font-weight: bold;
     font-size: 18px;
     display: block;
-    margin: -22px 90px 40px;
+    margin-bottom: 20px;
+    padding: 0 150px;
 }
 
 .table-fixed {
@@ -104,6 +109,16 @@ i.fa {
     page-break-inside: avoid;
 }
 
+.sig-table {
+    table-layout: fixed;
+    width: auto;
+    margin-top: 60px;
+    margin-bottom: 0;
+}
+.sig-table tbody tr td {
+  padding: 0;
+}
+
 .sig-table td.underline {
     border-bottom: 1px solid black;
 }
@@ -111,18 +126,22 @@ i.fa {
     font-size: 0.88em;
 }
 .sig-table .sig-col1 {
-    max-width: 30px;
+  width: 0.5in;
 }
 .sig-table .sig-col2 {
-    width: 220px;
-    padding-left: 0;
+  width: 1.25in;
 }
 .sig-table .sig-col3 {
-    max-width: 10px;
+  width: 0.25in;
 }
 
 .sig-table .sig-col4 {
-    width: 350px;
+    width: 3.25in;
+    padding-left: 0;
+}
+
+.sig-table .sig-col5 {
+  width: 2in;
     padding-left: 0;
 }
 
@@ -260,3 +279,20 @@ ol.force-break-last > li:last-child {
   page-break-before: always;
 }
 
+.fake-checkbox {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  border: solid 2px black;
+  margin-bottom: -4px;
+}
+
+.sig-line-text .fake-checkbox {
+  margin-left: 0.5em; 
+  margin-right: 0.5em;
+}
+
+.checkbox-list p {
+  margin-bottom: 3px;
+}
