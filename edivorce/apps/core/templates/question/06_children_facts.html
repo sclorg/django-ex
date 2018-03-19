@@ -217,16 +217,16 @@
               This is a copy of an official work that is published by the Government of Canada and that this copy has
               not been produced in affiliation with, or with the endorsement of the Government of Canada."><i class="fa fa-question-circle" aria-hidden="true"></i>
                     </span>
-                    ) to be paid annually
+                    ) to be paid monthly
                 </td>
-                <td class="fact-sheet-answer">
+                <td class="fact-sheet-answer" readonly>
                     <div class="dollar-prefix">
-                        {% money_input_field name="extra_ordinary_expenses_you" class="money sfact-sheet-input" %}
+                        {% money_input_field name="your_proportionate_share_amount" class="money sfact-sheet-input" readonly="" %}
                     </div>
                 </td>
-                <td class="fact-sheet-answer">
+                <td class="fact-sheet-answer" readonly="">
                     <div class="dollar-prefix">
-                        {% money_input_field name="extra_ordinary_expenses_spouse" class="money fact-sheet-input" %}
+                        {% money_input_field name="spouse_proportionate_share_amount" class="money fact-sheet-input" readonly="" %}
                     </div>
                 </td>
             </tr>
