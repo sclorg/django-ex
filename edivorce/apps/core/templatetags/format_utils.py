@@ -177,6 +177,9 @@ def lookup(obj, property):
 
 
 @register.simple_tag(takes_context=True)
-def agreed_child_support_amount(context, claimant_id):
+def agreed_child_support_amount(context, claimant_id, line_breaks=True):
     """Return the agree amount for the specific claimant fact sheet table."""
-    return linebreaksli(context.get('amount_income_over_high_income_limit_{}'.format(claimant_id), ''))
+    if not line_breaks:
+        return context.get('amount_income_over_high_income_limit_{}'.format(claimant_id), '')
+    else:
+        return linebreaksli(context.get('amount_income_over_high_income_limit_{}'.format(claimant_id), ''))

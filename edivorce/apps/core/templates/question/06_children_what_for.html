@@ -18,10 +18,13 @@
             expenses:
         </h3>
             <span id="child_support_payor" hidden>{{ child_support_payor }}</span>
+            <span id="payor_monthly_child_support_amount" hidden>{{ payor_monthly_child_support_amount }}</span>
             <span id="your_proportionate_share_amount" hidden>{{ your_proportionate_share_amount }}</span>
             <span id="spouse_proportionate_share_amount" hidden>{{ spouse_proportionate_share_amount }}</span>
             <span id="fact_sheet_b_proposed_amount" hidden>{{ difference_between_claimants }}</span>
             <span id="fact_sheet_c_proposed_amount" hidden>{{ difference_payment_amounts }}</span>
+            <span id="show_fact_sheet_b" hidden>{{ derived.show_fact_sheet_b }}</span>
+            <span id="show_fact_sheet_c" hidden>{{ derived.show_fact_sheet_c }}</span>
         <h3>
             $<span id="total_child_support_payment"></span>
         </h3>
