@@ -269,7 +269,7 @@
           </li>
 
           <li>  <!-- 7 -->
-  {% if 'None' in responses.special_extraordinary_expenses %}
+  {% if responses.special_extraordinary_expenses == 'NO'%}
             Expenses under section 7 of the Child Support Guidelines are not
             included in the proposed order.
   {% else %}

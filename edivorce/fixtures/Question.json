@@ -1281,7 +1281,7 @@
 },
 {
     "fields": {
-        "name": "Are there any special and extraordinary expenses?",
+        "name": "Are you claiming any special and extraordinary expenses?",
         "description": "For Step 6, Your children - Income & expenses",
         "summary_order": 0,
         "required": "Required"

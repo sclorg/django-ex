@@ -135,8 +135,7 @@ def show_fact_sheet_a(responses, derived):
     indicated.
     """
 
-    expenses = json.loads(responses.get('special_extraordinary_expenses', '[]'))
-    return len(expenses) > 0 and "None" not in expenses
+    return responses.get('special_extraordinary_expenses', '') == 'YES'
 
 
 def show_fact_sheet_b(responses, derived):

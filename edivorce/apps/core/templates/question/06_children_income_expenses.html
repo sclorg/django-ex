@@ -350,7 +350,7 @@
 
     <div class="question-well">
         <h3>
-            Are there any
+            Are you claiming any
             <span class="tooltip-link"
                   data-toggle="tooltip" data-placement="right" data-html="true"
                   title="
@@ -366,47 +366,15 @@
                     special and extraordinary expenses<i class="fa fa-question-circle" aria-hidden="true"></i>
             </span>?
         </h3>
-        <div class="checkbox-group">
-            <div class="checkbox">
-                <label>{% input_field type="checkbox" name="special_extraordinary_expenses" value="None" data_checkbox_radio="true" data_checkbox_radio_state_set="false" data_target_id="fact_sheet_a" data_reveal_target="false" %}
-                    <b>None</b>
-                </label>
-            </div>
-            <div class="checkbox">
-                <label>{% input_field type="checkbox" name="special_extraordinary_expenses" value="Children's Child Care" class="positive-reveal" data_checkbox_radio="true" data_checkbox_radio_state_set="true" data_target_id="fact_sheet_a" data_reveal_target="true" data_reveal_control_group=".positive-reveal" %}
-                    <b>Children's Child Care</b>
-                </label>
-            </div>
-            <div class="checkbox">
-                <label>{% input_field type="checkbox" name="special_extraordinary_expenses" value="Medical" class="positive-reveal" data_checkbox_radio="true" data_checkbox_radio_state_set="true" data_target_id="fact_sheet_a" data_reveal_target="true" data_reveal_control_group=".positive-reveal"%}
-                    <b>Medical</b>
-                </label>
-                <p>
-                    Health-related expenses that exceed insurance reimbursement by at least $100 per year, including
-                    orthodontic
-                    treatments, counseling, physiotherapy, occupational therapy, speech therapy, hearing therapy,
-                    prescription
-                    drugs, hearing aids, glasses, and contact lenses
-                </p>
-            </div>
-            <div class="checkbox">
-                <label>{% input_field type="checkbox" name="special_extraordinary_expenses" value="Education" class="positive-reveal"  data_checkbox_radio="true" data_checkbox_radio_state_set="true" data_target_id="fact_sheet_a" data_reveal_target="true" data_reveal_control_group=".positive-reveal"%}
-                    <b>Education</b>
-                </label>
-                <p>
-                    Expenses for post-secondary education, tutoring, private school (if the child was attending private
-                    school before the separation and the parents can afford the expense)
-                </p>
-            </div>
-            <div class="checkbox">
-                <label>{% input_field type="checkbox" name="special_extraordinary_expenses" value="Extraordinary extracurricular activity expenses" class="positive-reveal"  data_checkbox_radio="true" data_checkbox_radio_state_set="true" data_target_id="fact_sheet_a" data_reveal_target="true" data_reveal_control_group=".positive-reveal"%}
-                    <b>Extraordinary extracurricular activity expenses</b>
-                </label>
-                <p>
-                    Expenses for activities in which the child excels and is shown to be particularly gifted (for example,
-                    expenses for a child who is a gifted figure skater, but not expenses for general skating lessons)
-                </p>
-            </div>
+
+        <div class="btn-radio-group" data-toggle="buttons">
+            <label class="btn btn-radio">
+                {% input_field type="radio" name="special_extraordinary_expenses" autocomplete="off" value="YES" data_target_id="fact_sheet_a" data_reveal_target="true" %} Yes
+            </label>
+
+            <label class="btn btn-radio">
+                {% input_field type="radio" name="special_extraordinary_expenses" autocomplete="off" value="NO" data_target_id="fact_sheet_a" data_reveal_target="false" %} No
+            </label>
         </div>
     </div>
 
