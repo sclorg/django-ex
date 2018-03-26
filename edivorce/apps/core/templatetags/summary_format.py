@@ -182,7 +182,7 @@ def format_children(context, source):
                 item = list(filter(lambda x: x['question_id'] == question, working_source))
 
                 # skip child support order related questions if user did not select that option
-                if question in child_support_orders:
+                if question in child_support_orders and len(item):
                     item = item.pop()
                     if context['derived']['wants_child_support'] is True:
                         # make sure free form text is reformted to be bullet list.
