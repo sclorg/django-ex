@@ -809,6 +809,16 @@
 },
 {
     "fields": {
+        "name": "Total monthly child support payment amount including the monthly Guidelines table amount under Schedule 1 of the Guidelines and the section 7 expenses",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 0,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "total_child_support_payment"
+},
+{
+    "fields": {
         "name": "Do you have a separation agreement that sets out what you've agreed to around parenting and child support?",
         "description": "For Step 6, Your children - What are you asking for",
         "summary_order": 0,

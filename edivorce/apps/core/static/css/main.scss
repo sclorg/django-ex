@@ -121,6 +121,17 @@ img {
 	height: auto;
 }
 
+input[type='text'] {
+	&.border-less-heading {
+		border: none;
+		color: $brand-titles;
+		&:focus {
+			box-shadow: none;
+			outline: none;
+		}
+	}
+}
+
 /* For Firefox */
 input[type='number'] {
     -moz-appearance:textfield;

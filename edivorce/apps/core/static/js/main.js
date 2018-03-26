@@ -225,9 +225,9 @@ $(function () {
         return (payorMonthlyChildSupportAmount + payorShare + factSheet_B_ProposedAmount + factSheet_C_ProposedAmount).toFixed(2);
     };
 
-    $('#total_child_support_payment').text(calcTotalChildSupportPayment());
+    $('#total_child_support_payment').val(calcTotalChildSupportPayment()).change();
     $('#total_extraordinary_expense_monthly').on('change', function() {
-        $('#total_child_support_payment').text(calcTotalChildSupportPayment());
+        $('#total_child_support_payment').val(calcTotalChildSupportPayment()).change();
     });
 
 
