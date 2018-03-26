@@ -14,8 +14,7 @@ template_step_order = {
     'other_orders': 9,
     'other_questions': 10,
     'location': 11,
-    'fact_sheets': 12,
-    'review': 13
+    'review': 12
 }
 
 template_sub_step_order = {
