@@ -71,3 +71,5 @@ target/
 .sass-cache/
 *.map
 
+venv/
+.vs/
