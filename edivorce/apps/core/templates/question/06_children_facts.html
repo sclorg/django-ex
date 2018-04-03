@@ -54,14 +54,14 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="percent-suffix">
-                        {% input_field type="number" name="time_spent_with_you" class="fact-sheet-input" min="0" %}
-                        <label>%</label>
+                        {% input_field type="number" name="time_spent_with_you" class="fact-sheet-input" min="0" placeholder="enter number" %}
+                        <label> %</label>
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="percent-suffix">
-                        {% input_field type="number" name="time_spent_with_spouse" class="fact-sheet-input" min="0" %}
-                        <label>%</label>
+                        {% input_field type="number" name="time_spent_with_spouse" class="fact-sheet-input" min="0" placeholder="enter number" %}
+                        <label> %</label>
                     </div>
                 </td>
             </tr>
@@ -127,12 +127,12 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field id="fact_b_your_child_support_paid" name="your_child_support_paid" class="fact-sheet-input claimants-child-support-amounts" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_between_claimants]" data_mirror="true" data_mirror_target="#fact_c_your_child_support_paid" %}
+                        {% money_input_field id="fact_b_your_child_support_paid" name="your_child_support_paid" class="fact-sheet-input claimants-child-support-amounts" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_between_claimants]" data_mirror="true" data_mirror_target="#fact_c_your_child_support_paid" placeholder="enter amount" %}
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field id="fact_b_your_spouse_child_support_paid" name="your_spouse_child_support_paid" class="fact-sheet-input claimants-child-support-amounts" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_between_claimants]" data_mirror="true" data_mirror_target="#fact_c_your_spouse_child_support_paid" %}
+                        {% money_input_field id="fact_b_your_spouse_child_support_paid" name="your_spouse_child_support_paid" class="fact-sheet-input claimants-child-support-amounts" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_between_claimants]" data_mirror="true" data_mirror_target="#fact_c_your_spouse_child_support_paid" placeholder="enter amount" %}
                     </div>
                 </td>
             </tr>
@@ -270,7 +270,7 @@
                     How many children spend more than <strong>60 percent of their time</strong> with you and for whom you are asking for support?
                 </td>
                 <td class="fact-sheet-answer table-bordered">
-                    {% input_field type="number" name="number_of_children_claimant" class="positive-integer fact-sheet-input number-spinner" min="0"%}
+                    {% input_field type="number" name="number_of_children_claimant" class="positive-integer fact-sheet-input number-spinner" min="0" placeholder="enter number" %}
                 </td>
             </tr>
             <tr>
@@ -324,7 +324,7 @@
                     How many children spend more than <strong>60 percent of their time</strong> with your spouse and for whom you are obliged to pay support?
                 </td>
                 <td class="fact-sheet-answer table-bordered">
-                    {% input_field type="number" name="number_of_children_claimant_spouse" class="positive-integer fact-sheet-input" %}
+                    {% input_field type="number" name="number_of_children_claimant_spouse" class="positive-integer fact-sheet-input number-spinner" min="0" placeholder="enter number"%}
                 </td>
             </tr>
             <tr>

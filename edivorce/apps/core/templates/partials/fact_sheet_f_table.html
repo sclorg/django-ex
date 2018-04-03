@@ -14,7 +14,7 @@
                 How many child(ren) are you asking for support?
             </td>
             <td class="fact-sheet-answer">
-                {% input_field type="number" name="number_children_seeking_support_"|add:claimant_id class="fact-sheet-input" %}
+                {% input_field type="number" name="number_children_seeking_support_"|add:claimant_id class="fact-sheet-input number-spinner" placeholder="enter number " %}
             </td>
         </tr>
         <tr>
@@ -28,7 +28,7 @@
             </td>
             <td class="fact-sheet-answer">
                 <div class="dollar-prefix">
-                    {% money_input_field name="child_support_amount_under_high_income_"|add:claimant_id class="fact-sheet-input money guideline-amount-"|add:claimant_id data_sum="true" data_sum_class="guideline-amount-"|add:claimant_id data_sum_target_id="total_amount_"|add:claimant_id %}
+                    {% money_input_field name="child_support_amount_under_high_income_"|add:claimant_id class="fact-sheet-input money guideline-amount-"|add:claimant_id data_sum="true" data_sum_class="guideline-amount-"|add:claimant_id data_sum_target_id="total_amount_"|add:claimant_id placeholder="enter amount "%}
                 </div>
             </td>
         </tr>
@@ -40,8 +40,8 @@
             </td>
             <td class="fact-sheet-answer">
                 <div class="percent-suffix">
-                    {% input_field type="number" name="percent_income_over_high_income_limit_"|add:claimant_id class="fact-sheet-input" %}
-                    <label>%</label>
+                    {% input_field type="number" name="percent_income_over_high_income_limit_"|add:claimant_id class="fact-sheet-input" placeholder="enter percentage "%}
+                    <label> %</label>
                 </div>
             </td>
         </tr>
@@ -90,7 +90,7 @@
             </td>
             <td class="fact-sheet-answer">
                 <div class="dollar-prefix">
-                    {% money_input_field name="amount_income_over_high_income_limit_"|add:claimant_id class="fact-sheet-input money guideline-amount-"|add:claimant_id data_sum="true" data_sum_class="guideline-amount-"|add:claimant_id data_sum_target_id="total_amount_"|add:claimant_id data_mirror="true" data_mirror_target="#agreed_child_support_amount_"|add:claimant_id data_mirror_broadcast_change="true"%}
+                    {% money_input_field name="amount_income_over_high_income_limit_"|add:claimant_id class="fact-sheet-input money guideline-amount-"|add:claimant_id data_sum="true" data_sum_class="guideline-amount-"|add:claimant_id data_sum_target_id="total_amount_"|add:claimant_id data_mirror="true" data_mirror_target="#agreed_child_support_amount_"|add:claimant_id data_mirror_broadcast_change="true" placeholder="enter amount "%}
                 </div>
             </td>
         </tr>

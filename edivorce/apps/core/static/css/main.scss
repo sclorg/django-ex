@@ -133,11 +133,12 @@ input[type='text'] {
 }
 
 /* For Firefox */
-input[type='number'] {
+input[type=number] {
     -moz-appearance:textfield;
 
 	&.number-spinner {
 		-moz-appearance: spinner;
+		text-align: right;
 	}
 
 }
