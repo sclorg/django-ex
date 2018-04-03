@@ -839,7 +839,7 @@
 },
 {
     "fields": {
-        "name": "What parenting arrangements have been made for the children of the marriage?",
+        "name": "The court needs to know what the current parenting arrangements are for the children of the marriage. Please describe below.",
         "description": "For Step 6, Your children - What are you asking for",
         "summary_order": 0,
         "required": "Required"
@@ -889,7 +889,7 @@
 },
 {
     "fields": {
-        "name": "What is your annual gross income as per the Federal Child Support Guidelines?",
+        "name": "What is your annual gross income as determined above?",
         "description": "For Step 6, Your children - Income & expenses",
         "summary_order": 0,
         "required": "Required"
@@ -1091,7 +1091,7 @@
 },
 {
     "fields": {
-        "name": "What is your spouse's annual gross income as per the Federal Child Support Guidelines?",
+        "name": "What is your spouse's annual gross income as determined above?",
         "description": "For Step 6, Your children - Income & expenses",
         "summary_order": 0,
         "required": "Required"
