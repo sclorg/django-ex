@@ -193,44 +193,6 @@ $(function () {
     });
 
 
-    // Fact Sheet A
-    // Dynamically calculate total child support payment for payor
-    var calcTotalChildSupportPayment = function() {
-        var payor = $('#child_support_payor').text();
-        var payorMonthlyChildSupportAmount = parseFloat($('#payor_monthly_child_support_amount').text()) || 0;
-        var yourShare = parseFloat($('#your_proportionate_share_amount').text()) || 0;
-        var spouseShare = parseFloat($('#spouse_proportionate_share_amount').text()) || 0;
-        var factSheet_B_ProposedAmount = parseFloat($('#fact_sheet_b_proposed_amount').text()) || 0;
-        var factSheet_C_ProposedAmount = parseFloat($('#fact_sheet_c_proposed_amount').text()) || 0;
-        var payorShare = 0;
-
-        if (payor === 'Myself (Claimant 1)') {
-            payorShare = yourShare;
-        }
-        else if (payor === 'My Spouse (Claimant 2)') {
-            payorShare = spouseShare;
-        }
-        else if (payor === 'Both myself and my spouse') {
-            payorShare = yourShare + spouseShare;
-        }
-
-        if ($('#show_fact_sheet_b').text() === 'False') {
-            factSheet_B_ProposedAmount = 0;
-        }
-        if ($('#show_fact_sheet_c').text() === 'False') {
-            factSheet_C_ProposedAmount = 0;
-        }
-
-        // This number should include the share paid to individual
-        return (payorMonthlyChildSupportAmount + payorShare + factSheet_B_ProposedAmount + factSheet_C_ProposedAmount).toFixed(2);
-    };
-
-    $('#total_child_support_payment').val(calcTotalChildSupportPayment()).change();
-    $('#total_extraordinary_expense_monthly').on('change', function() {
-        $('#total_child_support_payment').val(calcTotalChildSupportPayment()).change();
-    });
-
-
     // If relationship is common law and they want spousal support, update spouse_support_act with hidden input field, spouse_support_act_common_law
     if ($("#spouse_support_act_common_law").length) {
         var el = $("#spouse_support_act_common_law");

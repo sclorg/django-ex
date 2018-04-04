@@ -11,29 +11,6 @@
 
 {% block content %}
 <h1><small>Step {% step_order step="children" %}:</small>Children - What are you asking for</h1>
-
-    <div class="question-well">
-        <h3>
-            Total monthly child support payment amount including the monthly Guidelines table amount under Schedule 1 of the Guidelines and the section 7
-            expenses:
-        </h3>
-            <span id="child_support_payor" hidden>{{ child_support_payor }}</span>
-            <span id="payor_monthly_child_support_amount" hidden>{{ payor_monthly_child_support_amount }}</span>
-            <span id="your_proportionate_share_amount" hidden>{{ your_proportionate_share_amount }}</span>
-            <span id="spouse_proportionate_share_amount" hidden>{{ spouse_proportionate_share_amount }}</span>
-            <span id="fact_sheet_b_proposed_amount" hidden>{{ difference_between_claimants }}</span>
-            <span id="fact_sheet_c_proposed_amount" hidden>{{ difference_payment_amounts }}</span>
-            <span id="show_fact_sheet_b" hidden>{{ derived.show_fact_sheet_b }}</span>
-            <span id="show_fact_sheet_c" hidden>{{ derived.show_fact_sheet_c }}</span>
-        <h3>
-            ${% input_field type="text" id="total_child_support_payment" name="total_child_support_payment" class="border-less-heading" readonly="" %}
-        </h3>
-        <p>
-            <small>
-            Please note: The value above is based on the information you entered in <a href="{% url 'question_steps' 'children' 'income_expenses'%}">Fact Sheet A - Special or Extraordinary Expenses</a>.
-            </small>
-        </p>
-    </div>
     <div class="question-well">
         <h3>What is the monthly child support amount
                 <span class="tooltip-link"

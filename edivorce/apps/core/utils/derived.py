@@ -51,6 +51,7 @@ DERIVED_DATA = [
     'claimant_2_share',
     'payor_section_seven_expenses',
     'total_monthly_support_1_and_a',
+    'total_child_support_payment_a',
     'guideline_amounts_difference',
     'claimant_debts',
     'claimant_expenses',
@@ -455,6 +456,31 @@ def guideline_amounts_difference(responses, derived):
         amount_2 = 0
 
     return abs(amount_1 - amount_2)
+
+
+def total_child_support_payment_a(response, derived):
+    """ Return the total monthly child support payable by the payor for Fact Sheet A """
+    total = 0
+    sole_custody = (all([child['child_live_with'] == 'Lives with you' for child in derived['children']]) or
+                    all([child['child_live_with'] == 'Lives with spouse' for child in derived['children']]))
+
+    if sole_custody:
+        total += derived['schedule_1_amount']
+    else:
+        if derived['show_fact_sheet_b']:
+            total += guideline_amounts_difference(response, derived)
+        if derived['show_fact_sheet_c']:
+            total += guideline_amounts_difference(response, derived)
+
+    if derived['show_fact_sheet_a']:
+        if derived['child_support_payor'] == 'Claimant 1':
+            total += derived['claimant_1_share']
+        elif derived['child_support_payor'] == 'Claimant 2':
+            total += derived['claimant_2_share']
+        else:
+            total += derived['total_section_seven_expenses']
+
+    return total
 
 
 def claimant_debts(responses, derived):
