@@ -246,11 +246,12 @@ ol.numbered-paragraphs li {
 }
 
 ol.parens-list {
-  counter-reset: list;
+  counter-reset: parens;
   margin-bottom: 10px;
 }
 
 ol.parens-list > li {
+  counter-increment: parens 1;
   list-style: none;
   position: relative;
   padding-left: 0;
@@ -260,8 +261,7 @@ ol.parens-list > li > ul > li {
 }
 
 ol.parens-list > li:before {
-  counter-increment: list;
-  content: "(" counter(list, lower-alpha) ") ";
+  content: "(" counter(parens, lower-alpha) ") ";
   position: absolute;
   left: -2.5em;
 }
