@@ -136,7 +136,7 @@ GTM_ID = 'GTM-NJLR7LT'
 
 
 def show_toolbar(request):
-    return ENVIRONMENT in ['localdev', 'test', 'minishift']
+    return ENVIRONMENT in ['localdev', 'dev', 'minishift']
 
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_toolbar,
