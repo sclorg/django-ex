@@ -206,6 +206,9 @@ def format_children(context, source):
                                 child_counter = child_counter + 1
                         else:
                             value = item['value']
+                            if q_id == 'describe_order_special_extra_expenses':
+                                pass
+
                             try:
                                 value = json.loads(item['value'])
                             except:
@@ -213,6 +216,8 @@ def format_children(context, source):
                             question_name = item['question__name']
                             if question == 'order_monthly_child_support_amount':
                                 question_name = '{} {}'.format(question_name, context['derived']['child_support_payor_by_name'])
+                            if question == 'describe_order_special_extra_expenses':
+                                value = reformat_list(value)
 
                             if isinstance(value, list):
                                 tags.append(format_row(question_name, process_list(value, q_id)))
