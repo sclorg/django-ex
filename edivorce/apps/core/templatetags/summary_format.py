@@ -109,6 +109,7 @@ def format_children(context, source):
         'payor_monthly_child_support_amount',
         'special_extraordinary_expenses',
         'Special or Extraordinary Expenses (Fact Sheet A)',
+        'describe_order_special_extra_expenses'
     ]
     question_to_heading['Payor & Fact Sheets'] = [
         'Shared Living Arrangement (Fact Sheet B)',

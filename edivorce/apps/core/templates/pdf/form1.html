@@ -453,7 +453,23 @@
                 <tr>
                     <td colname="c2">
                         <span class="td-list-item">
-                          C. {% checkbox responses.child_support_act children_of_marriage='YES' want_which_orders='Child support' %}
+                          C. {% checkbox responses.describe_order_special_extra_expenses children_of_marriage='YES' want_which_orders='Child support' special_extraordinary_expenses='YES' %}
+                        </span>
+                        <div class="td-list-text">
+                          Claimant 1 and Claimant 2 are asking for an order for Special and Extraordinary Expenses as follows:<br>
+                            <span class="form-entry form-textarea not-complete form-list-textarea">
+    {% if responses.children_of_marriage == 'YES' and responses.special_extraordinary_expenses == 'YES' and 'Child support' in responses.want_which_orders %}
+                              <ul>{{ responses.describe_order_special_extra_expenses|striptags|linebreaksli }}</ul>
+    {% endif %}
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colname="c2">
+                        <span class="td-list-item">
+                          D. {% checkbox responses.child_support_act children_of_marriage='YES' want_which_orders='Child support' %}
                         </span>
                         <div class="td-list-text">
                           Claimant 1 and Claimant 2 are asking for the orders

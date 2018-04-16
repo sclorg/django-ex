@@ -138,7 +138,8 @@ question_step_mapping = {
                       'your_proportionate_share_percent',
                       'your_proportionate_share_amount',
                       'spouse_proportionate_share_percent',
-                      'spouse_proportionate_share_amount'
+                      'spouse_proportionate_share_amount',
+                      'describe_order_special_extra_expenses'
                       ],
     'spousal_support': ['spouse_support_details', 'spouse_support_act'],
     'property_and_debt': ['deal_with_property_debt',

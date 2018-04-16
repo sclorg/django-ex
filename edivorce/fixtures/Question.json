@@ -1515,6 +1515,18 @@
 },
 {
     "fields": {
+        "name": "Please describe the order you are asking for regarding Special and Extraordinary Expenses",
+        "description": "For Step 6, Your children - Income & expenses",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "special_extraordinary_expenses",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "describe_order_special_extra_expenses"
+},
+{
+    "fields": {
         "name": "Number of children",
         "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
         "summary_order": 0,
