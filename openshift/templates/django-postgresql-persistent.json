@@ -105,7 +105,7 @@
             "from": {
               "kind": "ImageStreamTag",
               "namespace": "${NAMESPACE}",
-              "name": "python:3.5"
+              "name": "python:${PYTHON_VERSION}"
             },
             "env": [
               {
@@ -329,7 +329,7 @@
               "from": {
                 "kind": "ImageStreamTag",
                 "namespace": "${NAMESPACE}",
-                "name": "postgresql:9.5"
+                "name": "postgresql:${POSTGRESQL_VERSION}"
               }
             }
           },
@@ -436,6 +436,20 @@
       "required": true,
       "description": "The OpenShift Namespace where the ImageStream resides.",
       "value": "openshift"
+    },
+    {
+      "name": "PYTHON_VERSION",
+      "displayName": "Version of Python Image",
+      "description": "Version of Python image to be used (3.4, 3.5, 3.6 or latest).",
+      "value": "3.6",
+      "required": true
+    },
+    {
+      "name": "POSTGRESQL_VERSION",
+      "displayName": "Version of PostgreSQL Image",
+      "description": "Version of PostgreSQL image to be used (9.4, 9.5, 9.6 or latest).",
+      "value": "9.6",
+      "required": true
     },
     {
       "name": "MEMORY_LIMIT",
