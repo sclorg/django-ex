@@ -9,9 +9,9 @@ urlpatterns = [
     # url(r'^$', 'project.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    path('/', index),
+    path('', index),
     path('health', health),
-    path('admin/', include(admin.site.urls)),
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
