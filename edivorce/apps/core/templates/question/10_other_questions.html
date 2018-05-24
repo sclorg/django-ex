@@ -83,13 +83,18 @@
 {% if married_marriage_like == "Legally married" %}
     <div class="question-well">
         <h2>Divorce is to take effect on:</h2>
-        <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="divorce_take_effect_on" value="the 31st day after the date of this order" %}the 31st day after the date of this order</label></div>
-        <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="divorce_take_effect_on" value="specific date" %}a specific date
-            <span class="input-group date date-picker-group" data-allow-future-date="true">
-                {% input_field type="text" name="divorce_take_effect_on_specific_date" id="effect_date" class="date-picker-future other-textbox input-inline form-control" tabindex="-1" placeholder="MMM D, YYYY" %}
-                <span class="input-group-addon" ><i class="fa fa-calendar circle"></i></span>
-            </span>
-        </label></div>
+        <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="divorce_take_effect_on" value="the 31st day after the date of this order" data_target_id="take_effect_alert" data_reveal_target="false" %}the 31st day after the date of this order</label></div>
+        <div class="radio">
+            <label>{% input_field type="radio" class="radio-with-other" name="divorce_take_effect_on" value="specific date" data_target_id="take_effect_alert" data_reveal_target="true" %}a specific date
+                <span class="input-group date date-picker-group" data-allow-future-date="true">
+                    {% input_field type="text" name="divorce_take_effect_on_specific_date" id="effect_date" class="date-picker-future other-textbox input-inline form-control" tabindex="-1" placeholder="MMM D, YYYY" %}
+                    <span class="input-group-addon" ><i class="fa fa-calendar circle"></i></span>
+                </span>
+            </label>
+            <div class="information-message bg-danger" id="take_effect_alert" hidden>
+                <p>For urgent circumstances ONLY!</p>
+            </div>
+        </div>
         <p>
             If you select the "specific date" option you can choose to have the divorce sooner.
             However, you will need to request this as an "other" order in Step 1 of this questionnaire and you will need to provide evidence in your affidavit as to why the court should waive the 31 days.
