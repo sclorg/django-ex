@@ -27,6 +27,62 @@ Some useful commands to help you determine your current context:
 * `oc project [NAME]` - Switch to a different project context.
 * `oc projects` - Lists the projects available to you on the current server.
 
+## Setting up a local OpenShift environment
+
+If you are NOT setting up a local OpenShift environment you can skip over this section, otherwise read on.
+
+Setting up a local OpenShift environment is not much different than setting up a hosted environment, there are just a few extra steps and then you can follow the same instructions in either case.
+
+The following procedure uses the `oc cluster up` approach to provision a OpenShift Cluster directly in Docker, but you could just as easily use MiniShift which can be installed using your preferred package manager (`Chocolatey` or `Homebrew`).
+
+### Change into the top level openshift folder
+```
+cd /<PathToWorkingCopy>/openshift
+```
+
+### Provision a local OpenShift Cluster
+```
+oc-cluster-up.sh
+```
+This will start your local OpenShift cluster using persistence so your configuration is preserved across restarts.
+
+*To cleanly shutdown your local cluster use `oc-cluster-down.sh`.*
+
+**Login** to your local OpenShift instance on the command line and the Web Console, using `developer` as both the username and password.  To login to the cluster from the command line, you can get a login token from the Web Console: Login to the console.  From the **?** dropdown select **Command Line Tools**.  Click on the **Copy To Clipboard** icon next to the `oc login` line.
+
+### Create a local set of OpenShift projects
+```
+generateLocalProjects.sh
+```
+**This command will only work on a local server context.  It will fail if you are logged into a remote server.**  This will generate four OpenShift projects; tools, dev, test, and prod.  The tools project is used for builds and DevOps activities, and dev, test, and prod are a set of deployment environments.
+
+If you need (or want) to reset your local environments you can run `generateLocalProjects.sh -D` to delete all of the OpenShift projects.
+
+### Finish Up
+
+You now have a local OpenShift cluster with a set of projects that mirror what you would have in the hosted **Pathfinder** environment.
+
+You can now configure these project exactly as you would your hosted environment with one minor difference.  You will need to fix the routes **after** you have run your deployment configurations.
+
+Run the following script to create the default routes for your local environment:
+```
+updateRoutes.sh
+```
+
+### Local Override Options
+
+When running locally your can override your build and deployment parameters by generating a set of local parameters.
+
+To generate a set of local params, run;
+```
+genParams.sh -l
+```
+Local param files are ignored by Git, so you cannot accidentally commit them to the repository.
+
+This allows you to do things like redirect your builds to use a different repository and/or branch.
+
+To apply local settings while deploying your build and deployment configurations use the `-l` option with `genBuilds.sh` and `genDepls.sh`.
+
 ## 0. Build and publish the S2I image:
 
 *TODO: Add this process to the build configurations...*
