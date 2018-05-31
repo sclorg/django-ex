@@ -1,0 +1,192 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: edivorce
+  annotations:
+    description: An example Django application with a PostgreSQL database
+    tags: edivorce,python,django,postgresql
+    iconClass: icon-python
+labels:
+  template: edivorce-environment-template
+objects:
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    annotations:
+      description: Exposes and load balances the application pods
+  spec:
+    ports:
+    - name: web
+      port: 8080
+      targetPort: 8080
+    selector:
+      name: "${NAME}"
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    annotations:
+      description: Defines how to deploy the application server
+  spec:
+    strategy:
+      type: Rolling
+    triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - edivorce-django
+        from:
+          kind: ImageStreamTag
+          namespace: "${IMAGE_NAMESPACE}"
+          name: "${NAME}:${TAG_NAME}"
+    - type: ConfigChange
+    replicas: 1
+    selector:
+      name: "${NAME}"
+    template:
+      metadata:
+        name: "${NAME}"
+        labels:
+          name: "${NAME}"
+      spec:
+        containers:
+        - name: edivorce-django
+          image: " "
+          ports:
+          - containerPort: 8080
+          readinessProbe:
+            timeoutSeconds: 3
+            initialDelaySeconds: 3
+            httpGet:
+              path: "/health"
+              port: 8080
+          livenessProbe:
+            timeoutSeconds: 3
+            initialDelaySeconds: 30
+            httpGet:
+              path: "/health"
+              port: 8080
+          env:
+          - name: DATABASE_SERVICE_NAME
+            value: "${DATABASE_SERVICE_NAME}"
+          - name: DATABASE_ENGINE
+            value: "${DATABASE_ENGINE}"
+          - name: DATABASE_NAME
+            value: "${DATABASE_NAME}"
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                key: database-user
+                name: postgresql
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: database-password
+                name: postgresql
+          - name: APP_CONFIG
+            value: "${APP_CONFIG}"
+          - name: DJANGO_SECRET_KEY
+            value: "${DJANGO_SECRET_KEY}"
+          - name: ENVIRONMENT_TYPE
+            value: "${TAG_NAME}"
+          - name: PROXY_NETWORK
+            value: "${PROXY_NETWORK}"
+          - name: BASICAUTH_ENABLED
+            value: "${BASICAUTH_ENABLED}"
+          - name: BASICAUTH_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: basic-auth-username
+                name: ${NAME}
+          - name: BASICAUTH_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: basic-auth-password
+                name: ${NAME}
+          resources:
+            limits:
+              memory: "${MEMORY_LIMIT}"
+- kind: Secret
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    labels:
+      app: "${NAME}"
+  data:
+    basic-auth-password: "${BASICAUTH_PASSWORD}"
+    basic-auth-username: "${BASICAUTH_USERNAME}"
+  type: Opaque
+- kind: HorizontalPodAutoscaler
+  apiVersion: autoscaling/v1
+  metadata:
+    name: "${NAME}"
+    labels:
+      app: "${NAME}"
+  spec:
+    scaleTargetRef:
+      kind: DeploymentConfig
+      name: "${NAME}"
+    minReplicas: 1
+    maxReplicas: 4
+parameters:
+- name: NAME
+  displayName: Name
+  description: The name assigned to all of the frontend objects defined in this template.
+  required: true
+  value: edivorce-django
+- name: DATABASE_SERVICE_NAME
+  displayName: Database Service Name
+  required: true
+  value: postgresql
+- name: DATABASE_ENGINE
+  displayName: Database Engine
+  description: 'Database engine: postgresql, mysql or sqlite (default).'
+  required: true
+  value: postgresql
+- name: DATABASE_NAME
+  displayName: Database Name
+  required: true
+  value: default
+- name: APP_CONFIG
+  displayName: Application Configuration File Path
+  description: Relative path to Gunicorn configuration file (optional).
+  value: gunicorn_config.py
+- name: DJANGO_SECRET_KEY
+  displayName: Django Secret Key
+  description: Set this to a long random string.
+  generate: expression
+  from: "[\\w]{50}"
+- name: IMAGE_NAMESPACE
+  displayName: Namespace containing application images.
+  required: true
+  value: jag-csb-edivorce-tools
+- name: TAG_NAME
+  displayName: Environment TAG name
+  description: The TAG name for this environment, e.g., dev, test, prod, or minishift.
+  required: true
+  value: dev
+- name: PROXY_NETWORK
+  displayName: Network of upstream proxy (CIDR notation 0.0.0.0/0)
+  required: true
+- name: BASICAUTH_ENABLED
+  displayName: Enable basic auth (recommended for Dev and Test environments)
+  required: true
+  value: "False"
+- name: BASICAUTH_USERNAME
+  displayName: Basic Auth Username
+  description: Basic Auth Username. Needs to be basee64 encoded.
+  required: true
+  value: divorce
+- name: BASICAUTH_PASSWORD
+  displayName: Basic Auth Password
+  description: Basic Auth Password. Needs to be basee64 encoded.
+  generate: expression
+  from: "[a-zA-Z0-9]{16}"
+- name: MEMORY_LIMIT
+  displayName: Memory Limit
+  required: true
+  description: Maximum amount of memory the Django container can use.
+  value: 512Mi

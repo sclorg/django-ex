@@ -1,0 +1,79 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: ${NAME}-build
+objects:
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+- kind: BuildConfig
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    labels:
+      app: "${NAME}"
+  spec:
+    triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChange: {}
+    runPolicy: Serial
+    source:
+      type: Git
+      git:
+        ref: "${GIT_REF}"
+        uri: "${GIT_REPO_URL}"
+      contextDir: "${SOURCE_CONTEXT_DIR}"
+    strategy:
+      type: Source
+      sourceStrategy:
+        from:
+          kind: "${SOURCE_IMAGE_KIND}"
+          name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
+        env:
+        - name: NGINX_PROXY_URL
+          value: "${NGINX_PROXY_URL}"
+    output:
+      to:
+        kind: ImageStreamTag
+        name: "${NAME}:latest"
+parameters:
+- name: NAME
+  displayName: Name
+  description: The name assigned to all of the frontend objects defined in this template.
+  required: true
+  value: nginx-proxy
+- name: GIT_REPO_URL
+  displayName: Git Repository URL
+  description: The URL of the repository with your nginx configuration code.
+  value: https://github.com/bcgov/eDivorce
+  required: true
+- name: GIT_REF
+  displayName: Git Reference
+  description: Set this to a branch name, tag or other ref of your repository if you are not using the default branch.
+- name: SOURCE_CONTEXT_DIR
+  displayName: Source Context Directory
+  description: The folder in the Git repo that contains the config.d directory.
+  value: /openshift/templates/nginx-proxy
+- name: SOURCE_IMAGE_KIND
+  displayName: Source Image Kind
+  description: The 'kind' (type) of the  source image; typically ImageStreamTag, or DockerImage.
+  required: true
+  value: ImageStreamTag
+- name: SOURCE_IMAGE_NAME
+  displayName: Source Image Name
+  description: The name of the source image.
+  required: true
+  value: s2i-nginx
+- name: SOURCE_IMAGE_TAG
+  displayName: Source Image Tag
+  description: The tag of the source image.
+  required: true
+  value: latest
+- name: NGINX_PROXY_URL
+  displayName: NGinx Proxy URL
+  description: The URL you want NGinx to proxy to, e.g., http://<service-name>:port/
+  required: true
+  value: http://edivorce-django:8080/

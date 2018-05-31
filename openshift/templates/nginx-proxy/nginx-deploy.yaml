@@ -2,15 +2,14 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: nginx
+  name: ${NAME}-deployment-template
 labels:
-  template: nginx-environment-template
+  template: ${NAME}-deployment-template
 objects:
 - kind: DeploymentConfig
   apiVersion: v1
   metadata:
     name: "${NAME}"
-    creationTimestamp:
     labels:
       app: "${NAME}"
   spec:
@@ -32,8 +31,8 @@ objects:
         - "${NAME}"
         from:
           kind: ImageStreamTag
-          namespace: "${APP_IMAGE_NAMESPACE}"
-          name: "${APP_IMAGE_NAME}:deploy-to-${ENVIRONMENT_TYPE}"
+          namespace: "${IMAGE_NAMESPACE}"
+          name: "${NAME}:${TAG_NAME}"
     replicas: 1
     test: false
     selector:
@@ -71,7 +70,6 @@ objects:
   apiVersion: v1
   metadata:
     name: "${NAME}"
-    creationTimestamp:
     labels:
       app: "${NAME}"
   spec:
@@ -95,7 +93,7 @@ objects:
     annotations:
       openshift.io/host.generated: 'true'
   spec:
-    host: "edivorce-${ENVIRONMENT_TYPE}.pathfinder.gov.bc.ca"
+    host: "${APPLICATION_DOMAIN}"
     to:
       kind: Service
       name: "${NAME}"
@@ -105,22 +103,61 @@ objects:
     tls:
       termination: edge
       insecureEdgeTerminationPolicy: Redirect
+- kind: Route
+  apiVersion: v1
+  metadata:
+    name: "${NAME}-siteminder-route"
+    labels:
+      app: "${NAME}-siteminder-route"
+    annotations:
+      haproxy.router.openshift.io/ip_whitelist: "${SITEMINDER_WHITE_LIST}"
+  spec:
+    host: "${SITEMINDER_APPLICATION_DOMAIN}"
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: "${NAME}"
+      weight: 100
+- kind: HorizontalPodAutoscaler
+  apiVersion: autoscaling/v1
+  metadata:
+    name: "${NAME}"
+    labels:
+      app: "${NAME}"
+  spec:
+    scaleTargetRef:
+      kind: DeploymentConfig
+      name: "${NAME}"
+    minReplicas: 1
+    maxReplicas: 4
 parameters:
 - name: NAME
   displayName: Name
   description: The name assigned to all of the frontend objects defined in this template.
   required: true
   value: nginx-proxy
-- name: APP_IMAGE_NAME
-  displayName: Application image name.
-  description: Application image name.
-  value: nginx-proxy
-  required: true
-- name: APP_IMAGE_NAMESPACE
-  displayName: Namespace containing application images.
+- name: IMAGE_NAMESPACE
+  displayName: Image Namespace
   description: Namespace containing application images.
-  value: "jag-csb-edivorce-tools"
   required: true
-- name: ENVIRONMENT_TYPE
-  displayName: Type of environnment (dev,test or prod).
+  value: "jag-csb-edivorce-tools"
+- name: TAG_NAME
+  displayName: Environment TAG name
+  description: The TAG name for this environment, e.g., dev, test, prod.
+  required: true
+  value: "dev"
+- name: APPLICATION_DOMAIN
+  displayName: Application Hostname
+  description: The exposed hostname that will route to the Django service, if left blank a value will be defaulted.
+  required: true
+  value: "edivorce-dev.pathfinder.gov.bc.ca"
+- name: SITEMINDER_APPLICATION_DOMAIN
+  displayName: SiteMinder Application Domain
+  description: The endpoint used for SiteMinder routed access to the application.
+  required: true
+  value: "edivorce-dev.pathfinder.bcgov"
+- name: SITEMINDER_WHITE_LIST
+  displayName: SiteMinder Whitelist
+  description: The whitelist containing all of the trusted siteminder IPs.
   required: true

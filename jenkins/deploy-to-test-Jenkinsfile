@@ -1,0 +1,17 @@
+// This Jenkins file uses a brute force method to promote the application images from DEV to TEST.
+// In other words all of the images that are currently deployed in DEV will be tagged for deployment to TEST.
+
+// Define these in the order they should be deployed.
+def APP_NAMES = ['postgresql', 'nginx-proxy', 'weasyprint', 'edivorce-django']
+def SOURCE_TAG = 'dev'
+def DESTINATION_TAG = 'test'
+
+node {
+  properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10']]])
+
+  APP_NAMES.each { appName ->
+    stage('Deploying ' + appName + ' to ' + DESTINATION_TAG) {
+      openshiftTag destStream: appName, verbose: 'true', destTag: DESTINATION_TAG, srcStream: appName, srcTag: SOURCE_TAG
+    }
+  }
+}

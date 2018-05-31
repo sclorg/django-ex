@@ -1,0 +1,14 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/edivorce-django/edivorce-django-build.yaml
+#=========================================================
+NAME=edivorce-django
+GIT_REPO_URL=https://github.com/bcgov/eDivorce.git
+GIT_REF=master
+SOURCE_CONTEXT_DIR=
+SOURCE_IMAGE_KIND=ImageStreamTag
+SOURCE_IMAGE_NAMESPACE=jag-csb-edivorce-tools
+SOURCE_IMAGE_NAME=python
+SOURCE_IMAGE_TAG=3.5
+PIP_INDEX_URL=

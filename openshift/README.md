@@ -1,66 +1,35 @@
 # A Quickstart Guide to Setting Up eDivorce on OpenShift
 
-There are three deployment environments set up for different purposes within OpenShift. They are available at the URLs below.
+## Before you get started
+This project uses the scripts found in [openshift-developer-tools](https://github.com/BCDevOps/openshift-developer-tools) to setup and maintain OpenShift environments (both local and hosted).  Refer to the [OpenShift Scripts](https://github.com/BCDevOps/openshift-developer-tools/blob/master/bin/README.md) documentation for details.
 
-| Environment |  URL  | Justice URL |
-| ----------- | ----- | ----------- |
-| DEV | https://edivorce-dev.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce-dev |
-| TEST | https://edivorce-test.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce-test |
-| PROD | https://edivorce-prod.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce |
+These instructions assume:
+* You have Git, Docker, and the OpenShift CLI installed on your system, and they are functioning correctly.  The recommended approach is to use either [Homebrew](https://brew.sh/) (MAC) or [Chocolatey](https://chocolatey.org/) (Windows) to install the required packages.
+* You have followed the [OpenShift Scripts](https://github.com/BCDevOps/openshift-developer-tools/blob/master/bin/README.md) environment setup instructions to install and configure the scripts for use on your system.
+* You have forked and cloned a local working copy of the project source code.
+* You are using a reasonable shell.  A "reasonable shell" is obvious on Linux and Mac, and is assumed to be the git-bash shell on Windows.
+* You are working from the top level `./openshift` directory for the project.
 
-These instructions assume you have 4 EMPTY projects created in OpenShift:
+Good to have:
+* A moderate to advanced knowledge of OpenShift. There are two good PDFs available from Red Hat and O'Reilly on [OpenShift for Developers](https://www.openshift.com/promotions/for-developers.html) and [DevOps with OpenShift](https://www.openshift.com/promotions/devops-with-openshift.html).
 
-- jag-csb-edivorce-tools (BUILD)
-- jag-csb-edivorce-dev (DEV)
-- jag-csb-edivorce-test (TEST)
-- jag-csb-edivorce-prod (PROD)
+For the commands mentioned in these instructions, you can use the `-h` parameter for usage help and options information.
 
-## How to Access OpenShift for eDivorce
+### Working with OpenShift
 
-### Web UI
-- Login to https://console.pathfinder.gov.bc.ca:8443; you'll be prompted for GitHub authorization.  You must be part of the BCDevOps Github organization, and you must have access to the eDivorce projects.
+When working with openshift, commands are typically issued against the `server-project` pair to which you are currently connected.  Therefore, when you are working with multiple servers (local, and remote for instance) you should always be aware of your current context so you don't inadvertently issue a command against the wrong server and project.  Although you can login to more than one server at a time it's always a good idea to completely logout of one server before working on another.
 
-### Command-line (```oc```) tools
-- Download OpenShift [command line tools](https://github.com/openshift/origin/releases/download/v1.2.1/openshift-origin-client-tools-v1.2.1-5e723f6-mac.zip), unzip, and add ```oc``` to your PATH.
-- Copy command line login string from https://console.pathfinder.gov.bc.ca:8443/console/command-line.  It will look like ```oc login https://console.pathfinder.gov.bc.ca:8443 --token=xtyz123xtyz123xtyz123xtyz123```
-- Paste the login string into a terminal session.  You are no authenticated against OpenShift and will be able to execute ```oc``` commands. ```oc -h``` provides a summary of available commands.
+The automation tools provided by `openshift-developer-tools` hide some of these details from you, in that they perform project context switching automatically.  However, what they don't do is provide server context switching.  They assume you are aware of your server context and you have logged into the correct server.
 
+Some useful commands to help you determine your current context:
+* `oc whoami -c` - Lists your current server and user context.
+* `oc project` - Lists your current project context.
+* `oc project [NAME]` - Switch to a different project context.
+* `oc projects` - Lists the projects available to you on the current server.
 
-## Uploading Templates into OpenShift
+## 0. Build and publish the S2I image:
 
-1. Clone the project from Github, and then ```cd``` into the openshift/templates directory.
-
-2. Log into the OpenShift console to get your command line token.  Then log into OpenShift from the command line.
-
-3. Upload the templates into OpenShift with the following commands
-
-    Tools templates
-    ```
-    oc create -f ../jenkins/jenkins-pipeline-persistent-template.json -n jag-csb-edivorce-tools
-    oc create -f edivorce-build-template.yaml -n jag-csb-edivorce-tools
-    oc create -f nginx-build-template.yaml -n jag-csb-edivorce-tools
-    oc create -f ../jenkins/pipeline.yaml -n jag-csb-edivorce-tools
-    ```
-
-    Main eDivorce environment template
-    ```
-    oc create -f edivorce-environment-template.yaml -n jag-csb-edivorce-dev
-    oc create -f edivorce-environment-template.yaml -n jag-csb-edivorce-test
-    oc create -f edivorce-environment-template.yaml -n jag-csb-edivorce-prod
-    ```
-
-    NGINX proxy template
-    ```
-    oc create -f nginx-environment-template.yaml -n jag-csb-edivorce-dev
-    oc create -f nginx-environment-template.yaml -n jag-csb-edivorce-test
-    oc create -f nginx-environment-template.yaml -n jag-csb-edivorce-prod
-    ```
-
-## Setting up the Tools Project
-
-### Install Docker on your computer
-
-### Build the S2I image:
+*TODO: Add this process to the build configurations...*
 
 ```docker build -t s2i-nginx git://github.com/BCDevOps/s2i-nginx```
 
@@ -76,38 +45,85 @@ docker push docker-registry.pathfinder.gov.bc.ca/jag-csb-edivorce-tools/s2i-ngin
 
 (your docker token is the same as your OpenShift login token)
 
-###  Process the templates in the 'tools' project
-
-#### These can be processed from the commandline
+## 1. Change into the top level openshift folder
 ```
-oc project jag-csb-edivorce-tools
-
-oc process jenkins-pipeline-persistent | oc create -f -
-oc process edivorce-build | oc create -f -
-oc process nginx-build | oc create -f -
+cd /<PathToWorkingCopy>/openshift
 ```
 
-#### For some reason the edivorce-build-pipeline template can't be processed from the command line like the other templates
+## 2. Initialize the projects - add permissions and storage
+```
+initOSProjects.sh
+```
+This will initialize the projects with permissions that allow images from one project (tools) to be deployed into another project (dev, test, prod).  For production environments will also ensure the persistent storage services exist.
 
-1. Log into the web console ang go to the :"eDivorce App (tools)" project
+## 3. Generate the Build and Images in the "tools" project; Deploy Jenkins
+```
+genBuilds.sh
+```
+This will generate and deploy the build configurations into the `tools` project.  Follow the instructions written to the command line.
 
-2. Select "Add to Project" from the web interface
+If the project contains any Jenkins pipelines a Jenkins instance will be deployed into the `tools` project automatically once the first pipeline is deployed by the scripts.  OpenShift will automatically wire the Jenkins pipelines to Jenkins projects within Jenkins.
 
-3. On the Browse Catalog tab, type "edivorce-build-pipeline" into the filter field.  Select the template.
+Use `-h` to get advanced usage information.  Use the `-l` option to apply any local settings you have configured; when working with a local cluster you should always use the `-l` option.
 
-4. Create
+### Updating Build and Image Configurations
+If you are adding build and image configurations you can re-run this script.  You will encounter errors for any of the resources that already exist, but you can safely ignore these errors and allow the script to continue.
 
-5. Delete the extra services that OpenShift automatically created when you processed the edivorce-build-template. We are using perisistent storage for Jenkins.  These are ephemeral.
+If you are updating build and image configurations use the `-u` option.
 
-    ```
-    oc project jag-csb-edivorce-tools
+If you are adding and updating build and image configurations, run the script **without** the `-u` option first to create the new resources and then again **with** the `-u` option to update the existing configurations.
 
-    oc delete svc jenkins-pipeline-svc
-    oc delete deploymentconfig jenkins-pipeline-svc
-    oc delete route jenkins-pipeline-svc
-    ```
+## 4. Generate the Deployment Configurations and Deploy the Components
+```
+genDepls.sh -e <EnvironmentName, one of [dev|test|prod]>
+```
+This will generate and deploy the deployment configurations into the selected project; `dev`, `test`, or `prod`.  Follow the instructions written to the command line.
 
-### Add the webhook to GitHub
+Use `-h` to get advanced usage information.  Use the `-l` option to apply any local settings you have configured; when working with a local cluster you should always use the `-l` option.
+
+### Important Configuration Settings
+
+#### Mandatory Settings:
+
+PROXY_NETWORK
+
+While running `genDepls.sh` you will be prompted for the network address of the upstream proxy. This is used to ensure that requests come from the Justice Proxy only.  You will need to enter the address in IPV4 CIDR notation e.g. 10.10.15.10/16. The actual value you need to enter cannot be stored on Github because this would violate BC Government Github policies. The PROXY_NETWORK setting is currently the same for all 3 environments (dev, test, and prod)
+
+SITEMINDER_WHITE_LIST
+
+While running `genDepls.sh` you will be prompted for a list of IP addresses that make up the white-list of hosts allowed to access the service.
+
+The list must be provided as a space delimited list of IP addresses.
+
+The actual values cannot be stored on Github because this would violate BC Government Github policies. The addresses are different for each environment (dev, test, and prod).
+
+#### Other Settings:
+
+BASICAUTH_ENABLED
+
+Turns on simple basic authentication for test and dev environments.  This setting is set to "True" in the dev and test environments only.
+
+BASICAUTH_USERNAME / BASICAUTH_PASSWORD
+
+Both the Username and Password will be randomly generated and can later be found by a project administrator in the Secrets section of the related OpenShift project.
+
+### Updating Deployment Configurations
+
+If you are adding deployment configurations you can re-run this script.  You will encounter errors for any of the resources that already exist, but you can safely ignore these errors and allow the script to continue.
+
+If you are updating deployment configurations use the `-u` option.
+
+If you are adding and updating deployment configurations, run the script **without** the `-u` option first to create the new resources and then again **with** the `-u` option to update the existing configurations.
+
+**_Note;_**
+
+**Some settings on some resources are immutable.  To replace these resources you will need to delete and recreate the associated resource(s).**
+
+**Updating the deployment configurations can affect (overwrite) auto-generated secretes such as the database username and password.**
+
+**Care must be taken with resources containing credentials or other auto-generated resources.  You must ensure such resources are replaced using the same values._**
+
+## 5. Add Build Pipeline Webhook(s) to GitHub
 
 1. Log into the web console ang go to the :"eDivorce App (tools)" project
 
@@ -123,142 +139,33 @@ oc process nginx-build | oc create -f -
     - Just push the event
     - Active
 
-## Setting up Dev/Test/Prod Projects
+# eDivorce Deployment Environments
 
-### Important Configuration Options
+There are three deployment environments set up for different purposes within OpenShift. They are available at the URLs below.
 
-#### Mandatory Settings:
+| Environment |  URL  | Justice URL |
+| ----------- | ----- | ----------- |
+| DEV | https://edivorce-dev.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce-dev |
+| TEST | https://edivorce-test.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce-test |
+| PROD | https://edivorce-prod.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce |
 
-PROXY_NETWORK
+These instructions assume you have 4 EMPTY projects created in OpenShift:
 
-Network of upstream proxy. This is used to ensure that requests come from
-the Justice Proxy only. It should be entered in IPV4 CIDR notation
-e.g. 10.10.15.10/16. The actual value you need to enter cannot be stored on Github
-because this would violate BC Government Github policies. The PROXY_NETWORK
-setting is currently the same for all 3 environments (dev, test & prod)
+- jag-csb-edivorce-tools (BUILD)
+- jag-csb-edivorce-dev (DEV)
+- jag-csb-edivorce-test (TEST)
+- jag-csb-edivorce-prod (PROD)
 
-#### Optional Settings you will probably want to set:
+# How to Access OpenShift for eDivorce
 
-BASICAUTH_ENABLED
+## Web UI
+- Login to https://console.pathfinder.gov.bc.ca:8443; you'll be prompted for GitHub authorization.  You must be part of the BCDevOps Github organization, and you must have access to the eDivorce projects.
 
-Turns on simple basic authentication for test and dev environments.
-This is recommended since these environments are accessible to the general public.
-Set it to "True" (no quotes) to enable it.  Default = False
+## Command-line (```oc```) tools
+- Copy command line login string from https://console.pathfinder.gov.bc.ca:8443/console/command-line.  It will look like ```oc login https://console.pathfinder.gov.bc.ca:8443 --token=xtyz123xtyz123xtyz123xtyz123```
+- Paste the login string into a terminal session.  You are no authenticated against OpenShift and will be able to execute ```oc``` commands. ```oc -h``` provides a summary of available commands.
 
-BASICAUTH_USERNAME / BASICAUTH_PASSWORD
-
-Username will default to divorce, and password will default to a random 16 digit string
-unless you override these settings
-
-### Setting up Dev
-
-Tag the builds in the tools project so they can be deployed to dev
-```
-oc project jag-csb-edivorce-tools
-oc tag edivorce-django:latest edivorce-django:deploy-to-dev
-oc tag nginx-proxy:latest nginx-proxy:deploy-to-dev
-```
-
-Give the dev project access to Docker images stored in the tools project
-```
-oc project jag-csb-edivorce-dev
-oc policy add-role-to-user system:image-puller system:serviceaccount:jag-csb-edivorce-dev:default -n jag-csb-edivorce-tools
-oc policy add-role-to-user edit system:serviceaccount:jag-csb-edivorce-tools:default -n jag-csb-edivorce-dev
-```
-
-Deploy the Django app and the Postgresql DB (Read the section about "Important Configuration Options" above!)
-```
-oc process edivorce -v ENVIRONMENT_TYPE=dev,PROXY_NETWORK=123.45.67.89/0,BASICAUTH_ENABLED=True | oc create -f -
-```
-
-Deploy the NGINX proxy
-```
-oc process nginx -v ENVIRONMENT_TYPE=dev | oc create -f -
-```
-
-Deploy Weasyprint
-```
-oc deploy weasyprint --latest
-```
-
-Give the Jenkins build pipeline access to the dev project
-```
-oc policy add-role-to-user edit system:serviceaccount:jag-csb-edivorce-tools:jenkins -n jag-csb-edivorce-dev
-```
-
-
-### Setting up Test
-
-Tag the builds in the tools project so they can be deployed to test
-```
-oc project jag-csb-edivorce-tools
-oc tag edivorce-django:latest edivorce-django:deploy-to-test
-oc tag nginx-proxy:latest nginx-proxy:deploy-to-test
-```
-
-Give the test project access to Docker images stored in the tools project
-```
-oc project jag-csb-edivorce-test
-oc policy add-role-to-user system:image-puller system:serviceaccount:jag-csb-edivorce-test:default -n jag-csb-edivorce-tools
-oc policy add-role-to-user edit system:serviceaccount:jag-csb-edivorce-tools:default -n jag-csb-edivorce-test
-```
-
-Deploy the Django app and the Postgresql DB (Read the section about "Important Configuration Options" above!)
-```
-oc process edivorce -v ENVIRONMENT_TYPE=test,PROXY_NETWORK=123.45.67.89/0,BASICAUTH_ENABLED=True | oc create -f -
-```
-
-Deploy the NGINX proxy
-```
-oc process nginx -v ENVIRONMENT_TYPE=test | oc create -f -
-```
-
-Deploy Weasyprint
-```
-oc deploy weasyprint --latest
-```
-
-Give the Jenkins build pipeline access to the test project
-```
-oc policy add-role-to-user edit system:serviceaccount:jag-csb-edivorce-tools:jenkins -n jag-csb-edivorce-test
-```
-
-### Setting up Prod
-
-Tag the builds in the tools project so they can be deployed to prod
-```
-oc project jag-csb-edivorce-tools
-oc tag edivorce-django:latest edivorce-django:deploy-to-prod
-oc tag nginx-proxy:latest nginx-proxy:deploy-to-prod
-```
-
-Give the prod project access to Docker images stored in the tools project
-```
-oc project jag-csb-edivorce-prod
-oc policy add-role-to-user system:image-puller system:serviceaccount:jag-csb-edivorce-prod:default -n jag-csb-edivorce-tools
-oc policy add-role-to-user edit system:serviceaccount:jag-csb-edivorce-tools:default -n jag-csb-edivorce-prod
-```
-
-Deploy the Django app and the Postgresql DB (Read the section about "Important Configuration Options" above!)
-```
-oc process edivorce -v ENVIRONMENT_TYPE=prod,PROXY_NETWORK=123.45.67.89/0 | oc create -f -
-```
-
-Deploy the NGINX proxy
-```
-oc process nginx -v ENVIRONMENT_TYPE=prod | oc create -f -
-```
-
-Deploy weasyprint
-```
-oc deploy weasyprint --latest
-```
-
-Give the Jenkins build pipeline access to the prod project
-```
-oc policy add-role-to-user edit system:serviceaccount:jag-csb-edivorce-tools:jenkins -n jag-csb-edivorce-prod
-```
-
+# Tips
 
 ## Data management operations
 
@@ -305,8 +212,7 @@ You can look at the combined stdout and stderr of a given pod with this command:
 
 This can be useful to observe the correct functioning of your application.
 
-
-## Debugging Tips
+## Debugging
 
 If you are getting an "Internal Server Error" message on the test or prod environments, follow the steps below to enter debug mode.  
 
