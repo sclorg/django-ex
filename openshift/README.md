@@ -181,9 +181,9 @@ If you are adding and updating deployment configurations, run the script **witho
 
 ## 5. Add Build Pipeline Webhook(s) to GitHub
 
-1. Log into the web console ang go to the :"eDivorce App (tools)" project
+1. Log into the web console ang go to the :"eDivorce App (build)" project
 
-2. Select Builds => Pipelines => build-and-deploy-to-dev => Configuration
+2. Select Builds => Pipelines => build-and-deploy-to-dev-pipeline => Configuration
 
 3. Copy the GitHub wookhook URL
 
