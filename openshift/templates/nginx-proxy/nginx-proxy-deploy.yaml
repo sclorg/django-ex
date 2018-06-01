@@ -160,4 +160,4 @@ parameters:
 - name: SITEMINDER_WHITE_LIST
   displayName: SiteMinder Whitelist
   description: The whitelist containing all of the trusted siteminder IPs.
-  required: true
+  required: false
