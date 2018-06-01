@@ -1,0 +1,13 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/weasyprint/weasyprint-deploy.yaml
+#=========================================================
+# NAME=weasyprint
+# SOURCE_IMAGE_NAME=weasyprint
+# IMAGE_NAMESPACE=jag-csb-edivorce-tools
+TAG_NAME=test
+# CPU_LIMIT=2
+# MEMORY_LIMIT=1Gi
+# CPU_REQUEST=250m
+# MEMORY_REQUEST=512Mi

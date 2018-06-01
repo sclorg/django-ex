@@ -1,0 +1,10 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/weasyprint/weasyprint-build.yaml
+#=========================================================
+NAME=weasyprint
+OUTPUT_IMAGE_TAG=latest
+SOURCE_IMAGE_KIND=DockerImage
+SOURCE_IMAGE_NAME=aquavitae/weasyprint
+SOURCE_IMAGE_TAG=latest

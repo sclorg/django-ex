@@ -1,0 +1,13 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/nginx-proxy/nginx-proxy-build.yaml
+#=========================================================
+NAME=nginx-proxy
+GIT_REPO_URL=https://github.com/bcgov/eDivorce.git
+GIT_REF=master
+SOURCE_CONTEXT_DIR=/openshift/templates/nginx-proxy
+SOURCE_IMAGE_KIND=ImageStreamTag
+SOURCE_IMAGE_NAME=s2i-nginx
+SOURCE_IMAGE_TAG=latest
+NGINX_PROXY_URL=http://edivorce-django:8080/

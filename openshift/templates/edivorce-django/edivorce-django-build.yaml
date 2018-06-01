@@ -2,40 +2,36 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: edivorce-build
+  name: ${NAME}-build-template
   annotations:
-    description: An example Django application with a PostgreSQL database
+    description: A Django application with a PostgreSQL database
     tags: edivorce,python,django,postgresql
     iconClass: icon-python
 labels:
-  template: edivorce-build-template
+  template: ${NAME}-build-template
 objects:
 - kind: ImageStream
   apiVersion: v1
   metadata:
     name: "${NAME}"
-    annotations:
-      description: Keeps track of changes in the application image
 - kind: BuildConfig
   apiVersion: v1
   metadata:
     name: "${NAME}"
-    annotations:
-      description: Defines how to build the application
   spec:
     source:
       type: Git
       git:
-        uri: "${SOURCE_REPOSITORY_URL}"
-        ref: "${SOURCE_REPOSITORY_REF}"
-      contextDir: "${CONTEXT_DIR}"
+        uri: "${GIT_REPO_URL}"
+        ref: "${GIT_REF}"
+      contextDir: "${SOURCE_CONTEXT_DIR}"
     strategy:
       type: Source
       sourceStrategy:
         from:
-          kind: ImageStreamTag
-          namespace: "${NAMESPACE}"
-          name: python:3.5
+          kind: ${SOURCE_IMAGE_KIND}
+          namespace: "${SOURCE_IMAGE_NAMESPACE}"
+          name: ${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}
         env:
         - name: PIP_INDEX_URL
           value: "${PIP_INDEX_URL}"
@@ -46,9 +42,6 @@ objects:
     triggers:
     - type: ImageChange
     - type: ConfigChange
-    - type: GitHub
-      github:
-        secret: "${GITHUB_WEBHOOK_SECRET}"
     postCommit:
       script: "./manage.py test"
 parameters:
@@ -57,32 +50,37 @@ parameters:
   description: The name assigned to all of the frontend objects defined in this template.
   required: true
   value: edivorce-django
-- name: NAMESPACE
-  displayName: Namespace
-  required: true
-  description: The OpenShift Namespace where the ImageStream resides.
-  value: openshift
-- name: SOURCE_REPOSITORY_URL
+- name: GIT_REPO_URL
   displayName: Git Repository URL
-  required: true
   description: The URL of the repository with your application source code.
+  required: true
   value: https://github.com/bcgov/eDivorce
-- name: SOURCE_REPOSITORY_REF
+- name: GIT_REF
   displayName: Git Reference
   description: Set this to a branch name, tag or other ref of your repository if you are not using the default branch.
-- name: CONTEXT_DIR
+- name: SOURCE_CONTEXT_DIR
   displayName: Context Directory
   description: Set this to the relative path to your project if it is not in the root of your repository.
-- name: GITHUB_WEBHOOK_SECRET
-  displayName: GitHub Webhook Secret
-  description: A secret string used to configure the GitHub webhook.
-  generate: expression
-  from: "[a-zA-Z0-9]{40}"
-- name: DJANGO_SECRET_KEY
-  displayName: Django Secret Key
-  description: Set this to a long random string.
-  generate: expression
-  from: "[\\w]{50}"
+- name: SOURCE_IMAGE_KIND
+  displayName: Source Image Kind
+  description: The 'kind' (type) of the  source image; typically ImageStreamTag, or DockerImage.
+  required: true
+  value: ImageStreamTag
+- name: SOURCE_IMAGE_NAMESPACE
+  displayName: Source Image Namespace
+  description: The namespace where the source image resides.
+  required: true
+  value: openshift
+- name: SOURCE_IMAGE_NAME
+  displayName: Source Image Name
+  description: The name of the source image.
+  required: true
+  value: python
+- name: SOURCE_IMAGE_TAG
+  displayName: Source Image Tag
+  description: The tag of the source image.
+  required: true
+  value: "3.5"
 - name: PIP_INDEX_URL
   displayName: Custom PyPi Index URL
   description: The custom PyPi index URL

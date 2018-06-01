@@ -1,0 +1,17 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/edivorce-django/edivorce-django-deploy.yaml
+#=========================================================
+NAME=edivorce-django
+DATABASE_SERVICE_NAME=postgresql
+DATABASE_ENGINE=postgresql
+DATABASE_NAME=default
+APP_CONFIG=gunicorn_config.py
+# DJANGO_SECRET_KEY=[\w]{50}
+IMAGE_NAMESPACE=jag-csb-edivorce-tools
+TAG_NAME=dev
+BASICAUTH_ENABLED=False
+BASICAUTH_USERNAME=divorce
+BASICAUTH_PASSWORD=[a-zA-Z0-9]{16}
+MEMORY_LIMIT=512Mi
