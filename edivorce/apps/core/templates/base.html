@@ -38,7 +38,9 @@
                         <div class="top_banner-logo">
                             <a href="{% url 'home' %}"><img src="{% static 'svg/bc-logo.svg' %}" /></a>
                             <p>Online Divorce Assistant
-                                {% if request.path|slice:":12" == '/divorce-dev' %}
+                                {% if deployment_environment request.path|slice:":12" == '/divorce-dev' %}
+                                    <span class="beta environment-type">dev</span>
+                                {% elif deployment_environment == 'dev' %}
                                     <span class="beta environment-type">dev</span>
                                 {% elif request.path|slice:":13" == '/divorce-test' %}
                                     <span class="beta environment-type">test</span>
