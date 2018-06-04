@@ -201,9 +201,11 @@ There are three deployment environments set up for different purposes within Ope
 
 | Environment |  URL  | Justice URL |
 | ----------- | ----- | ----------- |
-| DEV | https://edivorce-dev.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce-dev |
+| DEV | http://edivorce-dev.pathfinder.bcgov | https://dev.justice.gov.bc.ca/divorce |
 | TEST | https://edivorce-test.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce-test |
 | PROD | https://edivorce-prod.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce |
+
+*Environments are typically only accessable through the associated Justice URL due to white-list applied to the pathfinder routes.*
 
 These instructions assume you have 4 EMPTY projects created in OpenShift:
 
