@@ -48,7 +48,7 @@ COMPRESS_OFFLINE = True
 DEPLOYMENT_TYPE = os.getenv('ENVIRONMENT_TYPE')
 
 PROXY_URL_PREFIX = ''
-PROXY_BASE_URL = 'https://justice.gov.bc.ca'
+PROXY_BASE_URL = os.getenv('PROXY_BASE_URL', 'https://justice.gov.bc.ca')
 
 if DEPLOYMENT_TYPE == 'dev':
     PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce-dev')

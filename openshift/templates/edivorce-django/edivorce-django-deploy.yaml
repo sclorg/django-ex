@@ -94,6 +94,8 @@ objects:
             value: "${TAG_NAME}"
           - name: PROXY_URL_PREFIX
             value: "${PROXY_URL_PREFIX}"
+          - name: PROXY_BASE_URL
+            value: "${PROXY_BASE_URL}"
           - name: PROXY_NETWORK
             value: "${PROXY_NETWORK}"
           - name: BASICAUTH_ENABLED
@@ -173,6 +175,10 @@ parameters:
 - name: PROXY_URL_PREFIX
   displayName: Proxy URL Prefix
   description: The proxy URL prefix (aka Host Path) for the application.  For example `/divorce`
+  required: false
+- name: PROXY_BASE_URL
+  displayName: Proxy Base URL
+  description: The proxy base URL (aka Host URL) for the application.  For example `https://justice.gov.bc.ca`
   required: false
 - name: PROXY_NETWORK
   displayName: Network of upstream proxy (CIDR notation 0.0.0.0/0)
