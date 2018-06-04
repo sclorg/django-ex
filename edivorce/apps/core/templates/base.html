@@ -38,16 +38,16 @@
                         <div class="top_banner-logo">
                             <a href="{% url 'home' %}"><img src="{% static 'svg/bc-logo.svg' %}" /></a>
                             <p>Online Divorce Assistant
-                                {% if request.path|slice:":12" == '/divorce-dev' %}
+                                {% if deployment_environment == 'dev' %}
                                     <span class="beta environment-type">dev</span>
-                                {% elif deployment_environment == 'dev' %}
-                                    <span class="beta environment-type">dev</span>
-                                {% elif request.path|slice:":13" == '/divorce-test' %}
+                                {% elif deployment_environment == 'test' %}
                                     <span class="beta environment-type">test</span>
-                                {% elif request.path|slice:":8" != '/divorce' %}
+                                {% elif deployment_environment == 'prod' %}
+                                    <span class="beta environment-type">beta</span>
+                                {% elif deployment_environment == 'localdev' %}
                                     <span class="beta environment-type">localdev</span>
                                 {% else %}
-                                    <span class="beta">beta</span>
+                                    <span class="beta environment-type">beta</span>
                                 {% endif %}
                             </p>
                         </div>
