@@ -24,6 +24,14 @@
     }
 }
 
+small.bottom {
+    display: block;
+    position: fixed;
+    bottom: -0.25in;
+    border-top: solid 1px black;
+    width: 100%;
+}
+
 body {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
 
 h1, h2, h3 {
@@ -296,3 +304,5 @@ ol.force-break-last > li:last-child {
 .checkbox-list p {
   margin-bottom: 3px;
 }
+
+
