@@ -13,6 +13,7 @@ DATABASES = {
 
 DEBUG = True
 CSRF_COOKIE_AGE = None
+SESSION_COOKIE_AGE = None
 TEMPLATES[0]["OPTIONS"]["debug"] = True
 
 WEASYPRINT_URL = 'http://localhost:5005'
