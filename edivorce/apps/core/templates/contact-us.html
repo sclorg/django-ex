@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }}: Contact Us{% endblock %}
+
+{% block content %}
+<h1>General and Technical Enquiries</h1>
+
+<p>
+    Can’t find what you are looking for?  Have a technical issue?
+</p>
+
+<p>
+    Contact us 8:00 am to 4:30 pm Pacific Time - Monday to Friday except Statutory Holidays
+</p>
+
+<p>
+    CSO Support -
+    <a href='mailto:Courts.CSO@gov.bc.ca' target="_self">Courts.CSO@gov.bc.ca</a>
+</p>
+
+<div class="form-buttons hidden">
+    <a class="btn btn-success btn-lg" onclick="history.go(-1);"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>&nbsp; Go back</a>
+</div>
+
+{% endblock %}
+
+{% block formbuttons %}
+<!-- no formbuttons -->
+{% endblock %}
+
+{% block sidebarNav %}
+<!-- no sidebar -->
+{% endblock %}
+{% block sidebar %}
+<!-- no sidebar -->
+{% endblock %}

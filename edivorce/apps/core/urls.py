@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^health$', system.health),
     url(r'^legal', main.legal, name="legal"),
     url(r'^acknowledgements', main.acknowledgements, name="acknowledgements"),
+    url(r'^contact', main.contact, name="contact"),
 
     # url(r'^headers$', system.headers),
 
