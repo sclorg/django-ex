@@ -1,4 +1,4 @@
-{% load static %}
+﻿{% load static %}
 {% load sass_tags %}
 {% load compress %}
 
@@ -149,7 +149,7 @@
                         <a href="http://www2.gov.bc.ca/gov/content/home/copyright" target="_blank">Copyright</a>
                     </li>
                     <li>
-                        <a href="http://www2.gov.bc.ca/gov/content/home/contact-us" target="_blank">Contact Us</a>
+                        <a href="{% url 'contact' %}" target="_blank">Contact Us</a>
                     </li>
                     {% if show_debug %}
                     <li>

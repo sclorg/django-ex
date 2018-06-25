@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{49af6729-7075-48ab-903a-dd921e4282b5}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>manage.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{5F0BE9CA-D677-4A4D-8806-6076C0FAAD37};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Django launcher</LaunchProvider>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <DjangoSettingsModule>edivorce.settings.local</DjangoSettingsModule>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="edivorce\apps\core\static\css\bootstrap-datepicker3.min.css" />
+    <Content Include="edivorce\apps\core\static\css\bootstrap-slim.min.css" />
+    <Content Include="edivorce\apps\core\static\css\bootstrap.min.css" />
+    <Content Include="edivorce\apps\core\static\css\font-awesome.min.css" />
+    <Content Include="edivorce\apps\core\static\css\main.css" />
+    <Content Include="edivorce\apps\core\static\css\weasyprint.css" />
+    <Content Include="edivorce\apps\core\static\fonts\fa-slim.svg" />
+    <Content Include="edivorce\apps\core\static\fonts\fontawesome-webfont.svg" />
+    <Content Include="edivorce\apps\core\static\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="edivorce\apps\core\static\img\bg-edivorce__landing.jpg" />
+    <Content Include="edivorce\apps\core\static\img\electronic_marriage_certificate_sample.jpg" />
+    <Content Include="edivorce\apps\core\static\img\large-marriage-cert-big.jpg" />
+    <Content Include="edivorce\apps\core\static\img\logo-clbc.png" />
+    <Content Include="edivorce\apps\core\static\img\logo-jacs.jpg" />
+    <Content Include="edivorce\apps\core\static\img\logo-law-courts.png" />
+    <Content Include="edivorce\apps\core\static\img\logo-legal-services.png" />
+    <Content Include="edivorce\apps\core\static\img\logo-min-attorney-general.png" />
+    <Content Include="edivorce\apps\core\static\img\marriage-reg-cert.jpg" />
+    <Content Include="edivorce\apps\core\static\img\marriage_certificate_sample.jpg" />
+    <Content Include="edivorce\apps\core\static\img\marr_ex.jpg" />
+    <Content Include="edivorce\apps\core\static\img\which_laws_apply.png" />
+    <Content Include="edivorce\apps\core\static\js\ajax.js" />
+    <Content Include="edivorce\apps\core\static\js\functions.js" />
+    <Content Include="edivorce\apps\core\static\js\main.js" />
+    <Content Include="edivorce\apps\core\static\js\vendor\autogrow.js" />
+    <Content Include="edivorce\apps\core\static\js\vendor\bootstrap-datepicker.min.js" />
+    <Content Include="edivorce\apps\core\static\js\vendor\bootstrap.min.js" />
+    <Content Include="edivorce\apps\core\static\js\vendor\html5shiv.js" />
+    <Content Include="edivorce\apps\core\static\js\vendor\jquery-1.12.4.min.js" />
+    <Content Include="edivorce\apps\core\static\js\vendor\moment.min.js" />
+    <Content Include="edivorce\apps\core\static\js\vendor\spin.min.js" />
+    <Content Include="edivorce\apps\core\static\svg\bc-logo.svg" />
+    <Content Include="edivorce\apps\core\static\svg\icon-certificate.svg" />
+    <Content Include="edivorce\apps\core\templates\401.html" />
+    <Content Include="edivorce\apps\core\templates\404.html" />
+    <Content Include="edivorce\apps\core\templates\407.html" />
+    <Content Include="edivorce\apps\core\templates\500.html" />
+    <Content Include="edivorce\apps\core\templates\acknowledgements.html" />
+    <Content Include="edivorce\apps\core\templates\base.html" />
+    <Content Include="edivorce\apps\core\templates\contact-us.html" />
+    <Content Include="edivorce\apps\core\templates\dashboard\check_with_registry.html" />
+    <Content Include="edivorce\apps\core\templates\dashboard\current.html" />
+    <Content Include="edivorce\apps\core\templates\dashboard\file_documents.html" />
+    <Content Include="edivorce\apps\core\templates\dashboard\help_saving_pdf.html" />
+    <Content Include="edivorce\apps\core\templates\dashboard\order_certificate.html" />
+    <Content Include="edivorce\apps\core\templates\dashboard\partials\sidebar_help.html" />
+    <Content Include="edivorce\apps\core\templates\dashboard\print_form.html" />
+    <Content Include="edivorce\apps\core\templates\dashboard\wait.html" />
+    <Content Include="edivorce\apps\core\templates\incomplete.html" />
+    <Content Include="edivorce\apps\core\templates\intro.html" />
+    <Content Include="edivorce\apps\core\templates\legal.html" />
+    <Content Include="edivorce\apps\core\templates\localdev\bceid.html" />
+    <Content Include="edivorce\apps\core\templates\localdev\debug.html" />
+    <Content Include="edivorce\apps\core\templates\localdev\register.html" />
+    <Content Include="edivorce\apps\core\templates\login.html" />
+    <Content Include="edivorce\apps\core\templates\logout.html" />
+    <Content Include="edivorce\apps\core\templates\overview.html" />
+    <Content Include="edivorce\apps\core\templates\partials\alias_field.html" />
+    <Content Include="edivorce\apps\core\templates\partials\dashnav.html" />
+    <Content Include="edivorce\apps\core\templates\partials\fact_sheet_excessive_debt.html" />
+    <Content Include="edivorce\apps\core\templates\partials\fact_sheet_expense.html" />
+    <Content Include="edivorce\apps\core\templates\partials\fact_sheet_f_table.html" />
+    <Content Include="edivorce\apps\core\templates\partials\fact_sheet_income_others.html" />
+    <Content Include="edivorce\apps\core\templates\partials\fact_sheet_supporting_person.html" />
+    <Content Include="edivorce\apps\core\templates\partials\gtm_body.html" />
+    <Content Include="edivorce\apps\core\templates\partials\gtm_head.html" />
+    <Content Include="edivorce\apps\core\templates\partials\inline_question_determine_amount_to_pay.html" />
+    <Content Include="edivorce\apps\core\templates\partials\name_with_alias.html" />
+    <Content Include="edivorce\apps\core\templates\partials\progress.html" />
+    <Content Include="edivorce\apps\core\templates\partials\reconciliation_period.html" />
+    <Content Include="edivorce\apps\core\templates\partials\review_user_responses.html" />
+    <Content Include="edivorce\apps\core\templates\partials\tooltip_link_federal_child_support_guidelines.html" />
+    <Content Include="edivorce\apps\core\templates\partials\your_children_child.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\form1.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\form35.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\form36.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\form37.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\form38.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\form52.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\partials\fact_sheet_a.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\partials\fact_sheet_b.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\partials\fact_sheet_c.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\partials\fact_sheet_d.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\partials\fact_sheet_e.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\partials\fact_sheet_f.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\partials\fact_sheet_f_table.html" />
+    <Content Include="edivorce\apps\core\templates\pdf\partials\notary_signature.html" />
+    <Content Include="edivorce\apps\core\templates\prequalification\step_01.html" />
+    <Content Include="edivorce\apps\core\templates\prequalification\step_02.html" />
+    <Content Include="edivorce\apps\core\templates\prequalification\step_03.html" />
+    <Content Include="edivorce\apps\core\templates\prequalification\step_04.html" />
+    <Content Include="edivorce\apps\core\templates\prequalification\step_05.html" />
+    <Content Include="edivorce\apps\core\templates\prequalification\step_06.html" />
+    <Content Include="edivorce\apps\core\templates\question\01_orders.html" />
+    <Content Include="edivorce\apps\core\templates\question\02_claimant.html" />
+    <Content Include="edivorce\apps\core\templates\question\03_respondent.html" />
+    <Content Include="edivorce\apps\core\templates\question\04_marriage.html" />
+    <Content Include="edivorce\apps\core\templates\question\05_separation.html" />
+    <Content Include="edivorce\apps\core\templates\question\06_children_facts.html" />
+    <Content Include="edivorce\apps\core\templates\question\06_children_income_expenses.html" />
+    <Content Include="edivorce\apps\core\templates\question\06_children_payor_medical.html" />
+    <Content Include="edivorce\apps\core\templates\question\06_children_what_for.html" />
+    <Content Include="edivorce\apps\core\templates\question\06_children_your_children.html" />
+    <Content Include="edivorce\apps\core\templates\question\07_support.html" />
+    <Content Include="edivorce\apps\core\templates\question\08_property.html" />
+    <Content Include="edivorce\apps\core\templates\question\09_other_orders.html" />
+    <Content Include="edivorce\apps\core\templates\question\10_other_questions.html" />
+    <Content Include="edivorce\apps\core\templates\question\11_location.html" />
+    <Content Include="edivorce\apps\core\templates\question\12_review.html" />
+    <Content Include="edivorce\apps\core\templates\styleguide\guide.html" />
+    <Content Include="edivorce\apps\core\templates\success.html" />
+    <Content Include="requirements.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="conf\reload.py" />
+    <Compile Include="edivorce\apps\core\authenticators.py" />
+    <Compile Include="edivorce\apps\core\context_processors.py" />
+    <Compile Include="edivorce\apps\core\decorators.py" />
+    <Compile Include="edivorce\apps\core\middleware\basicauth_middleware.py" />
+    <Compile Include="edivorce\apps\core\middleware\bceid_middleware.py" />
+    <Compile Include="edivorce\apps\core\middleware\__init__.py" />
+    <Compile Include="edivorce\apps\core\migrations\0001_initial.py" />
+    <Compile Include="edivorce\apps\core\migrations\0002_legalform_order.py" />
+    <Compile Include="edivorce\apps\core\migrations\0003_auto_20170111_2157.py" />
+    <Compile Include="edivorce\apps\core\migrations\0004_auto_20170112_2003.py" />
+    <Compile Include="edivorce\apps\core\migrations\0005_auto_20170131_0004.py" />
+    <Compile Include="edivorce\apps\core\migrations\0006_auto_20170209_1858.py" />
+    <Compile Include="edivorce\apps\core\migrations\0007_auto_20170210_1702.py" />
+    <Compile Include="edivorce\apps\core\migrations\0008_auto_20170224_0259.py" />
+    <Compile Include="edivorce\apps\core\migrations\0008_auto_20170227_2125.py" />
+    <Compile Include="edivorce\apps\core\migrations\0009_merge.py" />
+    <Compile Include="edivorce\apps\core\migrations\0010_auto_20170228_2038.py" />
+    <Compile Include="edivorce\apps\core\migrations\0011_auto_20170321_2201.py" />
+    <Compile Include="edivorce\apps\core\migrations\0012_auto_20170321_2237.py" />
+    <Compile Include="edivorce\apps\core\migrations\0013_auto_20170322_2055.py" />
+    <Compile Include="edivorce\apps\core\migrations\0014_auto_20170325_0510.py" />
+    <Compile Include="edivorce\apps\core\migrations\0015_auto_20170330_0522.py" />
+    <Compile Include="edivorce\apps\core\migrations\0016_auto_20171114_2151.py" />
+    <Compile Include="edivorce\apps\core\migrations\0017_bceiduser_has_seen_orders_page.py" />
+    <Compile Include="edivorce\apps\core\migrations\0018_bceiduser_has_accepted_terms.py" />
+    <Compile Include="edivorce\apps\core\migrations\__init__.py" />
+    <Compile Include="edivorce\apps\core\models.py" />
+    <Compile Include="edivorce\apps\core\serializer.py" />
+    <Compile Include="edivorce\apps\core\templatetags\composites.py" />
+    <Compile Include="edivorce\apps\core\templatetags\format_utils.py" />
+    <Compile Include="edivorce\apps\core\templatetags\input_field.py" />
+    <Compile Include="edivorce\apps\core\templatetags\load_json.py" />
+    <Compile Include="edivorce\apps\core\templatetags\step_order.py" />
+    <Compile Include="edivorce\apps\core\templatetags\summary_format.py" />
+    <Compile Include="edivorce\apps\core\templatetags\__init__.py" />
+    <Compile Include="edivorce\apps\core\tests.py" />
+    <Compile Include="edivorce\apps\core\urls.py" />
+    <Compile Include="edivorce\apps\core\utils\derived.py" />
+    <Compile Include="edivorce\apps\core\utils\question_step_mapping.py" />
+    <Compile Include="edivorce\apps\core\utils\step_completeness.py" />
+    <Compile Include="edivorce\apps\core\utils\template_step_order.py" />
+    <Compile Include="edivorce\apps\core\utils\user_response.py" />
+    <Compile Include="edivorce\apps\core\utils\__init__.py" />
+    <Compile Include="edivorce\apps\core\views\api.py" />
+    <Compile Include="edivorce\apps\core\views\localdev.py" />
+    <Compile Include="edivorce\apps\core\views\main.py" />
+    <Compile Include="edivorce\apps\core\views\pdf.py" />
+    <Compile Include="edivorce\apps\core\views\styleguide.py" />
+    <Compile Include="edivorce\apps\core\views\system.py" />
+    <Compile Include="edivorce\apps\core\views\__init__.py" />
+    <Compile Include="edivorce\apps\core\__init__.py" />
+    <Compile Include="edivorce\apps\__init__.py" />
+    <Compile Include="edivorce\settings\base.py" />
+    <Compile Include="edivorce\settings\local.py" />
+    <Compile Include="edivorce\settings\openshift.py" />
+    <Compile Include="edivorce\settings\__init__.py" />
+    <Compile Include="edivorce\urls.py" />
+    <Compile Include="edivorce\__init__.py" />
+    <Compile Include="gunicorn_config.py" />
+    <Compile Include="manage.py" />
+    <Compile Include="wsgi.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="conf" />
+    <Folder Include="edivorce" />
+    <Folder Include="edivorce\apps" />
+    <Folder Include="edivorce\apps\core" />
+    <Folder Include="edivorce\apps\core\middleware" />
+    <Folder Include="edivorce\apps\core\migrations" />
+    <Folder Include="edivorce\apps\core\static\" />
+    <Folder Include="edivorce\apps\core\static\css" />
+    <Folder Include="edivorce\apps\core\static\fonts" />
+    <Folder Include="edivorce\apps\core\static\img" />
+    <Folder Include="edivorce\apps\core\static\js" />
+    <Folder Include="edivorce\apps\core\static\js\vendor" />
+    <Folder Include="edivorce\apps\core\static\svg" />
+    <Folder Include="edivorce\apps\core\templates" />
+    <Folder Include="edivorce\apps\core\templates\dashboard" />
+    <Folder Include="edivorce\apps\core\templates\dashboard\partials" />
+    <Folder Include="edivorce\apps\core\templates\localdev" />
+    <Folder Include="edivorce\apps\core\templates\partials" />
+    <Folder Include="edivorce\apps\core\templates\pdf" />
+    <Folder Include="edivorce\apps\core\templates\pdf\partials" />
+    <Folder Include="edivorce\apps\core\templates\prequalification" />
+    <Folder Include="edivorce\apps\core\templates\question" />
+    <Folder Include="edivorce\apps\core\templates\styleguide" />
+    <Folder Include="edivorce\apps\core\templatetags" />
+    <Folder Include="edivorce\apps\core\utils" />
+    <Folder Include="edivorce\apps\core\views" />
+    <Folder Include="edivorce\settings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>3.6</Version>
+      <Description>env (Python 3.6 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <AutoAssignPort>True</AutoAssignPort>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
