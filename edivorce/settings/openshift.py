@@ -54,6 +54,7 @@ if DEPLOYMENT_TYPE == 'dev':
     PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce-dev')
     DEBUG = True
     CSRF_COOKIE_AGE = None
+    SESSION_COOKIE_AGE = None
     REGISTER_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5522'
 
 if DEPLOYMENT_TYPE == 'test':
@@ -95,3 +96,5 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 if DEPLOYMENT_TYPE != 'minishift':
     SESSION_COOKIE_PATH = PROXY_URL_PREFIX
     SESSION_COOKIE_SECURE=True
+    CSRF_COOKIE_SECURE=True
+
