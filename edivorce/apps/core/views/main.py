@@ -233,6 +233,12 @@ def acknowledgements(request):
     """
     return render(request, 'acknowledgements.html', context={'active_page': 'acknowledgements'})
 
+def contact(request):
+    """
+    Contact Us page
+    """
+    return render(request, 'contact-us.html', context={'active_page': 'contact'})
+
 @bceid_required
 def intercept_page(request):
     """
