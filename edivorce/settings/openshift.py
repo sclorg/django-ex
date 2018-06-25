@@ -53,6 +53,7 @@ PROXY_BASE_URL = os.getenv('PROXY_BASE_URL', 'https://justice.gov.bc.ca')
 if DEPLOYMENT_TYPE == 'dev':
     PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce-dev')
     DEBUG = True
+    CSRF_COOKIE_AGE = None
     REGISTER_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5522'
 
 if DEPLOYMENT_TYPE == 'test':
