@@ -11,8 +11,8 @@
 # #DJANGO_SECRET_KEY=[\w]{50}
 # IMAGE_NAMESPACE=jag-csb-edivorce-tools
 TAG_NAME=prod
-# PROXY_URL_PREFIX=/divorce
-# PROXY_BASE_URL=https://justice.gov.bc.ca
+PROXY_URL_PREFIX=/divorce
+PROXY_BASE_URL=https://justice.gov.bc.ca
 BASICAUTH_ENABLED=False
 # BASICAUTH_USERNAME=divorce
 # BASICAUTH_PASSWORD=[a-zA-Z0-9]{16}
