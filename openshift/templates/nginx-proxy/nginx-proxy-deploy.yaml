@@ -86,26 +86,6 @@ objects:
 - kind: Route
   apiVersion: v1
   metadata:
-    name: "${NAME}"
-    creationTimestamp:
-    labels:
-      app: "${NAME}"
-    annotations:
-      openshift.io/host.generated: 'true'
-  spec:
-    host: "${APPLICATION_DOMAIN}"
-    to:
-      kind: Service
-      name: "${NAME}"
-      weight: 100
-    port:
-      targetPort: 8080-tcp
-    tls:
-      termination: edge
-      insecureEdgeTerminationPolicy: Redirect
-- kind: Route
-  apiVersion: v1
-  metadata:
     name: "${NAME}-siteminder-route"
     labels:
       app: "${NAME}-siteminder-route"
@@ -147,11 +127,6 @@ parameters:
   description: The TAG name for this environment, e.g., dev, test, prod.
   required: true
   value: "dev"
-- name: APPLICATION_DOMAIN
-  displayName: Application Hostname
-  description: The exposed hostname that will route to the Django service, if left blank a value will be defaulted.
-  required: true
-  value: "edivorce-dev.pathfinder.gov.bc.ca"
 - name: SITEMINDER_APPLICATION_DOMAIN
   displayName: SiteMinder Application Domain
   description: The endpoint used for SiteMinder routed access to the application.

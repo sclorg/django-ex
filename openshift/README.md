@@ -141,9 +141,18 @@ Use `-h` to get advanced usage information.  Use the `-l` option to apply any lo
 
 #### Mandatory Settings:
 
-PROXY_NETWORK
+**PROXY_NETWORK**
 
 While running `genDepls.sh` you will be prompted for the network address of the upstream proxy. This is used to ensure that requests come from the Justice Proxy only.  You will need to enter the address in IPV4 CIDR notation e.g. 10.10.15.10/16. The actual value you need to enter cannot be stored on Github because this would violate BC Government Github policies. The PROXY_NETWORK setting is currently the same for all 3 environments (dev, test, and prod)
+
+An example of the [edivorce-django-deploy.overrides.sh](./edivorce-django-deploy.overrides.sh) script prompting for the value to use for PROXY_NETWORK;
+```
+Processing deployment configuration; templates/edivorce-django/edivorce-django-deploy.yaml ...
+Loading parameter overrides for templates/edivorce-django/edivorce-django-deploy.yaml ...
+
+Enter the network of the upstream proxy (in CIDR notation; for example 0.0.0.0/0); defaults to 0.0.0.0/0:
+
+```
 
 SITEMINDER_WHITE_LIST
 
@@ -152,6 +161,62 @@ While running `genDepls.sh` you will be prompted for a list of IP addresses that
 The list must be provided as a space delimited list of IP addresses.
 
 The actual values cannot be stored on Github because this would violate BC Government Github policies. The addresses are different for each environment (dev, test, and prod).
+
+An example of the [nginx-proxy-deploy.overrides.sh](./nginx-proxy-deploy.overrides.sh) script prompting for the value to use for SITEMINDER_WHITE_LIST;
+```
+Processing deployment configuration; templates/nginx-proxy/nginx-proxy-deploy.yaml ...
+Loading parameter overrides for templates/nginx-proxy/nginx-proxy-deploy.yaml ...
+
+Enter the white list of trusted IP addresses that should be allowed to access the SiteMinder route (as a space delimited list of IP addresses):
+
+```
+
+This has the affect of adding the white-list to the `haproxy.router.openshift.io/ip_whitelist` element of the associated route configuration in the template [nginx-proxy-deploy.yaml](./templates/nginx-proxy/nginx-proxy-deploy.yaml)
+
+The result looks something like this;
+
+```
+{
+    "apiVersion": "v1",
+    "kind": "Route",
+    "metadata": {
+        "annotations": {
+            "haproxy.router.openshift.io/ip_whitelist": "1.1.1.1 2.2.2.2 3.3.3.3 4.4.4.4"
+        },
+        "labels": {
+            "app": "nginx-proxy-siteminder-route",
+            "template": "nginx-proxy-deployment-template"
+        },
+        "name": "nginx-proxy-siteminder-route"
+    },
+    "spec": {
+        "host": "edivorce-dev.pathfinder.bcgov",
+        "port": {
+            "targetPort": "8080-tcp"
+        },
+        "to": {
+            "kind": "Service",
+            "name": "nginx-proxy",
+            "weight": 100
+        }
+    }
+},
+```
+
+Once deployed to OpenShift, the white-list can be viewed on the associated route's configuration page by clicking `Show Annotations`.
+```
+haproxy.router.openshift.io/ip_whitelist    1.1.1.1 2.2.2.2 3.3.3.3 4.4.4.4
+```
+
+The white-list can be updated manually by editing the associated route's yaml configuration directly.
+```
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/ip_whitelist: 1.1.1.1 2.2.2.2 3.3.3.3 4.4.4.4
+...
+```
 
 #### Other Settings:
 
@@ -202,10 +267,10 @@ There are three deployment environments set up for different purposes within Ope
 | Environment |  URL  | Justice URL |
 | ----------- | ----- | ----------- |
 | DEV | http://edivorce-dev.pathfinder.bcgov | https://dev.justice.gov.bc.ca/divorce |
-| TEST | https://edivorce-test.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce-test |
-| PROD | https://edivorce-prod.pathfinder.gov.bc.ca | https://justice.gov.bc.ca/divorce |
+| TEST | https://edivorce-test.pathfinder.bcgov | https://test.justice.gov.bc.ca/divorce |
+| PROD | https://edivorce-prod.pathfinder.bcgov | https://justice.gov.bc.ca/divorce |
 
-*Environments are typically only accessable through the associated Justice URL due to white-list applied to the pathfinder routes.*
+*Environments are typically only accessible through the associated Justice URL due to white-list applied to the pathfinder routes.*
 
 These instructions assume you have 4 EMPTY projects created in OpenShift:
 
@@ -241,7 +306,6 @@ oc get pods | grep Running
 ```
 oc rsh postgresql-2-qp0oh
 ```
-
 
 ### Sample postgresql terminal session
 ```
