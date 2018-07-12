@@ -83,24 +83,6 @@ This allows you to do things like redirect your builds to use a different reposi
 
 To apply local settings while deploying your build and deployment configurations use the `-l` option with `genBuilds.sh` and `genDepls.sh`.
 
-## 0. Build and publish the S2I image:
-
-*TODO: Add this process to the build configurations...*
-
-```docker build -t s2i-nginx git://github.com/BCDevOps/s2i-nginx```
-
-### Tag and push this image to the OpenShift Docker Registry for your OpenShift Project:
-
-```
-docker tag s2i-nginx docker-registry.pathfinder.gov.bc.ca/jag-csb-edivorce-tools/s2i-nginx
-
-docker login docker-registry.pathfinder.gov.bc.ca -u <username> -p <token>
-
-docker push docker-registry.pathfinder.gov.bc.ca/jag-csb-edivorce-tools/s2i-nginx
-```
-
-(your docker token is the same as your OpenShift login token)
-
 ## 1. Change into the top level openshift folder
 ```
 cd /<PathToWorkingCopy>/openshift

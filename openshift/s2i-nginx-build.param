@@ -1,0 +1,10 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/nginx-proxy/s2i-nginx-build.json
+#=========================================================
+NAME=s2i-nginx
+GIT_REPO_URL=https://github.com/BCDevOps/s2i-nginx.git
+GIT_REF=master
+SOURCE_CONTEXT_DIR=
+OUTPUT_IMAGE_TAG=latest
