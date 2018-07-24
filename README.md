@@ -59,7 +59,7 @@ To run this project in your development machine, follow these steps:
 
 3. Fork this repo and clone your fork:
 
-    `git clone https://github.com/openshift/django-ex.git`
+    `git clone https://github.com/sclorg/django-ex.git`
 
 4. Install dependencies:
 
@@ -120,7 +120,7 @@ Templates give you full control of each component of your application.
 Sometimes your application is simple enough and you don't want to bother with templates. In that case, you can let OpenShift inspect your source code and create the required components automatically for you:
 
 ```bash
-$ oc new-app centos/python-35-centos7~https://github.com/openshift/django-ex
+$ oc new-app centos/python-35-centos7~https://github.com/sclorg/django-ex
 imageStreams/python-35-centos7
 imageStreams/django-ex
 buildConfigs/django-ex
