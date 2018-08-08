@@ -251,7 +251,7 @@
     {
       "name": "PYTHON_VERSION",
       "displayName": "Version of Python Image",
-      "description": "Version of Python image to be used (3.4, 3.5, 3.6 or latest).",
+      "description": "Version of Python image to be used (3.6 or latest).",
       "value": "3.6",
       "required": true
     },
