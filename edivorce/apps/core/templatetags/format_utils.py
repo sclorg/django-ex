@@ -6,6 +6,7 @@ import locale
 import re
 
 from django import template
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
 
@@ -48,7 +49,7 @@ def response(field, size=None, trail='', as_date=False):
     if field.strip():
         return '%s%s' % (date_formatter(field) if as_date else field, trail)
     style = ('min-width: %spx' % size) if size is not None else ''
-    return '<span class="form-entry not-complete" style="%s"></span>' % style
+    return format_html('<span class="form-entry not-complete" style="{}"></span>', style)
 
 
 @register.simple_tag()
