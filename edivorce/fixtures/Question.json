@@ -1775,7 +1775,7 @@
 },
 {
     "fields": {
-        "name": "What is the monthly child support amount (as per Schedule 1 of the guidelines) that is payable by claimant?",
+        "name": "What is the monthly child support amount (as per Schedule 1 of the guidelines) that is payable?",
         "description": "For Step 6, Your children - Income & expenses",
         "summary_order": 0,
         "required": "Required"
