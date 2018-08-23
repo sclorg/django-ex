@@ -72,6 +72,46 @@
                 </li>
             </ul>
         </div>
+
+        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
+             data-target="#collapseSpouseFedGuidelines" aria-controls="collapseSpouseFedGuidelines">
+            <div>
+                What are the Federal Child Support Guidelines?
+            </div>
+        </div>
+        <div class="collapse" id="collapseSpouseFedGuidelines">
+            <div>
+                <p>
+                    The Federal Guidelines are a set of rules and tables used to determine child support when
+                    parents
+                    divorce. They are the law. Their main goals are:
+                </p>
+                <ul>
+                    <li>
+                        to establish a fair standard of support for children so that they continue to benefit from
+                        both
+                        parents’ incomes after the separation or divorce;
+                    </li>
+                    <li>
+                        to reduce conflict and tension between parents by making the calculation of child support
+                        more
+                        objective;
+                    </li>
+                    <li>
+                        to ensure that parents and children in similar situations are treated the same; and
+                    </li>
+                    <li>
+                        to make the legal process more efficient and encourage settlements by giving courts and
+                        parents guidance about child support.
+                    </li>
+                </ul>
+                <p>
+                    Source:
+                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" link_text="Federal Child Support Guidelines Step-by-Step Guide" %}
+                    , Department of Justice
+                </p>
+            </div>
+        </div>
     </div>
 
     <div id="annual_gross_income_question">
@@ -79,46 +119,6 @@
             <h3>What is your annual gross income as determined above?</h3>
             <div class="dollar-prefix">
                 {% money_input_field name="annual_gross_income" value="" class="money form-block response-textbox positive-float" %}
-            </div>
-
-            <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
-                 data-target="#collapseFedGuidelines" aria-controls="collapseFedGuidelines">
-                <div>
-                    What are the Federal Child Support Guidelines?
-                </div>
-            </div>
-            <div class="collapse" id="collapseFedGuidelines">
-                <div>
-                    <p>
-                        The Federal Guidelines are a set of rules and tables used to determine child support when
-                        parents
-                        divorce. They are the law. Their main goals are:
-                    </p>
-                    <ul>
-                        <li>
-                            to establish a fair standard of support for children so that they continue to benefit from
-                            both
-                            parents’ incomes after the separation or divorce;
-                        </li>
-                        <li>
-                            to reduce conflict and tension between parents by making the calculation of child support
-                            more
-                            objective;
-                        </li>
-                        <li>
-                            to ensure that parents and children in similar situations are treated the same; and
-                        </li>
-                        <li>
-                            to make the legal process more efficient and encourage settlements by giving courts and
-                            parents guidance about child support.
-                        </li>
-                    </ul>
-                    <p>
-                        Source:
-                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" link_text="Federal Child Support Guidelines Step-by-Step Guide" %}
-                        , Department of Justice
-                    </p>
-                </div>
             </div>
 
             <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
@@ -145,46 +145,6 @@
             <h3>What is your spouse's annual gross income as determined above?</h3>
             <div class="dollar-prefix">
                 {% money_input_field name="spouse_annual_gross_income" value="" class="money form-block response-textbox positive-float" %}
-            </div>
-
-            <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
-                 data-target="#collapseSpouseFedGuidelines" aria-controls="collapseSpouseFedGuidelines">
-                <div>
-                    What are the Federal Child Support Guidelines?
-                </div>
-            </div>
-            <div class="collapse" id="collapseSpouseFedGuidelines">
-                <div>
-                    <p>
-                        The Federal Guidelines are a set of rules and tables used to determine child support when
-                        parents
-                        divorce. They are the law. Their main goals are:
-                    </p>
-                    <ul>
-                        <li>
-                            to establish a fair standard of support for children so that they continue to benefit from
-                            both
-                            parents’ incomes after the separation or divorce;
-                        </li>
-                        <li>
-                            to reduce conflict and tension between parents by making the calculation of child support
-                            more
-                            objective;
-                        </li>
-                        <li>
-                            to ensure that parents and children in similar situations are treated the same; and
-                        </li>
-                        <li>
-                            to make the legal process more efficient and encourage settlements by giving courts and
-                            parents guidance about child support.
-                        </li>
-                    </ul>
-                    <p>
-                        Source:
-                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" link_text="Federal Child Support Guidelines Step-by-Step Guide" %}
-                        , Department of Justice
-                    </p>
-                </div>
             </div>
 
             <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
