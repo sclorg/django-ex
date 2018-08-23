@@ -18,16 +18,8 @@
                 {% input_field type="radio" name="how_will_calculate_income" autocomplete="off" value="using specific rules" data_invert_target="#agreement_entered_message" data_reveal_target="true" %}
                 Calculate your income using the
                 <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-2.html#h-6" target="_blank">
-                    specific rules
-                </a> set out in the Federal Guidelines (
-                <span class="tooltip-link keep-tooltip-open"
-                  data-toggle="tooltip"
-                  data-placement="right"
-                  data-html="true"
-                  title="<b>Sections 15 to 20</b><br />Details the rules the court considers when determining income.">
-                sections 15 to 20<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>
-                )
+                    specific rules (sections 15 to 20)
+                </a> set out in the Federal Guidelines
             </label>
             <p>
                 Under these rules, the total income shown on line 150 of your most recent income tax return or your
@@ -72,6 +64,46 @@
                 </li>
             </ul>
         </div>
+
+        <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
+             data-target="#collapseSpouseFedGuidelines" aria-controls="collapseSpouseFedGuidelines">
+            <div>
+                What are the Federal Child Support Guidelines?
+            </div>
+        </div>
+        <div class="collapse" id="collapseSpouseFedGuidelines">
+            <div>
+                <p>
+                    The Federal Guidelines are a set of rules and tables used to determine child support when
+                    parents
+                    divorce. They are the law. Their main goals are:
+                </p>
+                <ul>
+                    <li>
+                        to establish a fair standard of support for children so that they continue to benefit from
+                        both
+                        parents’ incomes after the separation or divorce;
+                    </li>
+                    <li>
+                        to reduce conflict and tension between parents by making the calculation of child support
+                        more
+                        objective;
+                    </li>
+                    <li>
+                        to ensure that parents and children in similar situations are treated the same; and
+                    </li>
+                    <li>
+                        to make the legal process more efficient and encourage settlements by giving courts and
+                        parents guidance about child support.
+                    </li>
+                </ul>
+                <p>
+                    Source:
+                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" link_text="Federal Child Support Guidelines Step-by-Step Guide" %}
+                    , Department of Justice
+                </p>
+            </div>
+        </div>
     </div>
 
     <div id="annual_gross_income_question">
@@ -79,46 +111,6 @@
             <h3>What is your annual gross income as determined above?</h3>
             <div class="dollar-prefix">
                 {% money_input_field name="annual_gross_income" value="" class="money form-block response-textbox positive-float" %}
-            </div>
-
-            <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
-                 data-target="#collapseFedGuidelines" aria-controls="collapseFedGuidelines">
-                <div>
-                    What are the Federal Child Support Guidelines?
-                </div>
-            </div>
-            <div class="collapse" id="collapseFedGuidelines">
-                <div>
-                    <p>
-                        The Federal Guidelines are a set of rules and tables used to determine child support when
-                        parents
-                        divorce. They are the law. Their main goals are:
-                    </p>
-                    <ul>
-                        <li>
-                            to establish a fair standard of support for children so that they continue to benefit from
-                            both
-                            parents’ incomes after the separation or divorce;
-                        </li>
-                        <li>
-                            to reduce conflict and tension between parents by making the calculation of child support
-                            more
-                            objective;
-                        </li>
-                        <li>
-                            to ensure that parents and children in similar situations are treated the same; and
-                        </li>
-                        <li>
-                            to make the legal process more efficient and encourage settlements by giving courts and
-                            parents guidance about child support.
-                        </li>
-                    </ul>
-                    <p>
-                        Source:
-                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" link_text="Federal Child Support Guidelines Step-by-Step Guide" %}
-                        , Department of Justice
-                    </p>
-                </div>
             </div>
 
             <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
@@ -148,46 +140,6 @@
             </div>
 
             <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
-                 data-target="#collapseSpouseFedGuidelines" aria-controls="collapseSpouseFedGuidelines">
-                <div>
-                    What are the Federal Child Support Guidelines?
-                </div>
-            </div>
-            <div class="collapse" id="collapseSpouseFedGuidelines">
-                <div>
-                    <p>
-                        The Federal Guidelines are a set of rules and tables used to determine child support when
-                        parents
-                        divorce. They are the law. Their main goals are:
-                    </p>
-                    <ul>
-                        <li>
-                            to establish a fair standard of support for children so that they continue to benefit from
-                            both
-                            parents’ incomes after the separation or divorce;
-                        </li>
-                        <li>
-                            to reduce conflict and tension between parents by making the calculation of child support
-                            more
-                            objective;
-                        </li>
-                        <li>
-                            to ensure that parents and children in similar situations are treated the same; and
-                        </li>
-                        <li>
-                            to make the legal process more efficient and encourage settlements by giving courts and
-                            parents guidance about child support.
-                        </li>
-                    </ul>
-                    <p>
-                        Source:
-                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" link_text="Federal Child Support Guidelines Step-by-Step Guide" %}
-                        , Department of Justice
-                    </p>
-                </div>
-            </div>
-
-            <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
                  data-target="#collapseSpouseIncome" aria-controls="collapseSpouseIncome">
                 <div>
                     How do I calculate my spouse's annual income?
@@ -196,9 +148,12 @@
             <div class="collapse" id="collapseSpouseIncome">
                 <div>
                     <p>
-                        A spouse’s annual income is determined using the sources of income set out under the heading
-                        “Total income” in the T1 General form issued by the Canada Revenue Agency and is adjusted in
-                        accordance with Schedule III.
+                        The Federal Child Support Guidelines, Step-by-Step Guide has a
+                        <a href="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/w1-f1.html#s1"
+                           target="_blank">worksheet</a> you can use to help
+                        calculate your spouse's annual income. Step-by-step instructions are also detailed in the
+                        <a href="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step5-etap5.html#h7"
+                           target="_blank">Step-by-Step Guide</a>.
                     </p>
                 </div>
             </div>
@@ -547,7 +502,7 @@
     <div class="question-well">
         <h3>Please describe the order you are asking for regarding Special and Extraordinary Expenses</h3>
         <p>
-            If you're not sure how to write what you are asking for, you can refer to the
+            If you're not sure how to write what you are asking for, you can refer to section "G" of the
             <a href="http://www.courts.gov.bc.ca/supreme_court/practice_and_procedure/family_law_orders/picklist_family_orders.pdf" target="_blank">
                 The Supreme Court Family Order Pick List</a>
             which sets out standard terms for most of the usual orders made in family cases.
@@ -561,8 +516,7 @@
         </p>
         <blockquote>
             <p>
-                The parties agree that the following expenses shall be considered special or extraordinary expenses for
-                the child(ren): Happy Day Summer Camp.
+                PARTYNAME will pay to PARTYNAME the sum of $ AMOUNT per month commencing on STARTDATE and continuing on the [1st, 15th, 31,st etc ]day of each month thereafter for the child(ren)'s special or extraordinary expenses.
             </p>
             <p>
                 No other expenses will be considered special or extraordinary unless agreed to by the parties in advance
