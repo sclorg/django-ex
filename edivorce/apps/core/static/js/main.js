@@ -695,11 +695,6 @@ var initializeChildRowControls = function(element) {
             if ($(this).hasClass('fact-sheet-button'))
                 return;
             populateChildInputFields($(this).parent('tr'));
-        })
-        .hover(function() {
-            $(this).parent('tr').find('.fact-sheet-button').show();
-        }, function() {
-            $(this).parent('tr').find('.fact-sheet-button').hide();
         });
 
     element.find('#delete_child_modal').on('show.bs.modal', function(event) {
