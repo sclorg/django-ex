@@ -51,22 +51,6 @@
                         Note: This includes time that a parent is responsible for the children, even if they are not
                         physically with that parent (for example the child is at school).
                     </p>
-                </td>
-                <td class="fact-sheet-answer">
-                    <div class="percent-suffix">
-                        {% input_field type="number" name="time_spent_with_you" class="fact-sheet-input" min="0" placeholder="enter number" %}
-                        <label> %</label>
-                    </div>
-                </td>
-                <td class="fact-sheet-answer">
-                    <div class="percent-suffix">
-                        {% input_field type="number" name="time_spent_with_spouse" class="fact-sheet-input" min="0" placeholder="enter number" %}
-                        <label> %</label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
                     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_percentage_time" aria-controls="collapse_percentage_time">
                         <div>
                             How do I determine the percentage of time spent with each parent?
@@ -88,6 +72,20 @@
                         </div>
                     </div>
                 </td>
+                <td class="fact-sheet-answer">
+                    <div class="percent-suffix">
+                        {% input_field type="number" name="time_spent_with_you" class="fact-sheet-input" min="0" placeholder="enter number" %}
+                        <label> %</label>
+                    </div>
+                </td>
+                <td class="fact-sheet-answer">
+                    <div class="percent-suffix">
+                        {% input_field type="number" name="time_spent_with_spouse" class="fact-sheet-input" min="0" placeholder="enter number" %}
+                        <label> %</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
             </tr>
             <tr>
                 <td class="fact-sheet-question">Annual income as per
