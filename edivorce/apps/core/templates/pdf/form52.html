@@ -61,11 +61,9 @@
             Family Rules, and on considering the evidence put forward;
         </p>
 
-    {% if derived.wants_divorce_order %}
+        {% if derived.wants_divorce_order %}
             <p>THIS COURT ORDERS that</p>
-
-            <ol class="numbered-paragraphs force-break-last">
-            <li>
+            <p>
                 Subject to section 12 of the <em>Divorce Act</em> (Canada), claimant 1,
                 {% if responses.name_you %}{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}{% else %}<span class="form-entry not-complete"></span>{% endif %},
                 and claimant 2,
@@ -86,21 +84,15 @@
                 {% else %}<span class="form-entry not-complete"></span>{% endif %},
                 are divorced from each other, the divorce to take effect on
                 {% effective_date %}.
-            </li>
-    {% endif %}
-
-    {% if responses.children_of_marriage == 'YES' and responses.special_extraordinary_expenses == 'YES' %}
-                {{ responses.describe_order_special_extra_expenses|striptags|linebreaksli }}
-    {% endif %}
-            </ol>
-
-        <div>
+            </p>
+        {% endif %}
+    <div>
 
     {% if derived.wants_spousal_support or derived.wants_property_division or derived.wants_child_support or derived.wants_other_orders %}
             <p>THIS COURT ORDERS that BY CONSENT:</p>
     {% endif %}
 
-            <ol class="numbered-paragraphs force-break-last">
+            <ol class="numbered-paragraphs">
     {% if derived.wants_spousal_support %}
                 <li>{{ responses.spouse_support_details }}&nbsp;</li>
     {% endif %}
@@ -126,6 +118,10 @@
         {% endfor %}
     {% endif %}
 
+    {% if responses.children_of_marriage == 'YES' and responses.special_extraordinary_expenses == 'YES' %}
+                {{ responses.describe_order_special_extra_expenses|striptags|linebreaksli }}
+    {% endif %}
+
     {% if derived.wants_other_orders %}
         {% if responses.name_change_you == 'YES' %}
                 <li>
@@ -148,7 +144,7 @@
         {% endif %}
     {% endif %}
             </ol>
-
+        <div class="avoid-break-alone">
             <p>
                 THE FOLLOWING PARTIES APPROVE THE FORM OF THIS ORDER AND
                 CONSENT TO EACH OF THE ORDERS, IF ANY, THAT ARE INDICATED ABOVE
@@ -200,6 +196,7 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
 
             <small class="bottom">Printed on {% now "F jS, Y" %} from https://justice.gov.bc.ca/divorce</small>
         </div>

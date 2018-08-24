@@ -287,6 +287,11 @@ ol.force-break-last > li:last-child {
   page-break-before: always;
 }
 
+.avoid-break-alone {
+  page-break-before: avoid;
+  page-break-inside: avoid;
+}
+
 .fake-checkbox {
   display: inline-block;
   width: 18px;
@@ -297,7 +302,7 @@ ol.force-break-last > li:last-child {
 }
 
 .sig-line-text .fake-checkbox {
-  margin-left: 0.5em; 
+  margin-left: 0.5em;
   margin-right: 0.5em;
 }
 
