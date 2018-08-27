@@ -40,7 +40,7 @@ To run this project in your development machine, follow these steps:
 
 8. Start the [Weasyprint server](https://hub.docker.com/r/aquavitae/weasyprint/) server on port 5005
 
-    1. Bind the IP address 10.200.10.1 to the lo0 interface on your Mac computer.  Weasyprint has been configured to use this IP address to request CSS files from Django *(You should only have to do this once)*.
+    1. Bind the IP address 10.200.10.1 to the lo0 interface on your Mac computer.  Weasyprint has been configured to use this IP address to request CSS files from Django.
         ```
         sudo ifconfig lo0 alias 10.200.10.1/24
         ```
