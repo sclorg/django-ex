@@ -2,9 +2,6 @@ from django.conf.urls import url
 
 from .views import main, system, pdf, api, localdev
 
-handler404 = 'core.views.main.page_not_found'
-handler500 = 'core.views.main.server_error'
-
 urlpatterns = [
     # url(r'^guide$', styleguide.guide),
     url(r'^api/response$', api.UserResponseHandler.as_view()),

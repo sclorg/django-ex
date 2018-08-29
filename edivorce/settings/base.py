@@ -56,7 +56,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware',
@@ -144,3 +143,5 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 SECURE_BROWSER_XSS_FILTER = True
+
+LOGOUT_URL = '/accounts/logout/'

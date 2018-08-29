@@ -15,6 +15,7 @@ from django.core.management import execute_from_command_line
 # check if the app is running on OpenShift
 if not os.environ.get('OPENSHIFT_BUILD_NAMESPACE', False):
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "edivorce.settings.local")
+    is_local = True
 else:
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "edivorce.settings.openshift")
 
@@ -32,6 +33,7 @@ if platform_name == "Windows":
     question_fixture_path = os.path.realpath("./edivorce/fixtures/Question.json")
 
 # load the Question fixture
-execute_from_command_line(['manage.py', 'loaddata', question_fixture_path])
+if not is_local:
+	execute_from_command_line(['manage.py', 'loaddata', question_fixture_path])
 
 application = get_wsgi_application()

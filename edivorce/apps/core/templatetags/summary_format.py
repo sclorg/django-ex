@@ -3,7 +3,7 @@ from collections import OrderedDict
 from django import template
 import json
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 
 register = template.Library()

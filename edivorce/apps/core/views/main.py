@@ -1,7 +1,7 @@
 import datetime
 
 from django.conf import settings
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.template import RequestContext
 
@@ -204,20 +204,14 @@ def page_not_found(request):
     """
     404 Error Page
     """
-    response = render_to_response('404.html', {},
-                                  context_instance=RequestContext(request))
-    response.status_code = 404
-    return response
+    return render(request, '404.html', status=404)
 
 
 def server_error(request):
     """
     500 Error Page
     """
-    response = render_to_response('500.html', {},
-                                  context_instance=RequestContext(request))
-    response.status_code = 500
-    return response
+    return render(request, '500.html', status=500)
 
 
 def legal(request):
