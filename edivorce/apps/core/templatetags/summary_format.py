@@ -75,29 +75,6 @@ def format_review_row_heading(title, style=""):
         style)
 
 
-# def format_head(headings):
-#     if len(headings) == 0:
-#         return '', []
-
-#     tags = ["<tr>"]
-#     head_order = list()
-#     for key in headings[0].keys():
-#         tags.append('<th>{}</th>'.format(key.replace('_', ' ').title()))
-#         head_order.append(key)
-#     tags.append('</tr>')
-#     return ''.join(tags), head_order
-
-
-# def process_fact_sheet_list(data, header):
-#     tags = list()
-#     for item in data:
-#         tags.append('<tr>')
-#         for key in header:
-#             tags.append('<td>{}</td>'.format(item.get(key, '')))
-#         tags.append('</tr>')
-#     return ''.join(tags)
-
-
 def format_fact_sheet(title, url, style=''):
     return format_html(
         '<tr><td colspan="2" class="table-bordered {0}"><a href="{1}"><b>{2}</b></a></td></tr>',
@@ -171,7 +148,10 @@ def format_children(context, source):
     # process mapped questions first
     working_source = source.copy()
     for title, questions in question_to_heading.items():
-        tags = format_html('{}{}', tags, format_review_row_heading(title))
+        tags = format_html(
+            '{}{}',
+            tags,
+            format_review_row_heading(title))
 
         for question in questions:
             if question in fact_sheet_mapping:
@@ -191,7 +171,10 @@ def format_children(context, source):
                     show_fact_sheet = True
 
                 if show_fact_sheet and len(fact_sheet_mapping[question]):
-                    tags = format_html('{}{}', tags, format_fact_sheet(question, fact_sheet_mapping[question]))
+                    tags = format_html(
+                        '{}{}',
+                        tags,
+                        format_fact_sheet(question, fact_sheet_mapping[question]))
             else:
 
                 item = list(filter(lambda x: x['question_id'] == question, working_source))
@@ -201,7 +184,10 @@ def format_children(context, source):
                     item = item.pop()
                     if context['derived']['wants_child_support'] is True:
                         # make sure free form text is reformted to be bullet list.
-                        tags = format_html('{}{}{}', tags, format_row(item['question__name'], reformat_list(item['value'])))
+                        tags = format_html(
+                            '{}{}',
+                            tags,
+                            format_row(item['question__name'], reformat_list(item['value'])))
                     continue
 
                 if len(item):

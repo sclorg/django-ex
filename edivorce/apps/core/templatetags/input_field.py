@@ -120,7 +120,11 @@ def additional_attributes(**kwargs):
     for key, data_val in kwargs.items():
         if str.startswith(key, 'data_'):
             key = str.replace(key, 'data_', 'data-')
-        attributes = format_html('{} {}="{}"', attributes, key, data_val)
+        attributes = format_html(
+            '{} {}="{}"',
+            attributes,
+            key,
+            data_val)
     return attributes
 
 

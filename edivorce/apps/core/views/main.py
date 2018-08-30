@@ -72,8 +72,8 @@ def incomplete(request):
     missed_questions = get_formatted_incomplete_list(missed_question_keys)
 
     responses_dict = get_responses_from_session(request)
-    responses_dict.append(('debug', settings.DEBUG, ))
-    responses_dict.append(('missed_questions', missed_questions, ))
+    responses_dict['debug'] = settings.DEBUG
+    responses_dict['missed_questions'] = missed_questions
 
     return render(request, 'incomplete.html', context=responses_dict)
 

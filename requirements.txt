@@ -1,4 +1,4 @@
-Django<1.11
+Django<1.12
 django-compressor==2.1
 django-crispy-forms==1.6.1
 django-debug-toolbar==1.9
