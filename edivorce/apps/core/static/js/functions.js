@@ -184,6 +184,12 @@ var checkboxRadioControl = function(el) {
 var radioWithTextboxControl = function(el){
     // If radio button has other as an option and 'Other' is not selected, update other textbox to empty
     if (el.is(".radio-with-other") && el.val() !== 'Other'){
+        // Special case for child_support_in_order question which has option to use value from Factsheet C.
+        // Change on radio button selection will save child support amount value as well.
+        if (el.prop('name') === 'child_support_in_order') {
+            var moneyTextBox = el.parent().find('.child-support-amount');
+            ajaxCall(moneyTextBox.prop('name'), moneyTextBox.val());
+        }
         var otherTextBox = el.closest('div.radio').parent().find(".other-textbox");
         otherTextBox.val('');
         ajaxCall(otherTextBox.prop('name'), '');
