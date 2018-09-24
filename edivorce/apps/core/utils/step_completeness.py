@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from edivorce.apps.core.models import Question
 from edivorce.apps.core.utils.question_step_mapping import question_step_mapping, pre_qual_step_question_mapping

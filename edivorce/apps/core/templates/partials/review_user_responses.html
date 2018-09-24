@@ -1,6 +1,5 @@
 {% load summary_format %}
 {% if questions %}
-
     {% if step == 'your_children' %}
     <table class="table table-striped">
         <thead>
@@ -11,7 +10,6 @@
         </thead>
         {% format_children source=questions %}
     </table>
-
     {% else %}
     <table class="table table-bordered table-striped">
         <thead>

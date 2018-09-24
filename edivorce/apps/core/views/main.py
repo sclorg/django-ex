@@ -1,7 +1,7 @@
 import datetime
 
 from django.conf import settings
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.template import RequestContext
 
@@ -72,8 +72,8 @@ def incomplete(request):
     missed_questions = get_formatted_incomplete_list(missed_question_keys)
 
     responses_dict = get_responses_from_session(request)
-    responses_dict.append(('debug', settings.DEBUG, ))
-    responses_dict.append(('missed_questions', missed_questions, ))
+    responses_dict['debug'] = settings.DEBUG
+    responses_dict['missed_questions'] = missed_questions
 
     return render(request, 'incomplete.html', context=responses_dict)
 
@@ -204,20 +204,14 @@ def page_not_found(request):
     """
     404 Error Page
     """
-    response = render_to_response('404.html', {},
-                                  context_instance=RequestContext(request))
-    response.status_code = 404
-    return response
+    return render(request, '404.html', status=404)
 
 
 def server_error(request):
     """
     500 Error Page
     """
-    response = render_to_response('500.html', {},
-                                  context_instance=RequestContext(request))
-    response.status_code = 500
-    return response
+    return render(request, '500.html', status=500)
 
 
 def legal(request):
