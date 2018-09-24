@@ -800,6 +800,16 @@ input {
 	margin-bottom: 8px;
 	margin-left: 21px;
 }
+.radio .radio-with-textbox {
+	display: flex;
+	align-items: baseline;
+	margin-bottom: 16px;
+
+	input.form-block {
+		margin-bottom: 0;
+		margin-right: 8px;
+	}
+}
 
 textarea {
 	width: 100%;

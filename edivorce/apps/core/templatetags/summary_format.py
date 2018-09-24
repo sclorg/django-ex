@@ -119,10 +119,9 @@ def format_children(context, source):
         'child_support_arrears_amount'
     ]
     question_to_heading['What are you asking for?'] = [
-        # 'child_support_in_order',
-        'order_monthly_child_support_amount',
+        'child_support_in_order',
+        # 'order_monthly_child_support_amount',
         'child_support_in_order_reason',
-        'does_payour_amount_match_guidelines',
         'claimants_agree_to_child_support_amount',
         'child_support_payment_special_provisions',
         'agree_to_child_support_amount',
@@ -215,9 +214,16 @@ def format_children(context, source):
                                 value = json.loads(item['value'])
                             except:
                                 pass
+
                             question_name = item['question__name']
-                            if question == 'order_monthly_child_support_amount':
+                            if question == 'child_support_in_order':
                                 question_name = '{} {}'.format(question_name, context['derived']['child_support_payor_by_name'])
+                                if value == 'MATCH':
+                                    value = '{:.2f}'.format(float(context['derived']['guideline_amounts_difference']))
+                                elif value == 'DIFF':
+                                    amount = list(filter(lambda x: x['question_id'] == 'order_monthly_child_support_amount', working_source))
+                                    amount = amount.pop()
+                                    value = '{:.2f}'.format(float(amount['value']))
                             if question == 'describe_order_special_extra_expenses':
                                 value = reformat_list(value)
 

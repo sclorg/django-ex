@@ -239,13 +239,13 @@
             arrangements have been made for the support of the child:
             <div class="new-paragraph user-entered"
               >{{ responses.child_support_in_order_reason }}</div>
-  {% elif responses.does_payour_amount_match_guidelines	== 'YES' %}  <!-- 6a -->
+  {% elif responses.child_support_in_order	== 'MATCH' %}  <!-- 6a -->
             The proposed order sets out that
             {{ responses.order_monthly_child_support_amount|money }}
             is the amount of child support payable by
             {{ derived.child_support_payor }},
             which amount accords with the Guidelines.
-  {% elif responses.claimants_agree_to_child_support_amount == 'YES' %}  <!-- 6b -->
+  {% elif responses.child_support_in_order == 'DIFF' and responses.claimants_agree_to_child_support_amount == 'YES' %}  <!-- 6b -->
             The proposed order by consent, pursuant to section 15.1(7) of  the
             Divorce Act (Canada) or section 150(2) of   the Family Law Act,
             sets out that

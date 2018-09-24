@@ -27,46 +27,54 @@
              to be paid by {% payorize %}?
         </h3>
         <div class="radio">
-            <label>
+            <label class="radio-with-textbox">
 
                 {% if how_will_calculate_income != 'entered agreement' %}
-                    {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="YES" data_target_class="support-amount-match" data_reveal_class="true" %}
+                    {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="MATCH" data_target_id="child_support_in_order_detail" data_reveal_target="false" data_target_class="support-amount-match" data_reveal_class="false" %}
+
+                    {% if derived.show_fact_sheet_c %}
+                        <div class="dollar-prefix">
+                            {% money_input_field name="order_monthly_child_support_amount" value_src="difference_payment_amounts" class="money positive-float form-block response-textbox children-input-block child-support-amount" readonly="" %}
+                        </div>Matches Child Support Guideline amount
+                    {% else %}
+                        <div class="dollar-prefix">
+                            {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" %}
+                        </div>Matches Child Support Guideline amount
+                    {% endif %}
                 {% else %}
-                    {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="YES" %}
+                    {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="MATCH" data_target_id="child_support_in_order_detail" data_reveal_target="false" %}
+
+                    <div class="dollar-prefix">
+                        {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block" %}
+                    </div>
                 {% endif %}
-                <div class="dollar-prefix">
-                    {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block" data_mirror="true" data_mirror_target="#child_support_amount_label" %}
-                </div>
             </label>
         </div>
 
         {% if how_will_calculate_income != 'entered agreement' %}
         <div class="radio">
-            <label>
-                {% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_class="support-amount-match" data_reveal_class="false" %}We are not asking for child support to be included in the order
+            <label class="radio-with-textbox">
+                {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="DIFF" data_target_class="support-amount-match" data_reveal_class="true" data_target_id="child_support_in_order_detail" data_reveal_target="false" %}
+
+                <div class="dollar-prefix">
+                    {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" %}
+                </div>
+                Different amount (does not match Child Support Guidelines)
             </label>
-            <p>
+        </div>
+        {% endif %}
+
+        {% if how_will_calculate_income != 'entered agreement' %}
+        <div class="radio">
+            <label>
+                {% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_id="child_support_in_order_detail" data_reveal_target="true" data_target_class="support-amount-match" data_reveal_class="false" %}We are not asking for child support to be included in the order
+            </label>
+            <p id="child_support_in_order_detail">
                 Please describe what arrangements have been made for the support of the child (ren)?
                 {% input_field type="textarea" name="child_support_in_order_reason" class="other-textbox response-textarea form-control" tabindex="-1" maxlength="500" rows="3" %}
             </p>
         </div>
         {% endif %}
-    </div>
-
-    <div class="question-well support-amount-match" id="does_amount_match" hidden>
-        <h3>Does this amount match with what is specified in the current
-            <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-1.html" target="_blank">
-                Federal Child Support Guidelines
-            </a>amount based on the income of the payor(s)?
-        </h3>
-        <div class="btn-radio-group" data-toggle="buttons">
-            <label class="btn btn-radio">
-                {% input_field type="radio" name="does_payour_amount_match_guidelines" value="YES" data_target_id="amount_does_not_match" data_reveal_target="false" data_reveal_force_hide_group=".hide-grouping" %} Yes
-            </label>
-            <label class="btn btn-radio">
-                {% input_field type="radio" name="does_payour_amount_match_guidelines" value="NO" data_target_id="amount_does_not_match" data_reveal_target="true" %} No
-            </label>
-        </div>
     </div>
 
     <div class="question-well support-amount-match hide-grouping" id="amount_does_not_match" hidden>

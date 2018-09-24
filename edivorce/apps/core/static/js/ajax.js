@@ -10,6 +10,16 @@ var ajaxOnChange = function () {
         return;
     }
 
+    // Only make Ajax call if radio button for the element is selected.
+    // data-ajax_only_radio_selected=[true]
+    var ajaxOnlyRadioSelect = el.attr('data-ajax_only_radio_selected');
+    if (ajaxOnlyRadioSelect !== undefined && ajaxOnlyRadioSelect === "true") {
+        var radioButton = el.closest('div.radio').find('input:radio');
+        if (!radioButton.prop('checked')) {
+            return;
+        }
+    }
+
     var question = el.prop('name');
     var value = getValue(el, question);
     var isValid = true;

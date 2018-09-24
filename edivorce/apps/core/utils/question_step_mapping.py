@@ -84,7 +84,6 @@ question_step_mapping = {
                       'child_support_in_order',
                       'order_monthly_child_support_amount',
                       'child_support_in_order_reason',
-                      'does_payour_amount_match_guidelines',
                       'child_support_payment_special_provisions',
                       'number_children_seeking_support',
                       'child_support_amount_under_high_income',
