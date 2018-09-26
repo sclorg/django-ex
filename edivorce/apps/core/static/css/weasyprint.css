@@ -287,6 +287,10 @@ ol.force-break-last > li:last-child {
   page-break-before: always;
 }
 
+ol.avoid-break-last > li:last-child {
+  page-break-inside: avoid;
+}
+
 .avoid-break-alone {
   page-break-before: avoid;
   page-break-inside: avoid;
