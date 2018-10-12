@@ -2,7 +2,7 @@
 // In other words all of the images that are currently deployed in TEST will be tagged for deployment to PROD.
 
 // Define these in the order they should be deployed.
-def APP_NAMES = ['postgresql', 'nginx-proxy', 'weasyprint', 'edivorce-django']
+def APP_NAMES = ['postgresql', 'nginx-proxy', 'weasyprint', 'edivorce-django', 'backup']
 def SOURCE_TAG = 'test'
 def DESTINATION_TAG = 'prod'
 

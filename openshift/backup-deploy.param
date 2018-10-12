@@ -1,0 +1,27 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/backup/backup-deploy.json
+#=========================================================
+NAME=backup
+SOURCE_IMAGE_NAME=backup
+IMAGE_NAMESPACE=jag-csb-edivorce-tools
+TAG_NAME=dev
+POSTGRESQL_HOST_NAME=postgresql
+BACKUP_STRATEGY=rolling
+BACKUP_DIR=/backups/
+NUM_BACKUPS=
+DAILY_BACKUPS=
+WEEKLY_BACKUPS=
+MONTHLY_BACKUPS=
+BACKUP_PERIOD=1d
+CONFIG_FILE_NAME=backup.conf
+CONFIG_MAP_NAME=backup-conf
+CONFIG_MOUNT_PATH=/
+PERSISTENT_VOLUME_NAME=backup-pvc
+PERSISTENT_VOLUME_SIZE=20Gi
+PERSISTENT_VOLUME_CLASS=gluster-file
+CPU_REQUEST=0
+CPU_LIMIT=0
+MEMORY_REQUEST=0Mi
+MEMORY_LIMIT=0Mi

@@ -261,6 +261,10 @@ These instructions assume you have 4 EMPTY projects created in OpenShift:
 - jag-csb-edivorce-test (TEST)
 - jag-csb-edivorce-prod (PROD)
 
+# Backups
+
+Daily rolling database backups are performed in the production environment only using the [backup-container](https://github.com/BCDevOps/backup-container) project.
+
 # How to Access OpenShift for eDivorce
 
 ## Web UI
