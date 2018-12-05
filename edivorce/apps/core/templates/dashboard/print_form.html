@@ -484,6 +484,13 @@
           </a> for anyone requesting a name change
         </li>
         {% endif %}
+        {% if how_will_calculate_income == 'entered agreement' %}
+        <li>Completed
+          <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/f9.pdf?forcedownload=true" target="_blank">
+           Agreement as to Annual Income (F9)
+         </a>
+        </li>
+        {% endif %}
     </ul>
 </div>
 
@@ -507,6 +514,9 @@
             {% comment %}{# common law use case removed in DIV-495 #}
             <li>Affidavit — Desk Order Divorce Form (F30)</li>
             {% endcomment %}
+        {% endif %}
+        {% if how_will_calculate_income == 'entered agreement' %}
+          <li>Agreement as to Annual Income (F9)</li>
         {% endif %}
     </ul>
 
