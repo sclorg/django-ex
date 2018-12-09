@@ -28,30 +28,19 @@
         </h3>
         <div class="radio">
             <label class="radio-with-textbox">
+                {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="MATCH" data_target_id="child_support_in_order_detail" data_reveal_target="false" data_target_class="support-amount-match" data_reveal_class="false" %}
 
-                {% if how_will_calculate_income != 'entered agreement' %}
-                    {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="MATCH" data_target_id="child_support_in_order_detail" data_reveal_target="false" data_target_class="support-amount-match" data_reveal_class="false" %}
-
-                    {% if derived.show_fact_sheet_b or derived.show_fact_sheet_c %}
-                        <div class="dollar-prefix">
-                            {% money_input_field name="order_monthly_child_support_amount" value_src="difference_payment_amounts" class="money positive-float form-block response-textbox children-input-block child-support-amount" readonly="" %}
-                        </div>Matches Child Support Guideline amount calculated from fact sheet
-                    {% else %}
-                        <div class="dollar-prefix">
-                            {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" %}
-                        </div>Matches Child Support Guideline amount calculated from fact sheet
-                    {% endif %}
-                {% else %}
-                    {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="MATCH" data_target_id="child_support_in_order_detail" data_reveal_target="false" %}
-
+                {% if derived.show_fact_sheet_b or derived.show_fact_sheet_c %}
                     <div class="dollar-prefix">
-                        {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block" %}
-                    </div>
+                        {% money_input_field name="order_monthly_child_support_amount" value_src="difference_payment_amounts" class="money positive-float form-block response-textbox children-input-block child-support-amount" readonly="" %}
+                    </div>Matches Child Support Guideline amount calculated from fact sheet
+                {% else %}
+                    <div class="dollar-prefix">
+                        {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" %}
+                    </div>Matches Child Support Guideline amount calculated from fact sheet
                 {% endif %}
             </label>
         </div>
-
-        {% if how_will_calculate_income != 'entered agreement' %}
         <div class="radio">
             <label class="radio-with-textbox">
                 {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="DIFF" data_target_class="support-amount-match" data_reveal_class="true" data_target_id="child_support_in_order_detail" data_reveal_target="false" %}
@@ -62,9 +51,6 @@
                 Different amount (does not match Child Support Guidelines)
             </label>
         </div>
-        {% endif %}
-
-        {% if how_will_calculate_income != 'entered agreement' %}
         <div class="radio">
             <label>
                 {% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_id="child_support_in_order_detail" data_reveal_target="true" data_target_class="support-amount-match" data_reveal_class="false" %}We are not asking for child support to be included in the order
@@ -74,7 +60,6 @@
                 {% input_field type="textarea" name="child_support_in_order_reason" class="other-textbox response-textarea form-control" tabindex="-1" maxlength="500" rows="3" %}
             </p>
         </div>
-        {% endif %}
     </div>
 
     <div class="question-well support-amount-match hide-grouping" id="amount_does_not_match" hidden>
