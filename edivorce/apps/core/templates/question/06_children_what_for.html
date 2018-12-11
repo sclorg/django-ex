@@ -33,11 +33,11 @@
                 {% if derived.show_fact_sheet_b or derived.show_fact_sheet_c %}
                     <div class="dollar-prefix">
                         {% money_input_field name="order_monthly_child_support_amount" value_src="difference_payment_amounts" class="money positive-float form-block response-textbox children-input-block child-support-amount" readonly="" %}
-                    </div>Matches Child Support Guideline amount calculated from fact sheet
+                    </div>Matches Child Support Guideline (amount calculated from Fact sheet)
                 {% else %}
                     <div class="dollar-prefix">
                         {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" %}
-                    </div>Matches Child Support Guideline amount calculated from fact sheet
+                    </div>Matches Child Support Guideline (amount calculated from Fact sheet)
                 {% endif %}
             </label>
         </div>
