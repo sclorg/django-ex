@@ -591,8 +591,7 @@
     "fields": {
         "name": "Postal code",
         "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 57,
-        "required": "Required"
+        "summary_order": 57
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_postal_code_you"
@@ -671,8 +670,7 @@
     "fields": {
         "name": "Postal code",
         "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 65,
-        "required": "Required"
+        "summary_order": 65
     },
     "model": "core.question",
     "pk": "address_to_send_official_document_postal_code_spouse"

@@ -511,7 +511,7 @@ class UserResponseTestCase(TestCase):
                                                                             'question__conditional_target',
                                                                             'question__reveal_response',
                                                                             'question__required')
-        self.assertEqual(is_complete(step, lst)[0], False)
+        self.assertEqual(is_complete(step, lst)[0], True)
 
         # All required questions for spouse and you
         create_response(user, 'address_to_send_official_document_postal_code_spouse', 'Canada')

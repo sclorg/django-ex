@@ -28,13 +28,13 @@
         <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="address_to_send_official_document_country_you" value="USA" %}USA</label></div>
         <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="address_to_send_official_document_country_you" value="Other" %}Other {% input_field type="text" name="address_to_send_official_document_other_country_you" class="response-textbox other-textbox input-inline" tabindex="-1" %}</label></div>
 
-        <p>Postal code</p>
+        <p>Postal code (optional)</p>
         {% input_field type="text" name="address_to_send_official_document_postal_code_you" class="form-block input-wide response-textbox" %}
     </div>
 
     <div>
         <p>If you don’t live within 30 km of a court registry, you must provide a fax number or email address.
-            If you main address is a PO box, you can list this instead of the fax or email but you must also list
+            If your main address is a PO box, you can list this instead of the fax or email but you must also list
             an address that’s not a PO box.</p>
 
         <p>Fax number (optional)</p>
@@ -62,7 +62,7 @@
         <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="address_to_send_official_document_country_spouse" value="USA" %}USA</label></div>
         <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="address_to_send_official_document_country_spouse" value="Other" %}Other {% input_field type="text" name="address_to_send_official_document_other_country_spouse" class="response-textbox other-textbox input-inline" tabindex="-1" %}</label></div>
 
-        <p>Postal code</p>
+        <p>Postal code (optional)</p>
         {% input_field type="text" name="address_to_send_official_document_postal_code_spouse" class="form-block input-wide response-textbox" %}
     </div>
 
