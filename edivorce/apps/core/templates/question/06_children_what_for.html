@@ -45,9 +45,15 @@
             <label class="radio-with-textbox">
                 {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="DIFF" data_target_class="support-amount-match" data_reveal_class="true" data_target_id="child_support_in_order_detail" data_reveal_target="false" %}
 
-                <div class="dollar-prefix">
-                    {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" %}
-                </div>
+                {% if child_support_in_order == 'DIFF' %}
+                    <div class="dollar-prefix">
+                        {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" %}
+                    </div>
+                {% else %}
+                    <div class="dollar-prefix">
+                        {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" value='0' %}
+                    </div>
+                {% endif %}
                 Different amount (does not match Child Support Guidelines)
             </label>
         </div>
