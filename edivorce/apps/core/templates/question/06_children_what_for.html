@@ -177,8 +177,6 @@
 
     </div>
 
-
-    {% if 'Child support' in want_which_orders|load_json %}
     <div class="question-well">
         <h3>Do you have a
             <span class="tooltip-link"
@@ -271,6 +269,7 @@
         {% input_field type="textarea" name="what_parenting_arrangements" class="response-textarea form-control" maxlength="20000" rows="7"%}
     </div>
 
+    {% if 'Child support' in want_which_orders|load_json %}
     <div class="question-well">
         <h3>If you are asking the court to include an
             <span class="tooltip-link"
