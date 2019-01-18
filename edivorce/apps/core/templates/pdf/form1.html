@@ -437,13 +437,18 @@
                 <tr>
                     <td colname="c2">
                         <span class="td-list-item">
-                          B. {% checkbox responses.order_for_child_support children_of_marriage='YES' want_which_orders='Child support' %}
+                          B. 
+                          {% if responses.child_support_in_order == 'NO' %}
+                            {% checkbox false %}
+                          {% else %}
+                            {% checkbox responses.order_for_child_support children_of_marriage='YES' want_which_orders='Child support' %}
+                          {% endif %}
                         </span>
                         <div class="td-list-text">
                             Claimant 1 and Claimant 2 are asking for an order for
                             child support as follows:
                             <span class="form-entry form-textarea not-complete form-list-textarea">
-    {% if responses.children_of_marriage == 'YES' and responses.order_for_child_support and 'Child support' in responses.want_which_orders %}
+    {% if responses.children_of_marriage == 'YES' and responses.order_for_child_support and 'Child support' in responses.want_which_orders and responses.child_support_in_order != 'NO' %}
                               <ul>{{ responses.order_for_child_support|striptags|linebreaksli }}</ul>
     {% endif %}
                             </span>

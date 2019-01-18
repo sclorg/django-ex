@@ -91,6 +91,10 @@ var showHideTargetId = function(el, id, relatedId, revealControlGroup) {
         if (id === "#has_children") {
             reveal($("input[name=number_children_over_19]"));
         }
+        // Special case of hide child support description.
+        if (id === "#child_support_in_order_detail") {
+            $("#child_support_description").hide();
+        }
 
         // reveal nested question as well
         if (id === "#marriage_certificate") {
@@ -113,6 +117,11 @@ var showHideTargetId = function(el, id, relatedId, revealControlGroup) {
         if (el.data("reveal_force_hide_group")) {
             $(el.data("reveal_force_hide_group")).hide();
             $(el.data("reveal_force_hide_group")).find(':radio').prop('checked', false);
+        }
+
+        // Special case of show child support description.
+        if (id === "#child_support_in_order_detail") {
+            $("#child_support_description").show();
         }
 
         if (relatedId !== undefined){
