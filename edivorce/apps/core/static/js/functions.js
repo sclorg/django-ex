@@ -156,6 +156,12 @@ var showHideRevealClass = function(el, targetCssClass) {
     } else {
         if (targetCssClass !== undefined){
             $('.' + targetCssClass).show();
+            // This is to handle special case where multiple reveal options applied.
+            if (targetCssClass === 'support-amount-match') {
+                if ($("input[name=claimants_agree_to_child_support_amount]:checked").val() === 'YES') {
+                    $('#what_special_provisions').hide();
+                }
+            }
         }
     }
 };

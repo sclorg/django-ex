@@ -847,10 +847,22 @@
 },
 {
     "fields": {
-        "name": "If you are asking the court to include an order about parenting arrangements or contact with a child, please indicate the orders you are asking for below.",
+        "name": "Are you asking the court for an order about parenting arrangements or contact with a child?",
         "description": "For Step 6, Your children - What are you asking for",
         "summary_order": 0,
         "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "want_parenting_arrangements"
+},
+{
+    "fields": {
+        "name": "Please indicate the parenting arrangements you are asking for below.",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "want_parenting_arrangements",
+        "reveal_response": "YES"
     },
     "model": "core.question",
     "pk": "order_respecting_arrangement"
@@ -860,7 +872,9 @@
         "name": "If you are asking for an order for child support please describe what you are asking for.",
         "description": "For Step 6, Your children - What are you asking for",
         "summary_order": 0,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "child_support_in_order",
+        "reveal_response": "!NO"
     },
     "model": "core.question",
     "pk": "order_for_child_support"
@@ -1808,7 +1822,9 @@
         "name": "We are not asking for child support to be included in the order",
         "description": "For Step 6, Your children - Payor & medical expenses",
         "summary_order": 0,
-        "required": "Conditional"
+        "required": "Conditional",
+        "conditional_target": "child_support_in_order",
+        "reveal_response": "NO"
     },
     "model": "core.question",
     "pk": "child_support_in_order_reason"
@@ -1820,7 +1836,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "child_support_in_order",
-        "reveal_response": "[DIFF]"
+        "reveal_response": "DIFF"
     },
     "model": "core.question",
     "pk": "claimants_agree_to_child_support_amount"
@@ -1831,8 +1847,8 @@
         "description": "For Step 6, Your children - Payor & medical expenses",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "[claimants_agree_to_child_support_amount,child_support_in_order]",
-        "reveal_response": "[NO,DIFF]"
+        "conditional_target": "claimants_agree_to_child_support_amount",
+        "reveal_response": "NO"
     },
     "model": "core.question",
     "pk": "child_support_payment_special_provisions"

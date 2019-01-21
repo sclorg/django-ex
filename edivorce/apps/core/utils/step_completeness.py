@@ -103,7 +103,11 @@ def __condition_met(reveal_response, target, lst):
     # check whether using a numeric condition
     numeric_condition_met = evaluate_numeric_condition(target["value"], reveal_response)
     if numeric_condition_met is None:
-        if target["value"] != reveal_response:
+        # handle special negation options. ex) '!NO' matches anything but 'NO'
+        if reveal_response.startswith('!'):
+            if target["value"] == "" or target["value"] == reveal_response[1:]:
+                return False
+        elif target["value"] != reveal_response:
             return False
     elif numeric_condition_met is False:
         return False
@@ -129,6 +133,6 @@ def __has_value(key, lst):
     for user_response in lst:
         if user_response["question_id"] == key:
             answer = user_response["value"]
-            if answer != "" and answer != "[]" and answer != '[["",""]]':
+            if answer != "" and answer != "[]" and answer != '[["",""]]' and answer != "\n":
                 return True
     return False

@@ -420,14 +420,14 @@
                 <tr>
                   <td colname="c2">
                     <span class="td-list-item">
-                      A. {% checkbox responses.order_respecting_arrangement children_of_marriage='YES' want_which_orders='Child support' %}
+                      A. {% checkbox want_parenting_arrangements='YES' children_of_marriage='YES' want_which_orders='Child support' %}
                     </span>
                       <div class="td-list-text">
                           Claimant 1 and Claimant 2 are asking for the following
                           order respecting arrangements for parenting or
                           contact:
                           <span class="form-entry form-textarea not-complete form-list-textarea">
-    {% if responses.children_of_marriage == 'YES' and responses.order_respecting_arrangement and 'Child support' in responses.want_which_orders %}
+    {% if responses.children_of_marriage == 'YES' and responses.want_parenting_arrangements == 'YES' and responses.order_respecting_arrangement and 'Child support' in responses.want_which_orders %}
                             <ul>{{ responses.order_respecting_arrangement|striptags|linebreaksli }}</ul>
     {% endif %}
                           </span>

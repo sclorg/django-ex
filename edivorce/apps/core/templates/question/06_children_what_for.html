@@ -271,7 +271,7 @@
 
     {% if 'Child support' in want_which_orders|load_json %}
     <div class="question-well">
-        <h3>If you are asking the court to include an
+        <h3>Are you asking the court for an
             <span class="tooltip-link"
               data-toggle="tooltip" data-placement="right" data-html="true"
               title="
@@ -285,8 +285,21 @@
                  </p>
                 ">
                 order about parenting arrangements or contact <i class="fa fa-question-circle" aria-hidden="true"></i>
-            </span> with a child, please indicate the orders you are asking for below.
+            </span> with a child?
         </h3>
+        <div class="btn-radio-group" data-toggle="buttons">
+            <label class="btn btn-radio">
+                {% input_field type="radio" name="want_parenting_arrangements" autocomplete="off" value="YES" data_target_id="parenting_arrangement_detail" data_reveal_target="true" %} Yes
+            </label>
+
+            <label class="btn btn-radio">
+                {% input_field type="radio" name="want_parenting_arrangements" autocomplete="off" value="NO" data_target_id="parenting_arrangement_detail" data_reveal_target="false" %} No
+            </label>
+        </div>
+    </div>
+
+    <div class="question-well" id="parenting_arrangement_detail" hidden>
+        <h3>Please indicate the parenting arrangements you are asking for below.</h3>
         <p>
             You need to include each of the orders you want pertaining to guardianship, parental responsibilities and
             parenting time, and contact with the child. You will need to write them as if a Judge is telling you to do it.
