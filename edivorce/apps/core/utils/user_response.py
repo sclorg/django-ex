@@ -75,7 +75,10 @@ def get_responses_from_db_grouped_by_steps(bceid_user, hide_failed_conditionals=
                     continue
                 numeric_condition = evaluate_numeric_condition(values[target], q['question__reveal_response'])
                 if numeric_condition is None:
-                    if q['question__reveal_response'] and q['question__reveal_response'] != values[target]:
+                    if q['question__reveal_response'].startswith('!'):
+                        if values[target] == "" or values[target] == q['question__reveal_response'][1:]:
+                            q['value'] = ''
+                    elif q['question__reveal_response'] and q['question__reveal_response'] != values[target]:
                         q['value'] = ''
                 elif numeric_condition is False:
                     q['value'] = ''

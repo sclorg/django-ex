@@ -112,10 +112,11 @@
         {% for order in derived.pursuant_parenting_arrangement %}
                 <li>{{ order }}</li>
         {% endfor %}
-
-        {% for order in derived.pursuant_child_support %}
-                <li>{{ order }}</li>
-        {% endfor %}
+        {% if responses.child_support_in_order != 'NO' %}
+            {% for order in derived.pursuant_child_support %}
+                    <li>{{ order }}</li>
+            {% endfor %}
+        {% endif %}
     {% endif %}
 
     {% if responses.children_of_marriage == 'YES' and responses.special_extraordinary_expenses == 'YES' %}

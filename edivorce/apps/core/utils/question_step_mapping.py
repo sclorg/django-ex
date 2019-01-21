@@ -96,6 +96,7 @@ question_step_mapping = {
                       'have_separation_agreement',
                       'have_court_order',
                       'what_parenting_arrangements',
+                      'want_parenting_arrangements',
                       'order_respecting_arrangement',
                       'order_for_child_support',
                       'child_support_act',

@@ -128,6 +128,7 @@ def format_children(context, source):
         'have_separation_agreement',
         'have_court_order',
         'what_parenting_arrangements',
+        'want_parenting_arrangements',
         'order_respecting_arrangement',
         'order_for_child_support',
         'child_support_act'
@@ -141,7 +142,7 @@ def format_children(context, source):
     fact_sheet_mapping['Undue Hardship (Fact Sheet E)'] = reverse('question_steps', args=['children', 'facts'])
     fact_sheet_mapping['Income over $150,000 (Fact Sheet F)'] = reverse('question_steps', args=['children', 'facts'])
 
-    child_support_orders = {'have_court_order', 'what_parenting_arrangements', 'order_respecting_arrangement', 'order_for_child_support'}
+    child_support_orders = {'want_parenting_arrangements', 'order_respecting_arrangement', 'order_for_child_support'}
 
     tags = '<tbody>'
     # process mapped questions first
@@ -181,7 +182,7 @@ def format_children(context, source):
                 # skip child support order related questions if user did not select that option
                 if question in child_support_orders and len(item):
                     item = item.pop()
-                    if context['derived']['wants_child_support'] is True:
+                    if context['derived']['wants_child_support'] is True and item['value']:
                         # make sure free form text is reformted to be bullet list.
                         tags = format_html(
                             '{}{}',
