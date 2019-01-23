@@ -210,6 +210,12 @@ def format_children(context, source):
                             value = item['value']
                             if q_id == 'describe_order_special_extra_expenses':
                                 pass
+                            if q_id == 'payor_monthly_child_support_amount':
+                                # Only display this field if it is sole custody
+                                sole_custody = (all([child['child_live_with'] == 'Lives with you' for child in context['derived']['children']]) or
+                                                all([child['child_live_with'] == 'Lives with spouse' for child in context['derived']['children']]))
+                                if not sole_custody:
+                                    continue
 
                             try:
                                 value = json.loads(item['value'])
