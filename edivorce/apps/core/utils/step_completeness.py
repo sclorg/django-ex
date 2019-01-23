@@ -1,3 +1,4 @@
+import ast
 from django.urls import reverse
 
 from edivorce.apps.core.models import Question
@@ -66,15 +67,30 @@ def is_complete(step, lst):
             missing_responses += [question_key]
 
     for question in conditional_list:
-        # find the response to the conditional target
-        for target in lst:
-            if target["question_id"] == question.conditional_target:
-                if __condition_met(question.reveal_response, target, lst):
-                    # the condition was met then the question is required.
-                    # ... so check if it has a value
-                    if not __has_value(question.key, lst):
-                        complete = False
-                        missing_responses += [question.key]
+        # check condition for payor_monthly_child_support_amount
+        # which needs sole_custody to be computed separately
+        # payor_monthly_child_support_ammount is required only if sole_custody is True
+        if question.key == "payor_monthly_child_support_amount":
+            for target in lst:
+                if target["question_id"] == "claimant_children":
+                    child_list = ast.literal_eval(target['value'])
+                    sole_custody = (all([child['child_live_with'] == 'Lives with you' for child in child_list]) or
+                                    all([child['child_live_with'] == 'Lives with spouse' for child in child_list]))
+                    if sole_custody:
+                        if not __has_value(question.key, lst):
+                            complete = False
+                            missing_responses += [question.key]
+                    break
+        else:
+            # find the response to the conditional target
+            for target in lst:
+                if target["question_id"] == question.conditional_target:
+                    if __condition_met(question.reveal_response, target, lst):
+                        # the condition was met then the question is required.
+                        # ... so check if it has a value
+                        if not __has_value(question.key, lst):
+                            complete = False
+                            missing_responses += [question.key]
 
     return complete, missing_responses
 
