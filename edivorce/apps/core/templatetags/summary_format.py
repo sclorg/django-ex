@@ -144,7 +144,7 @@ def format_children(context, source):
 
     child_support_orders = {'want_parenting_arrangements', 'order_respecting_arrangement', 'order_for_child_support'}
 
-    tags = '<tbody>'
+    tags = format_html('<tbody>')
     # process mapped questions first
     working_source = source.copy()
     for title, questions in question_to_heading.items():
@@ -198,7 +198,8 @@ def format_children(context, source):
                             child_counter = 1
                             for child in json.loads(item['value']):
                                 tags = format_html(
-                                    '{}{}{}{}{}{}',
+                                    '{}{}{}{}{}{}{}',
+                                    tags,
                                     format_review_row_heading('Child {}'.format(child_counter), 'review-child-heading'),
                                     format_row('Child\'s name', child['child_name']),
                                     format_row('Birth date', child['child_birth_date']),
