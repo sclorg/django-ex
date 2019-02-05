@@ -34,7 +34,7 @@
           {{ responses.number_of_children_claimant|child_or_children }}
         </td>
         <td class="amount">$
-          <span class="actual">{{ responses.total_spouse_paid_child_support|money:False }}</span>
+          <span class="actual">{{ responses.your_spouse_child_support_paid|money:False }}</span>
         </td>
       </tr>
       <tr>
@@ -58,7 +58,7 @@
           {{ responses.number_of_children_claimant|child_or_children }}
         </td>
         <td class="amount">$
-          <span class="actual">{{ responses.total_paid_child_support|money:False }}</span>
+          <span class="actual">{{ responses.your_child_support_paid|money:False }}</span>
         </td>
       </tr>
     </tbody>
