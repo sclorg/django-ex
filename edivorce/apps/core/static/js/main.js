@@ -836,6 +836,17 @@ var mirrorOnChange = function(e) {
     if (e.which === 9) {
         return;
     }
+
+    // fix incorrect date formats / don't mirror invalid dates
+    if ($(this).is('.date-picker')) {
+        var isFuture = $(this).is('.date-picker-future');
+        if (isValidDate($(this).val(), isFuture) && $(this).val().trim().length) {
+            $(this).val(moment(stringToDate($(this).val())).format('MMM D, YYYY'));
+        } else {
+            return;
+        }
+    }
+
     var target_select = $(this).attr("data-mirror_target");
     var scale_factor_identifier = $(this).attr("data-mirror_scale");
     var broadcast_change = $(this).attr("data-mirror_broadcast_change");
