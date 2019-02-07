@@ -381,12 +381,7 @@ $(function () {
         evaluateFactSheetShowCriteria(childrenData);
     };
 
-
-    var returnToParent = function(options) {
-        $('.children-questions').hide();
-        $('.children-list').show();
-        enableChildrenFooterNav({page:'review'});
-
+    var saveChildQuestions = function(options) {
         if (options !== undefined && options.persist) {
             var childrenData = [];
             // The hidden row is the first row so make sure to skip it.
@@ -400,6 +395,13 @@ $(function () {
             var jsonChildrenData = JSON.stringify(childrenData);
             ajaxCall('claimant_children', jsonChildrenData);
         }
+    };
+
+    var returnToParent = function(options) {
+        $('.children-questions').hide();
+        $('.children-list').show();
+        enableChildrenFooterNav({page:'review'});
+        saveChildQuestions(options);
         populateChildrenFactSheets();
     };
 
@@ -409,6 +411,14 @@ $(function () {
         e.preventDefault();
         returnToParent({persist: true});
     });
+
+    $('#btn_save_child_return_later').on('click', function(e) {
+        e.preventDefault();
+        saveChildQuestions({persist: true});
+        window.location.href = $(this).attr('href');
+    });
+
+    
     $('#btn_revert_child').on('click', function(e) {
         e.preventDefault();
         returnToParent({persist: false});
