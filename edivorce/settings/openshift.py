@@ -56,14 +56,20 @@ if DEPLOYMENT_TYPE == 'dev':
     CSRF_COOKIE_AGE = None
     SESSION_COOKIE_AGE = 3600
     REGISTER_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5522'
+    LOGOUT_URL_TEMPLATE = 'https://logontest.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
+    LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
 
 if DEPLOYMENT_TYPE == 'test':
     PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce-test')
     REGISTER_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
+    LOGOUT_URL_TEMPLATE = 'https://logontest.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
+    LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
 
 if DEPLOYMENT_TYPE == 'prod':
     PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
     REGISTER_URL = 'https://www.bceid.ca/directories/bluepages/details.aspx?serviceID=5203'
+    LOGOUT_URL_TEMPLATE = 'https://logon.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
+    LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
     # Google Tag Manager (Production)
     GTM_ID = 'GTM-W4Z2SPS'
 
@@ -80,10 +86,6 @@ STATIC_URL = PROXY_URL_PREFIX + '/static/'
 WEASYPRINT_URL = 'http://weasyprint:5001'
 WEASYPRINT_CSS_LOOPBACK = 'http://edivorce-django:8080'
 WEASYPRINT_CSS_LOOPBACK += PROXY_URL_PREFIX
-
-# External URLs
-LOGOUT_URL_TEMPLATE = 'https://logon.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
-LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
 
 # Basic authentication settings (meant for dev/test environments)
 BASICAUTH_ENABLED = os.getenv('BASICAUTH_ENABLED', '').lower() == 'true'
