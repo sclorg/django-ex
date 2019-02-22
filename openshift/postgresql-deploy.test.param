@@ -12,5 +12,5 @@ TAG_NAME=test
 # POSTGRESQL_PASSWORD=[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]{16}
 # POSTGRESQL_ADMIN_PASSWORD=[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]{16}
 # MOUNT_PATH=/var/lib/pgsql/data
-# PERSISTENT_VOLUME_SIZE=1Gi
+# PERSISTENT_VOLUME_SIZE=5Gi
 # MEMORY_LIMIT=512Mi

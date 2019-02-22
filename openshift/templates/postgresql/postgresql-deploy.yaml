@@ -120,6 +120,7 @@ objects:
     resources:
       requests:
         storage: "${PERSISTENT_VOLUME_SIZE}"
+    storageClassName: gluster-file-db
 - kind: Secret
   apiVersion: v1
   metadata:
@@ -205,7 +206,7 @@ parameters:
   displayName: Persistent Volume Size
   description: The size of the persistent volume , e.g. 512Mi, 1Gi, 2Gi.
   required: true
-  value: 1Gi
+  value: 5Gi
 - name: MEMORY_LIMIT
   displayName: Memory Limit
   description: Maximum amount of memory the container can use.
