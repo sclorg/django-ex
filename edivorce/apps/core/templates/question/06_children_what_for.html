@@ -30,14 +30,21 @@
             <label class="radio-with-textbox">
                 {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="MATCH" data_target_id="child_support_in_order_detail" data_reveal_target="false" data_target_class="support-amount-match" data_reveal_class="false" %}
 
+                {% comment "Child support guideline value scenarios" %}
+                    If split or shared custody, prepopulate the field with the value from factsheet.
+                    If sole custody, prepopulate the field with the value from "What is the monthly child support amount that is payable".
+                    Assumption: If neither factsheet b (shared) nor factsheet c (split) 
+                                shows up, assume it is sole custody as there will be only
+                                three cases, sole, split, or shared custody.
+                {% endcomment %}
                 {% if derived.show_fact_sheet_b or derived.show_fact_sheet_c %}
                     <div class="dollar-prefix">
                         {% money_input_field name="order_monthly_child_support_amount" value_src="difference_payment_amounts" class="money positive-float form-block response-textbox children-input-block child-support-amount" readonly="" %}
                     </div>Matches Child Support Guideline (amount calculated from Fact sheet)
                 {% else %}
                     <div class="dollar-prefix">
-                        {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" %}
-                    </div>Matches Child Support Guideline (amount calculated from Fact sheet)
+                        {% money_input_field name="order_monthly_child_support_amount" value_src="payor_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true"  readonly="" %}
+                    </div>Matches Child Support Guideline
                 {% endif %}
             </label>
         </div>
@@ -178,7 +185,7 @@
     </div>
 
     <div class="question-well">
-        <h3>Do you have an
+        <h3>Do you already have a child support
             <span class="tooltip-link"
               data-toggle="tooltip" data-placement="right" data-html="true"
               title="
@@ -189,7 +196,7 @@
                  </p>
                 ">
                  order <i class="fa fa-question-circle" aria-hidden="true"></i>
-            </span>(Provincial or Supreme Court) about support of the children?</h3>
+            </span>in Provincial or Supreme Court?</h3>
         <div class="btn-radio-group" data-toggle="buttons">
             <label class="btn btn-radio">
                 {% input_field type="radio" name="have_court_order" autocomplete="off" value="YES" data_target_id="court_order_details" data_reveal_target="true" %} Yes
@@ -369,7 +376,7 @@
     {% endif %}
 
     <div class="question-well">
-        <h3>Please indicate which act you are asking for support under.</h3>
+        <h3>Please indicate which act you are asking for child support under.</h3>
         <div class="radio">
             <label>
                 {% input_field type="radio" name="child_support_act" class="" autocomplete="off" value="the Divorce Act (Canada) " %} the Divorce Act (Canada) -

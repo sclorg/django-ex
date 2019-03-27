@@ -639,7 +639,7 @@
             <tr>
               <td>
                 <p>Claimant 1:
-                {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_country_you and responses.address_to_send_official_document_postal_code_you %}
+                {% if responses.address_to_send_official_document_street_you and responses.address_to_send_official_document_city_you and responses.address_to_send_official_document_country_you %}
                   {{ responses.address_to_send_official_document_street_you }}, {{ responses.address_to_send_official_document_city_you }},
                   {% if responses.address_to_send_official_document_prov_you %}
                     {{ responses.address_to_send_official_document_prov_you }},
@@ -648,8 +648,10 @@
                     {{ responses.address_to_send_official_document_other_country_you }}
                   {% else %}
                     {{ responses.address_to_send_official_document_country_you }}
-                  {% endif %},
-                  {{ responses.address_to_send_official_document_postal_code_you }}
+                  {% endif %}
+                  {% if responses.address_to_send_official_document_postal_code_you %}
+                    , {{ responses.address_to_send_official_document_postal_code_you }}
+                  {% endif %}
                 {% else %}
                   <span class="form-entry not-complete">&nbsp;</span>
                 {% endif %}
@@ -671,7 +673,7 @@
               </td>
               <td colname="c2">
                 <p>Claimant 2:
-                  {% if responses.address_to_send_official_document_street_spouse and responses.address_to_send_official_document_city_spouse and responses.address_to_send_official_document_country_spouse and responses.address_to_send_official_document_postal_code_spouse %}
+                  {% if responses.address_to_send_official_document_street_spouse and responses.address_to_send_official_document_city_spouse and responses.address_to_send_official_document_country_spouse %}
                     {{ responses.address_to_send_official_document_street_spouse }}, {{ responses.address_to_send_official_document_city_spouse }},
                     {% if responses.address_to_send_official_document_prov_spouse %}
                       {{ responses.address_to_send_official_document_prov_spouse }},
@@ -679,8 +681,10 @@
                     {% if responses.address_to_send_official_document_country_spouse == 'Other' %} {{ responses.address_to_send_official_document_other_country_spouse }}
                     {% else %}
                     {{ responses.address_to_send_official_document_country_spouse }}
-                    {% endif %},
-                    {{ responses.address_to_send_official_document_postal_code_spouse }}
+                    {% endif %}
+                    {% if responses.address_to_send_official_document_postal_code_spouse %}
+                      , {{ responses.address_to_send_official_document_postal_code_spouse }}
+                    {% endif %}
                   {% else %}
                     <span class="form-entry not-complete">&nbsp;</span>
                   {% endif %}
