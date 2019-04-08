@@ -229,7 +229,11 @@
           <li>  <!-- 6 -->
   {% if responses.how_will_calculate_income == 'entered agreement' %}  <!-- 6d -->
             The proposed order sets out that
-            {{ responses.order_monthly_child_support_amount|money }}
+            {% if responses.child_support_in_order == 'DIFF' %}
+              {{ responses.order_monthly_child_support_amount|money }}
+            {% else %}
+              {{ responses.difference_payment_amounts|money }}
+            {% endif %}
             is the amount of child support payable by
             {{ derived.child_support_payor }},
             in accordance with the agreement referred to in section 4 of
@@ -241,7 +245,7 @@
               >{{ responses.child_support_in_order_reason }}</div>
   {% elif responses.child_support_in_order	== 'MATCH' %}  <!-- 6a -->
             The proposed order sets out that
-            {{ responses.order_monthly_child_support_amount|money }}
+            {{ responses.difference_payment_amounts|money }}
             is the amount of child support payable by
             {{ derived.child_support_payor }},
             which amount accords with the Guidelines.
