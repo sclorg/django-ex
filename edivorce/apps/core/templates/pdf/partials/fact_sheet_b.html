@@ -13,14 +13,6 @@
         <th style="width: 15%;">Claimant 1</th>
         <th style="width: 15%;">Claimant 2</th>
       </tr>
-      <tr>
-        <td></td>
-        <td class="percentage">{{ derived.claimant_1_share_proportion|stringformat:".1f" }} %</td>
-        <td class="amount">$
-          <span class="actual">{{ derived.claimant_1_share|money:False }}</span>
-        </td>
-      </tr>
-      <tr>
         <td colspan="3">Number of children: {{ responses.number_of_children }}</td>
       </tr>
       <tr>
