@@ -4,7 +4,7 @@ users full responses.
 """
 from django import template
 
-from .format_utils import date_formatter
+from .format_utils import date_formatter, money
 from django.utils.html import format_html
 
 register = template.Library()
@@ -22,3 +22,21 @@ def effective_date(context):
         else:
             effective = date_formatter(date)
     return effective
+
+
+@register.simple_tag(takes_context=True)
+def monthly_child_support_amount(context):
+    """ Returns monthly child support amount based on user's answers """
+
+    amount = '0.00'
+    if context['responses'].get('child_support_in_order', '') == 'DIFF':
+        amount = context['responses'].get('order_monthly_child_support_amount', '')
+    elif context['responses'].get('child_support_in_order', '') == 'MATCH':
+        if context['derived'].get('show_fact_sheet_b', '') or context['derived'].get('show_fact_sheet_c', ''):
+            """ Shared or Split custody """
+            amount = context['responses'].get('difference_payment_amounts', '')
+        else:
+            """ Sole custody """
+            amount = context['derived'].get('schedule_1_amount', '')
+
+    return money(amount)

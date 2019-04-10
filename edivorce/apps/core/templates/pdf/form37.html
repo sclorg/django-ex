@@ -229,11 +229,7 @@
           <li>  <!-- 6 -->
   {% if responses.how_will_calculate_income == 'entered agreement' %}  <!-- 6d -->
             The proposed order sets out that
-            {% if responses.child_support_in_order == 'DIFF' %}
-              {{ responses.order_monthly_child_support_amount|money }}
-            {% else %}
-              {{ responses.difference_payment_amounts|money }}
-            {% endif %}
+            {% monthly_child_support_amount %}
             is the amount of child support payable by
             {{ derived.child_support_payor }},
             in accordance with the agreement referred to in section 4 of
@@ -245,7 +241,7 @@
               >{{ responses.child_support_in_order_reason }}</div>
   {% elif responses.child_support_in_order	== 'MATCH' %}  <!-- 6a -->
             The proposed order sets out that
-            {{ responses.difference_payment_amounts|money }}
+            {% monthly_child_support_amount %}
             is the amount of child support payable by
             {{ derived.child_support_payor }},
             which amount accords with the Guidelines.
@@ -253,14 +249,14 @@
             The proposed order by consent, pursuant to section 15.1(7) of  the
             Divorce Act (Canada) or section 150(2) of   the Family Law Act,
             sets out that
-            {{ responses.order_monthly_child_support_amount|money }}
+            {% monthly_child_support_amount %}
             is the amount of child support payable by
             {{ derived.child_support_payor }},
             which amount is different than the amount required by the
             Guidelines.
   {% else %}  <!-- 6c -->
             The proposed order sets out that
-            {{ responses.order_monthly_child_support_amount|money }}
+            {% monthly_child_support_amount %}
             is the amount of child support payable by
             {{ derived.child_support_payor }},
             which amount is different than the amount required by the
