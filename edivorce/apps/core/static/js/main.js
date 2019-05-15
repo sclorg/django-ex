@@ -400,16 +400,63 @@ $(function () {
     var returnToParent = function(options) {
         $('.children-questions').hide();
         $('.children-list').show();
+        clearQuestionWellError();
         enableChildrenFooterNav({page:'review'});
         saveChildQuestions(options);
         populateChildrenFactSheets();
+    };
+
+    var scrollToFirstError = function() {
+        var hasErrors = $('.hasError');
+        if (hasErrors.length > 0) {
+            $('.hasError')[0].scrollIntoView();
+        }
+    };
+
+    var clearQuestionWellError = function() {
+        $('.children-questions .question-well').each(function () {
+            $(this).removeClass('hasError');
+        });
+    };
+
+    var checkNoEmptyField = function() {
+        var isNotEmpty = true;
+        $('.children-questions .question-well').each(function () {
+            var questionWell = $(this);
+            questionWell.removeClass('hasError');
+            questionWell.find('input').each(function (index, inputField) {
+                if (inputField.type === 'text') {
+                    if (inputField.value === '') {
+                        isNotEmpty = false;
+                        questionWell.addClass('hasError');
+                    } else if (inputField.id === 'childs_birth_date') {
+                        if (!moment(inputField.value, "MMM D, YYYY").isValid()) {
+                            isNotEmpty = false;
+                            questionWell.addClass('hasError');
+                        }
+                    } 
+                } else if (inputField.type === 'radio') {
+                    if (questionWell.find('input:radio:checked').length === 0) {
+                        isNotEmpty = false;
+                        questionWell.addClass('hasError');
+                    }
+                    return false;
+                }
+            });
+        });
+
+        return isNotEmpty;
     };
 
     initializeChildRowControls($('body'));
 
     $('#btn_save_child').on('click', function(e) {
         e.preventDefault();
-        returnToParent({persist: true});
+        if (checkNoEmptyField() === true) {
+            returnToParent({persist: true});
+        } else {
+            scrollToFirstError();
+        }
     });
 
     $('#btn_save_child_return_later').on('click', function(e) {
