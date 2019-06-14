@@ -469,6 +469,11 @@ $(function () {
     $('#btn_revert_child').on('click', function(e) {
         e.preventDefault();
         returnToParent({persist: false});
+        
+        // Delete Empty row added to the children table.
+        // Empty row will always be the last row of the table.
+        var $element = $('#claimant_children').find('tbody:first').find('tr:last');
+        deleteAddedTableRow($element);
     });
 
     $('#claimant_children').each(function(){
