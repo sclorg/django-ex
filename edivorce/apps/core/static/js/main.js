@@ -23,6 +23,13 @@ $(window).load(function(){
     $('#questions_modal, #terms_modal').modal('show');
 });
 
+// Temporarily store table row data.
+var tempRowData = {
+    'isNewRow': false,
+    'el': null,
+    'activeRow': null,
+};
+
 $(function () {
     $('[data-toggle="tooltip"]').tooltip({
         container: 'body',
@@ -316,6 +323,7 @@ $(function () {
                 $('.children-list').hide();
                 $('.fact-sheets').hide();
 
+                tempRowData.isNewRow = true;
                 initializeChildRowControls(newElement);
             },
             customDeleteAction: function(){}
@@ -470,10 +478,18 @@ $(function () {
         e.preventDefault();
         returnToParent({persist: false});
         
-        // Delete Empty row added to the children table.
+        // Delete the empty row added to the children table when adding new child.
         // Empty row will always be the last row of the table.
-        var $element = $('#claimant_children').find('tbody:first').find('tr:last');
-        deleteAddedTableRow($element);
+        if (tempRowData.isNewRow) {
+            var $element = $('#claimant_children').find('tbody:first').find('tr:last');
+            deleteAddedTableRow($element);
+        } else if (tempRowData.isNewRow === false && tempRowData.el !== null) {
+            // Restore original row data when edit is cancelled. 
+            var $rows = $('#claimant_children').find('tbody:first').find(`tr[data-counter="${tempRowData.activeRow}"]`).find('.child-item-cell:not(.fact-sheet-button)'); 
+            $rows.each(function(i, $row) {
+                $row.replaceWith(tempRowData.el[i]);
+            });
+        }
     });
 
     $('#claimant_children').each(function(){
@@ -799,6 +815,9 @@ var populateChildInputFields = function(element) {
             targetInput.filter("[value='" + $(this).text() + "']").prop('checked', true);
         }
     });
+    tempRowData.isNewRow = false;
+    tempRowData.el = element.find('.child-item-cell:not(.fact-sheet-button)').clone(true, true);
+    tempRowData.activeRow = activeChildRow;
 };
 
 var deleteChildData = function(settings, element) {
