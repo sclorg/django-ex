@@ -18,9 +18,9 @@
     <div id="fact_sheet_b" class="question-well fact-sheets" hidden>
     <h1>Shared Living Arrangement (Fact Sheet B)</h1>
     <p>
-        Since you have previously indicated that the child/children will live with both parents more or less equally
-        (between 40 to 60% of the time with each parent) we need you to answer the questions below in order for the
-        court to assess if the payor is paying the right amount (percentage) for child support.
+        Since you have previously indicated that the child/children will live with both parents more or less equally 
+        (between 40 to 60% of the time with each parent) we need you to answer the questions below. 
+        <b>This information is needed for the Judge. You will be able to indicate a different child support amount in a following step.</b>
     </p>
     <div class="question-well">
         <h3>Number of children</h3>
@@ -238,10 +238,10 @@
     <div id="fact_sheet_c" class="question-well fact-sheets" hidden>
     <h1>Split Living Arrangement (Fact Sheet C)</h1>
     <p>
-        Since you have previously indicated that you and your spouse have more than one child and each of you has
-        sole custody of at least one of the children, we need you to answer the next set of questions in order for the
-        court to satisfy itself that "reasonable arrangements" have been made for the support of the children before it
-        can grant an order for divorce.
+        Since you have previously indicated that you and your spouse have more than one child and 
+        at least one of the children lives primarily with just 1 parent (more than 60% of the time) 
+        you must complete Fact Sheet C. 
+        <b>This information is needed for the Judge. You will be able to indicate a different child support amount in a following step.</b>
     </p>
     <table class="table table-bordered">
         <tbody>
@@ -387,7 +387,7 @@
         </h3>
         {% if derived.show_fact_sheet_b %}
         <p>
-            If the total in <b>Fact Sheet B</b> is <b>zero dollars ($0.00)</b>, select 'Both' are the payor below.
+            If the total in <b>Fact Sheet(s)</b> is <b>zero dollars ($0.00)</b>, select 'Both' are the payor below.
         </p>
         {% endif %}
         <p>
@@ -463,7 +463,8 @@
 
         <div class="question-well">
             <p>
-                What is the monthly amount that <span class="payor-placeholder">payor</span> will be paying for child support (as per Schedule 1 of the Federal Child Support Guidelines)?
+                What would the child support amount be using the Federal Child Support Guidelines? 
+                <b>This information is needed for the Judge. You will be able to indicate a different child support amount in a following step.</b>
             </p>
             <div>
                 <div class="dollar-prefix">
