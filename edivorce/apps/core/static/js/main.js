@@ -485,7 +485,7 @@ $(function () {
             deleteAddedTableRow($element);
         } else if (tempRowData.isNewRow === false && tempRowData.el !== null) {
             // Restore original row data when edit is cancelled. 
-            var $rows = $('#claimant_children').find('tbody:first').find(`tr[data-counter="${tempRowData.activeRow}"]`).find('.child-item-cell:not(.fact-sheet-button)'); 
+            var $rows = $('#claimant_children').find('tbody:first').find('tr[data-counter=' + tempRowData.activeRow + ']').find('.child-item-cell:not(.fact-sheet-button)'); 
             $rows.each(function(i, $row) {
                 $row.replaceWith(tempRowData.el[i]);
             });
@@ -500,10 +500,10 @@ $(function () {
     $('input[name="__claimant_children"]').each(function() {
         var children = JSON.parse($(this).val());
         var youHaveSoleCustody = children.every(function(child){
-            return child.child_live_with === 'Lives with you'
+            return child.child_live_with === 'Lives with you';
         });
         var spouseHasSoleCustody = children.every(function(child){
-            return child.child_live_with === 'Lives with spouse'
+            return child.child_live_with === 'Lives with spouse';
         });
 
         if (youHaveSoleCustody || spouseHasSoleCustody) {
@@ -533,10 +533,10 @@ $(function () {
 
         if (claimant === 'Myself (Claimant 1)' && parseFloat($('input[name="annual_gross_income"]').val()) > 150000) {
             toggleFactSheetTable('1', '#__name_you');
-            toggleFactSheetTable('2', null, true)
+            toggleFactSheetTable('2', null, true);
         } else if (claimant === 'My Spouse (Claimant 2)' && parseFloat($('input[name="spouse_annual_gross_income"]').val()) > 150000) {
             toggleFactSheetTable('2', '#__name_spouse');
-            toggleFactSheetTable('1', null, true)
+            toggleFactSheetTable('1', null, true);
         } else if (claimant === 'Both myself and my spouse') {
             if (parseFloat($('input[name="annual_gross_income"]').val()) > 150000) {
                 toggleFactSheetTable('1', '#__name_you');
@@ -1005,7 +1005,7 @@ var deleteAddedTableRow = function(element) {
             // In that case, check if the data-target-form-field attribute is set, that will contain
             // the field names to be saved.
             if (fieldKey === undefined) {
-                fieldKey = $(this).attr('data-target-form-field')
+                fieldKey = $(this).attr('data-target-form-field');
             }
 
             var fieldValue = $(this).val();
@@ -1126,7 +1126,7 @@ var date_picker = function (selector, showOnFocus) {
          $(this).closest(selector).find('input').removeAttr('readonly');
     }).on('clearDate', function (e) {
         var input = $(this).closest(selector).find('input');
-        ajaxCall(input.attr('name'), '')
+        ajaxCall(input.attr('name'), '');
     });
 };
 
