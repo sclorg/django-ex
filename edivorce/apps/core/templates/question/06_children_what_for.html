@@ -56,6 +56,10 @@
                     <div class="dollar-prefix">
                         {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" %}
                     </div>
+                {% elif agree_to_guideline_child_support_amount == 'NO' %}
+                    <div class="dollar-prefix">
+                        {% money_input_field name="order_monthly_child_support_amount" value_src="appropriate_spouse_paid_child_support" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" %}
+                    </div>
                 {% else %}
                     <div class="dollar-prefix">
                         {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" value='0' %}

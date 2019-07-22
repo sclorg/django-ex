@@ -457,7 +457,7 @@
                 How many child(ren) are 19 years or older for whom you are asking for support?
             </p>
             <div>
-                {% input_field type="number" name="number_children_over_19_need_support" class="fact-sheet-input input-narrow positive-integer" %}
+                {% input_field type="number" name="number_children_over_19_need_support" value="number_children_over_19" class="fact-sheet-input input-narrow positive-integer" readonly="" %}
             </div>
         </div>
 
@@ -467,16 +467,22 @@
                 <b>This information is needed for the Judge. You will be able to indicate a different child support amount in a following step.</b>
             </p>
             <div>
-                <div class="dollar-prefix">
-                    {% money_input_field name="total_spouse_paid_child_support" class="fact-sheet-input money input-narrow form-block response-textbox" %}
-                </div>
+                {% if derived.show_fact_sheet_b or derived.show_fact_sheet_c %}
+                    <div class="dollar-prefix">
+                        {% money_input_field name="total_spouse_paid_child_support" value_src="difference_payment_amounts" class="fact-sheet-input money input-narrow form-block response-textbox" readonly="" %}
+                    </div>
+                {% else %}
+                    <div class="dollar-prefix">
+                        {% money_input_field name="total_spouse_paid_child_support" value_src="payor_monthly_child_support_amount" class="fact-sheet-input money input-narrow form-block response-textbox" readonly="" %}
+                    </div>
+                {% endif %}
             </div>
             {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_calculate_amounts" %}
         </div>
 
         <div class="question-well-border-less">
             <p>
-                Do you and your spouse agree that the monthly Guidelines table amount for child support is appropriate?
+                Because you have a child(ren) 19 years or older, who may also be contributing to their own support, do you and your spouse agree that the monthly Guidelines table amount for child support is appropriate?
             </p>
             <div class="btn-radio-group" data-toggle="buttons">
                 <label class="btn btn-radio">
