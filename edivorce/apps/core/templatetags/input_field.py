@@ -90,7 +90,12 @@ def input_field(context, type, name='', value='', multiple='', **kwargs):
                 except ValueError:
                     pass  # conversion to current format not needed
         elif type == "number":
-            value = context.get(name, '')
+            if value == '':
+                value = context.get(name, '')
+            elif value.isdigit():
+                value = value
+            else:
+                value = context.get(value, '')
 
         attributes = additional_attributes(**kwargs)
 

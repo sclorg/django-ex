@@ -242,6 +242,11 @@ input[type=number]::-webkit-outer-spin-button {
 	}
 }
 
+.fact-sheet-input {
+	&[readonly] {
+		background: #f2f2f2;
+	}
+}
 
 .table-cell-active {
 	border: 1px solid #66afe9;
