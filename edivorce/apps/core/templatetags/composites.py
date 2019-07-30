@@ -34,7 +34,7 @@ def monthly_child_support_amount(context):
     elif context['responses'].get('child_support_in_order', '') == 'MATCH':
         if context['derived'].get('show_fact_sheet_b', '') or context['derived'].get('show_fact_sheet_c', ''):
             """ Shared or Split custody """
-            amount = context['responses'].get('difference_payment_amounts', '')
+            amount = context['derived'].get('guideline_amounts_difference_total', '')
         else:
             """ Sole custody """
             amount = context['derived'].get('schedule_1_amount', '')
