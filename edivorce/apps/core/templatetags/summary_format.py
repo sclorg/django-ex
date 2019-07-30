@@ -227,7 +227,7 @@ def format_children(context, source):
                             if question == 'child_support_in_order':
                                 question_name = '{} {}'.format(question_name, context['derived']['child_support_payor_by_name'])
                                 if value == 'MATCH':
-                                    value = '{:.2f}'.format(float(context['derived']['guideline_amounts_difference']))
+                                    value = '{:.2f}'.format(float(context['derived']['guideline_amounts_difference_total']))
                                 elif value == 'DIFF':
                                     amount = list(filter(lambda x: x['question_id'] == 'order_monthly_child_support_amount', working_source))
                                     amount = amount.pop()

@@ -32,10 +32,10 @@
       <tr>
         <td>Guidelines Table Amount</td>
         <td class="amount">$
-          <span class="actual">{{ responses.your_child_support_paid|money:False }}</span>
+          <span class="actual">{{ responses.your_child_support_paid_b|money:False }}</span>
         </td>
         <td class="amount">$
-          <span class="actual">{{ responses.your_spouse_child_support_paid|money:False }}</span>
+          <span class="actual">{{ responses.your_spouse_child_support_paid_b|money:False }}</span>
         </td>
       </tr>
       <tr>
@@ -44,7 +44,7 @@
           Guidelines table amount of Claimant 2
         </td>
         <td colspan="2" class="amount">$
-          <span class="actual">{{ derived.guideline_amounts_difference|money:False }}</span>
+          <span class="actual">{{ derived.guideline_amounts_difference_b|money:False }}</span>
         </td>
       </tr>
       <tr>

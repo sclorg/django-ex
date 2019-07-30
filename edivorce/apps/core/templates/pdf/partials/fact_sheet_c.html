@@ -34,7 +34,7 @@
           {{ responses.number_of_children_claimant|child_or_children }}
         </td>
         <td class="amount">$
-          <span class="actual">{{ responses.your_spouse_child_support_paid|money:False }}</span>
+          <span class="actual">{{ responses.your_spouse_child_support_paid_c|money:False }}</span>
         </td>
       </tr>
       <tr>
@@ -58,7 +58,7 @@
           {{ responses.number_of_children_claimant|child_or_children }}
         </td>
         <td class="amount">$
-          <span class="actual">{{ responses.your_child_support_paid|money:False }}</span>
+          <span class="actual">{{ responses.your_child_support_paid_c|money:False }}</span>
         </td>
       </tr>
     </tbody>
@@ -66,7 +66,7 @@
 
   <p>
     Difference between the Guidelines table amounts at Lines C and F:
-    {{ derived.guideline_amounts_difference|money }}
+    {{ derived.guideline_amounts_difference_c|money }}
   </p>
 </div>
 {% endif %}

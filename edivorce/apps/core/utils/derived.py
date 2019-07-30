@@ -33,6 +33,9 @@ DERIVED_DATA = [
     'show_fact_sheet_f_you',
     'show_fact_sheet_f_spouse',
     'has_fact_sheets',
+    'guideline_amounts_difference_b',
+    'guideline_amounts_difference_c',
+    'guideline_amounts_difference_total',
     'schedule_1_amount',
     'child_support_payor',
     'child_support_payor_by_name',
@@ -52,7 +55,6 @@ DERIVED_DATA = [
     'payor_section_seven_expenses',
     'total_monthly_support_1_and_a',
     'total_child_support_payment_a',
-    'guideline_amounts_difference',
     'claimant_debts',
     'claimant_expenses',
     'supported_dependents',
@@ -241,12 +243,58 @@ def has_fact_sheets(responses, derived):
                 derived['show_fact_sheet_d'], derived['show_fact_sheet_e'],
                 derived['show_fact_sheet_f'], ])
 
+def guideline_amounts_difference_b(responses, derived):
+    """
+    Return the difference between the guideline amounts to be paid by
+    claimant 1 and claimant 2 for Factsheet B
+    """
+
+    try:
+        amount_1 = float(responses.get('your_child_support_paid_b', 0))
+    except ValueError:
+        amount_1 = 0
+
+    try:
+        amount_2 = float(responses.get('your_spouse_child_support_paid_b', 0))
+    except ValueError:
+        amount_2 = 0
+
+    return abs(amount_1 - amount_2)
+
+def guideline_amounts_difference_c(responses, derived):
+    """
+    Return the difference between the guideline amounts to be paid by
+    claimant 1 and claimant 2 for Factsheet C
+    """
+
+    try:
+        amount_1 = float(responses.get('your_child_support_paid_c', 0))
+    except ValueError:
+        amount_1 = 0
+
+    try:
+        amount_2 = float(responses.get('your_spouse_child_support_paid_c', 0))
+    except ValueError:
+        amount_2 = 0
+
+    return abs(amount_1 - amount_2)
+
+def guideline_amounts_difference_total(responses, derived):
+    """
+    Return the sum of the guideline amounts B and C
+    """
+
+    return derived['guideline_amounts_difference_b'] + derived['guideline_amounts_difference_c']
+
 
 def schedule_1_amount(responses, derived):
     """ Return the amount as defined in schedule 1 for child support """
 
     try:
-        return float(responses.get('payor_monthly_child_support_amount', 0))
+        if derived['show_fact_sheet_b'] or derived['show_fact_sheet_c']:
+            return derived['guideline_amounts_difference_total'] 
+        else:
+            return float(responses.get('payor_monthly_child_support_amount', 0))
     except ValueError:
         return 0
 
@@ -438,26 +486,6 @@ def total_monthly_support_1_and_a(responses, derived):
         total += derived['total_section_seven_expenses']
     return total
 
-
-def guideline_amounts_difference(responses, derived):
-    """
-    Return the difference between the guideline amounts to be paid by
-    claimant 1 and claimant 2
-    """
-
-    try:
-        amount_1 = float(responses.get('your_child_support_paid', 0))
-    except ValueError:
-        amount_1 = 0
-
-    try:
-        amount_2 = float(responses.get('your_spouse_child_support_paid', 0))
-    except ValueError:
-        amount_2 = 0
-
-    return abs(amount_1 - amount_2)
-
-
 def total_child_support_payment_a(response, derived):
     """ Return the total monthly child support payable by the payor for Fact Sheet A """
     total = 0
@@ -468,9 +496,9 @@ def total_child_support_payment_a(response, derived):
         total += derived['schedule_1_amount']
     else:
         if derived['show_fact_sheet_b']:
-            total += guideline_amounts_difference(response, derived)
+            total += guideline_amounts_difference_b(response, derived)
         if derived['show_fact_sheet_c']:
-            total += guideline_amounts_difference(response, derived)
+            total += guideline_amounts_difference_c(response, derived)
 
     if derived['show_fact_sheet_a']:
         if derived['child_support_payor'] == 'Claimant 1':
@@ -570,7 +598,7 @@ def high_income_amount(responses, derived):
 def total_monthly_b(responses, derived):
     """ Return the total amount payable by the payor for Fact Sheet B """
 
-    difference = derived['guideline_amounts_difference']
+    difference = derived['guideline_amounts_difference_b']
 
     return difference
 

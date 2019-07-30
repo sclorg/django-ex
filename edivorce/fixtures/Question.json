@@ -1583,7 +1583,7 @@
         "reveal_response": ""
     },
     "model": "core.question",
-    "pk": "your_child_support_paid"
+    "pk": "your_child_support_paid_b"
 },
 {
     "fields": {
@@ -1595,7 +1595,7 @@
         "reveal_response": ""
     },
     "model": "core.question",
-    "pk": "your_spouse_child_support_paid"
+    "pk": "your_spouse_child_support_paid_b"
 },
 {
     "fields": {
@@ -1644,6 +1644,42 @@
     },
     "model": "core.question",
     "pk": "additional_relevant_spouse_children_info"
+},
+{
+    "fields": {
+        "name": "Difference between Guidelines table amounts",
+        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "difference_payment_amounts_b"
+},
+{
+    "fields": {
+        "name": "What is the monthly amount for child support (as per Federal Child Support Guidelines)?",
+        "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "your_child_support_paid_c"
+},
+{
+    "fields": {
+        "name": "What is the monthly amount for child support (as per Federal Child Support Guidelines)?",
+        "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
+        "summary_order": 0,
+        "required": "Conditional",
+        "conditional_target": "claimant_children",
+        "reveal_response": ""
+    },
+    "model": "core.question",
+    "pk": "your_spouse_child_support_paid_c"
 },
 {
     "fields": {
@@ -1727,7 +1763,7 @@
         "reveal_response": ""
     },
     "model": "core.question",
-    "pk": "difference_payment_amounts"
+    "pk": "difference_payment_amounts_c"
 },
 {
     "fields": {
