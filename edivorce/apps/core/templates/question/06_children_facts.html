@@ -227,7 +227,7 @@
                 </td>
                 <td class="fact-sheet-answer" colspan="2" readonly>
                     <div class="dollar-prefix">
-                        {% money_input_field name="difference_payment_amounts_b" value="" class="money fact-sheet-input different-payment-amounts" readonly="" data_sum="true" data_sum_class="different-payment-amounts" data_sum_target_id="total_spouse_paid_child_support" %}
+                        {% money_input_field name="difference_payment_amounts_b" value="" class="money fact-sheet-input different-payment-amounts" readonly="" data_mirror="true" data_mirror_target="#total_spouse_paid_child_support_b" data_mirror_broadcast_change="true" data_sum="true" data_sum_class="different-payment-amounts" data_sum_target_id="total_spouse_paid_child_support" %}
                     </div>
                 </td>
             </tr>
@@ -367,7 +367,7 @@
                 </td>
                 <td class="fact-sheet-answer" readonly>
                     <div class="dollar-prefix">
-                        {% money_input_field name="difference_payment_amounts_c" class="fact-sheet-input different-payment-amounts" readonly="" data_sum="true" data_sum_class="different-payment-amounts" data_sum_target_id="total_spouse_paid_child_support" %}
+                        {% money_input_field id="difference_payment_amounts_c" name="difference_payment_amounts_c" class="fact-sheet-input different-payment-amounts" readonly="" data_mirror="true" data_mirror_target="#total_spouse_paid_child_support_c" data_mirror_broadcast_change="true" data_sum="true" data_sum_class="different-payment-amounts" data_sum_target_id="total_spouse_paid_child_support" %}
                     </div>
                 </td>
             </tr>
@@ -474,9 +474,17 @@
                 <b>This information is needed for the Judge. You will be able to indicate a different child support amount in a following step.</b>
             </p>
             <div>
-                {% if derived.show_fact_sheet_b or derived.show_fact_sheet_c %}
+                {% if derived.show_fact_sheet_b and derived.show_fact_sheet_c %}
                     <div class="dollar-prefix">
                         {% money_input_field id="total_spouse_paid_child_support" name="total_spouse_paid_child_support" value=derived.guideline_amounts_difference_total class="fact-sheet-input money input-narrow form-block response-textbox" readonly="" %}
+                    </div>
+                {% elif derived.show_fact_sheet_b %}
+                    <div class="dollar-prefix">
+                        {% money_input_field id="total_spouse_paid_child_support_b" name="total_spouse_paid_child_support" class="fact-sheet-input money input-narrow form-block response-textbox" readonly="" %}
+                    </div>
+                {% elif derived.show_fact_sheet_c %}
+                    <div class="dollar-prefix">
+                        {% money_input_field id="total_spouse_paid_child_support_c" name="total_spouse_paid_child_support" class="fact-sheet-input money input-narrow form-block response-textbox" readonly="" %}
                     </div>
                 {% else %}
                     <div class="dollar-prefix">

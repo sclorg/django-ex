@@ -284,7 +284,10 @@ def guideline_amounts_difference_total(responses, derived):
     Return the sum of the guideline amounts B and C
     """
 
-    return derived['guideline_amounts_difference_b'] + derived['guideline_amounts_difference_c']
+    amount_b = derived['guideline_amounts_difference_b'] if derived['show_fact_sheet_b'] else 0
+    amount_c = derived['guideline_amounts_difference_c'] if derived['show_fact_sheet_c'] else 0
+    
+    return amount_b + amount_c
 
 
 def schedule_1_amount(responses, derived):
