@@ -115,12 +115,12 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field id="fact_b_your_child_support_paid" name="your_child_support_paid_b" class="fact-sheet-input claimants-child-support-amounts" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_payment_amounts_b]" placeholder="enter amount" %}
+                        {% money_input_field id="fact_b_your_child_support_paid" name="your_child_support_paid_b" class="fact-sheet-input claimants-child-support-amounts determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_payment_amounts_b]" placeholder="enter amount" %}
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field id="fact_b_your_spouse_child_support_paid" name="your_spouse_child_support_paid_b" class="fact-sheet-input claimants-child-support-amounts" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_payment_amounts_b]" placeholder="enter amount" %}
+                        {% money_input_field id="fact_b_your_spouse_child_support_paid" name="your_spouse_child_support_paid_b" class="fact-sheet-input claimants-child-support-amounts determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_payment_amounts_b]" placeholder="enter amount" %}
                     </div>
                 </td>
             </tr>
@@ -227,7 +227,7 @@
                 </td>
                 <td class="fact-sheet-answer" colspan="2" readonly>
                     <div class="dollar-prefix">
-                        {% money_input_field name="difference_payment_amounts_b" value="" class="money fact-sheet-input different-payment-amounts" readonly="" data_sum="true" data_sum_class="different-payment-amounts" data_sum_target_id="total_spouse_paid_child_support" %}
+                        {% money_input_field name="difference_payment_amounts_b" value="" class="money fact-sheet-input different-payment-amounts" readonly="" %}
                     </div>
                 </td>
             </tr>
@@ -302,7 +302,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field id="fact_c_your_spouse_child_support_paid" name="your_spouse_child_support_paid_c" class="fact-sheet-input money claimants-child-support-paid" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts_c]" %}
+                        {% money_input_field id="fact_c_your_spouse_child_support_paid" name="your_spouse_child_support_paid_c" class="fact-sheet-input money claimants-child-support-paid determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts_c]" %}
                     </div>
                 </td>
             </tr>
@@ -357,7 +357,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field id="fact_c_your_child_support_paid" name="your_child_support_paid_c" class="fact-sheet-input money claimants-child-support-paid" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts_c]" %}
+                        {% money_input_field id="fact_c_your_child_support_paid" name="your_child_support_paid_c" class="fact-sheet-input money claimants-child-support-paid determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts_c]" %}
                     </div>
                 </td>
             </tr>
@@ -367,7 +367,7 @@
                 </td>
                 <td class="fact-sheet-answer" readonly>
                     <div class="dollar-prefix">
-                        {% money_input_field name="difference_payment_amounts_c" class="fact-sheet-input different-payment-amounts" readonly="" data_sum="true" data_sum_class="different-payment-amounts" data_sum_target_id="total_spouse_paid_child_support" %}
+                        {% money_input_field id="difference_payment_amounts_c" name="difference_payment_amounts_c" class="fact-sheet-input different-payment-amounts" readonly="" %}
                     </div>
                 </td>
             </tr>
@@ -401,21 +401,39 @@
             Please select one
         </p>
 
-        <div class="radio">
-            <label>
-                {% input_field type="radio" name="child_support_payor" autocomplete="off" value="Myself (Claimant 1)" %} {% if name_you %}{{ name_you }} {% else %} Myself {% endif %}(Claimant 1)
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                {% input_field type="radio" name="child_support_payor" autocomplete="off" value="My Spouse (Claimant 2)" %} {% if name_spouse %}{{ name_spouse }} {% else %} My spouse {% endif %} (Claimant 2)
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                {% input_field type="radio" name="child_support_payor" autocomplete="off" value="Both myself and my spouse" %} Both {% if name_you %}{{ name_you }} {% else %} myself {% endif %} and {% if name_spouse %}{{ name_spouse }} {% else %} my spouse {% endif %}
-            </label>
-        </div>
+        {% if derived.show_fact_sheet_b or derived.show_fact_sheet_c %}
+            <div class="radio">
+                <label>
+                    {% input_field type="radio" name="child_support_payor" autocomplete="off" value="Myself (Claimant 1)" disabled="" %} {% if name_you %}{{ name_you }} {% else %} Myself {% endif %}(Claimant 1)
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    {% input_field type="radio" name="child_support_payor" autocomplete="off" value="My Spouse (Claimant 2)" disabled="" %} {% if name_spouse %}{{ name_spouse }} {% else %} My spouse {% endif %} (Claimant 2)
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    {% input_field type="radio" name="child_support_payor" autocomplete="off" value="Both myself and my spouse" disabled="" %} Both {% if name_you %}{{ name_you }} {% else %} myself {% endif %} and {% if name_spouse %}{{ name_spouse }} {% else %} my spouse {% endif %}
+                </label>
+            </div>
+        {% else %}
+            <div class="radio">
+                <label>
+                    {% input_field type="radio" name="child_support_payor" autocomplete="off" value="Myself (Claimant 1)" %} {% if name_you %}{{ name_you }} {% else %} Myself {% endif %}(Claimant 1)
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    {% input_field type="radio" name="child_support_payor" autocomplete="off" value="My Spouse (Claimant 2)" %} {% if name_spouse %}{{ name_spouse }} {% else %} My spouse {% endif %} (Claimant 2)
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    {% input_field type="radio" name="child_support_payor" autocomplete="off" value="Both myself and my spouse" %} Both {% if name_you %}{{ name_you }} {% else %} myself {% endif %} and {% if name_spouse %}{{ name_spouse }} {% else %} my spouse {% endif %}
+                </label>
+            </div>
+        {% endif %}
 
         <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_determine_payor" aria-controls="collapse_determine_payor">
             <div>
