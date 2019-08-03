@@ -366,6 +366,12 @@ $(function () {
         } else {
             $('#fact_sheet_c').hide();
         }
+
+        // Initiate Child support payor.
+        populateChildSupportPayor(childWithBoth, childWithYou, childWithSpouse);
+        $('.determine-payor').on('change', function() {
+            populateChildSupportPayor(childWithBoth, childWithYou, childWithSpouse);
+        });
     };
 
     var populateChildrenFactSheets = function() {
@@ -387,6 +393,67 @@ $(function () {
         }
 
         evaluateFactSheetShowCriteria(childrenData);
+    };
+
+    var populateChildSupportPayor = function(childWithBoth, childWithYou, childWithSpouse) {
+        // Get the payor and different amounts using the Factsheets presented and their values
+        // 
+        var amount_b_you = $('#fact_b_your_child_support_paid').val();
+        var amount_b_spouse = $('#fact_b_your_spouse_child_support_paid').val();
+        var amount_c_you = $('#fact_c_your_child_support_paid').val();
+        var amount_c_spouse = $('#fact_c_your_spouse_child_support_paid').val();
+
+        // Show factsheet logic is same as evaluateFactSheetShowCriteria()
+        var show_factsheet_b = childWithBoth ? true : false;
+        var show_factsheet_c = ((childWithYou && (childWithSpouse || childWithBoth)) || (childWithSpouse && (childWithYou || childWithBoth))) ? true : false;
+        var payor_b = findPayor(amount_b_you, amount_b_spouse);
+        var payor_c = findPayor(amount_c_you, amount_c_spouse);        
+        var diff_amounts_b = Math.abs(amount_b_you - amount_b_spouse);
+        var diff_amounts_c = Math.abs(amount_c_you - amount_c_spouse);
+        var payor_total = '';
+        var diff_amounts_total = 0;
+        
+        if (show_factsheet_b && show_factsheet_c) {
+            // If payor is same for Factsheet B and C, total is Sum of two differences
+            // Otherwise it is subtraction and whoever with the greater number is the payor.
+            // Payor is Both when amounts are same (when total is 0)
+            if (payor_b === payor_c) {
+                payor_total = payor_b;
+                diff_amounts_total = diff_amounts_b + diff_amounts_c;
+            } else {
+                diff_amounts_total = Math.abs(diff_amounts_b - diff_amounts_c);
+                if (diff_amounts_b > diff_amounts_c) {
+                    payor_total = payor_b;
+                } else if (diff_amounts_b < diff_amounts_c) {
+                    payor_total = payor_c;
+                } else {
+                    payor_total = 'Both myself and my spouse';
+                }
+            }            
+        } else if (show_factsheet_b && !show_factsheet_c) {
+            // If only Factsheet B, use values from Factsheet B
+            payor_total = payor_b;
+            diff_amounts_total = diff_amounts_b;
+        } else if (show_factsheet_c && !show_factsheet_b) {
+            // If only Factsheet C, use values from Factsheet C
+            payor_total = payor_c;
+            diff_amounts_total = diff_amounts_c;
+        }
+
+        // Update value for Payor radio button and Factsheet D total support amount field.
+        $('#total_spouse_paid_child_support').val(diff_amounts_total);
+        $('input[name=child_support_payor][value="' + payor_total + '"]').prop("checked", true).change();
+    };
+
+    var findPayor = function(amount_you, amount_spouse) {
+        // Find payor based on the amount.
+        if (parseFloat(amount_you) > parseFloat(amount_spouse)) {
+            return 'Myself (Claimant 1)';
+        } else if (parseFloat(amount_you) < parseFloat(amount_spouse)) {
+            return 'My Spouse (Claimant 2)';
+        } else {
+            return 'Both myself and my spouse';
+        }
     };
 
     var saveChildQuestions = function(options) {

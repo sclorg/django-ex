@@ -33,6 +33,8 @@ DERIVED_DATA = [
     'show_fact_sheet_f_you',
     'show_fact_sheet_f_spouse',
     'has_fact_sheets',
+    'child_support_payor_b',
+    'child_support_payor_c',
     'guideline_amounts_difference_b',
     'guideline_amounts_difference_c',
     'guideline_amounts_difference_total',
@@ -243,6 +245,48 @@ def has_fact_sheets(responses, derived):
                 derived['show_fact_sheet_d'], derived['show_fact_sheet_e'],
                 derived['show_fact_sheet_f'], ])
 
+def child_support_payor_b(responses, derived):
+    """ Return who the payor is depends on the monthly amount from Factsheet B """
+    try:
+        amount_1 = float(responses.get('your_child_support_paid_b', 0))
+    except ValueError:
+        amount_1 = 0
+
+    try:
+        amount_2 = float(responses.get('your_spouse_child_support_paid_b', 0))
+    except ValueError:
+        amount_2 = 0
+
+    if amount_1 > amount_2:
+        payor = 'you'
+    elif amount_1 < amount_2:
+        payor = 'spouse'
+    else:
+        payor = 'both'   
+
+    return payor
+
+def child_support_payor_c(responses, derived):
+    """ Return who the payor is depends on the monthly amount from Factsheet C """
+    try:
+        amount_1 = float(responses.get('your_child_support_paid_c', 0))
+    except ValueError:
+        amount_1 = 0
+
+    try:
+        amount_2 = float(responses.get('your_spouse_child_support_paid_c', 0))
+    except ValueError:
+        amount_2 = 0
+
+    if amount_1 > amount_2:
+        payor = 'you'
+    elif amount_1 < amount_2:
+        payor = 'spouse'
+    else:
+        payor = 'both'   
+
+    return payor
+
 def guideline_amounts_difference_b(responses, derived):
     """
     Return the difference between the guideline amounts to be paid by
@@ -286,9 +330,14 @@ def guideline_amounts_difference_total(responses, derived):
 
     amount_b = derived['guideline_amounts_difference_b'] if derived['show_fact_sheet_b'] else 0
     amount_c = derived['guideline_amounts_difference_c'] if derived['show_fact_sheet_c'] else 0
-    
-    return amount_b + amount_c
 
+    payor_b = derived['child_support_payor_b']
+    payor_c = derived['child_support_payor_c']
+
+    if payor_b == payor_c:
+        return amount_b + amount_c
+    else:
+        return abs(amount_b - amount_c)  
 
 def schedule_1_amount(responses, derived):
     """ Return the amount as defined in schedule 1 for child support """
