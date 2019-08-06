@@ -397,7 +397,6 @@ $(function () {
 
     var populateChildSupportPayor = function(childWithBoth, childWithYou, childWithSpouse) {
         // Get the payor and different amounts using the Factsheets presented and their values
-        // 
         var amount_b_you = $('#fact_b_your_child_support_paid').val();
         var amount_b_spouse = $('#fact_b_your_spouse_child_support_paid').val();
         var amount_c_you = $('#fact_c_your_child_support_paid').val();
@@ -617,18 +616,23 @@ $(function () {
             $('#fact_sheet_f_table_2').hide();
         }
 
-        if (claimant === 'Myself (Claimant 1)') {
+        // Update Factsheet B payor label
+        var amount_b_you = $('#fact_b_your_child_support_paid').val();
+        var amount_b_spouse = $('#fact_b_your_spouse_child_support_paid').val();
+        var payor_b = findPayor(amount_b_you, amount_b_spouse);
+
+        if (payor_b === 'Myself (Claimant 1)') {
             $('.payor-placeholder').text($('#__name_you').text());
-        } else if (claimant === 'My Spouse (Claimant 2)') {
+        } else if (payor_b === 'My Spouse (Claimant 2)') {
             $('.payor-placeholder').text($('#__name_spouse').text());
-        } else if (claimant === 'Both myself and my spouse') {
+        } else if (payor_b === 'Both myself and my spouse') {
             $('.payor-placeholder').text($('#__name_you').text() + ' and ' + $('#__name_spouse').text());
         } else {
             $('.payor-placeholder').text('the payor');
         }
     };
 
-    $('input[name="child_support_payor"]').on('click', payorCallback).filter(':checked').each(payorCallback);
+    $('input[name="child_support_payor"]').on('change', payorCallback).filter(':checked').each(payorCallback);
 
 
     $("#btn_add_reconciliation_periods").on('click', function () {
