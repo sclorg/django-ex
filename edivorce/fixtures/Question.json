@@ -133,7 +133,7 @@
 },
 {
     "fields": {
-        "name": "Is your marriage certificate or registration of marriage in English?",
+        "name": "Is your marriage certificate or registration of marriage in English OR been translated into English by a certified translator?",
         "description": "For pre-qualification step 5",
         "summary_order": 14,
         "required": "Conditional",
