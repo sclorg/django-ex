@@ -134,22 +134,22 @@
 
 {% if married_marriage_like == "Legally married" %}
 <div class="question-well" id="is_certificate_in_english">
-    <h3>Is your marriage certificate or registration of marriage in English OR been translated into English by a certified translator?</h3>
+    <h3>Is your marriage certificate or registration of marriage in English <strong>OR</strong> been translated into English by a certified translator?</h3>
 
     <div class="btn-radio-group" data-toggle="buttons">
         <label class="btn btn-radio">
-            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="YES" data_target_id="certificate_in_english" data_reveal_target="false" data_target_class="not-disqualified" data_reveal_class="true" %} Yes
+            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="YES" data_target_id="certificate_in_english" data_reveal_target="false" %} Yes
         </label>
 
         <label class="btn btn-radio">
-            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="NO" data_target_id="certificate_in_english" data_reveal_target="true" data_target_class="not-disqualified" data_reveal_class="true" %} No
+            {% input_field type="radio" name="marriage_certificate_in_english" autocomplete="off" value="NO" data_target_id="certificate_in_english" data_reveal_target="true" %} No
         </label>
     </div>
     <div class="information-message bg-danger" id="certificate_in_english" hidden>
         <p>You may proceed with using this service but must have a certified translation before filing your documents. See below:</p>
 
         <p><strong>Proof of Marriage Translation</strong><br />
-            You need to get your proof of marriage translated by a certified translator if it is not t in English. Ask the translator to give you an Affidavit of Translation. You'll then need to file at the court registry both the original Marriage Certificate or Registration of Marriage and the <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Affidavit of Translation</b><br /><br />The Affidavit of Translation is an affidavit sworn by a translator before a notary or commissioner for taking affidavits." >Affidavit of Translation<i class="fa fa-question-circle" aria-hidden="true"></i></span> with the English translation attached as exhibits. A certified translator can help you do this.</p>
+            You need to get your proof of marriage translated by a certified translator if it is not in English. Ask the translator to give you an Affidavit of Translation. You'll then need to file at the court registry both the original Marriage Certificate or Registration of Marriage and the <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<b>Affidavit of Translation</b><br /><br />The Affidavit of Translation is an affidavit sworn by a translator before a notary or commissioner for taking affidavits." >Affidavit of Translation<i class="fa fa-question-circle" aria-hidden="true"></i></span> with the English translation attached as exhibits. A certified translator can help you do this.</p>
 
         <p><strong>If you were married in Quebec and your marriage certificate is in French</strong><br />
             If your marriage certificate is in French, the registry may require you to get it translated into English. Contact your <a href="http://www.courts.gov.bc.ca/supreme_court/court_locations_and_contacts.aspx" target="_blank">Supreme Court registry</a> to find out what its rule is about marriage certificates in French.</p>
