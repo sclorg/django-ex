@@ -1235,3 +1235,5 @@ $('.no-collapse').on('click', function (e) {
     e.stopPropagation();
 });
 
+// Insert default value to number fields
+$('.number-field-default-zero').val('0');
