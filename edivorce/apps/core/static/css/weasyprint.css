@@ -94,10 +94,11 @@ i.fa {
 .form-entry_claimant {
     text-align: center;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 15px;
     display: block;
-    margin-bottom: 20px;
-    padding: 0 150px;
+    margin-bottom: 30px;
+    padding: 0 140px;
+    line-height: 18px;
 }
 
 .table-fixed {
