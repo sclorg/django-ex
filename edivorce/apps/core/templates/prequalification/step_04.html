@@ -129,13 +129,13 @@
     <div class="reveal question-well">
         <h3>How many children are under the age of 19?</h3>
 
-        {% input_field type="number" class="number-field-default-zero" name="number_children_under_19" min="0" data_target_id="number_children_under_19" %}
+        {% input_field type="number" name="number_children_under_19" min="0" data_target_id="number_children_under_19" %}
     </div>
 
     <div class="reveal question-well">
         <h3>How many children are 19 years or older?</h3>
 
-        {% input_field type="number" class="number-field-default-zero" name="number_children_over_19" min="0" data_target_id="number_children_over_19" data_related_id="financial_support" data_target_class="not-disqualified-age" data_reveal_class="true" data_reveal_condition=">0" %}
+        {% input_field type="number" name="number_children_over_19" min="0" data_target_id="number_children_over_19" data_related_id="financial_support" data_target_class="not-disqualified-age" data_reveal_class="true" data_reveal_condition=">0" %}
     </div>
 
     <div class="reveal question-well" id="financial_support" hidden>

@@ -1234,10 +1234,3 @@ $(".question-well").click(function () {
 $('.no-collapse').on('click', function (e) {
     e.stopPropagation();
 });
-
-// Insert default value to number fields
-$('.number-field-default-zero').each(function() {
-    if($(this).val() === '') {
-        $(this).val('0');
-    }
-});
