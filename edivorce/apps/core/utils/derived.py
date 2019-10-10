@@ -68,6 +68,7 @@ DERIVED_DATA = [
     'total_monthly_b',
     'medical_covered_by_1',
     'medical_covered_by_2',
+    'child_support_acts',
     'pursuant_parenting_arrangement',
     'pursuant_child_support',
 ]
@@ -671,13 +672,19 @@ def medical_covered_by_2(responses, derived):
     return False
 
 
+def child_support_acts(responses, derived):
+    """ Strip off unnecessary characters from child_support_act value """
+    act = responses.get('child_support_act', '').replace('"', '').replace('[', '').replace(']', '').replace(' ,', ' and ')
+    return act
+
+
 def pursuant_parenting_arrangement(responses, derived):
     """
     Return a list of parenting arrangement bullet points, prefaced by the
     correct 'pursuant to' phrase.
     """
 
-    act = responses.get('child_support_act', '')
+    act = derived['child_support_acts']
     act = 'Pursuant to %s,' % act if act != '' else act
     try:
         arrangements = responses.get('order_respecting_arrangement', '').split('\n')
@@ -694,7 +701,7 @@ def pursuant_child_support(responses, derived):
     'pursuant to' phrase.
     """
 
-    act = responses.get('child_support_act', '')
+    act = derived['child_support_acts']
     act = 'Pursuant to %s,' % act if act != '' else act
     try:
         arrangements = responses.get('order_for_child_support', '').split('\n')

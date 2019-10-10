@@ -21,6 +21,13 @@ $('input[type=number]').each(function() {
 
 $(window).load(function(){
     $('#questions_modal, #terms_modal').modal('show');
+
+    // Load child support act question text if child_suuport_in_order exist on the page and answered before.
+    var childSupport = $('input[name="child_support_in_order"]:checked');
+    if (childSupport !== undefined) {
+        var wantChildSupport = childSupport.val() === 'NO' ? false : true;
+        updateChildSupportActQuestion(wantChildSupport);
+    }
 });
 
 // Temporarily store table row data.
@@ -1234,3 +1241,34 @@ $(".question-well").click(function () {
 $('.no-collapse').on('click', function (e) {
     e.stopPropagation();
 });
+
+// Handle complicated logic show/hide child support act question with different wordings on Step 6. What are you asking for.
+$('input[name="child_support_in_order"]').change(function() {
+    var wantChildSupport = $(this).val() === 'NO' ? false : true;
+    updateChildSupportActQuestion(wantChildSupport);
+});
+
+var updateChildSupportActQuestion = function (wantChildSupport) {
+    var wantChildOrder = $('#child_support_act').data('want_child_order') === true ? true : false;
+
+    if (!wantChildOrder) {
+        if (!wantChildSupport) {
+            $('#child_support_act').hide();
+        } else {
+            $('#child_support_act').show();
+        }
+    } else {
+        $('#child_support_act').show();
+        var childSupportActQuestionText = '';
+
+        if (!wantChildSupport) {
+            childSupportActQuestionText = "Please indicate which act you are asking for an order regarding Arrangements for Parenting or Contact under.";
+    
+            $('#child_support_act_question').text(childSupportActQuestionText);
+        } else {
+            childSupportActQuestionText = "Please indicate which act you are asking for an order regarding Child Support and Arrangements for Parenting or Contact under.";
+    
+            $('#child_support_act_question').text(childSupportActQuestionText);
+        }
+    }
+};

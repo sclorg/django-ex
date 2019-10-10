@@ -379,19 +379,22 @@
     </div>
     {% endif %}
 
-    <div class="question-well">
-        <h3>Please indicate which act you are asking for child support under.</h3>
-        <div class="radio">
-            <label>
-                {% input_field type="radio" name="child_support_act" class="" autocomplete="off" value="the Divorce Act (Canada) " %} the Divorce Act (Canada) -
-                <a href="http://laws-lois.justice.gc.ca/eng/acts/D-3.4/index.html" target="_blank">view the Divorce Act</a>
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                {% input_field type="radio" name="child_support_act" class="" autocomplete="off" value="the Family Law Act" %} the Family Law Act -
-                <a href="http://www.bclaws.ca/civix/document/id/complete/statreg/11025_01" target="_blank">view the Family Law Act</a>
-            </label>
+    {# DIV-963: Show/hide logic and text update will be handled by JavaScript function updateChildSupportActQuestion() #}
+    <div class="question-well" id="child_support_act" {% if 'Child support' in want_which_orders|load_json %}data-want_child_order="true"{% endif %}>
+        <h3 id="child_support_act_question">Please indicate which act(s) you are asking for child support under.</h3>
+        <div class="checkbox-group">
+            <div class="checkbox">
+                <label>
+                    {% input_field type="checkbox" name="child_support_act" value="the Divorce Act (Canada) " %} the Divorce Act (Canada) -
+                    <a href="http://laws-lois.justice.gc.ca/eng/acts/D-3.4/index.html" target="_blank">view the Divorce Act</a>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    {% input_field type="checkbox" name="child_support_act" value="the Family Law Act" %} the Family Law Act -
+                    <a href="http://www.bclaws.ca/civix/document/id/complete/statreg/11025_01" target="_blank">view the Family Law Act</a>
+                </label>
+            </div>
         </div>
 
         <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_which_act" aria-controls="collapse_which_act">
