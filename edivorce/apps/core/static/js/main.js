@@ -1262,11 +1262,11 @@ var updateChildSupportActQuestion = function (wantChildSupport) {
         var childSupportActQuestionText = '';
 
         if (!wantChildSupport) {
-            childSupportActQuestionText = "Please indicate which act you are asking for an order regarding Arrangements for Parenting or Contact under.";
+            childSupportActQuestionText = "Please indicate which act(s) you are asking for an order regarding Arrangements for Parenting or Contact under.";
     
             $('#child_support_act_question').text(childSupportActQuestionText);
         } else {
-            childSupportActQuestionText = "Please indicate which act you are asking for an order regarding Child Support and Arrangements for Parenting or Contact under.";
+            childSupportActQuestionText = "Please indicate which act(s) you are asking for an order regarding Child Support and Arrangements for Parenting or Contact under.";
     
             $('#child_support_act_question').text(childSupportActQuestionText);
         }
