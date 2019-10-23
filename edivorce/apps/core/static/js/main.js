@@ -688,6 +688,19 @@ $(function () {
         }
     });
 
+    // If Orders pertaining to children is not selected from want which order page,
+    // update the value of child_support_in_order on Step 6: What are you asking for
+    // to "NO"
+    $('#order_child_support').on('change', function() {
+        var orderChildSupport = $(this).prop('checked');
+
+        if (!orderChildSupport) {
+            var question = 'child_support_in_order';
+            var value = 'NO';
+            ajaxCall(question, value);
+        }
+    }); 
+
     $('#check_order_selected').on('click', function (e) {
         var showAlert = $(this).data('show_alert');
         var childSupport = $('input[data-target_id=child_support_alert]').prop('checked');
