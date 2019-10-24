@@ -142,8 +142,8 @@
                 </li>
         {% endif %}
 
-        {% if responses.other_orders_detail.trim %}
-                <li>{{ responses.other_orders_detail }}</li>
+        {% if responses.other_orders_detail.strip %}
+                {{ responses.other_orders_detail|striptags|linebreaksli }}
         {% endif %}
     {% endif %}
             </ol>
