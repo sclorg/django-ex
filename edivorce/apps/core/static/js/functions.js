@@ -355,6 +355,30 @@ var validateEmail = function(el){
     }
 };
 
+var validateName = function(el){
+
+    console.log('validating name')
+
+    el.closest('.form-group')
+    .removeClass('has-error')
+    .find('span.help-block')
+    .remove();
+
+    var value = el.val();
+    var hasDigit = /\d/;
+
+    // check to make sure there are no digits in the string, 
+    // because CEIS won't accept it
+    if (hasDigit.test(value)){
+        el.closest('.form-group')
+        .addClass('has-error')
+        .append('<span class="help-block">A name cannot have a number in it.</span>');
+        return false;
+    }
+
+    return true;
+}
+
 var $DateFormat = 'M d, yyyy';
 var MomentFormat = 'MMM D, YYYY';
 

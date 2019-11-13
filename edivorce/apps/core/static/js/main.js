@@ -22,7 +22,7 @@ $('input[type=number]').each(function() {
 $(window).load(function(){
     $('#questions_modal, #terms_modal').modal('show');
 
-    // Load child support act question text if child_suuport_in_order exist on the page and answered before.
+    // Load child support act question text if child_support_in_order exist on the page and answered before.
     var childSupport = $('input[name="child_support_in_order"]:checked');
     if (childSupport !== undefined) {
         var wantChildSupport = childSupport.val() === 'NO' ? false : true;
@@ -502,6 +502,8 @@ $(function () {
 
     var checkNoEmptyField = function() {
         var isNotEmpty = true;
+        var hasDigit = /\d/;
+
         $('.children-questions .question-well').each(function () {
             var questionWell = $(this);
             questionWell.removeClass('hasError');
@@ -515,7 +517,13 @@ $(function () {
                             isNotEmpty = false;
                             questionWell.addClass('hasError');
                         }
-                    } 
+                    } else if (inputField.id === 'childs_name') {
+                        // check for digits in the name
+                        if (hasDigit.test(inputField.value)) {
+                            isNotEmpty = false;
+                            questionWell.addClass('hasError');
+                        }
+                    }
                 } else if (inputField.type === 'radio') {
                     if (questionWell.find('input:radio:checked').length === 0) {
                         isNotEmpty = false;

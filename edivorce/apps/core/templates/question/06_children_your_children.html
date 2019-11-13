@@ -94,7 +94,9 @@
     <div class="question-well">
         <h3>What is your child's name?</h3>
         <p>Enter full name</p>
-        {% input_field type="text" name="child_name" class="form-block input-wide response-textbox children-input-block" placeholder="First, Middle, Last Name" data_mirror="true" data_mirror_target="#child_name_0" data_skip_ajax="true" %}
+        <span class="form-group">
+            {% input_field type="text" name="child_name" class="form-block input-wide response-textbox children-input-block name" id="childs_name" placeholder="First, Middle, Last Name" data_mirror="true" data_mirror_target="#child_name_0" data_skip_ajax="true" %}
+        </span>
     </div>
 
 
