@@ -165,7 +165,7 @@
   {% for child in responses.children %}
                   <tr>
                     <td>{{ child.child_name }}</td>
-                    <td>{{ child.child_birth_date|date_formatter }} &nbsp;</td>
+                    <td style="white-space: nowrap">{{ child.child_birth_date|date_formatter }} &nbsp;</td>
                     <td>{{ child.child_birth_date|age }}</td>
                     <td>{{ child.child_live_with|claimantize }}</td>
                     <td>{{ child.child_relationship_to_you }}</td>
