@@ -61,7 +61,7 @@
                     <td>
                       <span class="td-list-item">{% checkbox responses.when_were_you_live_married_like %}</span>
                       began to live together in a marriage-like relationship on
-                      <em class="no-wrap">[dd mmm yyyy]</em>
+                      <em class="no-wrap">[dd/mmm/yyyy]</em>
                     </td>
                     <td colname="c2">
                       {% response responses.when_were_you_live_married_like as_date=True %}
@@ -70,7 +70,7 @@
                 <tr>
                     <td>
                       <span class="td-list-item">{% checkbox responses.when_were_you_married %}</span>
-                      were married on <em class="no-wrap">[dd mmm yyyy]</em>
+                      were married on <em class="no-wrap">[dd/mmm/yyyy]</em>
                     </td>
                     <td colname="c2">
                       {% response responses.when_were_you_married as_date=True %}
@@ -79,7 +79,7 @@
                 <tr>
                     <td>
                       <span class="td-list-item">{% checkbox responses.separation_date %}</span>
-                      separated on <em class="no-wrap">[dd mmm yyyy]</em>
+                      separated on <em class="no-wrap">[dd/mmm/yyyy]</em>
                     </td>
                     <td colname="c2">
                       {% response responses.separation_date as_date=True %}
@@ -89,7 +89,7 @@
                     <td>
                       <span class="td-list-item">{% checkbox False %}</span>
                       were divorced from each other by order made on
-                      <em class="no-wrap">[dd mmm yyyy]</em>
+                      <em class="no-wrap">[dd/mmm/yyyy]</em>
                     </td>
                     <td colname="c2"><span class="form-entry not-complete">&nbsp;</span></td>
                 </tr>
@@ -125,14 +125,14 @@
                     <td colname="c3"><strong>Claimant 2</strong></td>
                 </tr>
                 <tr>
-                    <td>Birthdate: <em class="no-wrap">[dd mmm yyyy]</em></td>
+                    <td>Birthdate: <em class="no-wrap">[dd/mmm/yyyy]</em></td>
                     <td colname="c2">{% response responses.birthday_you as_date=True %}</td>
                     <td colname="c3">{% response responses.birthday_spouse as_date=True %}</td>
                 </tr>
                 <tr>
                     <td>
                       Ordinarily resident in British Columbia since:
-                      <em class="no-wrap">[dd mmm yyyy]</em>
+                      <em class="no-wrap">[dd/mmm/yyyy]</em>
                     </td>
                     <td colname="c2">
                       {% if responses.lived_in_bc_you == 'Since birth' %}
@@ -207,7 +207,7 @@
                     <td colspan="2">
                       <span class="td-list-item">(i) {% checkbox responses.separation_date %}</span>
                       Claimant 1 and Claimant 2 have lived separate and apart
-                      since {% response responses.separation_date %}
+                      since {% response responses.separation_date|date_formatter %}
                     </td>
                 </tr>
                 <tr>
@@ -383,7 +383,7 @@
                           <table class="table table-fixed table-bordered">
                               <tr>
                                   <th align="center">Full name</th>
-                                  <th align="center">Birth date<br />[<em>dd mmm yyyy</em>]</th>
+                                  <th align="center">Birth date<br />[<em>dd/mmm/yyyy</em>]</th>
                                   <th align="center">Resides with</th>
                               </tr
       {% if responses.children_of_marriage == 'YES' %}
@@ -718,7 +718,7 @@
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd mmm yyyy]</td>
+                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
                         <p>
@@ -743,7 +743,7 @@
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd mmm yyyy]</td>
+                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
                         <p>
@@ -786,7 +786,7 @@
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd mmm yyyy]</td>
+                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
                         <p>
@@ -834,7 +834,7 @@
                 </tr>
                 <tr>
                     <td class="sig-col1"></td>
-                    <td class="sig-col2 sig-line-text">[dd mmm yyyy]</td>
+                    <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
                     <td class="sig-col3"></td>
                     <td class="sig-col4 sig-line-text">
                         <p>

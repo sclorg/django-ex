@@ -26,7 +26,7 @@ def linebreaksli(value):
 
 @register.filter
 def date_formatter(value):
-    """ Changes date format from dd/mm/yyyy to dd mmm yyyy """
+    """ Changes date format to dd/mmm/yyyy """
 
     if value is None or value == '':
         return ''
@@ -39,7 +39,7 @@ def date_formatter(value):
     if date is None:
         date = datetime.strptime(value, '%b %d, %Y')
 
-    return date.strftime('%d %b %Y')
+    return date.strftime('%d/%b/%Y')
 
 
 @register.simple_tag()

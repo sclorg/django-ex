@@ -82,8 +82,8 @@
                 {% else %}<span class="form-entry not-complete"></span>{% endif %}
                 on
                 {% if responses.when_were_you_married %}
-                    {{ responses.when_were_you_married|date_formatter }}
-                {% else %}<span class="form-entry not-complete"></span>{% endif %},
+                    {{ responses.when_were_you_married|date_formatter }},
+                {% else %}<span class="form-entry not-complete"></span>,{% endif %}
                 are divorced from each other, the divorce to take effect on
                 {% effective_date %}.
             </p>
