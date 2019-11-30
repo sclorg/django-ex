@@ -357,8 +357,6 @@ var validateEmail = function(el){
 
 var validateName = function(el){
 
-    console.log('validating name')
-
     el.closest('.form-group')
     .removeClass('has-error')
     .find('span.help-block')
@@ -377,7 +375,7 @@ var validateName = function(el){
     }
 
     return true;
-}
+};
 
 var $DateFormat = 'M d, yyyy';
 var MomentFormat = 'MMM D, YYYY';
