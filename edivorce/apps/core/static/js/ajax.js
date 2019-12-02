@@ -5,6 +5,32 @@ var ajaxOnChange = function () {
     // show/hide additional information if needed
     reveal(el);
 
+    var question = el.prop('name');
+    var value = getValue(el, question);
+    var isValid = true;
+
+    // Check if date is in valid format DD/MM/YYYY
+    if (el.is(".date-picker") || el.is(".date-pickers") || el.is(".date-picker-future")){
+        isValid = validateDate(el);
+    }
+
+    if (el.is("#email_textbox")){
+        isValid = validateEmail(el);
+    }
+
+    if (el.is(".name")) {
+        isValid = validateName(el);
+    }
+
+    // All alias fields must be validated as they are treated as a response to the one question.
+    if (el.is(".alias-names")) {
+        var aliasFields = $('.alias-names');
+        aliasFields.each(function(){
+            isValid = validateName($(this));
+            return isValid;
+        });
+    }
+
     var skipAjax = el.attr('data-skip_ajax');
     if (skipAjax !== undefined && skipAjax === "true") {
         return;
@@ -20,18 +46,6 @@ var ajaxOnChange = function () {
         }
     }
 
-    var question = el.prop('name');
-    var value = getValue(el, question);
-    var isValid = true;
-
-    // Check if date is in valid format DD/MM/YYYY
-    if (el.is(".date-picker") || el.is(".date-pickers") || el.is(".date-picker-future")){
-        isValid = validateDate(el);
-    }
-
-    if (el.is("#email_textbox")){
-        isValid = validateEmail(el);
-    }
 
     // special behaviour for radio button with textbox
     radioWithTextboxControl(el);

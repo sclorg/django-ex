@@ -15,8 +15,9 @@
 
 <div class="question-well">
     <h3>What is your spouse's name ( enter name as it appears on the marriage certificate or registration of marriage)?</h3>
-    {% input_field type="text" name="name_spouse" class="form-block input-wide response-textbox" %}
-
+    <span class="form-group">
+        {% input_field type="text" name="name_spouse" class="form-block input-wide response-textbox name" %}
+    </span>
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
          data-target="#collapse_legal_name" aria-controls="collapse_legal_name">
         <div>
@@ -106,13 +107,17 @@
 
 <div class="question-well">
     <h3>What was their last name when they were born?</h3>
-    {% input_field type="text" name="last_name_born_spouse" class="form-block input-wide response-textbox" %}
+    <span class="form-group">
+        {% input_field type="text" name="last_name_born_spouse" class="form-block input-wide response-textbox name" %}
+    </span>
     <p>This is often referred to as Family name or Surname</p>
 </div>
 
 <div class="question-well">
     <h3>What was their last name immediately before you were married?</h3>
-    {% input_field type="text" name="last_name_before_married_spouse" class="form-block input-wide response-textbox" %}
+    <span class="form-group">
+        {% input_field type="text" name="last_name_before_married_spouse" class="form-block input-wide response-textbox name" %}
+    </span>
     <p>This is often referred to as Family name or Surname</p>
 </div>
 

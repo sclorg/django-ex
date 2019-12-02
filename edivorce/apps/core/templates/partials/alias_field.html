@@ -8,8 +8,11 @@
             <option value="with assumed name of" {% if alias_type == 'with assumed name of' %} selected {% endif %}>With assumed name of</option>
         </select>
     {% endcomment %}
-
+    
     <label>Also known as</label>
-    {% input_field type="text" name=name value=value multiple="true" class="form-control response-textbox" %}
-    <input type="button" class="btn btn-danger btn-delete-name form-control" value="Delete" />
+        <span class="form-group">
+            {% input_field type="text" name=name value=value multiple="true" class="form-control response-textbox alias-names" %}
+        </span>
+
+        <input type="button" class="btn btn-danger btn-delete-name form-control" value="Delete" />
 </div>

@@ -12,7 +12,9 @@
 
 <div class="question-well">
     <h3>Please enter your name (as it appears on your marriage certificate or registration of marriage)</h3>
-    {% input_field type="text" name="name_you" class="form-block input-wide response-textbox" %}
+    <span class="form-group">
+        {% input_field type="text" name="name_you" class="form-block input-wide response-textbox name" %}
+    </span>
 
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_changed_name" aria-controls="collapse_changed_name">
         <div>
@@ -77,12 +79,14 @@
             {% include "partials/alias_field.html" with name="other_name_you" %}
         </div>
         <div id="other_names_fields">
-            {% if other_name_you %}
-                {% multiple_values_to_list source=other_name_you as values %}
-                {% for alias_type, value in values %} {% include "partials/alias_field.html" with name="other_name_you" alias_type=alias_type value=value delete_button="true" %} {% endfor %}
-            {% else %}
-                {% include "partials/alias_field.html" with name="other_name_you" %}
-            {% endif %}
+
+                    {% if other_name_you %}
+                    {% multiple_values_to_list source=other_name_you as values %}
+                    {% for alias_type, value in values %} {% include "partials/alias_field.html" with name="other_name_you" alias_type=alias_type value=value delete_button="true" %} {% endfor %}
+                {% else %}
+                    {% include "partials/alias_field.html" with name="other_name_you" %}
+                {% endif %}
+
         </div>
         <input type="button" id="btn_add_other_names" class="btn btn-success" value="Add name" data-add-for="you" />
         <div id="other_name_warning_message"></div>
@@ -91,12 +95,17 @@
 
 <div class="question-well">
     <h3>What was your last name when you were born?</h3>
-    <div>{% input_field type="text" name="last_name_born_you" class="form-block input-wide response-textbox" %}</div>
+    <span class="form-group">
+        <div>{% input_field type="text" name="last_name_born_you" class="form-block input-wide response-textbox name" %}</div>
+    </span>
     <p>This is often referred to as Family name or Surname</p>
 </div>
 
 <div class="question-well">
-    <h3>What was your last name immediately before you were married?</h3> {% input_field type="text" name="last_name_before_married_you" class="form-block input-wide response-textbox" %}
+    <h3>What was your last name immediately before you were married?</h3>
+    <span class="form-group">
+        {% input_field type="text" name="last_name_before_married_you" class="form-block input-wide response-textbox name" %}
+    </span>
     <p>This is often referred to as Family name or Surname</p>
 </div>
 
