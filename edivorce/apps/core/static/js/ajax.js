@@ -22,6 +22,15 @@ var ajaxOnChange = function () {
         isValid = validateName(el);
     }
 
+    // All alias fields must be validated as they are treated as a response to the one question.
+    if (el.is(".alias-names")) {
+        var aliasFields = $('.alias-names');
+        aliasFields.each(function(){
+            isValid = validateName($(this));
+            return isValid;
+        });
+    }
+
     var skipAjax = el.attr('data-skip_ajax');
     if (skipAjax !== undefined && skipAjax === "true") {
         return;
