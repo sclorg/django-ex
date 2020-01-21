@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from . import database
 from .models import PageView
 
+
+import requests
 # Create your views here.
 
 def index(request):
