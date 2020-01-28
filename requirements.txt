@@ -4,3 +4,4 @@ gunicorn==19.4.5
 psycopg2==2.7.3.1
 whitenoise==3.3.1
 requests==2.22.0
+prometheus_client == 0.7.1
