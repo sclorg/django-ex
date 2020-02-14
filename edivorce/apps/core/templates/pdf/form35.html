@@ -85,7 +85,12 @@
             {% checkbox True %} proof of service of the notice of family claim or counterclaim, as the case may be.
           </p>
           <p>
-            {% checkbox False %} Child Support Affidavit in Form F37.
+            {% if responses.num_actual_children > 0 %}
+              {% checkbox True %} 
+            {% else %}
+              {% checkbox False %}
+            {% endif %} 
+            Child Support Affidavit in Form F37.
           </p>
           <p>
             {% checkbox True %} affidavit in Form F38.
