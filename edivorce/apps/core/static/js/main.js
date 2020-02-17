@@ -711,7 +711,7 @@ $(function () {
 
     $('#check_order_selected').on('click', function (e) {
         var showAlert = $(this).data('show_alert');
-        var childSupport = $('input[data-target_id=child_support_alert]').prop('checked');
+        var childSupport = $('#order_child_support').prop('checked');
         var eligible = false;
         if (!childSupport) {
           var children = $('#unselected_child_support_alert').data('children-of-marriage');
