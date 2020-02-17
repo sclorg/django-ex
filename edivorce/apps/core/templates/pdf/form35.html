@@ -1,5 +1,6 @@
 {% load static %}
 {% load input_field %}
+{% load format_utils %}
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -69,25 +70,30 @@
 
         <div class="checkbox-list">
           <p>
-            <span class="fake-checkbox"></span> draft of the order sought;
+            {% checkbox True %} draft of the order sought;
           </p>
           <p>
-            <span class="fake-checkbox"></span> proof that the case is an undefended family law case;
+            {% checkbox True %} proof that the case is an undefended family law case;
           </p>
           <p>
-            <span class="fake-checkbox"></span> certificate of the registrar in Form F36;
+            {% checkbox True %} certificate of the registrar in Form F36;
           </p>
           <p>
-            <span class="fake-checkbox"></span> filing fee.
+            {% checkbox True %} filing fee.
           </p>
           <p>
-            <span class="fake-checkbox"></span> proof of service of the notice of family claim or counterclaim, as the case may be.
+            {% checkbox True %} proof of service of the notice of family claim or counterclaim, as the case may be.
           </p>
           <p>
-            <span class="fake-checkbox"></span> Child Support Affidavit in Form F37.
+            {% if responses.num_actual_children > 0 %}
+              {% checkbox True %} 
+            {% else %}
+              {% checkbox False %}
+            {% endif %} 
+            Child Support Affidavit in Form F37.
           </p>
           <p>
-            <span class="fake-checkbox"></span> affidavit in Form F38.
+            {% checkbox True %} affidavit in Form F38.
           </p>
         </div>
 
@@ -108,8 +114,8 @@
                     <td class="sig-col4 sig-line-text">
                       <p>Signature of</p>
                       <p style="white-space: nowrap">
-                      <span class="fake-checkbox"></span> filing party
-                          <span class="fake-checkbox"></span> lawyer for filing party(ies)
+                          {% checkbox False %} filing party
+                          {% checkbox False %} lawyer for filing party(ies)
                         </p>
                     </td>
                     <td class="sig-col3"></td>
@@ -137,9 +143,9 @@
                     <td class="sig-col4 sig-line-text">
                       <p>Signature of</p>
                       <p style="white-space: nowrap">
-                      <span class="fake-checkbox"></span> filing party
-                          <span class="fake-checkbox"></span> lawyer for filing party(ies)
-                        </p>
+                        {% checkbox False %} filing party
+                        {% checkbox False %} lawyer for filing party(ies)
+                      </p>
                     </td>
                     <td class="sig-col3"></td>
                     <td class="sig-col5 sig-line-text">
