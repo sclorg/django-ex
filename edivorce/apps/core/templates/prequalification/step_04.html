@@ -143,11 +143,11 @@
           years or older?</h3>
         <p>Please check all that apply.</p>
         <div class="checkbox-group">
-            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="NO" data_checkbox_radio="true" data_checkbox_radio_state_set="false" data_target_id="need_support" data_reveal_target="false" data_target_class="not-disqualified-other" data_reveal_class="true" %}No</label></div>
-            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, attending post secondary institution" data_checkbox_radio="true" data_checkbox_radio_state_set="true" %}Yes, attending post secondary institution</label></div>
-            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, due to disability" data_checkbox_radio="true" data_checkbox_radio_state_set="true" %}Yes, due to disability</label></div>
-            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, due to illness"  data_checkbox_radio="true" data_checkbox_radio_state_set="true"%}Yes, due to illness</label></div>
-            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, other reason"  data_checkbox_radio="true" data_checkbox_radio_state_set="true" %}Yes, other reason(s)</label></div>
+            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="NO" data_checkbox_radio="true" data_checkbox_radio_state_set="false" data_target_id="children_live_with_others" data_reveal_target="false" data_target_class="not-disqualified-other" data_reveal_class="true" %}No</label></div>
+            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, attending post secondary institution" data_checkbox_radio="true" data_checkbox_radio_state_set="true" data_target_id="children_live_with_others" data_reveal_target="true" %}Yes, attending post secondary institution</label></div>
+            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, due to disability" data_checkbox_radio="true" data_checkbox_radio_state_set="true" data_target_id="children_live_with_others" data_reveal_target="true" %}Yes, due to disability</label></div>
+            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, due to illness"  data_checkbox_radio="true" data_checkbox_radio_state_set="true" data_target_id="children_live_with_others" data_reveal_target="true" %}Yes, due to illness</label></div>
+            <div class="checkbox"><label>{% input_field type="checkbox" name="children_financial_support" value="Yes, other reason"  data_checkbox_radio="true" data_checkbox_radio_state_set="true" data_target_id="children_live_with_others" data_reveal_target="true" %}Yes, other reason(s)</label></div>
         </div>
         <div class="collapse-trigger collapsed" data-toggle="collapse"
          aria-expanded="false" data-target="#collapse_circumstances_change_child_support"
@@ -204,6 +204,30 @@
               <a href="http://www.familylaw.lss.bc.ca/guides/divorce/divJoint_courtForms.php"
               target="_blank">listing of forms</a> that may be required for a
               Joint Divorce can also be found on the Family Law in B.C. website.
+            </p>
+        </div>
+    </div>
+
+    <div class="reveal question-well" id="children_live_with_others">
+        <h3>Do any of the your children live with someone who is not you or your spouse?</h3>
+
+        <div class="btn-radio-group" data-toggle="buttons">
+            <label class="btn btn-radio">
+                {% input_field type="radio"  name="children_live_with_others" autocomplete="off" value="YES" data_target_id="children_live_with_others_stop" data_reveal_target="true" data_target_class="not-disqualified-other" data_reveal_class="false" %} Yes
+            </label>
+
+            <label class="btn btn-radio">
+                {% input_field type="radio"  name="children_live_with_others" autocomplete="off" value="NO" data_target_id="children_live_with_others_stop" data_reveal_target="false" data_target_class="not-disqualified-other" data_reveal_class="true" %} No
+            </label>
+        </div>
+
+        <p>For example: you should select 'Yes' if your child lives with an Aunt, Uncle or Grandparent.</p>
+
+        <div class="information-message bg-danger hard-stop" id="children_live_with_others_stop" hidden>
+            <p>
+                This application does not currently support situations where the children do not live with one or both of the spouses. Please click the 
+                <a href="{% url 'legal' %}" target="_blank">'Get Help'</a>
+                 button in the top right of this application to view other resources that can help you.
             </p>
         </div>
     </div>

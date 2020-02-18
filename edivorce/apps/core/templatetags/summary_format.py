@@ -413,7 +413,7 @@ def prequal_tag(source):
 
     marriage_status = lived_in_bc = live_at_least_year = separation_date = try_reconcile = reconciliation_period = None
     children_of_marriage = number_children_under_19 = number_children_over_19 = financial_support = certificate = provide_later = None
-    provide_later_reason = not_provide_later_reason = in_english = divorce_reason = None
+    provide_later_reason = not_provide_later_reason = in_english = divorce_reason = children_live_with_others = None
 
     for item in source:
         q_id = item['question_id']
@@ -437,6 +437,8 @@ def prequal_tag(source):
             number_children_over_19 = item
         elif q_id == 'children_financial_support':
             financial_support = item
+        elif q_id == 'children_live_with_others':
+            children_live_with_others = item
         elif q_id == 'original_marriage_certificate':
             certificate = item
         elif q_id == 'provide_certificate_later':
@@ -472,6 +474,8 @@ def prequal_tag(source):
         tags = format_table_data(tags, number_children_over_19['question__name'], number_children_over_19['value'])
     if children_of_marriage and children_of_marriage['value'] == 'YES' and number_children_over_19 and financial_support and financial_support['value']:
         tags = format_table_data(tags, financial_support['question__name'], '<br>'.join(json.loads(financial_support['value'])))
+    if children_of_marriage and children_of_marriage['value'] == 'YES' and number_children_over_19 and financial_support:
+        tags = format_table_data(tags, children_live_with_others['question__name'], children_live_with_others['value'])
     if certificate:
         tags = format_table_data(tags, certificate['question__name'], certificate['value'])
     if certificate and certificate['value'] == 'NO' and provide_later:

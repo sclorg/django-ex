@@ -75,13 +75,23 @@
     "fields": {
         "name": "Are you financially supporting any of the children that are 19 years or older?",
         "description": "For pre-qualification step 4, Form 1 3. Info concerning children",
-        "summary_order": 9,
+        "summary_order": 8,
         "required": "Conditional",
         "conditional_target": "number_children_over_19",
         "reveal_response": ">0"
     },
     "model": "core.question",
     "pk": "children_financial_support"
+},
+{
+    "fields": {
+        "name": "Do any of the your children live with someone who is not you or your spouse?",
+        "description": "For pre-qualification step 4, determines eligibility of using the app",
+        "summary_order": 9,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "children_live_with_others"
 },
 {
     "fields": {

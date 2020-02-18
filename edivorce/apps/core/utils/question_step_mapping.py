@@ -21,7 +21,8 @@ pre_qual_step_question_mapping = {
         'children_of_marriage',
         'number_children_under_19',
         'number_children_over_19',
-        'children_financial_support'
+        'children_financial_support',
+        'children_live_with_others'
     },
     '05': {
         'original_marriage_certificate',
@@ -44,6 +45,7 @@ question_step_mapping = {
                          'number_children_under_19',
                          'number_children_over_19',
                          'children_financial_support',
+                         'children_live_with_others',
                          'original_marriage_certificate',
                          'provide_certificate_later',
                          'provide_certificate_later_reason',
