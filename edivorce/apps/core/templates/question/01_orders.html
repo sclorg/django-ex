@@ -216,12 +216,20 @@ asked to provide details for each request.</p>
         <p>
           <b>NOTE:</b> Just because you have children does not mean you have to select this option. Only select if you want a Judge to make an order about these items.
         </p>
+                <div class="collapse-trigger collapsed" data-toggle="collapse"
+                aria-expanded="false" data-target="#collapseTalk"
+                aria-controls="collapseTalk">
+                    <div>
+                        I want to talk to a person about 'Orders Pertaining to Children'
+                    </div>
+                </div>
+                <div class="collapse" id="collapseTalk">
+                    <p>
+                        Use our <a href="{% url 'legal' %}" target="_blank">Get Help</a> page to find people who can help you with filling out this section.
+                    </p>
+                </div>
 
-        <ol>
-            <li>
-                I want to <b><a href="{% url 'legal' %}" target="_blank">talk to a person</a></b> about 'Orders Pertaining to Children' ? (clicking on 'talk to a person' link will take to get help screen just like the FLA/Divorce act questions that is the last question in step 6)
-            </li>
-            <li>
+
                 <div class="collapse-trigger collapsed" data-toggle="collapse"
                 aria-expanded="false" data-target="#collapseOrders"
                 aria-controls="collapseOrders">
@@ -230,17 +238,13 @@ asked to provide details for each request.</p>
                     </div>
                 </div>
                 <div class="collapse" id="collapseOrders">
-                    <ol>
-                        <li>
-                            If your Separation Agreement is 'filed' at a Court Registry and you do not wish it changed, you may choose NOT to select this option. If you do wish to change what was agreed upon in your Separation Agreement, you must go to the Registry where it is filed.
-                        </li>
-                        <li>
-                            If you already have a Court Order pertaining to Children, you must go to the Court Registry where it is filed to apply to change or cancel terms.
-                        </li>
-                    </ol>
+                    <p>
+                        If your Separation Agreement is 'filed' at a Court Registry and you do not wish it changed, you may choose NOT to select this option. If you do wish to change what was agreed upon in your Separation Agreement, you must go to the Registry where it is filed.
+
+                        If you already have a Court Order pertaining to Children, you must go to the Court Registry where it is filed to apply to change or cancel terms.
+                    </p>
                 </div>
-            </li>
-            <li>
+
                 <div class="collapse-trigger collapsed" data-toggle="collapse"
                 aria-expanded="false" data-target="#collapseBenefits"
                 aria-controls="collapseBenefits">
@@ -313,8 +317,6 @@ asked to provide details for each request.</p>
                         </p>        
                     </div>
                 </div>
-            </li>
-        </ol>
     </div>
 
     <div class="question-well">
