@@ -177,7 +177,7 @@ asked to provide details for each request.</p>
     <div class="question-well">
         <div class="checkbox">
           <label>
-            {% input_field type="checkbox" name="want_which_orders" value="Child support" id="order_child_support" class="show-order-alert-input" data_target_id="child_support_alert" data_invert_target=".orders-alert-child-support" data_reveal_target="true" %}
+            {% input_field type="checkbox" name="want_which_orders" value="Child support" id="order_child_support" class="show-order-alert-input" %}
             Orders pertaining to children
           </label>
         </div>
@@ -216,85 +216,108 @@ asked to provide details for each request.</p>
         <p>
           <b>NOTE:</b> Just because you have children does not mean you have to select this option. Only select if you want a Judge to make an order about these items.
         </p>
+                <div class="collapse-trigger collapsed" data-toggle="collapse"
+                aria-expanded="false" data-target="#collapseTalk"
+                aria-controls="collapseTalk">
+                    <div>
+                        I want to talk to a person about 'Orders Pertaining to Children'
+                    </div>
+                </div>
+                <div class="collapse" id="collapseTalk">
+                    <p>
+                        Use our <a href="{% url 'legal' %}" target="_blank">Get Help</a> page to find people who can help you with filling out this section.
+                    </p>
+                </div>
 
-        <div class="collapse-trigger collapsed" data-toggle="collapse"
-             aria-expanded="false" data-target="#collapseOrders"
-             aria-controls="collapseOrders">
-            <div>
-                What if I already have a <b>Separation Agreement</b> or <b>Court Order</b> that deals with Orders Pertaining to Children?
-            </div>
-        </div>
-        <div class="collapse" id="collapseOrders">
-            <div>
-                <p>
-                    If you have a Separation Agreement or court order that deals with your issues Pertaining to Children that you and your spouse do not wish changed, you may choose <b>NOT</b> to select this option.
-                </p>
-            </div>
-        </div>
 
-        <div class="information-message bg-danger" id="child_support_alert" hidden>
-        <p><strong>The benefits of using both courts</strong></p>
-        <p>
-            In some situations, you may find it best to use both courts. You could get
-            most of your orders in Provincial Court, and then just apply for your
-            divorce order in Supreme Court. (You could also choose to make an agreement
-            about parenting, support, and property and then just apply to the Supreme
-            Court for a divorce.) This approach might save you money and time, especially
-            if you and your spouse agree on what should be done.
-        </p>
-        <p>
-            On the other hand, it could make things more complicated to have to deal with
-            two different courts. It can also be a problem if you ask more than one court
-            to deal with issues about parenting and support.
-        </p>
-        <p>
-            More information on which court you may need to go to can be found on the
-            <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/choosing_court.php" target="_blank">Family Law in B.C. website</a>
-            and the
-            <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/your-options/going-to-court/which-court-should-i-go-to" target="_blank">Government of B.C. website</a>.
-        </p>
-        <p><strong>Asking for Orders Pertaining to Children in Provincial or Supreme Court.</strong></p>
-        <p>
-            If you will be asking for parenting and support issues, you can choose between the
-            <a href="http://wiki.clicklaw.bc.ca/index.php?title=Divorce Act" target="_blank">Divorce Act</a>
-            or the
-            <a href="https://www2.gov.bc.ca/gov/content/justice/about-bcs-justice-system/legislation-policy/legislation-updates/family-law-act"
-               target="_blank">Family Law Act</a>.
-            If you choose to go with
-            the Family Law Act, you can get court orders or enforce an agreement in
-            either
-            <span class="tooltip-link"
-              data-toggle="tooltip" data-placement="right" data-html="true"
-              title="
-                <b>Provincial Court</b>
-                <p>The lower level trial court which deals with small claims, family,
-                youth criminal offenders, criminal and traffic matters.</p>
-                ">
-                Provincial Court<i class="fa fa-question-circle" aria-hidden="true"></i></span>
-            or
-            <span class="tooltip-link"
-              data-toggle="tooltip" data-placement="right" data-html="true"
-              title="
-                <b>Supreme Court</b>
-                <p>The higher level trial court. This court also hears appeals from
-                the Provincial Court, and sometimes reviews the decisions of certain
-                provincial tribunals and public decision-making bodies.</p>
-                ">
-            Supreme Court<i class="fa fa-question-circle" aria-hidden="true"></i></span>,
-            but if you go with the Divorce Act, you can only do this in Supreme Court.
-        </p>
-        <p>
-            Please note if you are <strong>asking for a divorce</strong>,  divorces are granted
-            under the federal Divorce Act. If you are seeking a divorce, you can
-            apply to the Supreme Court to settle your other family law issues,
-            such as support and
-            <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart"
-               target="_blank">parenting arrangements</a> , under the Divorce Act or
-            under the provincial Family Law Act. The Family Law Act is usually
-            better for settling these issues because it is tailored to respond
-            to the needs of families.
-        </p>        
-    </div>
+                <div class="collapse-trigger collapsed" data-toggle="collapse"
+                aria-expanded="false" data-target="#collapseOrders"
+                aria-controls="collapseOrders">
+                    <div>
+                        What if I already have a <b>Separation Agreement</b> or <b>Court Order</b> that deals with Orders Pertaining to Children?
+                    </div>
+                </div>
+                <div class="collapse" id="collapseOrders">
+                    <p>
+                        If your Separation Agreement is 'filed' at a Court Registry and you do not wish it changed, you may choose NOT to select this option. If you do wish to change what was agreed upon in your Separation Agreement, you must go to the Registry where it is filed.
+                    </p>
+                    <p>
+                        If you already have a Court Order pertaining to Children, you must go to the Court Registry where it is filed to apply to change or cancel terms.
+                    </p>
+                </div>
+
+                <div class="collapse-trigger collapsed" data-toggle="collapse"
+                aria-expanded="false" data-target="#collapseBenefits"
+                aria-controls="collapseBenefits">
+                    <div>
+                        Are there benefits to using both Provincial and Supreme courts?
+                    </div>
+                </div>
+                <div class="collapse" id="collapseBenefits">
+                    <div class="information-message bg-danger" id="child_support_alert">
+                        <p><strong>The benefits of using both courts</strong></p>
+                        <p>
+                            In some situations, you may find it best to use both courts. You could get
+                            most of your orders in Provincial Court, and then just apply for your
+                            divorce order in Supreme Court. (You could also choose to make an agreement
+                            about parenting, support, and property and then just apply to the Supreme
+                            Court for a divorce.) This approach might save you money and time, especially
+                            if you and your spouse agree on what should be done.
+                        </p>
+                        <p>
+                            On the other hand, it could make things more complicated to have to deal with
+                            two different courts. It can also be a problem if you ask more than one court
+                            to deal with issues about parenting and support.
+                        </p>
+                        <p>
+                            More information on which court you may need to go to can be found on the
+                            <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/choosing_court.php" target="_blank">Family Law in B.C. website</a>
+                            and the
+                            <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/your-options/going-to-court/which-court-should-i-go-to" target="_blank">Government of B.C. website</a>.
+                        </p>
+                        <p><strong>Asking for Orders Pertaining to Children in Provincial or Supreme Court.</strong></p>
+                        <p>
+                            If you will be asking for parenting and support issues, you can choose between the
+                            <a href="http://wiki.clicklaw.bc.ca/index.php?title=Divorce Act" target="_blank">Divorce Act</a>
+                            or the
+                            <a href="https://www2.gov.bc.ca/gov/content/justice/about-bcs-justice-system/legislation-policy/legislation-updates/family-law-act"
+                            target="_blank">Family Law Act</a>.
+                            If you choose to go with
+                            the Family Law Act, you can get court orders or enforce an agreement in
+                            either
+                            <span class="tooltip-link"
+                            data-toggle="tooltip" data-placement="right" data-html="true"
+                            title="
+                                <b>Provincial Court</b>
+                                <p>The lower level trial court which deals with small claims, family,
+                                youth criminal offenders, criminal and traffic matters.</p>
+                                ">
+                                Provincial Court<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                            or
+                            <span class="tooltip-link"
+                            data-toggle="tooltip" data-placement="right" data-html="true"
+                            title="
+                                <b>Supreme Court</b>
+                                <p>The higher level trial court. This court also hears appeals from
+                                the Provincial Court, and sometimes reviews the decisions of certain
+                                provincial tribunals and public decision-making bodies.</p>
+                                ">
+                            Supreme Court<i class="fa fa-question-circle" aria-hidden="true"></i></span>,
+                            but if you go with the Divorce Act, you can only do this in Supreme Court.
+                        </p>
+                        <p>
+                            Please note if you are <strong>asking for a divorce</strong>,  divorces are granted
+                            under the federal Divorce Act. If you are seeking a divorce, you can
+                            apply to the Supreme Court to settle your other family law issues,
+                            such as support and
+                            <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart"
+                            target="_blank">parenting arrangements</a> , under the Divorce Act or
+                            under the provincial Family Law Act. The Family Law Act is usually
+                            better for settling these issues because it is tailored to respond
+                            to the needs of families.
+                        </p>        
+                    </div>
+                </div>
     </div>
 
     <div class="question-well">
