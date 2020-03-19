@@ -36,9 +36,16 @@ class BceidMiddleware(object):  # pylint: disable=too-few-public-methods
 
     For our purposes, SiteMinder is configured to add the following headers:
 
-        SMGOV_USERGUID
-        SMGOV_USERDISPLAYNAME
-        SM_USER
+        BCeID:
+        - SMGOV_USERGUID
+        - SMGOV_USERDISPLAYNAME
+        - SM_USER
+
+        BC Services Card:
+        - SMGOV_USERGUID
+        - SMGOV_GIVENNAMES
+        - SMGOV_SURNAME
+        - SM_USER
 
     The first two are provided on pages configured to be protected by
     SiteMinder, which is currently just /login.  When a user goes to the login
@@ -96,7 +103,17 @@ class BceidMiddleware(object):  # pylint: disable=too-few-public-methods
         update_user = False
 
         guid = request.META.get('HTTP_SMGOV_USERGUID', '')
+        given_names = request.META.get('HTTP_SMGOV_GIVENNAMES', '')
+        surname = request.META.get('HTTP_SMGOV_SURNAME', '')
         displayname = request.META.get('HTTP_SMGOV_USERDISPLAYNAME', '')
+
+        # HTTP_SMGOV_USERDISPLAYNAME is not included when BC Services Card authentication is used.
+        if not displayname and (surname or given_names):
+            displayname = "{0} {1}".format(given_names, surname)
+
+        # HTTP_SM_USER is typically '.' when BC Services Card authentication is used.
+        if (not siteminder_user or siteminder_user == '.') and given_names and surname:
+            siteminder_user = "{0}{1}".format(given_names.split(None, 1)[0], surname)
 
         if guid:
             request.session['smgov_userguid'] = guid
