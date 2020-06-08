@@ -59,7 +59,7 @@ def success(request):
     prequal_responses = get_responses_from_session_grouped_by_steps(request)['prequalification']
     complete, _ = is_complete('prequalification', prequal_responses)
     if complete:
-        return render(request, 'success.html', context={'register_url': settings.REGISTER_URL})
+        return render(request, 'success.html', context={'register_url': settings.REGISTER_URL,'register_sc_url': settings.REGISTER_SC_URL})
     return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/incomplete')
 
 
@@ -88,6 +88,15 @@ def register(request):
     request.session['went_to_register'] = True
     return redirect(settings.REGISTER_URL)
 
+def register_sc(request):
+    """
+    Sets a session variable and redirects users to register for BC Services Card
+    """
+    if settings.DEPLOYMENT_TYPE in ['localdev', 'minishift']:
+        return render(request, 'localdev/register.html')
+
+    request.session['went_to_register'] = True
+    return redirect(settings.REGISTER_SC_URL)
 
 def login(request):
     """

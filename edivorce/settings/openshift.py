@@ -56,18 +56,21 @@ if DEPLOYMENT_TYPE == 'dev':
     CSRF_COOKIE_AGE = None
     SESSION_COOKIE_AGE = 3600
     REGISTER_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5522'
+    REGISTER_SC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://dev.justice.gov.bc.ca/divorce/login'
     LOGOUT_URL_TEMPLATE = 'https://logontest.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
     LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
 
 if DEPLOYMENT_TYPE == 'test':
     PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce-test')
     REGISTER_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
+    REGISTER_SC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://dev.justice.gov.bc.ca/divorce/login'
     LOGOUT_URL_TEMPLATE = 'https://logontest.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
     LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
 
 if DEPLOYMENT_TYPE == 'prod':
     PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
     REGISTER_URL = 'https://www.bceid.ca/directories/bluepages/details.aspx?serviceID=5203'
+    REGISTER_SC_URL = 'https://logon7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed49&partnerList=fed49&flags=0001:0,8&TARGET=http://justice.gov.bc.ca/divorce/login'
     LOGOUT_URL_TEMPLATE = 'https://logon.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
     LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
     # Google Tag Manager (Production)
@@ -76,6 +79,7 @@ if DEPLOYMENT_TYPE == 'prod':
 if DEPLOYMENT_TYPE == 'minishift':
     DEBUG = True
     REGISTER_URL = '#'
+    REGISTER_SC_URL ='#'
     PROXY_BASE_URL = ''
 
 # Internal Relative Urls
