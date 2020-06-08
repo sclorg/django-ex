@@ -63,7 +63,7 @@ if DEPLOYMENT_TYPE == 'dev':
 if DEPLOYMENT_TYPE == 'test':
     PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce-test')
     REGISTER_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
-    REGISTER_SC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://dev.justice.gov.bc.ca/divorce/login'
+    REGISTER_SC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://test.justice.gov.bc.ca/divorce/login'
     LOGOUT_URL_TEMPLATE = 'https://logontest.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
     LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
 
