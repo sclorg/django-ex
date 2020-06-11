@@ -65,7 +65,7 @@ objects:
               port: 8080
           livenessProbe:
             timeoutSeconds: 3
-            initialDelaySeconds: 30
+            initialDelaySeconds: 60
             httpGet:
               path: "/health"
               port: 8080
@@ -112,7 +112,11 @@ objects:
                 name: ${NAME}
           resources:
             limits:
-              memory: "${MEMORY_LIMIT}"
+              cpu: ${CPU_LIMIT}
+              memory: ${MEMORY_LIMIT}
+            requests:
+              cpu: ${CPU_REQUEST}
+              memory: ${MEMORY_REQUEST}
 - kind: Secret
   apiVersion: v1
   metadata:
@@ -197,8 +201,24 @@ parameters:
   description: Basic Auth Password. Needs to be basee64 encoded.
   generate: expression
   from: "[a-zA-Z0-9]{16}"
-- name: MEMORY_LIMIT
-  displayName: Memory Limit
+# ===============================================================================
+- name: CPU_REQUEST
+  displayName: Resources CPU Request
+  description: The resources CPU request (in cores) for this build.
   required: true
-  description: Maximum amount of memory the Django container can use.
+  value: 10m
+- name: CPU_LIMIT
+  displayName: Resources CPU Limit
+  description: The resources CPU limit (in cores) for this build.
+  required: true
+  value: 500m
+- name: MEMORY_REQUEST
+  displayName: Resources Memory Request
+  description: The resources Memory request (in Mi, Gi, etc) for this build.
+  required: true
+  value: 10Mi
+- name: MEMORY_LIMIT
+  displayName: Resources Memory Limit
+  description: The resources Memory limit (in Mi, Gi, etc) for this build.
+  required: true
   value: 512Mi
