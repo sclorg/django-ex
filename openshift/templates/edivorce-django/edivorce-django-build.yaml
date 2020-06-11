@@ -44,6 +44,13 @@ objects:
     - type: ConfigChange
     postCommit:
       script: "./manage.py test"
+    resources:
+      limits:
+        cpu: ${CPU_LIMIT}
+        memory: ${MEMORY_LIMIT}
+      requests:
+        cpu: ${CPU_REQUEST}
+        memory: ${MEMORY_REQUEST}
 parameters:
 - name: NAME
   displayName: Name
@@ -85,3 +92,24 @@ parameters:
   displayName: Custom PyPi Index URL
   description: The custom PyPi index URL
   value: ''
+# ===============================================================================
+- name: CPU_REQUEST
+  displayName: Resources CPU Request
+  description: The resources CPU request (in cores) for this build.
+  required: true
+  value: 10m
+- name: CPU_LIMIT
+  displayName: Resources CPU Limit
+  description: The resources CPU limit (in cores) for this build.
+  required: true
+  value: 750m
+- name: MEMORY_REQUEST
+  displayName: Resources Memory Request
+  description: The resources Memory request (in Mi, Gi, etc) for this build.
+  required: true
+  value: 10Mi
+- name: MEMORY_LIMIT
+  displayName: Resources Memory Limit
+  description: The resources Memory limit (in Mi, Gi, etc) for this build.
+  required: true
+  value: 1000Mi
