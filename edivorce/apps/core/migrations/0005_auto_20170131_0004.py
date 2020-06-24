@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('value', models.TextField(blank=True)),
-                ('question', models.ForeignKey(to='core.Question')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('question', models.ForeignKey(to='core.Question', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.RemoveField(

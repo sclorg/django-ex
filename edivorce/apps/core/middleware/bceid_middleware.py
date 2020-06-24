@@ -19,9 +19,11 @@ class AnonymousUser():
     display_name = ''
     has_accepted_terms = False
 
+    @property
     def is_authenticated(self):
         return False
 
+    @property
     def is_anonymous(self):
         return True
 
@@ -29,7 +31,7 @@ class AnonymousUser():
 anonymous_user = AnonymousUser()
 
 
-class BceidMiddleware(object):  # pylint: disable=too-few-public-methods
+class BceidMiddleware:  # pylint: disable=too-few-public-methods
     """
     Simple authentication middleware for operating in the BC Government
     OpenShift environment, with SiteMinder integration.
@@ -67,6 +69,17 @@ class BceidMiddleware(object):  # pylint: disable=too-few-public-methods
     In a local development environment, we generate a guid based on the login
     name and treat that guid/login name as guid/display name.
     """
+    def __init__(self, get_response=None):
+        self.get_response = get_response
+        super().__init__()
+
+    def __call__(self, request):
+        response = None
+        if hasattr(self, 'process_request'):
+            response = self.process_request(request)
+        if not response:
+            response = self.get_response(request)
+        return response
 
     def process_request(self, request):  # pylint: disable=too-many-branches
         """

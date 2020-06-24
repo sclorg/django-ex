@@ -49,7 +49,7 @@ INSTALLED_APPS = (
     'sass_processor',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'edivorce.apps.core.middleware.basicauth_middleware.BasicAuthMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
