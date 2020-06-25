@@ -151,7 +151,7 @@ def __get_data(bceid_user):
     COMMON_LAW = 'Living together in a marriage like relationship'
     MARRIED = 'Legally married'
 
-    responses = UserResponse.objects.filter(bceid_user=bceid_user)
+    responses = UserResponse.objects.filter(bceid_user=bceid_user).select_related('question')
     married_status = responses.filter(question_id='married_marriage_like')
 
     if married_status.count() > 0:
