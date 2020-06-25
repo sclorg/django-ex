@@ -1,12 +1,12 @@
 import base64
 
-import sys
 from django.http import HttpResponse
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.utils.deprecation import MiddlewareMixin
 
 
-class BasicAuthMiddleware:
+class BasicAuthMiddleware(MiddlewareMixin):
     """
     Simple Basic Authentication module to password protect test environments
     based on : https://djangosnippets.org/snippets/2468/
@@ -14,18 +14,6 @@ class BasicAuthMiddleware:
     implementation allows environment variables to be used to store
     username + password
     """
-    def __init__(self, get_response=None):
-        self.get_response = get_response
-        super().__init__()
-
-    def __call__(self, request):
-        response = None
-        if hasattr(self, 'process_request'):
-            response = self.process_request(request)
-        if not response:
-            response = self.get_response(request)
-        return response
-
     def process_request(self, request):
 
         # allow all OpenShift health checks
