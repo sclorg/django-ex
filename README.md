@@ -2,6 +2,8 @@
 
 This is a [Django](http://www.djangoproject.com) project that you can use as the starting point to develop your own and deploy it on an [OpenShift](https://github.com/openshift/origin) cluster.
 
+**NOTE:** The current master branch works with Django 2.2 LTS. The version for older Django 1.11 LTS is in [branch 1.11.x](https://github.com/sclorg/django-ex/tree/1.11.x).
+
 The steps in this document assume that you have access to an OpenShift deployment that you can deploy applications on.
 
 ## What has been done for you
