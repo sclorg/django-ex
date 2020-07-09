@@ -2,6 +2,8 @@
 
 This is a [Django](http://www.djangoproject.com) project that you can use as the starting point to develop your own and deploy it on an [OpenShift](https://github.com/openshift/origin) cluster.
 
+**NOTE:** The current master branch works with Django 2.2 LTS. The version for older Django 1.11 LTS is in [branch 1.11.x](https://github.com/sclorg/django-ex/tree/1.11.x).
+
 The steps in this document assume that you have access to an OpenShift deployment that you can deploy applications on.
 
 ## What has been done for you
@@ -52,10 +54,7 @@ To run this project in your development machine, follow these steps:
 
 1. (optional) Create and activate a [virtualenv](https://virtualenv.pypa.io/) (you may want to use [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/)).
 
-2. Ensure that the executable `pg_config` is available on your machine. You can check this using `which pg_config`. If not, install the dependency with one of the following.
-  - macOS: `brew install postgresql` using [Homebrew](https://brew.sh/)
-  - Ubuntu: `sudo apt-get install libpq-dev`
-  - [Others](https://stackoverflow.com/a/12037133/8122577)
+2. Ensure that the executable `pg_config` is available on your machine. You can check this using `which pg_config`. Otherwise, sqlite will be used.
 
 3. Fork this repo and clone your fork:
 
@@ -120,8 +119,8 @@ Templates give you full control of each component of your application.
 Sometimes your application is simple enough and you don't want to bother with templates. In that case, you can let OpenShift inspect your source code and create the required components automatically for you:
 
 ```bash
-$ oc new-app centos/python-35-centos7~https://github.com/sclorg/django-ex
-imageStreams/python-35-centos7
+$ oc new-app centos/python-36-centos7~https://github.com/sclorg/django-ex
+imageStreams/python-36-centos7
 imageStreams/django-ex
 buildConfigs/django-ex
 deploymentConfigs/django-ex
