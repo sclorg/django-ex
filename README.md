@@ -2,7 +2,7 @@
 
 This is a [Django](http://www.djangoproject.com) project that you can use as the starting point to develop your own and deploy it on an [OpenShift](https://github.com/openshift/origin) cluster.
 
-**NOTE:** The current master branch works with Django 2.2 LTS. The version for older Django 1.11 LTS is in [branch 1.11.x](https://github.com/sclorg/django-ex/tree/1.11.x).
+**NOTE:** This is the latest version of this example with Django 2.2 LTS which works with RHEL/Centos 8 only. If you are looking for the version for RHEL/Centos 7, it's in the [master branch](https://github.com/sclorg/django-ex/tree/master).
 
 The steps in this document assume that you have access to an OpenShift deployment that you can deploy applications on.
 
