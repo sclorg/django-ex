@@ -4,16 +4,29 @@ from edivorce.apps.core.utils.step_completeness import evaluate_numeric_conditio
 from collections import OrderedDict
 
 
-def get_responses_from_db(bceid_user):
-    """ Get UserResponses from the database for a user. """
+def get_responses_from_db(bceid_user, step_errors=None):
+    """ Get UserResponses from the database for a user."""
     married, married_questions, responses = __get_data(bceid_user)
     responses_dict = {}
     for answer in responses:
         if not married and answer.question_id in married_questions:
             responses_dict[answer.question.key] = ''
-        else:
+        elif answer.value.strip('[').strip(']'):
             responses_dict[answer.question.key] = answer.value
-
+    if step_errors:
+        step_questions = question_step_mapping.get(step_errors, [])
+        questions = Question.objects.filter(key__in=step_questions)
+        for question in questions:
+            if responses_dict.get(question.key):
+                error = False
+            elif question.required == 'Required':
+                error = True
+            elif question.required == 'Conditional':
+                conditional_response = UserResponse.objects.filter(question=question.conditional_target).first()
+                error = conditional_response and conditional_response.value == question.reveal_response
+            else:
+                error = False
+            responses_dict[f'{question.key}_error'] = error
     return responses_dict
 
 

@@ -40,7 +40,7 @@ def prequalification(request, step):
     if not request.user.is_authenticated:
         responses_dict = get_responses_from_session(request)
     else:
-        responses_dict = get_responses_from_db(request.user)
+        responses_dict = get_responses_from_db(request.user, 'prequalification')
         responses_dict['active_page'] = 'prequalification'
         responses_by_step = get_responses_from_db_grouped_by_steps(request.user)
         responses_dict['step_status'] = get_step_status(responses_by_step)
@@ -191,8 +191,10 @@ def question(request, step, sub_step=None):
 
     if step == "review":
         responses_dict = responses_dict_by_step
+        derived = get_derived_data(get_responses_from_db(request.user))
     else:
-        responses_dict = get_responses_from_db(request.user)
+        responses_dict = get_responses_from_db(request.user, step)
+        derived = get_derived_data(responses_dict)
 
     # Add step status dictionary
     responses_dict['step_status'] = get_step_status(responses_dict_by_step)
@@ -203,7 +205,7 @@ def question(request, step, sub_step=None):
         responses_dict['registries'] = sorted(list_of_registries)
 
     responses_dict['sub_step'] = sub_step
-    responses_dict['derived'] = get_derived_data(get_responses_from_db(request.user))
+    responses_dict['derived'] = derived
 
     return render(request, template_name=template, context=responses_dict)
 
