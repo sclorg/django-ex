@@ -1,5 +1,5 @@
 from edivorce.apps.core.models import UserResponse, Question
-from edivorce.apps.core.utils.question_step_mapping import pre_qual_step_question_mapping, question_step_mapping
+from edivorce.apps.core.utils.question_step_mapping import question_step_mapping
 from edivorce.apps.core.utils.step_completeness import evaluate_numeric_condition
 from collections import OrderedDict
 
@@ -14,10 +14,7 @@ def get_responses_from_db(bceid_user, show_errors=False, step=None, substep=None
         elif answer.value.strip('[').strip(']'):
             responses_dict[answer.question.key] = answer.value
     if show_errors:
-        if step == 'prequalification' and substep:
-            step_questions = pre_qual_step_question_mapping.get(substep)
-        else:
-            step_questions = question_step_mapping.get(step, [])
+        step_questions = question_step_mapping.get(step, [])
         questions = Question.objects.filter(key__in=step_questions)
         for question in questions:
             if responses_dict.get(question.key):

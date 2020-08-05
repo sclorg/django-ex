@@ -40,7 +40,7 @@ def prequalification(request, step):
     if not request.user.is_authenticated:
         responses_dict = get_responses_from_session(request)
     else:
-        responses_dict = get_responses_from_db(request.user, show_errors=True, step='prequalification', substep=step)
+        responses_dict = get_responses_from_db(request.user)
         responses_dict['active_page'] = 'prequalification'
         responses_by_step = get_responses_from_db_grouped_by_steps(request.user)
         responses_dict['step_status'] = get_step_status(responses_by_step)
