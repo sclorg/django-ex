@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import bceid_required, intercept
-from ..utils.question_step_mapping import list_of_registries
+from ..utils.question_step_mapping import list_of_registries, page_step_mapping
 from ..utils.step_completeness import get_step_status, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
 from ..utils.user_response import get_responses_from_db, copy_session_to_db, \
@@ -193,8 +193,9 @@ def question(request, step, sub_step=None):
         responses_dict = responses_dict_by_step
         derived = get_derived_data(get_responses_from_db(request.user))
     else:
-        show_errors = step_status.get(step) == 'Started'
-        responses_dict = get_responses_from_db(request.user, show_errors=show_errors, step=step, substep=sub_step)
+        question_step = page_step_mapping.get(step, step)
+        show_errors = step_status.get(question_step) == 'Started'
+        responses_dict = get_responses_from_db(request.user, show_errors=show_errors, step=question_step, substep=sub_step)
         derived = get_derived_data(responses_dict)
 
     # Add step status dictionary
