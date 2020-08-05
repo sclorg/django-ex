@@ -1104,11 +1104,10 @@ textarea {
     .required, .optional {
         font-size: 14px;
         font-family: $font-custom-bold;
-        font-weight: bolder;
+        font-weight: bold;
         text-transform: uppercase;
-        padding: 6px 6px 4px 6px;
+        padding: 4px 6px;
         margin-left: 16px;
-        vertical-align: top;
         white-space: nowrap;
     }
 
