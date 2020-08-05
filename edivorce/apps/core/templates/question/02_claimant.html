@@ -10,8 +10,9 @@
 
 <h1><small>Step 2:</small>Your Information (Claimant 1)</h1>
 
-<div class="question-well">
-    <h3>Please enter your name (as it appears on your marriage certificate or registration of marriage)</h3>
+<div class="question-well {% if name_you_error %}error{% endif %}">
+    <h3>Please enter your name (as it appears on your marriage certificate or registration of marriage)
+        {% if name_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <span class="form-group">
         {% input_field type="text" name="name_you" class="form-block input-wide response-textbox name" %}
     </span>
@@ -40,8 +41,8 @@
     </div>
 </div>
 
-<div class="question-well">
-    <h3>Do you go by any other names?</h3>
+<div class="question-well {% if any_other_name_you_error %}error{% endif %}">
+    <h3>Do you go by any other names?{% if any_other_name_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
 
     <div class="btn-radio-group" data-toggle="buttons">
         <label class="btn btn-radio">
@@ -73,7 +74,7 @@
     </div>
 
     <div id="enter_name" hidden>
-        <h3>Please enter the name</h3>
+        <h3>Please enter the name{% if other_name_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
         <!-- This is used for adding a new other name field when add button is clicked -->
         <div id="other_names_group" hidden>
             {% include "partials/alias_field.html" with name="other_name_you" %}
@@ -109,8 +110,8 @@
     <p>This is often referred to as Family name or Surname</p>
 </div>
 
-<div class="question-well">
-    <h3>What is your date of birth?</h3>
+<div class="question-well {% if birthday_you_error %}error{% endif %}">
+    <h3>What is your date of birth?{% if birthday_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <p>
         <span class="input-group date date-picker-group">
             {% input_field type="text" name="birthday_you" class="date-picker form-control" id="birth_date" placeholder="MMM D, YYYY" %}
@@ -121,17 +122,18 @@
     </p>
 </div>
 
-<div class="question-well">
-    <h3>What is your occupation?</h3>
+<div class="question-well {% if occupation_you_error %}error{% endif %}">
+    <h3>What is your occupation?{% if occupation_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <div>{% input_field type="text" name="occupation_you" class="form-block input-wide response-textbox" %}</div>
-    <p>This refers to the type of work you do. For example,  janitor, banker, student, nurse etc.</p>
+    <p>This refers to the type of work you do. For example, janitor, banker, student, nurse etc.</p>
 </div>
 
-<div class="question-well">
-    <h3>How long have you lived in B.C.?</h3>
+<div class="question-well {% if lived_in_bc_you_error or moved_to_bc_date_you_error %}error{% endif %}">
+    <h3>How long have you lived in B.C.?{% if lived_in_bc_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <p>Please select one</p>
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="lived_in_bc_you" value="Since birth" %}Since birth</label></div>
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="lived_in_bc_you" value="Moved to B.C. on" %}Moved to B.C. on
+        {% if moved_to_bc_date_you_error %}{% include 'partials/required.html' %}{% endif %}
         <span class="input-group date date-picker-group">
             {% input_field type="text" name="moved_to_bc_date_you" id="moved_date" class="date-picker other-textbox input-inline form-control" tabindex="-1" placeholder="MMM D, YYYY" %}
             <span class="input-group-addon" >

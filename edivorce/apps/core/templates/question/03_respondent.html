@@ -13,8 +13,9 @@
 
 <h2>Your Spouse's Information</h2>
 
-<div class="question-well">
-    <h3>What is your spouse's name ( enter name as it appears on the marriage certificate or registration of marriage)?</h3>
+<div class="question-well {% if name_spouse_error %}error{% endif %}">
+    <h3>What is your spouse's name ( enter name as it appears on the marriage certificate or registration of marriage)?
+        {% if name_spouse_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <span class="form-group">
         {% input_field type="text" name="name_spouse" class="form-block input-wide response-textbox name" %}
     </span>
@@ -46,8 +47,8 @@
     </div>
 </div>
 
-<div class="question-well">
-    <h3>Does your spouse go by any other names?</h3>
+<div class="question-well {% if any_other_name_spouse_error %}error{% endif %}">
+    <h3>Does your spouse go by any other names?{% if any_other_name_spouse_error %}{% include 'partials/required.html' %}{% endif %}</h3>
 
     <div class="btn-radio-group" data-toggle="buttons">
         <label class="btn btn-radio">
@@ -84,7 +85,7 @@
     </div>
 
     <div id="enter_name" hidden>
-        <h3>Please enter the name</h3>
+        <h3>Please enter the name{% if other_name_spouse_error %}{% include 'partials/required.html' %}{% endif %}</h3>
         <!-- This is used for adding a new other name field when add button is clicked -->
         <div id="other_names_group" hidden>
             {% include "partials/alias_field.html" with name="other_name_spouse" value=' ' delete_button="true" %}
@@ -121,8 +122,8 @@
     <p>This is often referred to as Family name or Surname</p>
 </div>
 
-<div class="question-well">
-    <h3>What is your spouse's date of birth?</h3>
+<div class="question-well {% if birthday_spouse_error %}error{% endif %}">
+    <h3>What is your spouse's date of birth?{% if birthday_spouse_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <p>
         <span class="input-group date date-picker-group">
             {% input_field type="text" name="birthday_spouse" class="date-picker form-control" id="birth_date" placeholder="MMM D, YYYY" %}
@@ -133,23 +134,25 @@
     </p>
 </div>
 
-<div class="question-well">
-    <h3>What is your spouse's occupation?</h3>
+<div class="question-well {% if occupation_spouse_error %}error{% endif %}">
+    <h3>What is your spouse's occupation?{% if occupation_spouse_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <div>{% input_field type="text" name="occupation_spouse" class="form-block input-wide response-textbox" %}</div>
-    <p>This refers to the type of work you do. For example,  janitor, banker, student, nurse etc.</p>
+    <p>This refers to the type of work you do. For example, janitor, banker, student, nurse etc.</p>
 </div>
 
-<div class="question-well">
-    <h3>How long has your spouse lived in B.C.?</h3>
+<div class="question-well {% if lived_in_bc_spouse_error or moved_to_bc_date_spouse_error %}error{% endif %}">
+    <h3>How long has your spouse lived in B.C.?{% if lived_in_bc_spouse_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <p>Please select one</p>
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="lived_in_bc_spouse" value="Since birth" %}Since birth</label></div>
-    <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="lived_in_bc_spouse" value="Moved to B.C. on" %}Moved to B.C. on
+    <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="lived_in_bc_spouse" value="Moved to B.C. on" %}Moved to B.C. on{% if moved_to_bc_date_spouse_error %}
+        {% include 'partials/required.html' %}{% endif %}
         <span class="input-group date date-picker-group">
-            {% input_field type="text" name="moved_to_bc_date_spouse" id="moved_date" class="date-picker other-textbox input-inline form-control" tabindex="-1" placeholder="MMM D, YYYY" %}
+            {% input_field type="text" name="moved_to_bc_date_spouse" id="moved_date" class="date-picker other-textbox input-inline form-control" tabindex="-1" placeholder="MMM D, YYYY" required="lived_in_bc_spouse=Moved to B.C. on"%}
             <span class="input-group-addon" >
                 <i class="fa fa-calendar circle"></i>
             </span>
-        </span></label></div>
+        </span>
+    </label></div>
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="lived_in_bc_spouse" value="Does not live in B.C." %}Does not live in B.C.</label></div>
 
     <p>In order to apply for a divorce in B.C., you or your spouse must have been a regular resident in B.C (the legal term is ordinarily resident

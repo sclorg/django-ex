@@ -10,12 +10,16 @@
 
 
 <h1><small>Step 5:</small>Your Separation</h1>
-<div class="question-well">
-    <h3>There is no possibility my spouse and I will get back together (reconciliation).</h3>
+<div class="question-well {% if no_reconciliation_possible_error %}error{% endif %}">
+    <h3>There is no possibility my spouse and I will get back together (reconciliation).
+        {% if no_reconciliation_possible_error %}{% include 'partials/required.html' %}{% endif %}
+    </h3>
     <p>
         For this question, we need to confirm that there is no chance you and your spouse will be getting back together.
         By selecting "I agree" this shows the court that you and your spouse have thoroughly thought out your request for divorce.
     </p>
+    {% if no_reconciliation_possible_error %}<div class="warning"><p>* In order to process your application, you must agree to this condition. If you can not agree,
+        please consult a lawyer.</p></div>{% endif %}
     <div class="checkbox-group">
         <div class="checkbox">
             <label>
@@ -25,7 +29,7 @@
     </div>
 </div>
 
-<div class="question-well">
+<div class="question-well {% if no_collusion_error %}error{% endif %}">
     <p>
         We are legally required to ask whether or not you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %}
          have agreed to deceive the court. This is called “<span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
@@ -33,7 +37,11 @@
            in any way (for example, saying that you’ve been separated for longer than you have been). It is a legal requirement that you confirm you
            are providing accurate and complete information.">collusion<i class="fa fa-question-circle" aria-hidden="true"></i></span>
         ”. An example of collusion is when a couple agrees to lie about the date of separation to speed up the divorce process.
+        {% if no_collusion_error %}{% include 'partials/required.html' %}{% endif %}
     </p>
+    {% if no_collusion_error %}
+        <div class="warning"><p>* In order to process your application, you must agree to this condition. If you can not agree,
+            please consult a lawyer.</p></div>{% endif %}
     <div class="checkbox-group">
         <div class="checkbox">
             <label>

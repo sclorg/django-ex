@@ -30,8 +30,8 @@
     your divorce request being returned for correction.</p>
 
 {% if married_marriage_like == 'Legally married' %}
-<div id="when_married" class="question-well">
-    <h3>When were you married?</h3>
+<div id="when_married" class="question-well {% if when_were_you_married_error %}error{% endif %}">
+    <h3>When were you married?{% if when_were_you_married_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <p>
         <span class="input-group date date-picker-group">
             {% input_field type="text" name="when_were_you_married" class="date-picker form-control" id="marriage_date" placeholder="MMM D, YYYY" %}
@@ -43,8 +43,9 @@
 </div>
 {% endif %}
 
-<div id="lived_together" class="question-well">
-    <h3>When did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} begin to live together in a marriage-like relationship?</h3>
+<div id="lived_together" class="question-well {% if when_were_you_live_married_like_error %}error{% endif %}">
+    <h3>When did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} begin to live together in a marriage-like relationship?
+        {% if when_were_you_live_married_like_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <p>
         <span class="input-group date date-picker-group">
             {% input_field type="text" name="when_were_you_live_married_like" class="date-picker form-control" id="lived_start_date" placeholder="MMM D, YYYY" %}
@@ -88,14 +89,14 @@
 
 
 {% if married_marriage_like == 'Legally married' %}
-<div class="question-well">
+<div class="question-well {% if where_were_you_married_city_error or where_were_you_married_country_error or where_were_you_married_other_country_error %}error{% endif %}">
     <h3>Where were you married?</h3>
     <p>Enter the location as it appears on the marriage certificate (e.g. city, province or state and country)</p>
-    <p>City</p>
+    <p>City{% if where_were_you_married_city_error %}{% include 'partials/required.html' %}{% endif %}</p>
     {% input_field type="text" name="where_were_you_married_city" class="form-block input-wide response-textbox" %}
     <p>Prov/State (optional)</p>
     {% input_field type="text" name="where_were_you_married_prov" class="form-block input-narrow response-textbox" %}
-    <p>Country</p>
+    <p>Country{% if where_were_you_married_country_error or where_were_you_married_other_country_error %}{% include 'partials/required.html' %}{% endif %}</p>
 
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="where_were_you_married_country" value="Canada" %}Canada</label></div>
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="where_were_you_married_country" value="USA" %}USA</label></div>
@@ -103,15 +104,19 @@
 </div>
 {% endif %}
 
-<div class="question-well">
-    <h3>Before you got married to {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %}, what was your marital status?</h3>
+<div class="question-well {% if marital_status_before_you_error %}error{% endif %}">
+    <h3>Before you got married to {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %}, what was your marital status?
+        {% if marital_status_before_you_error %}{% include 'partials/required.html' %}{% endif %}
+    </h3>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Never married" %}Never married</label></div>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Divorced" %}Divorced</label></div>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Widowed" %}Widowed</label></div>
 </div>
 
-<div class="question-well">
-    <h3>What was the marital status of {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} before your marriage?</h3>
+<div class="question-well {% if marital_status_before_spouse_error %}error{% endif %}">
+    <h3>What was the marital status of {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} before your marriage?
+        {% if marital_status_before_spouse_error %}{% include 'partials/required.html' %}{% endif %}
+    </h3>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Never married" %}Never married</label></div>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Divorced" %}Divorced</label></div>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Widowed" %}Widowed</label></div>
@@ -123,7 +128,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <i class="fa fa-link" aria-hidden="true"></i>
-                <h1 class="modal-title">Your  Marriage</h1>
+                <h1 class="modal-title">Your Marriage</h1>
             </div>
             <div class="modal-body">
                 <p>Now we’d like to learn about the details of your marriage history. Make sure you have a copy of your marriage certificate. You will need this to provide us with the exact date of your marriage.</p>
