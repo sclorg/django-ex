@@ -94,7 +94,7 @@
     <p>Enter the location as it appears on the marriage certificate (e.g. city, province or state and country)</p>
     <p>City{% if where_were_you_married_city_error %}{% include 'partials/required.html' %}{% endif %}</p>
     {% input_field type="text" name="where_were_you_married_city" class="form-block input-wide response-textbox" %}
-    <p>Prov/State (optional)</p>
+    <p>Prov/State{% include "partials/optional.html" %}</p>
     {% input_field type="text" name="where_were_you_married_prov" class="form-block input-narrow response-textbox" %}
     <p>Country{% if where_were_you_married_country_error or where_were_you_married_other_country_error %}{% include 'partials/required.html' %}{% endif %}</p>
 
