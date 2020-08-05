@@ -18,13 +18,22 @@ $color-grey-lightest: #fdfdfd;
 $color-green: #57b26a;
 $color-green-light: #d9f6df;
 $color-gold-light: #e6ca85;
+$color-red: #D8292F;
 
 $font-custom: Myriad-Pro, Calibri, Arial, Sans Serif;
+$font-custom-bold: Myriad-Pro-Bold, Calibri, Arial, Sans Serif;
 
 @font-face {
 	font-family: 'Myriad-Pro';
 	src: url('../fonts/MyriadWebPro.ttf');
 	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Myriad-Pro-Bold';
+	src: url('../fonts/MyriadPro-Bold.otf');
+	font-weight: bold;
 	font-style: normal;
 }
 
@@ -669,6 +678,18 @@ i.fa.fa-question-circle {
 	}
 }
 
+.error {
+    border: 2px solid $color-red !important;
+    -webkit-transition: 0.1s ease-in-out all;
+    transition: 0.1s ease-in-out all;
+
+    .warning {
+        color: $color-red;
+        font-size: 16px;
+        font-weight: bolder;
+    }
+}
+
 .btn-radio {
 	color: $brand-titles;
 	background-color: $color-blue-lighter;
@@ -1067,12 +1088,6 @@ textarea {
 		transition: 0.1s ease-in-out all;
 	}
 
-	&.hasError {
-		border: 1px solid #FF4136;
-		-webkit-transition: 0.1s ease-in-out all;
-		transition: 0.1s ease-in-out all;
-	}
-
 	h3 {
 		margin-top: 0;
 	}
@@ -1085,6 +1100,27 @@ textarea {
 	.fact-sheet-table-inline-question {
 		margin-bottom: 48px;
 	}
+
+    .required, .optional {
+        font-size: 14px;
+        font-family: $font-custom-bold;
+        font-weight: bolder;
+        text-transform: uppercase;
+        padding: 6px 6px 4px 6px;
+        margin-left: 16px;
+        vertical-align: top;
+        white-space: nowrap;
+    }
+
+    .required {
+        color: $color-red;
+        border: $color-red 2px solid;
+    }
+
+    .optional {
+        color: $color-blue-dark;
+        border: $color-blue-dark 1px solid;
+    }
 }
 
 .question-well-border-less {
@@ -1807,12 +1843,12 @@ textarea {
 }
 
 .has-warning-box {
-	border: 3px solid #a94442;
+	border: 3px solid $color-red;
 	padding-top: 8px;
 	padding-left: 8px;
 
 	#terms_warning {
-		color: #a94442;
+		color: $color-red;
 	}
 }
 /* Modals */
