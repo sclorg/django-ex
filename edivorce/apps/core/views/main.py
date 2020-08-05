@@ -40,7 +40,7 @@ def prequalification(request, step):
     if not request.user.is_authenticated:
         responses_dict = get_responses_from_session(request)
     else:
-        responses_dict = get_responses_from_db(request.user, 'prequalification')
+        responses_dict = get_responses_from_db(request.user, show_errors=True, step='prequalification', substep=step)
         responses_dict['active_page'] = 'prequalification'
         responses_by_step = get_responses_from_db_grouped_by_steps(request.user)
         responses_dict['step_status'] = get_step_status(responses_by_step)
@@ -188,16 +188,17 @@ def question(request, step, sub_step=None):
     template = 'question/%02d_%s%s.html' % (template_step_order[step], step, sub_page_template)
 
     responses_dict_by_step = get_responses_from_db_grouped_by_steps(request.user, True)
-
+    step_status = get_step_status(responses_dict_by_step)
     if step == "review":
         responses_dict = responses_dict_by_step
         derived = get_derived_data(get_responses_from_db(request.user))
     else:
-        responses_dict = get_responses_from_db(request.user, step)
+        show_errors = step_status.get(step) == 'Started'
+        responses_dict = get_responses_from_db(request.user, show_errors=show_errors, step=step, substep=sub_step)
         derived = get_derived_data(responses_dict)
 
     # Add step status dictionary
-    responses_dict['step_status'] = get_step_status(responses_dict_by_step)
+    responses_dict['step_status'] = step_status
 
     responses_dict['active_page'] = step
     # If page is filing location page, add registries dictionary for list of court registries
