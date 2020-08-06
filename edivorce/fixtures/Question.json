@@ -1702,5 +1702,75 @@
     },
     "model": "core.question",
     "pk": "child_support_arrears_amount"
+},
+{
+    "fields": {
+        "name": "Select how you would like to swear/affirm your affidavit(s)?",
+        "description": "E-filing prototype",
+        "summary_order": 157,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "how_to_sign"
+},
+{
+    "fields": {
+        "name": "Select how you would like to file your documents",
+        "description": "E-filing prototype",
+        "summary_order": 158,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "how_to_file"
+},
+{
+    "fields": {
+        "name": "Select where you would like to swear/affirm your affidavit(s)",
+        "description": "E-filing prototype",
+        "summary_order": 159,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "signing_location"
+},
+{
+    "fields": {
+        "name": "Select where you would like to swear/affirm your affidavit(s)",
+        "description": "E-filing prototype",
+        "summary_order": 160,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "signing_location_you"
+},
+{
+    "fields": {
+        "name": "Select where your spouse would like to swear/affirm your affidavit(s)",
+        "description": "E-filing prototype",
+        "summary_order": 161,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "signing_location_spouse"
+},
+{
+    "fields": {
+        "name": "E-mail Address for You",
+        "description": "E-filing prototype",
+        "summary_order": 162,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "email_you"
+},
+{
+    "fields": {
+        "name": "E-mail Address for Your Spouse",
+        "description": "E-filing prototype",
+        "summary_order": 163,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "email_spouse"
 }
 ]
