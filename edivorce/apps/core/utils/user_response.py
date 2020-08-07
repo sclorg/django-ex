@@ -26,7 +26,7 @@ def get_responses_from_db(bceid_user, show_errors=False, step=None, substep=None
                 error = conditional_response and conditional_response.value == question.reveal_response
             else:
                 error = False
-            responses_dict[f'{question.key}_error'] = error
+            responses_dict['{}_error'.format(question.key)] = error
     return responses_dict
 
 
