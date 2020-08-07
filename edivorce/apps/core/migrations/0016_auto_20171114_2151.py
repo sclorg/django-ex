@@ -24,11 +24,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='userresponse',
             name='bceid_user',
-            field=models.ForeignKey(related_name='responses', to='core.BceidUser'),
+            field=models.ForeignKey(related_name='responses', to='core.BceidUser', on_delete=models.CASCADE),
         ),
         migrations.AlterField(
             model_name='userresponse',
             name='question',
-            field=models.ForeignKey(related_name='responses', to='core.Question'),
+            field=models.ForeignKey(related_name='responses', to='core.Question', on_delete=models.CASCADE),
         ),
     ]

@@ -26,7 +26,7 @@ class UserResponseHandler(APIView):
 
             if question is not None:
                 # As a result of discussion, decide to escape < and > only
-                if request.user.is_authenticated():
+                if request.user.is_authenticated:
                     save_to_db(serializer, question, value, request.user)
                 else:
                     # only prequalification questions can be answered when you
@@ -36,7 +36,7 @@ class UserResponseHandler(APIView):
                                         status=status.HTTP_511_NETWORK_AUTHENTICATION_REQUIRED)
                     save_to_session(request, question, value)
             else:
-                if request.user.is_authenticated() and hasattr(request.user, question_key):
+                if request.user.is_authenticated and hasattr(request.user, question_key):
                     setattr(request.user, question_key, value == 'true')
                     request.user.save()
                     user_attribute_updated = True

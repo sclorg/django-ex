@@ -13,7 +13,7 @@ def bceid_required(function=None):
 
     def _dec(view_func):
         def _view(request, *args, **kwargs):
-            if not request.user.is_authenticated():
+            if not request.user.is_authenticated:
                 return redirect(base_url + '/login')
             return view_func(request, *args, **kwargs)
 
@@ -34,7 +34,7 @@ def intercept(function=None):
 
     def _dec(view_func):
         def _view(request, *args, **kwargs):
-            if (request.user.is_authenticated() and
+            if (request.user.is_authenticated and
                     not request.user.has_seen_orders_page and
                     not request.user.responses.filter(**terms).exists()):
                 request.user.has_seen_orders_page = True

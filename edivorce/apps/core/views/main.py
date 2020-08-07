@@ -3,7 +3,6 @@ import datetime
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from django.template import RequestContext
 
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import bceid_required, intercept
@@ -38,7 +37,7 @@ def prequalification(request, step):
     """
     template = 'prequalification/step_%s.html' % step
 
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         responses_dict = get_responses_from_session(request)
     else:
         responses_dict = get_responses_from_db(request.user)
@@ -53,7 +52,7 @@ def success(request):
     """
     This page is shown if the user passes the qualification test
     """
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
 
     prequal_responses = get_responses_from_session_grouped_by_steps(request)['prequalification']
@@ -107,7 +106,7 @@ def login(request):
     if settings.DEPLOYMENT_TYPE in ['localdev', 'minishift'] and not request.session.get('fake_bceid_guid'):
         return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
 
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         # Fix for weird siteminder behaviour......
         # If a user is logged into an IDIR then they can see the login page but
         # the SMGOV headers are missing.  If this is the case, then log them out
@@ -209,18 +208,18 @@ def question(request, step, sub_step=None):
     return render(request, template_name=template, context=responses_dict)
 
 
-def page_not_found(request):
+def page_not_found(request, exception, template_name='404.html'):
     """
     404 Error Page
     """
-    return render(request, '404.html', status=404)
+    return render(request, template_name, status=404)
 
 
-def server_error(request):
+def server_error(request, template_name='500.html'):
     """
     500 Error Page
     """
-    return render(request, '500.html', status=500)
+    return render(request, template_name, status=500)
 
 
 def legal(request):

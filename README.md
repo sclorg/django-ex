@@ -10,7 +10,7 @@ The steps in this document assume that you have access to an OpenShift deploymen
 
 Prerequesites:
 * Docker
-* Python 3.5
+* Python 3.6
 
 To run this project in your development machine, follow these steps:
 
@@ -22,21 +22,21 @@ To run this project in your development machine, follow these steps:
 
 3. Install dependencies:
 
-    `pip3.5 install -r requirements.txt`
+    `pip3.6 install -r requirements.txt`
 
 4. Create an environment settings file by copying `.env.example` to `.env` (`.env` will be ignored by Git)
 
 5. Create a development database:
 
-    `python3.5 ./manage.py migrate`
+    `python3.6 ./manage.py migrate`
 
 6. Load questions from fixtures:
   
-    `python3.5 ./manage.py loaddata edivorce/fixtures/Question.json`
+    `python3.6 ./manage.py loaddata edivorce/fixtures/Question.json`
 
 7. If everything is alright, you should be able to start the Django development server:
 
-    `python3.5 ./manage.py runserver 0.0.0.0:8000`
+    `python3.6 ./manage.py runserver 0.0.0.0:8000`
 
 8. Start the [Weasyprint server](https://hub.docker.com/r/aquavitae/weasyprint/) server on port 5005
 

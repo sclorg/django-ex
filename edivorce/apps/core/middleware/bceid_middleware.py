@@ -4,13 +4,14 @@ from ipaddress import ip_address, ip_network
 from django.conf import settings
 from django.shortcuts import redirect
 from django.utils import timezone
+from django.utils.deprecation import MiddlewareMixin
 
 from ..models import BceidUser
 
 login_delta = datetime.timedelta(hours=2)
 
 
-class AnonymousUser():
+class AnonymousUser:
     """
     Anonymous user, present mainly to provide authentication checks in templates
     """
@@ -19,9 +20,11 @@ class AnonymousUser():
     display_name = ''
     has_accepted_terms = False
 
+    @property
     def is_authenticated(self):
         return False
 
+    @property
     def is_anonymous(self):
         return True
 
@@ -29,7 +32,7 @@ class AnonymousUser():
 anonymous_user = AnonymousUser()
 
 
-class BceidMiddleware(object):  # pylint: disable=too-few-public-methods
+class BceidMiddleware(MiddlewareMixin):  # pylint: disable=too-few-public-methods
     """
     Simple authentication middleware for operating in the BC Government
     OpenShift environment, with SiteMinder integration.
@@ -67,7 +70,6 @@ class BceidMiddleware(object):  # pylint: disable=too-few-public-methods
     In a local development environment, we generate a guid based on the login
     name and treat that guid/login name as guid/display name.
     """
-
     def process_request(self, request):  # pylint: disable=too-many-branches
         """
         Return None after populating request.user, or necessary redirects.

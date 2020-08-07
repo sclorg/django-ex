@@ -10,5 +10,8 @@ class BCeIDAuthentication(authentication.BaseAuthentication):
     """
 
     def authenticate(self, request):
-        request.user = request._user  # pylint: disable=protected-access
+        try:
+            request.user = request._user  # pylint: disable=protected-access
+        except:
+            request.user = request._request.user  # pylint: disable=protected-access
         return (request.user, None)

@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('bceid', models.CharField(max_length=100)),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -46,8 +46,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('value', models.TextField(blank=True)),
-                ('question', models.ForeignKey(to='core.Question')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('question', models.ForeignKey(to='core.Question', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.AddField(
@@ -58,11 +58,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='formquestions',
             name='legal_form',
-            field=models.ForeignKey(to='core.LegalForm'),
+            field=models.ForeignKey(to='core.LegalForm', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='formquestions',
             name='question',
-            field=models.ForeignKey(to='core.Question'),
+            field=models.ForeignKey(to='core.Question', on_delete=models.CASCADE),
         ),
     ]

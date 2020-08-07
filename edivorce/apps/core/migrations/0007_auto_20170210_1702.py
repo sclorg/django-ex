@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userresponse',
             name='bceid_user',
-            field=models.ForeignKey(default=1, to='core.BceidUser'),
+            field=models.ForeignKey(default=1, to='core.BceidUser', on_delete=models.CASCADE),
             preserve_default=False,
         ),
     ]
