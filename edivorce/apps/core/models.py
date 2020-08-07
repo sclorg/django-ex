@@ -31,9 +31,11 @@ class BceidUser(models.Model):
     has_accepted_terms = models.BooleanField(default=False)
     """ Flag for accepting terms of service """
 
+    @property
     def is_authenticated(self):
         return True
 
+    @property
     def is_anonymous(self):
         return False
 
@@ -91,10 +93,10 @@ class UserResponse(models.Model):
     User input
     """
 
-    bceid_user = models.ForeignKey(BceidUser, related_name='responses')
+    bceid_user = models.ForeignKey(BceidUser, related_name='responses', on_delete=models.CASCADE)
     """ User providing response """
 
-    question = models.ForeignKey(Question, related_name='responses')
+    question = models.ForeignKey(Question, related_name='responses', on_delete=models.CASCADE)
     """ Originating question """
 
     value = models.TextField(blank=True)

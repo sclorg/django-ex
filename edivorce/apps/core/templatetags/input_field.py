@@ -81,7 +81,7 @@ def input_field(context, type, name='', value='', multiple='', **kwargs):
                 try:
                     date = datetime.strptime(value, '%d/%m/%Y')
                     value = date.strftime('%b %d, %Y')
-                    if context['request'].user.is_authenticated():
+                    if context['request'].user.is_authenticated:
                         UserResponse.objects.filter(
                             bceid_user=context['request'].user, question=name
                         ).update(value=value)

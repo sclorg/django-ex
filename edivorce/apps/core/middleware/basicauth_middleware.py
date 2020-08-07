@@ -1,12 +1,12 @@
 import base64
 
-import sys
 from django.http import HttpResponse
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.utils.deprecation import MiddlewareMixin
 
 
-class BasicAuthMiddleware(object):
+class BasicAuthMiddleware(MiddlewareMixin):
     """
     Simple Basic Authentication module to password protect test environments
     based on : https://djangosnippets.org/snippets/2468/
