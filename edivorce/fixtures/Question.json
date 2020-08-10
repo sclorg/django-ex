@@ -708,9 +708,7 @@
         "name": "Divorce is to take effect on",
         "description": "For step 9, Form 52 This Court Orders that",
         "summary_order": 68,
-        "required": "Conditional",
-        "conditional_target": "married_marriage_like",
-        "reveal_response": "Legally married"
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "divorce_take_effect_on"

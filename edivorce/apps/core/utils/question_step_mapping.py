@@ -183,6 +183,7 @@ page_step_mapping = {
     'support': 'spousal_support',
     'property': 'property_and_debt',
     'other_orders': 'other_orders',
+    'other_questions': 'other_questions',
 }
 
 
