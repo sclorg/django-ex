@@ -98,9 +98,7 @@
         "name": "Will you be able to provide proof of your marriage (in the form of an original or certified marriage certificate or registration of marriage)?",
         "description": "For pre-qualification step 5, Form 1 2. Divorce section D, Form 38(joint and sole) question 4",
         "summary_order": 10,
-        "required": "Conditional",
-        "conditional_target": "married_marriage_like",
-        "reveal_response": "Legally married"
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "original_marriage_certificate"
@@ -158,9 +156,7 @@
         "name": "What is your reason (grounds) for asking for a divorce?",
         "description": "For pre-qualification step 6",
         "summary_order": 15,
-        "required": "Conditional",
-        "conditional_target": "married_marriage_like",
-        "reveal_response": "Legally married"
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "divorce_reason"
@@ -369,9 +365,7 @@
         "name": "When were you married?",
         "description": "For step 4, Form 1 1. Relationship history, Form 52 Court orders that section",
         "summary_order": 35,
-        "required": "Conditional",
-        "conditional_target": "married_marriage_like",
-        "reveal_response": "Legally married"
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "when_were_you_married"
@@ -391,9 +385,7 @@
         "name": "Where were you married?",
         "description": "For step 4, Form 1 2. Divorce section A, Form 52 Court orders that section",
         "summary_order": 37,
-        "required": "Conditional",
-        "conditional_target": "married_marriage_like",
-        "reveal_response": "Legally married"
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "where_were_you_married_city"
@@ -403,9 +395,7 @@
         "name": "Where were you married? Prov",
         "description": "For step 4, Form 1 2. Divorce section A, Form 52 Court orders that section",
         "summary_order": 38,
-        "required": "Conditional",
-        "conditional_target": "married_marriage_like",
-        "reveal_response": "Legally married"
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "where_were_you_married_prov"
@@ -415,9 +405,7 @@
         "name": "Where were you married? Country",
         "description": "For step 4, Form 1 2. Divorce section A, Form 52 Court orders that section",
         "summary_order": 39,
-        "required": "Conditional",
-        "conditional_target": "married_marriage_like",
-        "reveal_response": "Legally married"
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "where_were_you_married_country"
