@@ -181,6 +181,7 @@ page_step_mapping = {
     'marriage': 'your_marriage',
     'separation': 'your_separation',
     'support': 'spousal_support',
+    'property': 'property_and_debt',
 }
 
 
