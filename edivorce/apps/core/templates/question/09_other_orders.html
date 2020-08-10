@@ -11,8 +11,8 @@
 
 <h1><small>Step {% step_order step="other_orders" %}:</small>Other Orders</h1>
 
-<div class="question-well">
-    <h3>Are you asking for a legal name change?</h3>
+<div class="question-well {% if name_change_you_error or name_change_you_fullname_error %}error{% endif %}">
+    <h3>Are you asking for a legal name change?{% if name_change_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
 
     <div class="btn-radio-group" data-toggle="buttons">
         <label class="btn btn-radio">
@@ -42,14 +42,14 @@
     </div>
 
     <div id="name_change_you_fullname" hidden>
-        <h3>Please enter the full <strong>new</strong> name</h3>
+        <h3>Please enter the full <strong>new</strong> name{% if name_change_you_fullname_error %}{% include 'partials/required.html' %}{% endif %}</h3>
         {% input_field type="text" name="name_change_you_fullname" class="form-block input-wide response-textbox" %}
     </div>
 
 </div>
 
-<div class="question-well">
-    <h3>Is your spouse asking for a legal name change?</h3>
+<div class="question-well {% if name_change_spouse_error or name_change_spouse_fullname_error %}error{% endif %}">
+    <h3>Is your spouse asking for a legal name change?{% if name_change_spouse_error %}{% include 'partials/required.html' %}{% endif %}</h3>
 
     <div class="btn-radio-group" data-toggle="buttons">
         <label class="btn btn-radio">
@@ -78,14 +78,14 @@
     </div>
 
     <div id="name_change_spouse_fullname" hidden>
-        <h3>Please enter the full <strong>new</strong> name</h3>
+        <h3>Please enter the full <strong>new</strong> name{% if name_change_spouse_fullname_error %}{% include 'partials/required.html' %}{% endif %}</h3>
         {% input_field type="text" name="name_change_spouse_fullname" class="form-block input-wide response-textbox" %}
     </div>
 
 </div>
 
 <div class="question-well">
-    <h3>Please enter the details for other orders that you are asking for.</h3>
+    <h3>Please enter the details for other orders that you are asking for.{% include 'partials/optional.html' %}</h3>
     {% input_field type="textarea" name="other_orders_detail" rows="8" cols="65" class="response-textarea" %}
 
     <div id="questions_modal" class="modal in" tabindex="-1" role="dialog" style="display: block">
