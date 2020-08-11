@@ -58,10 +58,11 @@
     </p>
 </div>
 
-<div class="question-well">
+<div class="question-well {% if deal_with_property_debt_error %}error{% endif %}">
     <h3>How have you and
       {% if name_spouse %}{{ name_spouse }}{% else %}your spouse{% endif %}
-      agreed to deal with your property and debt?</h3>
+      agreed to deal with your property and debt?{% if deal_with_property_debt_error %}{% include 'partials/required.html' %}{% endif %}
+    </h3>
     <div class="radio">
         <label>
             {% input_field type="radio" name="deal_with_property_debt" value="Equal division" data_target_id="property_debt_division_method" data_reveal_target="false" %}
@@ -103,9 +104,9 @@
 
 </div>
 
-<div id="property_debt_division_method" class="question-well" hidden>
+<div id="property_debt_division_method" class="question-well {% if how_to_divide_property_debt_error %}error{% endif %}" hidden>
     <h3>Please describe how you and your spouse plan to divide your property,
-      assets and your debts. </h3>
+      assets and your debts.{% if how_to_divide_property_debt_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <p>Because the division of family property and debt can be complex we
     recommend you get
         <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/lawyers"
@@ -146,7 +147,7 @@
 </div>
 
 <div class="question-well">
-    <h3>Other Property Claims</h3>
+    <h3>Other Property Claims{% include 'partials/optional.html' %}</h3>
     <p>This section is for property claims not covered by the Family Law
     Act—property that is not family property. This includes:</p>
     <ul>

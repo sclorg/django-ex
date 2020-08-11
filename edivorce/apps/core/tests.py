@@ -184,11 +184,7 @@ class UserResponseTestCase(TestCase):
                                                                             'question__required')
         self.assertEqual(is_complete(step, lst)[0], False)
 
-        # Test for marriage-like relationship
-        create_response(user, 'married_marriage_like', 'Living together in a marriage like relationship')
-        questions.append('married_marriage_like')
-
-        # One required question
+        # Some required questions
         create_response(user, 'when_were_you_live_married_like', '12/12/2007')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
@@ -197,7 +193,7 @@ class UserResponseTestCase(TestCase):
                                                                             'question__required')
         self.assertEqual(is_complete(step, lst)[0], False)
 
-        # One required question and one not shown question(shouldn't be affecting)
+        # Some required questions
         create_response(user, 'when_were_you_married', '12/12/2008')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
@@ -206,7 +202,7 @@ class UserResponseTestCase(TestCase):
                                                                             'question__required')
         self.assertEqual(is_complete(step, lst)[0], False)
 
-        # Two required question and one not shown question(shouldn't be affecting)
+        # Some required questions
         create_response(user, 'marital_status_before_you', 'Never married')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
@@ -215,19 +211,9 @@ class UserResponseTestCase(TestCase):
                                                                             'question__required')
         self.assertEqual(is_complete(step, lst)[0], False)
 
-        # All required question and one not shown question(shouldn't be affecting)
+        # Some required questions
         create_response(user, 'marital_status_before_spouse', 'Widowed')
 
-        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
-                                                                            'question__conditional_target',
-                                                                            'question__reveal_response',
-                                                                            'question__required')
-        self.assertEqual(is_complete(step, lst)[0], True)
-
-        # Test for Legally Married state
-        UserResponse.objects.filter(question_id='married_marriage_like').update(value="Legally married")
-
-        # Missing some required questions
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
                                                                             'question__conditional_target',
                                                                             'question__reveal_response',
@@ -428,10 +414,6 @@ class UserResponseTestCase(TestCase):
                                                                             'question__required')
         self.assertEqual(is_complete(step, lst)[0], False)
 
-        # Test for marriage-like relationship
-        create_response(user, 'married_marriage_like', 'Living together in a marriage like relationship')
-        questions.append('married_marriage_like')
-
         # One required question
         create_response(user, 'address_to_send_official_document_street_you', '123 Cambie st')
 
@@ -511,6 +493,33 @@ class UserResponseTestCase(TestCase):
                                                                             'question__conditional_target',
                                                                             'question__reveal_response',
                                                                             'question__required')
+        self.assertEqual(is_complete(step, lst)[0], False)
+
+        # All required questions
+        create_response(user, 'divorce_take_effect_on', 'the 31st day after the date of this order')
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
+                                                                            'question__conditional_target',
+                                                                            'question__reveal_response',
+                                                                            'question__required')
+        self.assertEqual(is_complete(step, lst)[0], True)
+
+        # Missing conditional required question
+        UserResponse.objects.filter(question_id='divorce_take_effect_on').update(value="specific date")
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
+                                                                            'question__conditional_target',
+                                                                            'question__reveal_response',
+                                                                            'question__required')
+        self.assertEqual(is_complete(step, lst)[0], False)
+
+        # All required questions
+        create_response(user, 'divorce_take_effect_on_specific_date', '12/12/2018')
+
+        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
+                                                                            'question__conditional_target',
+                                                                            'question__reveal_response',
+                                                                            'question__required')
         self.assertEqual(is_complete(step, lst)[0], True)
 
         # All required questions for spouse and you
@@ -524,43 +533,6 @@ class UserResponseTestCase(TestCase):
 
         # All required questions for spouse and you with empty email(optional so still true)
         create_response(user, 'address_to_send_official_document_email_you', 'a@example.com')
-
-        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
-                                                                            'question__conditional_target',
-                                                                            'question__reveal_response',
-                                                                            'question__required')
-        self.assertEqual(is_complete(step, lst)[0], True)
-
-        # Test for Legally Married state
-        UserResponse.objects.filter(question_id='married_marriage_like').update(value="Legally married")
-
-        # Missing some required questions for legally married state
-        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
-                                                                            'question__conditional_target',
-                                                                            'question__reveal_response',
-                                                                            'question__required')
-        self.assertEqual(is_complete(step, lst)[0], False)
-
-        # All required questions
-        create_response(user, 'divorce_take_effect_on', 'the 31st day after the date of this order')
-
-        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
-                                                                            'question__conditional_target',
-                                                                            'question__reveal_response',
-                                                                            'question__required')
-        self.assertEqual(is_complete(step, lst)[0], True)
-
-        # Missing required question
-        UserResponse.objects.filter(question_id='divorce_take_effect_on').update(value="specific date")
-
-        lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
-                                                                            'question__conditional_target',
-                                                                            'question__reveal_response',
-                                                                            'question__required')
-        self.assertEqual(is_complete(step, lst)[0], False)
-
-        # All required questions
-        create_response(user, 'divorce_take_effect_on_specific_date', '12/12/2018')
 
         lst = UserResponse.objects.filter(question_id__in=questions).values('question_id', 'value',
                                                                             'question__conditional_target',
