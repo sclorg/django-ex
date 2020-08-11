@@ -488,15 +488,15 @@ $(function () {
     };
 
     var scrollToFirstError = function() {
-        var hasErrors = $('.hasError');
+        var hasErrors = $('.error');
         if (hasErrors.length > 0) {
-            $('.hasError')[0].scrollIntoView();
+            $('.error')[0].scrollIntoView();
         }
     };
 
     var clearQuestionWellError = function() {
         $('.children-questions .question-well').each(function () {
-            $(this).removeClass('hasError');
+            $(this).removeClass('error');
         });
     };
 
@@ -506,28 +506,28 @@ $(function () {
 
         $('.children-questions .question-well').each(function () {
             var questionWell = $(this);
-            questionWell.removeClass('hasError');
+            questionWell.removeClass('error');
             questionWell.find('input').each(function (index, inputField) {
                 if (inputField.type === 'text') {
                     if (inputField.value === '') {
                         isNotEmpty = false;
-                        questionWell.addClass('hasError');
+                        questionWell.addClass('error');
                     } else if (inputField.id === 'childs_birth_date') {
                         if (!moment(inputField.value, "MMM D, YYYY").isValid()) {
                             isNotEmpty = false;
-                            questionWell.addClass('hasError');
+                            questionWell.addClass('error');
                         }
                     } else if (inputField.id === 'childs_name') {
                         // check for digits in the name
                         if (hasDigit.test(inputField.value)) {
                             isNotEmpty = false;
-                            questionWell.addClass('hasError');
+                            questionWell.addClass('error');
                         }
                     }
                 } else if (inputField.type === 'radio') {
                     if (questionWell.find('input:radio:checked').length === 0) {
                         isNotEmpty = false;
-                        questionWell.addClass('hasError');
+                        questionWell.addClass('error');
                     }
                     return false;
                 }

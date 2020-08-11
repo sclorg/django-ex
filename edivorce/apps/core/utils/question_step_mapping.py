@@ -174,6 +174,19 @@ question_step_mapping = {
 }
 
 
+page_step_mapping = {
+    'orders': 'which_orders',
+    'claimant': 'your_information',
+    'respondent': 'your_spouse',
+    'marriage': 'your_marriage',
+    'separation': 'your_separation',
+    'support': 'spousal_support',
+    'property': 'property_and_debt',
+    'other_orders': 'other_orders',
+    'other_questions': 'other_questions',
+}
+
+
 """ List of court registries """
 list_of_registries = ['Fort St. John', 'Dawson Creek', 'Prince Rupert',
                       'Terrace', 'Smithers', 'Prince George', 'Quesnel',

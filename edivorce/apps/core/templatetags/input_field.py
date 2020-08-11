@@ -63,6 +63,13 @@ def input_field(context, type, name='', value='', multiple='', **kwargs):
     """
     Usage:  when specifying data attributes in templates, use "data_" instead of "data-".
     """
+    error = context.get(f'{name}_error', False)
+    if error:
+        if 'class' in kwargs:
+            kwargs['class'] += ' error'
+        else:
+            kwargs['class'] = 'error'
+
     if type == "textarea":
         attributes = additional_attributes(**kwargs)
         if value == '':

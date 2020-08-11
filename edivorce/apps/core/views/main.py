@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import bceid_required, intercept
-from ..utils.question_step_mapping import list_of_registries
+from ..utils.question_step_mapping import list_of_registries, page_step_mapping
 from ..utils.step_completeness import get_step_status, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
 from ..utils.user_response import get_responses_from_db, copy_session_to_db, \
@@ -188,14 +188,18 @@ def question(request, step, sub_step=None):
     template = 'question/%02d_%s%s.html' % (template_step_order[step], step, sub_page_template)
 
     responses_dict_by_step = get_responses_from_db_grouped_by_steps(request.user, True)
-
+    step_status = get_step_status(responses_dict_by_step)
     if step == "review":
         responses_dict = responses_dict_by_step
+        derived = get_derived_data(get_responses_from_db(request.user))
     else:
-        responses_dict = get_responses_from_db(request.user)
+        question_step = page_step_mapping.get(step, step)
+        show_errors = step_status.get(question_step) == 'Started'
+        responses_dict = get_responses_from_db(request.user, show_errors=show_errors, step=question_step, substep=sub_step)
+        derived = get_derived_data(responses_dict)
 
     # Add step status dictionary
-    responses_dict['step_status'] = get_step_status(responses_dict_by_step)
+    responses_dict['step_status'] = step_status
 
     responses_dict['active_page'] = step
     # If page is filing location page, add registries dictionary for list of court registries
@@ -203,7 +207,7 @@ def question(request, step, sub_step=None):
         responses_dict['registries'] = sorted(list_of_registries)
 
     responses_dict['sub_step'] = sub_step
-    responses_dict['derived'] = get_derived_data(get_responses_from_db(request.user))
+    responses_dict['derived'] = derived
 
     return render(request, template_name=template, context=responses_dict)
 
