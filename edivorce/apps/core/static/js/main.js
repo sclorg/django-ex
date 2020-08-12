@@ -478,12 +478,12 @@ $(function () {
         }
     };
 
-    var returnToParent = function(options) {
+    var returnToParent = function(save) {
         $('.children-questions').hide();
         $('.children-list').show();
-        clearQuestionWellError();
+        clearQuestionWellError(save);
         enableChildrenFooterNav({page:'review'});
-        saveChildQuestions(options);
+        saveChildQuestions({persist: save});
         populateChildrenFactSheets();
     };
 
@@ -494,10 +494,15 @@ $(function () {
         }
     };
 
-    var clearQuestionWellError = function() {
+    var clearQuestionWellError = function(removeTableError) {
         $('.children-questions .question-well').each(function () {
             $(this).removeClass('error');
         });
+        if (removeTableError) {
+            var $childrenTable = $('.children-list.question-well');
+            $childrenTable.removeClass('error');
+            $childrenTable.find('.warning').remove();
+        }
     };
 
     var checkNoEmptyField = function() {
@@ -508,14 +513,19 @@ $(function () {
             var questionWell = $(this);
             questionWell.removeClass('error');
             questionWell.find('input').each(function (index, inputField) {
+                questionWell.find('.required').hide();
+                $(inputField).removeClass('error');
                 if (inputField.type === 'text') {
                     if (inputField.value === '') {
                         isNotEmpty = false;
+                        $(inputField).addClass('error');
                         questionWell.addClass('error');
+                        questionWell.find('.required').show();
                     } else if (inputField.id === 'childs_birth_date') {
                         if (!moment(inputField.value, "MMM D, YYYY").isValid()) {
                             isNotEmpty = false;
                             questionWell.addClass('error');
+                            questionWell.find('.required').show();
                         }
                     } else if (inputField.id === 'childs_name') {
                         // check for digits in the name
@@ -528,6 +538,7 @@ $(function () {
                     if (questionWell.find('input:radio:checked').length === 0) {
                         isNotEmpty = false;
                         questionWell.addClass('error');
+                        questionWell.find('.required').show();
                     }
                     return false;
                 }
@@ -542,7 +553,7 @@ $(function () {
     $('#btn_save_child').on('click', function(e) {
         e.preventDefault();
         if (checkNoEmptyField() === true) {
-            returnToParent({persist: true});
+            returnToParent(true);
         } else {
             scrollToFirstError();
         }
@@ -557,7 +568,7 @@ $(function () {
     
     $('#btn_revert_child').on('click', function(e) {
         e.preventDefault();
-        returnToParent({persist: false});
+        returnToParent(false);
         
         // Delete the empty row added to the children table when adding new child.
         // Empty row will always be the last row of the table.

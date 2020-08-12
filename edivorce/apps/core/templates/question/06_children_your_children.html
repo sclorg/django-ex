@@ -52,7 +52,9 @@
         and how they will spend time with each parent.
     </p>
 {% endif %}
-<div class="question-well children-list">
+<div class="question-well children-list {% if claimant_children_error %}error{% endif %}">
+    <p class="warning">* You have indicated that you have children of the marriage. This includes children under and over the age of 19. Their details
+        must be added below.</p>
     <table id="claimant_children" class="list-builder">
         <thead>
             <tr>
@@ -82,7 +84,9 @@
         <tbody>
             <tr>
                 <td id="btn_add_child" class="btn-add-child fact-sheet-control" colspan="5" readonly>
-                    <a href="#add"><i class="fa fa-plus btn-add-child"></i>   Add Child</a>
+                    <a href="#add"><i class="fa fa-plus btn-add-child"></i>   Add Child{% if claimant_children_error %}
+                        {% include 'partials/required.html' with hidden=True %}{% endif %}
+                    </a>
                 </td>
             </tr>
         </tbody>
@@ -92,7 +96,7 @@
 <div class="children-questions" hidden>
 
     <div class="question-well">
-        <h3>What is your child's name?</h3>
+        <h3>What is your child's name?{% include 'partials/required.html' with hidden=True %}</h3>
         <p>Enter full name</p>
         <span class="form-group">
             {% input_field type="text" name="child_name" class="form-block input-wide response-textbox children-input-block name" id="childs_name" placeholder="First, Middle, Last Name" data_mirror="true" data_mirror_target="#child_name_0" data_skip_ajax="true" %}
@@ -101,7 +105,7 @@
 
 
     <div class="question-well">
-        <h3>What is your child's date of birth?</h3>
+        <h3>What is your child's date of birth?{% include 'partials/required.html' with hidden=True %}</h3>
         <p>
     <span class="input-group date date-picker-group">
         {% input_field type="text" name="child_birth_date" class="date-picker form-control children-input-block" id="childs_birth_date" placeholder="MMM D, YYYY" data_mirror="true" data_mirror_target="#child_birth_date_0" data_skip_ajax="true" %}
@@ -113,7 +117,7 @@
     </div>
 
     <div class="question-well">
-        <h3>Where/whom does this child currently live with?</h3>
+        <h3>Where/whom does this child currently live with?{% include 'partials/required.html' with hidden=True %}</h3>
         <p>Please select one</p>
         <div class="radio">
             <label class="tight-spacing">
@@ -168,7 +172,7 @@
     </div>
 
     <div class="question-well">
-        <h3>What is your relationship to this child?</h3>
+        <h3>What is your relationship to this child?{% include 'partials/required.html' with hidden=True %}</h3>
         <div class="radio">
             <label>{% input_field type="radio" class="radio-with-other children-input-block" name="child_relationship_to_you" value="Natural child" data_mirror="true" data_mirror_target="#child_relationship_you_0" data_skip_ajax="true" %}Natural
                 child</label>
@@ -235,7 +239,7 @@
     </div>
 
     <div class="question-well">
-        <h3>What is your spouse's relationship to this child?</h3>
+        <h3>What is your spouse's relationship to this child?{% include 'partials/required.html' with hidden=True %}</h3>
         <div class="radio">
             <label>{% input_field type="radio" class="radio-with-other children-input-block" name="child_relationship_to_spouse" value="Natural child" data_mirror="true" data_mirror_target="#child_relationship_spouse_0" data_skip_ajax="true" %}Natural
                 child</label>
