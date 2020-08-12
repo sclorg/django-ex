@@ -209,7 +209,7 @@
         "name": "What was your last name when you were born?",
         "description": "For step 2, Form 1 2. Divorce section A",
         "summary_order": 20,
-        "required": "Required"
+        "required": ""
     },
     "model": "core.question",
     "pk": "last_name_born_you"
@@ -219,7 +219,7 @@
         "name": "What was your last name before you were married?",
         "description": "For step 2, Form 1 2. Divorce section A",
         "summary_order": 21,
-        "required": "Required"
+        "required": ""
     },
     "model": "core.question",
     "pk": "last_name_before_married_you"
@@ -303,7 +303,7 @@
         "name": "What was their last name at birth?",
         "description": "For step 3, Form 1 2. Divorce section A",
         "summary_order": 29,
-        "required": "Required"
+        "required": ""
     },
     "model": "core.question",
     "pk": "last_name_born_spouse"
@@ -313,7 +313,7 @@
         "name": "What was their last name before you were married?",
         "description": "For step 3, Form 1 2. Divorce section A",
         "summary_order": 30,
-        "required": "Required"
+        "required": ""
     },
     "model": "core.question",
     "pk": "last_name_before_married_spouse"
