@@ -30,11 +30,14 @@ objects:
       sourceStrategy:
         from:
           kind: ${SOURCE_IMAGE_KIND}
-          namespace: "${SOURCE_IMAGE_NAMESPACE}"
           name: ${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}
         env:
         - name: PIP_INDEX_URL
           value: "${PIP_INDEX_URL}"
+        - name: UPGRADE_PIP_TO_LATEST
+          value: "${UPGRADE_PIP_TO_LATEST}"
+        - name: PIP_NO_CACHE_DIR
+          value: "${PIP_NO_CACHE_DIR}"
     output:
       to:
         kind: ImageStreamTag
@@ -72,25 +75,28 @@ parameters:
   displayName: Source Image Kind
   description: The 'kind' (type) of the  source image; typically ImageStreamTag, or DockerImage.
   required: true
-  value: ImageStreamTag
-- name: SOURCE_IMAGE_NAMESPACE
-  displayName: Source Image Namespace
-  description: The namespace where the source image resides.
-  required: true
-  value: openshift
+  value: DockerImage
 - name: SOURCE_IMAGE_NAME
   displayName: Source Image Name
   description: The name of the source image.
   required: true
-  value: python
+  value: "registry.fedoraproject.org/f32/python3"
 - name: SOURCE_IMAGE_TAG
   displayName: Source Image Tag
   description: The tag of the source image.
   required: true
-  value: "3.5"
+  value: "latest"
 - name: PIP_INDEX_URL
   displayName: Custom PyPi Index URL
   description: The custom PyPi index URL
+  value: ''
+- name: UPGRADE_PIP_TO_LATEST
+  displayName: Upgrade Pip To Latest
+  description: Upgrade Pip To Latest
+  value: 'true'
+- name: PIP_NO_CACHE_DIR
+  displayName: Pip No Cache Dir
+  description: Pip No Cache Dir
   value: ''
 # ===============================================================================
 - name: CPU_REQUEST
