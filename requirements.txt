@@ -10,4 +10,4 @@ psycopg2==2.7.3
 requests==2.13.0
 six==1.10.0
 Unipath==1.1
-whitenoise==3.0
+whitenoise==5.2.0
