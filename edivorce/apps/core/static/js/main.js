@@ -588,23 +588,6 @@ $(function () {
         populateChildrenFactSheets();
     });
 
-    // check who has sole custody
-    $('input[name="__claimant_children"]').each(function() {
-        var children = JSON.parse($(this).val());
-        var youHaveSoleCustody = children.every(function(child){
-            return child.child_live_with === 'Lives with you';
-        });
-        var spouseHasSoleCustody = children.every(function(child){
-            return child.child_live_with === 'Lives with spouse';
-        });
-
-        if (youHaveSoleCustody || spouseHasSoleCustody) {
-            $('#monthly_amount_question').show();
-        } else {
-            $('#monthly_amount_question').hide();
-        }
-    });
-
     var payorCallback = function() {
         var claimant = $(this).val();
 

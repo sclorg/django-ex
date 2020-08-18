@@ -9,8 +9,8 @@
 {% block content %}
     <h1><small>Step {% step_order step="children" %}:</small>Children - Income & expenses</h1>
 
-    <div class="question-well">
-        <h3>How will you and your spouse be determining your income?</h3>
+    <div class="question-well {% if how_will_calculate_income_error %}error{% endif %}">
+        <h3>How will you and your spouse be determining your income?{% if how_will_calculate_income_error %}{% include 'partials/required.html' %}{% endif %}</h3>
         <p>Under the Federal Guidelines, you can do one of the following:</p>
 
         <div class="radio">
@@ -107,8 +107,8 @@
     </div>
 
     <div id="annual_gross_income_question">
-        <div class="question-well">
-            <h3>What is your annual gross income as determined above?</h3>
+        <div class="question-well {% if annual_gross_income_error %}error{% endif %}">
+            <h3>What is your annual gross income as determined above?{% if annual_gross_income_error %}{% include 'partials/required.html' %}{% endif %}</h3>
             <div class="dollar-prefix">
                 {% money_input_field name="annual_gross_income" value="" class="money form-block response-textbox positive-float" %}
             </div>
@@ -133,8 +133,8 @@
             </div>
         </div>
 
-        <div class="question-well">
-            <h3>What is your spouse's annual gross income as determined above?</h3>
+        <div class="question-well {% if spouse_annual_gross_income_error %}error{% endif %}">
+            <h3>What is your spouse's annual gross income as determined above?{% if spouse_annual_gross_income_error %}{% include 'partials/required.html' %}{% endif %}</h3>
             <div class="dollar-prefix">
                 {% money_input_field name="spouse_annual_gross_income" value="" class="money form-block response-textbox positive-float" %}
             </div>
@@ -161,11 +161,11 @@
     </div>
 
     <input type="text" name="__claimant_children" value="{{ claimant_children }}" hidden >
-
-    <div class="question-well" id="monthly_amount_question" hidden>
+    {% if derived.sole_custody %}
+    <div class="question-well {% if payor_monthly_child_support_amount_error %}error{% endif %}" id="monthly_amount_question">
         <h3>What is the monthly child support amount (as per
             <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-5.html#h-9" target="_blank">Schedule 1</a>
-            of the guidelines) that is payable?</h3>
+            of the guidelines) that is payable?{% if payor_monthly_child_support_amount_error %}{% include 'partials/required.html' %}{% endif %}</h3>
         <div class="dollar-prefix">
             {% money_input_field name="payor_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block" data_mirror="true" data_mirror_target="#child_support_amount_label" %}
         </div>
@@ -258,8 +258,9 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
-    <div class="question-well">
+    <div class="question-well {% if special_extraordinary_expenses_error %}error{% endif %}">
         <h3>
             Are you claiming any
             <span class="tooltip-link"
@@ -275,7 +276,7 @@
                      </p>
                     ">
                     special and extraordinary expenses<i class="fa fa-question-circle" aria-hidden="true"></i>
-            </span>?
+            </span>?{% if special_extraordinary_expenses_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         <p>
             <strong>NOTE: If you have a Separation Agreement or Court Order that deals with special and extraordinary expenses, you may wish NOT to select this option.</strong>
@@ -305,9 +306,12 @@
     </div>
 
     <div id="fact_sheet_a" class="fact-sheets" hidden>
-    <div class="question-well">
-        <h1>Special or Extraordinary Expenses (Fact Sheet A)</h1>
+    <div class="question-well {% if special_extraordinary_expenses_details_error %}error{% endif %}">
+        <h1>Special or Extraordinary Expenses (Fact Sheet A){% if special_extraordinary_expenses_details_error %}{% include 'partials/required.html' %}{% endif %}</h1>
         <p>Since you have indicated that there are special or extraordinary expenses, we need you to answer the next set of questions.</p>
+        {% if special_extraordinary_expenses_details_error %}<p class="warning">
+        * At least one of these values must be greater than 0
+        </p>{% endif %}
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -513,9 +517,9 @@
             </tbody>
         </table>
     </div>
-
-    <div class="question-well">
-        <h3>Please describe the order you are asking for regarding Special and Extraordinary Expenses</h3>
+    <div class="question-well {% if describe_order_special_extra_expenses_error %}error{% endif %}">
+        <h3>Please describe the order you are asking for regarding Special and Extraordinary Expenses{% if describe_order_special_extra_expenses_error %}
+            {% include 'partials/required.html' %}{% endif %}</h3>
         <p>
             If you're not sure how to write what you are asking for, you can refer to section "G" of the
             <a href="http://www.courts.gov.bc.ca/supreme_court/practice_and_procedure/family_law_orders/picklist_family_orders.pdf" target="_blank">

@@ -71,6 +71,7 @@ DERIVED_DATA = [
     'child_support_acts',
     'pursuant_parenting_arrangement',
     'pursuant_child_support',
+    'sole_custody',
 ]
 
 
@@ -710,3 +711,14 @@ def pursuant_child_support(responses, derived):
                 if len(arrangement.strip()) > 0]
     except ValueError:
         return []
+
+
+def sole_custody(responses, derived):
+    """
+    Return True if either parent has sole custody of the children
+    """
+    you_have_sole_custody = all([child['child_live_with'] == 'Lives with you'
+                                 for child in derived['children']])
+    spouse_has_sole_custody = all([child['child_live_with'] == 'Lives with spouse'
+                                   for child in derived['children']])
+    return you_have_sole_custody or spouse_has_sole_custody
