@@ -1,27 +1,36 @@
 $(window).load(function () {
-    function clearSignTogetherLocations() {
+    function setSignSeparatelyDefaults() {
         $("#sign-in-person-both").prop('checked', false);
         $("#sign-virtual-both").prop('checked', false);
         $("#sign-virtual-both").trigger('change');
+        if ($("input:radio[name='signing_location_you']:checked").length === 0) {
+            $("#sign-in-person-you").prop('checked', true).trigger('change');
+        }
+        if ($("input:radio[name='signing_location_spouse']:checked").length === 0) {
+            $("#sign-in-person-spouse").prop('checked', true).trigger('change');
+        }
     }
-    function clearSignSeparatelyLocations() {
+
+    function setSignTogetherDefaults() {
         $("#sign-in-person-you").prop('checked', false);
-        $("#sign-virtual-you").prop('checked', false);
-        $("#sign-virtual-you").trigger('change');
+        $("#sign-virtual-you").prop('checked', false).trigger('change');
         $("#sign-in-person-spouse").prop('checked', false);
-        $("#sign-virtual-spouse").prop('checked', false);
-        $("#sign-virtual-spouse").trigger('change');
+        $("#sign-virtual-spouse").prop('checked', false).trigger('change');
+        if ($("input:radio[name='signing_location']:checked").length === 0) {
+            $("#sign-in-person-both").prop('checked', true).trigger('change');
+        }
     }
+
     function toggleSigningLocation() {
         if ($("#file-online").prop('checked')) {
             $("#signing-location").show();
 
             if ($("#sign-together").prop('checked')) {
+                setSignTogetherDefaults();
                 $("#signing-location-together").show();
                 $("#signing-location-separately").hide();
-                clearSignSeparatelyLocations();
             } else if ($("#sign-separately").prop('checked')) {
-                clearSignTogetherLocations();
+                setSignSeparatelyDefaults();
                 $("#signing-location-together").hide();
                 $("#signing-location-separately").show();
             }
@@ -29,8 +38,8 @@ $(window).load(function () {
             $("#signing-location").hide();
             $("#signing-location-together").hide();
             $("#signing-location-separately").hide();
-            clearSignSeparatelyLocations();
-            clearSignTogetherLocations();
+            setSignTogetherDefaults();
+            setSignSeparatelyDefaults();
         }
     }
 
@@ -56,11 +65,22 @@ $(window).load(function () {
         if ($("#file-in-person").prop('checked')) {
             $("#sign-in-person").show();
             $("#signing-location").hide();
-        } else {
+        } else if ($("#file-online").prop('checked')) {
             $("#sign-in-person").hide();
             $("#signing-location").show();
         }
     }
+
+    function selectDefaults() {
+        if ($("input:radio[name='how_to_sign']:checked").length === 0) {
+            $("#sign-together").prop('checked', true).trigger('change');
+        }
+        if ($("input:radio[name='how_to_file']:checked").length === 0) {
+            $("#file-online").prop('checked', true).trigger('change');
+        }
+    }
+
+    selectDefaults()
 
     $("#sign-separately, #sign-together, #file-online, #file-in-person").change(toggleSigningLocation);
     $("#sign-virtual-both, " +

@@ -19,37 +19,33 @@
     {% endif %}
     {% if signing_location == 'Virtual' %}
         <div class="question-well-border-less">
-            <ul>
-                <li>
-                    Upload the signed / sworn and scanned Child Support Affidavit (F37)
-                    {% include 'partials/upload.html' %}
-                </li>
-                <li>
-                    Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38)
-                    {% include 'partials/upload.html' %}
-                </li>
-            </ul>
+            <p>
+                Upload the signed / sworn and scanned Child Support Affidavit (F37)
+                {% include 'partials/upload.html' %}
+            </p>
+            <p>
+                Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38)
+                {% include 'partials/upload.html' %}
+            </p>
         </div>
     {% elif signing_location_you == 'Virtual' and signing_location_spouse == 'Virtual' %}
         <div class="question-well-border-less">
-            <ul>
-                <li>
-                    Upload the signed / sworn and scanned Child Support Affidavit (F37) - For You
-                    {% include 'partials/upload.html' %}
-                </li>
-                <li>
-                    Upload the signed / sworn and scanned Child Support Affidavit (F37) - For Your Spouse
-                    {% include 'partials/upload.html' %}
-                </li>
-                <li>
-                    Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38) - For You
-                    {% include 'partials/upload.html' %}
-                </li>
-                <li>
-                    Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38) - For Your Spouse
-                    {% include 'partials/upload.html' %}
-                </li>
-            </ul>
+            <p>
+                Upload the signed / sworn and scanned Child Support Affidavit (F37) - For You
+                {% include 'partials/upload.html' %}
+            </p>
+            <p>
+                Upload the signed / sworn and scanned Child Support Affidavit (F37) - For Your Spouse
+                {% include 'partials/upload.html' %}
+            </p>
+            <p>
+                Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38) - For You
+                {% include 'partials/upload.html' %}
+            </p>
+            <p>
+                Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38) - For Your Spouse
+                {% include 'partials/upload.html' %}
+            </p>
         </div>
     {% elif how_to_file == 'Online' %}
         {% if signing_location or signing_location_you and signing_location_spouse %}
@@ -60,40 +56,38 @@
                     <li>Requisition Form (F35)</li>
                     <li>Certificate of Pleadings Form (F36)</li>
                 </ul>
-                <ul>
-                    <li>
-                        Upload the signed / sworn and scanned Child Support Affidavit (F37)
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38)
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Upload the signed and scanned Draft Final Order Form (F52)
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Upload the signed and scanned Electronic Filing Statement (F96) for You
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Upload the signed and scanned Electronic Filing Statement (F96) for Your Spouse
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Complete, scan and upload the Agreement as to Annual Income (F9) form
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Complete, scan and upload the Identification of Applicant (VSA 512) for You
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Complete, scan and upload the Identification of Applicant (VSA 512) for Your Spouse
-                        {% include 'partials/upload.html' %}
-                    </li>
-                </ul>
+                <p>
+                    Upload the signed / sworn and scanned Child Support Affidavit (F37)
+                    {% include 'partials/upload.html' %}
+                </p>
+                <p>
+                    Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38)
+                    {% include 'partials/upload.html' %}
+                </p>
+                <p>
+                    Upload the signed and scanned Draft Final Order Form (F52)
+                    {% include 'partials/upload.html' %}
+                </p>
+                <p>
+                    Upload the signed and scanned Electronic Fipng Statement (F96) for You
+                    {% include 'partials/upload.html' %}
+                </p>
+                <p>
+                    Upload the signed and scanned Electronic Fipng Statement (F96) for Your Spouse
+                    {% include 'partials/upload.html' %}
+                </p>
+                <p>
+                    Complete, scan and upload the Agreement as to Annual Income (F9) form
+                    {% include 'partials/upload.html' %}
+                </p>
+                <p>
+                    Complete, scan and upload the Identification of Apppcant (VSA 512) for You
+                    {% include 'partials/upload.html' %}
+                </p>
+                <p>
+                    Complete, scan and upload the Identification of Apppcant (VSA 512) for Your Spouse
+                    {% include 'partials/upload.html' %}
+                </p>
             </div>
         {% else %}
             <div class="question-well-border-less">

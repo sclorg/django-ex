@@ -15,121 +15,118 @@
             remaining documents required to complete your divorce.
         </p>
         <p>Missing a form required on this page? Check the <a href="{% url 'dashboard_nav' 'print_form' %}">Review Forms</a> step.</p>
-        {% if signing_location == 'In-person' or signing_location_you == 'In-person' %}
-            <ul>
-                <li>
-                    The Notice of Joint Family Claim Form (F1) will be automatically filed for you.
-                </li>
-                <li>
-                    Upload a scan of your Proof of Marriage (?)
-                    {% include 'partials/upload.html' %}
-                </li>
-                <li>
-                    Scan and upload the sworn Affidavit of Interpreter Form (?)
-                    {% include 'partials/upload.html' %}
-                </li>
-                <li>
-                    Complete, scan and upload the Registration of Divorce Proceedings (?) form
-                    {% include 'partials/upload.html' %}
-                </li>
-            </ul>
-        {% elif signing_location_you == 'Virtual' and signing_location_spouse == 'In-person' %}
-            <p>The following forms will be automatically filed for you:</p>
-            <ul>
-                <li>Notice of Joint Family Claim Form (F1)</li>
-                <li>Requisition Form (F35)</li>
-                <li>Certificate of Pleadings Form (F36)</li>
-            </ul>
-            <p>The following forms will be submitted for you but require swearing / affirming (?) before filing (see next step for details)</p>
-            <ul>
-                <li>Child Support Affidavit (F37)</li>
-                <li>Affidavit - Desk Order Divorce Form (F38)</li>
-            </ul>
-            <div class="question-well-border-less">
+        <p><a>Need help with Scanning your documents?</a></p>
+        <div class="question-well-border-less">
+            {% if signing_location == 'In-person' or signing_location_you == 'In-person' %}
+                <div>
+                    <p>The Notice of Joint Family Claim Form (F1) will be automatically filed for you.</p>
+                </div>
+                <div>
+                    <p>Upload a scan of your Proof of Marriage (?)
+                        {% include 'partials/upload.html' %}</p>
+                </div>
+                <div>
+                    <p>Scan and upload the sworn Affidavit of Interpreter Form (?)
+                        {% include 'partials/upload.html' %}</p>
+                </div>
+                <div>
+                    <p>Complete, scan and upload the Registration of Divorce Proceedings (?) form
+                        {% include 'partials/upload.html' %}</p>
+                </div>
+            {% elif signing_location_you == 'Virtual' and signing_location_spouse == 'In-person' %}
+                <p>The following forms will be automatically filed for you:</p>
                 <ul>
-                    <li>
-                        Upload a scan of your Proof of Marriage (?)
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Scan and upload the sworn Affidavit of Interpreter Form (?)
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Upload the signed and scanned Draft Final Order Form (F52)
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Upload the signed and scanned Electronic Filing Statement (F96) for You
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Complete, scan and upload the Registration of Divorce Proceedings form
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Complete, scan and upload the Agreement as to Annual Income (F9) form
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Complete, scan and upload the Identification of Applicant (VSA 512) for You
-                        {% include 'partials/upload.html' %}
-                    </li>
+                    <li>Notice of Joint Family Claim Form (F1)</li>
+                    <li>Requisition Form (F35)</li>
+                    <li>Certificate of Pleadings Form (F36)</li>
                 </ul>
-            </div>
-        {% else %}
-            <p>The following forms will be automatically filed for you:</p>
-            <ul>
-                <li>Notice of Joint Family Claim Form (F1)</li>
-                <li>Requisition Form (F35)</li>
-                <li>Certificate of Pleadings Form (F36)</li>
-            </ul>
-            <p>The following forms will be submitted for you but require swearing / affirming (?) before filing (see next step for details)</p>
-            <ul>
-                <li>Child Support Affidavit (F37)</li>
-                <li>Affidavit - Desk Order Divorce Form (F38)</li>
-            </ul>
-            <div class="question-well-border-less">
+                <p>The following forms will be submitted for you but require swearing / affirming (?) before filing (see next step for details)</p>
                 <ul>
-                    <li>
-                        Upload a scan of your Proof of Marriage (?)
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Scan and upload the sworn Affidavit of Interpreter Form (?)
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Upload the signed and scanned Draft Final Order Form (F52)
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Upload the signed and scanned Electronic Filing Statement (F96) for You
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Upload the signed and scanned Electronic Filing Statement (F96) for Your Spouse
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Complete, scan and upload the Registration of Divorce Proceedings form
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Complete, scan and upload the Agreement as to Annual Income (F9) form
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Complete, scan and upload the Identification of Applicant (VSA 512) for You
-                        {% include 'partials/upload.html' %}
-                    </li>
-                    <li>
-                        Complete, scan and upload the Identification of Applicant (VSA 512) for Your Spouse
-                        {% include 'partials/upload.html' %}
-                    </li>
+                    <li>Child Support Affidavit (F37)</li>
+                    <li>Affidavit - Desk Order Divorce Form (F38)</li>
                 </ul>
-            </div>
-        {% endif %}
+                <div class="question-well-border-less">
+                    <div>
+                        <p>Upload a scan of your Proof of Marriage (?)
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Scan and upload the sworn Affidavit of Interpreter Form (?)
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Upload the signed and scanned Draft Final Order Form (F52)
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Upload the signed and scanned Electronic Filing Statement (F96) for You
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Registration of Divorce Proceedings form
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Agreement as to Annual Income (F9) form
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Identification of Applicant (VSA 512) for You
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                </div>
+            {% else %}
+                <p>The following forms will be automatically filed for you:</p>
+                <ul>
+                    <li>Notice of Joint Family Claim Form (F1)</li>
+                    <li>Requisition Form (F35)</li>
+                    <li>Certificate of Pleadings Form (F36)</li>
+                </ul>
+                <p>The following forms will be submitted for you but require swearing / affirming (?) before filing (see next step for details)</p>
+                <ul>
+                    <li>Child Support Affidavit (F37)</li>
+                    <li>Affidavit - Desk Order Divorce Form (F38)</li>
+                </ul>
+                <div class="question-well-border-less">
+                    <div>
+                        <p>Upload a scan of your Proof of Marriage (?)
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Scan and upload the sworn Affidavit of Interpreter Form (?)
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Upload the signed and scanned Draft Final Order Form (F52)
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Upload the signed and scanned Electronic Filing Statement (F96) for You
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Upload the signed and scanned Electronic Filing Statement (F96) for Your Spouse
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Registration of Divorce Proceedings form
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Agreement as to Annual Income (F9) form
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Identification of Applicant (VSA 512) for You
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Identification of Applicant (VSA 512) for Your Spouse
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                </div>
+            {% endif %}
+        </div>
         <h3>Filing with Court Services Online</h3>
         <p>When you click Next, you will be taken to the Court Services Online e-filing hub. In the next few steps you will be able to do a final
             review of your filed documentation, pay for your filing and (if completed successfully) receive a Package Number.</p>
