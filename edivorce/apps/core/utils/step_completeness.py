@@ -34,15 +34,18 @@ def evaluate_numeric_condition(target, reveal_response):
 
 def get_step_status(responses_by_step):
     status_dict = {}
+    missing_response_dict = {}
     for step, lst in responses_by_step.items():
         if not lst:
             status_dict[step] = "Not started"
         else:
-            if is_complete(step, lst)[0]:
+            complete, missing_responses = is_complete(step, lst)
+            if complete:
                 status_dict[step] = "Complete"
             else:
+                missing_response_dict[step] = missing_responses
                 status_dict[step] = "Started"
-    return status_dict
+    return status_dict, missing_response_dict
 
 
 def is_complete(step, lst):
@@ -65,6 +68,21 @@ def is_complete(step, lst):
         if not __has_value(question_key, lst):
             complete = False
             missing_responses += [question_key]
+        elif question_key == "special_extraordinary_expenses":
+            has_extraordinary_expenses = __get_value("special_extraordinary_expenses", lst)
+            if has_extraordinary_expenses.lower() == 'yes':
+                # validate at least one item is > 0
+                special_expenses_keys = ["child_care_expenses", "annual_child_care_expenses", "children_healthcare_premiums",
+                                         "annual_children_healthcare_premiums", "health_related_expenses", "annual_health_related_expenses",
+                                         "extraordinary_educational_expenses", "annual_extraordinary_educational_expenses",
+                                         "post_secondary_expenses", "annual_post_secondary_expenses", "extraordinary_extracurricular_expenses",
+                                         "annual_extraordinary_extracurricular_expenses"]
+                for expense in special_expenses_keys:
+                    value = __get_value(expense, lst)
+                    if value and float(value) > 0:
+                        break
+                else:
+                    missing_responses.append('special_extraordinary_expenses_details')
 
     for question in conditional_list:
         # check condition for payor_monthly_child_support_amount
@@ -145,10 +163,12 @@ def __condition_met(reveal_response, target, lst):
         return False
 
 
-def __has_value(key, lst):
+def __get_value(key, lst):
     for user_response in lst:
         if user_response["question_id"] == key:
-            answer = user_response["value"]
-            if answer != "" and answer != "[]" and answer != '[["",""]]' and answer != "\n":
-                return True
-    return False
+            return user_response["value"]
+
+
+def __has_value(key, lst):
+    value = __get_value(key, lst)
+    return value and value != "" and value != "[]" and value != '[["",""]]' and value != "\n"

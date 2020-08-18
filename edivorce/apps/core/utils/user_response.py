@@ -1,10 +1,10 @@
 from edivorce.apps.core.models import UserResponse, Question
-from edivorce.apps.core.utils.question_step_mapping import question_step_mapping, substep_mapping
+from edivorce.apps.core.utils.question_step_mapping import question_step_mapping
 from edivorce.apps.core.utils.step_completeness import evaluate_numeric_condition
 from collections import OrderedDict
 
 
-def get_responses_from_db(bceid_user, show_errors=False, step=None, substep=None):
+def get_responses_from_db(bceid_user):
     """ Get UserResponses from the database for a user."""
     married, married_questions, responses = __get_data(bceid_user)
     responses_dict = {}
@@ -13,23 +13,6 @@ def get_responses_from_db(bceid_user, show_errors=False, step=None, substep=None
             responses_dict[answer.question.key] = ''
         elif answer.value.strip('[').strip(']'):
             responses_dict[answer.question.key] = answer.value
-    if show_errors:
-        if substep:
-            step_questions = substep_mapping.get(substep, [])
-        else:
-            step_questions = question_step_mapping.get(step, [])
-        questions = Question.objects.filter(key__in=step_questions)
-        for question in questions:
-            if responses_dict.get(question.key):
-                error = False
-            elif question.required == 'Required':
-                error = True
-            elif question.required == 'Conditional':
-                conditional_response = UserResponse.objects.filter(question=question.conditional_target).first()
-                error = conditional_response and conditional_response.value == question.reveal_response
-            else:
-                error = False
-            responses_dict['{}_error'.format(question.key)] = error
     return responses_dict
 
 

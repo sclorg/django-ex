@@ -43,7 +43,8 @@ def prequalification(request, step):
         responses_dict = get_responses_from_db(request.user)
         responses_dict['active_page'] = 'prequalification'
         responses_by_step = get_responses_from_db_grouped_by_steps(request.user)
-        responses_dict['step_status'] = get_step_status(responses_by_step)
+        step_status, _ = get_step_status(responses_by_step)
+        responses_dict['step_status'] = step_status
 
     return render(request, template_name=template, context=responses_dict)
 
@@ -156,7 +157,8 @@ def overview(request):
     responses_dict_by_step = get_responses_from_db_grouped_by_steps(request.user)
 
     # Add step status dictionary
-    responses_dict_by_step['step_status'] = get_step_status(responses_dict_by_step)
+    step_status, _ = get_step_status(responses_dict_by_step)
+    responses_dict_by_step['step_status'] = step_status
     responses_dict_by_step['active_page'] = 'overview'
     responses_dict_by_step['derived'] = get_derived_data(get_responses_from_db(request.user))
 
@@ -188,15 +190,18 @@ def question(request, step, sub_step=None):
     template = 'question/%02d_%s%s.html' % (template_step_order[step], step, sub_page_template)
 
     responses_dict_by_step = get_responses_from_db_grouped_by_steps(request.user, True)
-    step_status = get_step_status(responses_dict_by_step)
+    step_status, missing_questions = get_step_status(responses_dict_by_step)
     if step == "review":
         responses_dict = responses_dict_by_step
         derived = get_derived_data(get_responses_from_db(request.user))
     else:
         question_step = page_step_mapping.get(step, step)
         show_errors = step_status.get(question_step) == 'Started'
-        responses_dict = get_responses_from_db(request.user, show_errors=show_errors, step=question_step, substep=sub_step)
+        responses_dict = get_responses_from_db(request.user)
         derived = get_derived_data(responses_dict)
+        if show_errors:
+            for key in missing_questions.get(question_step):
+                responses_dict[key + '_error'] = True
 
     # Add step status dictionary
     responses_dict['step_status'] = step_status
