@@ -10,7 +10,7 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def money_input_field(context, input_type='number', name='', value_src=None, value='', scale_factor=None, **kwargs):
+def money_input_field(context, input_type='number', name='', value_src=None, value='', scale_factor=None, ignore_error=False, **kwargs):
     """
 
     :param context:
@@ -22,6 +22,12 @@ def money_input_field(context, input_type='number', name='', value_src=None, val
     :param kwargs:
     :return:
     """
+    error = context.get(name + '_error', False)
+    if error and not ignore_error:
+        if 'class' in kwargs:
+            kwargs['class'] += ' error'
+        else:
+            kwargs['class'] = 'error'
     if value == '':
         if value_src is None:
             value = context.get(name, 0.0)
@@ -59,12 +65,12 @@ def money_input_field(context, input_type='number', name='', value_src=None, val
 
 
 @register.simple_tag(takes_context=True)
-def input_field(context, type, name='', value='', multiple='', **kwargs):
+def input_field(context, type, name='', value='', multiple='', ignore_error=False, **kwargs):
     """
     Usage:  when specifying data attributes in templates, use "data_" instead of "data-".
     """
     error = context.get(name + '_error', False)
-    if error:
+    if error and not ignore_error:
         if 'class' in kwargs:
             kwargs['class'] += ' error'
         else:

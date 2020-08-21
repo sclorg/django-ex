@@ -18,12 +18,12 @@
     <div id="fact_sheet_b" class="question-well fact-sheets" hidden>
     <h1>Shared Living Arrangement (Fact Sheet B)</h1>
     <p>
-        Since you have previously indicated that the child/children will live with both parents more or less equally 
+        Since you have previously indicated that the child/children will live with both parents more or less equally
         (between 40 to 60% of the time with each parent) we need you to answer the questions below, even if you have a Separation Agreement or existing Court Order.<br>
         <b>This information is needed for the Judge. You will be able to indicate a different child support amount in a following step.</b>
     </p>
-    <div class="question-well">
-        <h3>Number of children</h3>
+    <div class="question-well {% if number_of_children_error %}error{% endif %}">
+        <h3>Number of children{% if number_of_children_error %}{% include 'partials/required.html' %}{% endif %}</h3>
         <p>
         This is the number of children for which you and your spouse have a <b>shared parenting arrangement</b>
         (the child spends at least 40 percent of the time with each of you in a year). If you and your spouse
@@ -73,15 +73,19 @@
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
-                    <div class="percent-suffix">
-                        {% input_field type="number" name="time_spent_with_you" class="fact-sheet-input" min="0" placeholder="enter number" %}
-                        <label> %</label>
+                    <div class="{% if time_spent_with_you_error %}table-error{% endif %}">
+                        <div class="percent-suffix">
+                            {% input_field type="number" name="time_spent_with_you" class="fact-sheet-input" min="0" placeholder="enter number" ignore_error=True %}
+                            <label> %</label>
+                        </div>
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
-                    <div class="percent-suffix">
-                        {% input_field type="number" name="time_spent_with_spouse" class="fact-sheet-input" min="0" placeholder="enter number" %}
-                        <label> %</label>
+                    <div class="{% if time_spent_with_spouse_error %}table-error{% endif %}">
+                        <div class="percent-suffix">
+                            {% input_field type="number" name="time_spent_with_spouse" class="fact-sheet-input" min="0" placeholder="enter number" ignore_error=True %}
+                            <label> %</label>
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -101,12 +105,12 @@
                 </td>
                 <td class="fact-sheet-answer" readonly>
                     <div class="dollar-prefix">
-                    {% money_input_field id="fact_b_annual_gross_income" name="annual_gross_income" value="" class="fact-sheet-input" readonly="" %}
+                    {% money_input_field id="fact_b_annual_gross_income" name="annual_gross_income" value="" class="fact-sheet-input" readonly="" ignore_error=True %}
                     </div>
                 </td>
                 <td class="fact-sheet-answer" readonly>
                     <div class="dollar-prefix">
-                        {% money_input_field id="fact_b_spouse_annual_gross_income" name="spouse_annual_gross_income" value="" class="fact-sheet-input" readonly="" %}
+                        {% money_input_field id="fact_b_spouse_annual_gross_income" name="spouse_annual_gross_income" value="" class="fact-sheet-input" readonly="" ignore_error=True %}
                     </div>
                 </td>
             </tr>
@@ -114,13 +118,17 @@
                 <td class="fact-sheet-question">What is the 'Guideline' amount for child support?
                 </td>
                 <td class="fact-sheet-answer">
-                    <div class="dollar-prefix">
-                        {% money_input_field id="fact_b_your_child_support_paid" name="your_child_support_paid_b" class="fact-sheet-input claimants-child-support-amounts determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_payment_amounts_b]" placeholder="enter amount" %}
+                    <div class="{% if your_child_support_paid_b_error %}table-error{% endif %}">
+                        <div class="dollar-prefix">
+                            {% money_input_field id="fact_b_your_child_support_paid" name="your_child_support_paid_b" class="fact-sheet-input claimants-child-support-amounts determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_payment_amounts_b]" placeholder="enter amount" ignore_error=True %}
+                        </div>
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
-                    <div class="dollar-prefix">
-                        {% money_input_field id="fact_b_your_spouse_child_support_paid" name="your_spouse_child_support_paid_b" class="fact-sheet-input claimants-child-support-amounts determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_payment_amounts_b]" placeholder="enter amount" %}
+                    <div class="{% if your_spouse_child_support_paid_b_error %}table-error{% endif %}">
+                        <div class="dollar-prefix">
+                            {% money_input_field id="fact_b_your_spouse_child_support_paid" name="your_spouse_child_support_paid_b" class="fact-sheet-input claimants-child-support-amounts determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-amounts" data_delta_target_selector="input[name=difference_payment_amounts_b]" placeholder="enter amount" ignore_error=True %}
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -215,7 +223,7 @@
                 <td colspan="3">
                     <p>
                         Any other relevant information regarding the conditions, means, needs and other circumstances of
-                        each spouse or of any child for whom support is sought?
+                        each spouse or of any child for whom support is sought? {% include 'partials/optional.html' %}
                     </p>
                     {% input_field style="height:50px;" type="textarea" name="additional_relevant_spouse_children_info" maxlength="500" rows="3" class="fact-sheet-input form-control response-textarea" %}
                 </td>
@@ -238,9 +246,9 @@
     <div id="fact_sheet_c" class="question-well fact-sheets" hidden>
     <h1>Split Living Arrangement (Fact Sheet C)</h1>
     <p>
-        Since you have previously indicated that you and your spouse have more than one child and 
-        at least one of the children lives primarily with just 1 parent (more than 60% of the time) 
-        you must complete Fact Sheet C. 
+        Since you have previously indicated that you and your spouse have more than one child and
+        at least one of the children lives primarily with just 1 parent (more than 60% of the time)
+        you must complete Fact Sheet C.
         <b>This information is needed for the Judge. You will be able to indicate a different child support amount in a following step.</b>
     </p>
     {% if derived.show_fact_sheet_b and derived.show_fact_sheet_c %}
@@ -302,7 +310,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field id="fact_c_your_spouse_child_support_paid" name="your_spouse_child_support_paid_c" class="fact-sheet-input money claimants-child-support-paid determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts_c]" %}
+                        {% money_input_field id="fact_c_your_spouse_child_support_paid" name="your_spouse_child_support_paid_c" class="fact-sheet-input money claimants-child-support-paid determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts_c]" ignore_error=True %}
                     </div>
                 </td>
             </tr>
@@ -469,8 +477,8 @@
     </div>
 
 
-{% if children_of_marriage == 'YES' and 'NO' not in children_financial_support|load_json and number_children_over_19|integer > 0 %}
-    <div id="fact_sheet_d" class="question-well fact-sheets">
+{% if derived.show_fact_sheet_d %}
+    <div id="fact_sheet_d" class="question-well fact-sheets {% if agree_to_guideline_child_support_amount_error or appropriate_spouse_paid_child_support_error or suggested_child_support_error%}error{% endif %}">
         <h1>Child(ren) 19 Years or Older (Fact Sheet D)</h1>
         <p>
             Since you have previously indicated that you have a child/children 19 years of age or older for whom support
@@ -488,7 +496,7 @@
 
         <div class="question-well">
             <p>
-                What would the child support amount be using the Federal Child Support Guidelines? 
+                What would the child support amount be using the Federal Child Support Guidelines?
                 <b>This information is needed for the Judge. You will be able to indicate a different child support amount in a following step.</b>
             </p>
             <div>
@@ -508,6 +516,7 @@
         <div class="question-well-border-less">
             <p>
                 Because you have a child(ren) 19 years or older, who may also be contributing to their own support, do you and your spouse agree that the monthly Guidelines table amount for child support is appropriate?
+                {% if agree_to_guideline_child_support_amount_error %}{% include 'partials/required.html' %}{% endif %}
             </p>
             <div class="btn-radio-group" data-toggle="buttons">
                 <label class="btn btn-radio">
@@ -523,6 +532,7 @@
             <div id="enter_appropriate_amount" hidden>
                 <p>
                     What would be the appropriate amount?
+                    {% if appropriate_spouse_paid_child_support_error %}{% include 'partials/required.html' %}{% endif %}
                 </p>
 
                 <div class="dollar-prefix">
@@ -534,7 +544,7 @@
                 <p>
                     Describe the condition, means, needs, and other circumstances of the child, and the financial
                     ability of
-                    each parent to provide support to the child.
+                    each parent to provide support to the child. {% if suggested_child_support_error %}{% include 'partials/required.html' %}{% endif %}
                 </p>
                 <div>
                     {% input_field type="textarea" name="suggested_child_support" class="fact-sheet-input form-control response-textarea" maxlength="500" rows="5" %}
@@ -616,8 +626,8 @@
     </div>
 
 
-    <div class="question-well">
-        <h3>Are you or your spouse claiming undue hardship?</h3>
+    <div class="question-well {% if claiming_undue_hardship_error or derived.missing_undue_hardship_details %}error{% endif %}">
+        <h3>Are you or your spouse claiming undue hardship?{% if claiming_undue_hardship_error %}{% include 'partials/required.html' %}{% endif %}</h3>
         <p>
             The Child Support Guidelines tables contain the base amounts for child support. If you our your spouse feel
             that the child support amount will not leave enough money, you can claim that you will suffer
@@ -678,6 +688,8 @@
                 living in the household of the other parent. Often, income alone (which is all that is used to calculate
                 the guideline amount) does not reflect other circumstances that may impact a households’ finances.
             </p>
+            {% if derived.missing_undue_hardship_details %}<p class="warning">* At least one debt, expense, person, or other circumstance must be added in
+            this area to claim Undue Hardship. You can turn off this requirement by selecting NO above for Undue Hardship.</p>{% endif %}
             <p><strong>Unusual or excessive debts</strong></p>
             <p>
                 What are the unusual or excessive debts that you owe? These are debts that were taken on to support the family

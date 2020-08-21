@@ -690,6 +690,14 @@ i.fa.fa-question-circle {
     }
 }
 
+.table-error {
+    border: 2px solid $color-red !important;
+    -webkit-transition: 0.1s ease-in-out all;
+    transition: 0.1s ease-in-out all;
+    margin: -5px -10px;
+    padding: 12px 16px;
+}
+
 .btn-radio {
 	color: $brand-titles;
 	background-color: $color-blue-lighter;
