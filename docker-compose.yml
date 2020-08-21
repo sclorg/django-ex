@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+
+  # Antivirus
+  antivirus:
+    container_name: edivorce-antivirus
+    hostname: antivirus
+    build: https://github.com/bcgov/clamav.git
+    ports:
+      - "3310:3310"
+    restart: always
+

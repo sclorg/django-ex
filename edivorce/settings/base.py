@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 import os
+from environs import Env
 from unipath import Path
+
+env = Env()
+env.read_env()  # read .env file, if it exists
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 PROJECT_ROOT = Path(__file__).parent.parent.parent
@@ -145,3 +149,9 @@ DEBUG_TOOLBAR_CONFIG = {
 SECURE_BROWSER_XSS_FILTER = True
 
 LOGOUT_URL = '/accounts/logout/'
+
+
+# CLAMAV settings
+CLAMAV_ENABLED = env.bool('CLAMAV_ENABLED', True)
+CLAMAV_TCP_PORT = env.int('CLAMAV_TCP_PORT', 3310)
+CLAMAV_TCP_ADDR = env('CLAMAV_TCP_ADDR', 'localhost')

@@ -1,6 +1,9 @@
 from django.conf.urls import url
+from django.conf import settings
 
-from .views import main, system, pdf, api, localdev
+from .views import main, system, pdf, api, localdev, poc
+from .decorators import bceid_required
+
 
 urlpatterns = [
     # url(r'^guide$', styleguide.guide),
@@ -32,3 +35,8 @@ urlpatterns = [
     url(r'^current$', system.current, name="current"),
     url(r'^$', main.home, name="home"),
 ]
+
+if settings.DEBUG:
+    urlpatterns = urlpatterns + [
+        url(r'poc/upload', bceid_required(poc.UploadScan.as_view()), name="poc-upload"),
+    ]
