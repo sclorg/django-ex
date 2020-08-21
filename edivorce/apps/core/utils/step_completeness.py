@@ -1,8 +1,7 @@
-import ast
 from django.urls import reverse
 
 from edivorce.apps.core.models import Question
-from edivorce.apps.core.utils.question_step_mapping import question_step_mapping, pre_qual_step_question_mapping
+from edivorce.apps.core.utils.question_step_mapping import pre_qual_step_question_mapping
 
 
 def evaluate_numeric_condition(target, reveal_response):
@@ -32,14 +31,14 @@ def evaluate_numeric_condition(target, reveal_response):
     return None
 
 
-def get_step_status(responses_by_step):
+def get_step_completeness(responses_by_step):
     status_dict = {}
     missing_response_dict = {}
-    for step, lst in responses_by_step.items():
-        if not lst:
+    for step, responses_list in responses_by_step.items():
+        if len(responses_list) == 0:
             status_dict[step] = "Not started"
         else:
-            complete, missing_responses = is_complete(step, lst)
+            complete, missing_responses = is_complete(responses_list)
             if complete:
                 status_dict[step] = "Complete"
             else:
@@ -48,69 +47,12 @@ def get_step_status(responses_by_step):
     return status_dict, missing_response_dict
 
 
-def is_complete(step, lst):
-    """
-    Check required field of question for complete state
-    Required: question is always require user response to be complete
-    Conditional: Optional question needed depends on reveal_response value of conditional_target.
-    """
-    if not lst:
-        return False, []
-    question_list = Question.objects.filter(key__in=question_step_mapping[step])
-    required_list = list(question_list.filter(required='Required').values_list("key", flat=True))
-    conditional_list = list(question_list.filter(required='Conditional'))
-
-    complete = True
+def is_complete(response_list):
     missing_responses = []
-
-    for question_key in required_list:
-        # everything in the required_list is required
-        if not __has_value(question_key, lst):
-            complete = False
-            missing_responses += [question_key]
-        elif question_key == "special_extraordinary_expenses":
-            has_extraordinary_expenses = __get_value("special_extraordinary_expenses", lst)
-            if has_extraordinary_expenses.lower() == 'yes':
-                # validate at least one item is > 0
-                special_expenses_keys = ["child_care_expenses", "annual_child_care_expenses", "children_healthcare_premiums",
-                                         "annual_children_healthcare_premiums", "health_related_expenses", "annual_health_related_expenses",
-                                         "extraordinary_educational_expenses", "annual_extraordinary_educational_expenses",
-                                         "post_secondary_expenses", "annual_post_secondary_expenses", "extraordinary_extracurricular_expenses",
-                                         "annual_extraordinary_extracurricular_expenses"]
-                for expense in special_expenses_keys:
-                    value = __get_value(expense, lst)
-                    if value and float(value) > 0:
-                        break
-                else:
-                    missing_responses.append('special_extraordinary_expenses_details')
-
-    for question in conditional_list:
-        # check condition for payor_monthly_child_support_amount
-        # which needs sole_custody to be computed separately
-        # payor_monthly_child_support_ammount is required only if sole_custody is True
-        if question.key == "payor_monthly_child_support_amount":
-            for target in lst:
-                if target["question_id"] == "claimant_children":
-                    child_list = ast.literal_eval(target['value'])
-                    sole_custody = (all([child['child_live_with'] == 'Lives with you' for child in child_list]) or
-                                    all([child['child_live_with'] == 'Lives with spouse' for child in child_list]))
-                    if sole_custody:
-                        if not __has_value(question.key, lst):
-                            complete = False
-                            missing_responses += [question.key]
-                    break
-        else:
-            # find the response to the conditional target
-            for target in lst:
-                if target["question_id"] == question.conditional_target:
-                    if __condition_met(question.reveal_response, target, lst):
-                        # the condition was met then the question is required.
-                        # ... so check if it has a value
-                        if not __has_value(question.key, lst):
-                            complete = False
-                            missing_responses += [question.key]
-
-    return complete, missing_responses
+    for question_dict in response_list:
+        if question_dict['error']:
+            missing_responses.append(question_dict)
+    return len(missing_responses) == 0, missing_responses
 
 
 def get_formatted_incomplete_list(missed_question_keys):
@@ -131,44 +73,3 @@ def get_formatted_incomplete_list(missed_question_keys):
                     'step_url': reverse('prequalification', kwargs={'step': step})
                 })
     return missed_questions
-
-
-def __condition_met(reveal_response, target, lst):
-    # check whether using a numeric condition
-    numeric_condition_met = evaluate_numeric_condition(target["value"], reveal_response)
-    if numeric_condition_met is None:
-        # handle special negation options. ex) '!NO' matches anything but 'NO'
-        if reveal_response.startswith('!'):
-            if target["value"] == "" or target["value"] == reveal_response[1:]:
-                return False
-        elif target["value"] != reveal_response:
-            return False
-    elif numeric_condition_met is False:
-        return False
-
-    # return true if the target is not Conditional
-    if target['question__required'] != 'Conditional':
-        return True
-    else:
-        # if the target is Conditional and the condition was met, check the target next
-        reveal_response = target["question__reveal_response"]
-        conditional_target = target["question__conditional_target"]
-        for new_target in lst:
-            if new_target["question_id"] == conditional_target:
-                # recursively search up the tree
-                return __condition_met(reveal_response, new_target, lst)
-
-        # if the for loop above didn't find the target, then the target question
-        # is unanswered and the condition was not met
-        return False
-
-
-def __get_value(key, lst):
-    for user_response in lst:
-        if user_response["question_id"] == key:
-            return user_response["value"]
-
-
-def __has_value(key, lst):
-    value = __get_value(key, lst)
-    return value and value != "" and value != "[]" and value != '[["",""]]' and value != "\n"

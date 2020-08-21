@@ -128,6 +128,9 @@ question_step_mapping = {
                       'your_spouse_child_support_paid_b',
                       'your_child_support_paid_c',
                       'your_spouse_child_support_paid_c',
+                      'agree_to_guideline_child_support_amount',
+                      'appropriate_spouse_paid_child_support',
+                      'suggested_child_support',
                       'extra_ordinary_expenses_you',
                       'extra_ordinary_expenses_spouse',
                       'additional_relevant_spouse_children_info',
@@ -184,6 +187,7 @@ page_step_mapping = {
     'property': 'property_and_debt',
     'other_orders': 'other_orders',
     'other_questions': 'other_questions',
+    'filing_locations': 'filing_locations',
 }
 
 

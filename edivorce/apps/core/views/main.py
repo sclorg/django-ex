@@ -1,4 +1,5 @@
 import datetime
+from copy import deepcopy
 
 from django.conf import settings
 from django.shortcuts import render, redirect
@@ -7,11 +8,15 @@ from django.utils import timezone
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import bceid_required, intercept
 from ..utils.question_step_mapping import list_of_registries, page_step_mapping
-from ..utils.step_completeness import get_step_status, is_complete, get_formatted_incomplete_list
+from ..utils.step_completeness import get_step_completeness, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
-from ..utils.user_response import get_responses_from_db, copy_session_to_db, \
-    get_responses_from_db_grouped_by_steps, get_responses_from_session, \
-    get_responses_from_session_grouped_by_steps
+from ..utils.user_response import (
+    get_data_for_user, 
+    copy_session_to_db,
+    get_step_responses,
+    get_responses_from_session,
+    get_responses_from_session_grouped_by_steps,
+)
 
 
 def home(request):
@@ -40,10 +45,10 @@ def prequalification(request, step):
     if not request.user.is_authenticated:
         responses_dict = get_responses_from_session(request)
     else:
-        responses_dict = get_responses_from_db(request.user)
+        responses_dict = get_data_for_user(request.user)
         responses_dict['active_page'] = 'prequalification'
-        responses_by_step = get_responses_from_db_grouped_by_steps(request.user)
-        step_status, _ = get_step_status(responses_by_step)
+        responses_by_step = get_step_responses(responses_dict)
+        step_status, _ = get_step_completeness(responses_by_step)
         responses_dict['step_status'] = step_status
 
     return render(request, template_name=template, context=responses_dict)
@@ -154,13 +159,14 @@ def overview(request):
     """
     Dashboard: Process overview page.
     """
-    responses_dict_by_step = get_responses_from_db_grouped_by_steps(request.user)
+    responses_dict = get_data_for_user(request.user)
+    responses_dict_by_step = get_step_responses(responses_dict)
 
     # Add step status dictionary
-    step_status, _ = get_step_status(responses_dict_by_step)
+    step_status, _ = get_step_completeness(responses_dict_by_step)
     responses_dict_by_step['step_status'] = step_status
     responses_dict_by_step['active_page'] = 'overview'
-    responses_dict_by_step['derived'] = get_derived_data(get_responses_from_db(request.user))
+    responses_dict_by_step['derived'] = get_derived_data(responses_dict)
 
     response = render(request, 'overview.html', context=responses_dict_by_step)
 
@@ -175,7 +181,7 @@ def dashboard_nav(request, nav_step):
     """
     Dashboard: All other pages
     """
-    responses_dict = get_responses_from_db(request.user)
+    responses_dict = get_data_for_user(request.user)
     responses_dict['active_page'] = nav_step
     template_name = 'dashboard/%s.html' % nav_step
     return render(request, template_name=template_name, context=responses_dict)
@@ -189,19 +195,30 @@ def question(request, step, sub_step=None):
     sub_page_template = '_{}'.format(sub_step) if sub_step else ''
     template = 'question/%02d_%s%s.html' % (template_step_order[step], step, sub_page_template)
 
-    responses_dict_by_step = get_responses_from_db_grouped_by_steps(request.user, True)
-    step_status, missing_questions = get_step_status(responses_dict_by_step)
     if step == "review":
-        responses_dict = responses_dict_by_step
-        derived = get_derived_data(get_responses_from_db(request.user))
+        responses_dict = get_data_for_user(request.user)
+        responses_dict_by_step = get_step_responses(responses_dict)
+        step_status, missing_questions = get_step_completeness(responses_dict_by_step)
+        derived = get_derived_data(responses_dict)
+        responses_dict = {}
+
+        # Just for now (until showing missing questions in review is implemented) remove unanswered questions
+        for step, question_list in responses_dict_by_step.items():
+            copy = deepcopy(question_list)
+            for question_dict in question_list:
+                if question_dict['value'] is None:
+                    copy.remove(question_dict)
+            responses_dict[step] = copy
     else:
+        responses_dict = get_data_for_user(request.user)
+        responses_dict_by_step = get_step_responses(responses_dict)
+        step_status, missing_questions = get_step_completeness(responses_dict_by_step)
         question_step = page_step_mapping.get(step, step)
         show_errors = step_status.get(question_step) == 'Started'
-        responses_dict = get_responses_from_db(request.user)
         derived = get_derived_data(responses_dict)
         if show_errors:
-            for key in missing_questions.get(question_step):
-                responses_dict[key + '_error'] = True
+            for question_dict in missing_questions.get(question_step):
+                responses_dict[question_dict['question_id'] + '_error'] = True
 
     # Add step status dictionary
     responses_dict['step_status'] = step_status
@@ -258,7 +275,7 @@ def intercept_page(request):
     input.
     """
     template = 'question/%02d_%s.html' % (template_step_order['orders'], 'orders')
-    responses_dict = get_responses_from_db(request.user)
+    responses_dict = get_data_for_user(request.user)
     responses_dict['intercepted'] = True
 
     return render(request, template_name=template, context=responses_dict)

@@ -10,7 +10,7 @@ import requests
 
 from ..decorators import bceid_required
 from ..utils.derived import get_derived_data
-from ..utils.user_response import get_responses_from_db
+from ..utils.user_response import get_data_for_user
 
 EXHIBITS = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'[::-1])
 
@@ -19,7 +19,7 @@ EXHIBITS = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'[::-1])
 def form(request, form_number):
     """ View for rendering PDF's and previews """
 
-    responses = get_responses_from_db(request.user)
+    responses = get_data_for_user(request.user)
 
     if (form_number == '1' or form_number.startswith('37') or
             form_number.startswith('38') or

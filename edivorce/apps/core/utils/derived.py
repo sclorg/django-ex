@@ -13,6 +13,8 @@ under the _derived_ key.
 
 import json
 
+from edivorce.apps.core.utils import conditional_logic
+
 # This array is order sensitive: later functions may depend on values from
 # earlier ones
 DERIVED_DATA = [
@@ -72,6 +74,7 @@ DERIVED_DATA = [
     'pursuant_parenting_arrangement',
     'pursuant_child_support',
     'sole_custody',
+    'missing_undue_hardship_details',
 ]
 
 
@@ -150,9 +153,7 @@ def show_fact_sheet_b(responses, derived):
     If any child lives with both parents, custody is shared, so Fact Sheet B
     is indicated.
     """
-
-    return any([child['child_live_with'] == 'Lives with both'
-                for child in derived['children']])
+    return conditional_logic.determine_shared_custody(responses)
 
 
 def show_fact_sheet_c(responses, derived):
@@ -160,19 +161,7 @@ def show_fact_sheet_c(responses, derived):
     If any child lives with one parent and there's another child who lives with
     the other parent or is shared, Fact Sheet C is indicated.
     """
-
-    with_you = 0
-    with_spouse = 0
-    with_both = 0
-    for child in derived['children']:
-        if child['child_live_with'] == 'Lives with you':
-            with_you += 1
-        elif child['child_live_with'] == 'Lives with spouse':
-            with_spouse += 1
-        elif child['child_live_with'] == 'Lives with both':
-            with_both += 1
-    return (with_you > 0 and (with_spouse + with_both > 0) or
-            with_spouse > 0 and (with_you + with_both > 0))
+    return conditional_logic.determine_split_custody(responses)
 
 
 def show_fact_sheet_d(responses, derived):
@@ -180,15 +169,7 @@ def show_fact_sheet_d(responses, derived):
     If a claimaint is claiming financial support for a child of the marriage
     over 19, Fact Sheet D is indicated.
     """
-
-    try:
-        children_over_19 = float(responses.get('number_children_over_19', 0))
-    except ValueError:
-        children_over_19 = 0
-
-    support = json.loads(responses.get('children_financial_support', '[]'))
-    return (len(support) > 0 and children_over_19 > 0 and
-            'NO' not in support and has_children_of_marriage(responses, derived))
+    return conditional_logic.determine_child_over_19_supported(responses)
 
 
 def show_fact_sheet_e(responses, derived):
@@ -242,10 +223,10 @@ def show_fact_sheet_f_spouse(responses, derived):
 
 def has_fact_sheets(responses, derived):
     """ Return whether or not the user is submitting fact sheets """
-
     return any([derived['show_fact_sheet_b'], derived['show_fact_sheet_c'],
                 derived['show_fact_sheet_d'], derived['show_fact_sheet_e'],
                 derived['show_fact_sheet_f'], ])
+
 
 def child_support_payor_b(responses, derived):
     """ Return who the payor is depends on the monthly amount from Factsheet B """
@@ -264,9 +245,10 @@ def child_support_payor_b(responses, derived):
     elif amount_1 < amount_2:
         payor = 'spouse'
     else:
-        payor = 'both'   
+        payor = 'both'
 
     return payor
+
 
 def child_support_payor_c(responses, derived):
     """ Return who the payor is depends on the monthly amount from Factsheet C """
@@ -285,9 +267,10 @@ def child_support_payor_c(responses, derived):
     elif amount_1 < amount_2:
         payor = 'spouse'
     else:
-        payor = 'both'   
+        payor = 'both'
 
     return payor
+
 
 def guideline_amounts_difference_b(responses, derived):
     """
@@ -307,6 +290,7 @@ def guideline_amounts_difference_b(responses, derived):
 
     return abs(amount_1 - amount_2)
 
+
 def guideline_amounts_difference_c(responses, derived):
     """
     Return the difference between the guideline amounts to be paid by
@@ -325,6 +309,7 @@ def guideline_amounts_difference_c(responses, derived):
 
     return abs(amount_1 - amount_2)
 
+
 def guideline_amounts_difference_total(responses, derived):
     """
     Return the sum of the guideline amounts B and C
@@ -339,14 +324,15 @@ def guideline_amounts_difference_total(responses, derived):
     if payor_b == payor_c:
         return amount_b + amount_c
     else:
-        return abs(amount_b - amount_c)  
+        return abs(amount_b - amount_c)
+
 
 def schedule_1_amount(responses, derived):
     """ Return the amount as defined in schedule 1 for child support """
 
     try:
         if derived['show_fact_sheet_b'] or derived['show_fact_sheet_c']:
-            return derived['guideline_amounts_difference_total'] 
+            return derived['guideline_amounts_difference_total']
         else:
             return float(responses.get('payor_monthly_child_support_amount', 0))
     except ValueError:
@@ -540,13 +526,11 @@ def total_monthly_support_1_and_a(responses, derived):
         total += derived['total_section_seven_expenses']
     return total
 
+
 def total_child_support_payment_a(response, derived):
     """ Return the total monthly child support payable by the payor for Fact Sheet A """
     total = 0
-    sole_custody = (all([child['child_live_with'] == 'Lives with you' for child in derived['children']]) or
-                    all([child['child_live_with'] == 'Lives with spouse' for child in derived['children']]))
-
-    if sole_custody:
+    if sole_custody(response, derived):
         total += derived['schedule_1_amount']
     else:
         if derived['show_fact_sheet_b']:
@@ -717,8 +701,8 @@ def sole_custody(responses, derived):
     """
     Return True if either parent has sole custody of the children
     """
-    you_have_sole_custody = all([child['child_live_with'] == 'Lives with you'
-                                 for child in derived['children']])
-    spouse_has_sole_custody = all([child['child_live_with'] == 'Lives with spouse'
-                                   for child in derived['children']])
-    return you_have_sole_custody or spouse_has_sole_custody
+    return conditional_logic.determine_sole_custody(responses)
+
+
+def missing_undue_hardship_details(responses, derived):
+    return conditional_logic.determine_missing_undue_hardship_reasons(responses)

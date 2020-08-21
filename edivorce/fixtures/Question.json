@@ -395,7 +395,7 @@
         "name": "Where were you married? Prov",
         "description": "For step 4, Form 1 2. Divorce section A, Form 52 Court orders that section",
         "summary_order": 38,
-        "required": "Required"
+        "required": ""
     },
     "model": "core.question",
     "pk": "where_were_you_married_prov"
@@ -503,15 +503,6 @@
     },
     "model": "core.question",
     "pk": "how_to_divide_property_debt"
-},
-{
-    "fields": {
-        "name": "Claimant 1 and Claimant 2 ask for an order respecting an interest in property or for compensation instead of an interest in that property, as follows",
-        "description": "For step 7, Form 1 6. Property and debt",
-        "summary_order": 49
-    },
-    "model": "core.question",
-    "pk": "want_other_property_claims"
 },
 {
     "fields": {
@@ -1219,8 +1210,8 @@
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claiming_undue_hardship",
-        "reveal_response": "YES"
+        "conditional_target": "determine_missing_undue_hardship_reasons",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "claimant_debts"
@@ -1231,8 +1222,8 @@
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claiming_undue_hardship",
-        "reveal_response": "YES"
+        "conditional_target": "determine_missing_undue_hardship_reasons",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "claimant_expenses"
@@ -1243,8 +1234,8 @@
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claiming_undue_hardship",
-        "reveal_response": "YES"
+        "conditional_target": "determine_missing_undue_hardship_reasons",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "supporting_non_dependents"
@@ -1255,8 +1246,8 @@
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claiming_undue_hardship",
-        "reveal_response": "YES"
+        "conditional_target": "determine_missing_undue_hardship_reasons",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "supporting_dependents"
@@ -1267,8 +1258,8 @@
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claiming_undue_hardship",
-        "reveal_response": "YES"
+        "conditional_target": "determine_missing_undue_hardship_reasons",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "supporting_disabled"
@@ -1279,8 +1270,8 @@
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claiming_undue_hardship",
-        "reveal_response": "YES"
+        "conditional_target": "determine_missing_undue_hardship_reasons",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "undue_hardship"
@@ -1290,9 +1281,7 @@
         "name": "Income of Other Persons in Household",
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
-        "required": "Conditional",
-        "conditional_target": "claiming_undue_hardship",
-        "reveal_response": "YES"
+        "required": ""
     },
     "model": "core.question",
     "pk": "income_others"
@@ -1540,7 +1529,8 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "claimant_children",
-        "reveal_response": ""
+        "conditional_target": "determine_shared_custody",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "number_of_children"
@@ -1551,8 +1541,8 @@
         "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimant_children",
-        "reveal_response": ""
+        "conditional_target": "determine_shared_custody",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "time_spent_with_you"
@@ -1563,8 +1553,8 @@
         "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimant_children",
-        "reveal_response": ""
+        "conditional_target": "determine_shared_custody",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "time_spent_with_spouse"
@@ -1575,8 +1565,8 @@
         "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimant_children",
-        "reveal_response": ""
+        "conditional_target": "determine_shared_custody",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "your_child_support_paid_b"
@@ -1587,8 +1577,8 @@
         "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimant_children",
-        "reveal_response": ""
+        "conditional_target": "determine_shared_custody",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "your_spouse_child_support_paid_b"
@@ -1779,7 +1769,8 @@
         "description": "For Step 6, Your children - Income & expenses - Fact Sheet D Child(ren) 19 Years or Older",
         "summary_order": 0,
         "required": "Conditional",
-        "reveal_response": ""
+        "conditional_target": "determine_child_over_19_supported",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "agree_to_guideline_child_support_amount"
@@ -1790,7 +1781,8 @@
         "description": "For Step 6, Your children - Income & expenses - Fact Sheet D Child(ren) 19 Years or Older",
         "summary_order": 0,
         "required": "Conditional",
-        "reveal_response": ""
+        "conditional_target": "agree_to_guideline_child_support_amount",
+        "reveal_response": "NO"
     },
     "model": "core.question",
     "pk": "appropriate_spouse_paid_child_support"
@@ -1802,7 +1794,7 @@
         "summary_order": 0,
         "required": "Conditional",
         "conditional_target": "agree_to_guideline_child_support_amount",
-        "reveal_response": "YES"
+        "reveal_response": "NO"
     },
     "model": "core.question",
     "pk": "suggested_child_support"
@@ -1823,7 +1815,8 @@
         "description": "For Step 6, Your children - Income & expenses",
         "summary_order": 0,
         "required": "Conditional",
-        "reveal_response": ""
+        "conditional_target": "determine_sole_custody",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "payor_monthly_child_support_amount"

@@ -1,90 +1,128 @@
 from edivorce.apps.core.models import UserResponse, Question
-from edivorce.apps.core.utils.question_step_mapping import question_step_mapping
+from edivorce.apps.core.utils import conditional_logic
+from edivorce.apps.core.utils.question_step_mapping import page_step_mapping, question_step_mapping
 from edivorce.apps.core.utils.step_completeness import evaluate_numeric_condition
 from collections import OrderedDict
 
 
-def get_responses_from_db(bceid_user):
-    """ Get UserResponses from the database for a user."""
-    married, married_questions, responses = __get_data(bceid_user)
+def get_data_for_user(bceid_user):
+    """
+    Return a dictionary of {question_key: user_response_value}
+    """
+    responses = UserResponse.objects.filter(bceid_user=bceid_user)
     responses_dict = {}
-    for answer in responses:
-        if not married and answer.question_id in married_questions:
-            responses_dict[answer.question.key] = ''
-        elif answer.value.strip('[').strip(']'):
-            responses_dict[answer.question.key] = answer.value
+    for response in responses:
+        if response.value.strip('[').strip(']'):
+            responses_dict[response.question_id] = response.value
+
     return responses_dict
 
 
-def get_responses_from_db_grouped_by_steps(bceid_user, hide_failed_conditionals=False):
+def get_step_responses(responses_by_key):
     """
-    Group questions and responses by steps to which they belong
-
-    `hide_failed_conditionals` goes through the responses after grouping and
-    tests their conditionality.  If they fail, the response is blanked (this is
-    to hide conditional responses that are no longer applicable but haven't been
-    erased, mainly for the question review page).
+    Accepts a dictionary of {question_key: user_response_value} (from get_data_for_user)
+    Returns a dictionary of {step: {question_id: {question__name, question_id, value, error}}}
     """
-    married, married_questions, responses = __get_data(bceid_user)
-    responses_dict = {}
+    responses_by_step = {}
+    for step in page_step_mapping.values():
+        questions_dict = _get_questions_dict_set_for_step(step)
+        step_responses = []
+        for question in questions_dict:
+            question_details = _get_question_details(question, questions_dict, responses_by_key)
+            if question_details['show']:
+                question_dict = questions_dict[question]
+                question_dict['value'] = question_details['value']
+                question_dict['error'] = question_details['error']
 
-    for step, questions in question_step_mapping.items():
+                step_responses.append(question_dict)
+        responses_by_step[step] = step_responses
+    return responses_by_step
 
-        lst = []
-        step_responses = responses.filter(question_id__in=questions).exclude(
-            value__in=['', '[]', '[["",""]]']).order_by('question')
 
-        for answer in step_responses:
-            if not married and answer.question_id in married_questions:
-                value = ''
+def _get_questions_dict_set_for_step(step):
+    questions = Question.objects.filter(key__in=question_step_mapping[step])
+    questions_dict = {}
+    for question in questions:
+        question_dict = {
+            'question__conditional_target': question.conditional_target,
+            'question__reveal_response': question.reveal_response,
+            'question__name': question.name,
+            'question__required': question.required,
+            'question_id': question.key,
+        }
+        questions_dict[question.pk] = question_dict
+    return questions_dict
+
+
+def _cleaned_response_value(response):
+    ignore_values = [None, '', '[]', '[["",""]]', '[["also known as",""]]']
+    if response not in ignore_values:
+        return response
+    return None
+
+
+def _condition_met(target_response, reveal_response):
+    # check whether using a numeric condition
+    numeric_condition_met = evaluate_numeric_condition(target_response, reveal_response)
+    if numeric_condition_met is None:
+        # handle special negation options. ex) '!NO' matches anything but 'NO'
+        if reveal_response.startswith('!'):
+            if target_response == "" or target_response.lower() == reveal_response[1:].lower():
+                return False
+        elif str(target_response) != reveal_response:
+            return False
+    elif numeric_condition_met is False:
+        return False
+    return True
+
+
+def _get_question_details(question, questions_dict, responses_by_key):
+    """
+    Return details for a question given the set of question details and user responses.
+      value: The user's response to a question (or None if unanswered)
+      error: True if the question has an error (e.g. required but not answered)
+      show: False if the response shouldn't be displayed (e.g. don't show 'Also known as' name, but 'Does your spouse go by any other names' is NO)
+    """
+    question_dict = questions_dict[question]
+    required = False
+    show = True
+    if question_dict["question__required"] == 'Required':
+        required = True
+    elif question_dict["question__required"] == 'Conditional':
+        target = question_dict["question__conditional_target"]
+        if target.startswith('determine_'):
+            # Look for the right function to evaluate conditional logic
+            derived_condition = getattr(conditional_logic, target)
+            if not derived_condition:
+                raise NotImplemented(target)
+            result = derived_condition(responses_by_key)
+            if result and _condition_met(result, question_dict["question__reveal_response"]):
+                required = True
             else:
-                value = answer.value
+                show = False
+        elif question in questions_dict:
+            target_response = responses_by_key.get(target)
+            if target_response and _condition_met(target_response, question_dict["question__reveal_response"]):
+                required = True
+            else:
+                show = False
 
-            lst += [{'question__conditional_target': answer.question.conditional_target,
-                     'question__reveal_response': answer.question.reveal_response,
-                     'value': value,
-                     'question__name': answer.question.name,
-                     'question__required': answer.question.required,
-                     'question_id': answer.question.pk}]
+    if show:
+        value = None
+        response = responses_by_key.get(question)
+        if response:
+            value = _cleaned_response_value(response)
+        error = required and not value
+    else:
+        value = None
+        error = None
 
-        # This was added for DIV-514, where the user entered a name change for
-        # their spouse but then said 'no', they won't be changing their name.
-        # Since we don't blank related answers, we need to hide it dynamically.
-        # This only works for questions in the same step.
-        if hide_failed_conditionals:
-            values = {q['question_id']: q['value'] for q in lst}
-            for q in lst:
-                if q['question__required'] != 'Conditional':
-                    continue
-                target = q['question__conditional_target']
-                if target.startswith('['):
-                    targets = target.strip('[]').split(',')
-                    filtered_targets = [t for t in targets if t not in values]
-                    # filtered_targets = list(filter(lambda t: t not in values, targets))
-                    if len(filtered_targets):
-                        continue
-
-                    reveal_responses = dict(zip(targets, q['question__reveal_response'].strip('[]').split(',')))
-                    present = [val for key, val in reveal_responses.items() if val != values[key]]
-                    if len(present):
-                        q['value'] = ''
-                    continue
-
-                if target not in values:
-                    continue
-                numeric_condition = evaluate_numeric_condition(values[target], q['question__reveal_response'])
-                if numeric_condition is None:
-                    if q['question__reveal_response'].startswith('!'):
-                        if values[target] == "" or values[target] == q['question__reveal_response'][1:]:
-                            q['value'] = ''
-                    elif q['question__reveal_response'] and q['question__reveal_response'] != values[target]:
-                        q['value'] = ''
-                elif numeric_condition is False:
-                    q['value'] = ''
-
-        responses_dict[step] = lst
-
-    return responses_dict
+    details = {
+        'value': value,
+        'error': error,
+        'show': show
+    }
+    return details
 
 
 def get_responses_from_session(request):
@@ -139,25 +177,3 @@ def copy_session_to_db(request, bceid_user):
 
             # clear the response from the session
             request.session[q.key] = None
-
-
-def __get_data(bceid_user):
-    """
-    Gets UserResponses from the database for a user, plus a boolean indicating
-    if the user is married or common-law, and a list of questions that only apply to
-    married couples
-    """
-    COMMON_LAW = 'Living together in a marriage like relationship'
-    MARRIED = 'Legally married'
-
-    responses = UserResponse.objects.filter(bceid_user=bceid_user).select_related('question')
-    married_status = responses.filter(question_id='married_marriage_like')
-
-    if married_status.count() > 0:
-        married = married_status[0].value != COMMON_LAW
-    else:
-        married = False
-
-    married_questions = list(
-        Question.objects.filter(reveal_response=MARRIED).values_list("key", flat=True))
-    return married, married_questions, responses
