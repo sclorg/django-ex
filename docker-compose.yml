@@ -10,3 +10,29 @@ services:
       - "3310:3310"
     restart: always
 
+  # Redis Server
+  redis:
+    container_name: edivorce-redis
+    image: redis
+    command: redis-server --requirepass admin
+    ports:
+      - "6379:6379"
+    volumes:
+      - data-redis:/data
+    restart: always
+
+  # Redis Commander
+  redis-commander:
+    container_name: edivorce-redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=admin
+    ports:
+      - "8082:8081"
+
+volumes:
+  data-redis:
