@@ -85,6 +85,6 @@ def get_error_dict(step, missing_questions):
     """
     responses_dict = {}
     question_step = page_step_mapping[step]
-    for question_dict in missing_questions.get(question_step):
+    for question_dict in missing_questions.get(question_step, []):
         responses_dict[question_dict['question_id'] + '_error'] = True
     return responses_dict

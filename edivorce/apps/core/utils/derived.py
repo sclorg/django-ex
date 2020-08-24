@@ -28,9 +28,12 @@ DERIVED_DATA = [
     'wants_other_orders',
     'show_fact_sheet_a',
     'show_fact_sheet_b',
+    'fact_sheet_b_error',
     'show_fact_sheet_c',
     'show_fact_sheet_d',
+    'fact_sheet_d_error',
     'show_fact_sheet_e',
+    'fact_sheet_e_error',
     'show_fact_sheet_f_you',
     'show_fact_sheet_f_spouse',
     'show_fact_sheet_f',
@@ -75,7 +78,6 @@ DERIVED_DATA = [
     'pursuant_parenting_arrangement',
     'pursuant_child_support',
     'sole_custody',
-    'missing_undue_hardship_details',
 ]
 
 
@@ -157,6 +159,19 @@ def show_fact_sheet_b(responses, derived):
     return conditional_logic.determine_shared_custody(responses)
 
 
+def fact_sheet_b_error(responses, derived):
+    questions = ['number_of_children',
+                 'time_spent_with_you',
+                 'time_spent_with_spouse',
+                 'annual_gross_income',
+                 'spouse_annual_gross_income',
+                 'your_child_support_paid_b',
+                 'your_spouse_child_support_paid_b',
+                 ]
+    if derived['show_fact_sheet_b']:
+        return _any_question_errors(responses, questions)
+
+
 def show_fact_sheet_c(responses, derived):
     """
     If any child lives with one parent and there's another child who lives with
@@ -173,12 +188,22 @@ def show_fact_sheet_d(responses, derived):
     return conditional_logic.determine_child_over_19_supported(responses)
 
 
+def fact_sheet_d_error(responses, derived):
+    questions = ['agree_to_guideline_child_support_amount', 'appropriate_spouse_paid_child_support', 'suggested_child_support']
+    if derived['show_fact_sheet_d']:
+        return _any_question_errors(responses, questions)
+
+
 def show_fact_sheet_e(responses, derived):
     """
     If the claimant is claiming undue hardship, Fact Sheet E is indicated.
     """
 
     return responses.get('claiming_undue_hardship', '') == 'YES'
+
+
+def fact_sheet_e_error(responses, derived):
+    return conditional_logic.determine_missing_undue_hardship_reasons(responses)
 
 
 def show_fact_sheet_f_you(responses, derived):
@@ -724,10 +749,6 @@ def sole_custody(responses, derived):
     Return True if either parent has sole custody of the children
     """
     return conditional_logic.determine_sole_custody(responses)
-
-
-def missing_undue_hardship_details(responses, derived):
-    return conditional_logic.determine_missing_undue_hardship_reasons(responses)
 
 
 def _any_question_errors(responses, questions):

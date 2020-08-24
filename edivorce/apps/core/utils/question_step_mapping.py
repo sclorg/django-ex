@@ -119,6 +119,7 @@ question_step_mapping = {
                       'undue_hardship',
                       'income_others',
                       'total_income_others',
+                      # Fact sheet B
                       'number_of_children',
                       'time_spent_with_you',
                       'time_spent_with_spouse',
@@ -126,6 +127,7 @@ question_step_mapping = {
                       'spouse_annual_gross_income',
                       'your_child_support_paid_b',
                       'your_spouse_child_support_paid_b',
+                      # Fact sheet C
                       'your_child_support_paid_c',
                       'your_spouse_child_support_paid_c',
                       'agree_to_guideline_child_support_amount',

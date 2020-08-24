@@ -355,25 +355,6 @@ $(function () {
             }
         });
 
-        // show fact sheet b
-        if (childWithBoth) {
-            $('#fact_sheet_b').show();
-        } else {
-            $('#fact_sheet_b').hide();
-        }
-
-        // show fact sheet c
-        // When the claimants have indicated that they have more than one child, then show fact sheet c if each
-        // claimant has sole custody of at least one of the children or if one claimant has sole custody of at least one
-        // child and the both claimants have shared custody of the remaining children.
-        if (childWithYou && (childWithSpouse || childWithBoth)) {
-            $('#fact_sheet_c').show();
-        } else if (childWithSpouse && (childWithYou || childWithBoth)) {
-            $('#fact_sheet_c').show();
-        } else {
-            $('#fact_sheet_c').hide();
-        }
-
         // Initiate Child support payor.
         populateChildSupportPayor(childWithBoth, childWithYou, childWithSpouse);
         $('.determine-payor').on('change', function() {
@@ -589,42 +570,6 @@ $(function () {
     });
 
     var payorCallback = function() {
-        var claimant = $(this).val();
-
-        var toggleFactSheetTable = function(table_suffix, claimant_name_selector, hide) {
-            $('#fact_sheet_f').show();
-            if (hide) {
-                $('#fact_sheet_f_table_' + table_suffix).hide();
-            } else {
-                var fact_sheet_table_element = $('#fact_sheet_f_table_' + table_suffix);
-                fact_sheet_table_element.show();
-                fact_sheet_table_element.find('input:radio, input:checkbox').each(reveal_input_elements);
-            }
-
-            if (claimant_name_selector) {
-                $('#fact_sheet_f_payor_title_' + table_suffix).text($(claimant_name_selector).text());
-            }
-        };
-
-        if (claimant === 'Myself (Claimant 1)' && parseFloat($('input[name="annual_gross_income"]').val()) > 150000) {
-            toggleFactSheetTable('1', '#__name_you');
-            toggleFactSheetTable('2', null, true);
-        } else if (claimant === 'My Spouse (Claimant 2)' && parseFloat($('input[name="spouse_annual_gross_income"]').val()) > 150000) {
-            toggleFactSheetTable('2', '#__name_spouse');
-            toggleFactSheetTable('1', null, true);
-        } else if (claimant === 'Both myself and my spouse') {
-            if (parseFloat($('input[name="annual_gross_income"]').val()) > 150000) {
-                toggleFactSheetTable('1', '#__name_you');
-            }
-            if (parseFloat($('input[name="spouse_annual_gross_income"]').val()) > 150000) {
-                toggleFactSheetTable('2', '#__name_spouse');
-            }
-        } else {
-            $('#fact_sheet_f').hide();
-            $('#fact_sheet_f_table_1').hide();
-            $('#fact_sheet_f_table_2').hide();
-        }
-
         // Update Factsheet B payor label
         var amount_b_you = $('#fact_b_your_child_support_paid').val();
         var amount_b_spouse = $('#fact_b_your_spouse_child_support_paid').val();
