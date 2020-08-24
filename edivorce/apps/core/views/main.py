@@ -7,11 +7,11 @@ from django.utils import timezone
 
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import bceid_required, intercept
-from ..utils.question_step_mapping import list_of_registries, page_step_mapping
-from ..utils.step_completeness import get_step_completeness, is_complete, get_formatted_incomplete_list
+from ..utils.question_step_mapping import list_of_registries
+from ..utils.step_completeness import get_error_dict, get_step_completeness, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
 from ..utils.user_response import (
-    get_data_for_user, 
+    get_data_for_user,
     copy_session_to_db,
     get_step_responses,
     get_responses_from_session,
@@ -196,10 +196,10 @@ def question(request, step, sub_step=None):
     template = 'question/%02d_%s%s.html' % (template_step_order[step], step, sub_page_template)
 
     if step == "review":
-        responses_dict = get_data_for_user(request.user)
-        responses_dict_by_step = get_step_responses(responses_dict)
+        data_dict = get_data_for_user(request.user)
+        responses_dict_by_step = get_step_responses(data_dict)
         step_status, missing_questions = get_step_completeness(responses_dict_by_step)
-        derived = get_derived_data(responses_dict)
+        derived = get_derived_data(data_dict)
         responses_dict = {}
 
         # Just for now (until showing missing questions in review is implemented) remove unanswered questions
@@ -213,12 +213,8 @@ def question(request, step, sub_step=None):
         responses_dict = get_data_for_user(request.user)
         responses_dict_by_step = get_step_responses(responses_dict)
         step_status, missing_questions = get_step_completeness(responses_dict_by_step)
-        question_step = page_step_mapping.get(step, step)
-        show_errors = step_status.get(question_step) == 'Started'
+        responses_dict.update(get_error_dict(step, missing_questions))
         derived = get_derived_data(responses_dict)
-        if show_errors:
-            for question_dict in missing_questions.get(question_step):
-                responses_dict[question_dict['question_id'] + '_error'] = True
 
     # Add step status dictionary
     responses_dict['step_status'] = step_status

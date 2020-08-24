@@ -1,7 +1,7 @@
 from django.urls import reverse
 
 from edivorce.apps.core.models import Question
-from edivorce.apps.core.utils.question_step_mapping import pre_qual_step_question_mapping
+from edivorce.apps.core.utils.question_step_mapping import page_step_mapping, pre_qual_step_question_mapping
 
 
 def evaluate_numeric_condition(target, reveal_response):
@@ -32,6 +32,10 @@ def evaluate_numeric_condition(target, reveal_response):
 
 
 def get_step_completeness(responses_by_step):
+    """
+    Accepts a dictionary of {step: {question_id: {question__name, question_id, value, error}}} <-- from get_step_responses
+    Returns {step: status}, {step: [missing_question_key]}
+    """
     status_dict = {}
     missing_response_dict = {}
     for step, responses_list in responses_by_step.items():
@@ -73,3 +77,14 @@ def get_formatted_incomplete_list(missed_question_keys):
                     'step_url': reverse('prequalification', kwargs={'step': step})
                 })
     return missed_questions
+
+
+def get_error_dict(step, missing_questions):
+    """
+    Returns a dict of {question_key_error: True} for any
+    """
+    responses_dict = {}
+    question_step = page_step_mapping[step]
+    for question_dict in missing_questions.get(question_step):
+        responses_dict[question_dict['question_id'] + '_error'] = True
+    return responses_dict

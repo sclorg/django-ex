@@ -20,7 +20,7 @@ def get_data_for_user(bceid_user):
 
 def get_step_responses(responses_by_key):
     """
-    Accepts a dictionary of {question_key: user_response_value} (from get_data_for_user)
+    Accepts a dictionary of {question_key: user_response_value} <-- from get_data_for_user
     Returns a dictionary of {step: {question_id: {question__name, question_id, value, error}}}
     """
     responses_by_step = {}
