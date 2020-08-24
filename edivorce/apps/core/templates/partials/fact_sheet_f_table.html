@@ -14,7 +14,10 @@
                 How many child(ren) are you asking for support?
             </td>
             <td class="fact-sheet-answer">
-                {% input_field type="number" name="number_children_seeking_support_"|add:claimant_id class="fact-sheet-input number-spinner" placeholder="enter number " %}
+            {% lookup_context 'number_children_seeking_support_'|add:claimant_id|add:"_error" as question_error %}
+                <div class="{% if question_error %}table-error{% endif %}">
+                    {% input_field type="number" name="number_children_seeking_support_"|add:claimant_id class="fact-sheet-input number-spinner" placeholder="enter number " ignore_error=True %}
+                </div>
             </td>
         </tr>
         <tr>
@@ -27,8 +30,9 @@
                 {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_guideline_amount" %}
             </td>
             <td class="fact-sheet-answer">
-                <div class="dollar-prefix">
-                    {% money_input_field name="child_support_amount_under_high_income_"|add:claimant_id class="fact-sheet-input money guideline-amount-"|add:claimant_id data_sum="true" data_sum_class="guideline-amount-"|add:claimant_id data_sum_target_id="total_amount_"|add:claimant_id placeholder="enter amount "%}
+                {% lookup_context 'child_support_amount_under_high_income_'|add:claimant_id|add:"_error" as question_error %}
+                <div class="dollar-prefix {% if question_error %}table-error{% endif %}">
+                    {% money_input_field name="child_support_amount_under_high_income_"|add:claimant_id class="fact-sheet-input money guideline-amount-"|add:claimant_id data_sum="true" data_sum_class="guideline-amount-"|add:claimant_id data_sum_target_id="total_amount_"|add:claimant_id placeholder="enter amount " ignore_error=True %}
                 </div>
             </td>
         </tr>
@@ -40,8 +44,11 @@
             </td>
             <td class="fact-sheet-answer">
                 <div class="percent-suffix">
-                    {% input_field type="number" name="percent_income_over_high_income_limit_"|add:claimant_id class="fact-sheet-input" placeholder="enter percentage "%}
-                    <label> %</label>
+                    {% lookup_context 'percent_income_over_high_income_limit_'|add:claimant_id|add:"_error" as question_error %}
+                    <div class="{% if question_error %}table-error{% endif %}">
+                        {% input_field type="number" name="percent_income_over_high_income_limit_"|add:claimant_id class="fact-sheet-input" placeholder="enter percentage " ignore_error=True %}
+                        <label> %</label>
+                    </div>
                 </div>
             </td>
         </tr>
@@ -89,8 +96,9 @@
                 </div>
             </td>
             <td class="fact-sheet-answer">
-                <div class="dollar-prefix">
-                    {% money_input_field name="amount_income_over_high_income_limit_"|add:claimant_id class="fact-sheet-input money guideline-amount-"|add:claimant_id data_sum="true" data_sum_class="guideline-amount-"|add:claimant_id data_sum_target_id="total_amount_"|add:claimant_id data_mirror="true" data_mirror_target="#agreed_child_support_amount_"|add:claimant_id data_mirror_broadcast_change="true" placeholder="enter amount "%}
+                {% lookup_context 'amount_income_over_high_income_limit_'|add:claimant_id|add:"_error" as question_error %}
+                <div class="dollar-prefix {% if question_error %}table-error{% endif %}">
+                    {% money_input_field name="amount_income_over_high_income_limit_"|add:claimant_id class="fact-sheet-input money guideline-amount-"|add:claimant_id data_sum="true" data_sum_class="guideline-amount-"|add:claimant_id data_sum_target_id="total_amount_"|add:claimant_id data_mirror="true" data_mirror_target="#agreed_child_support_amount_"|add:claimant_id data_mirror_broadcast_change="true" placeholder="enter amount " ignore_error=True%}
                 </div>
             </td>
         </tr>
@@ -100,7 +108,7 @@
             </td>
             <td class="fact-sheet-answer" readonly>
                 <div class="dollar-prefix">
-                    {% money_input_field name="total_guideline_amount_"|add:claimant_id id="total_amount_"|add:claimant_id class="fact-sheet-input money" readonly="" data_mirror="true" data_mirror_target="#agreed_total_amount" data_mirror_broadcast_change="true" %}
+                    {% money_input_field name="total_guideline_amount_"|add:claimant_id id="total_amount_"|add:claimant_id class="fact-sheet-input money" readonly="" data_mirror="true" data_mirror_target="#agreed_total_amount" data_mirror_broadcast_change="true" ignore_error=True %}
                 </div>
             </td>
         </tr>
@@ -108,9 +116,11 @@
 </table>
 
 <div class="question-well-border-less">
+    {% lookup_context 'agree_to_child_support_amount_'|add:claimant_id|add:"_error" as question_error %}
     <h3>
         Do you and your spouse agree that $<span
             id="agreed_child_support_amount_{{ claimant_id }}">{% agreed_child_support_amount claimant_id line_breaks=False %}</span> is the child support amount?
+        {% if question_error %}{% include 'partials/required.html' %}{% endif %}
     </h3>
     <div class="btn-radio-group" data-toggle="buttons">
         <label class="btn btn-radio">
@@ -124,16 +134,20 @@
         </label>
     </div>
     <div id="enter_agreed_appropriate_amount_{{ claimant_id }}" hidden>
+        {% lookup_context 'agreed_child_support_amount_'|add:claimant_id|add:"_error" as question_error %}
         <h3>
             What is the amount that you and your spouse have agreed to (that differs from the Child Support Guidelines table amount)?
+            {% if question_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         <div>
             <div class="dollar-prefix">
                 {% money_input_field name="agreed_child_support_amount_"|add:claimant_id value="" class="fact-sheet-input money" %}
             </div>
         </div>
+        {% lookup_context 'reason_child_support_amount_'|add:claimant_id|add:"_error" as question_error %}
         <h3>
             Why do you think the court should approve your proposed amount?
+            {% if question_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         <p>
             Discuss the conditions, means, needs and other circumstances of the child, and the financial

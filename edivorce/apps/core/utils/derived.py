@@ -31,9 +31,10 @@ DERIVED_DATA = [
     'show_fact_sheet_c',
     'show_fact_sheet_d',
     'show_fact_sheet_e',
-    'show_fact_sheet_f',
     'show_fact_sheet_f_you',
     'show_fact_sheet_f_spouse',
+    'show_fact_sheet_f',
+    'fact_sheet_f_error',
     'has_fact_sheets',
     'child_support_payor_b',
     'child_support_payor_c',
@@ -180,19 +181,9 @@ def show_fact_sheet_e(responses, derived):
     return responses.get('claiming_undue_hardship', '') == 'YES'
 
 
-def show_fact_sheet_f(responses, derived):
-    """
-    If one of the claimants earns over $150,000, Fact Sheet F is indicated.
-    """
-    return show_fact_sheet_f_you(responses, derived) or show_fact_sheet_f_spouse(responses, derived)
-
-
 def show_fact_sheet_f_you(responses, derived):
     """
-
-    :param responses:
-    :param derived:
-    :return:
+    If claimant 1 (you) is a payor and makes over $150,000/year, show fact sheet F for claimant 1
     """
     payor = child_support_payor(responses, derived)
 
@@ -206,10 +197,7 @@ def show_fact_sheet_f_you(responses, derived):
 
 def show_fact_sheet_f_spouse(responses, derived):
     """
-
-    :param responses:
-    :param derived:
-    :return:
+    If claimant 2 (spouse) is a payor and makes over $150,000/year, show fact sheet F for claimant 2
     """
     payor = child_support_payor(responses, derived)
 
@@ -219,6 +207,40 @@ def show_fact_sheet_f_spouse(responses, derived):
         annual = 0
 
     return (payor == 'Claimant 2' or payor == 'both Claimant 1 and Claimant 2') and annual > 150000
+
+
+def show_fact_sheet_f(responses, derived):
+    """
+    If one of the claimants earns over $150,000, Fact Sheet F is indicated.
+    """
+    return derived['show_fact_sheet_f_you'] or derived['show_fact_sheet_f_spouse']
+
+
+def fact_sheet_f_error(responses, derived):
+    """
+    Helper to see if there are any errors for missing required fields
+    """
+    fields_for_you = ['number_children_seeking_support_you',
+                      'child_support_amount_under_high_income_you',
+                      'percent_income_over_high_income_limit_you',
+                      'amount_income_over_high_income_limit_you',
+                      'agree_to_child_support_amount_you',
+                      'agreed_child_support_amount_you',
+                      'reason_child_support_amount_you',
+                      ]
+    fields_for_spouse = ['number_children_seeking_support_spouse',
+                         'child_support_amount_under_high_income_spouse',
+                         'percent_income_over_high_income_limit_spouse',
+                         'amount_income_over_high_income_limit_spouse',
+                         'agree_to_child_support_amount_spouse',
+                         'agreed_child_support_amount_spouse',
+                         'reason_child_support_amount_spouse']
+    if show_fact_sheet_f_you(responses, derived):
+        if _any_question_errors(responses, fields_for_you):
+            return True
+    if show_fact_sheet_f_spouse(responses, derived):
+        if _any_question_errors(responses, fields_for_spouse):
+            return True
 
 
 def has_fact_sheets(responses, derived):
@@ -706,3 +728,11 @@ def sole_custody(responses, derived):
 
 def missing_undue_hardship_details(responses, derived):
     return conditional_logic.determine_missing_undue_hardship_reasons(responses)
+
+
+def _any_question_errors(responses, questions):
+    for field in questions:
+        error_field_name = f'{field}_error'
+        if responses.get(error_field_name):
+            return True
+    return False

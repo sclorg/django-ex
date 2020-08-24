@@ -178,6 +178,12 @@ def lookup(obj, property):
 
 
 @register.simple_tag(takes_context=True)
+def lookup_context(context, property):
+    """ Return the value of a dynamic property from context"""
+    return context.get(property, '')
+
+
+@register.simple_tag(takes_context=True)
 def agreed_child_support_amount(context, claimant_id, line_breaks=True):
     """Return the agree amount for the specific claimant fact sheet table."""
     if not line_breaks:

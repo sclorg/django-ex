@@ -554,7 +554,7 @@
     </div>
 {% endif %}
 
-    <div class="question-well fact-sheets" id="fact_sheet_f" hidden>
+    <div class="question-well fact-sheets {% if derived.fact_sheet_f_error %}error{% endif %}" id="fact_sheet_f" hidden>
         <h1>Income over $150,000 (Fact Sheet F)</h1>
         <p>
             Since you have previously indicated that the payor's income is over $150,000 you will need to provide

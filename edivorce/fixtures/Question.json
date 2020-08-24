@@ -914,7 +914,7 @@
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "annual_gross_income",
+        "conditional_target": "spouse_annual_gross_income",
         "reveal_response": ">150000"
     },
     "model": "core.question",
@@ -938,7 +938,7 @@
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "annual_gross_income",
+        "conditional_target": "spouse_annual_gross_income",
         "reveal_response": ">150000"
     },
     "model": "core.question",
@@ -962,7 +962,7 @@
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "annual_gross_income",
+        "conditional_target": "spouse_annual_gross_income",
         "reveal_response": ">150000"
     },
     "model": "core.question",
@@ -986,7 +986,7 @@
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "annual_gross_income",
+        "conditional_target": "spouse_annual_gross_income",
         "reveal_response": ">150000"
     },
     "model": "core.question",
@@ -1010,7 +1010,7 @@
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "annual_gross_income",
+        "conditional_target": "spouse_annual_gross_income",
         "reveal_response": ">150000"
     },
     "model": "core.question",
@@ -1034,7 +1034,7 @@
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "annual_gross_income",
+        "conditional_target": "spouse_annual_gross_income",
         "reveal_response": ">150000"
     },
     "model": "core.question",
@@ -1046,7 +1046,7 @@
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimants_agree_to_child_support_amount",
+        "conditional_target": "agree_to_child_support_amount_you",
         "reveal_response": "NO"
     },
     "model": "core.question",
@@ -1058,7 +1058,7 @@
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimants_agree_to_child_support_amount",
+        "conditional_target": "agree_to_child_support_amount_spouse",
         "reveal_response": "NO"
     },
     "model": "core.question",
@@ -1070,7 +1070,7 @@
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimants_agree_to_child_support_amount",
+        "conditional_target": "agree_to_child_support_amount_you",
         "reveal_response": "NO"
     },
     "model": "core.question",
@@ -1082,7 +1082,7 @@
         "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimants_agree_to_child_support_amount",
+        "conditional_target": "agree_to_child_support_amount_spouse",
         "reveal_response": "NO"
     },
     "model": "core.question",
@@ -1097,102 +1097,6 @@
     },
     "model": "core.question",
     "pk": "spouse_annual_gross_income"
-},
-{
-    "fields": {
-        "name": "How many child(ren) are you asking for support?",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 0,
-        "required": "Conditional",
-        "conditional_target": "spouse_annual_gross_income",
-        "reveal_response": ">150000"
-    },
-    "model": "core.question",
-    "pk": "spouse_number_children_seeking_support"
-},
-{
-    "fields": {
-        "name": "What is the Child Support Guidelines amount for $150,000?",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 0,
-        "required": "Conditional",
-        "conditional_target": "spouse_annual_gross_income",
-        "reveal_response": ">150000"
-    },
-    "model": "core.question",
-    "pk": "spouse_child_support_amount_under_high_income"
-},
-{
-    "fields": {
-        "name": "What is the % of income over $150,000 from the Child Support Guidlines?",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 0,
-        "required": "Conditional",
-        "conditional_target": "spouse_annual_gross_income",
-        "reveal_response": ">150000"
-    },
-    "model": "core.question",
-    "pk": "spouse_percent_income_over_high_income_limit"
-},
-{
-    "fields": {
-        "name": "What is the child support amount to be paid on the portion of income over $150,000?",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 0,
-        "required": "Conditional",
-        "conditional_target": "spouse_annual_gross_income",
-        "reveal_response": ">150000"
-    },
-    "model": "core.question",
-    "pk": "spouse_amount_income_over_high_income_limit"
-},
-{
-    "fields": {
-        "name": "Guidelines table amount",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 0,
-        "required": "Conditional",
-        "conditional_target": "spouse_annual_gross_income",
-        "reveal_response": ">150000"
-    },
-    "model": "core.question",
-    "pk": "spouse_total_guideline_amount"
-},
-{
-    "fields": {
-        "name": "What is the amount that you and your spouse have agreed to?",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 0,
-        "required": "Conditional",
-        "conditional_target": "spouse_annual_gross_income",
-        "reveal_response": ">150000"
-    },
-    "model": "core.question",
-    "pk": "spouse_agree_to_child_support_amount"
-},
-{
-    "fields": {
-        "name": "What is the amount that you and your spouse have agreed to?",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 0,
-        "required": "Conditional",
-        "conditional_target": "spouse_agree_to_child_support_amount",
-        "reveal_response": "NO"
-    },
-    "model": "core.question",
-    "pk": "spouse_agreed_child_support_amount"
-},
-{
-    "fields": {
-        "name": "Why do you think the court should approve your proposed amount?",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 0,
-        "required": "Conditional",
-        "conditional_target": "spouse_agree_to_child_support_amount",
-        "reveal_response": "NO"
-    },
-    "model": "core.question",
-    "pk": "spouse_reason_child_support_amount"
 },
 {
     "fields": {
