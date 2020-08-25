@@ -10,7 +10,7 @@
 {% block content %}
     <h1><small>Proof of Concept:</small>File storage</h1>
 
-    <form method="post" enctype="multipart/form-data">
+    <form id="form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         <div class="question-well">
@@ -32,11 +32,12 @@
 
         <div class="question-well">
             <h3>Stored documents</h3>
-            <table class="table table-bordered">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>File name</th>
                         <th>Redis key</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,6 +49,7 @@
                             </a>
                         </td>
                         <td class="fact-sheet-question">{{ document.file.name }}</td>
+                        <td><a href="{% url "poc-storage-delete" document.id %}" class="delete-link">Delete</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -55,7 +57,6 @@
         </div>
 
     </form>
-
 {% endblock %}
 
 {% block formbuttons %}

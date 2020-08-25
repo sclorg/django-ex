@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import FormView, CreateView
+from django.views.generic.edit import FormView, CreateView, DeleteView
 from django import forms
 from django.http import HttpResponse
 
@@ -34,6 +34,11 @@ class UploadStorage(CreateView):
     def get_context_data(self, **kwargs):
         kwargs['documents'] = Document.objects.all()
         return super(UploadStorage, self).get_context_data(**kwargs)
+
+
+class UploadStorageDelete(DeleteView):
+    model = Document
+    success_url = '/poc/storage'
 
 
 def view_document_file(request, document_id):

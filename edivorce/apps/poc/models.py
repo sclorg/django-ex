@@ -15,3 +15,13 @@ class Document(models.Model):
         self.filename = self.file.name
 
         super(Document, self).save(*args, **kwargs)
+
+    def delete(self, **kwargs):
+        """
+        Override delete so we can delete the Redis object when this instance is deleted.
+        :param kwargs:
+        :return:
+        """
+        self.file.delete(save=False)
+
+        super(Document, self).delete(**kwargs)
