@@ -119,12 +119,13 @@ question_step_mapping = {
                       'supporting_disabled',
                       'undue_hardship',
                       'income_others',
-
-                      'claimants_agree_to_child_support_amount',
+                      # Medical and other expenses
                       'medical_coverage_available',
                       'whose_plan_is_coverage_under',
                       'child_support_payments_in_arrears',
                       'child_support_arrears_amount',
+
+                      'claimants_agree_to_child_support_amount',
                       'child_support_in_order',
                       'order_monthly_child_support_amount',
                       'child_support_in_order_reason',
