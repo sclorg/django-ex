@@ -61,14 +61,11 @@
         </div>
     </div>
 
-    {% if derived.show_fact_sheet_f_you %}
-        <div id="fact_sheet_f_table_1" class="question-well-border-less">
-            {% include "partials/fact_sheets/fact_sheet_f_table.html" with table_id=1 claimant_id='you' %}
-        </div>
-    {% endif %}
-    {% if derived.show_fact_sheet_f_spouse %}
-        <div id="fact_sheet_f_table_2" class="question-well-border-less">
-            {% include "partials/fact_sheets/fact_sheet_f_table.html" with table_id=2 claimant_id='spouse' %}
-        </div>
-    {% endif %}
+
+    <div id="fact_sheet_f_table_1" class="question-well-border-less" {% if not derived.show_fact_sheet_f_you %}hidden{% endif %}>
+        {% include "partials/fact_sheets/fact_sheet_f_table.html" with table_id=1 claimant_id='you' %}
+    </div>
+    <div id="fact_sheet_f_table_2" class="question-well-border-less" {% if not derived.show_fact_sheet_f_spouse %}hidden{% endif %}>
+        {% include "partials/fact_sheets/fact_sheet_f_table.html" with table_id=2 claimant_id='spouse' %}
+    </div>
 </div>
