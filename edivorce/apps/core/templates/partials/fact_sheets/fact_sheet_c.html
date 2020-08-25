@@ -24,7 +24,7 @@
             </td>
             <td class="fact-sheet-answer table-bordered">
                 <div class="{% if number_of_children_claimant_error %}table-error{% endif %}">
-                    {% input_field type="number" name="number_of_children_claimant" class="positive-integer fact-sheet-input number-spinner" min="0" placeholder="enter number" %}
+                    {% input_field type="number" name="number_of_children_claimant" class="positive-integer fact-sheet-input number-spinner" min="0" placeholder="enter number" ignore_error=True %}
                 </div>
             </td>
         </tr>
@@ -57,7 +57,7 @@
             </td>
             <td class="fact-sheet-answer" readonly>
                 <div class="dollar-prefix">
-                    {% money_input_field id="fact_c_spouse_annual_gross_income" name="spouse_annual_gross_income" class="fact-sheet-input money" readonly="" %}
+                    {% money_input_field id="fact_c_spouse_annual_gross_income" name="spouse_annual_gross_income" class="fact-sheet-input money" readonly="" ignore_error=True %}
                 </div>
             </td>
         </tr>
@@ -70,7 +70,7 @@
                 {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_calculate_amount_to_pay" %}
             </td>
             <td class="fact-sheet-answer">
-                <div class="dollar-prefix">
+                <div class="dollar-prefix {% if your_spouse_child_support_paid_c_error %}table-error{% endif %}">
                     {% money_input_field id="fact_c_your_spouse_child_support_paid" name="your_spouse_child_support_paid_c" class="fact-sheet-input money claimants-child-support-paid determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts_c]" ignore_error=True %}
                 </div>
             </td>
@@ -81,7 +81,9 @@
                 support?
             </td>
             <td class="fact-sheet-answer table-bordered">
-                {% input_field type="number" name="number_of_children_claimant_spouse" class="positive-integer fact-sheet-input number-spinner" min="0" placeholder="enter number" %}
+                <div class="{% if number_of_children_claimant_spouse_error %}table-error{% endif %}">
+                    {% input_field type="number" name="number_of_children_claimant_spouse" class="positive-integer fact-sheet-input number-spinner" min="0" placeholder="enter number" ignore_error=True %}
+                </div>
             </td>
         </tr>
         <tr>
@@ -113,7 +115,7 @@
             </td>
             <td class="fact-sheet-answer" readonly>
                 <div class="dollar-prefix">
-                    {% money_input_field id="fact_c_annual_gross_income" name="annual_gross_income" class="fact-sheet-input money" readonly="" %}
+                    {% money_input_field id="fact_c_annual_gross_income" name="annual_gross_income" class="fact-sheet-input money" readonly="" ignore_error=True %}
                 </div>
             </td>
         </tr>
@@ -127,8 +129,8 @@
                 {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_calculate_claimant_amounts" %}
             </td>
             <td class="fact-sheet-answer">
-                <div class="dollar-prefix">
-                    {% money_input_field id="fact_c_your_child_support_paid" name="your_child_support_paid_c" class="fact-sheet-input money claimants-child-support-paid determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts_c]" %}
+                <div class="dollar-prefix {% if your_child_support_paid_c_error %}table-error{% endif %}">
+                    {% money_input_field id="fact_c_your_child_support_paid" name="your_child_support_paid_c" class="fact-sheet-input money claimants-child-support-paid determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts_c]" ignore_error=True %}
                 </div>
             </td>
         </tr>
@@ -138,7 +140,7 @@
             </td>
             <td class="fact-sheet-answer" readonly>
                 <div class="dollar-prefix">
-                    {% money_input_field id="difference_payment_amounts_c" name="difference_payment_amounts_c" class="fact-sheet-input different-payment-amounts" readonly="" %}
+                    {% money_input_field id="difference_payment_amounts_c" name="difference_payment_amounts_c" class="fact-sheet-input different-payment-amounts" readonly="" ignore_error=True %}
                 </div>
             </td>
         </tr>

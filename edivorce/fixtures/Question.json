@@ -1432,7 +1432,6 @@
         "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimant_children",
         "conditional_target": "determine_shared_custody",
         "reveal_response": "True"
     },
@@ -1553,8 +1552,8 @@
         "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimant_children",
-        "reveal_response": ""
+        "conditional_target": "determine_split_custody",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "your_child_support_paid_c"
@@ -1565,8 +1564,8 @@
         "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimant_children",
-        "reveal_response": ""
+        "conditional_target": "determine_split_custody",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "your_spouse_child_support_paid_c"
@@ -1577,8 +1576,8 @@
         "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimant_children",
-        "reveal_response": ""
+        "conditional_target": "determine_split_custody",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "number_of_children_claimant"
@@ -1589,8 +1588,8 @@
         "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
         "summary_order": 0,
         "required": "Conditional",
-        "conditional_target": "claimant_children",
-        "reveal_response": ""
+        "conditional_target": "determine_split_custody",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "number_of_children_claimant_spouse"

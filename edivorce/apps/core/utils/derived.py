@@ -30,6 +30,7 @@ DERIVED_DATA = [
     'show_fact_sheet_b',
     'fact_sheet_b_error',
     'show_fact_sheet_c',
+    'fact_sheet_c_error',
     'show_fact_sheet_d',
     'fact_sheet_d_error',
     'show_fact_sheet_e',
@@ -163,8 +164,6 @@ def fact_sheet_b_error(responses, derived):
     questions = ['number_of_children',
                  'time_spent_with_you',
                  'time_spent_with_spouse',
-                 'annual_gross_income',
-                 'spouse_annual_gross_income',
                  'your_child_support_paid_b',
                  'your_spouse_child_support_paid_b',
                  ]
@@ -178,6 +177,16 @@ def show_fact_sheet_c(responses, derived):
     the other parent or is shared, Fact Sheet C is indicated.
     """
     return conditional_logic.determine_split_custody(responses)
+
+
+def fact_sheet_c_error(responses, derived):
+    questions = ['number_of_children_claimant',
+                 'determine_split_custody',
+                 'number_of_children_claimant_spouse',
+                 'your_child_support_paid_c',
+                 ]
+    if derived['show_fact_sheet_c']:
+        return _any_question_errors(responses, questions)
 
 
 def show_fact_sheet_d(responses, derived):
