@@ -67,3 +67,69 @@ def determine_missing_undue_hardship_reasons(questions_dict):
                         return False
 
     return True
+
+
+def determine_child_support_payor(questions_dict):
+    payor = questions_dict.get('child_support_payor', '')
+    if payor == 'Myself (Claimant 1)':
+        return 'Claimant 1'
+    elif payor == 'My Spouse (Claimant 2)':
+        return 'Claimant 2'
+    elif payor == 'Both myself and my spouse':
+        return 'both Claimant 1 and Claimant 2'
+    return ''
+
+
+def determine_show_fact_sheet_f_you(questions_dict):
+    """
+    If claimant 1 (you) is a payor and makes over $150,000/year, show fact sheet F for claimant 1
+    """
+    payor = determine_child_support_payor(questions_dict)
+    try:
+        annual = float(questions_dict.get('annual_gross_income', 0))
+    except ValueError:
+        annual = 0
+    return (payor == 'Claimant 1' or payor == 'both Claimant 1 and Claimant 2') and annual > 150000
+
+
+def determine_show_fact_sheet_f_spouse(questions_dict):
+    """
+    If claimant 2 (spouse) is a payor and makes over $150,000/year, show fact sheet F for claimant 2
+    """
+    payor = determine_child_support_payor(questions_dict)
+
+    try:
+        annual = float(questions_dict.get('spouse_annual_gross_income', 0))
+    except ValueError:
+        annual = 0
+
+    return (payor == 'Claimant 2' or payor == 'both Claimant 1 and Claimant 2') and annual > 150000
+
+
+def determine_child_support_act_requirement(questions_dict):
+    orders_wanted = json.loads(questions_dict.get('want_which_orders', '[]'))
+    return 'Child support' in orders_wanted
+
+
+def determine_special_expenses_detail_error(questions_dict):
+    special_expenses_keys = ["child_care_expenses", "annual_child_care_expenses", "children_healthcare_premiums",
+                             "annual_children_healthcare_premiums", "health_related_expenses", "annual_health_related_expenses",
+                             "extraordinary_educational_expenses", "annual_extraordinary_educational_expenses",
+                             "post_secondary_expenses", "annual_post_secondary_expenses", "extraordinary_extracurricular_expenses",
+                             "annual_extraordinary_extracurricular_expenses"]
+
+    if questions_dict.get('special_extraordinary_expenses') == 'YES':
+        for special_expense in special_expenses_keys:
+            value = questions_dict.get(special_expense)
+            if value and value != '0.00':
+                return False
+        return True
+    else:
+        return False
+
+
+def get_cleaned_response_value(response):
+    ignore_values = [None, '', '[]', '[["",""]]', '[["also known as",""]]']
+    if response not in ignore_values:
+        return response
+    return None

@@ -17,6 +17,13 @@ from edivorce.apps.core.utils import conditional_logic
 
 # This array is order sensitive: later functions may depend on values from
 # earlier ones
+from edivorce.apps.core.utils.conditional_logic import (
+    determine_child_support_payor,
+    determine_show_fact_sheet_f_spouse,
+    determine_show_fact_sheet_f_you,
+    determine_special_expenses_detail_error
+)
+
 DERIVED_DATA = [
     'orders_wanted',
     'children',
@@ -79,6 +86,7 @@ DERIVED_DATA = [
     'pursuant_parenting_arrangement',
     'pursuant_child_support',
     'sole_custody',
+    'special_expenses_detail_error',
 ]
 
 
@@ -216,31 +224,11 @@ def fact_sheet_e_error(responses, derived):
 
 
 def show_fact_sheet_f_you(responses, derived):
-    """
-    If claimant 1 (you) is a payor and makes over $150,000/year, show fact sheet F for claimant 1
-    """
-    payor = child_support_payor(responses, derived)
-
-    try:
-        annual = float(responses.get('annual_gross_income', 0))
-    except ValueError:
-        annual = 0
-
-    return (payor == 'Claimant 1' or payor == 'both Claimant 1 and Claimant 2') and annual > 150000
+    return determine_show_fact_sheet_f_you(responses)
 
 
 def show_fact_sheet_f_spouse(responses, derived):
-    """
-    If claimant 2 (spouse) is a payor and makes over $150,000/year, show fact sheet F for claimant 2
-    """
-    payor = child_support_payor(responses, derived)
-
-    try:
-        annual = float(responses.get('spouse_annual_gross_income', 0))
-    except ValueError:
-        annual = 0
-
-    return (payor == 'Claimant 2' or payor == 'both Claimant 1 and Claimant 2') and annual > 150000
+    return determine_show_fact_sheet_f_spouse(responses)
 
 
 def show_fact_sheet_f(responses, derived):
@@ -397,16 +385,7 @@ def schedule_1_amount(responses, derived):
 
 def child_support_payor(responses, derived):
     """ Return the payor phrased for the affidavit """
-
-    payor = responses.get('child_support_payor', '')
-    if payor == 'Myself (Claimant 1)':
-        return 'Claimant 1'
-    elif payor == 'My Spouse (Claimant 2)':
-        return 'Claimant 2'
-    elif payor == 'Both myself and my spouse':
-        return 'both Claimant 1 and Claimant 2'
-
-    return ''
+    return determine_child_support_payor(responses)
 
 
 def child_support_payor_by_name(responses, derived):
@@ -758,6 +737,10 @@ def sole_custody(responses, derived):
     Return True if either parent has sole custody of the children
     """
     return conditional_logic.determine_sole_custody(responses)
+
+
+def special_expenses_detail_error(responses, derived):
+    return determine_special_expenses_detail_error(responses)
 
 
 def _any_question_errors(responses, questions):

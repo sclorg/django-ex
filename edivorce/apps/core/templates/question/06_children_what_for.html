@@ -11,7 +11,7 @@
 
 {% block content %}
 <h1><small>Step {% step_order step="children" %}:</small>Children - What are you asking for</h1>
-    <div class="question-well">
+    <div class="question-well {% if child_support_in_order_error or child_support_in_order_reason_error %}error{% endif %}">
         <h3>What is the monthly child support amount
                 <span class="tooltip-link"
                   data-toggle="tooltip" data-placement="right" data-html="true"
@@ -25,6 +25,7 @@
                     proposed in the order<i class="fa fa-question-circle" aria-hidden="true"></i>
                 </span>
              to be paid by {% payorize %}?
+            {% if child_support_in_order_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         <div class="radio">
             <label class="radio-with-textbox">
@@ -85,9 +86,11 @@
         <div class="radio">
             
             {% if 'Child support' in want_which_orders|load_json %}
-                <label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_id="child_support_in_order_detail" data_reveal_target="true" data_target_class="support-amount-match" data_reveal_class="false" %}We are not asking for child support to be included in the order</label>
+                <label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_id="child_support_in_order_detail" data_reveal_target="true" data_target_class="support-amount-match" data_reveal_class="false" %}
+                    We are not asking for child support to be included in the order</label>
             {% else %}
-                <label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_id="child_support_in_order_detail" data_reveal_target="true" data_target_class="support-amount-match" data_reveal_class="false" disabled="" checked="" %}We are not asking for child support to be included in the order</label>
+                <label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_id="child_support_in_order_detail" data_reveal_target="true" data_target_class="support-amount-match" data_reveal_class="false" disabled="" checked="" %}
+                    We are not asking for child support to be included in the order</label>
                 <div class="information-message bg-danger">
                     <p>This option has been automatically selected for you because you indicated in Step 1 you didn't want an "Order pertaining to children"</p>
                 </div>
@@ -99,8 +102,10 @@
         </div>
     </div>
 
-    <div class="question-well support-amount-match hide-grouping" id="amount_does_not_match" hidden>
-        <h3>Do you and the other parent agree (have consented) on the child support amount?</h3>
+    <div class="question-well support-amount-match hide-grouping {% if claimants_agree_to_child_support_amount_error %}error{% endif %}" id="amount_does_not_match" hidden>
+        <h3>Do you and the other parent agree (have consented) on the child support amount?
+            {% if claimants_agree_to_child_support_amount_error %}{% include 'partials/required.html' %}{% endif %}
+        </h3>
         <div class="btn-radio-group" data-toggle="buttons">
             <label class="btn btn-radio">
                 {% input_field type="radio" name="claimants_agree_to_child_support_amount" value="YES" data_target_id="what_special_provisions" data_reveal_target="false" %} Yes
@@ -111,13 +116,15 @@
         </div>
     </div>
 
-    <div class="question-well hide-grouping support-amount-match" id="what_special_provisions" hidden>
-        <h3>What special provisions have been made?</h3>
+    <div class="question-well hide-grouping support-amount-match {% if child_support_payment_special_provisions_error %}error{% endif %}" id="what_special_provisions" hidden>
+        <h3>What special provisions have been made?{% if child_support_payment_special_provisions_error %}{% include 'partials/required.html' %}{% endif %}</h3>
         {% input_field type="textarea" name="child_support_payment_special_provisions" class="response-textarea form-control" tabindex="-1" maxlength="1000" rows="3" %}
     </div>
 
-    <div class="question-well">
-        <h3>Do you have a separation agreement that sets out what you've agreed to around parenting and child support?</h3>
+    <div class="question-well {% if have_separation_agreement_error %}error{% endif %}">
+        <h3>Do you have a separation agreement that sets out what you've agreed to around parenting and child support?
+            {% if have_separation_agreement_error %}{% include 'partials/required.html' %}{% endif %}
+        </h3>
         <div class="btn-radio-group" data-toggle="buttons">
             <label class="btn btn-radio">
                 {% input_field type="radio" name="have_separation_agreement" autocomplete="off" value="YES" data_target_id="separation_agreement" data_reveal_target="true" %} Yes
@@ -208,7 +215,7 @@
 
     </div>
 
-    <div class="question-well">
+    <div class="question-well {% if have_court_order_error %}error{% endif %}">
         <h3>Do you already have a child support
             <span class="tooltip-link"
               data-toggle="tooltip" data-placement="right" data-html="true"
@@ -220,7 +227,9 @@
                  </p>
                 ">
                  order <i class="fa fa-question-circle" aria-hidden="true"></i>
-            </span>in Provincial or Supreme Court?</h3>
+            </span>in Provincial or Supreme Court?
+            {% if have_court_order_error %}{% include 'partials/required.html' %}{% endif %}
+        </h3>
         <div class="btn-radio-group" data-toggle="buttons">
             <label class="btn btn-radio">
                 {% input_field type="radio" name="have_court_order" autocomplete="off" value="YES" data_target_id="court_order_details" data_reveal_target="true" %} Yes
@@ -259,8 +268,10 @@
     </div>
 
 
-    <div class="question-well">
-        <h3>The court needs to know what the current parenting arrangements are for the children of the marriage. Please describe below.</h3>
+    <div class="question-well {% if what_parenting_arrangements_error %}error{% endif %}">
+        <h3>The court needs to know what the current parenting arrangements are for the children of the marriage. Please describe below.
+            {% if what_parenting_arrangements_error %}{% include 'partials/required.html' %}{% endif %}
+        </h3>
         <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_parenting_arrangement" aria-controls="collapse_parenting_arrangement">
             <div>
                 What should we consider when determining parenting arrangements?
@@ -300,8 +311,7 @@
         {% input_field type="textarea" name="what_parenting_arrangements" class="response-textarea form-control" maxlength="20000" rows="7"%}
     </div>
 
-    {% if 'Child support' in want_which_orders|load_json %}
-    <div class="question-well">
+    <div class="question-well {% if want_parenting_arrangements_error %}error{% endif %}">
         <h3>Are you asking the court for an
             <span class="tooltip-link"
               data-toggle="tooltip" data-placement="right" data-html="true"
@@ -317,6 +327,7 @@
                 ">
                 order about parenting arrangements or contact <i class="fa fa-question-circle" aria-hidden="true"></i>
             </span> with a child?
+            {% if want_parenting_arrangements_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         <div class="btn-radio-group" data-toggle="buttons">
             <label class="btn btn-radio">
@@ -329,8 +340,10 @@
         </div>
     </div>
 
-    <div class="question-well" id="parenting_arrangement_detail" hidden>
-        <h3>Please indicate the parenting arrangements you are asking for below.</h3>
+    <div class="question-well {% if order_respecting_arrangement_error %}error{% endif %}" id="parenting_arrangement_detail" hidden>
+        <h3>Please indicate the parenting arrangements you are asking for below.
+            {% if order_respecting_arrangement_error %}{% include 'partials/required.html' %}{% endif %}
+        </h3>
         <p>
             You need to include each of the orders you want pertaining to guardianship, parental responsibilities and
             parenting time, and contact with the child. You will need to write them as if a Judge is telling you to do it.
@@ -353,8 +366,8 @@
         </blockquote>
         {% input_field type="textarea" name="order_respecting_arrangement" class="response-textarea form-control" maxlength="20000" rows="7"%}
     </div>
-
-    <div class="question-well" id="child_support_description">
+    {% if 'Child support' in want_which_orders|load_json %}
+        <div class="question-well {% if order_for_child_support_error %}error{% endif %}" id="child_support_description">
         <h3>If you are asking for an
                         <span class="tooltip-link"
               data-toggle="tooltip" data-placement="right" data-html="true"
@@ -367,6 +380,7 @@
                 order for child support<i class="fa fa-question-circle" aria-hidden="true"></i>
             </span>
             please describe what you are asking for.
+            {% if order_for_child_support_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         <p>
             Child support is determined according to the federal government’s
@@ -400,8 +414,10 @@
     {% endif %}
 
     {# DIV-963: Show/hide logic and text update will be handled by JavaScript function updateChildSupportActQuestion() #}
-    <div class="question-well" id="child_support_act" {% if 'Child support' in want_which_orders|load_json %}data-want_child_order="true"{% endif %}>
-        <h3 id="child_support_act_question">Please indicate which act(s) you are asking for child support under.</h3>
+    <div class="question-well {% if child_support_act_error %}error{% endif %}" id="child_support_act" {% if 'Child support' in want_which_orders|load_json %}data-want_child_order="true"{% endif %}>
+        <h3><span id="child_support_act_question">Please indicate which act(s) you are asking for child support under.</span>
+            {% if child_support_act_error %}{% include 'partials/required.html' %}{% endif %}
+        </h3>
         <div class="checkbox-group">
             <div class="checkbox">
                 <label>
