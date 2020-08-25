@@ -2,6 +2,7 @@ from django.urls import reverse
 
 from edivorce.apps.core.models import Question
 from edivorce.apps.core.utils.question_step_mapping import page_step_mapping, pre_qual_step_question_mapping
+from edivorce.apps.core.utils.conditional_logic import get_cleaned_response_value
 
 
 def evaluate_numeric_condition(target, reveal_response):
@@ -31,18 +32,18 @@ def evaluate_numeric_condition(target, reveal_response):
     return None
 
 
-def get_step_completeness(responses_by_step):
+def get_step_completeness(questions_by_step):
     """
     Accepts a dictionary of {step: {question_id: {question__name, question_id, value, error}}} <-- from get_step_responses
     Returns {step: status}, {step: [missing_question_key]}
     """
     status_dict = {}
     missing_response_dict = {}
-    for step, responses_list in responses_by_step.items():
-        if len(responses_list) == 0:
+    for step, question_list in questions_by_step.items():
+        if not_started(question_list):
             status_dict[step] = "Not started"
         else:
-            complete, missing_responses = is_complete(responses_list)
+            complete, missing_responses = is_complete(question_list)
             if complete:
                 status_dict[step] = "Complete"
             else:
@@ -51,9 +52,16 @@ def get_step_completeness(responses_by_step):
     return status_dict, missing_response_dict
 
 
-def is_complete(response_list):
+def not_started(question_list):
+    for question_dict in question_list:
+        if get_cleaned_response_value(question_dict['value']):
+            return False
+    return True
+
+
+def is_complete(question_list):
     missing_responses = []
-    for question_dict in response_list:
+    for question_dict in question_list:
         if question_dict['error']:
             missing_responses.append(question_dict)
     return len(missing_responses) == 0, missing_responses
@@ -86,5 +94,6 @@ def get_error_dict(step, missing_questions):
     responses_dict = {}
     question_step = page_step_mapping[step]
     for question_dict in missing_questions.get(question_step, []):
-        responses_dict[question_dict['question_id'] + '_error'] = True
+        field_error_key = question_dict['question_id'] + '_error'
+        responses_dict[field_error_key] = True
     return responses_dict

@@ -1,8 +1,14 @@
 from edivorce.apps.core.models import UserResponse, Question
 from edivorce.apps.core.utils import conditional_logic
+from edivorce.apps.core.utils.conditional_logic import get_cleaned_response_value
 from edivorce.apps.core.utils.question_step_mapping import page_step_mapping, question_step_mapping
 from edivorce.apps.core.utils.step_completeness import evaluate_numeric_condition
 from collections import OrderedDict
+
+
+REQUIRED = 0
+HIDDEN = 1
+OPTIONAL = 2
 
 
 def get_data_for_user(bceid_user):
@@ -54,13 +60,6 @@ def _get_questions_dict_set_for_step(step):
     return questions_dict
 
 
-def _cleaned_response_value(response):
-    ignore_values = [None, '', '[]', '[["",""]]', '[["also known as",""]]']
-    if response not in ignore_values:
-        return response
-    return None
-
-
 def _condition_met(target_response, reveal_response):
     # check whether using a numeric condition
     numeric_condition_met = evaluate_numeric_condition(target_response, reveal_response)
@@ -83,35 +82,24 @@ def _get_question_details(question, questions_dict, responses_by_key):
       error: True if the question has an error (e.g. required but not answered)
       show: False if the response shouldn't be displayed (e.g. don't show 'Also known as' name, but 'Does your spouse go by any other names' is NO)
     """
-    question_dict = questions_dict[question]
     required = False
     show = True
-    if question_dict["question__required"] == 'Required':
+    question_required = _is_question_required(question, questions_dict, responses_by_key)
+    if question_required == REQUIRED:
         required = True
-    elif question_dict["question__required"] == 'Conditional':
-        target = question_dict["question__conditional_target"]
-        if target.startswith('determine_'):
-            # Look for the right function to evaluate conditional logic
-            derived_condition = getattr(conditional_logic, target)
-            if not derived_condition:
-                raise NotImplemented(target)
-            result = derived_condition(responses_by_key)
-            if result and _condition_met(result, question_dict["question__reveal_response"]):
-                required = True
-            else:
-                show = False
-        elif question in questions_dict:
-            target_response = responses_by_key.get(target)
-            if target_response and _condition_met(target_response, question_dict["question__reveal_response"]):
-                required = True
-            else:
-                show = False
+        show = True
+    elif question_required == HIDDEN:
+        required = False
+        show = False
+    elif question_required == OPTIONAL:
+        required = False
+        show = True
 
     if show:
         value = None
         response = responses_by_key.get(question)
         if response:
-            value = _cleaned_response_value(response)
+            value = get_cleaned_response_value(response)
         error = required and not value
     else:
         value = None
@@ -123,6 +111,43 @@ def _get_question_details(question, questions_dict, responses_by_key):
         'show': show
     }
     return details
+
+
+def _is_question_required(question, questions_dict, responses_by_key):
+    """
+    returns REQUIRED, HIDDEN, or OPTIONAL
+    raises KeyError if the question is conditional and improperly configured (for development testing purposes)
+    """
+    question_dict = questions_dict[question]
+    if question_dict['question__required'] == 'Required':
+        return REQUIRED
+    elif question_dict['question__required'] == 'Conditional':
+        target = question_dict.get('question__conditional_target')
+        reveal_response = question_dict.get('question__reveal_response')
+        if not target or not reveal_response:
+            raise KeyError(f"Improperly configured question '{question}'. Needs target and reveal response")
+
+        if target.startswith('determine_'):
+            # Look for the right function to evaluate conditional logic
+            derived_condition = getattr(conditional_logic, target)
+            if not derived_condition:
+                raise NotImplemented(target)
+            result = derived_condition(responses_by_key)
+            if result and _condition_met(result, reveal_response):
+                return REQUIRED
+            else:
+                return HIDDEN
+        elif target in questions_dict:
+            target_question_requirement = _is_question_required(target, questions_dict, responses_by_key)
+            if target_question_requirement == REQUIRED:
+                target_response = responses_by_key.get(target)
+                if target_response and _condition_met(target_response, reveal_response):
+                    return REQUIRED
+            return HIDDEN
+        else:
+            raise KeyError(f"Invalid conditional target '{target}' for question '{question}'")
+    else:
+        return OPTIONAL
 
 
 def get_responses_from_session(request):
