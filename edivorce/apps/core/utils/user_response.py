@@ -155,19 +155,15 @@ def get_responses_from_session(request):
 
 
 def get_responses_from_session_grouped_by_steps(request):
-    question_list = Question.objects.filter(key__in=question_step_mapping['prequalification'])
+    step_questions_dict = _get_questions_dict_set_for_step('prequalification')
+    step_questions_list = []
+    for question_key, question_dict in step_questions_dict.items():
+        question_details = _get_question_details(question_key, step_questions_dict, request.session)
+        question_dict['value'] = question_details['value']
+        question_dict['error'] = question_details['error']
+        step_questions_list.append(question_dict)
 
-    lst = []
-
-    for question in question_list:
-        lst += [{'question__conditional_target': question.conditional_target,
-                 'question__reveal_response': question.reveal_response,
-                 'value': request.session.get(question.pk, ''),
-                 'question__name': question.name,
-                 'question__required': question.required,
-                 'question_id': question.pk}]
-
-    return {'prequalification': lst}
+    return {'prequalification': step_questions_list}
 
 
 def save_to_db(serializer, question, value, bceid_user):

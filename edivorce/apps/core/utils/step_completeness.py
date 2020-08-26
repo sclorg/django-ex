@@ -1,7 +1,7 @@
 from django.urls import reverse
 
 from edivorce.apps.core.models import Question
-from edivorce.apps.core.utils.question_step_mapping import page_step_mapping, pre_qual_step_question_mapping
+from edivorce.apps.core.utils.question_step_mapping import children_substep_question_mapping, page_step_mapping, pre_qual_step_question_mapping, question_step_mapping
 from edivorce.apps.core.utils.conditional_logic import get_cleaned_response_value
 
 
@@ -38,18 +38,16 @@ def get_step_completeness(questions_by_step):
     Returns {step: status}, {step: [missing_question_key]}
     """
     status_dict = {}
-    missing_response_dict = {}
-    for step, question_list in questions_by_step.items():
-        if not_started(question_list):
+    for step, questions_dict in questions_by_step.items():
+        if not_started(questions_dict):
             status_dict[step] = "Not started"
         else:
-            complete, missing_responses = is_complete(question_list)
+            complete = is_complete(questions_dict)
             if complete:
                 status_dict[step] = "Complete"
             else:
-                missing_response_dict[step] = missing_responses
                 status_dict[step] = "Started"
-    return status_dict, missing_response_dict
+    return status_dict
 
 
 def not_started(question_list):
@@ -60,11 +58,10 @@ def not_started(question_list):
 
 
 def is_complete(question_list):
-    missing_responses = []
     for question_dict in question_list:
         if question_dict['error']:
-            missing_responses.append(question_dict)
-    return len(missing_responses) == 0, missing_responses
+            return False
+    return True
 
 
 def get_formatted_incomplete_list(missed_question_keys):
@@ -87,13 +84,34 @@ def get_formatted_incomplete_list(missed_question_keys):
     return missed_questions
 
 
-def get_error_dict(step, missing_questions):
+def get_error_dict(questions_by_step, step, substep=None):
     """
-    Returns a dict of {question_key_error: True} for any
+    Accepts questions dict of {step: [{question_dict}]} and a step (and substep)
+    Returns a dict of {question_key_error: True} for missing questions that are part of that step (and substep)
     """
     responses_dict = {}
     question_step = page_step_mapping[step]
-    for question_dict in missing_questions.get(question_step, []):
-        field_error_key = question_dict['question_id'] + '_error'
-        responses_dict[field_error_key] = True
+    step_questions = questions_by_step.get(question_step)
+    if substep:
+        substep_questions = children_substep_question_mapping[substep]
+        step_questions = list(filter(lambda question_dict: question_dict['question_id'] in substep_questions, step_questions))
+    if not not_started(step_questions) and not is_complete(step_questions):
+        for question_dict in step_questions:
+            if question_dict['error']:
+                field_error_key = question_dict['question_id'] + '_error'
+                responses_dict[field_error_key] = True
     return responses_dict
+
+
+def get_missed_question_keys(questions_by_step, step):
+    """
+    Accepts questions dict of {step: [{question_dict}]} and a step
+    Returns a list of [question_key] for missing questions that are part of that step
+    """
+    missed_questions = []
+    question_step = page_step_mapping[step]
+    step_questions = questions_by_step.get(question_step)
+    for question_dict in step_questions:
+        if question_dict['error']:
+            missed_questions.append(question_dict['question_id'])
+    return missed_questions

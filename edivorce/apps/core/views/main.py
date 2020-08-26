@@ -8,7 +8,7 @@ from django.utils import timezone
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import bceid_required, intercept
 from ..utils.question_step_mapping import list_of_registries
-from ..utils.step_completeness import get_error_dict, get_step_completeness, is_complete, get_formatted_incomplete_list
+from ..utils.step_completeness import get_error_dict, get_missed_question_keys, get_step_completeness, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
 from ..utils.user_response import (
     get_data_for_user,
@@ -48,7 +48,7 @@ def prequalification(request, step):
         responses_dict = get_data_for_user(request.user)
         responses_dict['active_page'] = 'prequalification'
         responses_by_step = get_step_responses(responses_dict)
-        step_status, _ = get_step_completeness(responses_by_step)
+        step_status = get_step_completeness(responses_by_step)
         responses_dict['step_status'] = step_status
 
     return render(request, template_name=template, context=responses_dict)
@@ -62,7 +62,7 @@ def success(request):
         return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
 
     prequal_responses = get_responses_from_session_grouped_by_steps(request)['prequalification']
-    complete, _ = is_complete('prequalification', prequal_responses)
+    complete = is_complete(prequal_responses)
     if complete:
         return render(request, 'success.html', context={'register_url': settings.REGISTER_URL,'register_sc_url': settings.REGISTER_SC_URL})
     return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/incomplete')
@@ -72,8 +72,8 @@ def incomplete(request):
     """
     This page is shown if the user misses any pre-qualification questions
     """
-    prequal_responses = get_responses_from_session_grouped_by_steps(request)['prequalification']
-    _, missed_question_keys = is_complete('prequalification', prequal_responses)
+    prequal_responses = get_responses_from_session_grouped_by_steps(request)
+    missed_question_keys = get_missed_question_keys(prequal_responses, 'prequalification')
     missed_questions = get_formatted_incomplete_list(missed_question_keys)
 
     responses_dict = get_responses_from_session(request)
@@ -163,7 +163,7 @@ def overview(request):
     responses_dict_by_step = get_step_responses(responses_dict)
 
     # Add step status dictionary
-    step_status, _ = get_step_completeness(responses_dict_by_step)
+    step_status = get_step_completeness(responses_dict_by_step)
     responses_dict_by_step['step_status'] = step_status
     responses_dict_by_step['active_page'] = 'overview'
     responses_dict_by_step['derived'] = get_derived_data(responses_dict)
@@ -198,7 +198,7 @@ def question(request, step, sub_step=None):
     if step == "review":
         data_dict = get_data_for_user(request.user)
         responses_dict_by_step = get_step_responses(data_dict)
-        step_status, missing_questions = get_step_completeness(responses_dict_by_step)
+        step_status = get_step_completeness(responses_dict_by_step)
         derived = get_derived_data(data_dict)
         responses_dict = {}
 
@@ -212,8 +212,8 @@ def question(request, step, sub_step=None):
     else:
         responses_dict = get_data_for_user(request.user)
         responses_dict_by_step = get_step_responses(responses_dict)
-        step_status, missing_questions = get_step_completeness(responses_dict_by_step)
-        responses_dict.update(get_error_dict(step, missing_questions))
+        step_status = get_step_completeness(responses_dict_by_step)
+        responses_dict.update(get_error_dict(responses_dict_by_step, step, sub_step))
         derived = get_derived_data(responses_dict)
 
     # Add step status dictionary
