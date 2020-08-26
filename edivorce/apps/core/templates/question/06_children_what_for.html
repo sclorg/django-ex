@@ -89,7 +89,7 @@
                 <label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_id="child_support_in_order_detail" data_reveal_target="true" data_target_class="support-amount-match" data_reveal_class="false" %}
                     We are not asking for child support to be included in the order</label>
             {% else %}
-                <label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_id="child_support_in_order_detail" data_reveal_target="true" data_target_class="support-amount-match" data_reveal_class="false" disabled="" checked="" %}
+                <label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_id="child_support_in_order_detail" data_reveal_target="true" data_target_class="support-amount-match" data_reveal_class="false" data_no_child_order="true" disabled="" %}
                     We are not asking for child support to be included in the order</label>
                 <div class="information-message bg-danger">
                     <p>This option has been automatically selected for you because you indicated in Step 1 you didn't want an "Order pertaining to children"</p>

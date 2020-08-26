@@ -22,7 +22,7 @@
         {% include "partials/fact_sheets/fact_sheet_c.html" %}
     {% endif %}
 
-    <div class="question-well" id="who_is_payor">
+    <div class="question-well {% if child_support_payor_error %}error{% endif %}" id="who_is_payor">
         {% money_input_field name="annual_gross_income" hidden="true" %}
         {% money_input_field name="spouse_annual_gross_income" hidden="true" %}
         <span id="__name_you" hidden>{{ name_you }}</span>
@@ -38,6 +38,7 @@
                     payor<i class="fa fa-question-circle" aria-hidden="true"></i>
                 </span>
             ?
+            {% if child_support_payor_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         {% if derived.show_fact_sheet_b %}
         <p>

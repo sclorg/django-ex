@@ -727,6 +727,22 @@ $(function () {
         }
     });
 
+    // The question child_support_in_order is required, but if child support isn't in want_which_orders
+    // the question is disabled and it is automatically set to NO and saved to the DB
+    var setWantChildOrder = function () {
+        var noChildSupportOption = $('input[name="child_support_in_order"][value="NO"]');
+        var optionInPage = noChildSupportOption.length > 0;
+        if (optionInPage) {
+            var optionIsUnchecked = noChildSupportOption.prop('checked') === false;
+            var childSupportNotInOrders = noChildSupportOption.data('no_child_order') === true;
+            if (optionIsUnchecked && childSupportNotInOrders) {
+                noChildSupportOption.prop('checked', true);
+                ajaxCall('child_support_in_order', 'NO');
+            }
+        }
+    }
+    setWantChildOrder();
+
     // For Prequalification step 3
     // If there is invalid date on reconciliation period,
     // prevent user from navigate away from the page when user clicks next or back button, or use side navigation
