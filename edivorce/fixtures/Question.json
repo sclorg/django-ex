@@ -88,7 +88,9 @@
         "name": "Do any of the your children live with someone who is not you or your spouse?",
         "description": "For pre-qualification step 4, determines eligibility of using the app",
         "summary_order": 9,
-        "required": ""
+        "required": "Conditional",
+        "conditional_target": "children_of_marriage",
+        "reveal_response": "YES"
     },
     "model": "core.question",
     "pk": "children_live_with_others"
@@ -1197,7 +1199,9 @@
         "name": "Child care expenses for when the recipient works or goes to school",
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
-        "required": ""
+        "required": "Conditional",
+        "conditional_target": "determine_missing_extraordinary_expenses",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "child_care_expenses"
@@ -1217,7 +1221,9 @@
         "name": "Any healthcare premiums you pay to your employer or other provider to provide the coverage to your children rather than yourself",
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
-        "required": ""
+        "required": "Conditional",
+        "conditional_target": "determine_missing_extraordinary_expenses",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "children_healthcare_premiums"
@@ -1237,7 +1243,9 @@
         "name": "Health related expenses that exceed insurance reimbursement by at least $100",
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
-        "required": ""
+        "required": "Conditional",
+        "conditional_target": "determine_missing_extraordinary_expenses",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "health_related_expenses"
@@ -1257,7 +1265,9 @@
         "name": "Extraordinary primary, secondary or other educational expenses",
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
-        "required": ""
+        "required": "Conditional",
+        "conditional_target": "determine_missing_extraordinary_expenses",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "extraordinary_educational_expenses"
@@ -1277,7 +1287,9 @@
         "name": "Post-secondary school expenses",
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
-        "required": ""
+        "required": "Conditional",
+        "conditional_target": "determine_missing_extraordinary_expenses",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "post_secondary_expenses"
@@ -1297,7 +1309,9 @@
         "name": "Extraordinary extracurricular activities expenses",
         "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
         "summary_order": 0,
-        "required": ""
+        "required": "Conditional",
+        "conditional_target": "determine_missing_extraordinary_expenses",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "extraordinary_extracurricular_expenses"

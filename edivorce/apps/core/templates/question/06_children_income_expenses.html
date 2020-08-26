@@ -306,10 +306,10 @@
     </div>
 
     <div id="fact_sheet_a" class="fact-sheets" hidden>
-    <div class="question-well {% if derived.special_expenses_detail_error %}error{% endif %}">
-        <h1>Special or Extraordinary Expenses (Fact Sheet A){% if derived.special_expenses_detail_error %}{% include 'partials/required.html' %}{% endif %}</h1>
+    <div class="question-well {% if derived.special_expenses_missing_error %}error{% endif %}">
+        <h1>Special or Extraordinary Expenses (Fact Sheet A){% if derived.special_expenses_missing_error %}{% include 'partials/required.html' %}{% endif %}</h1>
         <p>Since you have indicated that there are special or extraordinary expenses, we need you to answer the next set of questions.</p>
-        {% if derived.special_expenses_detail_error %}<p class="warning">
+        {% if derived.special_expenses_missing_error %}<p class="warning">
         * At least one of these values must be greater than 0
         </p>{% endif %}
         <table class="table table-bordered">
@@ -326,7 +326,7 @@
                 </td>
                 <td class="fact-sheet-answer table-bordered">
                     <div class="dollar-prefix">
-                        {% money_input_field name="child_care_expenses" id="child_care_expenses_month" class="fact-sheet-input money extraordinary-expense-monthly positive-float" data_mirror_on_pressed="true" data_mirror_target="#child_care_expenses_year" data_mirror_scale="year_up" data_mirror_broadcast_change="true" %}
+                        {% money_input_field name="child_care_expenses" id="child_care_expenses_month" class="fact-sheet-input money extraordinary-expense-monthly positive-float" data_mirror_on_pressed="true" data_mirror_target="#child_care_expenses_year" data_mirror_scale="year_up" data_mirror_broadcast_change="true" ignore_error=True %}
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
@@ -341,7 +341,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="children_healthcare_premiums" id="children_healthcare_premiums_month" class="fact-sheet-input money extraordinary-expense-monthly positive-float" data_mirror_on_pressed="true" data_mirror_target="#children_healthcare_premiums_year" data_mirror_scale="year_up"  data_mirror_broadcast_change="true" %}
+                        {% money_input_field name="children_healthcare_premiums" id="children_healthcare_premiums_month" class="fact-sheet-input money extraordinary-expense-monthly positive-float" data_mirror_on_pressed="true" data_mirror_target="#children_healthcare_premiums_year" data_mirror_scale="year_up"  data_mirror_broadcast_change="true" ignore_error=True %}
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
@@ -366,7 +366,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="health_related_expenses" id="health_related_expenses_month" class="fact-sheet-input money  extraordinary-expense-monthly positive-float" data_mirror_on_pressed="true" data_mirror_target="#health_related_expenses_year" data_mirror_scale="year_up"  data_mirror_broadcast_change="true" %}
+                        {% money_input_field name="health_related_expenses" id="health_related_expenses_month" class="fact-sheet-input money  extraordinary-expense-monthly positive-float" data_mirror_on_pressed="true" data_mirror_target="#health_related_expenses_year" data_mirror_scale="year_up"  data_mirror_broadcast_change="true" ignore_error=True %}
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
@@ -391,7 +391,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="extraordinary_educational_expenses" id="extraordinary_educational_expenses_month" class="fact-sheet-input money  extraordinary-expense-monthly positive-float" data_mirror_on_pressed="true" data_mirror_target="#extraordinary_educational_expenses_year" data_mirror_scale="year_up"  data_mirror_broadcast_change="true" %}
+                        {% money_input_field name="extraordinary_educational_expenses" id="extraordinary_educational_expenses_month" class="fact-sheet-input money  extraordinary-expense-monthly positive-float" data_mirror_on_pressed="true" data_mirror_target="#extraordinary_educational_expenses_year" data_mirror_scale="year_up"  data_mirror_broadcast_change="true" ignore_error=True %}
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
@@ -405,7 +405,7 @@
                 <td class="fact-sheet-question">Post-secondary school expenses</td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="post_secondary_expenses" id="post_secondary_expenses_month" class="fact-sheet-input extraordinary-expense-monthly positive-float" data_mirror_on_pressed="true" data_mirror_target="#post_secondary_expenses_year" data_mirror_scale="year_up"  data_mirror_broadcast_change="true" %}
+                        {% money_input_field name="post_secondary_expenses" id="post_secondary_expenses_month" class="fact-sheet-input extraordinary-expense-monthly positive-float" data_mirror_on_pressed="true" data_mirror_target="#post_secondary_expenses_year" data_mirror_scale="year_up"  data_mirror_broadcast_change="true" ignore_error=True %}
                     </div>
                 </td>
                 <td class="fact-sheet-answer">
@@ -432,7 +432,7 @@
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
-                        {% money_input_field name="extraordinary_extracurricular_expenses" id="extraordinary_extracurricular_expenses_month" class="fact-sheet-input money  extraordinary-expense-monthly positive-float" data_mirror_on_pressed="true" data_mirror_target="#extraordinary_extracurricular_expenses_year" data_mirror_scale="year_up"  data_mirror_broadcast_change="true" %}
+                        {% money_input_field name="extraordinary_extracurricular_expenses" id="extraordinary_extracurricular_expenses_month" class="fact-sheet-input money  extraordinary-expense-monthly positive-float" data_mirror_on_pressed="true" data_mirror_target="#extraordinary_extracurricular_expenses_year" data_mirror_scale="year_up"  data_mirror_broadcast_change="true" ignore_error=True %}
                     </div>
                 </td>
                 <td class="fact-sheet-answer">

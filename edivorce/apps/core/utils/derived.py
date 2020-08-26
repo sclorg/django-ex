@@ -21,7 +21,7 @@ from edivorce.apps.core.utils.conditional_logic import (
     determine_child_support_payor,
     determine_show_fact_sheet_f_spouse,
     determine_show_fact_sheet_f_you,
-    determine_special_expenses_detail_error
+    determine_missing_extraordinary_expenses
 )
 
 DERIVED_DATA = [
@@ -86,7 +86,7 @@ DERIVED_DATA = [
     'pursuant_parenting_arrangement',
     'pursuant_child_support',
     'sole_custody',
-    'special_expenses_detail_error',
+    'special_expenses_missing_error',
 ]
 
 
@@ -739,8 +739,8 @@ def sole_custody(responses, derived):
     return conditional_logic.determine_sole_custody(responses)
 
 
-def special_expenses_detail_error(responses, derived):
-    return determine_special_expenses_detail_error(responses)
+def special_expenses_missing_error(responses, derived):
+    return determine_missing_extraordinary_expenses(responses)
 
 
 def _any_question_errors(responses, questions):

@@ -181,7 +181,7 @@ question_step_mapping = {
                       'annual_gross_income',
                       'spouse_annual_gross_income',
                       'payor_monthly_child_support_amount',
-                      # Special extraordinary expenses
+                      # Fact sheet A
                       'special_extraordinary_expenses',
                       'child_care_expenses',
                       'children_healthcare_premiums',
@@ -189,11 +189,6 @@ question_step_mapping = {
                       'extraordinary_educational_expenses',
                       'post_secondary_expenses',
                       'extraordinary_extracurricular_expenses',
-                      'total_section_seven_expenses',
-                      'your_proportionate_share_percent',
-                      'your_proportionate_share_amount',
-                      'spouse_proportionate_share_percent',
-                      'spouse_proportionate_share_amount',
                       'describe_order_special_extra_expenses',
                       # Payor & Fact Sheets
                       'child_support_payor',

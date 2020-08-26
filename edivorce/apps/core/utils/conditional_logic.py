@@ -111,12 +111,13 @@ def determine_child_support_act_requirement(questions_dict):
     return 'Child support' in orders_wanted
 
 
-def determine_special_expenses_detail_error(questions_dict):
-    special_expenses_keys = ["child_care_expenses", "annual_child_care_expenses", "children_healthcare_premiums",
-                             "annual_children_healthcare_premiums", "health_related_expenses", "annual_health_related_expenses",
-                             "extraordinary_educational_expenses", "annual_extraordinary_educational_expenses",
-                             "post_secondary_expenses", "annual_post_secondary_expenses", "extraordinary_extracurricular_expenses",
-                             "annual_extraordinary_extracurricular_expenses"]
+def determine_missing_extraordinary_expenses(questions_dict):
+    special_expenses_keys = ["child_care_expenses",
+                             "children_healthcare_premiums",
+                             "health_related_expenses",
+                             "extraordinary_educational_expenses",
+                             "post_secondary_expenses",
+                             "extraordinary_extracurricular_expenses"]
 
     if questions_dict.get('special_extraordinary_expenses') == 'YES':
         for special_expense in special_expenses_keys:
