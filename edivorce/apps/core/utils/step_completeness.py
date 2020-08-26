@@ -39,7 +39,7 @@ def get_step_completeness(questions_by_step):
     """
     status_dict = {}
     for step, questions_dict in questions_by_step.items():
-        if not_started(questions_dict):
+        if not step_started(questions_dict):
             status_dict[step] = "Not started"
         else:
             complete = is_complete(questions_dict)
@@ -50,11 +50,11 @@ def get_step_completeness(questions_by_step):
     return status_dict
 
 
-def not_started(question_list):
+def step_started(question_list):
     for question_dict in question_list:
         if get_cleaned_response_value(question_dict['value']):
-            return False
-    return True
+            return True
+    return False
 
 
 def is_complete(question_list):
@@ -92,10 +92,16 @@ def get_error_dict(questions_by_step, step, substep=None):
     responses_dict = {}
     question_step = page_step_mapping[step]
     step_questions = questions_by_step.get(question_step)
+
+    # Since the Your children substep only has one question, show error if future children questions have been answered
+    children_substep_and_step_started = substep == 'your_children' and step_started(step_questions)
+
     if substep:
         substep_questions = children_substep_question_mapping[substep]
         step_questions = list(filter(lambda question_dict: question_dict['question_id'] in substep_questions, step_questions))
-    if not not_started(step_questions) and not is_complete(step_questions):
+
+    show_section_errors = not step_started(step_questions) and not is_complete(step_questions)
+    if show_section_errors or children_substep_and_step_started:
         for question_dict in step_questions:
             if question_dict['error']:
                 field_error_key = question_dict['question_id'] + '_error'

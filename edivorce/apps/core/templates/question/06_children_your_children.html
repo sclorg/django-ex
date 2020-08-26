@@ -53,8 +53,10 @@
     </p>
 {% endif %}
 <div class="question-well children-list {% if claimant_children_error %}error{% endif %}">
-    <p class="warning">* You have indicated that you have children of the marriage. This includes children under and over the age of 19. Their details
-        must be added below.</p>
+    {% if claimant_children_error %}
+        <p class="warning">* You have indicated that you have children of the marriage. This includes children under and over the age of 19. Their details
+            must be added below.</p>
+    {% endif %}
     <table id="claimant_children" class="list-builder">
         <thead>
             <tr>
