@@ -100,7 +100,7 @@ def get_error_dict(questions_by_step, step, substep=None):
         substep_questions = children_substep_question_mapping[substep]
         step_questions = list(filter(lambda question_dict: question_dict['question_id'] in substep_questions, step_questions))
 
-    show_section_errors = not step_started(step_questions) and not is_complete(step_questions)
+    show_section_errors = step_started(step_questions) and not is_complete(step_questions)
     if show_section_errors or children_substep_and_step_started:
         for question_dict in step_questions:
             if question_dict['error']:
