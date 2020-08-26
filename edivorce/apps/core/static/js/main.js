@@ -450,7 +450,7 @@ $(function () {
             $('#claimant_children').find('tbody:first').find('tr:gt(0)').each(function () {
                 var childData = {};
                 $(this).find('.child-field').each(function () {
-                    childData[$(this).attr('data-target-form-field')] = $(this).text();
+                    childData[$(this).attr('data-target-form-field')] = $(this).text().trim();
                 });
                 childrenData.push(childData);
             });
@@ -497,7 +497,7 @@ $(function () {
                 questionWell.find('.required').hide();
                 $(inputField).removeClass('error');
                 if (inputField.type === 'text') {
-                    if (inputField.value === '') {
+                    if (inputField.value.trim() === '') {
                         isNotEmpty = false;
                         $(inputField).addClass('error');
                         questionWell.addClass('error');
@@ -960,16 +960,22 @@ var saveListControlRow = function(tableId) {
 
     tableRows.each(function() {
         var item = {};
+        var hasVal = false;
         $(this).find(saveSelector).each(function() {
-            item[$(this).prop('name')] = $(this).val();
+            var val = $(this).val().trim();
+            item[$(this).prop('name')] = val;
+            if (val !== "" && val !== '0.00') {
+                hasVal = true;
+            }
         });
-        payload.push(item);
+        if (hasVal) {
+            payload.push(item);
+        }
     });
 
     var jsonPayload = JSON.stringify(payload);
     ajaxCall(saveKey, jsonPayload);
 };
-
 
 
 var replaceSuffix = function(str, suffix) {

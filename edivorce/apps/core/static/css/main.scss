@@ -115,8 +115,9 @@ a {
 	&:hover {
 		color: darken( $brand-links, 10% );
 		text-decoration: underline;
-		-webkit-transition: all 0.1s eease-in-out;
-		transition: all 0.1s eease-in-out;
+        outline: none;
+		-webkit-transition: all 0.1s ease-in-out;
+		transition: all 0.1s ease-in-out;
 	}
 }
 

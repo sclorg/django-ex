@@ -170,7 +170,7 @@ def save_to_db(serializer, question, value, bceid_user):
     """ Saves form responses to the database """
     data = {'bceid_user': bceid_user,
             'question': question,
-            'value': value}
+            'value': value.strip()}
     try:
         instance = UserResponse.objects.get(bceid_user=bceid_user, question=question)
         serializer.update(instance=instance, validated_data=data)
