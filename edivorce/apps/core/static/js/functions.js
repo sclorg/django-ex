@@ -289,7 +289,7 @@ var getValue = function(el, question){
         $('#other_names_fields').find("input[type=text]").each(function () {
             // as per request, alias type will always be also known as for now
             // aliasType = $(this).val() === '' ? '' : $(this).siblings(".alias-type").val();
-            value.push([aliasType, $(this).val()]);
+            value.push([aliasType, $(this).val().trim()]);
         });
         return JSON.stringify(value);
     }

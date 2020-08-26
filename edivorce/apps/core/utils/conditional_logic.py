@@ -130,7 +130,10 @@ def determine_missing_extraordinary_expenses(questions_dict):
 
 
 def get_cleaned_response_value(response):
-    ignore_values = [None, '', '[]', '[["",""]]', '[["also known as",""]]']
+    if response is None:
+        return None
+    response = response.strip()
+    ignore_values = ['', '[]', '[["",""]]', '[["also known as",""]]']
     if response not in ignore_values:
         return response
     return None
