@@ -65,8 +65,9 @@ def determine_missing_undue_hardship_reasons(questions_dict):
                 except json.JSONDecodeError:
                     if value:
                         return False
-
-    return True
+        return True
+    else:
+        return False
 
 
 def determine_child_support_payor(questions_dict):
