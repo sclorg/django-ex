@@ -16,7 +16,7 @@ class UserResponseTestCase(TestCase):
     def check_completeness(self, step):
         responses_dict = get_data_for_user(self.user)
         responses_dict_by_step = get_step_responses(responses_dict)
-        return is_complete(responses_dict_by_step[step])[0]
+        return is_complete(responses_dict_by_step[step])
 
     def create_response(self, question, value):
         UserResponse.objects.create(bceid_user=self.user, question=Question.objects.get(key=question), value=value)
