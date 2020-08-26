@@ -231,10 +231,6 @@ class UserResponseTestCase(TestCase):
         self.create_response('other_property_claims', 'Want these property claims')
         self.assertEqual(self.check_completeness(step), True)
 
-        # Put empty response
-        UserResponse.objects.filter(question_id='want_other_property_claims').update(value="")
-        self.assertEqual(self.check_completeness(step), True)
-
     def test_other_orders(self):
         step = 'other_orders'
 
