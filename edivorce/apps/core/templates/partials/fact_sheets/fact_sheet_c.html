@@ -1,0 +1,149 @@
+{% load input_field %}
+
+<div class="question-well fact-sheets {% if derived.fact_sheet_c_error %}error{% endif %}">
+    <h1>Split Living Arrangement (Fact Sheet C)</h1>
+    <p>
+        Since you have previously indicated that you and your spouse have more than one child and
+        at least one of the children lives primarily with just 1 parent (more than 60% of the time)
+        you must complete Fact Sheet C.
+        <b>This information is needed for the Judge. You will be able to indicate a different child support amount in a following step.</b>
+    </p>
+    {% if derived.show_fact_sheet_b and derived.show_fact_sheet_c %}
+        <div class="bg-danger" id="fact-sheet-b-and-c-alert">
+            <p>
+                Do not include any children that are <b>SHARED on fact sheet B.</b> You may indicate 0 (zero) children for 1 of the parents in Fact
+                Sheet C and insert 0 (zero) dollars for child support amount.
+            </p>
+        </div>
+    {% endif %}
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <td class="fact-sheet-question">
+                How many children spend more than <strong>60 percent of their time</strong> with you and for whom you are asking for support?
+            </td>
+            <td class="fact-sheet-answer table-bordered">
+                <div class="{% if number_of_children_claimant_error %}table-error{% endif %}">
+                    {% input_field type="number" name="number_of_children_claimant" class="positive-integer fact-sheet-input number-spinner" min="0" placeholder="enter number" ignore_error=True %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="fact-sheet-question">
+                <p>
+                    Your spouse's annual income?
+                </p>
+
+                <p>
+                    As per
+                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-2.html#h-6" link_text="sections 15 to 20" %}
+                    of the Federal Child Support Guidelines
+                </p>
+                <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
+                     data-target="#collapse_calculate_annual_income_spouse" aria-controls="collapse_calculate_annual_income">
+                    <div>
+                        How do I calculate annual income?
+                    </div>
+                </div>
+                <div class="collapse" id="collapse_calculate_annual_income_spouse">
+                    <div>
+                        The Federal Child Support Guidelines, Step-by-Step Guide has a
+                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/w1-f1.html#s1" link_text="worksheet" %}
+                        you can use to help calculate your annual income. Step-by-step instructions are also detailed in the
+                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step5-etap5.html#h7" link_text="Step-by-Step Guide" %}
+                        .
+                    </div>
+                </div>
+            </td>
+            <td class="fact-sheet-answer" readonly>
+                <div class="dollar-prefix">
+                    {% money_input_field id="fact_c_spouse_annual_gross_income" name="spouse_annual_gross_income" class="fact-sheet-input money" readonly="" ignore_error=True %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="fact-sheet-question">
+                <p>What is the 'Guideline' amount for child support payable by your spouse (as per
+                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-11.html#h-15" link_text="Federal Child Support Tables" %}
+                    )?
+                </p>
+                {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_calculate_amount_to_pay" %}
+            </td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix {% if your_spouse_child_support_paid_c_error %}table-error{% endif %}">
+                    {% money_input_field id="fact_c_your_spouse_child_support_paid" name="your_spouse_child_support_paid_c" class="fact-sheet-input money claimants-child-support-paid determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts_c]" ignore_error=True %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="fact-sheet-question">
+                How many children spend more than <strong>60 percent of their time</strong> with your spouse and for whom you are obliged to pay
+                support?
+            </td>
+            <td class="fact-sheet-answer table-bordered">
+                <div class="{% if number_of_children_claimant_spouse_error %}table-error{% endif %}">
+                    {% input_field type="number" name="number_of_children_claimant_spouse" class="positive-integer fact-sheet-input number-spinner" min="0" placeholder="enter number" ignore_error=True %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="fact-sheet-question">
+                <p>Your annual income?</p>
+
+                <p>
+                    As per
+                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-2.html#h-6" link_text="sections 15 to 20" %}
+                    of the Federal Child Support Guidelines
+                </p>
+
+                <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
+                     data-target="#collapse_calculate_annual_income_you" aria-controls="collapse_calculate_annual_income">
+                    <div>
+                        How do I calculate annual income?
+                    </div>
+                </div>
+                <div class="collapse" id="collapse_calculate_annual_income_you">
+                    <div>
+                        The Federal Child Support Guidelines, Step-by-Step Guide has a
+                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/w1-f1.html#s1" link_text="worksheet" %}
+                        you can use to
+                        help calculate your annual income. Step-by-step instructions are also detailed in the
+                        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step5-etap5.html#h7" link_text="Step-by-Step Guide" %}
+                        .
+                    </div>
+                </div>
+            </td>
+            <td class="fact-sheet-answer" readonly>
+                <div class="dollar-prefix">
+                    {% money_input_field id="fact_c_annual_gross_income" name="annual_gross_income" class="fact-sheet-input money" readonly="" ignore_error=True %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="fact-sheet-question">
+                <p>What is the 'Guideline' amount for child support payable by you (as per
+                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-11.html#h-15" link_text="Federal Child Support Tables" %}
+                    )?
+                </p>
+
+                {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_calculate_claimant_amounts" %}
+            </td>
+            <td class="fact-sheet-answer">
+                <div class="dollar-prefix {% if your_child_support_paid_c_error %}table-error{% endif %}">
+                    {% money_input_field id="fact_c_your_child_support_paid" name="your_child_support_paid_c" class="fact-sheet-input money claimants-child-support-paid determine-payor" data_calc_delta="true" data_delta_term_selector=".claimants-child-support-paid" data_delta_target_selector="input[name=difference_payment_amounts_c]" ignore_error=True %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="fact-sheet-question">
+                Difference between Guidelines table amounts
+            </td>
+            <td class="fact-sheet-answer" readonly>
+                <div class="dollar-prefix">
+                    {% money_input_field id="difference_payment_amounts_c" name="difference_payment_amounts_c" class="fact-sheet-input different-payment-amounts" readonly="" ignore_error=True %}
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

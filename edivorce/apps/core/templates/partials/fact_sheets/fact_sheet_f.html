@@ -1,0 +1,71 @@
+<div class="question-well fact-sheets {% if derived.fact_sheet_f_error %}error{% endif %}">
+    <h1>Income over $150,000 (Fact Sheet F)</h1>
+    <p>
+        Since you have previously indicated that the payor's income is over $150,000 you will need to provide
+        answers to the next set of questions. The child support guideline table you previously entered only goes
+        to $150,000. Income beyond that point requires a 2 stage calculation, the amount payable at $150,000 +
+        the amount payable on the income in excess of $150,000. This takes into account other factors such as
+        the financial ability of each parent, maintaining a certain quality of life, etc. It is no longer a
+        matter of there being money simply to look after the needs of the child, but rather the level of care
+        factoring in the family's lifestyle.
+    </p>
+
+    <p>
+    <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
+         data-target="#collapseIncomeNeeded" aria-controls="collapseIncomeNeeded">
+        <div>
+            Whose income is needed?
+        </div>
+    </div>
+    </p>
+
+    <div class="collapse" id="collapseIncomeNeeded">
+        <div>
+            <p>
+                If the paying parent earns more than $150,000 per year, you may need to calculate both incomes.
+                The Federal Guidelines provide two options:
+            </p>
+            <ul style="list-style: none;">
+                <li>
+                    <strong>Option 1</strong>: You can use the tables to determine the child support amount for the first $150,000. Then add
+                    the percentage listed in the tables for the portion of income over $150,000. If you choose this
+                    option, you would only need to calculate the paying parent’s income.
+                </li>
+                <li>
+                    <strong>Option 2</strong>: You can use the tables to determine the child support amount for the first $150,000. You can
+                    then determine an amount for the portion of income over $150,000 by looking at the condition,
+                    means, needs and other circumstances of the child and the financial ability of each of you to
+                    contribute. If you choose this option, you would need to calculate both incomes.
+                </li>
+            </ul>
+            <p>
+                In some cases:
+            </p>
+            <ul>
+                <li>
+                    You may need to calculate your child’s income—for example, if the child is over the age of
+                    majority and you are taking his or her financial means into consideration to determine a
+                    child support amount.
+                </li>
+                <li>
+                    You may need to calculate the income of every member of both households to compare the
+                    standards of living if either of you is claiming undue hardship.
+                </li>
+            </ul>
+            <p>
+                Source: The
+                {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step5-etap5.html#h7" link_text="Federal Child Support Guidelines" %}
+                Department of Justice
+            </p>
+
+        </div>
+    </div>
+
+
+    <div id="fact_sheet_f_table_1" class="question-well-border-less" {% if not derived.show_fact_sheet_f_you %}hidden{% endif %}>
+        {% include "partials/fact_sheets/fact_sheet_f_table.html" with table_id=1 claimant_id='you' %}
+    </div>
+    <div id="fact_sheet_f_table_2" class="question-well-border-less" {% if not derived.show_fact_sheet_f_spouse %}hidden{% endif %}>
+        {% include "partials/fact_sheets/fact_sheet_f_table.html" with table_id=2 claimant_id='spouse' %}
+    </div>
+</div>

@@ -15,8 +15,9 @@
         <input name="claimant_children" value="{{ claimant_children }}" title="claimant_children" hidden />
     </div>
 
-    <div class="question-well">
-        <h3>Is medical coverage available for the children?</h3>
+    <div class="question-well {% if medical_coverage_available_error %}error{% endif %}">
+        <h3>Is medical coverage available for the children? {% if medical_coverage_available_error %}{% include 'partials/required.html' %}{% endif %}
+        </h3>
         <div class="btn-radio-group" data-toggle="buttons">
             <label class="btn btn-radio">
                 {% input_field type="radio"  name="medical_coverage_available" autocomplete="off" value="YES" data_target_id="who_plan_is_coverage_under" data_reveal_class="true"  data_reveal_target="true" %} Yes
@@ -28,8 +29,8 @@
         </div>
     </div>
 
-    <div class="question-well" id="who_plan_is_coverage_under" hidden>
-        <h3>Whose plan is the coverage under?</h3>
+    <div class="question-well {% if whose_plan_is_coverage_under_error %}error{% endif %}" id="who_plan_is_coverage_under" hidden>
+        <h3>Whose plan is the coverage under? {% if whose_plan_is_coverage_under_error %}{% include 'partials/required.html' %}{% endif %}</h3>
         <p>Please check all that apply:</p>
         <div class="checkbox-group">
             <div class="checkbox"><label>{% input_field type="checkbox" name="whose_plan_is_coverage_under" value="My plan" %} My plan</label></div>
@@ -37,7 +38,7 @@
         </div>
     </div>
 
-    <div class="question-well">
+    <div class="question-well {% if child_support_payments_in_arrears_error %}error{% endif %}">
         <h3>Are there any child support payments (
             <span class="tooltip-link"
               data-toggle="tooltip" data-placement="right" data-html="true"
@@ -47,7 +48,9 @@
                 ">
                 in arrears <i class="fa fa-question-circle" aria-hidden="true"></i>
             </span>
-            ) that have not been paid (as of today's date) under an existing order or written agreement?</h3>
+            ) that have not been paid (as of today's date) under an existing order or written agreement?
+            {% if child_support_payments_in_arrears_error %}{% include 'partials/required.html' %}{% endif %}
+        </h3>
             <div class="btn-radio-group" data-toggle="buttons">
                 <label class="btn btn-radio">
                     {% input_field type="radio"  name="child_support_payments_in_arrears" autocomplete="off" value="YES" data_target_id="arrears_amount_question" data_reveal_target="true" %} Yes
@@ -58,8 +61,8 @@
                 </label>
             </div>
     </div>
-    <div class="question-well" id="arrears_amount_question" hidden>
-        <h3>What is the amount as of today's date?</h3>
+    <div class="question-well {% if child_support_arrears_amount_error %}error{% endif %}" id="arrears_amount_question" hidden>
+        <h3>What is the amount as of today's date? {% if child_support_arrears_amount_error %}{% include 'partials/required.html' %}{% endif %}</h3>
         <div class="dollar-prefix">
             {% money_input_field name="child_support_arrears_amount" class="money positive-float form-control input-narrow" min="0" %}
         </div>

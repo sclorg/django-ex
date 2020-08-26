@@ -355,25 +355,6 @@ $(function () {
             }
         });
 
-        // show fact sheet b
-        if (childWithBoth) {
-            $('#fact_sheet_b').show();
-        } else {
-            $('#fact_sheet_b').hide();
-        }
-
-        // show fact sheet c
-        // When the claimants have indicated that they have more than one child, then show fact sheet c if each
-        // claimant has sole custody of at least one of the children or if one claimant has sole custody of at least one
-        // child and the both claimants have shared custody of the remaining children.
-        if (childWithYou && (childWithSpouse || childWithBoth)) {
-            $('#fact_sheet_c').show();
-        } else if (childWithSpouse && (childWithYou || childWithBoth)) {
-            $('#fact_sheet_c').show();
-        } else {
-            $('#fact_sheet_c').hide();
-        }
-
         // Initiate Child support payor.
         populateChildSupportPayor(childWithBoth, childWithYou, childWithSpouse);
         $('.determine-payor').on('change', function() {
@@ -478,12 +459,12 @@ $(function () {
         }
     };
 
-    var returnToParent = function(options) {
+    var returnToParent = function(save) {
         $('.children-questions').hide();
         $('.children-list').show();
-        clearQuestionWellError();
+        clearQuestionWellError(save);
         enableChildrenFooterNav({page:'review'});
-        saveChildQuestions(options);
+        saveChildQuestions({persist: save});
         populateChildrenFactSheets();
     };
 
@@ -494,10 +475,15 @@ $(function () {
         }
     };
 
-    var clearQuestionWellError = function() {
+    var clearQuestionWellError = function(removeTableError) {
         $('.children-questions .question-well').each(function () {
             $(this).removeClass('error');
         });
+        if (removeTableError) {
+            var $childrenTable = $('.children-list.question-well');
+            $childrenTable.removeClass('error');
+            $childrenTable.find('.warning').remove();
+        }
     };
 
     var checkNoEmptyField = function() {
@@ -508,14 +494,19 @@ $(function () {
             var questionWell = $(this);
             questionWell.removeClass('error');
             questionWell.find('input').each(function (index, inputField) {
+                questionWell.find('.required').hide();
+                $(inputField).removeClass('error');
                 if (inputField.type === 'text') {
                     if (inputField.value === '') {
                         isNotEmpty = false;
+                        $(inputField).addClass('error');
                         questionWell.addClass('error');
+                        questionWell.find('.required').show();
                     } else if (inputField.id === 'childs_birth_date') {
                         if (!moment(inputField.value, "MMM D, YYYY").isValid()) {
                             isNotEmpty = false;
                             questionWell.addClass('error');
+                            questionWell.find('.required').show();
                         }
                     } else if (inputField.id === 'childs_name') {
                         // check for digits in the name
@@ -528,6 +519,7 @@ $(function () {
                     if (questionWell.find('input:radio:checked').length === 0) {
                         isNotEmpty = false;
                         questionWell.addClass('error');
+                        questionWell.find('.required').show();
                     }
                     return false;
                 }
@@ -542,7 +534,7 @@ $(function () {
     $('#btn_save_child').on('click', function(e) {
         e.preventDefault();
         if (checkNoEmptyField() === true) {
-            returnToParent({persist: true});
+            returnToParent(true);
         } else {
             scrollToFirstError();
         }
@@ -557,7 +549,7 @@ $(function () {
     
     $('#btn_revert_child').on('click', function(e) {
         e.preventDefault();
-        returnToParent({persist: false});
+        returnToParent(false);
         
         // Delete the empty row added to the children table when adding new child.
         // Empty row will always be the last row of the table.
@@ -575,23 +567,6 @@ $(function () {
 
     $('#claimant_children').each(function(){
         populateChildrenFactSheets();
-    });
-
-    // check who has sole custody
-    $('input[name="__claimant_children"]').each(function() {
-        var children = JSON.parse($(this).val());
-        var youHaveSoleCustody = children.every(function(child){
-            return child.child_live_with === 'Lives with you';
-        });
-        var spouseHasSoleCustody = children.every(function(child){
-            return child.child_live_with === 'Lives with spouse';
-        });
-
-        if (youHaveSoleCustody || spouseHasSoleCustody) {
-            $('#monthly_amount_question').show();
-        } else {
-            $('#monthly_amount_question').hide();
-        }
     });
 
     var payorCallback = function() {
@@ -751,6 +726,22 @@ $(function () {
             $(this).data('proceed', true);
         }
     });
+
+    // The question child_support_in_order is required, but if child support isn't in want_which_orders
+    // the question is disabled and it is automatically set to NO and saved to the DB
+    var setWantChildOrder = function () {
+        var noChildSupportOption = $('input[name="child_support_in_order"][value="NO"]');
+        var optionInPage = noChildSupportOption.length > 0;
+        if (optionInPage) {
+            var optionIsUnchecked = noChildSupportOption.prop('checked') === false;
+            var childSupportNotInOrders = noChildSupportOption.data('no_child_order') === true;
+            if (optionIsUnchecked && childSupportNotInOrders) {
+                noChildSupportOption.prop('checked', true);
+                ajaxCall('child_support_in_order', 'NO');
+            }
+        }
+    }
+    setWantChildOrder();
 
     // For Prequalification step 3
     // If there is invalid date on reconciliation period,
