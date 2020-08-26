@@ -88,9 +88,7 @@
         "name": "Do any of the your children live with someone who is not you or your spouse?",
         "description": "For pre-qualification step 4, determines eligibility of using the app",
         "summary_order": 9,
-        "required": "Conditional",
-        "conditional_target": "children_of_marriage",
-        "reveal_response": "YES"
+        "required": ""
     },
     "model": "core.question",
     "pk": "children_live_with_others"
