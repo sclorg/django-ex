@@ -5,7 +5,7 @@
 
 {% block title %}{{ block.super }}: POC{% endblock %}
 
-{% block progress %}{% include "partials/progress.html" %}{% endblock %}
+{% block progress %}{% include "poc-sidebar.html" %}{% endblock %}
 
 {% block content %}
     <form method="post">{% csrf_token %}
