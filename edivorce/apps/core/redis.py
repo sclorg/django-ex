@@ -93,7 +93,10 @@ class RedisStorage(Storage):
         return name
 
     def get_available_name(self, name, max_length=None):
-        """Overwrite existing file with the same name."""
+        """
+        Allow storage backend to generate a new name if there is already an existing file. Not used for this Redis
+        implementation.
+        """
         name = self._full_key_name(name)
         return super().get_available_name(name, max_length)
 

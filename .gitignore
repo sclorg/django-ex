@@ -32,7 +32,6 @@ var/
 .installed.cfg
 *.egg
 .python-version
-Pipfile
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
