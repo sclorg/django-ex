@@ -50,7 +50,11 @@ To run this project in your development machine, follow these steps:
         docker run -d -p 5005:5001 aquavitae/weasyprint
         ```
 
-9. Open your browser and go to http://127.0.0.1:8000, you will be greeted with the eDivorce homepage.  In dev mode, you can log in with any username and the password 'divorce'.
+9. Start up docker containers:
+
+    `docker-compose up -d`
+
+10. Open your browser and go to http://127.0.0.1:8000, you will be greeted with the eDivorce homepage.  In dev mode, you can log in with any username and the password 'divorce'.
 
 ### SCSS Compilation
 

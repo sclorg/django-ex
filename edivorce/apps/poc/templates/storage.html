@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load input_field %}
+{% load step_order %}
+{% load load_json %}
+
+{% block title %}{{ block.super }}: POC{% endblock %}
+
+{% block progress %}{% include "poc-sidebar.html" %}{% endblock %}
+
+{% block content %}
+    <h1><small>Proof of Concept:</small>File storage</h1>
+
+    <form id="form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="question-well">
+            <h3>Upload a file to store in Redis.</h3>
+            <div class="form-group {% if form.file.errors %}has-error{% elif validation_success %}has-success{% endif %}">
+                <div>{{ form.file }}</div>
+                {% if form.file.errors %}
+                    <span class="help-block">
+                    {% for err in form.file.errors %}{{ err }}{% endfor %}
+                    </span>
+                {% endif %}
+                {% if validation_success %}<span class="help-block">No viruses found</span>{% endif %}
+            </div>
+        </div>
+
+        <div class="form-buttons clearfix">
+            <button type="submit" class="btn btn-primary pull-right">Submit</button>
+        </div>
+
+        <div class="question-well">
+            <h3>Stored documents</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>File name</th>
+                        <th>Redis key</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for document in documents %}
+                    <tr>
+                        <td class="fact-sheet-question">
+                            <a href="{% url "poc-storage-download" document.id %}" target="_blank">
+                            {{ document.filename|default:'' }}
+                            </a>
+                        </td>
+                        <td class="fact-sheet-question">{{ document.file.name }}</td>
+                        <td><a href="{% url "poc-storage-delete" document.id %}" class="delete-link">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </form>
+{% endblock %}
+
+{% block formbuttons %}
+
+{% endblock %}
+
+{% block sidebarNav %}
+<!-- no sidebar -->
+{% endblock %}
+
+{% block sidebar %}
+<!-- no sidebar -->
+{% endblock %}

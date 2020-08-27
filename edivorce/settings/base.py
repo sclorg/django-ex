@@ -53,6 +53,12 @@ INSTALLED_APPS = (
     'sass_processor',
 )
 
+# add the POC app only if applicable
+if ENVIRONMENT in ['localdev', 'dev', 'test', 'minishift']:
+    INSTALLED_APPS += (
+        'edivorce.apps.poc',
+    )
+
 MIDDLEWARE = (
     'edivorce.apps.core.middleware.basicauth_middleware.BasicAuthMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
@@ -155,3 +161,9 @@ LOGOUT_URL = '/accounts/logout/'
 CLAMAV_ENABLED = env.bool('CLAMAV_ENABLED', True)
 CLAMAV_TCP_PORT = env.int('CLAMAV_TCP_PORT', 3310)
 CLAMAV_TCP_ADDR = env('CLAMAV_TCP_ADDR', 'localhost')
+
+# Redis settings
+REDIS_HOST = env('REDIS_HOST', 'localhost')
+REDIS_PORT = env.int('REDIS_PORT', 6379)
+REDIS_DB = env('REDIS_DB', '')
+REDIS_PASSWORD = env('REDIS_PASSWORD', '')
