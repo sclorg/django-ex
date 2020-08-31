@@ -140,12 +140,19 @@ def format_row(question, response):
         response)
 
 
-def format_review_row_heading(title, style=""):
+def format_review_row_heading(title, style="", substep=None):
     """ Used for children sub-section tables """
+    if substep:
+        url = reverse('question_steps', args=['children', substep])
+        extra_html = mark_safe(f'<span class="review-buttons"><a href="{url}">Edit</a></span>')
+    else:
+        extra_html = ''
     return format_html(
-        '<tr><td colspan="2" class="table-bordered {1}"><b>{0}</b></td></tr>',
+        '<tr><td colspan="2" class="table-bordered {1}"><b>{0}</b>{2}</td></tr>',
         title,
-        style)
+        style,
+        extra_html,
+    )
 
 
 def format_fact_sheet(title, url, style=''):
@@ -158,11 +165,18 @@ def format_fact_sheet(title, url, style=''):
 
 @register.simple_tag(takes_context=True)
 def format_children(context, source):
+    substep_to_heading = {
+        'your_children': 'Children details',
+        'income_expenses': 'Income & expenses',
+        'facts': 'Payor & Fact Sheets',
+        'payor_medical': 'Medical & other expenses',
+        'what_for': 'What are you asking for?',
+    }
     question_to_heading = OrderedDict()
-    question_to_heading['Children details'] = [
+    question_to_heading['your_children'] = [
         'claimant_children'
     ]
-    question_to_heading['Income & expenses'] = [
+    question_to_heading['income_expenses'] = [
         'how_will_calculate_income',
         'annual_gross_income',
         'spouse_annual_gross_income',
@@ -171,7 +185,7 @@ def format_children(context, source):
         'Special or Extraordinary Expenses (Fact Sheet A)',
         'describe_order_special_extra_expenses'
     ]
-    question_to_heading['Payor & Fact Sheets'] = [
+    question_to_heading['facts'] = [
         'Shared Living Arrangement (Fact Sheet B)',
         'Split Living Arrangement (Fact Sheet C)',
         'child_support_payor',
@@ -180,13 +194,13 @@ def format_children(context, source):
         'claiming_undue_hardship',
         'Undue Hardship (Fact Sheet E)'
     ]
-    question_to_heading['Medical & other expenses'] = [
+    question_to_heading['payor_medical'] = [
         'medical_coverage_available',
         'whose_plan_is_coverage_under',
         'child_support_payments_in_arrears',
         'child_support_arrears_amount'
     ]
-    question_to_heading['What are you asking for?'] = [
+    question_to_heading['what_for'] = [
         'child_support_in_order',
         # 'order_monthly_child_support_amount',
         'child_support_in_order_reason',
@@ -213,11 +227,12 @@ def format_children(context, source):
     tags = format_html('<tbody>')
     # process mapped questions first
     working_source = source.copy()
-    for title, questions in question_to_heading.items():
+    for substep, questions in question_to_heading.items():
+        title = substep_to_heading[substep]
         tags = format_html(
             '{}{}',
             tags,
-            format_review_row_heading(title))
+            format_review_row_heading(title, substep=substep))
 
         for question in questions:
             if question in fact_sheet_mapping:
