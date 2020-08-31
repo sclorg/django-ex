@@ -5,40 +5,66 @@ import json
 
 from django.urls import reverse
 from django.utils.html import format_html, format_html_join
+from django.utils.safestring import mark_safe
+
+NO_ANSWER = 'No answer'
+MISSING_RESPONSE = mark_safe('<div class="table-error"><span class="warning">MISSING REQUIRED FIELD</span></div>')
 
 register = template.Library()
 
 
 @register.simple_tag
-def reformat_value(source, question_key):
+def reformat_value(source):
     """
     Reformat user response on summary page
-    ie) Remove [], make it a bullet point form
+    Cases:
+    - If there is a missing field, return error html
+    - If value is a json list:
+        Either return the only item
+        Or make it into bullet point form
+    - If it's a text area:
+        For certain fields, make it into bullet points
+        For others, convert \n to <br>
+    - Otherwise, return the original value
     """
+    if source['error']:
+        return MISSING_RESPONSE
+    elif not source['value']:
+        return NO_ANSWER
+    question_key = source['question_id']
     try:
-        lst = json.loads(source)
-        if len(lst) == 1:
-            return lst[0]
-        else:
-            return process_list(lst, question_key)
+        json_list = json.loads(source['value'])
+        return process_json_list(question_key, json_list)
     except:
-        if question_key == 'spouse_support_details' or question_key == 'other_orders_detail'\
-                or question_key == 'provide_certificate_later_reason' or question_key == 'not_provide_certificate_reason':
-            return reformat_list(source)
-        return source
+        if question_key in ['spouse_support_details', 'other_orders_detail']:
+            return reformat_textarea(source)
+        elif '\n' in source['value']:
+            return reformat_textarea(source, as_ul=False)
+        return source['value']
 
 
-def process_list(lst, question_key):
+def process_json_list(question_key, json_list):
+    """
+    Convert a json list to html list, handling special question formats
+    """
+    assert isinstance(json_list, list)
     if question_key.startswith('other_name_'):
-        list_items = format_html_join(
-                    '\n',
-                    '<li>{} {}</li>',
-                    ((alias_type, value) for alias_type, value in lst if value))
+        list_items = get_other_name_tags(json_list)
+    elif question_key == 'reconciliation_period':
+        list_items = get_reconciliation_period_tags(json_list)
+    elif question_key == 'claimant_children':
+        return get_claimant_children_tags(json_list)
+    elif 'address' in question_key:
+        tag = format_html_join(
+            '\n',
+            '{0}<br/>',
+            ((value, '') for value in json_list))
+        return tag
     else:
         list_items = format_html_join(
                     '\n',
                     '<li>{0}</li>',
-                    ((value, '') for value in lst if value and not value.isspace()))
+                    ((value, '') for value in json_list if value and not value.isspace()))
     tag = format_html(
         '<ul>{}</ul>',
         list_items)
@@ -46,29 +72,76 @@ def process_list(lst, question_key):
     return tag
 
 
-def reformat_list(source):
-    text_list = source.split('\n')
+def get_other_name_tags(json_list):
+    list_items = format_html_join(
+        '\n',
+        '<li>{} {}</li>',
+        ((alias_type, value) for alias_type, value in json_list if value))
+    return list_items
+
+
+def get_reconciliation_period_tags(json_list):
+    list_items = format_html_join(
+        '\n',
+        '<li>From {} to {}</li>',
+        (date_range for date_range in json_list))
+    return list_items
+
+
+def get_claimant_children_tags(json_list):
+    child_counter = 1
+    tags = ''
+    for child in json_list:
+        tags = format_html(
+            '{}{}{}{}{}{}{}',
+            tags,
+            format_review_row_heading('Child {}'.format(child_counter), 'review-child-heading'),
+            format_row('Child\'s name', child['child_name']),
+            format_row('Birth date', child['child_birth_date']),
+            format_row('Child now living with', child['child_live_with']),
+            format_row('Relationship to yourself (claimant 1)', child['child_relationship_to_you']),
+            format_row('Relationship to your spouse (claimant 2)', child['child_relationship_to_spouse']))
+        child_counter = child_counter + 1
+    return tags
+
+
+def reformat_textarea(source, as_ul=True):
+    """
+    Takes a textarea value (string with \n) and converts either into html with <br> tags or a list
+    """
+    response = source['value']
+    if not response:
+        return NO_ANSWER
+    text_list = response.split('\n')
     if len(text_list) > 1:
-        list_items = format_html_join(
-                    '\n',
-                    '<li>{0}</li>',
-                    ((value, '') for value in text_list if value))
-        tag = format_html(
-            '<ul>{}</ul>',
-            list_items)
+        if as_ul:
+            list_items = format_html_join(
+                        '\n',
+                        '<li>{0}</li>',
+                        ((value, '') for value in text_list if value))
+            tag = format_html(
+                '<ul>{}</ul>',
+                list_items)
+        else:
+            tag = format_html_join(
+                '\n',
+                '{0}<br/>',
+                ((value, '') for value in text_list))
         return tag
     else:
         return text_list.pop()
 
 
 def format_row(question, response):
+    """ Used for children sub-section tables """
     return format_html(
-        '<tr><td width="75%" class="table-bordered" style="padding-right: 5%">{0}</td><td class="table-bordered" width="25%">{1}</td></tr>',
+        '<tr><td class="table-bordered" style="padding-right: 5%">{0}</td><td class="table-bordered value-column">{1}</td></tr>',
         question,
         response)
 
 
 def format_review_row_heading(title, style=""):
+    """ Used for children sub-section tables """
     return format_html(
         '<tr><td colspan="2" class="table-bordered {1}"><b>{0}</b></td></tr>',
         title,
@@ -85,11 +158,6 @@ def format_fact_sheet(title, url, style=''):
 
 @register.simple_tag(takes_context=True)
 def format_children(context, source):
-    """
-
-    :param source:
-    :return:
-    """
     question_to_heading = OrderedDict()
     question_to_heading['Children details'] = [
         'claimant_children'
@@ -142,8 +210,6 @@ def format_children(context, source):
     fact_sheet_mapping['Undue Hardship (Fact Sheet E)'] = reverse('question_steps', args=['children', 'facts'])
     fact_sheet_mapping['Income over $150,000 (Fact Sheet F)'] = reverse('question_steps', args=['children', 'facts'])
 
-    child_support_orders = {'want_parenting_arrangements', 'order_respecting_arrangement', 'order_for_child_support'}
-
     tags = format_html('<tbody>')
     # process mapped questions first
     working_source = source.copy()
@@ -176,72 +242,41 @@ def format_children(context, source):
                         tags,
                         format_fact_sheet(question, fact_sheet_mapping[question]))
             else:
-
-                item = list(filter(lambda x: x['question_id'] == question, working_source))
+                item_list = list(filter(lambda x: x['question_id'] == question, working_source))
 
                 # skip child support order related questions if user did not select that option
-                if question in child_support_orders and len(item):
-                    item = item.pop()
+                if question == 'order_for_child_support' and len(item_list):
+                    item = item_list.pop()
                     if context['derived']['wants_child_support'] is True and item['value']:
                         # make sure free form text is reformted to be bullet list.
                         tags = format_html(
                             '{}{}',
                             tags,
-                            format_row(item['question__name'], reformat_list(item['value'])))
+                            format_row(item['question__name'], reformat_textarea(item)))
                     continue
 
-                if len(item):
-                    item = item.pop()
+                if len(item_list):
+                    item = item_list.pop()
                     q_id = item['question_id']
                     if q_id in questions:
-                        if q_id == 'claimant_children':
-                            child_counter = 1
-                            for child in json.loads(item['value']):
-                                tags = format_html(
-                                    '{}{}{}{}{}{}{}',
-                                    tags,
-                                    format_review_row_heading('Child {}'.format(child_counter), 'review-child-heading'),
-                                    format_row('Child\'s name', child['child_name']),
-                                    format_row('Birth date', child['child_birth_date']),
-                                    format_row('Child now living with', child['child_live_with']),
-                                    format_row('Relationship to yourself (claimant 1)', child['child_relationship_to_you']),
-                                    format_row('Relationship to your spouse (claimant 2)', child['child_relationship_to_spouse']))
-                                child_counter = child_counter + 1
-                        else:
-                            value = item['value']
-                            if q_id == 'describe_order_special_extra_expenses':
-                                pass
-                            if q_id == 'payor_monthly_child_support_amount':
-                                # Only display this field if it is sole custody
-                                sole_custody = (all([child['child_live_with'] == 'Lives with you' for child in context['derived']['children']]) or
-                                                all([child['child_live_with'] == 'Lives with spouse' for child in context['derived']['children']]))
-                                if not sole_custody:
-                                    continue
+                        if q_id == 'describe_order_special_extra_expenses':
+                            pass
+                        if q_id == 'payor_monthly_child_support_amount':
+                            # Only display this field if it is sole custody
+                            if not context['derived']['sole_custody']:
+                                continue
 
-                            try:
-                                value = json.loads(item['value'])
-                            except:
-                                pass
+                        question_name = item['question__name']
+                        if question == 'child_support_in_order':
+                            question_name = '{} {}'.format(question_name, context['derived']['child_support_payor_by_name'])
+                            if item['value'] == 'MATCH':
+                                item['value'] = '{:.2f}'.format(float(context['derived']['guideline_amounts_difference_total']))
+                            elif item['value'] == 'DIFF':
+                                amount = list(filter(lambda x: x['question_id'] == 'order_monthly_child_support_amount', working_source))
+                                amount = amount.pop()
+                                item['value'] = '{:.2f}'.format(float(amount['value']))
 
-                            question_name = item['question__name']
-                            if question == 'child_support_in_order':
-                                question_name = '{} {}'.format(question_name, context['derived']['child_support_payor_by_name'])
-                                if value == 'MATCH':
-                                    value = '{:.2f}'.format(float(context['derived']['guideline_amounts_difference_total']))
-                                elif value == 'DIFF':
-                                    amount = list(filter(lambda x: x['question_id'] == 'order_monthly_child_support_amount', working_source))
-                                    amount = amount.pop()
-                                    value = '{:.2f}'.format(float(amount['value']))
-                            if question == 'describe_order_special_extra_expenses':
-                                value = reformat_list(value)
-
-                            if isinstance(value, list):
-                                tags = format_html('{}{}', tags, format_row(question_name, process_list(value, q_id)))
-                            elif isinstance(value, str):
-                                if len(value):
-                                    tags = format_html('{}{}', tags, format_row(question_name, value))
-                            else:
-                                tags = format_html('{}{}', tags, format_row(question_name, value))
+                        tags = format_html('{}{}', tags, format_row(question_name, reformat_value(item)))
         tags = format_html('{}</tbody> <tbody class="review-table-spacer">', tags)
     tags = format_html('{}</tbody>', tags)
     return tags
@@ -249,321 +284,124 @@ def format_children(context, source):
 
 @register.simple_tag
 def combine_address(source):
-    """
-        Reformat address to combine them into one cell with multiple line
-        Also show/hide optional questions
-    """
     tags = ''
 
-    address_you = ""
-    fax_you = ""
-    email_you = ""
-    address_spouse = ""
-    fax_spouse = ""
-    email_spouse = ""
-    is_specific_date = False
-    effective_date = ""
+    address_you = []
+    address_you_name = "What is the best address to send you official court documents?"
+    address_you_error = False
+    address_spouse = []
+    address_spouse_name = "What is the best address to send your spouse official court documents?"
+    address_spouse_error = False
+    take_effect_on_item = None
 
     for item in source:
         q_id = item['question_id']
-        if "you" in q_id:
-            if "email" not in q_id and "fax" not in q_id:
-                if q_id == "address_to_send_official_document_country_you":
+        if 'address' in q_id and 'email' not in q_id and 'fax' not in q_id:
+            if 'you' in q_id:
+                if address_you_error:
                     continue
-                address_you = format_html('{}{}<br />', address_you, item["value"])
-            elif "fax" in q_id:
-                fax_you = item["value"]
-            elif "email" in q_id:
-                email_you = item["value"]
-        elif "spouse" in q_id:
-            if "email" not in q_id and "fax" not in q_id:
-                if q_id == "address_to_send_official_document_country_spouse":
+                elif item['error']:
+                    address_you_error = True
+                    tags = format_table_data(tags, address_you_name, MISSING_RESPONSE)
                     continue
-                address_spouse = format_html('{}{}<br />', address_spouse, item["value"])
-            elif "fax" in q_id:
-                fax_spouse = item["value"]
-            elif "email" in q_id:
-                email_spouse = item["value"]
-        elif q_id == "divorce_take_effect_on":
-            if item['value'] == "specific date":
-                is_specific_date = True
+                elif item['value']:
+                    address_you.append(item['value'])
+                if 'postal_code' in q_id:
+                    tags = format_table_data(tags, address_you_name, process_json_list(q_id, address_you))
+                continue
             else:
-                effective_date = item['value']
-        elif q_id == "divorce_take_effect_on_specific_date" and is_specific_date:
-            effective_date = item['value']
-
-    if address_you != "":
-        tags = format_table_data(tags, "What is the best address to send you official court documents?", address_you)
-    if fax_you != "":
-        tags = format_table_data(tags, "Fax", fax_you)
-    if email_you != "":
-        tags = format_table_data(tags, "Email", email_you)
-    if address_spouse != "":
-        tags = format_table_data(tags, "What is the best address to send your spouse official court documents?", address_spouse)
-    if fax_spouse != "":
-        tags = format_table_data(tags, "Fax", fax_spouse)
-    if email_spouse != "":
-        tags = format_table_data(tags, "Email", email_spouse)
-    if effective_date != "":
-        tags = format_table_data(tags, "Divorce is to take effect on", effective_date)
+                if address_spouse_error:
+                    continue
+                elif item['error']:
+                    address_spouse_error = True
+                    tags = format_table_data(tags, address_spouse_name, MISSING_RESPONSE)
+                    continue
+                elif item['value']:
+                    address_spouse.append(item['value'])
+                if 'postal_code' in q_id:
+                    tags = format_table_data(tags, address_spouse_name, process_json_list(q_id, address_spouse))
+                continue
+        elif q_id == 'divorce_take_effect_on':
+            take_effect_on_item = item
+            if item['value'] == 'specific date':
+                continue
+        elif q_id == 'divorce_take_effect_on_specific_date':
+            item['question__name'] = take_effect_on_item['question__name']
+        tags = format_question_for_table(tags, item)
 
     return tags
 
 
 @register.simple_tag(takes_context=True)
 def marriage_tag(context, source):
-    """
-        Reformat your_marriage step
-        Also show/hide optional questions
-    """
-    show_all = False
     tags = ''
-
-    marriage_location = ""
-    married_date = ""
-    married_date_q = ""
-    common_law_date = ""
-    common_law_date_q = ""
-    marital_status_you = ""
-    marital_status_you_q = ""
-    marital_status_spouse = ""
-    marital_status_spouse_q = ""
-
-    # get married_marriage_like value to check if legally married or not
-    for question in context.get('prequalification', ''):
-        if question['question_id'] == 'married_marriage_like' and question['value'] == 'Legally married':
-            show_all = True
-            break
-        elif question['question_id'] == 'married_marriage_like':
-            break
-
+    marriage_location = []
+    marriage_country_is_other = False
+    skip_location = False
     for item in source:
         q_id = item['question_id']
-        value = item['value']
-        q_name = item['question__name']
-
-        if q_id == 'when_were_you_married':
-            married_date_q = q_name
-            married_date = value
-        elif q_id == 'when_were_you_live_married_like':
-            common_law_date_q = q_name
-            common_law_date = value
-        elif q_id.startswith('where_were_you_married'):
-            if value == 'Other':
+        if q_id.startswith('where_were_you_married') and not skip_location:
+            if item['error']:
+                skip_location = True
+                tags = format_table_data(tags, "Where were you married?", MISSING_RESPONSE)
                 continue
-            marriage_location = format_html('{}{}<br />', marriage_location, value)
-        elif q_id == 'marital_status_before_you':
-            marital_status_you_q = q_name
-            marital_status_you = value
-        elif q_id == 'marital_status_before_spouse':
-            marital_status_spouse_q = q_name
-            marital_status_spouse = value
+            elif q_id == 'where_were_you_married_country' and item['value'] == 'Other':
+                marriage_country_is_other = True
+                continue
+            elif item['value']:
+                marriage_location.append(item['value'])
 
-    if show_all and married_date != "":
-        tags = format_table_data(tags, married_date_q, married_date)
-    if common_law_date != "":
-        tags = format_table_data(tags, common_law_date_q, common_law_date)
-    if show_all and marriage_location != "":
-        tags = format_table_data(tags, "Where were you married", marriage_location)
-    if marital_status_you != "":
-        tags = format_table_data(tags, marital_status_you_q, marital_status_you)
-    if marital_status_spouse != "":
-        tags = format_table_data(tags, marital_status_spouse_q, marital_status_spouse)
-
-    return tags
-
-
-@register.simple_tag
-def property_tag(source):
-    """
-        Reformat your_property and debt step
-        Also show/hide optional questions
-    """
-    tags = ''
-
-    division = division_detail = other_detail = None
-
-    for item in source:
-        q_id = item['question_id']
-
-        if q_id == 'deal_with_property_debt':
-            division = item
-        elif q_id == 'how_to_divide_property_debt':
-            division_detail = item
-        elif q_id == 'other_property_claims':
-            other_detail = item
-
-    if division:
-        tags = format_table_data(tags, division['question__name'], division['value'])
-    if division and division['value'] == "Unequal division" and division_detail:
-        tags = format_table_data(tags, division_detail['question__name'], process_list(division_detail['value'].split('\n'), division_detail['question_id']))
-    if other_detail and other_detail['value'].strip():
-        tags = format_table_data(tags, other_detail['question__name'], process_list(other_detail['value'].split('\n'), other_detail['question_id']))
+            # Insert in the right spot in table. Either country is the last item (if US or Canada) or other country is last
+            us_or_canada = not marriage_country_is_other and q_id == 'where_were_you_married_country'
+            other_country = marriage_country_is_other and q_id == 'where_were_you_married_other_country'
+            if us_or_canada or other_country:
+                tags = format_table_data(tags, "Where were you married?", process_json_list('married_address', marriage_location))
+        else:
+            tags = format_question_for_table(tags, item)
 
     return tags
 
 
 @register.simple_tag
 def prequal_tag(source):
-    """
-        Reformat prequalification step
-        Also show/hide optional questions
-    """
     tags = ''
-
-    marriage_status = lived_in_bc = live_at_least_year = separation_date = try_reconcile = reconciliation_period = None
-    children_of_marriage = number_children_under_19 = number_children_over_19 = financial_support = certificate = provide_later = None
-    provide_later_reason = not_provide_later_reason = in_english = divorce_reason = children_live_with_others = None
-
     for item in source:
-        q_id = item['question_id']
-        if q_id == 'married_marriage_like':
-            marriage_status = item
-        elif q_id == 'lived_in_bc':
-            lived_in_bc = item
-        elif q_id == 'lived_in_bc_at_least_year':
-            live_at_least_year = item
-        elif q_id == 'separation_date':
-            separation_date = item
-        elif q_id == 'try_reconcile_after_separated':
-            try_reconcile = item
-        elif q_id == 'reconciliation_period':
-            reconciliation_period = item
-        elif q_id == 'children_of_marriage':
-            children_of_marriage = item
-        elif q_id == 'number_children_under_19':
-            number_children_under_19 = item
-        elif q_id == 'number_children_over_19':
-            number_children_over_19 = item
-        elif q_id == 'children_financial_support':
-            financial_support = item
-        elif q_id == 'children_live_with_others':
-            children_live_with_others = item
-        elif q_id == 'original_marriage_certificate':
-            certificate = item
-        elif q_id == 'provide_certificate_later':
-            provide_later = item
-        elif q_id == 'provide_certificate_later_reason':
-            provide_later_reason = item
-        elif q_id == 'not_provide_certificate_reason':
-            not_provide_later_reason = item
-        elif q_id == 'marriage_certificate_in_english':
-            in_english = item
-        elif q_id == 'divorce_reason':
-            divorce_reason = item
-            if divorce_reason['value'] == 'live separate':
-                divorce_reason['value'] = 'Lived apart for one year'
-
-    if marriage_status:
-        tags = format_table_data(tags, marriage_status['question__name'], marriage_status['value'])
-    if lived_in_bc:
-        tags = format_table_data(tags, lived_in_bc['question__name'], lived_in_bc['value'])
-    if live_at_least_year:
-        tags = format_table_data(tags, live_at_least_year['question__name'], live_at_least_year['value'])
-    if separation_date:
-        tags = format_table_data(tags, separation_date['question__name'], separation_date['value'])
-    if try_reconcile:
-        tags = format_table_data(tags, try_reconcile['question__name'], try_reconcile['value'])
-    if try_reconcile and try_reconcile['value'] == 'YES' and reconciliation_period:
-        tags = format_table_data(tags, reconciliation_period['question__name'], reconciliation_period_reformat(reconciliation_period['value']))
-    if children_of_marriage:
-        tags = format_table_data(tags, children_of_marriage['question__name'], children_of_marriage['value'])
-    if children_of_marriage and children_of_marriage['value'] == 'YES' and number_children_under_19:
-        tags = format_table_data(tags, number_children_under_19['question__name'], number_children_under_19['value'])
-    if children_of_marriage and children_of_marriage['value'] == 'YES' and number_children_over_19:
-        tags = format_table_data(tags, number_children_over_19['question__name'], number_children_over_19['value'])
-    if children_of_marriage and children_of_marriage['value'] == 'YES' and number_children_over_19 and financial_support and financial_support['value']:
-        tags = format_table_data(tags, financial_support['question__name'], '<br>'.join(json.loads(financial_support['value'])))
-    if children_of_marriage and children_of_marriage['value'] == 'YES' and number_children_over_19 and financial_support:
-        tags = format_table_data(tags, children_live_with_others['question__name'], children_live_with_others['value'])
-    if certificate:
-        tags = format_table_data(tags, certificate['question__name'], certificate['value'])
-    if certificate and certificate['value'] == 'NO' and provide_later:
-        tags = format_table_data(tags, provide_later['question__name'], provide_later['value'])
-    if certificate and provide_later and certificate['value'] == 'NO' and provide_later['value'] == 'YES' and provide_later_reason:
-        tags = format_table_data(tags, provide_later_reason['question__name'], process_list(provide_later_reason['value'].split('\n'), provide_later_reason['question_id']))
-    if certificate and provide_later and certificate['value'] == 'NO' and provide_later['value'] == 'NO' and not_provide_later_reason:
-        tags = format_table_data(tags, not_provide_later_reason['question__name'], process_list(not_provide_later_reason['value'].split('\n'), not_provide_later_reason['question_id']))
-    if marriage_status and marriage_status['value'] == 'Living together in a marriage like relationship' and in_english:
-        tags = format_table_data(tags, in_english['question__name'], in_english['value'])
-    if divorce_reason:
-        tags = format_table_data(tags, divorce_reason['question__name'], divorce_reason['value'])
+        if item['question_id'] == 'divorce_reason':
+            if item['value'] == 'live separate':
+                item['value'] = 'Lived apart for one year'
+            elif item['value'] == 'other':
+                item['value'] = 'Other reasons (grounds)'
+        tags = format_question_for_table(tags, item)
 
     return tags
 
 
 @register.simple_tag
 def personal_info_tag(source):
-    """
-        Reformat your information and your spouse step
-        Also show/hide optional questions
-    """
     tags = ''
-
-    name = other_name = other_name_list = last_name_born = last_name_before = None
-    birthday = occupation = lived_bc = moved_bc = None
-
+    lived_in_bc_item = None
     for item in source:
         q_id = item['question_id']
-
-        if q_id.startswith('name_'):
-            name = item
-        elif q_id.startswith('any_other_name_'):
-            other_name = item
-        elif q_id.startswith('other_name_'):
-            other_name_list = item
-        elif q_id.startswith('last_name_born_'):
-            last_name_born = item
-        elif q_id.startswith('last_name_before_married_'):
-            last_name_before = item
-        elif q_id.startswith('birthday_'):
-            birthday = item
-        elif q_id.startswith('occupation_'):
-            occupation = item
-        elif q_id.startswith('lived_in_bc_'):
-            lived_bc = item
+        moved_to_bc_value = "Moved to B.C. on"
+        if q_id.startswith('lived_in_bc_') and item['value'] == moved_to_bc_value:
+            lived_in_bc_item = item
+            continue
         elif q_id.startswith('moved_to_bc_date_'):
-            moved_bc = item
-
-    if name:
-        tags = format_table_data(tags, name['question__name'], name['value'])
-    if other_name:
-        tags = format_table_data(tags, other_name['question__name'], other_name['value'])
-    if other_name and other_name['value'] == 'YES' and other_name_list:
-        tags = format_table_data(tags, other_name_list['question__name'], process_list(json.loads(other_name_list['value']), other_name_list['question_id']))
-    if last_name_born:
-        tags = format_table_data(tags, last_name_born['question__name'], last_name_born['value'])
-    if last_name_before:
-        tags = format_table_data(tags, last_name_before['question__name'], last_name_before['value'])
-    if birthday:
-        tags = format_table_data(tags, birthday['question__name'], birthday['value'])
-    if occupation:
-        tags = format_table_data(tags, occupation['question__name'], occupation['value'])
-    if lived_bc and moved_bc and lived_bc['value'] == "Moved to B.C. on":
-        tags = format_table_data(tags, lived_bc['question__name'], lived_bc['value'] + ' ' + moved_bc['value'])
-    if lived_bc and lived_bc['value'] != "Moved to B.C. on" and lived_bc:
-        tags = format_table_data(tags, lived_bc['question__name'], lived_bc['value'])
-
+            item['question__name'] = lived_in_bc_item['question__name']
+            item['value'] = f"{moved_to_bc_value} {item['value']}"
+        tags = format_question_for_table(tags, item)
     return tags
+
+
+def format_question_for_table(tags, question):
+    name = question['question__name']
+    response = reformat_value(question)
+    return format_table_data(tags, name, response)
 
 
 def format_table_data(tags, question, response):
     return format_html(
-        '{}<tr><td width="75%" style="padding-right: 5%">{}</td><td width="25%">{}</td></tr>',
+        '{}<tr><td style="padding-right: 5%">{}</td><td class="value-column">{}</td></tr>',
         tags,
         question,
         response)
-
-
-def reconciliation_period_reformat(lst):
-    """
-        Reformat reconciliation period into From [dd/mm/yyyy] to [dd/mm/yyyy] format
-    """
-    try:
-        lst = json.loads(lst)
-    except:
-        lst = []
-    period = ""
-    for f_date, t_date in lst:
-        period = format_html('{}From {} to {}<br />', period, f_date, t_date)
-    return period

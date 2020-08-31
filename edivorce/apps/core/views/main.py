@@ -200,15 +200,7 @@ def question(request, step, sub_step=None):
         responses_dict_by_step = get_step_responses(data_dict)
         step_status = get_step_completeness(responses_dict_by_step)
         derived = get_derived_data(data_dict)
-        responses_dict = {}
-
-        # Just for now (until showing missing questions in review is implemented) remove unanswered questions
-        for step, question_list in responses_dict_by_step.items():
-            copy = deepcopy(question_list)
-            for question_dict in question_list:
-                if question_dict['value'] is None:
-                    copy.remove(question_dict)
-            responses_dict[step] = copy
+        responses_dict = responses_dict_by_step
     else:
         responses_dict = get_data_for_user(request.user)
         responses_dict_by_step = get_step_responses(responses_dict)

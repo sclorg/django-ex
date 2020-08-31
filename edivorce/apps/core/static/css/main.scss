@@ -695,8 +695,16 @@ i.fa.fa-question-circle {
     border: 2px solid $color-red !important;
     -webkit-transition: 0.1s ease-in-out all;
     transition: 0.1s ease-in-out all;
-    margin: -5px -10px;
+    margin: -12px -16px;
     padding: 12px 16px;
+    .warning {
+        color: $color-red;
+        font-size: 14px;
+        font-weight: bolder;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+    }
 }
 
 .btn-radio {
@@ -1323,6 +1331,10 @@ textarea {
 			background-color: $brand-blue;
 			color: #fff;
 		}
+        .value-column {
+            width: 30%;
+            min-width: 192px;
+        }
 	}
 
 	.collapse > div,
