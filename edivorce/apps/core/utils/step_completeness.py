@@ -34,7 +34,7 @@ def evaluate_numeric_condition(target, reveal_response):
 
 def get_step_completeness(questions_by_step):
     """
-    Accepts a dictionary of {step: {question_id: {question__name, question_id, value, error}}} <-- from get_step_responses
+    Accepts a dictionary of {step: [{question__name, question_id, value, error}]} <-- from get_step_responses
     Returns {step: status}, {step: [missing_question_key]}
     """
     status_dict = {}
