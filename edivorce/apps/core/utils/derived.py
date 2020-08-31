@@ -87,6 +87,7 @@ DERIVED_DATA = [
     'pursuant_parenting_arrangement',
     'pursuant_child_support',
     'sole_custody',
+    'any_errors',
 ]
 
 
@@ -742,6 +743,13 @@ def sole_custody(responses, derived):
     Return True if either parent has sole custody of the children
     """
     return conditional_logic.determine_sole_custody(responses)
+
+
+def any_errors(responses, derived):
+    for question_key in responses:
+        if question_key.endswith('_error'):
+            return True
+    return False
 
 
 def _any_question_errors(responses, questions):

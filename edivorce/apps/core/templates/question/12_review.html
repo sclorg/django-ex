@@ -214,7 +214,20 @@
     	</div>
     </div>
 </div>
-
+{% if derived.any_errors == True %}
+    <div class="review-warning">
+        <div><span class="exclamation"><i class="fa fa-fw fa-exclamation-circle"></i></span></div>
+        <div>
+            You have not completed at least one field that is required to create your forms.
+            Missing required fields are noted on this screen in the
+            following way: <span class="warning">MISSING REQUIRED FIELD</span>
+            Forms which are missing fields will be identified with the following symbol:
+            <span class="progress-status"><i class="fa fa-adjust" aria-hidden="true"></i></span>
+            Please ensure that all required fields are
+            completed and then return to this page.
+        </div>
+    </div>
+{% endif %}
 
 <div id="questions_modal" class="modal in" tabindex="-1" role="dialog" style="display: block">
     <div class="modal-dialog" role="document">
@@ -236,13 +249,8 @@
 
 {% endblock %}
 
-{% block formbuttons %}
-
-<div class="form-buttons clearfix">
-	<a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'print_form' %}">Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
-</div>
-
-{% endblock %}
+{% block formBack %}{% prev_step step='review' %}{% endblock %}
+{% block formNext %}{% url 'dashboard_nav' 'print_form' %}{% endblock %}
 
 {% block sidebarNav %}
 <!-- no sidebar -->

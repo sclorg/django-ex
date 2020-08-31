@@ -19,6 +19,8 @@ $color-green: #57b26a;
 $color-green-light: #d9f6df;
 $color-gold-light: #e6ca85;
 $color-red: #D8292F;
+$color-red-light: #F7D4D5;
+$color-red-dark: #AC2025;
 
 $font-custom: Myriad-Pro, Calibri, Arial, Sans Serif;
 $font-custom-bold: Myriad-Pro-Bold, Calibri, Arial, Sans Serif;
@@ -677,6 +679,26 @@ i.fa.fa-question-circle {
 			}
 		}
 	}
+}
+
+.review-warning {
+    background-color: $color-red-light;
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 8px;
+    display: flex;
+    .exclamation i {
+        font-size: 25px;
+        color: $color-red-dark;
+    }
+    div {
+        margin: 10px;
+    }
+    .warning, .progress-status i {
+        color: $color-red-dark;
+        font-weight: bolder;
+        margin: 0 3px;
+    }
 }
 
 .error {
