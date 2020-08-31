@@ -214,7 +214,7 @@
     	</div>
     </div>
 </div>
-{% if derived.any_errors == True %}
+{% if derived.any_errors %}
     <div class="review-warning">
         <div><span class="exclamation"><i class="fa fa-fw fa-exclamation-circle"></i></span></div>
         <div>
@@ -251,6 +251,7 @@
 
 {% block formBack %}{% prev_step step='review' %}{% endblock %}
 {% block formNext %}{% url 'dashboard_nav' 'print_form' %}{% endblock %}
+{% block nextButtonAttribute %}{% if derived.any_errors %}disabled{% endif %}{% endblock %}
 
 {% block sidebarNav %}
 <!-- no sidebar -->
