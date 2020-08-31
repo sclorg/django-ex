@@ -155,12 +155,13 @@ def format_review_row_heading(title, style="", substep=None):
     )
 
 
-def format_fact_sheet(title, url, style=''):
+def format_fact_sheet(title, url, value):
     return format_html(
-        '<tr><td colspan="2" class="table-bordered {0}"><a href="{1}"><b>{2}</b></a></td></tr>',
-        style,
+        '<tr><td class="table-bordered"><a href="{}"><b>{}</b></a></td><td>{}</td></tr>',
         url,
-        title)
+        title,
+        value
+    )
 
 
 @register.simple_tag(takes_context=True)
@@ -237,25 +238,35 @@ def format_children(context, source):
         for question in questions:
             if question in fact_sheet_mapping:
                 show_fact_sheet = False
+                fact_sheet_error = False
                 if question == 'Special or Extraordinary Expenses (Fact Sheet A)' and context['derived']['show_fact_sheet_a']:
                     show_fact_sheet = True
+                    fact_sheet_error = context['derived']['fact_sheet_a_error']
                 elif question == 'Shared Living Arrangement (Fact Sheet B)' and context['derived']['show_fact_sheet_b']:
                     show_fact_sheet = True
+                    fact_sheet_error = context['derived']['fact_sheet_b_error']
                 elif question == 'Split Living Arrangement (Fact Sheet C)' and context['derived']['show_fact_sheet_c']:
                     show_fact_sheet = True
+                    fact_sheet_error = context['derived']['fact_sheet_c_error']
                 elif question == 'Child(ren) 19 Years or Older (Fact Sheet D)' and context['derived']['show_fact_sheet_d']:
                     show_fact_sheet = True
+                    fact_sheet_error = context['derived']['fact_sheet_d_error']
                 elif question == 'Undue Hardship (Fact Sheet E)' and context['derived']['show_fact_sheet_e']:
                     show_fact_sheet = True
-                elif question == 'Income over $150,000 (Fact Sheet F)' and (
-                        context['derived']['show_fact_sheet_f_you'] or context['derived']['show_fact_sheet_f_spouse']):
+                    fact_sheet_error = context['derived']['fact_sheet_e_error']
+                elif question == 'Income over $150,000 (Fact Sheet F)' and context['derived']['show_fact_sheet_f']:
                     show_fact_sheet = True
+                    fact_sheet_error = context['derived']['fact_sheet_f_error']
 
                 if show_fact_sheet and len(fact_sheet_mapping[question]):
+                    if fact_sheet_error:
+                        value = MISSING_RESPONSE
+                    else:
+                        value = 'Complete'
                     tags = format_html(
                         '{}{}',
                         tags,
-                        format_fact_sheet(question, fact_sheet_mapping[question]))
+                        format_fact_sheet(question, fact_sheet_mapping[question], value))
             else:
                 item_list = list(filter(lambda x: x['question_id'] == question, working_source))
 

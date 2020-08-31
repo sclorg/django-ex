@@ -34,6 +34,7 @@ DERIVED_DATA = [
     'wants_child_support',
     'wants_other_orders',
     'show_fact_sheet_a',
+    'fact_sheet_a_error',
     'show_fact_sheet_b',
     'fact_sheet_b_error',
     'show_fact_sheet_c',
@@ -86,7 +87,6 @@ DERIVED_DATA = [
     'pursuant_parenting_arrangement',
     'pursuant_child_support',
     'sole_custody',
-    'special_expenses_missing_error',
 ]
 
 
@@ -158,6 +158,10 @@ def show_fact_sheet_a(responses, derived):
     """
 
     return responses.get('special_extraordinary_expenses', '') == 'YES'
+
+
+def fact_sheet_a_error(responses, derived):
+    return determine_missing_extraordinary_expenses(responses)
 
 
 def show_fact_sheet_b(responses, derived):
@@ -263,6 +267,7 @@ def fact_sheet_f_error(responses, derived):
     if show_fact_sheet_f_spouse(responses, derived):
         if _any_question_errors(responses, fields_for_spouse):
             return True
+    return False
 
 
 def has_fact_sheets(responses, derived):
@@ -737,10 +742,6 @@ def sole_custody(responses, derived):
     Return True if either parent has sole custody of the children
     """
     return conditional_logic.determine_sole_custody(responses)
-
-
-def special_expenses_missing_error(responses, derived):
-    return determine_missing_extraordinary_expenses(responses)
 
 
 def _any_question_errors(responses, questions):

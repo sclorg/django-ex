@@ -306,10 +306,10 @@
     </div>
 
     <div id="fact_sheet_a" class="fact-sheets" hidden>
-    <div class="question-well {% if derived.special_expenses_missing_error %}error{% endif %}">
-        <h1>Special or Extraordinary Expenses (Fact Sheet A){% if derived.special_expenses_missing_error %}{% include 'partials/required.html' %}{% endif %}</h1>
+    <div class="question-well {% if derived.fact_sheet_a_error %}error{% endif %}">
+        <h1>Special or Extraordinary Expenses (Fact Sheet A){% if derived.fact_sheet_a_error %}{% include 'partials/required.html' %}{% endif %}</h1>
         <p>Since you have indicated that there are special or extraordinary expenses, we need you to answer the next set of questions.</p>
-        {% if derived.special_expenses_missing_error %}<p class="warning">
+        {% if derived.fact_sheet_a_error %}<p class="warning">
         * At least one of these values must be greater than 0
         </p>{% endif %}
         <table class="table table-bordered">

@@ -199,6 +199,7 @@ def question(request, step, sub_step=None):
         data_dict = get_data_for_user(request.user)
         responses_dict_by_step = get_step_responses(data_dict)
         step_status = get_step_completeness(responses_dict_by_step)
+        data_dict.update(get_error_dict(responses_dict_by_step))
         derived = get_derived_data(data_dict)
         responses_dict = responses_dict_by_step
     else:

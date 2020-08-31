@@ -84,15 +84,19 @@ def get_formatted_incomplete_list(missed_question_keys):
     return missed_questions
 
 
-def get_error_dict(questions_by_step, step, substep=None):
+def get_error_dict(questions_by_step, step=None, substep=None):
     """
     Accepts questions dict of {step: [{question_dict}]} and a step (and substep)
     Returns a dict of {question_key_error: True} for missing questions that are part of that step (and substep)
     """
     responses_dict = {}
-    question_step = page_step_mapping[step]
-    step_questions = questions_by_step.get(question_step)
-
+    if step:
+        question_step = page_step_mapping[step]
+        step_questions = questions_by_step.get(question_step)
+    else:
+        step_questions = []
+        for questions in questions_by_step.values():
+            step_questions.extend(questions)
     # Since the Your children substep only has one question, show error if future children questions have been answered
     children_substep_and_step_started = substep == 'your_children' and step_started(step_questions)
 
