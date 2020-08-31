@@ -295,7 +295,7 @@ page_step_mapping = {
     'property': 'property_and_debt',
     'other_orders': 'other_orders',
     'other_questions': 'other_questions',
-    'filing_locations': 'filing_locations',
+    'location': 'filing_locations',
 }
 
 """ List of court registries """
