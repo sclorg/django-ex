@@ -1,13 +1,11 @@
 from django.test import TestCase
 from edivorce.apps.core.models import UserResponse, Question, BceidUser
 from edivorce.apps.core.utils.step_completeness import is_complete
-from edivorce.apps.core.utils.question_step_mapping import question_step_mapping
 
-# Create your tests here.
 from edivorce.apps.core.utils.user_response import get_data_for_user, get_step_responses
 
 
-class UserResponseTestCase(TestCase):
+class StepCompletenessTestCase(TestCase):
     fixtures = ['Question.json']
 
     def setUp(self):

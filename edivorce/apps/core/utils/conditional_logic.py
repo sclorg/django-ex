@@ -1,4 +1,5 @@
 import json
+import re
 
 
 def get_children(questions_dict):
@@ -134,7 +135,7 @@ def get_cleaned_response_value(response):
     if response is None:
         return None
     response = response.strip()
-    ignore_values = ['', '[]', '[["",""]]', '[["also known as",""]]']
-    if response not in ignore_values:
+    search_text = response.replace('also known as', '')
+    if re.search(r'\w+', search_text):
         return response
     return None
