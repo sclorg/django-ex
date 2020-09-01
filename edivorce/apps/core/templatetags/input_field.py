@@ -11,17 +11,6 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def money_input_field(context, input_type='number', name='', value_src=None, value='', scale_factor=None, ignore_error=False, **kwargs):
-    """
-
-    :param context:
-    :param input_type:
-    :param name:
-    :param value_src:
-    :param value:
-    :param scale_factor:
-    :param kwargs:
-    :return:
-    """
     error = context.get(name + '_error', False)
     if error and not ignore_error:
         if 'class' in kwargs:
@@ -30,25 +19,20 @@ def money_input_field(context, input_type='number', name='', value_src=None, val
             kwargs['class'] = 'error'
     if value == '':
         if value_src is None:
-            value = context.get(name, 0.0)
+            value = context.get(name, '')
         else:
-            value = context.get(value_src, 0.0)
+            value = context.get(value_src, '')
 
-    value = value if value != '' else 0.0
-
-    if scale_factor:
-        value = float(value) * float(scale_factor)
-
-    step = '0.01'
-    if kwargs.get('step', None):
-        step = kwargs.get('step')
+    step = kwargs.get('step', '0.01')
+    if value:
+        if scale_factor:
+            value = float(value) * float(scale_factor)
 
     tag = format_html(
-            '<input type="{}" value="{}" step="{}" min="0"',
-            input_type,
-            "{:.2f}".format(float(value)),
-            step)
-
+        '<input type="{}" value="{}" step="{}" min="0" placeholder="0.00"',
+        input_type,
+        "{:.2f}".format(float(value)) if value else '',
+        step)
     if name != '':
         tag = format_html(
                 '{} name="{}"',
