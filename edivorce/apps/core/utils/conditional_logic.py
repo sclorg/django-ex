@@ -123,9 +123,13 @@ def determine_missing_extraordinary_expenses(questions_dict):
 
     if questions_dict.get('special_extraordinary_expenses') == 'YES':
         for special_expense in special_expenses_keys:
-            value = questions_dict.get(special_expense)
-            if value and value != '0.00':
-                return False
+            value = questions_dict.get(special_expense, 0)
+            try:
+                as_num = float(value)
+                if as_num > 0:
+                    return False
+            except ValueError:
+                pass
         return True
     else:
         return False
