@@ -31,18 +31,23 @@ def get_step_responses(responses_by_key):
     """
     responses_by_step = {}
     for step in page_step_mapping.values():
-        questions_dict = _get_questions_dict_set_for_step(step)
-        step_responses = []
-        for question in questions_dict:
-            question_details = _get_question_details(question, questions_dict, responses_by_key)
-            if question_details['show']:
-                question_dict = questions_dict[question]
-                question_dict['value'] = question_details['value']
-                question_dict['error'] = question_details['error']
-
-                step_responses.append(question_dict)
+        step_responses = questions_dict_for_step(responses_by_key, step)
         responses_by_step[step] = step_responses
     return responses_by_step
+
+
+def questions_dict_for_step(responses_by_key, step):
+    questions_dict = _get_questions_dict_set_for_step(step)
+    step_responses = []
+    for question in questions_dict:
+        question_details = _get_question_details(question, questions_dict, responses_by_key)
+        if question_details['show']:
+            question_dict = questions_dict[question]
+            question_dict['value'] = question_details['value']
+            question_dict['error'] = question_details['error']
+
+            step_responses.append(question_dict)
+    return step_responses
 
 
 def _get_questions_dict_set_for_step(step):

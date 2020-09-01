@@ -4,9 +4,6 @@
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
 {% block progress %}
-    {% if request.user.is_authenticated %}
-        {% include "partials/progress.html" %}
-    {% endif %}
 {% endblock %}
 {% block content %}
 
