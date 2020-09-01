@@ -1,49 +1,39 @@
 {% load summary_format %}
-{% if questions %}
-    {% if step == 'your_children' %}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th class="table-bordered">Question</th>
-                <th class="table-bordered">Response</th>
-            </tr>
-        </thead>
-        {% format_children source=questions %}
-    </table>
-    {% else %}
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Question</th>
-                <th>Response</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if step == 'prequalification' %}
-                {% prequal_tag source=questions %}
-            {% elif step == 'your_information' or step == 'your_spouse' %}
-                {% personal_info_tag source=questions %}
-            {% elif step == 'property_and_debt' %}
-                {% property_tag source=questions %}
-            {% elif step == 'your_marriage' %}
-                {% marriage_tag source=questions %}
-            {% elif step == 'other_questions' %}
-                {% combine_address source=questions %}
-            {% else %}
-                {% for question in questions %}
-                    <tr>
-                        <td width="75%" style="padding-right: 5%">{{question.question__name}}</td>
-                        <td width="25%">{% reformat_value source=question.value question_key=question.question_id %}</td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
-        </tbody>
-    </table>
-    {% endif %}
-{% else %}
-    <table class="table table-bordered">
+{% if step == 'your_children' %}
+<table class="table table-striped">
+    <thead>
         <tr>
-            <td>No answered questions</td>
+            <th class="table-bordered">Question</th>
+            <th class="table-bordered">Response</th>
         </tr>
-    </table>
+    </thead>
+    {% format_children source=questions %}
+</table>
+{% else %}
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Question</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if step == 'prequalification' %}
+            {% prequal_tag source=questions %}
+        {% elif step == 'your_information' or step == 'your_spouse' %}
+            {% personal_info_tag source=questions %}
+        {% elif step == 'your_marriage' %}
+            {% marriage_tag source=questions %}
+        {% elif step == 'other_questions' %}
+            {% combine_address source=questions %}
+        {% else %}
+            {% for question in questions %}
+                <tr>
+                    <td style="padding-right: 5%">{{question.question__name}}</td>
+                    <td class="value-column">{% reformat_value source=question %}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
 {% endif %}
