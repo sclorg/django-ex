@@ -1152,6 +1152,10 @@ textarea {
         padding: 4px 6px;
         margin-left: 16px;
         white-space: nowrap;
+        &.inline {
+            border: none;
+            padding: 0;
+        }
     }
 
     .required {

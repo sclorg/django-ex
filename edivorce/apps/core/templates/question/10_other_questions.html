@@ -15,20 +15,20 @@
     <div>
         <h3>What is the best address to send you official court documents?</h3>
         <h2>Your Contact Information</h2>
-        <p>House and street number{% if address_to_send_official_document_street_you_error %}{% include 'partials/required.html' %}{% endif %}</p>
+        <p>House and street number{% if address_to_send_official_document_street_you_error %}{% include 'partials/required.html' with inline=True %}{% endif %}</p>
         {% input_field type="text" name="address_to_send_official_document_street_you" class="form-block input-wide response-textbox" %}
-        <p>City{% if address_to_send_official_document_city_you_error %}{% include 'partials/required.html' %}{% endif %}</p>
+        <p>City{% if address_to_send_official_document_city_you_error %}{% include 'partials/required.html' with inline=True %}{% endif %}</p>
         {% input_field type="text" name="address_to_send_official_document_city_you" class="form-block input-wide response-textbox" %}
-        <p>Prov/State {% include 'partials/optional.html' %}</p>
+        <p>Prov/State {% include 'partials/optional.html' with inline=True %}</p>
         {% input_field type="text" name="address_to_send_official_document_prov_you" class="form-block input-narrow response-textbox" %}
 
-        <p>Country{% if address_to_send_official_document_country_you_error or address_to_send_official_document_other_country_you_error %}{% include 'partials/required.html' %}{% endif %}</p>
+        <p>Country{% if address_to_send_official_document_country_you_error or address_to_send_official_document_other_country_you_error %}{% include 'partials/required.html' with inline=True %}{% endif %}</p>
 
         <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="address_to_send_official_document_country_you" value="Canada" %}Canada</label></div>
         <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="address_to_send_official_document_country_you" value="USA" %}USA</label></div>
         <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="address_to_send_official_document_country_you" value="Other" %}Other {% input_field type="text" name="address_to_send_official_document_other_country_you" class="response-textbox other-textbox input-inline" tabindex="-1" %}</label></div>
 
-        <p>Postal code {% include 'partials/optional.html' %}</p>
+        <p>Postal code {% include 'partials/optional.html' with inline=True %}</p>
         {% input_field type="text" name="address_to_send_official_document_postal_code_you" class="form-block input-wide response-textbox" %}
     </div>
 
@@ -37,10 +37,10 @@
             If your main address is a PO box, you can list this instead of the fax or email but you must also list
             an address that’s not a PO box.</p>
 
-        <p>Fax number {% include 'partials/optional.html' %}</p>
+        <p>Fax number {% include 'partials/optional.html' with inline=True %}</p>
         {% input_field type="text" name="address_to_send_official_document_fax_you" class="form-block input-wide response-textbox" %}
         <div class="form-group">
-        <p>Email Address {% include 'partials/optional.html' %}</p>
+        <p>Email Address {% include 'partials/optional.html' with inline=True %}</p>
         {% input_field type="text" id="email_textbox" name="address_to_send_official_document_email_you" class="form-block input-wide response-textbox form-control" %}
         </div>
     </div>
@@ -49,21 +49,21 @@
 <div class="question-well {% if address_to_send_official_document_street_spouse_error or address_to_send_official_document_city_spouse_error or address_to_send_official_document_country_spouse_error or address_to_send_official_document_other_country_spouse_error %}error{% endif %}">
     <div>
         <h2>Your Spouse's Contact Information</h2>
-        <p>House and street number{% if address_to_send_official_document_street_spouse_error %}{% include 'partials/required.html' %}{% endif %}</p>
+        <p>House and street number{% if address_to_send_official_document_street_spouse_error %}{% include 'partials/required.html' with inline=True %}{% endif %}</p>
         {% input_field type="text" name="address_to_send_official_document_street_spouse" class="form-block input-wide response-textbox" %}
-        <p>City{% if address_to_send_official_document_city_spouse_error %}{% include 'partials/required.html' %}{% endif %}</p>
+        <p>City{% if address_to_send_official_document_city_spouse_error %}{% include 'partials/required.html' with inline=True %}{% endif %}</p>
         {% input_field type="text" name="address_to_send_official_document_city_spouse" class="form-block input-wide response-textbox" %}
-        <p>Prov/State {% include 'partials/optional.html' %}</p>
+        <p>Prov/State {% include 'partials/optional.html' with inline=True %}</p>
         {% input_field type="text" name="address_to_send_official_document_prov_spouse" class="form-block input-narrow response-textbox" %}
 
         <p>Country{% if address_to_send_official_document_country_spouse_error or address_to_send_official_document_other_country_spouse_error %}
-            {% include 'partials/required.html' %}{% endif %}</p>
+            {% include 'partials/required.html' with inline=True %}{% endif %}</p>
 
         <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="address_to_send_official_document_country_spouse" value="Canada" %}Canada</label></div>
         <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="address_to_send_official_document_country_spouse" value="USA" %}USA</label></div>
         <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="address_to_send_official_document_country_spouse" value="Other" %}Other {% input_field type="text" name="address_to_send_official_document_other_country_spouse" class="response-textbox other-textbox input-inline" tabindex="-1" %}</label></div>
 
-        <p>Postal code {% include 'partials/optional.html' %}</p>
+        <p>Postal code {% include 'partials/optional.html' with inline=True %}</p>
         {% input_field type="text" name="address_to_send_official_document_postal_code_spouse" class="form-block input-wide response-textbox" %}
     </div>
 
@@ -72,10 +72,10 @@
             If your spouse's main address is a PO box, your spouse can list this instead of the fax or email but your spouse must also list
             an address that’s not a PO box.</p>
 
-        <p>Fax number {% include 'partials/optional.html' %}</p>
+        <p>Fax number {% include 'partials/optional.html' with inline=True %}</p>
         {% input_field type="text" name="address_to_send_official_document_fax_spouse" class="form-block input-wide response-textbox" %}
         <div class="form-group">
-        <p>Email Address {% include 'partials/optional.html' %}</p>
+        <p>Email Address {% include 'partials/optional.html' with inline=True %}</p>
         {% input_field type="text" id="email_textbox" name="address_to_send_official_document_email_spouse" class="form-block input-wide response-textbox form-control" %}
         </div>
     </div>
@@ -87,7 +87,7 @@
         <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="divorce_take_effect_on" value="the 31st day after the date of this order" data_target_id="take_effect_alert" data_reveal_target="false" %}the 31st day after the date of this order</label></div>
         <div class="radio">
             <label>{% input_field type="radio" class="radio-with-other" name="divorce_take_effect_on" value="specific date" data_target_id="take_effect_alert" data_reveal_target="true" %}a specific date
-                {% if divorce_take_effect_on_specific_date_error %}{% include 'partials/required.html' %}{% endif %}
+                {% if divorce_take_effect_on_specific_date_error %}{% include 'partials/required.html' with inline=True %}{% endif %}
                 <span class="input-group date date-picker-group" data-allow-future-date="true">
                     {% input_field type="text" name="divorce_take_effect_on_specific_date" id="effect_date" class="date-picker-future other-textbox input-inline form-control" tabindex="-1" placeholder="MMM D, YYYY" %}
                     <span class="input-group-addon" ><i class="fa fa-calendar circle"></i></span>
