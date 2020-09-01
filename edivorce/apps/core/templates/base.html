@@ -18,6 +18,8 @@
         <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}">
         <link rel="stylesheet" type="text/css" href="{% sass_src "css/main.scss" %}" />
         {% endcompress %}
+        {% block extra_css %}
+        {% endblock %}
         {% include 'partials/gtm_head.html' %}
 
         <!--[if lt IE 9]>
@@ -217,5 +219,7 @@
         <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/signing-filing.js' %}"></script>
         {% endcompress %}
+        {% block extra_js %}
+        {% endblock %}
     </body>
 </html>
