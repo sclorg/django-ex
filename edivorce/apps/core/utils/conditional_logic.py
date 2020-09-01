@@ -134,6 +134,7 @@ def determine_missing_extraordinary_expenses(questions_dict):
 def get_cleaned_response_value(response):
     if response is None:
         return None
+    response = response.strip()
     search_text = response.replace('also known as', '')
     if re.search(r'\w+', search_text):
         return response
