@@ -97,6 +97,7 @@
             {% endif %}
             <p id="child_support_in_order_detail">
                 Please describe what arrangements have been made for the support of the child (ren)?
+                {% if child_support_in_order_reason_error %}{% include 'partials/required.html' with inline=True %}{% endif %}
                 {% input_field type="textarea" name="child_support_in_order_reason" class="other-textbox response-textarea form-control" tabindex="-1" maxlength="500" rows="3" %}
             </p>
         </div>

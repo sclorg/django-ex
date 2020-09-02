@@ -216,7 +216,7 @@
             <td colspan="3">
                 <p>
                     Any other relevant information regarding the conditions, means, needs and other circumstances of
-                    each spouse or of any child for whom support is sought? {% include 'partials/optional.html' %}
+                    each spouse or of any child for whom support is sought? {% include 'partials/optional.html' with inline=True %}
                 </p>
                 {% input_field style="height:50px;" type="textarea" name="additional_relevant_spouse_children_info" maxlength="500" rows="3" class="fact-sheet-input form-control response-textarea" %}
             </td>

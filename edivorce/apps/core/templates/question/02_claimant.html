@@ -129,11 +129,10 @@
 </div>
 
 <div class="question-well {% if lived_in_bc_you_error or moved_to_bc_date_you_error %}error{% endif %}">
-    <h3>How long have you lived in B.C.?{% if lived_in_bc_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
+    <h3>How long have you lived in B.C.?{% if lived_in_bc_you_error or moved_to_bc_date_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <p>Please select one</p>
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other" name="lived_in_bc_you" value="Since birth" %}Since birth</label></div>
     <div class="radio"><label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="lived_in_bc_you" value="Moved to B.C. on" %}Moved to B.C. on
-        {% if moved_to_bc_date_you_error %}{% include 'partials/required.html' %}{% endif %}
         <span class="input-group date date-picker-group">
             {% input_field type="text" name="moved_to_bc_date_you" id="moved_date" class="date-picker other-textbox input-inline form-control" tabindex="-1" placeholder="MMM D, YYYY" %}
             <span class="input-group-addon" >
