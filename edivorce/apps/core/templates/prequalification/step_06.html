@@ -4,9 +4,20 @@
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
 {% block progress %}
+    {% if request.user.is_authenticated and step_status.prequalification == 'Complete' %}
+        {% include "partials/progress.html" %}
+    {% endif %}
 {% endblock %}
-{% block content %}
 
+{% block backToDashboard %}
+    {% if request.user.is_authenticated and step_status.prequalification == 'Complete' %}
+        <div class="mid_banner-dash"><a href="{% url 'overview' %}">
+            <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>View Application Stages</a>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
 <div>
     <h1>Before We Begin...</h1>
     <p>Some divorces are more complicated than others, and not everyone should use this online tool. So let's start by asking you a few questions to make sure that this website is right for your situation.</p>
