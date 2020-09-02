@@ -16,6 +16,7 @@ $color-grey-light: #d5d5d5;
 $color-grey-lighter: #efefef;
 $color-grey-lightest: #fdfdfd;
 $color-green: #57b26a;
+$color-green-light: #d5e6d8;
 $color-green-dark: #246A33;
 $color-gold-light: #e6ca85;
 $color-red: #D8292F;
@@ -1434,8 +1435,8 @@ textarea {
 
     .dashnav-column {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 280px;
-        flex: 0 0 280px;
+        -ms-flex: 0 0 290px;
+        flex: 0 0 289px;
         background-color: $brand-titles;
         -webkit-box-ordinal-group: 3;
         -ms-flex-order: 2;
@@ -1615,25 +1616,11 @@ textarea {
         -webkit-box-align: center;
         -ms-flex-align: center;
         align-items: center;
-        height: 72px;
+        height: 70px;
         margin-bottom: 12px;
-        padding: 0 16px;
+        padding: 0 24px;
         font-weight: bold;
 
-        &.active:not(.complete) {
-            .progress-icon i {
-                border: solid 1px $color-blue-dark;
-                background-color: $color-blue-dark;
-                color: $brand-gold;
-            }
-        }
-        &.active.complete {
-            .progress-icon i {
-                border: solid 1px $color-green-dark;
-                background-color: $color-green-dark;
-                color: $brand-gold;
-            }
-        }
         .progress-icon {
 			-webkit-box-flex: 0;
 			-ms-flex: 0 0 46px;
@@ -1642,7 +1629,6 @@ textarea {
 			i {
 				font-size: 20px;
 				border: solid 1px $color-blue-dark;
-				color: $color-blue-dark;
 				padding: 8px;
 				border-radius: 36px;
 
@@ -1659,7 +1645,6 @@ textarea {
 			width: 190px;
 			font-size: 14px;
 			line-height: 1.3;
-			color: $color-blue-dark;
 			@media (min-width: 1920px) {
 				font-size: 16px;
 				width: 190px;
@@ -1685,6 +1670,12 @@ textarea {
 		i.incomplete, i.skipped {
 			color: $color-red-dark;
 		}
+
+        i,
+        span {
+            color: $color-blue-dark;
+            border-color: $color-blue-dark;
+        }
 
 		&.complete {
 			i,
@@ -1762,13 +1753,13 @@ textarea {
 }
 
 .overview-progress {
-	border: solid 1px $color-grey-lighter;
+	border: solid 1px $color-grey-light;
 	border-radius: 10px;
 	background: #ffffff;
 
 	.progress-question {
 		margin-bottom: 0;
-		border-bottom: solid 1px $color-grey-lighter;
+		border-bottom: solid 1px $color-grey-light;
 
 		&:last-of-type {
 			border-bottom: none;
@@ -1796,62 +1787,31 @@ textarea {
 			flex: 1;
 
 			i {
-				float: none;
-				margin-right: 5px;
+                font-size: 20px;
+                float: none;
+				margin-left: 16px;
+                vertical-align: middle;
 			}
 		}
 
 		&.complete {
-			background-color: rgba($color-green, .2);
-
-			.progress-content,
-			.progress-icon i,
-			.progress-icon i:before,
-			.progress-status,
-			.progress-status i {
-				color: $color-green;
-			}
-
-			.progress-icon i {
-				border: solid 1px $color-green;
-			}
-		}
-
-		.progress-content,
-		.progress-icon i,
-		.progress-icon i::before,
-		.progress-status,
-		.progress-status i {
-			color: $brand-blue;
-		}
-
-		.progress-icon i {
-			border: solid 1px $brand-blue;
-		}
+            background-color: $color-green-light;
+        }
 
 		&:focus,
 		&:hover {
-			background-color: rgba($brand-blue, .3);
+			background-color: $color-blue-lighter;
 			text-decoration: none;
-
-			.progress-content,
-			.progress-icon i,
-			.progress-icon i::before,
-			.progress-status,
-			.progress-status i {
-				color: $brand-blue;
-				border-color: $brand-blue;
-			}
 		}
 
-		&:first-child:hover {
-			border-top-left-radius: 7px;
-			border-top-right-radius: 7px;
+		&:first-child {
+			border-top-left-radius: 9px;
+			border-top-right-radius: 9px;
 		}
 
-		&:last-child:hover {
-			border-bottom-left-radius: 7px;
-			border-bottom-right-radius: 7px;
+		&:last-child {
+			border-bottom-left-radius: 9px;
+			border-bottom-right-radius: 9px;
 		}
 
 		a {
@@ -1889,11 +1849,35 @@ textarea {
 			color: #ffffff;
 		}
 
+        &.active {
+            i, .progress-content {
+                color: $color-blue-dark;
+            }
+        }
+
 		&:focus,
 		&:hover {
 			background-color: $brand-gold;
 		}
 	}
+}
+
+.progress-column {
+    .progress-question {
+        &.active {
+            &:not(.complete) .progress-icon i {
+                border: solid 1px $color-blue-dark;
+                background-color: $color-blue-dark;
+                color: $brand-gold;
+            }
+
+            &.complete .progress-icon i {
+                border: solid 1px $color-green-dark;
+                background-color: $color-green-dark;
+                color: $brand-gold;
+            }
+        }
+    }
 }
 
 .has-warning-box {
