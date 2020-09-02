@@ -38,10 +38,17 @@ def get_step_completeness(questions_by_step):
     Returns {step: status}, {step: [missing_question_key]}
     """
     status_dict = {}
-    for step, questions_dict in questions_by_step.items():
+    has_responses = False
+    reversed_steps = list(question_step_mapping.keys())[::-1]
+    for step in reversed_steps:
+        questions_dict = questions_by_step[step]
         if not step_started(questions_dict):
-            status_dict[step] = "Not started"
+            if not has_responses:
+                status_dict[step] = "Not started"
+            else:
+                status_dict[step] = "Skipped"
         else:
+            has_responses = True
             complete = is_complete(questions_dict)
             if complete:
                 status_dict[step] = "Complete"
