@@ -31,13 +31,13 @@
     	</div>
     </div>
 </div>
-<div class="question-well step-review {% if step_status.which_orders != 'Complete' %}error{% endif %}">
+<div class="question-well step-review {% if step_status.which_orders != 'Completed' %}error{% endif %}">
 	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_1" aria-controls="collapse_changed_name">
 		<div>
 			Step 1: What are you asking for
         </div>
     </div>
-    {% if step_status.which_orders != 'Complete' %}{% include 'partials/incomplete.html' %}{% endif %}
+    {% if step_status.which_orders != 'Completed' %}{% include 'partials/incomplete.html' %}{% endif %}
     <p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'orders' %}">Edit</a> </p>
     <div class="clearfix"> </div>
 	<div class="collapse in" id="review_step_1">
@@ -47,13 +47,13 @@
 	</div>
 </div>
 
-<div class="question-well step-review {% if step_status.your_information != 'Complete' %}error{% endif %}">
+<div class="question-well step-review {% if step_status.your_information != 'Completed' %}error{% endif %}">
 	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_2" aria-controls="collapse_changed_name">
 		<div>
 			Step 2: Your information
         </div>
 	</div>
-    {% if step_status.your_information != 'Complete' %}{% include 'partials/incomplete.html' %}{% endif %}
+    {% if step_status.your_information != 'Completed' %}{% include 'partials/incomplete.html' %}{% endif %}
 	<p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'claimant' %}">Edit</a> </p>
     <div class="clearfix"> </div>
 	<div class="collapse in" id="review_step_2">
@@ -63,13 +63,13 @@
 	</div>
 </div>
 
-<div class="question-well step-review {% if step_status.your_spouse != 'Complete' %}error{% endif %}">
+<div class="question-well step-review {% if step_status.your_spouse != 'Completed' %}error{% endif %}">
 	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_3" aria-controls="collapse_changed_name">
 		<div>
 			Step 3: Your spouse
 		</div>
 	</div>
-    {% if step_status.your_spouse != 'Complete' %}{% include 'partials/incomplete.html' %}{% endif %}
+    {% if step_status.your_spouse != 'Completed' %}{% include 'partials/incomplete.html' %}{% endif %}
     <p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'respondent' %}">Edit</a> </p>
     <div class="clearfix"> </div>
 	<div class="collapse in" id="review_step_3">
@@ -79,13 +79,13 @@
 	</div>
 </div>
 
-<div class="question-well step-review {% if step_status.your_marriage != 'Complete' %}error{% endif %}">
+<div class="question-well step-review {% if step_status.your_marriage != 'Completed' %}error{% endif %}">
 	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_4" aria-controls="collapse_changed_name">
 		<div>
 			Step 4: Your marriage
 		</div>
 	</div>
-    {% if step_status.your_marriage != 'Complete' %}{% include 'partials/incomplete.html' %}{% endif %}
+    {% if step_status.your_marriage != 'Completed' %}{% include 'partials/incomplete.html' %}{% endif %}
     <p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'marriage' %}">Edit</a> </p>
     <div class="clearfix"> </div>
 	<div class="collapse in" id="review_step_4">
@@ -95,13 +95,13 @@
 	</div>
 </div>
 
-<div class="question-well step-review {% if step_status.your_separation != 'Complete' %}error{% endif %}">
+<div class="question-well step-review {% if step_status.your_separation != 'Completed' %}error{% endif %}">
 	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_5" aria-controls="collapse_changed_name">
 		<div>
 			Step 5: Your separation
 		</div>
 	</div>
-    {% if step_status.your_separation != 'Complete' %}{% include 'partials/incomplete.html' %}{% endif %}
+    {% if step_status.your_separation != 'Completed' %}{% include 'partials/incomplete.html' %}{% endif %}
     <p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'separation' %}">Edit</a> </p>
     <div class="clearfix"> </div>
 	<div class="collapse in" id="review_step_5">
@@ -112,13 +112,13 @@
 </div>
 
 {% if derived.has_children_of_marriage %}
-<div class="question-well step-review {% if step_status.your_children != 'Complete' %}error{% endif %}">
+<div class="question-well step-review {% if step_status.your_children != 'Completed' %}error{% endif %}">
 	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_6" aria-controls="collapse_changed_name">
 		<div>
 			Step {% step_order step="children" %}: Your children
 		</div>
 	</div>
-    {% if step_status.your_children != 'Complete' %}{% include 'partials/incomplete.html' %}{% endif %}
+    {% if step_status.your_children != 'Completed' %}{% include 'partials/incomplete.html' %}{% endif %}
     <p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'children' 'your_children' %}">Edit</a> </p>
     <div class="clearfix"> </div>
 	<div class="collapse in" id="review_step_6">
@@ -130,13 +130,13 @@
 {% endif %}
 
 {% if 'Spousal support' in which_orders.0.value|load_json %}
-<div class="question-well step-review {% if step_status.spousal_support != 'Complete' %}error{% endif %}">
+<div class="question-well step-review {% if step_status.spousal_support != 'Completed' %}error{% endif %}">
 	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_7" aria-controls="collapse_changed_name">
 		<div>
 			Step {% step_order step="support" %}: Spousal support
 		</div>
 	</div>
-    {% if step_status.spousal_support != 'Complete' %}{% include 'partials/incomplete.html' %}{% endif %}
+    {% if step_status.spousal_support != 'Completed' %}{% include 'partials/incomplete.html' %}{% endif %}
     <p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'support' %}">Edit</a> </p>
     <div class="clearfix"> </div>
 	<div class="collapse in" id="review_step_7">
@@ -148,13 +148,13 @@
 {% endif %}
 
 {% if 'Division of property and debts' in which_orders.0.value|load_json %}
-<div class="question-well step-review {% if step_status.property_and_debt != 'Complete' %}error{% endif %}">
+<div class="question-well step-review {% if step_status.property_and_debt != 'Completed' %}error{% endif %}">
     <div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_8" aria-controls="collapse_changed_name">
     	<div>
     		Step {% step_order step="property" %}: Property and debt
     	</div>
     </div>
-    {% if step_status.property_and_debt != 'Complete' %}{% include 'partials/incomplete.html' %}{% endif %}
+    {% if step_status.property_and_debt != 'Completed' %}{% include 'partials/incomplete.html' %}{% endif %}
     <p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'property' %}">Edit</a> </p>
     <div class="clearfix"> </div>
     <div class="collapse in" id="review_step_8">
@@ -166,13 +166,13 @@
 {% endif %}
 
 {% if 'Other orders' in which_orders.0.value|load_json %}
-<div class="question-well step-review {% if step_status.other_orders != 'Complete' %}error{% endif %}">
+<div class="question-well step-review {% if step_status.other_orders != 'Completed' %}error{% endif %}">
     <div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_9" aria-controls="collapse_changed_name">
     	<div>
     		Step {% step_order step="other_orders" %}: Other orders
     	</div>
     </div>
-    {% if step_status.other_orders != 'Complete' %}{% include 'partials/incomplete.html' %}{% endif %}
+    {% if step_status.other_orders != 'Completed' %}{% include 'partials/incomplete.html' %}{% endif %}
     <p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'other_orders' %}">Edit</a> </p>
     <div class="clearfix"> </div>
     <div class="collapse in" id="review_step_9">
@@ -183,13 +183,13 @@
 </div>
 {% endif %}
 
-<div class="question-well step-review {% if step_status.other_questions != 'Complete' %}error{% endif %}">
+<div class="question-well step-review {% if step_status.other_questions != 'Completed' %}error{% endif %}">
     <div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_10" aria-controls="collapse_changed_name">
     	<div>
     		Step {% step_order step="other_questions" %}: Other questions
     	</div>
     </div>
-    {% if step_status.other_questions != 'Complete' %}{% include 'partials/incomplete.html' %}{% endif %}
+    {% if step_status.other_questions != 'Completed' %}{% include 'partials/incomplete.html' %}{% endif %}
     <p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'other_questions' %}">Edit</a> </p>
     <div class="clearfix"> </div>
     <div class="collapse in" id="review_step_10">
@@ -199,13 +199,13 @@
     </div>
 </div>
 
-<div class="question-well step-review {% if step_status.filing_locations != 'Complete' %}error{% endif %}">
+<div class="question-well step-review {% if step_status.filing_locations != 'Completed' %}error{% endif %}">
     <div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_11" aria-controls="collapse_changed_name">
     	<div>
     		Step {% step_order step="location" %}: Filing location
     	</div>
     </div>
-    {% if step_status.filing_locations != 'Complete' %}{% include 'partials/incomplete.html' %}{% endif %}
+    {% if step_status.filing_locations != 'Completed' %}{% include 'partials/incomplete.html' %}{% endif %}
     <p class="review-buttons"><a class="btn btn-success" href="{% url 'question_steps' 'location' %}">Edit</a> </p>
     <div class="clearfix"> </div>
     <div class="collapse in" id="review_step_11">

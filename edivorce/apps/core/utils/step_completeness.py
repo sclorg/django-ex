@@ -51,7 +51,7 @@ def get_step_completeness(questions_by_step):
             has_responses = True
             complete = is_complete(questions_dict)
             if complete:
-                status_dict[step] = "Complete"
+                status_dict[step] = "Completed"
             else:
                 status_dict[step] = "Started"
     return status_dict
