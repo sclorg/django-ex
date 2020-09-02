@@ -42,31 +42,36 @@
         {% include "partials/progress_icon.html" with step_status_string=step_status.your_children%}
     </a>
 
-    <ul class="collapse {% if active_page == 'children' %} in {% endif %} progress-sub-menu" id="children_nav">
+    <ul class="collapse {% if active_page == 'children' %}in {% endif %}progress-sub-menu" id="children_nav">
         <li>
             <a href="{% url 'question_steps' 'children' 'your_children'%}" class="progress-sub-question {% if sub_step == 'your_children' %} active {% endif %}">
                 <span class="progress-content">Children details</span>
             </a>
+            {% include "partials/progress_icon.html" with step_status_string=step_status.children__your_children %}
         </li>
         <li>
             <a href="{% url 'question_steps' 'children' 'income_expenses'%}" class="progress-sub-question {% if sub_step == 'income_expenses' %} active {% endif %}">
                 <span class="progress-content">Income & expenses</span>
             </a>
+            {% include "partials/progress_icon.html" with step_status_string=step_status.children__income_expenses %}
         </li>
         <li>
             <a href="{% url 'question_steps' 'children' 'facts'%}" class="progress-sub-question {% if sub_step == 'facts' %} active {% endif %}">
                 <span class="progress-content">Payor & Fact sheets</span>
             </a>
+            {% include "partials/progress_icon.html" with step_status_string=step_status.children__facts %}
         </li>
         <li>
             <a href="{% url 'question_steps' 'children' 'payor_medical'%}" class="progress-sub-question {% if sub_step == 'payor_medical' %} active {% endif %}">
                 <span class="progress-content">Medical & other expenses</span>
             </a>
+            {% include "partials/progress_icon.html" with step_status_string=step_status.children__payor_medical %}
         </li>
         <li>
             <a href="{% url 'question_steps' 'children' 'what_for'%}" class="progress-sub-question {% if sub_step == 'what_for' %} active {% endif %}">
                 <span class="progress-content">What are you asking for</span>
             </a>
+            {% include "partials/progress_icon.html" with step_status_string=step_status.children__what_for %}
         </li>
 
     </ul>

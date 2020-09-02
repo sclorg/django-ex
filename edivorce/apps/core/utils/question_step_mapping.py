@@ -109,7 +109,6 @@ children_substep_question_mapping = {
         'child_support_arrears_amount',
     },
     'what_for': {
-        'child_support_in_order',
         'order_monthly_child_support_amount',
         'child_support_in_order_reason',
         'claimants_agree_to_child_support_amount',

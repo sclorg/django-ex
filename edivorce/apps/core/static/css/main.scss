@@ -1658,19 +1658,6 @@ textarea {
 			}
 		}
 
-		.progress-status {
-			width: 28px;
-			text-align: right;
-
-			i {
-				float: right;
-			}
-		}
-
-		i.incomplete, i.skipped {
-			color: $color-red-dark;
-		}
-
         i,
         span {
             color: $color-blue-dark;
@@ -1697,13 +1684,28 @@ textarea {
 		}
 	}
 
+    .progress-status {
+        width: 28px;
+        text-align: right;
+
+        i {
+            float: right;
+
+            &.incomplete, &.skipped {
+                color: $color-red-dark;
+            }
+            &.complete {
+                color: $color-green-dark;
+            }
+        }
+    }
 	.progress-sub-menu {
 
 		list-style-type: none;
 
 		li {
 			display:inline-block;
-    		padding: 5px 10px 5px 22px;
+    		padding: 5px 24px 5px 22px;
 			border-left:2px solid $brand-gold;
 			width: 100%;
 		}
@@ -1736,7 +1738,11 @@ textarea {
 				color: $brand-gold;
 				text-decoration: none;
 				font-weight: 700;
-			}
+
+                &.active {
+                    border-bottom: 1px solid $brand-gold;
+                }
+            }
 
 			&.active {
 				text-decoration: none;
