@@ -3,10 +3,11 @@ from copy import deepcopy
 
 from django.conf import settings
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils import timezone
 
 from edivorce.apps.core.utils.derived import get_derived_data
-from ..decorators import bceid_required, intercept
+from ..decorators import bceid_required, intercept, prequal_completed
 from ..utils.question_step_mapping import list_of_registries
 from ..utils.step_completeness import get_error_dict, get_missed_question_keys, get_step_completeness, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
@@ -59,20 +60,29 @@ def success(request):
     This page is shown if the user passes the qualification test
     """
     if request.user.is_authenticated:
-        return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
-
-    prequal_responses = get_responses_from_session_grouped_by_steps(request)['prequalification']
+        responses = get_data_for_user(request.user)
+        prequal_responses = get_step_responses(responses)['prequalification']
+    else:
+        prequal_responses = get_responses_from_session_grouped_by_steps(request)['prequalification']
     complete = is_complete(prequal_responses)
+
     if complete:
-        return render(request, 'success.html', context={'register_url': settings.REGISTER_URL,'register_sc_url': settings.REGISTER_SC_URL})
-    return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/incomplete')
+        if request.user.is_authenticated:
+            return redirect(reverse('overview'))
+        else:
+            return render(request, 'success.html', context={'register_url': settings.REGISTER_URL,'register_sc_url': settings.REGISTER_SC_URL})
+    return redirect(reverse('incomplete'))
 
 
 def incomplete(request):
     """
     This page is shown if the user misses any pre-qualification questions
     """
-    prequal_responses = get_responses_from_session_grouped_by_steps(request)
+    if request.user.is_authenticated:
+        responses = get_data_for_user(request.user)
+        prequal_responses = get_step_responses(responses)
+    else:
+        prequal_responses = get_responses_from_session_grouped_by_steps(request)
     missed_question_keys = get_missed_question_keys(prequal_responses, 'prequalification')
     missed_questions = get_formatted_incomplete_list(missed_question_keys)
 
@@ -154,6 +164,7 @@ def logout(request):
 
 
 @bceid_required
+@prequal_completed
 @intercept
 def overview(request):
     """
@@ -177,6 +188,7 @@ def overview(request):
 
 
 @bceid_required
+@prequal_completed
 def dashboard_nav(request, nav_step):
     """
     Dashboard: All other pages
@@ -188,6 +200,7 @@ def dashboard_nav(request, nav_step):
 
 
 @bceid_required
+@prequal_completed
 def question(request, step, sub_step=None):
     """
     View for rendering main divorce questionaire questions
@@ -250,11 +263,13 @@ def acknowledgements(request):
     """
     return render(request, 'acknowledgements.html', context={'active_page': 'acknowledgements'})
 
+
 def contact(request):
     """
     Contact Us page
     """
     return render(request, 'contact-us.html', context={'active_page': 'contact'})
+
 
 @bceid_required
 def intercept_page(request):
