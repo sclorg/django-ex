@@ -152,103 +152,74 @@
 
 
 <div class="question-well {% if spouse_support_act_error %}error{% endif %}">
-    {% if married_marriage_like == "Legally married" %}
-        <h3>Please indicate which act you are asking for support under.{% if spouse_support_act_error %}{% include 'partials/required.html' %}{% endif %}
-        </h3>
-        <div class="radio">
-            <label>
-                {% input_field type="radio" name="spouse_support_act" value="The Divorce Act (Canada)" data_target_id="family_law_time_limit" data_reveal_target="false" %}
-                The Divorce Act (Canada)
-            </label> -
-            <a href="http://laws-lois.justice.gc.ca/eng/acts/D-3.4/index.html"
-              target="_blank">view the Divorce Act</a>
-        </div>
-        <div class="radio">
-            <label>
-                {% input_field type="radio" name="spouse_support_act" value="The Family Law Act" data_target_id="family_law_time_limit" data_reveal_target="true" %}
-                The Family Law Act
-            </label> -
-            <a href="http://www.bclaws.ca/civix/document/id/complete/statreg/11025_01"
-              target="_blank">view the Family Law Act</a></div>
+    <h3>Please indicate which act you are asking for support under.{% if spouse_support_act_error %}{% include 'partials/required.html' %}{% endif %}
+    </h3>
+    <div class="radio">
+        <label>
+            {% input_field type="radio" name="spouse_support_act" value="The Divorce Act (Canada)" data_target_id="family_law_time_limit" data_reveal_target="false" %}
+            The Divorce Act (Canada)
+        </label> -
+        <a href="http://laws-lois.justice.gc.ca/eng/acts/D-3.4/index.html"
+          target="_blank">view the Divorce Act</a>
+    </div>
+    <div class="radio">
+        <label>
+            {% input_field type="radio" name="spouse_support_act" value="The Family Law Act" data_target_id="family_law_time_limit" data_reveal_target="true" %}
+            The Family Law Act
+        </label> -
+        <a href="http://www.bclaws.ca/civix/document/id/complete/statreg/11025_01"
+          target="_blank">view the Family Law Act</a></div>
 
-        <div class="information-message bg-danger" id="family_law_time_limit" hidden>
-            <h2>Time limit to apply for court order</h2>
+    <div class="information-message bg-danger" id="family_law_time_limit" hidden>
+        <h2>Time limit to apply for court order</h2>
+        <p>
+            If you were married, you must apply for spousal support under
+            the Family Law Act <b>within two years after you get an order
+            for divorce.</b> If you are applying for spousal support under
+            the Divorce Act, you do not have a time limit.
+        </p>
+    </div>
+
+    <div class="collapse-trigger collapsed" data-toggle="collapse"
+         aria-expanded="false" data-target="#collapse_support_act"
+         aria-controls="collapse_support_act">
+        <div>
+            How do I know which act applies to my situation?
+        </div>
+    </div>
+    <div class="collapse" id="collapse_support_act">
+        <div>
+            <p>Ok, you may be thinking, how the heck am I supposed to know
+            which act (a written law) applies. Let's see if we can help you
+            identify which act best fits with your
+            circumstances/situation.</p>
+
             <p>
-                If you were married, you must apply for spousal support under
-                the Family Law Act <b>within two years after you get an order
-                for divorce.</b> If you are applying for spousal support under
-                the Divorce Act, you do not have a time limit.
+                The Family Law Act and the Divorce Act overlap in some areas but not others. The Divorce Act applies
+                only if you're married but the Family Law Act can apply to both married and unmarried couples. Even
+                if you are getting a divorce, you must apply under the Family Law Act for the division of property
+                or debts, a family law protection order, or orders related to guardianship. The Divorce Act does not
+                deal with these.
+            </p>
+
+            <p>There are big differences in how the Divorce Act and the
+            Family Law Act deal with some issues, especially parenting. For
+            more information on
+            <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/parentingApart.php"
+               target="_blank">which laws apply to your situation</a>
+            please refer to the Family Law of B.C. website.</p>
+
+            <img src="{% static 'img/which_laws_apply.png' %}" />
+
+            <p></p>
+            <p><strong>Still have questions? - Get Help</strong></p>
+            <p>
+                If you're still not sure as to which act applies to your situation please refer to the
+                <a href="{% url 'legal' %}" target="_blank">Get Help section</a> for a list of resources you can
+                turn to for additional support.
             </p>
         </div>
-
-        <div class="collapse-trigger collapsed" data-toggle="collapse"
-             aria-expanded="false" data-target="#collapse_support_act"
-             aria-controls="collapse_support_act">
-            <div>
-                How do I know which act applies to my situation?
-            </div>
-        </div>
-        <div class="collapse" id="collapse_support_act">
-            <div>
-                <p>Ok, you may be thinking, how the heck am I supposed to know
-                which act (a written law) applies. Let's see if we can help you
-                identify which act best fits with your
-                circumstances/situation.</p>
-
-                <p>
-                    The Family Law Act and the Divorce Act overlap in some areas but not others. The Divorce Act applies
-                    only if you're married but the Family Law Act can apply to both married and unmarried couples. Even
-                    if you are getting a divorce, you must apply under the Family Law Act for the division of property
-                    or debts, a family law protection order, or orders related to guardianship. The Divorce Act does not
-                    deal with these.
-                </p>
-
-                <p>There are big differences in how the Divorce Act and the
-                Family Law Act deal with some issues, especially parenting. For
-                more information on
-                <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/parentingApart.php"
-                   target="_blank">which laws apply to your situation</a>
-                please refer to the Family Law of B.C. website.</p>
-
-                <img src="{% static 'img/which_laws_apply.png' %}" />
-
-                <p></p>
-                <p><strong>Still have questions? - Get Help</strong></p>
-                <p>
-                    If you're still not sure as to which act applies to your situation please refer to the
-                    <a href="{% url 'legal' %}" target="_blank">Get Help section</a> for a list of resources you can
-                    turn to for additional support.
-                </p>
-            </div>
-        </div>
-    {% else %}
-        <div class="common-law-support">
-            <div>
-                {% input_field type="hidden" id="spouse_support_act_common_law" name="spouse_support_act" value="The Family Law Act" %}
-                <p>
-                    As you and your spouse were never legally married, you must
-                    use the
-                    <a href="http://www.bclaws.ca/civix/document/id/complete/statreg/11025_01"
-                    target="_blank">Family Law Act</a> for your separation.
-                    Provincial and territorial laws apply when unmarried couples
-                    separate or when married couples separate but do not pursue a
-                    divorce.
-                </p>
-                <p>
-                    For more information on
-                    <a href="http://www.familylaw.lss.bc.ca/resources/fact_sheets/what_laws_apply.php"
-                      target="_blank">which laws apply</a>
-                    to your situation please refer to the Family Law of B.C. website.
-                </p>
-            </div>
-            <div class="information-message bg-danger">
-                <h2>Time limit to apply for court order</h2>
-                <p>If you were unmarried, and you qualify for spousal support,
-                you must apply <b>within two years of the date you
-                separated</b>.</p>
-            </div>
-        </div>
-    {% endif %}
+    </div>
 </div>
 
 
