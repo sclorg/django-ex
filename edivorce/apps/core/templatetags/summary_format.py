@@ -157,7 +157,7 @@ def format_review_row_heading(title, style="", substep=None):
 
 def format_fact_sheet(title, url, value):
     return format_html(
-        '<tr><td class="table-bordered"><a href="{}"><b>{}</b></a></td><td>{}</td></tr>',
+        '<tr><td class="table-bordered"><a href="{}"><b>{}</b></a></td><td class="table-bordered">{}</td></tr>',
         url,
         title,
         value
