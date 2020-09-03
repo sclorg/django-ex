@@ -1,8 +1,8 @@
 /* compileCompressed: $1.css*/
 $body-copy: #494949;
 $brand-blue: #042553;
-$brand-gold: #dea61b;
-$brand-titles: #19355b;
+$brand-gold: #fcba19;
+$brand-titles: #003366;
 $brand-links: #365ebe;
 /*#2b5580;*/
 $brand-buttons: $brand-links;
@@ -16,7 +16,8 @@ $color-grey-light: #d5d5d5;
 $color-grey-lighter: #efefef;
 $color-grey-lightest: #fdfdfd;
 $color-green: #57b26a;
-$color-green-light: #d9f6df;
+$color-green-light: #d5e6d8;
+$color-green-dark: #246A33;
 $color-gold-light: #e6ca85;
 $color-red: #D8292F;
 $color-red-light: #F7D4D5;
@@ -1434,8 +1435,8 @@ textarea {
 
     .dashnav-column {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 280px;
-        flex: 0 0 280px;
+        -ms-flex: 0 0 290px;
+        flex: 0 0 289px;
         background-color: $brand-titles;
         -webkit-box-ordinal-group: 3;
         -ms-flex-order: 2;
@@ -1601,7 +1602,7 @@ textarea {
 .overview-progress,
 .progress-column {
 	h4 {
-		color: $color-grey-dark;
+		color: $color-blue-dark;
 		padding: 0 18px;
 		margin-top: 36px;
 		font-size: 14px;
@@ -1609,24 +1610,25 @@ textarea {
 	}
 
 	.progress-question {
-		display: -webkit-box;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-box-align: center;
-		-ms-flex-align: center;
-		align-items: center;
-		height: 72px;
-		margin-bottom: 12px;
-		padding: 0 18px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        height: 70px;
+        margin-bottom: 12px;
+        padding: 0 24px;
+        font-weight: bold;
 
-		.progress-icon {
+        .progress-icon {
 			-webkit-box-flex: 0;
 			-ms-flex: 0 0 46px;
-			flex: 0 0 46px;
+			flex: 0 0 50px;
 
 			i {
 				font-size: 20px;
-				border: solid 1px $color-grey-dark;
+				border: solid 1px $color-blue-dark;
 				padding: 8px;
 				border-radius: 36px;
 
@@ -1643,7 +1645,6 @@ textarea {
 			width: 190px;
 			font-size: 14px;
 			line-height: 1.3;
-			color: $body-copy;
 			@media (min-width: 1920px) {
 				font-size: 16px;
 				width: 190px;
@@ -1652,29 +1653,22 @@ textarea {
 			small {
 				font-size: 11px;
 				text-transform: uppercase;
-				font-weight: 700;
+				font-weight: bolder;
 				letter-spacing: 0.1em;
 			}
 		}
 
-		.progress-status {
-			width: 28px;
-			text-align: right;
-
-			i {
-				float: right;
-			}
-		}
-
-		i {
-			color: $color-grey-dark;
-		}
+        i,
+        span {
+            color: $color-blue-dark;
+            border-color: $color-blue-dark;
+        }
 
 		&.complete {
 			i,
 			span {
-				color: $color-green;
-				border-color: $color-green;
+				color: $color-green-dark;
+				border-color: $color-green-dark;
 			}
 		}
 
@@ -1682,33 +1676,36 @@ textarea {
 		&:hover {
 			background-color: $color-gold-light;
 			text-decoration: none;
-
-			i,
-			span {
-				color: #ffffff;
-				border-color: #ffffff;
-			}
-		}
+        }
 
 		&.active {
 			background-color: $brand-gold;
 			text-decoration: none;
-
-			i,
-			span {
-				color: #ffffff;
-				border-color: #ffffff;
-			}
 		}
 	}
 
+    .progress-status {
+        width: 28px;
+        text-align: right;
+
+        i {
+            float: right;
+
+            &.incomplete, &.skipped {
+                color: $color-red-dark;
+            }
+            &.complete {
+                color: $color-green-dark;
+            }
+        }
+    }
 	.progress-sub-menu {
 
 		list-style-type: none;
 
 		li {
 			display:inline-block;
-    		padding: 5px 10px 5px 22px;
+    		padding: 5px 24px 5px 22px;
 			border-left:2px solid $brand-gold;
 			width: 100%;
 		}
@@ -1718,7 +1715,7 @@ textarea {
 			width: 190px;
 			font-size: 14px;
 			line-height: 1.3;
-			color: $body-copy;
+			color: $color-blue-dark;
 
 			@media (min-width: 1920px) {
 				font-size: 16px;
@@ -1728,6 +1725,7 @@ textarea {
 			.progress-content {
 				width: 190px;
 				font-size: 14px;
+                font-weight: bold;
 				line-height: 1.3;
 				@media (min-width: 1920px) {
 					font-size: 16px;
@@ -1740,11 +1738,16 @@ textarea {
 				color: $brand-gold;
 				text-decoration: none;
 				font-weight: 700;
-			}
+
+                &.active {
+                    border-bottom: 1px solid $brand-gold;
+                }
+            }
 
 			&.active {
-				color: $brand-gold;
 				text-decoration: none;
+                padding-bottom: 4px;
+                border-bottom: 1px solid $color-blue-dark;
 				font-weight: 700;
 			}
 		}
@@ -1756,13 +1759,13 @@ textarea {
 }
 
 .overview-progress {
-	border: solid 1px $color-grey-lighter;
+	border: solid 1px $color-grey-light;
 	border-radius: 10px;
 	background: #ffffff;
 
 	.progress-question {
 		margin-bottom: 0;
-		border-bottom: solid 1px $color-grey-lighter;
+		border-bottom: solid 1px $color-grey-light;
 
 		&:last-of-type {
 			border-bottom: none;
@@ -1790,62 +1793,31 @@ textarea {
 			flex: 1;
 
 			i {
-				float: none;
-				margin-right: 5px;
+                font-size: 20px;
+                float: none;
+				margin-left: 16px;
+                vertical-align: middle;
 			}
 		}
 
 		&.complete {
-			background-color: rgba($color-green, .2);
-
-			.progress-content,
-			.progress-icon i,
-			.progress-icon i:before,
-			.progress-status,
-			.progress-status i {
-				color: $color-green;
-			}
-
-			.progress-icon i {
-				border: solid 1px $color-green;
-			}
-		}
-
-		.progress-content,
-		.progress-icon i,
-		.progress-icon i::before,
-		.progress-status,
-		.progress-status i {
-			color: $brand-blue;
-		}
-
-		.progress-icon i {
-			border: solid 1px $brand-blue;
-		}
+            background-color: $color-green-light;
+        }
 
 		&:focus,
 		&:hover {
-			background-color: rgba($brand-blue, .3);
+			background-color: $color-blue-lighter;
 			text-decoration: none;
-
-			.progress-content,
-			.progress-icon i,
-			.progress-icon i::before,
-			.progress-status,
-			.progress-status i {
-				color: $brand-blue;
-				border-color: $brand-blue;
-			}
 		}
 
-		&:first-child:hover {
-			border-top-left-radius: 7px;
-			border-top-right-radius: 7px;
+		&:first-child {
+			border-top-left-radius: 9px;
+			border-top-right-radius: 9px;
 		}
 
-		&:last-child:hover {
-			border-bottom-left-radius: 7px;
-			border-bottom-right-radius: 7px;
+		&:last-child {
+			border-bottom-left-radius: 9px;
+			border-bottom-right-radius: 9px;
 		}
 
 		a {
@@ -1883,11 +1855,35 @@ textarea {
 			color: #ffffff;
 		}
 
+        &.active {
+            i, .progress-content {
+                color: $color-blue-dark;
+            }
+        }
+
 		&:focus,
 		&:hover {
 			background-color: $brand-gold;
 		}
 	}
+}
+
+.progress-column {
+    .progress-question {
+        &.active {
+            &:not(.complete) .progress-icon i {
+                border: solid 1px $color-blue-dark;
+                background-color: $color-blue-dark;
+                color: $brand-gold;
+            }
+
+            &.complete .progress-icon i {
+                border: solid 1px $color-green-dark;
+                background-color: $color-green-dark;
+                color: $brand-gold;
+            }
+        }
+    }
 }
 
 .has-warning-box {

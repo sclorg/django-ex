@@ -1,0 +1,9 @@
+<span class="progress-status">
+    {% if with_status and step_status_string != 'Not started' %}
+        {{ step_status_string }}
+    {% endif %}
+    {% if step_status_string == 'Started' %}<i class="fa fa-adjust incomplete" aria-hidden="true"></i>
+    {% elif step_status_string == 'Completed' %}<i class="fa fa-check complete" aria-hidden="true"></i>
+    {% elif step_status_string == 'Skipped' %}<i class="fa fa-circle-o skipped" aria-hidden="true"></i>
+    {% endif %}
+</span>

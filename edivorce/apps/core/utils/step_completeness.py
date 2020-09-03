@@ -35,19 +35,41 @@ def evaluate_numeric_condition(target, reveal_response):
 def get_step_completeness(questions_by_step):
     """
     Accepts a dictionary of {step: [{question__name, question_id, value, error}]} <-- from get_step_responses
-    Returns {step: status}, {step: [missing_question_key]}
+    Returns {step: status, substep: status}
     """
     status_dict = {}
-    for step, questions_dict in questions_by_step.items():
-        if not step_started(questions_dict):
-            status_dict[step] = "Not started"
-        else:
-            complete = is_complete(questions_dict)
-            if complete:
-                status_dict[step] = "Complete"
-            else:
-                status_dict[step] = "Started"
+    has_responses = False
+    reversed_steps = list(question_step_mapping.keys())[::-1]
+    for step in reversed_steps:
+        question_dicts = questions_by_step[step]
+        status, has_responses = _get_step_status(question_dicts, has_responses)
+        status_dict[step] = status
+
+    has_responses = False
+    reversed_substeps = list(children_substep_question_mapping.keys())[::-1]
+    for substep in reversed_substeps:
+        substep_questions = children_substep_question_mapping[substep]
+        question_dicts = [question_data for question_data in questions_by_step['your_children'] if question_data['question_id'] in substep_questions]
+        status, has_responses = _get_step_status(question_dicts, has_responses)
+        status_dict[f'children__{substep}'] = status
+
     return status_dict
+
+
+def _get_step_status(question_dicts, has_responses):
+    if not step_started(question_dicts):
+        if not has_responses:
+            status = "Not started"
+        else:
+            status = "Skipped"
+    else:
+        has_responses = True
+        complete = is_complete(question_dicts)
+        if complete:
+            status = "Completed"
+        else:
+            status = "Started"
+    return status, has_responses
 
 
 def step_started(question_list):
