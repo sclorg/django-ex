@@ -114,7 +114,7 @@ export default {
 
 <style scoped lang="scss">
   .drop-zone {
-    width: 95%;
+    width: 100%;
     display: block;
     text-align: left;
     border: 2px #365EBE dashed;
@@ -126,8 +126,7 @@ export default {
     }
 
     .item {
-      margin-bottom: 20px;
-      background-color: #F2F2F2;
+      margin-bottom: 10px;
       width: 160px;
       display: inline-block;
       margin-right: 20px;
