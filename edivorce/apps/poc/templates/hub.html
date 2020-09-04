@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load input_field %}
+{% load step_order %}
+{% load load_json %}
+
+{% block title %}{{ block.super }}: POC{% endblock %}
+
+{% block progress %}{% include "poc-sidebar.html" %}{% endblock %}
+
+{% block content %}
+    <h1><small>Proof of Concept:</small>Efiling Hub Integration</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="question-well">
+            <h3>Specify files to upload to the eFiling Hub.</h3>
+            <div class="form-group {% if form.upload_file.errors %}has-error{% endif %}">
+                <div>{{ form.upload_file }}</div>
+                {% if form.upload_file.errors %}
+                    <span class="help-block">
+                    {% for err in form.upload_file.errors %}{{ err }}{% endfor %}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-buttons clearfix">
+            <button type="submit" class="btn btn-primary pull-right">Submit</button>
+        </div>
+
+    </form>
+
+{% endblock %}
+
+{% block formbuttons %}
+
+{% endblock %}
+
+{% block sidebarNav %}
+<!-- no sidebar -->
+{% endblock %}
+
+{% block sidebar %}
+<!-- no sidebar -->
+{% endblock %}
