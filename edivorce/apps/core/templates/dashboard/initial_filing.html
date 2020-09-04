@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }}: Overview{% endblock %}
+
+{% block progress %}{% include "partials/dashnav.html" with active_page=active_page %}{% endblock %}
+
+{% block content %}
+    <h1>Initial Filing</h1>
+    {% if how_to_file == 'Online' %}
+        <p>
+            Your filing (submitting completed documents to the court registry) occurs in two parts. The initial filing initiates the divorce
+            proceeding. Once
+            initial filing is complete you will receive a Court Filing Number. This number is important as it will allow you or your spouse to file
+            the
+            remaining documents required to complete your divorce.
+        </p>
+        <p>Missing a form required on this page? Check the <a href="{% url 'dashboard_nav' 'print_form' %}">Review Forms</a> step.</p>
+        <p><a>Need help with Scanning your documents?</a></p>
+        <div class="question-well-border-less">
+            {% if signing_location == 'In-person' or signing_location_you == 'In-person' %}
+                <div>
+                    <p>The Notice of Joint Family Claim Form (F1) will be automatically filed for you.</p>
+                </div>
+                <div>
+                    <p>Upload a scan of your Proof of Marriage (?)
+                        {% include 'partials/upload.html' %}</p>
+                </div>
+                <div>
+                    <p>Scan and upload the sworn Affidavit of Interpreter Form (?)
+                        {% include 'partials/upload.html' %}</p>
+                </div>
+                <div>
+                    <p>Complete, scan and upload the Registration of Divorce Proceedings (?) form
+                        {% include 'partials/upload.html' %}</p>
+                </div>
+            {% elif signing_location_you == 'Virtual' and signing_location_spouse == 'In-person' %}
+                <p>The following forms will be automatically filed for you:</p>
+                <ul>
+                    <li>Notice of Joint Family Claim Form (F1)</li>
+                    <li>Requisition Form (F35)</li>
+                    <li>Certificate of Pleadings Form (F36)</li>
+                </ul>
+                <p>The following forms will be submitted for you but require swearing / affirming (?) before filing (see next step for details)</p>
+                <ul>
+                    <li>Child Support Affidavit (F37)</li>
+                    <li>Affidavit - Desk Order Divorce Form (F38)</li>
+                </ul>
+                <div class="question-well-border-less">
+                    <div>
+                        <p>Upload a scan of your Proof of Marriage (?)
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Scan and upload the sworn Affidavit of Interpreter Form (?)
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Upload the signed and scanned Draft Final Order Form (F52)
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Upload the signed and scanned Electronic Filing Statement (F96) for You
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Registration of Divorce Proceedings form
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Agreement as to Annual Income (F9) form
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Identification of Applicant (VSA 512) for You
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                </div>
+            {% else %}
+                <p>The following forms will be automatically filed for you:</p>
+                <ul>
+                    <li>Notice of Joint Family Claim Form (F1)</li>
+                    <li>Requisition Form (F35)</li>
+                    <li>Certificate of Pleadings Form (F36)</li>
+                </ul>
+                <p>The following forms will be submitted for you but require swearing / affirming (?) before filing (see next step for details)</p>
+                <ul>
+                    <li>Child Support Affidavit (F37)</li>
+                    <li>Affidavit - Desk Order Divorce Form (F38)</li>
+                </ul>
+                <div class="question-well-border-less">
+                    <div>
+                        <p>Upload a scan of your Proof of Marriage (?)
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Scan and upload the sworn Affidavit of Interpreter Form (?)
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Upload the signed and scanned Draft Final Order Form (F52)
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Upload the signed and scanned Electronic Filing Statement (F96) for You
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Upload the signed and scanned Electronic Filing Statement (F96) for Your Spouse
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Registration of Divorce Proceedings form
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Agreement as to Annual Income (F9) form
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Identification of Applicant (VSA 512) for You
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                    <div>
+                        <p>Complete, scan and upload the Identification of Applicant (VSA 512) for Your Spouse
+                            {% include 'partials/upload.html' %}
+                        </p></div>
+                </div>
+            {% endif %}
+        </div>
+        <h3>Filing with Court Services Online</h3>
+        <p>When you click Next, you will be taken to the Court Services Online e-filing hub. In the next few steps you will be able to do a final
+            review of your filed documentation, pay for your filing and (if completed successfully) receive a Package Number.</p>
+        <p>Once your filings have been reviewed by the Court Registry (?), you will be provided a Court Filing Number (?) via e-mail. This may
+            take up
+            to one week.</p>
+        <p>You will need your Court Filing Number if you are filing any additional documentation.</p>
+    {% elif how_to_file == 'In-person' %}
+        <p>
+            You don't need to complete this step. Go to <a href="{% url 'dashboard_nav' 'swear_forms' %}">Swear Forms</a> for further instruction.
+        </p>
+    {% else %}
+        <p>
+            You must select how you want to file in the <a href="{% url 'dashboard_nav' 'sign_file_options' %}">Signing & Filing Options</a> step.
+        </p>
+    {% endif %}
+
+{% endblock %}
+
+{% block backToDashboard %}
+    <!-- no back to dashboard -->
+{% endblock %}
+
+{% block formBack %}{% url 'dashboard_nav' 'print_form' %}{% endblock %}
+{% block formNext %}{% url 'dashboard_nav' 'wait_for_number' %}{% endblock %}
+
+{% block sidebarNav %}
+    <!-- no sidebar -->
+{% endblock %}
+{% block sidebarText %}
+    {% include "dashboard/partials/sidebar_help.html" %}
+{% endblock %}

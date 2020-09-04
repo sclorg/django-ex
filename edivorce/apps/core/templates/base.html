@@ -116,14 +116,14 @@
                 </div>
             </div>
 
-            {% block sidebar %}
-            <div class="col-flex more_information-column">
-                <a href="#" class="more_information-close"><i class="fa fa-times" aria-hidden="true"></i></a>
-                <h2>More information</h2>
-                {% block sidebarText %}
-                {% endblock %}
-            </div>
-            {% endblock %}
+{#            {% block sidebar %}#}
+{#            <div class="col-flex more_information-column">#}
+{#                <a href="#" class="more_information-close"><i class="fa fa-times" aria-hidden="true"></i></a>#}
+{#                <h2>More information</h2>#}
+{#                {% block sidebarText %}#}
+{#                {% endblock %}#}
+{#            </div>#}
+{#            {% endblock %}#}
 
         </div>
 
@@ -215,6 +215,7 @@
         <script type="text/javascript" src="{% static 'js/functions.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/ajax.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/signing-filing.js' %}"></script>
         {% endcompress %}
     </body>
 </html>
