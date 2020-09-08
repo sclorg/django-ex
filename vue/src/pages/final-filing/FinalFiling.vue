@@ -1,32 +1,38 @@
 ﻿<template>
   <div id="app">
     <div class="question-well-border-less" v-if="signingLocation === 'Virtual'">
-        <p>
-            Upload the signed / sworn and scanned Child Support Affidavit (F37)
-            <Uploader/>
-        </p>
-        <p>
-            Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38)
-            <Uploader/>
-        </p>
+        <div>
+            <p>Upload the signed / sworn and scanned Child Support Affidavit (F37)</p>
+            <!-- CSA - Child Support Affidavit -->
+            <Uploader doc-type="CSA"/>
+        </div>
+        <div>
+            <p>Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38)</p>
+            <!-- AFDO - Affidavit - Desk Order Divorce -->
+            <Uploader doc-type="AFDO"/>
+        </div>
     </div>
     <div class="question-well-border-less" v-else-if="signingLocationYou === 'Virtual' && signingLocationSpouse === 'Virtual'">
-        <p>
-            Upload the signed / sworn and scanned Child Support Affidavit (F37) - For You
-            <Uploader/>
-        </p>
-        <p>
-            Upload the signed / sworn and scanned Child Support Affidavit (F37) - For Your Spouse
-            <Uploader/>
-        </p>
-        <p>
-            Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38) - For You
-            <Uploader/>
-        </p>
-        <p>
-            Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38) - For Your Spouse
-            <Uploader/>
-        </p>
+        <div>
+            <p>Upload the signed / sworn and scanned Child Support Affidavit (F37) - For You</p>
+            <!-- CSA - Child Support Affidavit -->
+            <Uploader doc-type="CSA" :party="1"/>
+        </div>
+        <div>
+            <p>Upload the signed / sworn and scanned Child Support Affidavit (F37) - For Your Spouse</p>
+            <!-- CSA - Child Support Affidavit -->
+            <Uploader doc-type="CSA" :party="2"/>
+        </div>
+        <div>
+            <p>Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38) - For You</p>
+            <!-- AFDO - Affidavit - Desk Order Divorce -->
+            <Uploader doc-type="AFDO" :party="1"/>
+        </div>
+        <div>
+            <p>Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38) - For Your Spouse</p>
+            <!-- AFDO - Affidavit - Desk Order Divorce -->
+            <Uploader doc-type="AFDO" :party="2"/>
+        </div>
     </div>
     <template v-else-if="howToFile === 'Online'">
         <div class="question-well-border-less" v-if="signingLocation.length || (signingLocationYou.length && signingLocationSpouse.length)">
@@ -36,38 +42,46 @@
                 <li>Requisition Form (F35)</li>
                 <li>Certificate of Pleadings Form (F36)</li>
             </ul>
-            <p>
-                Upload the signed / sworn and scanned Child Support Affidavit (F37)
-                <Uploader/>
-            </p>
-            <p>
-                Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38)
-                <Uploader/>
-            </p>
-            <p>
-                Upload the signed and scanned Draft Final Order Form (F52)
-                <Uploader/>
-            </p>
-            <p>
-                Upload the signed and scanned Electronic Fipng Statement (F96) for You
-                <Uploader/>
-            </p>
-            <p>
-                Upload the signed and scanned Electronic Fipng Statement (F96) for Your Spouse
-                <Uploader/>
-            </p>
-            <p>
-                Complete, scan and upload the Agreement as to Annual Income (F9) form
-                <Uploader/>
-            </p>
-            <p>
-                Complete, scan and upload the Identification of Apppcant (VSA 512) for You
-                <Uploader/>
-            </p>
-            <p>
-                Complete, scan and upload the Identification of Apppcant (VSA 512) for Your Spouse
-                <Uploader/>
-            </p>
+            <div>
+                <p>Upload the signed / sworn and scanned Child Support Affidavit (F37)</p>
+                <!-- CSA - Child Support Affidavit -->
+                <Uploader doc-type="CSA"/>
+            </div>
+            <div>
+                <p>Upload the signed / sworn and scanned Affidavit - Desk Order Divorce Form (F38)</p>
+                <!-- AFDO - Affidavit - Desk Order Divorce -->
+                <Uploader doc-type="AFDO"/>
+            </div>
+            <div>
+                <p>Upload the signed and scanned Draft Final Order Form (F52)</p>
+                <!-- OFI - Final Order -->
+                <Uploader doc-type="OFI"/>
+            </div>
+            <div>
+                <p>Upload the signed and scanned Electronic Filing Statement (F96) for You</p>
+                <!-- EFSS - Electronic Filing Statement - Supreme -->
+                <Uploader doc-type="EFSS" :party="1"/>
+            </div>
+            <div>
+                <p>Upload the signed and scanned Electronic Filing Statement (F96) for Your Spouse</p>
+                <!-- EFSS - Electronic Filing Statement - Supreme -->
+                <Uploader doc-type="EFSS" :party="2"/>
+            </div>
+            <div>
+                <p>Complete, scan and upload the Agreement as to Annual Income (F9) form</p>
+                <!-- AAI - Agreement as to Annual Income -->
+                <Uploader doc-type="AAI"/>
+            </div>
+            <div>
+                <p>Complete, scan and upload the Identification of Apppcant (VSA 512) for You</p>
+                <!-- ??? - Identification of Applicant -->
+                <Uploader doc-type="???" :party="1"/>
+            </div>
+            <div>
+                <p>Complete, scan and upload the Identification of Apppcant (VSA 512) for Your Spouse</p>
+                <!-- ??? - Identification of Applicant -->
+                <Uploader doc-type="???" :party="2"/>
+            </div>
         </div>
         <div class="question-well-border-less" v-else>
             <h2>You need to select a signing method in the <a :href="signFileOptionsUrl">Signing & Filing Options</a>

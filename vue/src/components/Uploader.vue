@@ -38,6 +38,10 @@ import VueUploadComponent from 'vue-upload-component'
 import ItemTile from './ItemTile'
 
 export default {
+  props: {
+    type: String,
+    party: { type: Number, default: 0 }
+  },
   data: function () {
     return {
       files: [],
