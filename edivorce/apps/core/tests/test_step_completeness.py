@@ -1,6 +1,8 @@
+import json
+
 from django.test import TestCase
 from edivorce.apps.core.models import UserResponse, Question, BceidUser
-from edivorce.apps.core.utils.step_completeness import is_complete
+from edivorce.apps.core.utils.step_completeness import get_step_completeness, is_complete
 
 from edivorce.apps.core.utils.user_response import get_data_for_user, get_step_responses
 
@@ -340,3 +342,102 @@ class StepCompletenessTestCase(TestCase):
         # Put empty response
         UserResponse.objects.filter(question_id='court_registry_for_filing').update(value="")
         self.assertEqual(self.check_completeness(step), False)
+
+
+class ChildrenStepCompletenessTestCase(TestCase):
+    fixtures = ['Question.json']
+
+    def setUp(self):
+        self.user = BceidUser.objects.create(user_guid='1234')
+        self.child_live_with_you = {"child_name": "Child with you", "child_birth_date": "Dec 30, 2018", "child_live_with": "Lives with you", "child_relationship_to_you": "Natural child", "child_relationship_to_spouse": "Natural child", "child_live_with_other_details": ""}
+        self.child_live_with_spouse = {"child_name": "Child with spouse", "child_birth_date": "Jan 4, 2009", "child_live_with": "Lives with spouse", "child_relationship_to_you": "Adopted child", "child_relationship_to_spouse": "Adopted child", "child_live_with_other_details": ""}
+        self.child_live_with_both = {"child_name": "Child with both", "child_birth_date": "Jan 4, 2009", "child_live_with": "Lives with both", "child_relationship_to_you": "Adopted child", "child_relationship_to_spouse": "Adopted child", "child_live_with_other_details": ""}
+
+    def get_children_step_status(self, substep):
+        responses_dict = get_data_for_user(self.user)
+        responses_dict_by_step = get_step_responses(responses_dict)
+        step_completeness = get_step_completeness(responses_dict_by_step)
+        if not substep:
+            key = 'your_children'
+        else:
+            key = f'children__{substep}'
+        return step_completeness[key]
+
+    def is_step_complete(self, substep):
+        return self.get_children_step_status(substep) == 'Completed'
+
+    def create_response(self, question, value):
+        response, _ = UserResponse.objects.get_or_create(bceid_user=self.user, question_id=question)
+        response.value = value
+        response.save()
+
+    def test_children_details(self):
+        substep = 'your_children'
+
+        # No response status is Not Started
+        self.assertFalse(self.is_step_complete(substep))
+        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+
+        # Empty list doesn't count as answered
+        self.create_response('claimant_children', '[]')
+        self.assertFalse(self.is_step_complete(substep))
+
+        # Future question answered means status is Skipped
+        self.create_response('have_separation_agreement', 'YES')
+        self.assertEqual(self.get_children_step_status(substep), 'Skipped')
+
+        # Has valid value
+        children = [self.child_live_with_you]
+        self.create_response('claimant_children', json.dumps(children))
+        self.assertTrue(self.is_step_complete(substep))
+
+    def test_income_and_expenses(self):
+        substep = 'income_expenses'
+
+        children = [self.child_live_with_you, self.child_live_with_spouse]
+        self.create_response('claimant_children', json.dumps(children))
+        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+        self.assertFalse(self.is_step_complete(substep))
+
+        # All basic required fields
+        self.create_response('how_will_calculate_income', 'entered agreement')
+        self.assertEqual(self.get_children_step_status(substep), 'Started')
+        self.create_response('annual_gross_income', '100')
+        self.create_response('spouse_annual_gross_income', '100')
+        self.create_response('special_extraordinary_expenses', 'NO')
+        self.assertTrue(self.is_step_complete(substep))
+
+        # If there is sole custody of children, also require payor_monthly_child_support_amount
+        children = [self.child_live_with_spouse]
+        self.create_response('claimant_children', json.dumps(children))
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('payor_monthly_child_support_amount', '100')
+        self.assertTrue(self.is_step_complete(substep))
+
+        # Fact Sheet A - at least one extraordinary expense must be input and description required
+        self.create_response('special_extraordinary_expenses', 'YES')
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('post_secondary_expenses', '100')
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('describe_order_special_extra_expenses', 'Some expenses')
+        self.assertTrue(self.is_step_complete(substep))
+
+    def test_payor_medical(self):
+        substep = 'payor_medical'
+
+        self.assertFalse(self.is_step_complete(substep))
+        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+
+        # All basic required fields
+        self.create_response('medical_coverage_available', 'NO')
+        self.create_response('child_support_payments_in_arrears', 'NO')
+        self.assertTrue(self.is_step_complete(substep))
+
+        # Conditionally required fields
+        self.create_response('medical_coverage_available', 'YES')
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('whose_plan_is_coverage_under', '[]')
+
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('whose_plan_is_coverage_under', '["My plan","Spouse"]')
+        self.assertTrue(self.is_step_complete(substep))
