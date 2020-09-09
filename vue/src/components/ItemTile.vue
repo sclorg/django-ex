@@ -58,6 +58,8 @@ export default {
         max-height: 75px;
         overflow: hidden;
         padding: 5px;
+        line-height: 1.05;
+        font-size: 0.95em;
       }
 
       .button-wrapper {
@@ -92,6 +94,10 @@ export default {
 
         &:last-of-type {
           margin-right: 0;
+        }
+
+        &:nth-of-type(2) {
+          margin-right: 32px;
         }
 
         &.btn-remove {
