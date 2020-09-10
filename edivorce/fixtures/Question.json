@@ -507,291 +507,9 @@
 },
 {
     "fields": {
-        "name": "How have you and your spouse agreed to deal with your property and debt?",
-        "description": "For step 7, Form 1 6. Property and debt",
-        "summary_order": 49,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "deal_with_property_debt"
-},
-{
-    "fields": {
-        "name": "Please describe how you and your spouse plan to divide your property, assets and your debts.",
-        "description": "For step 7, Form 1 6. Property and debt",
-        "summary_order": 50,
-        "required": "Conditional",
-        "conditional_target": "deal_with_property_debt",
-        "reveal_response": "Unequal division"
-    },
-    "model": "core.question",
-    "pk": "how_to_divide_property_debt"
-},
-{
-    "fields": {
-        "name": "Please list any other property claims.",
-        "description": "For step 7, Form 1 6. Property and debt",
-        "summary_order": 51,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "other_property_claims"
-},
-{
-    "fields": {
-        "name": "Please enter the details for any other orders that you are asking for.",
-        "description": "For step 8 other orders, Form 1 7. Other",
-        "summary_order": 52,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "other_orders_detail"
-},
-{
-    "fields": {
-        "name": "What is the best address to send you official court documents?",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 53,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_street_you"
-},
-{
-    "fields": {
-        "name": "City",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 54,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_city_you"
-},
-{
-    "fields": {
-        "name": "Prov",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 55,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_prov_you"
-},
-{
-    "fields": {
-        "name": "Country",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 56,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_country_you"
-},
-{
-    "fields": {
-        "name": "Other Country",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 57,
-        "required": "Conditional",
-        "conditional_target": "address_to_send_official_document_country_you",
-        "reveal_response": "Other"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_other_country_you"
-},
-{
-    "fields": {
-        "name": "Postal code",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 58,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_postal_code_you"
-},
-{
-    "fields": {
-        "name": "Fax number",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 59,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_fax_you"
-},
-{
-    "fields": {
-        "name": "Email",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 60,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_email_you"
-},
-{
-    "fields": {
-        "name": "What is the best address to send your spouse official court documents?",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 61,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_street_spouse"
-},
-{
-    "fields": {
-        "name": "City",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 62,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_city_spouse"
-},
-{
-    "fields": {
-        "name": "Prov",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 63,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_prov_spouse"
-},
-{
-    "fields": {
-        "name": "Country",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 64,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_country_spouse"
-},
-{
-    "fields": {
-        "name": "Other Country",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 65,
-        "required": "Conditional",
-        "conditional_target": "address_to_send_official_document_country_spouse",
-        "reveal_response": "Other"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_other_country_spouse"
-},
-{
-    "fields": {
-        "name": "Postal code",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 66,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_postal_code_spouse"
-},
-{
-    "fields": {
-        "name": "Fax number",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 67,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_fax_spouse"
-},
-{
-    "fields": {
-        "name": "Email",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 68,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_email_spouse"
-},
-{
-    "fields": {
-        "name": "Divorce is to take effect on",
-        "description": "For step 9, Form 52 This Court Orders that",
-        "summary_order": 69,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "divorce_take_effect_on"
-},
-{
-    "fields": {
-        "name": "Divorce is to take effect on specific date",
-        "description": "For step 9 - specific date, Form 52 This Court Orders that",
-        "summary_order": 70,
-        "required": "Conditional",
-        "conditional_target": "divorce_take_effect_on",
-        "reveal_response": "specific date"
-    },
-    "model": "core.question",
-    "pk": "divorce_take_effect_on_specific_date"
-},
-{
-    "fields": {
-        "name": "Where will you be filing for divorce?",
-        "description": "For step 10, Form 1 court registry, Form 35 court registry, Form 36 court registry, Form 38(joint and sole) court registry, Form 52 court registry",
-        "summary_order": 71,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "court_registry_for_filing"
-},
-{
-    "fields": {
-        "name": "Are you asking for a name change?",
-        "description": "For Step 10, Forms 38 and 52's Orders sections",
-        "summary_order": 72,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "name_change_you"
-},
-{
-    "fields": {
-        "name": "Please enter the full name",
-        "description": "For Step 10, Forms 38 and 52's Orders sections",
-        "summary_order": 73,
-        "required": "Conditional",
-        "conditional_target": "name_change_you",
-        "reveal_response": "YES"
-    },
-    "model": "core.question",
-    "pk": "name_change_you_fullname"
-},
-{
-    "fields": {
-        "name": "Is your spouse asking for a name change?",
-        "description": "For Step 10, Forms 38 and 52's Orders sections",
-        "summary_order": 74,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "name_change_spouse"
-},
-{
-    "fields": {
-        "name": "Please enter the full name",
-        "description": "For Step 10, Forms 38 and 52's Orders sections",
-        "summary_order": 75,
-        "required": "Conditional",
-        "conditional_target": "name_change_spouse",
-        "reveal_response": "YES"
-    },
-    "model": "core.question",
-    "pk": "name_change_spouse_fullname"
-},
-{
-    "fields": {
         "name": "Your children",
-        "description": "For Step 6, Your children",
-        "summary_order": 76,
+        "description": "For Step 6, Your children - Children details",
+        "summary_order": 49,
         "required": "Required"
     },
     "model": "core.question",
@@ -799,85 +517,9 @@
 },
 {
     "fields": {
-        "name": "Do you have a separation agreement that sets out what you've agreed to around parenting and child support?",
-        "description": "For Step 6, Your children - What are you asking for",
-        "summary_order": 77,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "have_separation_agreement"
-},
-{
-    "fields": {
-        "name": "Do you have an order about support of the children?",
-        "description": "For Step 6, Your children - What are you asking for",
-        "summary_order": 78,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "have_court_order"
-},
-{
-    "fields": {
-        "name": "The court needs to know what the current parenting arrangements are for the children of the marriage. Please describe below.",
-        "description": "For Step 6, Your children - What are you asking for",
-        "summary_order": 79,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "what_parenting_arrangements"
-},
-{
-    "fields": {
-        "name": "Are you asking the court for an order about parenting arrangements or contact with a child?",
-        "description": "For Step 6, Your children - What are you asking for",
-        "summary_order": 80,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "want_parenting_arrangements"
-},
-{
-    "fields": {
-        "name": "Please indicate the parenting arrangements you are asking for below.",
-        "description": "For Step 6, Your children - What are you asking for",
-        "summary_order": 81,
-        "required": "Conditional",
-        "conditional_target": "want_parenting_arrangements",
-        "reveal_response": "YES"
-    },
-    "model": "core.question",
-    "pk": "order_respecting_arrangement"
-},
-{
-    "fields": {
-        "name": "If you are asking for an order for child support please describe what you are asking for.",
-        "description": "For Step 6, Your children - What are you asking for",
-        "summary_order": 82,
-        "required": "Conditional",
-        "conditional_target": "child_support_in_order",
-        "reveal_response": "!NO"
-    },
-    "model": "core.question",
-    "pk": "order_for_child_support"
-},
-{
-    "fields": {
-        "name": "Please indicate which act you are asking for support under.",
-        "description": "For Step 6, Your children - What are you asking for",
-        "summary_order": 83,
-        "required": "Conditional",
-        "conditional_target": "determine_child_support_act_requirement",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "child_support_act"
-},
-{
-    "fields": {
         "name": "How will you and your spouse be determining your income?",
         "description": "For Step 6, Your children - Income & expenses",
-        "summary_order": 84,
+        "summary_order": 50,
         "required": "Required"
     },
     "model": "core.question",
@@ -887,7 +529,7 @@
     "fields": {
         "name": "What is your annual gross income as determined above?",
         "description": "For Step 6, Your children - Income & expenses",
-        "summary_order": 85,
+        "summary_order": 51,
         "required": "Required"
     },
     "model": "core.question",
@@ -895,201 +537,9 @@
 },
 {
     "fields": {
-        "name": "How many child(ren) are you asking for support?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 86,
-        "required": "Conditional",
-        "conditional_target": "determine_show_fact_sheet_f_you",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "number_children_seeking_support_you"
-},
-{
-    "fields": {
-        "name": "How many child(ren) are you asking for support?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 87,
-        "required": "Conditional",
-        "conditional_target": "determine_show_fact_sheet_f_spouse",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "number_children_seeking_support_spouse"
-},
-{
-    "fields": {
-        "name": "What is the Child Support Guidelines amount for $150,000?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 88,
-        "required": "Conditional",
-        "conditional_target": "determine_show_fact_sheet_f_you",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "child_support_amount_under_high_income_you"
-},
-{
-    "fields": {
-        "name": "What is the Child Support Guidelines amount for $150,000?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 89,
-        "required": "Conditional",
-        "conditional_target": "determine_show_fact_sheet_f_spouse",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "child_support_amount_under_high_income_spouse"
-},
-{
-    "fields": {
-        "name": "What is the % of income over $150,000 from the Child Support Guidlines?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 90,
-        "required": "Conditional",
-        "conditional_target": "determine_show_fact_sheet_f_you",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "percent_income_over_high_income_limit_you"
-},
-{
-    "fields": {
-        "name": "What is the % of income over $150,000 from the Child Support Guidlines?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 91,
-        "required": "Conditional",
-        "conditional_target": "determine_show_fact_sheet_f_spouse",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "percent_income_over_high_income_limit_spouse"
-},
-{
-    "fields": {
-        "name": "What is the child support amount to be paid on the portion of income over $150,000?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 92,
-        "required": "Conditional",
-        "conditional_target": "determine_show_fact_sheet_f_you",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "amount_income_over_high_income_limit_you"
-},
-{
-    "fields": {
-        "name": "What is the child support amount to be paid on the portion of income over $150,000?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 93,
-        "required": "Conditional",
-        "conditional_target": "determine_show_fact_sheet_f_spouse",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "amount_income_over_high_income_limit_spouse"
-},
-{
-    "fields": {
-        "name": "Guidelines table amount",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 94,
-        "required": "Conditional",
-        "conditional_target": "determine_show_fact_sheet_f_you",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "total_guideline_amount_you"
-},
-{
-    "fields": {
-        "name": "Guidelines table amount",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 95,
-        "required": "Conditional",
-        "conditional_target": "determine_show_fact_sheet_f_spouse",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "total_guideline_amount_spouse"
-},
-{
-    "fields": {
-        "name": "Do you and your spouse agree that amount is he child support amount?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 96,
-        "required": "Conditional",
-        "conditional_target": "determine_show_fact_sheet_f_you",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "agree_to_child_support_amount_you"
-},
-{
-    "fields": {
-        "name": "Do you and your spouse agree that amount is he child support amount?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 97,
-        "required": "Conditional",
-        "conditional_target": "determine_show_fact_sheet_f_spouse",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "agree_to_child_support_amount_spouse"
-},
-{
-    "fields": {
-        "name": "What is the amount that you and your spouse have agreed to (that differs from the Child Support Guidelines table amount)?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 98,
-        "required": "Conditional",
-        "conditional_target": "agree_to_child_support_amount_you",
-        "reveal_response": "NO"
-    },
-    "model": "core.question",
-    "pk": "agreed_child_support_amount_you"
-},
-{
-    "fields": {
-        "name": "What is the amount that you and your spouse have agreed to (that differs from the Child Support Guidelines table amount)?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 99,
-        "required": "Conditional",
-        "conditional_target": "agree_to_child_support_amount_spouse",
-        "reveal_response": "NO"
-    },
-    "model": "core.question",
-    "pk": "agreed_child_support_amount_spouse"
-},
-{
-    "fields": {
-        "name": "Why do you think the court should approve your proposed amount?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 100,
-        "required": "Conditional",
-        "conditional_target": "agree_to_child_support_amount_you",
-        "reveal_response": "NO"
-    },
-    "model": "core.question",
-    "pk": "reason_child_support_amount_you"
-},
-{
-    "fields": {
-        "name": "Why do you think the court should approve your proposed amount?",
-        "description": "For Step 6, Your children - Income & expenses - Your Fact Sheet F",
-        "summary_order": 101,
-        "required": "Conditional",
-        "conditional_target": "agree_to_child_support_amount_spouse",
-        "reveal_response": "NO"
-    },
-    "model": "core.question",
-    "pk": "reason_child_support_amount_spouse"
-},
-{
-    "fields": {
         "name": "What is your spouse's annual gross income as determined above?",
         "description": "For Step 6, Your children - Income & expenses",
-        "summary_order": 102,
+        "summary_order": 52,
         "required": "Required"
     },
     "model": "core.question",
@@ -1097,101 +547,21 @@
 },
 {
     "fields": {
-        "name": "Are you or your spouse claiming undue hardship?",
+        "name": "What is the monthly child support amount (as per Schedule 1 of the guidelines) that is payable?",
         "description": "For Step 6, Your children - Income & expenses",
-        "summary_order": 103,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "claiming_undue_hardship"
-},
-{
-    "fields": {
-        "name": "Unusual or excessive debts",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 104,
+        "summary_order": 53,
         "required": "Conditional",
-        "conditional_target": "determine_missing_undue_hardship_reasons",
+        "conditional_target": "determine_sole_custody",
         "reveal_response": "True"
     },
     "model": "core.question",
-    "pk": "claimant_debts"
-},
-{
-    "fields": {
-        "name": "Unusually high expenses for parenting time, contact with, or access to a child.",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 105,
-        "required": "Conditional",
-        "conditional_target": "determine_missing_undue_hardship_reasons",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "claimant_expenses"
-},
-{
-    "fields": {
-        "name": "Supporting another person",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 106,
-        "required": "Conditional",
-        "conditional_target": "determine_missing_undue_hardship_reasons",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "supporting_non_dependents"
-},
-{
-    "fields": {
-        "name": "Supporting dependent child/children from another relationship.",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 107,
-        "required": "Conditional",
-        "conditional_target": "determine_missing_undue_hardship_reasons",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "supporting_dependents"
-},
-{
-    "fields": {
-        "name": "Support for a disabled or ill person.",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 108,
-        "required": "Conditional",
-        "conditional_target": "determine_missing_undue_hardship_reasons",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "supporting_disabled"
-},
-{
-    "fields": {
-        "name": "Other undue hardship circumstances",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 109,
-        "required": "Conditional",
-        "conditional_target": "determine_missing_undue_hardship_reasons",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "undue_hardship"
-},
-{
-    "fields": {
-        "name": "Income of Other Persons in Household",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 110,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "income_others"
+    "pk": "payor_monthly_child_support_amount"
 },
 {
     "fields": {
         "name": "Are you claiming any special and extraordinary expenses?",
         "description": "For Step 6, Your children - Income & expenses",
-        "summary_order": 111,
+        "summary_order": 54,
         "required": "Required"
     },
     "model": "core.question",
@@ -1200,8 +570,8 @@
 {
     "fields": {
         "name": "Child care expenses for when the recipient works or goes to school",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 112,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 55,
         "required": "Conditional",
         "conditional_target": "determine_missing_extraordinary_expenses",
         "reveal_response": "True"
@@ -1212,8 +582,8 @@
 {
     "fields": {
         "name": "Annual child care expenses for when the recipient works or goes to school",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 113,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 56,
         "required": "Conditional"
     },
     "model": "core.question",
@@ -1222,8 +592,8 @@
 {
     "fields": {
         "name": "Any healthcare premiums you pay to your employer or other provider to provide the coverage to your children rather than yourself",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 114,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 57,
         "required": "Conditional",
         "conditional_target": "determine_missing_extraordinary_expenses",
         "reveal_response": "True"
@@ -1234,8 +604,8 @@
 {
     "fields": {
         "name": "Any annual healthcare premiums you pay to your employer or other provider to provide the coverage to your children rather than yourself",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 115,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 58,
         "required": ""
     },
     "model": "core.question",
@@ -1244,8 +614,8 @@
 {
     "fields": {
         "name": "Health related expenses that exceed insurance reimbursement by at least $100",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 116,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 59,
         "required": "Conditional",
         "conditional_target": "determine_missing_extraordinary_expenses",
         "reveal_response": "True"
@@ -1256,8 +626,8 @@
 {
     "fields": {
         "name": "Annual health related expenses that exceed insurance reimbursement by at least $100",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 117,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 60,
         "required": ""
     },
     "model": "core.question",
@@ -1266,8 +636,8 @@
 {
     "fields": {
         "name": "Extraordinary primary, secondary or other educational expenses",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 118,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 61,
         "required": "Conditional",
         "conditional_target": "determine_missing_extraordinary_expenses",
         "reveal_response": "True"
@@ -1278,8 +648,8 @@
 {
     "fields": {
         "name": "Annual extraordinary primary, secondary or other educational expenses",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 119,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 62,
         "required": ""
     },
     "model": "core.question",
@@ -1288,8 +658,8 @@
 {
     "fields": {
         "name": "Post-secondary school expenses",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 120,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 63,
         "required": "Conditional",
         "conditional_target": "determine_missing_extraordinary_expenses",
         "reveal_response": "True"
@@ -1300,8 +670,8 @@
 {
     "fields": {
         "name": "Annual Post-secondary school expenses",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 121,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 64,
         "required": ""
     },
     "model": "core.question",
@@ -1310,8 +680,8 @@
 {
     "fields": {
         "name": "Extraordinary extracurricular activities expenses",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 122,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 65,
         "required": "Conditional",
         "conditional_target": "determine_missing_extraordinary_expenses",
         "reveal_response": "True"
@@ -1322,8 +692,8 @@
 {
     "fields": {
         "name": "Annual extraordinary extracurricular activities expenses",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 123,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 66,
         "required": ""
     },
     "model": "core.question",
@@ -1332,8 +702,8 @@
 {
     "fields": {
         "name": "Total section 7 expenses",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 124,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 67,
         "required": ""
     },
     "model": "core.question",
@@ -1342,8 +712,8 @@
 {
     "fields": {
         "name": "Annual total section 7 expenses",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 125,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 68,
         "required": ""
     },
     "model": "core.question",
@@ -1352,8 +722,8 @@
 {
     "fields": {
         "name": "Your proportionate share",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 126,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 69,
         "required": ""
     },
     "model": "core.question",
@@ -1362,8 +732,8 @@
 {
     "fields": {
         "name": "Your proportionate share",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 127,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 70,
         "required": ""
     },
     "model": "core.question",
@@ -1372,8 +742,8 @@
 {
     "fields": {
         "name": "Spouse's proportionate share",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 128,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 71,
         "required": ""
     },
     "model": "core.question",
@@ -1382,8 +752,8 @@
 {
     "fields": {
         "name": "Spouse's proportionate share",
-        "description": "For Step 6, Your children - Income & expenses - Spouse Fact Sheet F",
-        "summary_order": 129,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 72,
         "required": ""
     },
     "model": "core.question",
@@ -1392,8 +762,8 @@
 {
     "fields": {
         "name": "Please describe the order you are asking for regarding Special and Extraordinary Expenses",
-        "description": "For Step 6, Your children - Income & expenses",
-        "summary_order": 130,
+        "description": "For Step 6, Your children - Income & expenses - Fact Sheet A - Extraordinary Expenses",
+        "summary_order": 73,
         "required": "Conditional",
         "conditional_target": "special_extraordinary_expenses",
         "reveal_response": "YES"
@@ -1403,9 +773,19 @@
 },
 {
     "fields": {
+        "name": "Who is the payor?",
+        "description": "For Step 6, Your children - Payor & fact sheets",
+        "summary_order": 74,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "child_support_payor"
+},
+{
+    "fields": {
         "name": "Number of children",
-        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
-        "summary_order": 131,
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet B Shared Custody",
+        "summary_order": 75,
         "required": "Conditional",
         "conditional_target": "determine_shared_custody",
         "reveal_response": "True"
@@ -1416,8 +796,8 @@
 {
     "fields": {
         "name": "What is the approximate amount of time the children spend with each parent?",
-        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
-        "summary_order": 132,
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet B Shared Custody",
+        "summary_order": 76,
         "required": "Conditional",
         "conditional_target": "determine_shared_custody",
         "reveal_response": "True"
@@ -1428,8 +808,8 @@
 {
     "fields": {
         "name": "What is the approximate amount of time the children spend with each parent?",
-        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
-        "summary_order": 133,
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet B Shared Custody",
+        "summary_order": 77,
         "required": "Conditional",
         "conditional_target": "determine_shared_custody",
         "reveal_response": "True"
@@ -1440,8 +820,8 @@
 {
     "fields": {
         "name": "What is the 'Guideline' amount for child support?",
-        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
-        "summary_order": 134,
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet B Shared Custody",
+        "summary_order": 78,
         "required": "Conditional",
         "conditional_target": "determine_shared_custody",
         "reveal_response": "True"
@@ -1452,8 +832,8 @@
 {
     "fields": {
         "name": "What is the 'Guideline' amount for child support?",
-        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
-        "summary_order": 135,
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet B Shared Custody",
+        "summary_order": 79,
         "required": "Conditional",
         "conditional_target": "determine_shared_custody",
         "reveal_response": "True"
@@ -1464,8 +844,8 @@
 {
     "fields": {
         "name": "Any other relevant information regarding the conditions, means, needs and other circumstances of each spouse or of any child for whom support is sought?",
-        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
-        "summary_order": 136,
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet B Shared Custody",
+        "summary_order": 80,
         "required": ""
     },
     "model": "core.question",
@@ -1474,44 +854,18 @@
 {
     "fields": {
         "name": "Difference between Guidelines table amounts",
-        "description": "For Step 6, Your children - Your children - Fact Sheet B Shared Custody",
-        "summary_order": 137,
-        "required": "Conditional",
-        "conditional_target": "claimant_children",
-        "reveal_response": ""
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet B Shared Custody",
+        "summary_order": 81,
+        "required": ""
     },
     "model": "core.question",
     "pk": "difference_payment_amounts_b"
 },
 {
     "fields": {
-        "name": "What is the 'Guideline' amount for child support payable by you (as per Federal Child Support Tables)?",
-        "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
-        "summary_order": 138,
-        "required": "Conditional",
-        "conditional_target": "determine_split_custody",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "your_child_support_paid_c"
-},
-{
-    "fields": {
-        "name": "What is the 'Guideline' amount for child support payable by your spouse (as per Federal Child Support Tables)?",
-        "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
-        "summary_order": 139,
-        "required": "Conditional",
-        "conditional_target": "determine_split_custody",
-        "reveal_response": "True"
-    },
-    "model": "core.question",
-    "pk": "your_spouse_child_support_paid_c"
-},
-{
-    "fields": {
         "name": "How many children spend more than 60 percent of their time with you and for whom you are asking for support?",
-        "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
-        "summary_order": 140,
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet C Split Custody",
+        "summary_order": 82,
         "required": "Conditional",
         "conditional_target": "determine_split_custody",
         "reveal_response": "True"
@@ -1521,9 +875,21 @@
 },
 {
     "fields": {
+        "name": "What is the 'Guideline' amount for child support payable by you (as per Federal Child Support Tables)?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet C Split Custody",
+        "summary_order": 83,
+        "required": "Conditional",
+        "conditional_target": "determine_split_custody",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "your_child_support_paid_c"
+},
+{
+    "fields": {
         "name": "How many children spend more than 60 percent of their time with your spouse and for whom you are obliged to pay support?",
-        "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
-        "summary_order": 141,
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet C Split Custody",
+        "summary_order": 84,
         "required": "Conditional",
         "conditional_target": "determine_split_custody",
         "reveal_response": "True"
@@ -1533,12 +899,22 @@
 },
 {
     "fields": {
-        "name": "Difference between Guidelines table amounts",
-        "description": "For Step 6, Your children - Your children - Fact Sheet C Split Custody",
-        "summary_order": 142,
+        "name": "What is the 'Guideline' amount for child support payable by your spouse (as per Federal Child Support Tables)?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet C Split Custody",
+        "summary_order": 85,
         "required": "Conditional",
-        "conditional_target": "claimant_children",
-        "reveal_response": ""
+        "conditional_target": "determine_split_custody",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "your_spouse_child_support_paid_c"
+},
+{
+    "fields": {
+        "name": "Difference between Guidelines table amounts",
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet C Split Custody",
+        "summary_order": 86,
+        "required": ""
     },
     "model": "core.question",
     "pk": "difference_payment_amounts_c"
@@ -1546,8 +922,8 @@
 {
     "fields": {
         "name": "Do you and your spouse agree that the monthly Guidelines table amount for child support is appropriate?",
-        "description": "For Step 6, Your children - Income & expenses - Fact Sheet D Child(ren) 19 Years or Older",
-        "summary_order": 143,
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet D Child(ren) 19 Years or Older",
+        "summary_order": 87,
         "required": "Conditional",
         "conditional_target": "determine_child_over_19_supported",
         "reveal_response": "True"
@@ -1558,8 +934,8 @@
 {
     "fields": {
         "name": "What would be the appropriate amount?",
-        "description": "For Step 6, Your children - Income & expenses - Fact Sheet D Child(ren) 19 Years or Older",
-        "summary_order": 144,
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet D Child(ren) 19 Years or Older",
+        "summary_order": 88,
         "required": "Conditional",
         "conditional_target": "agree_to_guideline_child_support_amount",
         "reveal_response": "NO"
@@ -1570,8 +946,8 @@
 {
     "fields": {
         "name": "Please describe - Why do you think the court should approve your proposed amount?",
-        "description": "For Step 6, Your children - Income & expenses - Fact Sheet D Child(ren) 19 Years or Older",
-        "summary_order": 145,
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet D Child(ren) 19 Years or Older",
+        "summary_order": 89,
         "required": "Conditional",
         "conditional_target": "agree_to_guideline_child_support_amount",
         "reveal_response": "NO"
@@ -1581,89 +957,293 @@
 },
 {
     "fields": {
-        "name": "Who is the payor?",
-        "description": "For Step 6, Your children - Payor & medical expenses",
-        "summary_order": 146,
+        "name": "Are you or your spouse claiming undue hardship?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet E - Undue hardship",
+        "summary_order": 90,
         "required": "Required"
     },
     "model": "core.question",
-    "pk": "child_support_payor"
+    "pk": "claiming_undue_hardship"
 },
 {
     "fields": {
-        "name": "What is the monthly child support amount (as per Schedule 1 of the guidelines) that is payable?",
-        "description": "For Step 6, Your children - Income & expenses",
-        "summary_order": 147,
+        "name": "Unusual or excessive debts",
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet E - Undue hardship",
+        "summary_order": 91,
         "required": "Conditional",
-        "conditional_target": "determine_sole_custody",
+        "conditional_target": "determine_missing_undue_hardship_reasons",
         "reveal_response": "True"
     },
     "model": "core.question",
-    "pk": "payor_monthly_child_support_amount"
+    "pk": "claimant_debts"
 },
 {
     "fields": {
-        "name": "What is the monthly child support amount proposed in the order to be paid by",
-        "description": "For Step 6, Your children - Payor & medical expenses",
-        "summary_order": 148,
-        "required": "Required"
+        "name": "Unusually high expenses for parenting time, contact with, or access to a child.",
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet E - Undue hardship",
+        "summary_order": 92,
+        "required": "Conditional",
+        "conditional_target": "determine_missing_undue_hardship_reasons",
+        "reveal_response": "True"
     },
     "model": "core.question",
-    "pk": "child_support_in_order"
+    "pk": "claimant_expenses"
 },
 {
     "fields": {
-        "name": "What is the monthly child support amount proposed in the order to be paid by",
-        "description": "For Step 6, Your children - Payor & medical expenses",
-        "summary_order": 149,
+        "name": "Supporting another person",
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet E - Undue hardship",
+        "summary_order": 93,
         "required": "Conditional",
-        "conditional_target": "child_support_in_order",
-        "reveal_response": "DIFF"
+        "conditional_target": "determine_missing_undue_hardship_reasons",
+        "reveal_response": "True"
     },
     "model": "core.question",
-    "pk": "order_monthly_child_support_amount"
+    "pk": "supporting_non_dependents"
 },
 {
     "fields": {
-        "name": "We are not asking for child support to be included in the order",
-        "description": "For Step 6, Your children - Payor & medical expenses",
-        "summary_order": 150,
+        "name": "Supporting dependent child/children from another relationship.",
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet E - Undue hardship",
+        "summary_order": 94,
         "required": "Conditional",
-        "conditional_target": "child_support_in_order",
+        "conditional_target": "determine_missing_undue_hardship_reasons",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "supporting_dependents"
+},
+{
+    "fields": {
+        "name": "Support for a disabled or ill person.",
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet E - Undue hardship",
+        "summary_order": 95,
+        "required": "Conditional",
+        "conditional_target": "determine_missing_undue_hardship_reasons",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "supporting_disabled"
+},
+{
+    "fields": {
+        "name": "Other undue hardship circumstances",
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet E - Undue hardship",
+        "summary_order": 96,
+        "required": "Conditional",
+        "conditional_target": "determine_missing_undue_hardship_reasons",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "undue_hardship"
+},
+{
+    "fields": {
+        "name": "Income of Other Persons in Household",
+        "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet E - Undue hardship",
+        "summary_order": 97,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "income_others"
+},
+{
+    "fields": {
+        "name": "How many child(ren) are you asking for support?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 98,
+        "required": "Conditional",
+        "conditional_target": "determine_show_fact_sheet_f_you",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "number_children_seeking_support_you"
+},
+{
+    "fields": {
+        "name": "How many child(ren) are you asking for support?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 99,
+        "required": "Conditional",
+        "conditional_target": "determine_show_fact_sheet_f_spouse",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "number_children_seeking_support_spouse"
+},
+{
+    "fields": {
+        "name": "What is the Child Support Guidelines amount for $150,000?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 100,
+        "required": "Conditional",
+        "conditional_target": "determine_show_fact_sheet_f_you",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "child_support_amount_under_high_income_you"
+},
+{
+    "fields": {
+        "name": "What is the Child Support Guidelines amount for $150,000?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 101,
+        "required": "Conditional",
+        "conditional_target": "determine_show_fact_sheet_f_spouse",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "child_support_amount_under_high_income_spouse"
+},
+{
+    "fields": {
+        "name": "What is the % of income over $150,000 from the Child Support Guidlines?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 102,
+        "required": "Conditional",
+        "conditional_target": "determine_show_fact_sheet_f_you",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "percent_income_over_high_income_limit_you"
+},
+{
+    "fields": {
+        "name": "What is the % of income over $150,000 from the Child Support Guidlines?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 103,
+        "required": "Conditional",
+        "conditional_target": "determine_show_fact_sheet_f_spouse",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "percent_income_over_high_income_limit_spouse"
+},
+{
+    "fields": {
+        "name": "What is the child support amount to be paid on the portion of income over $150,000?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 104,
+        "required": "Conditional",
+        "conditional_target": "determine_show_fact_sheet_f_you",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "amount_income_over_high_income_limit_you"
+},
+{
+    "fields": {
+        "name": "What is the child support amount to be paid on the portion of income over $150,000?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 105,
+        "required": "Conditional",
+        "conditional_target": "determine_show_fact_sheet_f_spouse",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "amount_income_over_high_income_limit_spouse"
+},
+{
+    "fields": {
+        "name": "Guidelines table amount",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 106,
+        "required": "Conditional",
+        "conditional_target": "determine_show_fact_sheet_f_you",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "total_guideline_amount_you"
+},
+{
+    "fields": {
+        "name": "Guidelines table amount",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 107,
+        "required": "Conditional",
+        "conditional_target": "determine_show_fact_sheet_f_spouse",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "total_guideline_amount_spouse"
+},
+{
+    "fields": {
+        "name": "Do you and your spouse agree that amount is he child support amount?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 108,
+        "required": "Conditional",
+        "conditional_target": "determine_show_fact_sheet_f_you",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "agree_to_child_support_amount_you"
+},
+{
+    "fields": {
+        "name": "Do you and your spouse agree that amount is he child support amount?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 109,
+        "required": "Conditional",
+        "conditional_target": "determine_show_fact_sheet_f_spouse",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "agree_to_child_support_amount_spouse"
+},
+{
+    "fields": {
+        "name": "What is the amount that you and your spouse have agreed to (that differs from the Child Support Guidelines table amount)?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 110,
+        "required": "Conditional",
+        "conditional_target": "agree_to_child_support_amount_you",
         "reveal_response": "NO"
     },
     "model": "core.question",
-    "pk": "child_support_in_order_reason"
+    "pk": "agreed_child_support_amount_you"
 },
 {
     "fields": {
-        "name": "Do you and the other parent agree (have consented) on the child support amount?",
-        "description": "For Step 6, Your children - Payor & medical expenses",
-        "summary_order": 151,
+        "name": "What is the amount that you and your spouse have agreed to (that differs from the Child Support Guidelines table amount)?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 111,
         "required": "Conditional",
-        "conditional_target": "child_support_in_order",
-        "reveal_response": "DIFF"
-    },
-    "model": "core.question",
-    "pk": "claimants_agree_to_child_support_amount"
-},
-{
-    "fields": {
-        "name": "What special provisions have been made?",
-        "description": "For Step 6, Your children - Payor & medical expenses",
-        "summary_order": 152,
-        "required": "Conditional",
-        "conditional_target": "claimants_agree_to_child_support_amount",
+        "conditional_target": "agree_to_child_support_amount_spouse",
         "reveal_response": "NO"
     },
     "model": "core.question",
-    "pk": "child_support_payment_special_provisions"
+    "pk": "agreed_child_support_amount_spouse"
+},
+{
+    "fields": {
+        "name": "Why do you think the court should approve your proposed amount?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 112,
+        "required": "Conditional",
+        "conditional_target": "agree_to_child_support_amount_you",
+        "reveal_response": "NO"
+    },
+    "model": "core.question",
+    "pk": "reason_child_support_amount_you"
+},
+{
+    "fields": {
+        "name": "Why do you think the court should approve your proposed amount?",
+        "description": "For Step 6, Your children - Payor & fact sheets - Your Fact Sheet F",
+        "summary_order": 113,
+        "required": "Conditional",
+        "conditional_target": "agree_to_child_support_amount_spouse",
+        "reveal_response": "NO"
+    },
+    "model": "core.question",
+    "pk": "reason_child_support_amount_spouse"
 },
 {
     "fields": {
         "name": "Is medical coverage available for the children?",
         "description": "For Step 6, Your children - Payor & medical expenses",
-        "summary_order": 153,
+        "summary_order": 114,
         "required": "Required"
     },
     "model": "core.question",
@@ -1673,7 +1253,7 @@
     "fields": {
         "name": "Whose plan is the coverage under?",
         "description": "For Step 6, Your children - Payor & medical expenses",
-        "summary_order": 154,
+        "summary_order": 115,
         "required": "Conditional",
         "conditional_target": "medical_coverage_available",
         "reveal_response": "YES"
@@ -1685,7 +1265,7 @@
     "fields": {
         "name": "Are there any child support payments (in arrears) that have not been paid (as of today's date) under an existing order or written agreement?",
         "description": "For Step 6, Your children - Payor & medical expenses",
-        "summary_order": 155,
+        "summary_order": 116,
         "required": "Required"
     },
     "model": "core.question",
@@ -1695,12 +1275,428 @@
     "fields": {
         "name": "What is the amount as of today's date?",
         "description": "For Step 6, Your children - Payor & medical expenses",
-        "summary_order": 156,
+        "summary_order": 117,
         "required": "Conditional",
         "conditional_target": "child_support_payments_in_arrears",
         "reveal_response": "YES"
     },
     "model": "core.question",
     "pk": "child_support_arrears_amount"
+},
+{
+    "fields": {
+        "name": "What is the monthly child support amount proposed in the order to be paid by",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 118,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "child_support_in_order"
+},
+{
+    "fields": {
+        "name": "What is the monthly child support amount proposed in the order to be paid by",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 119,
+        "required": "Conditional",
+        "conditional_target": "child_support_in_order",
+        "reveal_response": "DIFF"
+    },
+    "model": "core.question",
+    "pk": "order_monthly_child_support_amount"
+},
+{
+    "fields": {
+        "name": "We are not asking for child support to be included in the order",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 120,
+        "required": "Conditional",
+        "conditional_target": "child_support_in_order",
+        "reveal_response": "NO"
+    },
+    "model": "core.question",
+    "pk": "child_support_in_order_reason"
+},
+{
+    "fields": {
+        "name": "Do you and the other parent agree (have consented) on the child support amount?",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 121,
+        "required": "Conditional",
+        "conditional_target": "child_support_in_order",
+        "reveal_response": "DIFF"
+    },
+    "model": "core.question",
+    "pk": "claimants_agree_to_child_support_amount"
+},
+{
+    "fields": {
+        "name": "What special provisions have been made?",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 122,
+        "required": "Conditional",
+        "conditional_target": "claimants_agree_to_child_support_amount",
+        "reveal_response": "NO"
+    },
+    "model": "core.question",
+    "pk": "child_support_payment_special_provisions"
+},
+{
+    "fields": {
+        "name": "Do you have a separation agreement that sets out what you've agreed to around parenting and child support?",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 123,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "have_separation_agreement"
+},
+{
+    "fields": {
+        "name": "Do you have an order about support of the children?",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 124,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "have_court_order"
+},
+{
+    "fields": {
+        "name": "The court needs to know what the current parenting arrangements are for the children of the marriage. Please describe below.",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 125,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "what_parenting_arrangements"
+},
+{
+    "fields": {
+        "name": "Are you asking the court for an order about parenting arrangements or contact with a child?",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 126,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "want_parenting_arrangements"
+},
+{
+    "fields": {
+        "name": "Please indicate the parenting arrangements you are asking for below.",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 127,
+        "required": "Conditional",
+        "conditional_target": "want_parenting_arrangements",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "order_respecting_arrangement"
+},
+{
+    "fields": {
+        "name": "If you are asking for an order for child support please describe what you are asking for.",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 128,
+        "required": "Conditional",
+        "conditional_target": "child_support_in_order",
+        "reveal_response": "!NO"
+    },
+    "model": "core.question",
+    "pk": "order_for_child_support"
+},
+{
+    "fields": {
+        "name": "Please indicate which act you are asking for support under.",
+        "description": "For Step 6, Your children - What are you asking for",
+        "summary_order": 129,
+        "required": "Conditional",
+        "conditional_target": "determine_child_support_act_requirement",
+        "reveal_response": "True"
+    },
+    "model": "core.question",
+    "pk": "child_support_act"
+},
+{
+    "fields": {
+        "name": "How have you and your spouse agreed to deal with your property and debt?",
+        "description": "For step 7, Form 1 6. Property and debt",
+        "summary_order": 130,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "deal_with_property_debt"
+},
+{
+    "fields": {
+        "name": "Please describe how you and your spouse plan to divide your property, assets and your debts.",
+        "description": "For step 7, Form 1 6. Property and debt",
+        "summary_order": 131,
+        "required": "Conditional",
+        "conditional_target": "deal_with_property_debt",
+        "reveal_response": "Unequal division"
+    },
+    "model": "core.question",
+    "pk": "how_to_divide_property_debt"
+},
+{
+    "fields": {
+        "name": "Please list any other property claims.",
+        "description": "For step 7, Form 1 6. Property and debt",
+        "summary_order": 132,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "other_property_claims"
+},
+{
+    "fields": {
+        "name": "Please enter the details for any other orders that you are asking for.",
+        "description": "For step 8 other orders, Form 1 7. Other",
+        "summary_order": 133,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "other_orders_detail"
+},
+{
+    "fields": {
+        "name": "What is the best address to send you official court documents?",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 134,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_street_you"
+},
+{
+    "fields": {
+        "name": "City",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 135,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_city_you"
+},
+{
+    "fields": {
+        "name": "Prov",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 136,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_prov_you"
+},
+{
+    "fields": {
+        "name": "Country",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 137,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_country_you"
+},
+{
+    "fields": {
+        "name": "Other Country",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 138,
+        "required": "Conditional",
+        "conditional_target": "address_to_send_official_document_country_you",
+        "reveal_response": "Other"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_other_country_you"
+},
+{
+    "fields": {
+        "name": "Postal code",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 139,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_postal_code_you"
+},
+{
+    "fields": {
+        "name": "Fax number",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "summary_order": 140,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_fax_you"
+},
+{
+    "fields": {
+        "name": "Email",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "summary_order": 141,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_email_you"
+},
+{
+    "fields": {
+        "name": "What is the best address to send your spouse official court documents?",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 142,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_street_spouse"
+},
+{
+    "fields": {
+        "name": "City",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 143,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_city_spouse"
+},
+{
+    "fields": {
+        "name": "Prov",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 144,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_prov_spouse"
+},
+{
+    "fields": {
+        "name": "Country",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 145,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_country_spouse"
+},
+{
+    "fields": {
+        "name": "Other Country",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 146,
+        "required": "Conditional",
+        "conditional_target": "address_to_send_official_document_country_spouse",
+        "reveal_response": "Other"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_other_country_spouse"
+},
+{
+    "fields": {
+        "name": "Postal code",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "summary_order": 147,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_postal_code_spouse"
+},
+{
+    "fields": {
+        "name": "Fax number",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "summary_order": 148,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_fax_spouse"
+},
+{
+    "fields": {
+        "name": "Email",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "summary_order": 149,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_email_spouse"
+},
+{
+    "fields": {
+        "name": "Divorce is to take effect on",
+        "description": "For step 9, Form 52 This Court Orders that",
+        "summary_order": 150,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "divorce_take_effect_on"
+},
+{
+    "fields": {
+        "name": "Divorce is to take effect on specific date",
+        "description": "For step 9 - specific date, Form 52 This Court Orders that",
+        "summary_order": 151,
+        "required": "Conditional",
+        "conditional_target": "divorce_take_effect_on",
+        "reveal_response": "specific date"
+    },
+    "model": "core.question",
+    "pk": "divorce_take_effect_on_specific_date"
+},
+{
+    "fields": {
+        "name": "Where will you be filing for divorce?",
+        "description": "For step 10, Form 1 court registry, Form 35 court registry, Form 36 court registry, Form 38(joint and sole) court registry, Form 52 court registry",
+        "summary_order": 152,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "court_registry_for_filing"
+},
+{
+    "fields": {
+        "name": "Are you asking for a name change?",
+        "description": "For Step 10, Forms 38 and 52's Orders sections",
+        "summary_order": 153,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "name_change_you"
+},
+{
+    "fields": {
+        "name": "Please enter the full name",
+        "description": "For Step 10, Forms 38 and 52's Orders sections",
+        "summary_order": 154,
+        "required": "Conditional",
+        "conditional_target": "name_change_you",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "name_change_you_fullname"
+},
+{
+    "fields": {
+        "name": "Is your spouse asking for a name change?",
+        "description": "For Step 10, Forms 38 and 52's Orders sections",
+        "summary_order": 155,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "name_change_spouse"
+},
+{
+    "fields": {
+        "name": "Please enter the full name",
+        "description": "For Step 10, Forms 38 and 52's Orders sections",
+        "summary_order": 156,
+        "required": "Conditional",
+        "conditional_target": "name_change_spouse",
+        "reveal_response": "YES"
+    },
+    "model": "core.question",
+    "pk": "name_change_spouse_fullname"
 }
 ]
