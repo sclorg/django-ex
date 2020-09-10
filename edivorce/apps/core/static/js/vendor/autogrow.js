@@ -20,7 +20,7 @@
             //if the element is "invisible", we get an incorrect height value
             //to get correct value, clone and append to the body. 
             if (elem.is(':visible') || parseInt(elem.css('height'), 10) > 0) {
-                min = parseInt(elem.css('height'), 10) || elem.innerHeight();
+                min = parseInt(elem.css('height'), 75) || elem.innerHeight();
             } else {
                 clone = elem.clone()
                     .addClass(opts.cloneClass)
@@ -35,7 +35,6 @@
                 min = clone.innerHeight();
                 clone.remove();
             }
-            min = Math.max(min, 75);
             if (opts.fixMinHeight) {
                 elem.data('autogrow-start-height', min); //set min height
             }
