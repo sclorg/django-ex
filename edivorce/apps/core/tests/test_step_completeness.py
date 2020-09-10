@@ -371,6 +371,9 @@ class ChildrenStepCompletenessTestCase(TestCase):
         response.value = value
         response.save()
 
+    def delete_response(self, questions):
+        UserResponse.objects.filter(bceid_user=self.user, question_id__in=questions).update(value='')
+
     def test_children_details(self):
         substep = 'your_children'
 
@@ -440,4 +443,46 @@ class ChildrenStepCompletenessTestCase(TestCase):
 
         self.assertFalse(self.is_step_complete(substep))
         self.create_response('whose_plan_is_coverage_under', '["My plan","Spouse"]')
+        self.assertTrue(self.is_step_complete(substep))
+
+    def test_what_are_you_asking_for(self):
+        substep = 'what_for'
+
+        self.assertFalse(self.is_step_complete(substep))
+        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+
+        # All basic required fields
+        self.create_response('child_support_in_order', 'MATCH')
+        self.create_response('have_separation_agreement', 'NO')
+        self.create_response('have_court_order', 'NO')
+        self.create_response('what_parenting_arrangements', 'Something')
+        self.create_response('want_parenting_arrangements', 'NO')
+        self.create_response('child_support_act', 'NO')
+        self.assertFalse(self.is_step_complete(substep))
+
+        # Based on child_support_in_order value (MATCH)
+        self.create_response('order_for_child_support', 'We are asking for X')
+        self.assertTrue(self.is_step_complete(substep))
+
+        # Based on child_support_in_order value (DIFF)
+        self.create_response('child_support_in_order', 'DIFF')
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('order_monthly_child_support_amount', '100')
+        self.create_response('claimants_agree_to_child_support_amount', 'YES')
+        self.assertTrue(self.is_step_complete(substep))
+        self.create_response('claimants_agree_to_child_support_amount', 'NO')
+        self.create_response('child_support_payment_special_provisions', 'Some special provisions')
+        self.assertTrue(self.is_step_complete(substep))
+
+        # Based on child_support_in_order value (NO)
+        self.create_response('child_support_in_order', 'NO')
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('child_support_in_order_reason', 'We will sort it out ourselves')
+        self.delete_response(['order_for_child_support', 'claimants_agree_to_child_support_amount', 'child_support_payment_special_provisions'])
+        self.assertTrue(self.is_step_complete(substep))
+
+        # Other conditionals
+        self.create_response('want_parenting_arrangements', 'YES')
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('order_respecting_arrangement', 'Claimant 1 and Claimant 2 will share parenting time equally between them.')
         self.assertTrue(self.is_step_complete(substep))
