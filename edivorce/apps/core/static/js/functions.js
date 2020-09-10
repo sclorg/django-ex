@@ -341,8 +341,13 @@ var getValue = function(el, question){
             }
         });
         return JSON.stringify(value);
-    }
-    else{
+    } else if (el.is("input[type=radio]")) {
+        if (el.prop('checked')) {
+            return el.val();
+        } else {
+            return '';
+        }
+    } else {
         return el.val();
     }
 };

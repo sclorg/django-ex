@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }}: Overview{% endblock %}
+
+{% block progress %}{% include "partials/dashnav.html" with active_page=active_page %}{% endblock %}
+
+{% block content %}
+    <h1>Wait for Court Filing Number</h1>
+    <p>
+        You’ve successfully completed your initial filing with the Court Registry.
+    </p>
+    <p>
+        Your CSO Online Package # (?) is 123-456-789
+    </p>
+    <p>
+        You can view the following items at any time:
+    </p>
+    <ul>
+        <li>Your eFiling Receipt on the CSO eFiling Hub</li>
+        <li>The package of all documents you have filed at the CSO eFiling Hub</li>
+    </ul>
+    <p>
+        In order to complete your divorce you’ll need to file the final set of documents. To do this you’ll require a Court Filing Number (?) which
+        will
+        be provided from the Court Registry once they have reviewed and approval your initial filing. This review can take up to a week to complete.
+        You’ll receive an e-mail with details of your initial filing.
+    </p>
+    <p>
+        If you have any questions or concerns about your initial filing, please contact CSO Online Support at Courts.CSO@gov.bc.ca and include your
+        Online
+        Package # (?).
+    </p>
+    <p>
+        Once you have received your Court Filing Number via e-mail, click Next to proceed with the remaining steps in the process.
+    </p>
+{% endblock %}
+
+{% block backToDashboard %}
+    <!-- no back to dashboard -->
+{% endblock %}
+
+{% block formBack %}{% url 'dashboard_nav' 'initial_filing' %}{% endblock %}
+{% block formNext %}{% url 'dashboard_nav' 'swear_forms' %}{% endblock %}
+
+{% block sidebarNav %}
+    <!-- no sidebar -->
+{% endblock %}
+{% block sidebarText %}
+    {% include "dashboard/partials/sidebar_help.html" %}
+{% endblock %}

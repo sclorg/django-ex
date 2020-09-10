@@ -6,21 +6,35 @@
         <span class="progress-icon"><i class="fa fa-file-text-o" aria-hidden="true"></i></span>
         <span class="progress-content">Divorce Questionnaire</span>
     </a>
+    <a href="{% url 'dashboard_nav' 'sign_file_options' %}" class="progress-question {% if active_page == 'sign_file_options' %} active {% endif %}">
+        <span class="progress-icon"><i class="fa fa-file-text-o" aria-hidden="true"></i></span>
+        <span class="progress-content">Signing & Filing Options</span>
+    </a>
     <a href="{% url 'dashboard_nav' 'print_form' %}" class="progress-question {% if active_page == 'print_form' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-print" aria-hidden="true"></i></span>
         <span class="progress-content">Review and Print Forms</span>
     </a>
-    <a href="{% url 'dashboard_nav' 'file_documents' %}" class="progress-question {% if active_page == 'file_documents' %} active {% endif %}">
-        <span class="progress-icon"><i class="fa fa-folder-open" aria-hidden="true"></i></span>
-        <span class="progress-content">File Documents</span>
+{% if how_to_file == 'Online' %}
+    <a href="{% url 'dashboard_nav' 'initial_filing' %}" class="progress-question {% if active_page == 'initial_filing' %} active {% endif %}">
+        <span class="progress-icon"><i class="fa fa-folder" aria-hidden="true"></i></span>
+        <span class="progress-content">Initial Filing</span>
     </a>
-    <a href="{% url 'dashboard_nav' 'wait' %}" class="progress-question {% if active_page == 'wait' %} active {% endif %}">
+    <a href="{% url 'dashboard_nav' 'wait_for_number' %}" class="progress-question {% if active_page == 'wait_for_number' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-hourglass-half" aria-hidden="true"></i></span>
-        <span class="progress-content">Wait</span>
+        <span class="progress-content">Wait for Court Filing #</span>
     </a>
-    <a href="{% url 'dashboard_nav' 'check_with_registry' %}" class="progress-question {% if active_page == 'check_with_registry' %} active {% endif %}">
+{% endif %}
+    <a href="{% url 'dashboard_nav' 'swear_forms' %}" class="progress-question {% if active_page == 'swear_forms' %} active {% endif %}">
         <span class="progress-icon"><i class="fa fa-university" aria-hidden="true"></i></span>
-        <span class="progress-content">Check with Registry</span>
+        <span class="progress-content">Swear Forms</span>
+    </a>
+    <a href="{% url 'dashboard_nav' 'final_filing' %}" class="progress-question {% if active_page == 'final_filing' %} active {% endif %}">
+        <span class="progress-icon"><i class="fa fa-folder-open" aria-hidden="true"></i></span>
+        <span class="progress-content">Final Filing</span>
+    </a>
+    <a href="{% url 'dashboard_nav' 'next_steps' %}" class="progress-question {% if active_page == 'next_steps' %} active {% endif %}">
+        <span class="progress-icon"><i class="fa fa-university" aria-hidden="true"></i></span>
+        <span class="progress-content">Next Steps</span>
     </a>
     <a href="{% url 'dashboard_nav' 'order_certificate' %}" class="progress-question {% if active_page == 'order_certificate' %} active {% endif %}">
         <span class="progress-icon"><img src="{% static 'svg/icon-certificate.svg' %}" /></span>

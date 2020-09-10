@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load input_field %}
+{% load static %}
+
+{% block title %}{{ block.super }}: Overview{% endblock %}
+
+{% block progress %}{% include "partials/dashnav.html" with active_page=active_page %}{% endblock %}
+
+{% block content %}
+    <h1>Final Filing</h1>
+    {% if how_to_file == 'Online' %}
+        <p>
+            Now that you have received a Court Filing Number and both sworn / affirmed your affidavits, you can proceed with the filing of your
+            remaining
+            documentation. If you have not received a Court Filing Number check the Wait for Court Filing step. If you have not sworn / affirmed your
+            affidavits, check the Swear Forms step. Enter your Court Filing Number below:
+        </p>
+        <div><label>Court Filing #</label>{% input_field type="text" name="court_filing_no" id="court_filing_no" class="input-inline form-control" %}
+        </div>
+    {% endif %}
+
+    <div id="vue-app">
+        <final-filing-uploader 
+            signing-location="{{ signing_location }}"
+            signing-location-you="{{ signing_location_you }}"
+            signing-location-spouse="{{ signing_location_spouse }}"
+            how-to-sign="{{ how_to_sign }}"
+            how-to-file="{{ how_to_file }}"
+            sign-file-options-url="{% url 'dashboard_nav' 'sign_file_options' %}"
+            print-form-url="{% url 'dashboard_nav' 'print_form' %}">
+        </final-filing-uploader>
+    </div>
+
+    {% if how_to_file == 'Online' %}
+        <h3>Filing with Court Services Online</h3>
+        <p>When you click Next, you will be taken to the Court Services Online e-filing hub. In the next few steps you will be able to do a final
+            review of your filed documentation, pay for your filing and (if completed successfully) receive a Package Number. This final step will
+            complete your divorce filing.</p>
+    {% endif %}
+
+{% endblock %}
+
+{% block backToDashboard %}
+    <!-- no back to dashboard -->
+{% endblock %}
+
+{% block formBack %}{% url 'dashboard_nav' 'swear_forms' %}{% endblock %}
+{% block formNext %}{% url 'dashboard_nav' 'next_steps' %}{% endblock %}
+
+{% block sidebarNav %}
+    <!-- no sidebar -->
+{% endblock %}
+{% block sidebarText %}
+    {% include "dashboard/partials/sidebar_help.html" %}
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="preload" as="style" href="{% static 'dist/vue/css/finalFiling.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'dist/vue/css/finalFiling.css' %}"/>
+    <link rel="preload" as="script" href="{% static 'dist/vue/js/chunk-vendors.js' %}"/>
+    <link rel="preload" as="script" href="{% static 'dist/vue/js/chunk-common.js' %}"/>
+    <link rel="preload" as="script" href="{% static 'dist/vue/js/finalFiling.js' %}"/>
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'dist/vue/js/chunk-vendors.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dist/vue/js/chunk-common.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dist/vue/js/finalFiling.js' %}"></script>
+{% endblock %}

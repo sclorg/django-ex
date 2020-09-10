@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }}: Overview{% endblock %}
+
+{% block progress %}{% include "partials/dashnav.html" with active_page=active_page %}{% endblock %}
+
+{% block content %}
+    <h1>Filing Completed</h1>
+    {% if how_to_file == 'Online' %}
+        <p>
+            You have successfully completed filing online.
+        </p>
+        <p>
+            Your CSO Online Package # (?) is 123-456-789
+        </p>
+        <p>
+            Once your filing has been reviewed by the Court Registry (?), you will receive an e-mail confirmation of your filing. This e-mail will
+            include
+            a Court Filing Number (?), please keep this number for your records and use it if filing any additional documentation.
+        </p>
+        <div class="question-well">
+            <h3>Filing Status</h3>
+            <p>
+                You will receive e-mails from the system as your filing is processed by the Court Registry. You can also check here to see the status
+                of
+                your filing:
+            </p>
+            <p>
+                Current Filing Status: Submitted - Your filing has been submitted to the Court Registry and will be reviewed soon.
+            </p>
+            <p>
+                You can view the following items at any time:
+            </p>
+            <ul>
+                <li>Your eFiling Receipt on the CSO eFiling Hub</li>
+                <li>The complete package of all documents you have filed at the CSO eFiling Hub</li>
+            </ul>
+        </div>
+    {% endif %}
+    <div class="question-well">
+        <h3>What happens at the registry?</h3>
+        <p>The court registry staff will check your documents to make sure they've been completed properly.</p>
+        <p>
+            If you're not sure whether you've filled out the documents correctly, get some
+            <a href="http://www.familylaw.lss.bc.ca/help/who_LegalAdvice.php" target="_blank">legal advice</a> before you file your documents — from
+            <a href="http://www.familylaw.lss.bc.ca/help/who_FamilyDutyCounsel.php" target="_blank">family duty counsel</a>
+            or (in Vancouver) from the Vancouver
+            <a href="http://www.familylaw.lss.bc.ca/help/jacSelfHelpAndInfoServices.php" target="_blank">Justice Access Centre</a> Self-Help and
+            Information Services.
+        </p>
+        <p>If the registry is satisfied that your documents are in order, they will stamp the documents with the date, the court seal, and a file
+            number.</p>
+        <p>You now have a divorce file open in the Supreme Court.</p>
+    </div>
+    <div class="question-well">
+        <h3>Next Steps</h3>
+        <p>Once a judge has reviewed your divorce, you will receive an e-mail from the court registry with information about the next steps. If your
+            divorce is approved, you can move to the next step and order a certificate of divorce.</p>
+
+        <h2>Haven’t Heard Back?</h2>
+        <p>If you don’t hear back within 30 days from the court registry. Please contact CSO Online Support at Courts.CSO@gov.bc.ca and include your
+            Court Filing # (?) / Filing Location or Online Package Number (?).</p>
+    </div>
+{% endblock %}
+
+{% block backToDashboard %}
+    <!-- no back to dashboard -->
+{% endblock %}
+
+{% block formBack %}{% url 'dashboard_nav' 'final_filing' %}{% endblock %}
+{% block formNext %}{% url 'dashboard_nav' 'order_certificate' %}{% endblock %}
+
+{% block sidebarNav %}
+    <!-- no sidebar -->
+{% endblock %}
+{% block sidebarText %}
+    {% include "dashboard/partials/sidebar_help.html" %}
+{% endblock %}

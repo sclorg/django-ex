@@ -250,7 +250,7 @@
 {% endblock %}
 
 {% block formBack %}{% prev_step step='review' %}{% endblock %}
-{% block formNext %}{% url 'dashboard_nav' 'print_form' %}{% endblock %}
+{% block formNext %}{% url 'dashboard_nav' 'sign_file_options' %}{% endblock %}
 {% block nextButtonAttribute %}{% if derived.any_errors %}disabled{% endif %}{% endblock %}
 
 {% block sidebarNav %}

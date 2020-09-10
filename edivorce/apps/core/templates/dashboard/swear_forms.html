@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }}: Overview{% endblock %}
+
+{% block progress %}{% include "partials/dashnav.html" with active_page=active_page %}{% endblock %}
+
+{% block content %}
+    <h1>Swear / Affirm Forms</h1>
+    {% if how_to_file == 'In-person' %}
+        <p>Now that you have reviewed and printed all of your forms, you’ll need to get your affidavits sworn / affirmed (?).</p>
+    {% elif how_to_file == 'Online' %}
+        <p>You must have a Court Filing Number in order to proceed with swearing / affirming (?) your affidavits. If you do not have a Court Filing
+            Number (?) return to the Wait for Court Filing Number step.</p>
+    {% else %}
+        <p>You must select whether you are filing online or in-person in the <a href="{% url 'dashboard_nav' 'sign_file_options' %}">Signing and
+            Filing Options</a> step.</p>
+    {% endif %}
+    <p>
+        You’ll need to have printed copies of the following form(s) with you for swearing / affirming (?):
+    </p>
+    <ul>
+        <li>Child Support Affidavit (F37)</li>
+        <li>Affidavit Desk Order Divorce Form (F38)</li>
+    </ul>
+    {% if how_to_sign == 'Together' and signing_location == 'Virtual' %}
+        <div>
+            <p>
+                You and your spouse will swear / affirm (?) together in a virtual session (?) with the court registry:
+            </p>
+            <p>
+                The process for a virtual session is as follows:
+            </p>
+            <ul>
+                <li>Have your Court Filing Number (?) ready (received when your initial filing is reviewed by the Court Registry)</li>
+                <li>A member of the court registry will be in touch with you individually to setup a virtual session</li>
+                <li>Have print outs of all of your affidavits ready to sign.</li>
+                <li>Have your photo ID ready to show.</li>
+                <li>The virtual session will involve a video call between you and the court registry member.</li>
+            </ul>
+            <p>
+                Once you have filed your documentation (see next step), a member of the court registry will be in touch soon to book your virtual
+                session.
+            </p>
+        </div>
+    {% elif how_to_sign == 'Separately' and signing_location_you == 'Virtual' and signing_location_spouse == 'Virtual' %}
+        <div>
+            <p>
+                You and your spouse will swear / affirm (?) in a virtual session (?) separately with the court registry:
+            </p>
+            <p>
+                The process for a virtual session is as follows:
+            </p>
+            <ul>
+                <li>Have your Court Filing Number (?) ready (received when your initial filing is reviewed by the Court Registry)</li>
+                <li>A member of the court registry will be in touch with you individually to setup a virtual session</li>
+                <li>Have print outs of all of your affidavits ready to sign.</li>
+                <li>Have your photo ID ready to show.</li>
+                <li>The virtual session will involve a video call between you and the court registry member.</li>
+            </ul>
+            <p>
+                Once you have filed your documentation (see next step), a member of the court registry will be in touch soon to book your virtual
+                session.
+            </p>
+        </div>
+    {% elif how_to_sign == 'Together' and signing_location == 'In-person' %}
+        <div>
+            <p>
+                You and your spouse will swear / affirm (?) together with a commissioner (?):
+            </p>
+            <p>
+                Prepare for your swearing by ensuring you:
+            </p>
+            <ul>
+                <li>Have print outs of all of your affidavits ready to sign</li>
+                <li>Have your photo ID ready to show.</li>
+            </ul>
+            <p>
+                If you are planning to sign / swear at the court registry then additionally you should:
+            </p>
+            <ul>
+                <li>Have print outs of all your completed documentation with you</li>
+                <li>You will be able to complete filing of your documentation at the same time as filing</li>
+            </ul>
+            <p>
+                If you are planning to sign / swear with lawyer, notary or other commissioner please contact them directly.
+            </p>
+        </div>
+    {% elif how_to_sign == 'Separately' and signing_location_you == 'In-person' and signing_location_spouse == 'In-person' %}
+        <div>
+            <p>
+                You and your spouse will swear / affirm (?) separately with a commissioner (?):
+            </p>
+            <p>
+                Prepare for your swearing by ensuring you:
+            </p>
+            <ul>
+                <li>Have print outs of all of your affidavits ready to sign</li>
+                <li>Have your photo ID ready to show.</li>
+            </ul>
+            <p>
+                If you are planning to sign / swear at the court registry then additionally you should:
+            </p>
+            <ul>
+                <li>Have print outs of all your completed documentation with you</li>
+                <li>You will be able to complete filing of your documentation at the same time as filing</li>
+                <li>Once you have filed, your spouse will be able to sign / swear and file their affidavits at the court registry.</li>
+                <li>Your spouse will require the Court Filing Number (?) provided to you at the time of your filing.</li>
+            </ul>
+            <p>
+                If you are planning to sign / swear with lawyer, notary or other commissioner please contact them directly.
+            </p>
+        </div>
+    {% elif how_to_sign == 'Separately' and signing_location_you == 'Virtual' and signing_location_spouse == 'In-person' %}
+        <div>
+            <p>You will swear / affirm (?) in a virtual session (?) with the court registry:</p>
+            <p>The process for a virtual session is as follows:</p>
+            <ul>
+                <li>Have your Court Filing Number (?) ready (received when your initial filing is reviewed by the Court Registry)</li>
+                <li>A member of the court registry will be in touch with you individually to setup a virtual session</li>
+                <li>Have print outs of all of your affidavits ready to sign.</li>
+                <li>Have your photo ID ready to show.</li>
+                <li>The virtual session will involve a video call between you and the court registry member.</li>
+            </ul>
+            <p>Once you have filed your documentation (see next step), a member of the court registry will be in touch soon to book your virtual
+                session.</p>
+            <hr/>
+            <p>Your spouse will swear / affirm (?) with a commissioner (?):</p>
+            <p>Have your spouse prepare for their swearing by ensuring they:</p>
+            <ul>
+                <li>Have print outs of all of affidavits ready to sign</li>
+                <li>Have your photo ID ready to show.</li>
+            </ul>
+            <p>If they are planning to sign / swear at the court registry then additionally they should:</p>
+            <ul>
+                <li>Have your Court Filing Number (?) ready (received when your initial filing is reviewed by the Court Registry)</li>
+                <li>Have print outs of all completed documentation with them</li>
+                <li>Your will be able to complete filing of your documentation at the same time as filing</li>
+            </ul>
+            <p>If they are planning to sign / swear with lawyer, notary or other commissioner please contact them directly.</p>
+        </div>
+    {% elif how_to_sign == 'Separately' and signing_location_you == 'In-person' and signing_location_spouse == 'Virtual' %}
+        <div>
+            <p>You will swear / affirm (?) with a commissioner (?):</p>
+            <p>Prepare for your swearing by ensuring you:</p>
+            <ul>
+                <li>Have print outs of all of affidavits ready to sign</li>
+                <li>Have your photo ID ready to show.</li>
+            </ul>
+            <p>If you are planning to sign / swear at the court registry then additionally you should:</p>
+            <ul>
+                <li>Have print outs of all completed documentation with you</li>
+            </ul>
+            <p>If they are planning to sign / swear with lawyer, notary or other commissioner please contact them directly.</p>
+            <hr/>
+            <p>Your spouse will swear / affirm (?) in a virtual session (?) with the court registry:</p>
+            <p>The process for a virtual session is as follows:</p>
+            <ul>
+                <li>Have your Court Filing Number (?) ready (received when your initial filing is reviewed by the Court Registry)</li>
+                <li>A member of the court registry will be in touch with your spouse individually to setup a virtual session</li>
+                <li>Have print outs of all of your spouse’s affidavits ready to sign.</li>
+                <li>Have your spouse’s photo ID ready to show.</li>
+                <li>The virtual session will involve a video call between your spouse and a court registry member.</li>
+            </ul>
+            <p>Once you have filed your initial documentation (see next step), a member of the court registry will be in touch soon to book your
+                spouse’s virtual session.</p>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block backToDashboard %}
+    <!-- no back to dashboard -->
+{% endblock %}
+
+{% block formBack %}
+    {% if how_to_file == 'Online' %}
+        {% url 'dashboard_nav' 'initial_filing' %}
+    {% else %}
+        {% url 'dashboard_nav' 'print_form' %}
+    {% endif %}
+{% endblock %}
+{% block formNext %}{% url 'dashboard_nav' 'final_filing' %}{% endblock %}
+
+{% block sidebarNav %}
+    <!-- no sidebar -->
+{% endblock %}
+{% block sidebarText %}
+    {% include "dashboard/partials/sidebar_help.html" %}
+{% endblock %}
