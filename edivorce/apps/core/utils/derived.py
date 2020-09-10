@@ -194,7 +194,7 @@ def show_fact_sheet_c(responses, derived):
 
 def fact_sheet_c_error(responses, derived):
     questions = ['number_of_children_claimant',
-                 'determine_split_custody',
+                 'your_spouse_child_support_paid_c',
                  'number_of_children_claimant_spouse',
                  'your_child_support_paid_c',
                  ]
