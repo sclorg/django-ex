@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.edit import FormView, CreateView, DeleteView
 from django import forms
 from django.http import HttpResponse
@@ -30,6 +32,10 @@ class UploadStorage(CreateView):
     fields = ['file']
     template_name = "storage.html"
     success_url = '/poc/storage'
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(UploadStorage, self).dispatch(request, *args, **kwargs)    
 
     def get_context_data(self, **kwargs):
         kwargs['documents'] = Document.objects.all()

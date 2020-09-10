@@ -1,8 +1,8 @@
 <template>
-  <div class="item-tile">
+  <div class="item-tile" v-if="file.progress === '100.00'">
     <div class="image-wrap">
-      <img v-if="file.blob" :src="file.blob" height="auto" />
-      <button type="button"class="btn-remove" @click.prevent="$emit('remove')" aria-label="Delete">
+      <img v-if="file.objectURL" :src="file.objectURL" height="auto" />
+      <button type="button" class="btn-remove" @click.prevent="$emit('remove')" aria-label="Delete">
         <i class="fa fa-times-circle"></i>
       </button>
     </div>
@@ -26,6 +26,25 @@
       </div>
     </div>
   </div>
+  <div class="item-tile" v-else-if="file.progress !== '0.00'"> 
+    <div class="status-wrap">
+      <div>
+      Uploading... {{ file.progress}}%
+      </div>
+      <div class="progress">
+        <div :style="'width:' + file.progress + '%'">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="item-tile" v-else> 
+    <div class="status-wrap">
+      <div>
+      Waiting...
+      </div>
+      <div class="progress"></div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -43,15 +62,43 @@ export default {
       margin-bottom: 5px;
       position: relative;
 
-      .image-wrap {
+      .image-wrap, .status-wrap {
         height: 160px;
-        overflow-y: hidden;
         border: 1px solid black;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
         background-color: white;
       }
 
+      .image-wrap {
+        overflow-y: hidden;
+      }
+
+      .status-wrap {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .progress {
+        width: 100%;
+        background-color: #F2F2F3;
+        height: 22px;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+
+        > div {
+          background-color: #365EBE;
+          height: 22px;
+          border-bottom-left-radius: 6px;
+          border-bottom-right-radius: 6px;
+        }
+      }
+      
       .item-text {
         text-align: center;
         min-height: 75px;
@@ -88,6 +135,10 @@ export default {
         padding: 0;
         margin-right: 16px;
 
+        &:hover {
+          cursor: pointer !important;
+        }
+
         i.fa {
           color: #003366;
         }
@@ -105,9 +156,9 @@ export default {
           top: 125px;
           left: 130px;
 
-         i.fa {
-          color: #365EBE;
-         }
+          i.fa {
+            color: #365EBE;
+          }
         }
       }
     }

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "uiv": "^0.36.1",
     "vue": "^2.6.11",
     "vue-upload-component": "^2.8.20"
   },
