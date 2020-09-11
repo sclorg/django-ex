@@ -2,81 +2,59 @@
   "apiVersion": "v1",
   "kind": "Template",
   "metadata": {
-    "annotations": {
-      "description": "Deployment template for a clamav",
-      "tags": "clamd,av"
-    },
-    "name": "clamd"
+    "name": "clamav",
+    "creationTimestamp": null
   },
   "objects": [
     {
       "apiVersion": "v1",
       "kind": "DeploymentConfig",
       "metadata": {
+        "name": "clamav",
+        "generation": 1,
         "creationTimestamp": null,
         "labels": {
-          "app": "${NAME}"
-        },
-        "name": "${NAME}"
+          "app": "clamav"
+        }
       },
       "spec": {
         "replicas": 1,
         "selector": {
-          "app": "${NAME}",
-          "deploymentconfig": "${NAME}"
+          "app": "clamav",
+          "deploymentconfig": "clamav"
         },
         "strategy": {
-          "rollingParams": {
-            "intervalSeconds": 1,
-            "maxSurge": "25%",
-            "maxUnavailable": "25%",
-            "timeoutSeconds": 600,
-            "updatePeriodSeconds": 1
-          },
+          "activeDeadlineSeconds": 21600,
           "type": "Rolling"
         },
         "template": {
           "metadata": {
             "creationTimestamp": null,
             "labels": {
-              "app": "${NAME}",
-              "deploymentconfig": "${NAME}"
+              "app": "clamav",
+              "deploymentconfig": "clamav"
             }
           },
           "spec": {
             "containers": [
               {
-                "image": "${NAME}",
                 "imagePullPolicy": "Always",
-                "name": "${NAME}",
+                "name": "clamav",
+                "image": "docker-registry.default.svc:5000/jag-csb-edivorce-tools/clamav:${TAG_NAME}",
                 "ports": [
                   {
                     "containerPort": 3310,
                     "protocol": "TCP"
                   }
                 ],
-                "env": [
-                  {
-                    "name": "RealIpFrom",
-                    "value": "${REAL_IP_FROM}"
-                  },
-                  {
-                    "name": "AdditionalRealIpFromRules",
-                    "value": "${AdditionalRealIpFromRules}"
-                  },
-                  {
-                    "name": "IpFilterRules",
-                    "value": "${IpFilterRules}"
-                  }
-                ],
                 "resources": {
-                  "requests": {
-                    "cpu": "10m",
-                    "memory": "100Mi"
-                  },
                   "limits": {
-                    "cpu": "500m",
-                    "memory": "1Gi"
+                    "cpu": "1100m",
+                    "memory": "2G"
+                  },
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "500M"
                   }
                 },
                 "livenessProbe": {
@@ -90,20 +68,23 @@
                   "failureThreshold": 3
                 },
                 "readinessProbe": {
-                    "tcpSocket": {
-                        "port": 3310
-                    },
-                    "initialDelaySeconds": 240,
-                    "timeoutSeconds": 3,
-                    "periodSeconds": 10,
-                    "successThreshold": 1,
-                    "failureThreshold": 3
-                }
+                  "tcpSocket": {
+                    "port": 3310
+                  },
+                  "initialDelaySeconds": 240,
+                  "timeoutSeconds": 3,
+                  "periodSeconds": 10,
+                  "successThreshold": 1,
+                  "failureThreshold": 3
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File"
               }
             ],
             "dnsPolicy": "ClusterFirst",
             "restartPolicy": "Always",
             "securityContext": {},
+            "schedulerName": "default-scheduler",
             "terminationGracePeriodSeconds": 30
           }
         },
@@ -117,27 +98,35 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "${NAME}"
+                "clamav"
               ],
               "from": {
                 "kind": "ImageStreamTag",
-                "namespace": "${IMAGE_NAMESPACE}",
-                "name": "${NAME}:${TAG_NAME}"
+                "namespace": "jag-csb-edivorce-tools",
+                "name": "clamav:${TAG_NAME}"
               }
             }
           }
         ]
+      },
+      "status": {
+        "latestVersion": 0,
+        "observedGeneration": 0,
+        "replicas": 0,
+        "updatedReplicas": 0,
+        "availableReplicas": 0,
+        "unavailableReplicas": 0
       }
     },
     {
       "apiVersion": "v1",
       "kind": "Service",
       "metadata": {
+        "name": "clamav",
         "creationTimestamp": null,
         "labels": {
-          "app": "${NAME}"
-        },
-        "name": "${NAME}"
+          "app": "clamav"
+        }
       },
       "spec": {
         "ports": [
@@ -149,8 +138,7 @@
           }
         ],
         "selector": {
-          "app": "${NAME}",
-          "deploymentconfig": "${NAME}"
+          "deploymentconfig": "clamav"
         },
         "sessionAffinity": "None",
         "type": "ClusterIP"
@@ -159,24 +147,11 @@
   ],
   "parameters": [
     {
-      "description": "The name assigned to all of the openshift objects defined in this template. It is also the name of runtime image you want.",
-      "displayName": "Name",
-      "name": "NAME",
-      "required": true,
-      "value": "clamav"
-    },
-    {
-      "description": "The namespace where to get the above image name",
-      "displayName": "Image Namespace",
-      "name": "IMAGE_NAMESPACE",
-      "required": true,
-      "value": "jag-csb-edivorce-tools"
-    },
-    {
       "description": "The TAG name for this environment, e.g., dev, test, prod",
       "displayName": "Env TAG name",
       "name": "TAG_NAME",
-      "value": "dev"
+      "value": "dev",
+      "required": true
     }
   ]
 }
