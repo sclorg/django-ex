@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.edit import FormView, CreateView, DeleteView
 from django import forms
 from django.http import HttpResponse
+from django.conf import settings
 
 from edivorce.apps.core.validators import file_scan_validation
 from edivorce.apps.poc.models import Document
@@ -31,7 +32,7 @@ class UploadStorage(CreateView):
     model = Document
     fields = ['file']
     template_name = "storage.html"
-    success_url = '/poc/storage'
+    success_url = settings.FORCE_SCRIPT_NAME + 'poc/storage'
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -44,7 +45,7 @@ class UploadStorage(CreateView):
 
 class UploadStorageDelete(DeleteView):
     model = Document
-    success_url = '/poc/storage'
+    success_url = settings.FORCE_SCRIPT_NAME + 'poc/storage'
 
 
 def view_document_file(request, document_id):

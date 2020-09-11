@@ -21,7 +21,7 @@
       :multiple="true"
       :drop="true"
       :drop-directory="false"
-      post-action="/poc/storage"
+      :post-action="postAction"
       @input-file="inputFile"
       @input-filter="inputFilter"
       :input-id="inputId"
@@ -86,6 +86,9 @@ export default {
     },
     formInfo() {
       return Forms[this.docType];
+    },
+    postAction() {
+      return this.$parent.proxyRootPath + "poc/storage"
     }
   },
   methods: {

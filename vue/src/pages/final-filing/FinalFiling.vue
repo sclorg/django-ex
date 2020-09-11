@@ -169,7 +169,8 @@ export default {
     howToSign: String, 
     howToFile: String, 
     signFileOptionsUrl: String, 
-    printFormUrl: String
+    printFormUrl: String,
+    proxyRootPath: String
   }
 }
 </script>

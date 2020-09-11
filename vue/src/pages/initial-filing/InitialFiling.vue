@@ -132,7 +132,8 @@ export default {
   props: {
     signingLocation: String,
     signingLocationYou: String,
-    signingLocationSpouse: String
+    signingLocationSpouse: String,
+    proxyRootPath: String
   }
 }
 </script>
