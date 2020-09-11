@@ -1,28 +1,31 @@
 <template>
-  <div class="item-tile" v-if="file.progress === '100.00'">
+  <div class="item-tile" v-if="file.progress === '100.00' || file.error">
     <div class="image-wrap">
-      <img v-if="file.objectURL" :src="file.objectURL" height="auto" />
+      <img v-if="file.objectURL && !file.error" :src="file.objectURL" height="auto" />
       <button type="button" class="btn-remove" @click.prevent="$emit('remove')" aria-label="Delete">
         <i class="fa fa-times-circle"></i>
       </button>
     </div>
     <div class="bottom-wrapper">
       <div class="item-text">
-      {{file.name}} ({{ Math.round(file.size/1024 * 100) / 100 }}KB)
+        {{file.name}} ({{ Math.round(file.size/1024 * 100) / 100 }}KB)
       </div>
       <div class="button-wrapper">
-        <button type="button" @click.prevent="$emit('moveup')" :disabled="index === 0" aria-label="Move down one position">
-          <i class="fa fa-chevron-circle-left"></i>
-        </button>
-        <button type="button" @click.prevent="$emit('movedown')" :disabled="index >= (fileCount - 1)" aria-label="Move up one position">
-          <i class="fa fa-chevron-circle-right"></i>
-        </button>
-        <button type="button" aria-label="Rotate counter-clockwise">
-          <i class="fa fa-undo"></i>
-        </button>
-        <button type="button" aria-label="Rotate clockwise">
-          <i class="fa fa-undo fa-flip-horizontal"></i>
-        </button>    
+        <div v-if="!file.active && file.success">
+          <button type="button" @click.prevent="$emit('moveup')" :disabled="index === 0" aria-label="Move down one position">
+            <i class="fa fa-chevron-circle-left"></i>
+          </button>
+          <button type="button" @click.prevent="$emit('movedown')" :disabled="index >= (fileCount - 1)" aria-label="Move up one position">
+            <i class="fa fa-chevron-circle-right"></i>
+          </button>
+          <button type="button" aria-label="Rotate counter-clockwise">
+            <i class="fa fa-undo"></i>
+          </button>
+          <button type="button" aria-label="Rotate clockwise">
+            <i class="fa fa-undo fa-flip-horizontal"></i>
+          </button>
+        </div>
+        <div class="alert alert-danger" style="padding: 4px; margin-bottom: 0" v-if="file.error">Upload Error</div>
       </div>
     </div>
   </div>
@@ -84,18 +87,19 @@ export default {
       }
 
       .progress {
-        width: 100%;
+        width: calc(100% - 1.5px);
         background-color: #F2F2F3;
         height: 22px;
         position: absolute;
-        bottom: 0px;
-        left: 0px;
+        bottom: -19.5px;
+        left: 1px;
+        border-radius: 0;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
 
         > div {
           background-color: #365EBE;
           height: 22px;
-          border-bottom-left-radius: 6px;
-          border-bottom-right-radius: 6px;
         }
       }
       
@@ -153,11 +157,16 @@ export default {
 
         &.btn-remove {
           position: absolute;
-          top: 125px;
+          top: 130px;
           left: 130px;
+          background-color: white;
+          border-radius: 10px;
+          height: 22px;
+          line-height: 1;
 
           i.fa {
             color: #365EBE;
+            font-size: 23px;
           }
         }
       }
