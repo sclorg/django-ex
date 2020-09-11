@@ -104,3 +104,13 @@ if DEPLOYMENT_TYPE != 'minishift':
     SESSION_COOKIE_SECURE=True
     CSRF_COOKIE_SECURE=True
 
+# CLAMAV settings
+CLAMAV_ENABLED = True
+CLAMAV_TCP_PORT = 3310
+CLAMAV_TCP_ADDR = os.getenv('CLAMAV_TCP_ADDR', 'clamav')
+
+# Redis settings
+REDIS_HOST = os.getenv('REDIS_HOST', 'redis')
+REDIS_PORT = 6379
+REDIS_DB = ''
+REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', '')
