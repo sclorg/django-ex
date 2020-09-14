@@ -19,8 +19,8 @@ pre_qual_step_question_mapping = {
     },
     '04': {
         'children_of_marriage',
-        'number_children_under_19',
-        'number_children_over_19',
+        'has_children_under_19',
+        'has_children_over_19',
         'children_financial_support',
         'children_live_with_others'
     },
@@ -137,8 +137,8 @@ question_step_mapping = {
                          'try_reconcile_after_separated',
                          'reconciliation_period',
                          'children_of_marriage',
-                         'number_children_under_19',
-                         'number_children_over_19',
+                         'has_children_under_19',
+                         'has_children_over_19',
                          'children_financial_support',
                          'children_live_with_others',
                          'original_marriage_certificate',

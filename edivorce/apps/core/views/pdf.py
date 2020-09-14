@@ -25,13 +25,9 @@ def form(request, form_number):
             form_number.startswith('38') or
             form_number.startswith('35')):
         # Add an array of children that includes blanks for possible children
-        under = int(responses.get('number_children_under_19') or 0)
-        over = int(responses.get('number_children_under_19') or 0)
-        actual = json.loads(responses.get('claimant_children', '[]'))
-        total = len(actual)
-        responses['num_actual_children'] = len(actual)
-        responses['children'] = [actual[i] if i < total else {}
-                                 for i in range(0, max(under + over, total))]
+        children = json.loads(responses.get('claimant_children', '[]'))
+        responses['num_actual_children'] = len(children)
+        responses['children'] = children
 
     if form_number == "37":
         responses["which_claimant"] = 'both'

@@ -38,15 +38,11 @@ def determine_split_custody(questions_dict):
 
 
 def determine_child_over_19_supported(questions_dict):
-    try:
-        children_over_19 = float(questions_dict.get('number_children_over_19', 0))
-    except ValueError:
-        children_over_19 = 0
-
-    support = json.loads(questions_dict.get('children_financial_support', '[]'))
     has_children_of_marriage = questions_dict.get('children_of_marriage', '') == 'YES'
-    return (len(support) > 0 and children_over_19 > 0 and
-            'NO' not in support and has_children_of_marriage)
+    has_children_over_19 = questions_dict.get('has_children_over_19', '') == 'YES'
+    support = json.loads(questions_dict.get('children_financial_support', '[]'))
+    supporting_children = len(support) > 0 and 'NO' not in support
+    return has_children_of_marriage and has_children_over_19 and supporting_children
 
 
 def determine_missing_undue_hardship_reasons(questions_dict):
