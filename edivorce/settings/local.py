@@ -17,7 +17,7 @@ SESSION_COOKIE_AGE = 3600
 TEMPLATES[0]["OPTIONS"]["debug"] = True
 
 WEASYPRINT_URL = 'http://localhost:5005'
-WEASYPRINT_CSS_LOOPBACK = 'http://10.200.10.1:8000'
+WEASYPRINT_CSS_LOOPBACK = 'http://host.docker.internal:8000'
 
 DEPLOYMENT_TYPE = 'localdev'
 REGISTER_URL = '#'

@@ -34,5 +34,14 @@ services:
     ports:
       - "8082:8081"
 
+  # Weasyprint (PDF generator)
+  weasyprint:
+    container_name: edivorce-weasyprint
+    hostname: weasyprint
+    image: aquavitae/weasyprint
+    ports:
+      - "5005:5001"
+    restart: always
+
 volumes:
   data-redis:

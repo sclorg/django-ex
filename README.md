@@ -38,23 +38,11 @@ To run this project in your development machine, follow these steps:
 
     `python3.6 ./manage.py runserver 0.0.0.0:8000`
 
-8. Start the [Weasyprint server](https://hub.docker.com/r/aquavitae/weasyprint/) server on port 5005
-
-    1. Bind the IP address 10.200.10.1 to the lo0 interface on your Mac computer.  Weasyprint has been configured to use this IP address to request CSS files from Django.
-        ```
-        sudo ifconfig lo0 alias 10.200.10.1/24
-        ```
-
-    1. Start docker
-        ```
-        docker run -d -p 5005:5001 aquavitae/weasyprint
-        ```
-
-9. Start up docker containers:
+8. Start up docker containers:
 
     `docker-compose up -d`
 
-10. Open your browser and go to http://127.0.0.1:8000, you will be greeted with the eDivorce homepage.  In dev mode, you can log in with any username and the password 'divorce'.
+9. Open your browser and go to http://127.0.0.1:8000, you will be greeted with the eDivorce homepage.  In dev mode, you can log in with any username and the password 'divorce'.
 
 ### SCSS Compilation
 
