@@ -15,5 +15,12 @@ module.exports = {
       filename: 'final-filing.html',
       chunks: ['chunk-vendors', 'chunk-common', 'finalFiling']
     }
+  },
+  configureWebpack: {
+    optimization: {
+      splitChunks: {
+        minSize: 1
+      }
+    }
   }
 }
