@@ -155,3 +155,21 @@ DEBUG_TOOLBAR_CONFIG = {
 SECURE_BROWSER_XSS_FILTER = True
 
 LOGOUT_URL = '/accounts/logout/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers':['console'],
+            'propagate': True,
+            'level':'DEBUG',
+        }
+    },
+}

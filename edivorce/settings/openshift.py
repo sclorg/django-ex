@@ -51,7 +51,7 @@ PROXY_URL_PREFIX = ''
 PROXY_BASE_URL = os.getenv('PROXY_BASE_URL', 'https://justice.gov.bc.ca')
 
 if DEPLOYMENT_TYPE == 'dev':
-    PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce-dev')
+    PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
     DEBUG = True
     CSRF_COOKIE_AGE = None
     SESSION_COOKIE_AGE = 3600
@@ -61,7 +61,7 @@ if DEPLOYMENT_TYPE == 'dev':
     LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
 
 if DEPLOYMENT_TYPE == 'test':
-    PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce-test')
+    PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
     REGISTER_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
     REGISTER_SC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://test.justice.gov.bc.ca/divorce/login'
     LOGOUT_URL_TEMPLATE = 'https://logontest.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
