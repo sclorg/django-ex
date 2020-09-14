@@ -330,7 +330,7 @@ def combine_address(source):
                     address_you_error = True
                     tags = format_table_data(tags, address_you_name, MISSING_RESPONSE)
                     continue
-                elif item['value']:
+                elif item['value'] and item['value'] != 'Other':
                     address_you.append(item['value'])
                 if 'postal_code' in q_id:
                     tags = format_table_data(tags, address_you_name, process_json_list(q_id, address_you))
@@ -342,7 +342,7 @@ def combine_address(source):
                     address_spouse_error = True
                     tags = format_table_data(tags, address_spouse_name, MISSING_RESPONSE)
                     continue
-                elif item['value']:
+                elif item['value'] and item['value'] != 'Other':
                     address_spouse.append(item['value'])
                 if 'postal_code' in q_id:
                     tags = format_table_data(tags, address_spouse_name, process_json_list(q_id, address_spouse))
