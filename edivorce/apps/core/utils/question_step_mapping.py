@@ -109,6 +109,8 @@ children_substep_question_mapping = {
         'child_support_arrears_amount',
     },
     'what_for': {
+        # child_support_in_order is not here because it can get pre-populated, and we don't want
+        # it to be counted as an "answer" for determining Skipped and Started statuses
         'order_monthly_child_support_amount',
         'child_support_in_order_reason',
         'claimants_agree_to_child_support_amount',

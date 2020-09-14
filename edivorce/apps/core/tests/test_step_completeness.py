@@ -1,6 +1,9 @@
+import json
+
 from django.test import TestCase
 from edivorce.apps.core.models import UserResponse, Question, BceidUser
-from edivorce.apps.core.utils.step_completeness import is_complete
+from edivorce.apps.core.utils.derived import get_derived_data
+from edivorce.apps.core.utils.step_completeness import get_error_dict, get_step_completeness, is_complete
 
 from edivorce.apps.core.utils.user_response import get_data_for_user, get_step_responses
 
@@ -340,3 +343,305 @@ class StepCompletenessTestCase(TestCase):
         # Put empty response
         UserResponse.objects.filter(question_id='court_registry_for_filing').update(value="")
         self.assertEqual(self.check_completeness(step), False)
+
+
+class ChildrenStepCompletenessTestCase(TestCase):
+    fixtures = ['Question.json']
+
+    def setUp(self):
+        self.user = BceidUser.objects.create(user_guid='1234')
+        self.child_live_with_you = {"child_name": "Child with you", "child_birth_date": "Dec 30, 2018", "child_live_with": "Lives with you", "child_relationship_to_you": "Natural child", "child_relationship_to_spouse": "Natural child", "child_live_with_other_details": ""}
+        self.child_live_with_spouse = {"child_name": "Child with spouse", "child_birth_date": "Jan 4, 2009", "child_live_with": "Lives with spouse", "child_relationship_to_you": "Adopted child", "child_relationship_to_spouse": "Adopted child", "child_live_with_other_details": ""}
+        self.child_live_with_both = {"child_name": "Child with both", "child_birth_date": "Jan 4, 2009", "child_live_with": "Lives with both", "child_relationship_to_you": "Adopted child", "child_relationship_to_spouse": "Adopted child", "child_live_with_other_details": ""}
+
+    def get_children_step_status(self, substep):
+        responses_dict = get_data_for_user(self.user)
+        responses_dict_by_step = get_step_responses(responses_dict)
+        step_completeness = get_step_completeness(responses_dict_by_step)
+        if not substep:
+            key = 'your_children'
+        else:
+            key = f'children__{substep}'
+        return step_completeness[key]
+
+    def is_step_complete(self, substep):
+        return self.get_children_step_status(substep) == 'Completed'
+
+    def create_response(self, question, value):
+        response, _ = UserResponse.objects.get_or_create(bceid_user=self.user, question_id=question)
+        response.value = value
+        response.save()
+
+    def delete_response(self, questions):
+        if isinstance(questions, str):
+            questions = [questions]
+        UserResponse.objects.filter(bceid_user=self.user, question_id__in=questions).delete()
+
+    def get_derived_value(self, derived_key):
+        responses_dict = get_data_for_user(self.user)
+        responses_dict_by_step = get_step_responses(responses_dict)
+        responses_dict.update(get_error_dict(responses_dict_by_step))
+        derived_data = get_derived_data(responses_dict)
+        return derived_data[derived_key]
+
+    def test_children_details(self):
+        substep = 'your_children'
+
+        # No response status is Not Started
+        self.assertFalse(self.is_step_complete(substep))
+        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+
+        # Empty list doesn't count as answered
+        self.create_response('claimant_children', '[]')
+        self.assertFalse(self.is_step_complete(substep))
+
+        # Future question answered means status is Skipped
+        self.create_response('have_separation_agreement', 'YES')
+        self.assertEqual(self.get_children_step_status(substep), 'Skipped')
+
+        # Has valid value
+        children = [self.child_live_with_you]
+        self.create_response('claimant_children', json.dumps(children))
+        self.assertTrue(self.is_step_complete(substep))
+
+    def test_income_and_expenses(self):
+        substep = 'income_expenses'
+
+        children = [self.child_live_with_you, self.child_live_with_spouse]
+        self.create_response('claimant_children', json.dumps(children))
+        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+        self.assertFalse(self.is_step_complete(substep))
+
+        # All basic required fields
+        self.create_response('how_will_calculate_income', 'entered agreement')
+        self.assertEqual(self.get_children_step_status(substep), 'Started')
+        self.create_response('annual_gross_income', '100')
+        self.create_response('spouse_annual_gross_income', '100')
+        self.create_response('special_extraordinary_expenses', 'NO')
+        self.assertTrue(self.is_step_complete(substep))
+
+        # If there is sole custody of children, also require payor_monthly_child_support_amount
+        children = [self.child_live_with_spouse]
+        self.create_response('claimant_children', json.dumps(children))
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('payor_monthly_child_support_amount', '100')
+        self.assertTrue(self.is_step_complete(substep))
+
+        # Fact Sheet A - at least one extraordinary expense must be input and description required
+        self.create_response('special_extraordinary_expenses', 'YES')
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('post_secondary_expenses', '100')
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('describe_order_special_extra_expenses', 'Some expenses')
+        self.assertTrue(self.is_step_complete(substep))
+
+    def test_payor_and_fact_sheets(self):
+        substep = 'facts'
+
+        children = [self.child_live_with_you]
+        self.create_response('claimant_children', json.dumps(children))
+        self.create_response('annual_gross_income', '0')
+        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+        self.assertFalse(self.is_step_complete(substep))
+
+        # All basic required fields if there is only sole custody of children and payor makes less than $150,000
+        self.create_response('child_support_payor', 'Myself (Claimant 1)')
+        self.create_response('claiming_undue_hardship', 'NO')
+        self.assertTrue(self.is_step_complete(substep))
+
+    def test_fact_sheet_b(self):
+        # Don't show fact sheet
+        self.assertFalse(self.get_derived_value('show_fact_sheet_b'))
+        self.assertFalse(self.get_derived_value('fact_sheet_b_error'))
+
+        # Must have shared custody to show fact sheet
+        children = [self.child_live_with_both]
+        self.create_response('claimant_children', json.dumps(children))
+        self.assertTrue(self.get_derived_value('show_fact_sheet_b'))
+        self.assertTrue(self.get_derived_value('fact_sheet_b_error'))
+
+        # Basic required fields
+        self.create_response('number_of_children', '1')
+        self.create_response('time_spent_with_you', '50')
+        self.create_response('time_spent_with_spouse', '50')
+        self.create_response('your_child_support_paid_b', '100')
+        self.create_response('your_spouse_child_support_paid_b', '1000')
+        self.assertFalse(self.get_derived_value('fact_sheet_b_error'))
+
+    def test_fact_sheet_c(self):
+        # Don't show fact sheet
+        self.assertFalse(self.get_derived_value('show_fact_sheet_c'))
+        self.assertFalse(self.get_derived_value('fact_sheet_c_error'))
+
+        # Must have split custody to show fact sheet
+        children = [self.child_live_with_both, self.child_live_with_you]
+        self.create_response('claimant_children', json.dumps(children))
+        self.assertTrue(self.get_derived_value('show_fact_sheet_c'))
+        self.assertTrue(self.get_derived_value('fact_sheet_c_error'))
+
+        # Basic required fields
+        self.create_response('number_of_children_claimant', '1')
+        self.create_response('your_spouse_child_support_paid_c', '50')
+        self.create_response('number_of_children_claimant_spouse', '0')
+        self.create_response('your_child_support_paid_c', '0')
+        self.assertFalse(self.get_derived_value('fact_sheet_c_error'))
+
+    def test_fact_sheet_d(self):
+        # Don't show fact sheet
+        self.create_response('children_of_marriage', 'YES')
+        self.create_response('number_children_over_19', '0')
+        self.assertFalse(self.get_derived_value('show_fact_sheet_d'))
+        self.assertFalse(self.get_derived_value('fact_sheet_d_error'))
+
+        # Must be supporting children over 19 to show fact sheet
+        self.create_response('number_children_over_19', '1')
+        self.create_response('children_financial_support', '["NO"]')
+        self.assertFalse(self.get_derived_value('show_fact_sheet_d'))
+
+        self.create_response('children_financial_support', '["Yes, other reason"]')
+        self.assertTrue(self.get_derived_value('show_fact_sheet_d'))
+        self.assertTrue(self.get_derived_value('fact_sheet_d_error'))
+
+        # Basic required fields
+        self.create_response('agree_to_guideline_child_support_amount', 'YES')
+        self.assertFalse(self.get_derived_value('fact_sheet_d_error'))
+
+        # Conditional fields
+        self.create_response('agree_to_guideline_child_support_amount', 'NO')
+        self.create_response('appropriate_spouse_paid_child_support', '1000')
+        self.create_response('suggested_child_support', 'Because')
+        self.assertFalse(self.get_derived_value('fact_sheet_d_error'))
+
+    def test_fact_sheet_e(self):
+        # Don't show fact sheet
+        self.create_response('claiming_undue_hardship', 'NO')
+        self.assertFalse(self.get_derived_value('show_fact_sheet_e'))
+        self.assertFalse(self.get_derived_value('fact_sheet_e_error'))
+
+        # Make at least one undue hardship required
+        self.create_response('claiming_undue_hardship', 'YES')
+        self.assertTrue(self.get_derived_value('show_fact_sheet_e'))
+        self.assertTrue(self.get_derived_value('fact_sheet_e_error'))
+
+        self.create_response('claimant_expenses', '[{"expense_name":"Daycare","expense_amount":"2000"}]')
+        self.assertFalse(self.get_derived_value('fact_sheet_e_error'))
+
+        self.delete_response('claimant_expenses')
+        self.create_response('undue_hardship', 'Some hardships')
+        self.assertFalse(self.get_derived_value('fact_sheet_e_error'))
+
+    def test_fact_sheet_f_you(self):
+        # Don't show fact sheet
+        self.create_response('child_support_payor', 'Both myself and my spouse')
+        self.create_response('annual_gross_income', '150000')
+        self.assertFalse(self.get_derived_value('show_fact_sheet_f'))
+        self.assertFalse(self.get_derived_value('fact_sheet_f_error'))
+
+        # Show fact sheet for claimant 1
+        self.create_response('annual_gross_income', '150001')
+        self.assertTrue(self.get_derived_value('show_fact_sheet_f'))
+        self.assertTrue(self.get_derived_value('fact_sheet_f_error'))
+
+        # Basic required fields
+        self.create_response('number_children_seeking_support_you', '1')
+        self.create_response('child_support_amount_under_high_income_you', '1000')
+        self.create_response('percent_income_over_high_income_limit_you', '10')
+        self.create_response('amount_income_over_high_income_limit_you', '1')
+        self.create_response('agree_to_child_support_amount_you', 'YES')
+        self.assertFalse(self.get_derived_value('fact_sheet_f_error'))
+
+        # Conditional fields
+        self.create_response('agree_to_child_support_amount_you', 'NO')
+        self.assertTrue(self.get_derived_value('fact_sheet_f_error'))
+        self.create_response('agreed_child_support_amount_you', '1000')
+        self.create_response('reason_child_support_amount_you', 'Because')
+        self.assertFalse(self.get_derived_value('fact_sheet_f_error'))
+
+    def test_fact_sheet_f_spouse(self):
+        # Don't show fact sheet
+        self.create_response('child_support_payor', 'Both myself and my spouse')
+        self.create_response('spouse_annual_gross_income', '150000')
+        self.assertFalse(self.get_derived_value('show_fact_sheet_f'))
+        self.assertFalse(self.get_derived_value('fact_sheet_f_error'))
+
+        # Show fact sheet for claimant 2
+        self.create_response('spouse_annual_gross_income', '150001')
+        self.assertTrue(self.get_derived_value('show_fact_sheet_f'))
+        self.assertTrue(self.get_derived_value('fact_sheet_f_error'))
+
+        # Basic required fields
+        self.create_response('number_children_seeking_support_spouse', '1')
+        self.create_response('child_support_amount_under_high_income_spouse', '1000')
+        self.create_response('percent_income_over_high_income_limit_spouse', '10')
+        self.create_response('amount_income_over_high_income_limit_spouse', '1')
+        self.create_response('agree_to_child_support_amount_spouse', 'YES')
+        self.assertFalse(self.get_derived_value('fact_sheet_f_error'))
+
+        # Conditional fields
+        self.create_response('agree_to_child_support_amount_spouse', 'NO')
+        self.assertTrue(self.get_derived_value('fact_sheet_f_error'))
+        self.create_response('agreed_child_support_amount_spouse', '1000')
+        self.create_response('reason_child_support_amount_spouse', 'Because')
+        self.assertFalse(self.get_derived_value('fact_sheet_f_error'))
+
+    def test_payor_medical(self):
+        substep = 'payor_medical'
+
+        self.assertFalse(self.is_step_complete(substep))
+        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+
+        # All basic required fields
+        self.create_response('medical_coverage_available', 'NO')
+        self.create_response('child_support_payments_in_arrears', 'NO')
+        self.assertTrue(self.is_step_complete(substep))
+
+        # Conditionally required fields
+        self.create_response('medical_coverage_available', 'YES')
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('whose_plan_is_coverage_under', '[]')
+
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('whose_plan_is_coverage_under', '["My plan","Spouse"]')
+        self.assertTrue(self.is_step_complete(substep))
+
+    def test_what_are_you_asking_for(self):
+        substep = 'what_for'
+
+        self.assertFalse(self.is_step_complete(substep))
+        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+
+        # All basic required fields
+        self.create_response('child_support_in_order', 'MATCH')
+        self.create_response('have_separation_agreement', 'NO')
+        self.create_response('have_court_order', 'NO')
+        self.create_response('what_parenting_arrangements', 'Something')
+        self.create_response('want_parenting_arrangements', 'NO')
+        self.create_response('child_support_act', 'NO')
+        self.assertFalse(self.is_step_complete(substep))
+
+        # Based on child_support_in_order value (MATCH)
+        self.create_response('order_for_child_support', 'We are asking for X')
+        self.assertTrue(self.is_step_complete(substep))
+
+        # Based on child_support_in_order value (DIFF)
+        self.create_response('child_support_in_order', 'DIFF')
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('order_monthly_child_support_amount', '100')
+        self.create_response('claimants_agree_to_child_support_amount', 'YES')
+        self.assertTrue(self.is_step_complete(substep))
+        self.create_response('claimants_agree_to_child_support_amount', 'NO')
+        self.create_response('child_support_payment_special_provisions', 'Some special provisions')
+        self.assertTrue(self.is_step_complete(substep))
+
+        # Based on child_support_in_order value (NO)
+        self.create_response('child_support_in_order', 'NO')
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('child_support_in_order_reason', 'We will sort it out ourselves')
+        self.delete_response(['order_for_child_support', 'claimants_agree_to_child_support_amount', 'child_support_payment_special_provisions'])
+        self.assertTrue(self.is_step_complete(substep))
+
+        # Other conditionals
+        self.create_response('want_parenting_arrangements', 'YES')
+        self.assertFalse(self.is_step_complete(substep))
+        self.create_response('order_respecting_arrangement', 'Claimant 1 and Claimant 2 will share parenting time equally between them.')
+        self.assertTrue(self.is_step_complete(substep))
