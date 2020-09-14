@@ -10,7 +10,7 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
 
-locale.setlocale(locale.LC_ALL, '')
+locale.setlocale(locale.LC_ALL, 'en_CA.UTF-8')
 
 register = template.Library()
 
@@ -123,7 +123,8 @@ def age(date):
 @register.filter
 def money(amount, symbol=True):
     """ Return a properly formatted currency string including symbol """
-
+    if not amount:
+        amount = 0
     try:
         return locale.currency(float(amount), symbol, grouping=True)
     except ValueError:
