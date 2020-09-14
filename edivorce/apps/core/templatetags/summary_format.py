@@ -125,7 +125,7 @@ def reformat_textarea(source, as_ul=True):
         else:
             tag = format_html_join(
                 '\n',
-                '{0}<br/>',
+                '<p>{0}<p/>',
                 ((value, '') for value in text_list))
         return tag
     else:
@@ -269,17 +269,6 @@ def format_children(context, source):
                         format_fact_sheet(question, fact_sheet_mapping[question], value))
             else:
                 item_list = list(filter(lambda x: x['question_id'] == question, working_source))
-
-                # skip child support order related questions if user did not select that option
-                if question == 'order_for_child_support' and len(item_list):
-                    item = item_list.pop()
-                    if context['derived']['wants_child_support'] is True and item['value']:
-                        # make sure free form text is reformted to be bullet list.
-                        tags = format_html(
-                            '{}{}',
-                            tags,
-                            format_row(item['question__name'], reformat_textarea(item)))
-                    continue
 
                 if len(item_list):
                     item = item_list.pop()
