@@ -32,35 +32,33 @@
             <li>Child Support Affidavit (F37)</li>
             <li>Affidavit - Desk Order Divorce Form (F38)</li>
           </ul>
-          <div class="question-well-border-less">
-            <div>
-              <!-- MC - Marriage Certificate -->              
-              <Uploader doc-type="MC"/>
-            </div>
-            <div>
-              <!-- AFTL - Affidavit of Translator -->              
-              <Uploader doc-type="AFTL"/>
-            </div>
-            <div>
-              <!-- OFI - Final Order -->
-              <Uploader doc-type="OFI"/>
-            </div>
-            <div>
-              <!-- EFSS - Electronic Filing Statement - Supreme -->          
-              <Uploader doc-type="EFSS" :party="1"/>
-            </div>
-            <div>
-              <!-- RDP - Registration of Divorce Proceeding -->              
-              <Uploader doc-type="RDP"/>
-            </div>
-            <div>
-              <!-- AAI - Agreement as to Annual Income -->
-              <Uploader doc-type="AAI"/>
-            </div>
-            <div>
-              <!-- NCV – Name Change Form – Vital Statistics -->
-              <Uploader doc-type="NCV" :party="1"/>
-            </div>
+          <div>
+            <!-- MC - Marriage Certificate -->              
+            <Uploader doc-type="MC"/>
+          </div>
+          <div>
+            <!-- AFTL - Affidavit of Translator -->              
+            <Uploader doc-type="AFTL"/>
+          </div>
+          <div>
+            <!-- OFI - Final Order -->
+            <Uploader doc-type="OFI"/>
+          </div>
+          <div>
+            <!-- EFSS - Electronic Filing Statement - Supreme -->          
+            <Uploader doc-type="EFSS" :party="1"/>
+          </div>
+          <div>
+            <!-- RDP - Registration of Divorce Proceeding -->              
+            <Uploader doc-type="RDP"/>
+          </div>
+          <div>
+            <!-- AAI - Agreement as to Annual Income -->
+            <Uploader doc-type="AAI"/>
+          </div>
+          <div>
+            <!-- NCV – Name Change Form – Vital Statistics -->
+            <Uploader doc-type="NCV" :party="1"/>
           </div>
         </div>
       </template>
@@ -77,43 +75,41 @@
             <li>Child Support Affidavit (F37)</li>
             <li>Affidavit - Desk Order Divorce Form (F38)</li>
           </ul>
-          <div class="question-well-border-less">
-            <div>
-              <!-- MC - Marriage Certificate -->              
-              <Uploader doc-type="MC"/>
-            </div>
-            <div>
-              <!-- AFTL - Affidavit of Translator -->              
-              <Uploader doc-type="AFTL"/>
-            </div>
-            <div>
-              <!-- OFI - Final Order -->
-              <Uploader doc-type="OFI"/>
-            </div>
-            <div>
-              <!-- EFSS - Electronic Filing Statement - Supreme -->          
-              <Uploader doc-type="EFSS" :party="1"/>
-            </div>
-            <div>
-              <!-- EFSS - Electronic Filing Statement - Supreme -->
-              <Uploader doc-type="EFSS" :party="2"/>
-            </div>
-            <div>
-              <!-- RDP - Registration of Divorce Proceeding -->              
-              <Uploader doc-type="RDP"/>
-            </div>
-            <div>
-              <!-- AAI - Agreement as to Annual Income -->
-              <Uploader doc-type="AAI"/>
-            </div>
-            <div>
-              <!-- NCV – Name Change Form – Vital Statistics -->
-              <Uploader doc-type="NCV" :party="1"/>
-            </div>
-            <div>
-              <!-- NCV – Name Change Form – Vital Statistics -->
-              <Uploader doc-type="NCV" :party="2"/>
-            </div>
+          <div>
+            <!-- MC - Marriage Certificate -->              
+            <Uploader doc-type="MC"/>
+          </div>
+          <div>
+            <!-- AFTL - Affidavit of Translator -->              
+            <Uploader doc-type="AFTL"/>
+          </div>
+          <div>
+            <!-- OFI - Final Order -->
+            <Uploader doc-type="OFI"/>
+          </div>
+          <div>
+            <!-- EFSS - Electronic Filing Statement - Supreme -->          
+            <Uploader doc-type="EFSS" :party="1"/>
+          </div>
+          <div>
+            <!-- EFSS - Electronic Filing Statement - Supreme -->
+            <Uploader doc-type="EFSS" :party="2"/>
+          </div>
+          <div>
+            <!-- RDP - Registration of Divorce Proceeding -->              
+            <Uploader doc-type="RDP"/>
+          </div>
+          <div>
+            <!-- AAI - Agreement as to Annual Income -->
+            <Uploader doc-type="AAI"/>
+          </div>
+          <div>
+            <!-- NCV – Name Change Form – Vital Statistics -->
+            <Uploader doc-type="NCV" :party="1"/>
+          </div>
+          <div>
+            <!-- NCV – Name Change Form – Vital Statistics -->
+            <Uploader doc-type="NCV" :party="2"/>
           </div>
         </div>
       </template>
