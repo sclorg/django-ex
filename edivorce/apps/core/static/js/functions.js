@@ -117,15 +117,6 @@ var showHideTargetId = function(el, id, relatedId, revealControlGroup) {
         if (relatedId !== undefined) {
             $('#' + relatedId).hide();
         }
-        // Special case of pre-qualification step 4 children.  
-        if (id === "#has_children") {
-            reveal($("input[name=number_children_over_19]"));
-            var over_19_children = parseInt($("input[name=number_children_over_19]").val());
-
-            if (over_19_children >= 0) {
-                reveal($("input[name=number_children_over_19]:checked"));
-            }
-        }
         // Special case of hide child support description.
         if (id === "#child_support_in_order_detail") {
             $("#child_support_description").hide();

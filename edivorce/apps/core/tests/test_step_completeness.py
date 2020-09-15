@@ -489,12 +489,12 @@ class ChildrenStepCompletenessTestCase(TestCase):
     def test_fact_sheet_d(self):
         # Don't show fact sheet
         self.create_response('children_of_marriage', 'YES')
-        self.create_response('number_children_over_19', '0')
+        self.create_response('has_children_over_19', 'NO')
         self.assertFalse(self.get_derived_value('show_fact_sheet_d'))
         self.assertFalse(self.get_derived_value('fact_sheet_d_error'))
 
         # Must be supporting children over 19 to show fact sheet
-        self.create_response('number_children_over_19', '1')
+        self.create_response('has_children_over_19', 'YES')
         self.create_response('children_financial_support', '["NO"]')
         self.assertFalse(self.get_derived_value('show_fact_sheet_d'))
 
@@ -503,6 +503,7 @@ class ChildrenStepCompletenessTestCase(TestCase):
         self.assertTrue(self.get_derived_value('fact_sheet_d_error'))
 
         # Basic required fields
+        self.create_response('number_children_over_19_need_support', '1')
         self.create_response('agree_to_guideline_child_support_amount', 'YES')
         self.assertFalse(self.get_derived_value('fact_sheet_d_error'))
 

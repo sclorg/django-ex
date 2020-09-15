@@ -9,7 +9,7 @@
   <ol class="parens-list">
     <li>
       Number of child(ren) 19 years of age or older for whom support is claimed:
-      {{ responses.number_children_over_19 }}
+      {{ responses.number_children_over_19_need_support }}
     </li>
     <li>
       Child support is to be paid by {{ derived.child_support_payor }} (the “payor”)
@@ -20,7 +20,7 @@
     </li>
   </ol>
 
-  {% if responses.child_support_in_order	== 'MATCH' %}
+  {% if responses.child_support_in_order == 'MATCH' %}
     <p>
       The person swearing this affidavit says that the Guidelines table amount
       is appropriate.

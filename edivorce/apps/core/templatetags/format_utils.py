@@ -123,7 +123,8 @@ def age(date):
 @register.filter
 def money(amount, symbol=True):
     """ Return a properly formatted currency string including symbol """
-
+    if not amount:
+        amount = 0
     try:
         return locale.currency(float(amount), symbol, grouping=True)
     except ValueError:

@@ -19,8 +19,8 @@ pre_qual_step_question_mapping = {
     },
     '04': {
         'children_of_marriage',
-        'number_children_under_19',
-        'number_children_over_19',
+        'has_children_under_19',
+        'has_children_over_19',
         'children_financial_support',
         'children_live_with_others'
     },
@@ -72,6 +72,7 @@ children_substep_question_mapping = {
         'number_of_children_claimant_spouse',
         'your_child_support_paid_c',
         # Fact sheet D
+        'number_children_over_19_need_support',
         'agree_to_guideline_child_support_amount',
         'appropriate_spouse_paid_child_support',
         'suggested_child_support',
@@ -137,8 +138,8 @@ question_step_mapping = {
                          'try_reconcile_after_separated',
                          'reconciliation_period',
                          'children_of_marriage',
-                         'number_children_under_19',
-                         'number_children_over_19',
+                         'has_children_under_19',
+                         'has_children_over_19',
                          'children_financial_support',
                          'children_live_with_others',
                          'original_marriage_certificate',
@@ -206,6 +207,7 @@ question_step_mapping = {
                       'number_of_children_claimant_spouse',
                       'your_child_support_paid_c',
                       # Fact sheet D
+                      'number_children_over_19_need_support',
                       'agree_to_guideline_child_support_amount',
                       'appropriate_spouse_paid_child_support',
                       'suggested_child_support',

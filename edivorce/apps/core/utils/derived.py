@@ -211,7 +211,12 @@ def show_fact_sheet_d(responses, derived):
 
 
 def fact_sheet_d_error(responses, derived):
-    questions = ['agree_to_guideline_child_support_amount', 'appropriate_spouse_paid_child_support', 'suggested_child_support']
+    questions = [
+        'number_children_over_19_need_support',
+        'agree_to_guideline_child_support_amount',
+        'appropriate_spouse_paid_child_support',
+        'suggested_child_support'
+    ]
     if derived['show_fact_sheet_d']:
         return _any_question_errors(responses, questions)
 
