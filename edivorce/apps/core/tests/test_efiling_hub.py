@@ -136,9 +136,8 @@ class EFilingHubTests(TransactionTestCase):
     def test_get_api_no_token(self, mock_request_post):
         mock_request_post.return_value = self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE))
 
-        response = self.hub._get_api(self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
-
-        self.assertFalse(response)
+        with self.assertRaises(Exception):
+            response = self.hub._get_api(self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
 
     def test_transaction_id_current(self):
         self.request.session['transaction_id'] = 'alksdjflaskdjf'

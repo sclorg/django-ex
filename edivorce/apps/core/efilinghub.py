@@ -60,14 +60,13 @@ class EFilingHub:
         self.submission_id = None
 
     def _get_token(self, request):
-        payload = 'client_id={}&grant_type=client_credentials&client_secret={}'.format(self.client_id,
-                                                                                       self.client_secret)
+        payload = f'client_id={self.client_id}&grant_type=client_credentials&client_secret={self.client_secret}'
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-        url = '{}/auth/realms/{}/protocol/openid-connect/token'.format(self.token_base_url, self.token_realm)
+        url = f'{self.token_base_url}/auth/realms/{self.token_realm}/protocol/openid-connect/token'
 
         response = requests.post(url, headers=headers, data=payload)
-        logging.debug('EFH - Get Token {}'.format(response.status_code))
+        logging.debug(f'EFH - Get Token {response.status_code}')
         if response.status_code == 200:
             response = json.loads(response.text)
 
@@ -85,16 +84,13 @@ class EFilingHub:
         if not refresh_token:
             return False
 
-        payload = 'client_id={}&grant_type=refresh_token&client_secret={}&refresh_token={}'.format(
-            self.client_id,
-            self.client_secret,
-            refresh_token)
+        payload = f'client_id={self.client_id}&grant_type=refresh_token&client_secret={self.client_secret}&refresh_token={refresh_token}'
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-        url = '{}/auth/realms/{}/protocol/openid-connect/token'.format(self.token_base_url, self.token_realm)
+        url = f'{self.token_base_url}/auth/realms/{self.token_realm}/protocol/openid-connect/token'
 
         response = requests.post(url, headers=headers, data=payload)
-        logging.debug('EFH - Get Refresh Token {}'.format(response.status_code))
+        logging.debug(f'EFH - Get Refresh Token {response.status_code}')
 
         response = json.loads(response.text)
 
@@ -112,20 +108,20 @@ class EFilingHub:
         access_token = request.session.get('access_token', None)
         if not access_token:
             if not self._get_token(request):
-                return False
+                raise Exception('EFH - Unable to get API Token')
 
         access_token = request.session.get('access_token', None)
         headers.update({
             'X-Transaction-Id': transaction_id,
             'X-User-Id': bce_id,
-            'Authorization': 'Bearer {}'.format(access_token)
+            'Authorization': f'Bearer {access_token}'
         })
 
         if not data:
             data = {}
 
         response = requests.post(url, headers=headers, data=data, files=files)
-        logging.debug('EFH - Get API {} {}'.format(response.status_code, response.text))
+        logging.debug(f'EFH - Get API {response.status_code} {response.text}')
 
         if response.status_code == 401:
             # not authorized .. try refreshing token
@@ -134,11 +130,11 @@ class EFilingHub:
                 headers.update({
                     'X-Transaction-Id': transaction_id,
                     'X-User-Id': bce_id,
-                    'Authorization': 'Bearer {}'.format(access_token)
+                    'Authorization': f'Bearer {access_token}'
                 })
 
                 response = requests.post(url, headers=headers, data=data, files=files)
-                logging.debug('EFH - Get API Retry {} {}'.format(response.status_code, response.text))
+                logging.debug(f'EFH - Get API Retry {response.status_code} {response.text}')
 
         return response
 
@@ -215,7 +211,7 @@ class EFilingHub:
         if bce_id is None:
             raise PermissionDenied()
 
-        response = self._get_api(request, '{}/submission/documents'.format(self.api_base_url), transaction_id, bce_id,
+        response = self._get_api(request, f'{self.api_base_url}/submission/documents', transaction_id, bce_id,
                                  headers={}, files=files)
         if response.status_code == 200:
             response = json.loads(response.text)
@@ -226,7 +222,7 @@ class EFilingHub:
                     'Content-Type': 'application/json'
                 }
                 package_data = self._format_package(request, files, parties=parties)
-                url = '{}/submission/{}/generateUrl'.format(self.api_base_url, response['submissionId'])
+                url = f"{self.api_base_url}/submission/{response['submissionId']}/generateUrl"
                 response = self._get_api(request, url, transaction_id, bce_id, headers=headers,
                                          data=json.dumps(package_data))
 
@@ -236,6 +232,6 @@ class EFilingHub:
 
                 response = json.loads(response.text)
 
-                return None, '{} - {}'.format(response['error'], response['message'])
+                return None, f"{response['error']} - {response['message']}"
 
-        return None, '{} - {}'.format(response.status_code, response.text)
+        return None, f'{response.status_code} - {response.text}'
