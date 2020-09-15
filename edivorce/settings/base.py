@@ -102,6 +102,22 @@ REST_FRAMEWORK = {
     ]
 }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+    },
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -147,6 +163,7 @@ GTM_ID = 'GTM-NJLR7LT'
 def show_toolbar(request):
     return ENVIRONMENT in ['localdev', 'dev', 'minishift']
 
+
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_toolbar,
     'SHOW_COLLAPSED': True,
@@ -156,20 +173,22 @@ SECURE_BROWSER_XSS_FILTER = True
 
 LOGOUT_URL = '/accounts/logout/'
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console':{
-            'level':'DEBUG',
-            'class':'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django.request': {
-            'handlers':['console'],
-            'propagate': True,
-            'level':'DEBUG',
-        }
-    },
-}
+# CLAMAV settings
+CLAMAV_ENABLED = env.bool('CLAMAV_ENABLED', True)
+CLAMAV_TCP_PORT = env.int('CLAMAV_TCP_PORT', 3310)
+CLAMAV_TCP_ADDR = env('CLAMAV_TCP_ADDR', 'localhost')
+
+# Redis settings
+REDIS_HOST = env('REDIS_HOST', 'localhost')
+REDIS_PORT = env.int('REDIS_PORT', 6379)
+REDIS_DB = env('REDIS_DB', '')
+REDIS_PASSWORD = env('REDIS_PASSWORD', '')
+
+# eFiling Hub settings
+EFILING_HUB_TOKEN_BASE_URL = env('EFILING_HUB_TOKEN_BASE_URL', 'https://efiling.gov.bc.ca')
+EFILING_HUB_REALM = env('EFILING_HUB_REALM', 'abc')
+EFILING_HUB_CLIENT_ID = env('EFILING_HUB_CLIENT_ID', 'abc')
+EFILING_HUB_CLIENT_SECRET = env('EFILING_HUB_CLIENT_SECRET', 'abc')
+EFILING_HUB_API_BASE_URL = env('EFILING_HUB_API_BASE_URL', 'https://efiling.gov.bc.ca')
+
+EFILING_BCEID = env.dict('EFILING_BCEID', '', subcast=str)
