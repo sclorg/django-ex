@@ -125,7 +125,7 @@ def reformat_textarea(source, as_ul=True):
         else:
             tag = format_html_join(
                 '\n',
-                '{0}<br/>',
+                '<p>{0}<p/>',
                 ((value, '') for value in text_list))
         return tag
     else:
@@ -270,17 +270,6 @@ def format_children(context, source):
             else:
                 item_list = list(filter(lambda x: x['question_id'] == question, working_source))
 
-                # skip child support order related questions if user did not select that option
-                if question == 'order_for_child_support' and len(item_list):
-                    item = item_list.pop()
-                    if context['derived']['wants_child_support'] is True and item['value']:
-                        # make sure free form text is reformted to be bullet list.
-                        tags = format_html(
-                            '{}{}',
-                            tags,
-                            format_row(item['question__name'], reformat_textarea(item)))
-                    continue
-
                 if len(item_list):
                     item = item_list.pop()
                     q_id = item['question_id']
@@ -330,7 +319,7 @@ def combine_address(source):
                     address_you_error = True
                     tags = format_table_data(tags, address_you_name, MISSING_RESPONSE)
                     continue
-                elif item['value']:
+                elif item['value'] and item['value'] != 'Other':
                     address_you.append(item['value'])
                 if 'postal_code' in q_id:
                     tags = format_table_data(tags, address_you_name, process_json_list(q_id, address_you))
@@ -342,7 +331,7 @@ def combine_address(source):
                     address_spouse_error = True
                     tags = format_table_data(tags, address_spouse_name, MISSING_RESPONSE)
                     continue
-                elif item['value']:
+                elif item['value'] and item['value'] != 'Other':
                     address_spouse.append(item['value'])
                 if 'postal_code' in q_id:
                     tags = format_table_data(tags, address_spouse_name, process_json_list(q_id, address_spouse))
