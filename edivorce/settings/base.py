@@ -176,15 +176,6 @@ SECURE_BROWSER_XSS_FILTER = True
 LOGOUT_URL = '/accounts/logout/'
 
 # CLAMAV settings
-CLAMAV_ENABLED = env.bool('CLAMAV_ENABLED', True)
-CLAMAV_TCP_PORT = env.int('CLAMAV_TCP_PORT', 3310)
-CLAMAV_TCP_ADDR = env('CLAMAV_TCP_ADDR', 'localhost')
-
-# Redis settings
-REDIS_HOST = env('REDIS_HOST', 'localhost')
-REDIS_PORT = env.int('REDIS_PORT', 6379)
-REDIS_DB = env('REDIS_DB', '')
-REDIS_PASSWORD = env('REDIS_PASSWORD', '')
 
 # eFiling Hub settings
 EFILING_HUB_TOKEN_BASE_URL = env('EFILING_HUB_TOKEN_BASE_URL', 'https://efiling.gov.bc.ca')
