@@ -213,17 +213,16 @@ export default {
     }
   }
 
-  
- h5.uploader-label {
-   display: block;   
-   margin-top: 30px;
-   margin-bottom: 10px;
-   font-weight: normal;
-   font-size: 1em;
+  h5.uploader-label {
+    display: block;   
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-weight: normal;
+    font-size: 1em;
 
-   a {
-     font-weight: bold;
-     text-decoration: underline;
-   }
- }
+    a {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
 </style>

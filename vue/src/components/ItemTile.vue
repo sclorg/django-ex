@@ -140,6 +140,12 @@ export default {
         padding: 0;
         margin-right: 16px;
 
+        &:disabled {
+          i.fa {
+            opacity: 0.15;
+          }
+        }
+
         &:hover {
           cursor: pointer !important;
         }
