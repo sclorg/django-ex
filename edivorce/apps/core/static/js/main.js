@@ -681,11 +681,11 @@ $(function () {
         var eligible = false;
         if (!childSupport) {
           var children = $('#unselected_child_support_alert').data('children-of-marriage');
-          var under19 = $('#unselected_child_support_alert').data('children-number-under-19');
-          var over19 = $('#unselected_child_support_alert').data('children-number-over-19');
+          var under19 = $('#unselected_child_support_alert').data('has-children-under-19');
+          var over19 = $('#unselected_child_support_alert').data('has-children-over-19');
           var reasons = $('#unselected_child_support_alert').data('children-financial-support');
           reasons = (reasons || []).filter(function(el){ return el !== 'NO'; }).length > 0;
-          eligible = children === 'YES' && (under19 > 0 || (over19 > 0 && reasons));
+          eligible = children === 'YES' && (under19 || (over19 && reasons));
         }
         var proceedNext = $(this).data('proceed');
         var showPropertyAlert = false;
