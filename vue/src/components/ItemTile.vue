@@ -1,7 +1,7 @@
 <template>
   <div class="item-tile" v-if="file.progress === '100.00' || file.error">
     <div class="image-wrap">
-      <img v-if="file.objectURL && !file.error" :src="file.objectURL" height="auto" />
+      <img v-if="file.objectURL && !file.error" :src="file.objectURL" height="auto" :class="imageClass" />
       <button type="button" class="btn-remove" @click.prevent="$emit('remove')" aria-label="Delete">
         <i class="fa fa-times-circle"></i>
       </button>
@@ -18,10 +18,10 @@
           <button type="button" @click.prevent="$emit('movedown')" :disabled="index >= (fileCount - 1)" aria-label="Move up one position">
             <i class="fa fa-chevron-circle-right"></i>
           </button>
-          <button type="button" aria-label="Rotate counter-clockwise">
+          <button type="button" aria-label="Rotate counter-clockwise" @click.prevent="$emit('rotateleft')">
             <i class="fa fa-undo"></i>
           </button>
-          <button type="button" aria-label="Rotate clockwise">
+          <button type="button" aria-label="Rotate clockwise" @click.prevent="$emit('rotateright')">
             <i class="fa fa-undo fa-flip-horizontal"></i>
           </button>
         </div>
@@ -29,34 +29,44 @@
       </div>
     </div>
   </div>
-  <div class="item-tile" v-else-if="file.progress !== '0.00'"> 
-    <div class="status-wrap">
-      <div>
-      Uploading... {{ file.progress}}%
-      </div>
-      <div class="progress">
-        <div :style="'width:' + file.progress + '%'">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="item-tile" v-else> 
-    <div class="status-wrap">
-      <div>
-      Waiting...
-      </div>
-      <div class="progress"></div>
-    </div>
+  <div v-else>
+    <ProgressBar :file="file"/>
   </div>
 </template>
 
 <script>
+import ProgressBar from './ProgressBar'
+
 export default {
   props: {
     file: Object,
     index: Number,
     fileCount: Number
-  }
+  },
+  components: {
+    ProgressBar
+  },
+  computed: {
+    imageClass() {
+      let rotation = this.file.rotation;
+      while (rotation < 0) {
+        rotation += 360;
+      }
+      while (rotation > 360) {
+        rotation -= 360;
+      }
+      if (rotation === 90) {
+        return 'rotate-90';
+      }
+      if (rotation === 180) {
+        return 'rotate-180';
+      }
+      if (rotation === 270) {
+        return 'rotate-270';
+      }      
+      return 'rotate-0';
+    }
+  },
 }
 </script>
 
@@ -65,7 +75,7 @@ export default {
       margin-bottom: 5px;
       position: relative;
 
-      .image-wrap, .status-wrap {
+      .image-wrap {
         height: 160px;
         border: 1px solid black;
         border-top-left-radius: 6px;
@@ -77,32 +87,6 @@ export default {
         overflow-y: hidden;
       }
 
-      .status-wrap {
-        border-bottom-left-radius: 6px;
-        border-bottom-right-radius: 6px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-      }
-
-      .progress {
-        width: calc(100% - 1.5px);
-        background-color: #F2F2F3;
-        height: 22px;
-        position: absolute;
-        bottom: -19.5px;
-        left: 1px;
-        border-radius: 0;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
-
-        > div {
-          background-color: #365EBE;
-          height: 22px;
-        }
-      }
-      
       .item-text {
         text-align: center;
         min-height: 75px;
@@ -125,8 +109,25 @@ export default {
         margin-bottom: 10px;
       }
 
-      img {
+      img.rotate-0 {
         width: 98%;
+      }
+
+      img.rotate-90 {
+        transform: rotate(90deg);
+        height: 98%;
+        max-width: 98%;        
+      }
+
+      img.rotate-180 {
+        transform: rotate(180deg);
+        width: 98%;
+      }
+      
+      img.rotate-270 {
+        transform: rotate(270deg);
+        height: 98%;
+        max-width: 98%;
       }
 
       button {

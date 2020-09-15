@@ -39,7 +39,9 @@
           :file-count="files.length"
           @remove="remove(file)"
           @moveup="moveUp(index)"
-          @movedown="moveDown(index)"/>
+          @movedown="moveDown(index)"
+          @rotateleft="rotateLeft(index)"
+          @rotateright="rotateRight(index)"/>
       </div>
       <div class="card upload-button">
         <div class="upload-button-wrapper">
@@ -130,6 +132,7 @@ export default {
         let URL = window.URL || window.webkitURL
         if (URL && URL.createObjectURL) {
           newFile.objectURL = URL.createObjectURL(newFile.file)
+          newFile.rotation = 0;
         }
       }
     },
@@ -146,6 +149,12 @@ export default {
         this.files.splice(old_index + 1, 0, this.files.splice(old_index, 1)[0]);
       }
     },
+    rotateLeft(index) {
+      this.files[index].rotation -= 90;
+    },
+    rotateRight(index) {
+      this.files[index].rotation += 90;
+    },    
     draggingOn() {
       this.dragging = true;
     },

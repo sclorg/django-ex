@@ -26,6 +26,7 @@ PROXY_BASE_URL = ''
 SASS_PROCESSOR_ENABLED = True
 SASS_PROCESSOR_ROOT = PROJECT_ROOT + '/edivorce/apps/core/static'
 SASS_OUTPUT_STYLE = 'compressed'
+CORS_ORIGIN_ALLOW_ALL = True
 
 LOGOUT_URL = '/accounts/logout/'
 
