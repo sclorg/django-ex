@@ -284,6 +284,13 @@ question_step_mapping = {
                         'divorce_take_effect_on',
                         'divorce_take_effect_on_specific_date'],
     'filing_locations': ['court_registry_for_filing'],
+    'signing_filing': ['how_to_sign',
+                       'how_to_file',
+                       'signing_location',
+                       'signing_location_you',
+                       'signing_location_spouse',
+                       'email_you',
+                       'email_spouse'],
 }
 
 page_step_mapping = {
@@ -299,6 +306,7 @@ page_step_mapping = {
     'other_orders': 'other_orders',
     'other_questions': 'other_questions',
     'location': 'filing_locations',
+    'signing_filing': 'signing_filing',
 }
 
 """ List of court registries """
