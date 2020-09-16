@@ -22,6 +22,65 @@ class StepCompletenessTestCase(TestCase):
     def create_response(self, question, value):
         UserResponse.objects.create(bceid_user=self.user, question=Question.objects.get(key=question), value=value)
 
+    def test_prequalification(self):
+        step = 'prequalification'
+
+        # No response should be False
+        self.assertEqual(self.check_completeness(step), False)
+
+        # Testing required questions
+        # Missing few required questions
+        self.create_response('married_marriage_like', 'Legally married')
+        self.create_response('lived_in_bc', 'YES')
+        self.create_response('lived_in_bc_at_least_year', 'YES')
+        self.create_response('separation_date', '11/11/1111')
+        self.create_response('try_reconcile_after_separated', 'NO')
+        self.create_response('children_of_marriage', 'NO')
+        self.create_response('original_marriage_certificate', 'YES')
+        self.create_response('marriage_certificate_in_english', 'YES')
+
+        self.assertEqual(self.check_completeness(step), False)
+
+        # All required questions with one checking question with hidden question not shown
+        self.create_response('divorce_reason', 'live separate')
+        self.assertEqual(self.check_completeness(step), True)
+
+        # Reconciliation
+        UserResponse.objects.filter(question_id='try_reconcile_after_separated').update(value="YES")
+        self.assertEqual(self.check_completeness(step), False)
+        self.create_response('reconciliation_period', '[("11/11/2011","12/11/2011")]')
+        self.assertEqual(self.check_completeness(step), True)
+
+        # Children
+        UserResponse.objects.filter(question_id='children_of_marriage').update(value="YES")
+        self.assertEqual(self.check_completeness(step), False)
+        self.create_response('has_children_under_19', 'NO')
+        self.create_response('has_children_over_19', 'NO')
+        self.assertEqual(self.check_completeness(step), True)
+
+        UserResponse.objects.filter(question_id='has_children_under_19').update(value="YES")
+        self.assertEqual(self.check_completeness(step), False)
+        self.create_response('children_live_with_others', 'NO')
+        self.assertEqual(self.check_completeness(step), True)
+
+        UserResponse.objects.filter(question_id='has_children_over_19').update(value="YES")
+        self.assertEqual(self.check_completeness(step), False)
+        self.create_response('children_financial_support', '["NO"]')
+        self.assertEqual(self.check_completeness(step), True)
+
+        # Marriage certificate
+        UserResponse.objects.filter(question_id='original_marriage_certificate').update(value="NO")
+        self.assertEqual(self.check_completeness(step), False)
+        self.create_response('provide_certificate_later', 'YES')
+        self.assertEqual(self.check_completeness(step), False)
+        self.create_response('provide_certificate_later_reason', 'Because')
+        self.assertEqual(self.check_completeness(step), True)
+
+        UserResponse.objects.filter(question_id='provide_certificate_later').update(value="NO")
+        self.assertEqual(self.check_completeness(step), False)
+        self.create_response('not_provide_certificate_reason', 'Because')
+        self.assertEqual(self.check_completeness(step), True)
+
     def test_which_order(self):
         step = 'which_orders'
 
