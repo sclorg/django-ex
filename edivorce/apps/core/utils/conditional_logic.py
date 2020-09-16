@@ -131,6 +131,13 @@ def determine_missing_extraordinary_expenses(questions_dict):
         return False
 
 
+def determine_show_children_live_with_others(questions_dict):
+    has_children_of_marriage = questions_dict.get('children_of_marriage', '') == 'YES'
+    has_children_under_19 = questions_dict.get('has_children_under_19', '') == 'YES'
+    child_over_19_supported = determine_child_over_19_supported(questions_dict)
+    return has_children_of_marriage and (has_children_under_19 or child_over_19_supported)
+
+
 def get_cleaned_response_value(response):
     if response is None:
         return None

@@ -144,12 +144,6 @@ var showHideTargetId = function(el, id, relatedId, revealControlGroup) {
             $(el.data("reveal_force_hide_group")).hide();
             $(el.data("reveal_force_hide_group")).find(':radio').prop('checked', false);
         }
-        // Special case of pre-qualification step 4 children.
-        if (id === "#has_children") {
-            if (el.val() === 'NO') {
-                $('.not-disqualified-other').show();
-            }
-        }
 
         // Special case of show child support description.
         if (id === "#child_support_in_order_detail") {
