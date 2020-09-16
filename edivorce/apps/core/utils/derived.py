@@ -87,6 +87,9 @@ DERIVED_DATA = [
     'pursuant_parenting_arrangement',
     'pursuant_child_support',
     'sole_custody',
+    'number_of_children',
+    'number_of_children_claimant',
+    'number_of_children_claimant_spouse',
     'any_errors',
 ]
 
@@ -174,12 +177,10 @@ def show_fact_sheet_b(responses, derived):
 
 
 def fact_sheet_b_error(responses, derived):
-    questions = ['number_of_children',
-                 'time_spent_with_you',
+    questions = ['time_spent_with_you',
                  'time_spent_with_spouse',
                  'your_child_support_paid_b',
-                 'your_spouse_child_support_paid_b',
-                 ]
+                 'your_spouse_child_support_paid_b']
     if derived['show_fact_sheet_b']:
         return _any_question_errors(responses, questions)
 
@@ -193,11 +194,7 @@ def show_fact_sheet_c(responses, derived):
 
 
 def fact_sheet_c_error(responses, derived):
-    questions = ['number_of_children_claimant',
-                 'your_spouse_child_support_paid_c',
-                 'number_of_children_claimant_spouse',
-                 'your_child_support_paid_c',
-                 ]
+    questions = ['your_spouse_child_support_paid_c', 'your_child_support_paid_c']
     if derived['show_fact_sheet_c']:
         return _any_question_errors(responses, questions)
 
@@ -748,6 +745,18 @@ def sole_custody(responses, derived):
     Return True if either parent has sole custody of the children
     """
     return conditional_logic.determine_sole_custody(responses)
+
+
+def number_of_children(responses, derived):
+    return conditional_logic.get_num_children_living_with(responses, 'Lives with both')
+
+
+def number_of_children_claimant(responses, derived):
+    return conditional_logic.get_num_children_living_with(responses, 'Lives with you')
+
+
+def number_of_children_claimant_spouse(responses, derived):
+    return conditional_logic.get_num_children_living_with(responses, 'Lives with spouse')
 
 
 def any_errors(responses, derived):

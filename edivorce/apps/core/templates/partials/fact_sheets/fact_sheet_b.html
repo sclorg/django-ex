@@ -8,14 +8,15 @@
         existing Court Order.<br>
         <b>This information is needed for the Judge. You will be able to indicate a different child support amount in a following step.</b>
     </p>
-    <div class="question-well {% if number_of_children_error %}error{% endif %}">
-        <h3>Number of children{% if number_of_children_error %}{% include 'partials/required.html' %}{% endif %}</h3>
+    <div class="question-well">
+        <h3>Number of children</h3>
         <p>
-            This is the number of children for which you and your spouse have a <b>shared parenting arrangement</b>
-            (the child spends at least 40 percent of the time with each of you in a year). If you and your spouse
-            have a split parenting arrangement for any other children, do not include them in this set of questions.
+            This is the number of children, as indicated in the <b>Children details</b> page, that you
+            and your spouse have a <b>shared parenting arrangement</b> (the child spends at least 40 percent of the
+            time with each of you in a year). If you and your spouse have a split parenting arrangement for any other children,
+            they are not included in this set of questions.
         </p>
-        {% input_field type="number" name="number_of_children" class="form-control input-narrow positive-integer" min="0" %}
+        {% input_field type="number" name="number_of_children" value=derived.number_of_children class="form-control input-narrow positive-integer" readonly="" %}
     </div>
     <br/>
 
