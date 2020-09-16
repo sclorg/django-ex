@@ -112,17 +112,6 @@
 
 {% block formbuttons %}
 <div class="form-buttons clearfix not-disqualified">
-
-    {% if request.user.is_authenticated %}
-        <a class="btn btn-primary" href="{% url 'overview' %}">
-          <i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back
-        </a>
-    {% else %}
-        <a class="btn btn-primary" href="{% url 'home' %}">
-          <i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back
-        </a>
-    {% endif %}
-
     <a class="btn btn-success pull-right"
        href="{% url 'prequalification' '02' %}">
       Next&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-right"></i>
