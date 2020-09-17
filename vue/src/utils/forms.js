@@ -10,9 +10,9 @@ export default {
     help: "This form sets out all the facts of your marriage and separation for the court and gives information about parenting time if you have children. - Required swearing/affirming and signatures by both you and your spouse in front of a commissioner."
   },  
   "AFTL": {
-    name:"Affidavit of Interpreter Form", 
+    name:"Affidavit of Translation Form", 
     preText:"Scan and upload the sworn",
-    help:"HELP TEXT MISSING FROM WIREFRAMES."
+    help:"The Affidavit of Translation is an affidavit which is sworn by a translator before a notary, lawyer or commissioner for taking Affidavits.  The original certificate of marriage should be exhibited to the Affidavit of Translation together with the translation of the translator."
   },
   "CSA": {
     name:"Child Support Affidavit (F37)", 
