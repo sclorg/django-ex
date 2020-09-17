@@ -40,14 +40,14 @@ class ConditionalLogicTestCase(TestCase):
         self.assertIsNotNone(get_cleaned_response_value('[["also known as","a"]]'))
 
     def test_num_children(self):
-        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with you'), 0)
-        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with spouse'), 0)
-        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with both'), 0)
+        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with you'), '0')
+        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with spouse'), '0')
+        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with both'), '0')
 
         children = [self.child_live_with_you, self.child_live_with_spouse, self.child_live_with_spouse,
                     self.child_live_with_both, self.child_live_with_both, self.child_live_with_both]
         self.create_response('claimant_children', json.dumps(children))
 
-        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with you'), 1)
-        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with spouse'), 2)
-        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with both'), 3)
+        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with you'), '1')
+        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with spouse'), '2')
+        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with both'), '3')
