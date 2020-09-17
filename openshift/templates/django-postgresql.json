@@ -421,8 +421,8 @@
     {
       "name": "PYTHON_VERSION",
       "displayName": "Version of Python Image",
-      "description": "Version of Python image to be used (3.6-ubi7, 3.6-ubi8, or latest).",
-      "value": "3.6-ubi8",
+      "description": "Version of Python image to be used (3.6-ubi8, 3.8-ubi7, 3.8-ubi8, or latest).",
+      "value": "3.8-ubi8",
       "required": true
     },
     {
