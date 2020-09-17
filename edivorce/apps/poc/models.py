@@ -10,6 +10,8 @@ class Document(models.Model):
     """
     filename = models.CharField(max_length=128, null=True)  # saving the original filename separately
     file = models.FileField(upload_to=redis.generate_unique_filename, storage=redis.RedisStorage())
+    docType = models.CharField(max_length=4, null=True, blank=True)
+    partyId = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         self.filename = self.file.name

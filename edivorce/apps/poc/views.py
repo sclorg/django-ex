@@ -39,13 +39,16 @@ class UploadScan(FormView):
 
 class UploadStorage(CreateView):
     model = Document
-    fields = ['file']
+    fields = ['file', 'docType', 'partyId']
     template_name = "storage.html"
     success_url = settings.FORCE_SCRIPT_NAME + 'poc/storage'
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
-        return super(UploadStorage, self).dispatch(request, *args, **kwargs)    
+        response = super(UploadStorage, self).dispatch(request, *args, **kwargs)  
+        if response.status_code == 200:
+            return HttpResponse(status=204)     
+        return response
 
     def get_context_data(self, **kwargs):
         kwargs['documents'] = Document.objects.all()

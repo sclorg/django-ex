@@ -22,11 +22,12 @@
       :drop="true"
       :drop-directory="false"
       :post-action="postAction"
-      @input-file="inputFile"
-      @input-filter="inputFilter"
       :input-id="inputId"
       name="file"
-      :class="['drop-zone', dragging ? 'dragging' : '']">
+      :class="['drop-zone', dragging ? 'dragging' : '']"
+      :data="data"
+      @input-file="inputFile"
+      @input-filter="inputFilter">
     <div v-if="files.length === 0" class="placeholder">
       <i class="fa fa-plus-circle"></i><br>
       <em>Drag and Drop the PDF document or JPG pages here,<br>or click here to Browse for files.</em>
@@ -91,6 +92,12 @@ export default {
     },
     postAction() {
       return this.$parent.proxyRootPath + "poc/storage"
+    },
+    data() {
+      return {
+        docType: this.docType, 
+        partyId: this.party
+      };
     }
   },
   methods: {
