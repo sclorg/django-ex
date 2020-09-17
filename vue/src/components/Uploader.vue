@@ -117,6 +117,14 @@ export default {
         }
       }
         this.$refs.upload.active = true;
+
+      if (newFile) {
+        console.log('inputFile newFile=' + newFile.name);
+      }
+
+      if (oldFile) {
+        console.log('inputFile oldFile=' + oldFile.name);
+      }
     },
     /**
      * Pretreatment
@@ -131,15 +139,28 @@ export default {
         if (!/\.(jpeg|jpg|png|pdf)$/i.test(newFile.name)) {
           return prevent()
         }
+
+        this.files.forEach(function(f) {
+          // prevent duplicates (based on filename and length)
+          if (f.name === newFile.name && f.length === newFile.length) {
+            return prevent();
+          }
+        });
       }
 
-      // Create an objectURL field
+      // Add extra data to to the file object
       if (newFile) {
         newFile.objectURL = ''
         let URL = window.URL || window.webkitURL
         if (URL && URL.createObjectURL) {
           newFile.objectURL = URL.createObjectURL(newFile.file)
           newFile.rotation = 0;
+          const img = new Image();
+          img.onload = function() {
+            newFile.width = this.width;
+            newFile.height = this.height;
+          }
+          img.src = newFile.objectURL;
         }
       }
     },

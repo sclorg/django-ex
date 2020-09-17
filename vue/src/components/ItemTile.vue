@@ -1,7 +1,8 @@
 <template>
   <div class="item-tile" v-if="file.progress === '100.00' || file.error">
     <div class="image-wrap">
-      <img v-if="file.objectURL && !file.error" :src="file.objectURL" height="auto" :class="imageClass" />
+      <img v-if="file.objectURL  && !file.error && file.type !== 'application/pdf'" :src="file.objectURL" :style="imageStyle"/>
+      <i class="fa fa-file-pdf-o" v-if="file.type === 'application/pdf'"></i>
       <button type="button" class="btn-remove" @click.prevent="$emit('remove')" aria-label="Delete">
         <i class="fa fa-times-circle"></i>
       </button>
@@ -47,7 +48,7 @@ export default {
     ProgressBar
   },
   computed: {
-    imageClass() {
+    rotateVal() {
       let rotation = this.file.rotation;
       while (rotation < 0) {
         rotation += 360;
@@ -56,15 +57,31 @@ export default {
         rotation -= 360;
       }
       if (rotation === 90) {
-        return 'rotate-90';
+        return 90;
       }
       if (rotation === 180) {
-        return 'rotate-180';
+        return 180;
       }
       if (rotation === 270) {
-        return 'rotate-270';
+        return 270;
       }      
-      return 'rotate-0';
+      return 0;
+    },
+    imageStyle() {
+      if (this.rotateVal === 90) {
+        let scale = this.file.width / this.file.height;
+        let yshift = -100 * scale;
+        return "transform:rotate(90deg) translateY("+yshift+"%) scale("+scale+"); transform-origin: top left;";
+      }
+      if (this.rotateVal === 270) {
+        let scale = this.file.width / this.file.height;
+        let xshift = -100 * scale;
+        return "transform:rotate(270deg) translateX("+xshift+"%) scale("+scale+"); transform-origin: top left;";
+      }
+      if (this.rotateVal === 180) {
+        return "transform:rotate(180deg);";
+      }      
+      return '';
     }
   },
 }
@@ -81,10 +98,20 @@ export default {
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
         background-color: white;
-      }
+        overflow: hidden;
+        position: relative;
+        z-index: 2;
 
-      .image-wrap {
-        overflow-y: hidden;
+        i.fa-file-pdf-o {
+          color: silver;
+          display: block;
+          font-size: 50px;
+          margin-left: 15px;
+          margin-top: 15px;
+          opacity: 0.75;
+        }
+
+        &:hover img { opacity: 0.5 ;}
       }
 
       .item-text {
@@ -107,27 +134,6 @@ export default {
         border: 1px solid silver;
         background-color: #F2F2F2;
         margin-bottom: 10px;
-      }
-
-      img.rotate-0 {
-        width: 98%;
-      }
-
-      img.rotate-90 {
-        transform: rotate(90deg);
-        height: 98%;
-        max-width: 98%;        
-      }
-
-      img.rotate-180 {
-        transform: rotate(180deg);
-        width: 98%;
-      }
-      
-      img.rotate-270 {
-        transform: rotate(270deg);
-        height: 98%;
-        max-width: 98%;
       }
 
       button {
