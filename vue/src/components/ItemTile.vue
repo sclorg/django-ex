@@ -122,9 +122,9 @@ export default {
           font-family: FontAwesome;
           content: "\f06e";
           position: absolute;
-          left: 52px;
+          left: 58px;
           top: 65px; 
-          font-size: 58px;
+          font-size: 43px;
           color: transparent;        
         }
 

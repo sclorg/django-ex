@@ -150,7 +150,7 @@
       "description": "The TAG name for this environment, e.g., dev, test, prod",
       "displayName": "Env TAG name",
       "name": "TAG_NAME",
-      "value": "dev",
+      "value": "latest",
       "required": true
     }
   ]
