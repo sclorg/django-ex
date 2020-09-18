@@ -44,12 +44,8 @@
                                     <span class="beta environment-type">dev</span>
                                 {% elif deployment_environment == 'test' %}
                                     <span class="beta environment-type">test</span>
-                                {% elif deployment_environment == 'prod' %}
-                                    <span class="beta environment-type">beta</span>
                                 {% elif deployment_environment == 'localdev' %}
                                     <span class="beta environment-type">localdev</span>
-                                {% else %}
-                                    <span class="beta environment-type">beta</span>
                                 {% endif %}
                             </p>
                         </div>
@@ -128,6 +124,8 @@
 {#            {% endblock %}#}
 
         </div>
+        {% block intro-footer %}
+        {% endblock %}
 
         <footer class="footer">
             <div class="footer-container clearfix">

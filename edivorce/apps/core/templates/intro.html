@@ -6,9 +6,7 @@
 {% block container_col %}shroud{% endblock %}
 
 {% block content %}
-    <h1>Make Your Joint Divorce<span class="footnote-marker">*</span> Process Manageable</h1>
-
-<p class="intro">Forms, deadlines, tasks... Divorce can be a difficult enough time as it is without having to navigate through confusing legal language. That's why this online tool is here: to help you get through the details, procedures, and paperwork.</p>
+    <h1>Make Your Joint Divorce* Process Manageable</h1>
 
 <h2 class="shaded-box">How it Works</h2>
 
@@ -21,9 +19,12 @@
     </div>
 
     <div class="flex-column right">
-        <h3><span class="number-circle">2</span> Print Your Forms</h3>
+        <h3><span class="number-circle">2</span> Print or File Online</h3>
         <p>
-            Once you're done with the questions, you'll print your papers and file at your local court registry. That’s all there is to it!
+            Once you're done with the questions,
+            you can print your papers and file at your local court registry
+            or file them online.
+            That’s all there is to it!
         </p>
     </div>
 </div>
@@ -31,27 +32,28 @@
 
 
 <div class="footnote shaded-box">
-    <h5><strong>*Beta Service - Joint Divorce Only</strong></h5>
+    <h5><strong>*Joint Divorce Only</strong></h5>
     <p>
         Joint divorce means making an application for a divorce together with your spouse. It means that you and your
         spouse agree about getting a divorce and that you agree about all of the family law issues relevant to your
         situation, such as spousal support, and the division of family property and debts.
 </p>
 </div>
+{% endblock %}
 
-<div class="information-message">
-    <p>
-    </p>
+{% block intro-footer %}
+<div class="intro-footer">
+    <div class="column">
+        <h3>
+            Begin the process of completing forms for a new divorce:
+        </h3>
+        <a href="{% url 'prequalification' '01' %}" class="btn btn-primary btn-lg">New Divorce</a>
+        <h3>
+            Already started completing forms online and want to pick up where you left off?
+        </h3>
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Returning users</a>
+    </div>
 </div>
-
-<p>
-    <a href="{% url 'prequalification' '01' %}" class="btn btn-primary btn-lg">New User - Let’s get started</a>
-</p>
-
-<p>
-    <strong>Returning User?</strong><a href="{% url 'login' %}"><br />Log in with BCeID or BC Services Card</a>
-</p>
-
 {% endblock %}
 
 {% block formbuttons %}
