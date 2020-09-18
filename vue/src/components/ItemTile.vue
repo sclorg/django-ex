@@ -29,6 +29,9 @@
         <div class="alert alert-danger" style="padding: 4px; margin-bottom: 0" v-if="file.error">Upload Error</div>
       </div>
     </div>
+    <modal v-model="showModal" ref="modal" :footer="false">
+      <img v-if="file.objectURL  && !file.error && file.type !== 'application/pdf'" :src="file.objectURL" :style="imageStyle">
+    </modal>
   </div>
   <div v-else>
     <ProgressBar :file="file"/>
@@ -37,6 +40,7 @@
 
 <script>
 import ProgressBar from './ProgressBar'
+import { Modal } from 'uiv';
 
 export default {
   props: {
@@ -44,13 +48,19 @@ export default {
     index: Number,
     fileCount: Number
   },
+  data: function () {
+    return {
+      showModal: false,
+    }
+  },
   components: {
-    ProgressBar
+    ProgressBar,
+    Modal
   },
   methods: {
     showImage($event) {
       if ($event.target.tagName !== 'I' && $event.target.tagName !== 'BUTTON') {
-        alert(this.file.objectURL);
+        this.showModal = true;
       }
     }
   },
@@ -123,7 +133,7 @@ export default {
           content: "\f06e";
           position: absolute;
           left: 58px;
-          top: 65px; 
+          top: 52px; 
           font-size: 43px;
           color: transparent;        
         }
@@ -220,5 +230,20 @@ export default {
           }
         }
       }
+    }
+</style>
+
+<style lang="css">
+    .modal-content {
+      background-color: inherit;
+      box-shadow: none;
+      -webket-box-shadow: none;
+      border: none;
+    } 
+
+    .modal-content button.close {
+      font-size: 80px;
+      margin-right: 75px;
+      margin-bottom: -100px;
     }
 </style>

@@ -118,7 +118,6 @@
 
 <script>
 import Uploader from '../../components/Uploader.vue';
-import Forms from "../../utils/forms";
 
 export default {
   name: 'App',
