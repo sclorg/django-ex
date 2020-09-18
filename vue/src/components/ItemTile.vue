@@ -1,6 +1,6 @@
 <template>
   <div class="item-tile" v-if="file.progress === '100.00' || file.error">
-    <div class="image-wrap">
+    <div class="image-wrap" @click.prevent="showImage($event)">
       <img v-if="file.objectURL  && !file.error && file.type !== 'application/pdf'" :src="file.objectURL" :style="imageStyle"/>
       <i class="fa fa-file-pdf-o" v-if="file.type === 'application/pdf'"></i>
       <button type="button" class="btn-remove" @click.prevent="$emit('remove')" aria-label="Delete">
@@ -46,6 +46,13 @@ export default {
   },
   components: {
     ProgressBar
+  },
+  methods: {
+    showImage($event) {
+      if ($event.target.tagName !== 'I' && $event.target.tagName !== 'BUTTON') {
+        alert(this.file.objectURL);
+      }
+    }
   },
   computed: {
     rotateVal() {
@@ -111,7 +118,36 @@ export default {
           opacity: 0.75;
         }
 
-        &:hover img { opacity: 0.5 ;}
+        &::after {
+          font-family: FontAwesome;
+          content: "\f06e";
+          position: absolute;
+          left: 52px;
+          top: 65px; 
+          font-size: 58px;
+          color: transparent;        
+        }
+
+        &:hover {
+          background-color: #6484d3;
+          cursor: pointer;
+
+          button.btn-remove {
+            background-color: transparent;
+
+            i.fa {
+              color: white;
+            }
+          }
+        }
+
+        &:hover::after {
+          color: white;
+        }
+
+        &:hover img { 
+          opacity: 0.3;
+        } 
       }
 
       .item-text {
@@ -176,6 +212,7 @@ export default {
           border-radius: 10px;
           height: 22px;
           line-height: 1;
+          z-index: 4;
 
           i.fa {
             color: #365EBE;
