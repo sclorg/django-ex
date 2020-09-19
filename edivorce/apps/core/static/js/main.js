@@ -744,6 +744,21 @@ $(function () {
         }
     });
 
+    // For Prequalification step 4
+    // If they have children under 19 or are financially supporting children over 19, show question children_live_with_others
+    var showHideChildrenLiveWithOthers = function() {
+        var childrenUnder19 = $('input[name="has_children_under_19"][value="YES"]').prop('checked');
+        var childrenOver19 = $('input[name="has_children_over_19"][value="YES"]').prop('checked');
+        var notSupportingOver19 = $('input#no_children_financial_support').prop('checked');
+        if (childrenUnder19 || (childrenOver19 && !notSupportingOver19)) {
+            $('#children_live_with_others').show();
+        } else {
+            $('#children_live_with_others').hide();
+        }
+    }
+    showHideChildrenLiveWithOthers();
+    $('input[name="has_children_under_19"], input[name="has_children_over_19"], input[name="children_financial_support"]').change(showHideChildrenLiveWithOthers);
+
 
     $('.money').on('change', function() {
         var value = parseFloat($(this).val());
