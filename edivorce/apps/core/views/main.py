@@ -179,6 +179,10 @@ def overview(request):
     responses_dict_by_step['active_page'] = 'overview'
     responses_dict_by_step['derived'] = get_derived_data(responses_dict)
 
+    # Dashnav needs filing option to determine which steps to show
+    for question in responses_dict_by_step['signing_filing']:
+        responses_dict_by_step[question['question_id']] = question['value']
+
     response = render(request, 'overview.html', context=responses_dict_by_step)
 
     # set this session variable after the page is already rendered
