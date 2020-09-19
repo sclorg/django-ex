@@ -1,13 +1,13 @@
 /* compileCompressed: $1.css*/
-$body-copy: #494949;
-$brand-blue: #042553;
+$body-copy: #313132;
+$brand-blue: #003366;
 $brand-gold: #fcba19;
 $brand-titles: #003366;
 $brand-links: #365ebe;
 /*#2b5580;*/
 $brand-buttons: $brand-links;
 $color-blue-dark: $brand-titles;
-$color-blue-medium: #2b5580;
+$color-blue-medium: #38598A;
 $color-blue-light: $brand-buttons;
 $color-blue-lighter: #d4dce5;
 $color-grey-dark: $body-copy;
@@ -1505,7 +1505,11 @@ textarea {
             color: #ffffff;
             position: relative;
 
-            h1,
+            h1 {
+                color: $color-blue-dark;
+                max-width: 500px;
+                margin: 0 auto;
+            }
             h2,
             h3 {
                 color: #ffffff;
@@ -1598,6 +1602,31 @@ textarea {
         }
     }
 }
+.intro-footer {
+    text-align: center;
+    padding-bottom: 92px;
+    background: #ffffff;
+    .column {
+        max-width: 640px;
+        margin: 0 auto;
+    }
+    h3 {
+        color: $color-blue-dark;
+        font-size: 24px;
+        line-height: 36px;
+        padding-top: 60px;
+        padding-bottom: 35px;
+        margin: 0;
+    }
+    .btn {
+        width: 260px;
+        height: 48px;
+        font-weight: bold;
+        line-height: 24px;
+        border-radius: 8px;
+    }
+}
+
 /* Side Progress Navigation */
 .dashnav-column,
 .overview-progress,
@@ -1953,7 +1982,7 @@ textarea {
 }
 
 .shaded-box {
-    background-color: rgba(0,0,0,0.35);
+    background-color: rgba(0,0,0,0.7);
 }
 
 #delete_child_modal,
