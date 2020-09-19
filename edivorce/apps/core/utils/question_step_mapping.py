@@ -60,16 +60,13 @@ children_substep_question_mapping = {
     'facts': {
         'child_support_payor',
         # Fact sheet B
-        'number_of_children',
         'time_spent_with_you',
         'time_spent_with_spouse',
         'your_child_support_paid_b',
         'your_spouse_child_support_paid_b',
         'additional_relevant_spouse_children_info',
         # Fact sheet C
-        'number_of_children_claimant',
         'your_spouse_child_support_paid_c',
-        'number_of_children_claimant_spouse',
         'your_child_support_paid_c',
         # Fact sheet D
         'number_children_over_19_need_support',
@@ -195,16 +192,13 @@ question_step_mapping = {
                       # Payor & Fact Sheets
                       'child_support_payor',
                       # Fact sheet B
-                      'number_of_children',
                       'time_spent_with_you',
                       'time_spent_with_spouse',
                       'your_child_support_paid_b',
                       'your_spouse_child_support_paid_b',
                       'additional_relevant_spouse_children_info',
                       # Fact sheet C
-                      'number_of_children_claimant',
                       'your_spouse_child_support_paid_c',
-                      'number_of_children_claimant_spouse',
                       'your_child_support_paid_c',
                       # Fact sheet D
                       'number_children_over_19_need_support',

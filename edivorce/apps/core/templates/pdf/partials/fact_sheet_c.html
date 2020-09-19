@@ -17,7 +17,7 @@
         <td class="line-number">A</td>
         <td>Number of children principally resident with Claimant 1 for whom support is claimed</td>
         <td class="amount">
-          <span class="actual">{{ responses.number_of_children_claimant }}</span>
+          <span class="actual">{{ derived.number_of_children_claimant }}</span>
         </td>
       </tr>
       <tr>
@@ -31,7 +31,7 @@
         <td class="line-number">C</td>
         <td>
           Guidelines table amount payable by Claimant 2 for
-          {{ responses.number_of_children_claimant|child_or_children }}
+          {{ derived.number_of_children_claimant|child_or_children }}
         </td>
         <td class="amount">$
           <span class="actual">{{ responses.your_spouse_child_support_paid_c|money:False }}</span>
@@ -41,7 +41,7 @@
         <td class="line-number">D</td>
         <td>Number of children principally resident with Claimant 2 for whom support is claimed</td>
         <td class="amount">
-          <span class="actual">{{ responses.number_of_children_claimant_spouse }}</span>
+          <span class="actual">{{ derived.number_of_children_claimant_spouse }}</span>
         </td>
       </tr>
       <tr>
@@ -55,7 +55,7 @@
         <td class="line-number">F</td>
         <td>
           Guidelines table amount payable by Claimant 1 for
-          {{ responses.number_of_children_claimant|child_or_children }}
+          {{ derived.number_of_children_claimant|child_or_children }}
         </td>
         <td class="amount">$
           <span class="actual">{{ responses.your_child_support_paid_c|money:False }}</span>

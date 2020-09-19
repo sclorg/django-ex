@@ -8,24 +8,15 @@
         you must complete Fact Sheet C.
         <b>This information is needed for the Judge. You will be able to indicate a different child support amount in a following step.</b>
     </p>
-    {% if derived.show_fact_sheet_b and derived.show_fact_sheet_c %}
-        <div class="bg-danger" id="fact-sheet-b-and-c-alert">
-            <p>
-                Do not include any children that are <b>SHARED on fact sheet B.</b> You may indicate 0 (zero) children for 1 of the parents in Fact
-                Sheet C and insert 0 (zero) dollars for child support amount.
-            </p>
-        </div>
-    {% endif %}
     <table class="table table-bordered">
         <tbody>
         <tr>
             <td class="fact-sheet-question">
-                How many children spend more than <strong>60 percent of their time</strong> with you and for whom you are asking for support?
+                The number of children that spend at least <strong>60 percent of their time</strong> with you and for whom you are asking for support,
+                as indicated in the <b>Children details</b> page
             </td>
-            <td class="fact-sheet-answer table-bordered">
-                <div class="{% if number_of_children_claimant_error %}table-error{% endif %}">
-                    {% input_field type="number" name="number_of_children_claimant" class="positive-integer fact-sheet-input number-spinner" min="0" placeholder="enter number" ignore_error=True %}
-                </div>
+            <td class="fact-sheet-answer table-bordered" readonly>
+                {% input_field type="number" name="number_of_children_claimant" value=derived.number_of_children_claimant class="positive-integer fact-sheet-input number-spinner" readonly="" %}
             </td>
         </tr>
         <tr>
@@ -77,13 +68,11 @@
         </tr>
         <tr>
             <td class="fact-sheet-question">
-                How many children spend more than <strong>60 percent of their time</strong> with your spouse and for whom you are obliged to pay
-                support?
+                The number of children that spend at least <strong>60 percent of their time</strong> with your spouse and for whom you are asking for
+                support, as indicated in the <b>Children details</b> page
             </td>
-            <td class="fact-sheet-answer table-bordered">
-                <div class="{% if number_of_children_claimant_spouse_error %}table-error{% endif %}">
-                    {% input_field type="number" name="number_of_children_claimant_spouse" class="positive-integer fact-sheet-input number-spinner" min="0" placeholder="enter number" ignore_error=True %}
-                </div>
+            <td class="fact-sheet-answer table-bordered" readonly>
+                {% input_field type="number" name="number_of_children_claimant_spouse" value=derived.number_of_children_claimant_spouse class="positive-integer fact-sheet-input number-spinner" readonly="" %}
             </td>
         </tr>
         <tr>

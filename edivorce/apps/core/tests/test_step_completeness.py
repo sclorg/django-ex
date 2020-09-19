@@ -520,7 +520,6 @@ class ChildrenStepCompletenessTestCase(TestCase):
         self.assertTrue(self.get_derived_value('fact_sheet_b_error'))
 
         # Basic required fields
-        self.create_response('number_of_children', '1')
         self.create_response('time_spent_with_you', '50')
         self.create_response('time_spent_with_spouse', '50')
         self.create_response('your_child_support_paid_b', '100')
@@ -539,9 +538,7 @@ class ChildrenStepCompletenessTestCase(TestCase):
         self.assertTrue(self.get_derived_value('fact_sheet_c_error'))
 
         # Basic required fields
-        self.create_response('number_of_children_claimant', '1')
         self.create_response('your_spouse_child_support_paid_c', '50')
-        self.create_response('number_of_children_claimant_spouse', '0')
         self.create_response('your_child_support_paid_c', '0')
         self.assertFalse(self.get_derived_value('fact_sheet_c_error'))
 

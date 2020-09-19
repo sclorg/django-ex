@@ -9,6 +9,12 @@ def get_children(questions_dict):
     return json.loads(children_json)
 
 
+def get_num_children_living_with(questions_dict, living_arrangement):
+    assert living_arrangement in ['Lives with you', 'Lives with spouse', 'Lives with both']
+    children = get_children(questions_dict)
+    return str(len([child for child in children if child['child_live_with'] == living_arrangement]))
+
+
 def determine_sole_custody(questions_dict):
     child_list = get_children(questions_dict)
     return (all([child['child_live_with'] == 'Lives with you' for child in child_list]) or
