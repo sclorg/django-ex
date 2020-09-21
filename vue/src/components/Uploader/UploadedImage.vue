@@ -97,7 +97,7 @@ export default {
     z-index: 2;
 
     i.fa-file-pdf-o {
-      color: silver;
+      color: #F40F02;
       display: block;
       font-size: 50px;
       margin-left: 15px;

@@ -39,7 +39,7 @@ class UploadScan(FormView):
 
 class UploadStorage(CreateView):
     model = Document
-    fields = ['file', 'docType', 'partyId']
+    fields = ['file', 'doc_type', 'party_id']
     template_name = "storage.html"
     success_url = settings.FORCE_SCRIPT_NAME + 'poc/storage'
 
@@ -53,6 +53,11 @@ class UploadStorage(CreateView):
     def get_context_data(self, **kwargs):
         kwargs['documents'] = Document.objects.all()
         return super(UploadStorage, self).get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.bceid_user = self.request.user
+        return super(UploadStorage, self).form_valid(form)
 
 
 class UploadStorageDelete(DeleteView):

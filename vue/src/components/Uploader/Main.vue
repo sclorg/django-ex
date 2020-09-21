@@ -101,8 +101,8 @@ export default {
     },
     data() {
       return {
-        docType: this.docType, 
-        partyId: this.party
+        doc_type: this.docType, 
+        party_id: this.party
       };
     }
   },
@@ -122,7 +122,7 @@ export default {
         console.log('inputFile newFile=' + newFile.name);
       }
 
-      if (oldFile) {
+      if (oldFile && !newFile) {
         console.log('inputFile oldFile=' + oldFile.name);
       }
     },
@@ -130,13 +130,17 @@ export default {
       if (newFile && !oldFile) {
         // Filter non-image file
         if (!/\.(jpeg|jpg|gif|png|pdf)$/i.test(newFile.name)) {
+          this.warningText = 'Unsupported file type.  Allowed extensions are jpeg, jpg, gif,png and pdf.';
+          this.showWarning = true;
           return prevent()
         }
 
-        this.files.forEach(function(f) {
+        this.files.forEach((file) => {
           // prevent duplicates (based on filename and length)
-          if (f.name === newFile.name && f.length === newFile.length) {
-            return prevent();
+          if (file.name === newFile.name && file.length === newFile.length) {
+             this.warningText = 'Duplicate file: ' + newFile.name;
+             this.showWarning = true;
+             return prevent();
           }
         });
   
