@@ -109,7 +109,7 @@
 },
 {
     "fields": {
-        "name": "Do any of the your children live with someone who is not you or your spouse?",
+        "name": "Are any of the children that you are financially supporting living with someone who is not you or your spouse?",
         "description": "For pre-qualification step 4, determines eligibility of using the app",
         "summary_order": 11,
         "required": "Conditional",
