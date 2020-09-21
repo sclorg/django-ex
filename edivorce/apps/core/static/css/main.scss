@@ -1378,6 +1378,48 @@ textarea {
 		float: right;
 	}
 }
+
+.signing-filing {
+    .question-well {
+        margin-top: 15px;
+        margin-bottom: 30px;
+        padding-bottom: 0;
+        h3 {
+            font-size: 24px;
+        }
+    }
+    .form-inline {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        background: $color-grey-lighter;
+        border-radius: 5px;
+
+        label {
+            margin: 0 15px 0 5px;
+            text-align: right;
+        }
+
+        &:before {
+            display: table;
+            content: " ";
+        }
+
+        input {
+            margin-right: 5px;
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            width: 99%;
+            min-width: 200px;
+        }
+    }
+}
 /* Column Grid in flexbox */
 .row-flex {
     display: -webkit-box;
@@ -1925,6 +1967,13 @@ textarea {
 		color: $color-red;
 	}
 }
+
+.list-item-description {
+    padding-left: 20px;
+    margin-bottom: 25px;
+    margin-top: -10px;
+}
+
 /* Modals */
 .modal-dialog {
 	width: 780px;
