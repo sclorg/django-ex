@@ -52,14 +52,17 @@
     </div>
     </file-upload>
   </div>
+  <modal ref="warningModal" v-model="showWarning">
+    {{ warningText }}
+  </modal>
 </div>
 </template>
 
 <script>
 import VueUploadComponent from 'vue-upload-component'
-import { Tooltip } from 'uiv';
+import { Tooltip, Modal } from 'uiv';
 import ItemTile from './ItemTile'
-import Forms from "../utils/forms";
+import Forms from "../../utils/forms";
 
 export default {
   props: {
@@ -69,13 +72,16 @@ export default {
   data: function () {
     return {
       files: [],
-      dragging: false
+      dragging: false,
+      showWarning: false,
+      warningText: ""
     }
   },
   components: {
     FileUpload: VueUploadComponent,
     ItemTile,
-    Tooltip
+    Tooltip,
+    Modal
   },
   computed: {
     uniqueId() {
@@ -101,12 +107,6 @@ export default {
     }
   },
   methods: {
-    /**
-     * Has changed
-     * @param  Object|undefined   newFile   Read only
-     * @param  Object|undefined   oldFile   Read only
-     * @return undefined
-     */
     inputFile(newFile, oldFile) {
       if (newFile && oldFile && !newFile.active && oldFile.active) {
         // Get response data
@@ -126,17 +126,10 @@ export default {
         console.log('inputFile oldFile=' + oldFile.name);
       }
     },
-    /**
-     * Pretreatment
-     * @param  Object|undefined   newFile   Read and write
-     * @param  Object|undefined   oldFile   Read only
-     * @param  Function           prevent   Prevent changing
-     * @return undefined
-     */
     inputFilter(newFile, oldFile, prevent) {
       if (newFile && !oldFile) {
         // Filter non-image file
-        if (!/\.(jpeg|jpg|png|pdf)$/i.test(newFile.name)) {
+        if (!/\.(jpeg|jpg|gif|png|pdf)$/i.test(newFile.name)) {
           return prevent()
         }
 
@@ -146,10 +139,34 @@ export default {
             return prevent();
           }
         });
+  
       }
 
-      // Add extra data to to the file object
       if (newFile) {
+        // if it's a PDF, make sure it's the only item being uploaded
+        if (newFile.type === 'application/pdf') {
+          if (this.files.length > 0) {
+            if (this.files[0].name != newFile.name || this.files[0].length != newFile.length) {
+              this.warningText = 'Only one PDF is allowed per form, and PDF documents cannot be combined with images.';
+              this.showWarning = true;
+              this.$refs.upload.remove(newFile);
+              return prevent();
+            }
+          }
+
+        } else {
+          // if it's not a PDF, make sure there are no PDFs already uplaoded
+          this.files.forEach((file) => {
+            if (file.type === 'application/pdf') {
+              this.warningText = 'PDF documents cannot be combined with images.';
+              this.showWarning = true;
+              this.$refs.upload.remove(newFile);
+              return prevent();
+            }
+          });
+        } 
+
+        // Add extra data to to the file object
         newFile.objectURL = ''
         let URL = window.URL || window.webkitURL
         if (URL && URL.createObjectURL) {
