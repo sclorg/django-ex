@@ -44,6 +44,12 @@ $(function () {
         placement:'auto right'
     });
 
+    $('[data-toggle="tooltip-hover"]').tooltip({
+        container: 'body',
+        trigger: 'hover',
+        placement: 'auto right'
+    });
+
     $('textarea').autogrow({onInitialize: true});
 
     // All elements tagged with the following sum related data attributes
@@ -185,6 +191,16 @@ $(function () {
             // hide any open popovers when the anywhere else in the body is clicked
             if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.tooltip').has(e.target).length === 0) {
                 if(!$(e.target).hasClass('keep-tooltip-open') && !$(this).hasClass('keep-tooltip-open')) {
+                    $(this).tooltip('hide');
+                }
+            }
+        });
+    });
+    $('[data-toggle=tooltip-hover]').hover(function (e) {
+        $('[data-toggle=tooltip]').each(function () {
+            // hide any open popovers when the anywhere else in the body is clicked
+            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.tooltip').has(e.target).length === 0) {
+                if (!$(e.target).hasClass('keep-tooltip-open') && !$(this).hasClass('keep-tooltip-open')) {
                     $(this).tooltip('hide');
                 }
             }
