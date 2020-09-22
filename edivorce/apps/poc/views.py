@@ -45,10 +45,7 @@ class UploadStorage(CreateView):
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
-        response = super(UploadStorage, self).dispatch(request, *args, **kwargs)  
-        if response.status_code == 200:
-            return HttpResponse(status=204)     
-        return response
+        return super(UploadStorage, self).dispatch(request, *args, **kwargs)  
 
     def get_context_data(self, **kwargs):
         kwargs['documents'] = Document.objects.all()

@@ -25,7 +25,7 @@
       :input-id="inputId"
       name="file"
       :class="['drop-zone', dragging ? 'dragging' : '']"
-      :data="data"
+      :data="inputIdentifiers"
       @input-file="inputFile"
       @input-filter="inputFilter">
     <div v-if="files.length === 0" class="placeholder">
@@ -63,6 +63,7 @@ import VueUploadComponent from 'vue-upload-component'
 import { Tooltip, Modal } from 'uiv';
 import ItemTile from './ItemTile'
 import Forms from "../../utils/forms";
+import rotateFix from '../../utils/rotation';
 
 export default {
   props: {
@@ -74,7 +75,8 @@ export default {
       files: [],
       dragging: false,
       showWarning: false,
-      warningText: ""
+      warningText: "",
+      isDirty: false
     }
   },
   components: {
@@ -99,7 +101,7 @@ export default {
     postAction() {
       return this.$parent.proxyRootPath + "poc/storage"
     },
-    data() {
+    inputIdentifiers() {
       return {
         doc_type: this.docType, 
         party_code: this.party
@@ -108,23 +110,25 @@ export default {
   },
   methods: {
     inputFile(newFile, oldFile) {
+
+      // upload is complete
       if (newFile && oldFile && !newFile.active && oldFile.active) {
-        // Get response data
-        console.log('response', newFile.response)
+
+        // todo: send metadata to the server 
+        console.log('Upload Complete; file=' + newFile.name)
+        this.saveMetaData();
+
         if (newFile.xhr) {
-          //  Get the response status code
-          console.log('status', newFile.xhr.status)
+          //  Get the response status code (we can use this for error handling)
+          if (newFile.xhr.status !== 200) {
+            // todo: handler errors
+             this.warningText = 'Error: ' + newFile.xhr.statusText;
+             this.showWarning = true;            
+            console.log('status', newFile.xhr.status)
+          }
         }
       }
-        this.$refs.upload.active = true;
-
-      if (newFile) {
-        console.log('inputFile newFile=' + newFile.name);
-      }
-
-      if (oldFile && !newFile) {
-        console.log('inputFile oldFile=' + oldFile.name);
-      }
+      this.$refs.upload.active = true;
     },
     inputFilter(newFile, oldFile, prevent) {
       if (newFile && !oldFile) {
@@ -186,30 +190,61 @@ export default {
       }
     },
     remove(file) {
+      // todo: call the API to remove the file
       this.$refs.upload.remove(file)
     },
     moveUp(old_index) {
       if (old_index >= 1 && this.files.length > 1) {
         this.files.splice(old_index - 1, 0, this.files.splice(old_index, 1)[0]);
       }
+      this.isDirty = true;
     },
     moveDown(old_index) {
       if (old_index <= this.files.length && this.files.length > 1) {
         this.files.splice(old_index + 1, 0, this.files.splice(old_index, 1)[0]);
       }
+      this.isDirty = true;
     },
     rotateLeft(index) {
       this.files[index].rotation -= 90;
+      this.isDirty = true;
     },
     rotateRight(index) {
       this.files[index].rotation += 90;
+      this.isDirty = true;
     },    
     draggingOn() {
       this.dragging = true;
     },
     draggingOff() {
       this.dragging = false;
-    }    
+    },
+    saveMetaData() {
+      let allFiles = [];
+      this.files.forEach((file) => {
+        allFiles.push({
+          filename: file.name, 
+          size: file.size, 
+          rotation: rotateFix(file.rotation)
+        });
+      });
+      const data = {
+        docType: this.docType,
+        partyCode: this.party,
+        files: allFiles
+      };
+      console.log('Call API', data);
+    }
+  },
+  created() {
+    // call the API to update the metadata every second, but only if the data has changed
+    // (throttling requests because rotating and re-ordering images can cause a lot of traffic)
+    setInterval(() => {
+      if (this.isDirty) {
+        this.saveMetaData();
+        this.isDirty = false;
+      }
+    }, 1000);
   }
 }
 </script>

@@ -16,7 +16,8 @@
 </template>
 
 <script>
-import ModalPreview from './ModalPreview'
+import ModalPreview from './ModalPreview';
+import rotateFix from '../../utils/rotation';
 
 export default {
   props: {
@@ -47,23 +48,7 @@ export default {
       return this.file.objectURL  && !this.file.error && this.file.type !== 'application/pdf';
     },
     rotateVal() {
-      let rotation = this.file.rotation;
-      while (rotation < 0) {
-        rotation += 360;
-      }
-      while (rotation > 360) {
-        rotation -= 360;
-      }
-      if (rotation === 90) {
-        return 90;
-      }
-      if (rotation === 180) {
-        return 180;
-      }
-      if (rotation === 270) {
-        return 270;
-      }      
-      return 0;
+      return rotateFix(this.file.rotation);
     },
     imageStyle() {
       if (this.rotateVal === 90) {
@@ -110,7 +95,7 @@ export default {
       content: "\f06e";
       position: absolute;
       left: 58px;
-      top: calc(50% - 30px);
+      top: calc(50% - 11px);
       font-size: 43px;
       color: transparent;        
     }
