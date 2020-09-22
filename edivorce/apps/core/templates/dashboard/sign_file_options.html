@@ -136,10 +136,10 @@
     <p>An e-mail address is required to setup a {% include "partials/tooltips/virtual_session.html" %}. What is the best e-mail address to contact you at in order to setup the virtual
         session?</p>
     <div id="email-you" class="form-inline">
-        <label>E-mail Address for You: </label>{% input_field type="text" name="email_you" id="email_you" class="input-inline form-control" %}
+        <label>E-mail Address for You: </label>{% input_field type="text" name="email_you" id="email-you-input" class="input-inline form-control" %}
     </div>
     <div id="email-spouse" class="form-inline">
-        <label>E-mail Address for Your Spouse: </label>{% input_field type="text" name="email_spouse" id="email_spouse" class="input-inline form-control" %}
+        <label>E-mail Address for Your Spouse: </label>{% input_field type="text" name="email_spouse" id="email-spouse-input" class="input-inline form-control" %}
     </div>
 </div>
 <div class="question-well" id="sign-in-person" hidden>
@@ -147,6 +147,15 @@
         taking affidavits.</p>
 </div>
 
+<div class="information-message bg-danger add-top-margin" id="unfilled-email-alert" hidden>
+    <p>
+        You must fill in the following field(s) before you can continue:
+    </p>
+    <ul>
+        <li id="error-email-you">E-mail Address for You</li>
+        <li id="error-email-spouse">E-mail Address for Your Spouse</li>
+    </ul>
+</div>
 {% endblock %}
 
 {% block backToDashboard %}
@@ -155,6 +164,7 @@
 
 {% block formBack %}{% url 'overview' %}{% endblock %}
 {% block formNext %}{% url 'dashboard_nav' 'print_form' %}{% endblock %}
+{% block nextButtonAttribute %}id="check-email-filled" data-proceed="false" data-show_alert="false"{% endblock %}
 
 {% block sidebarText %}
     <h3>What is the process to file for divorce?</h3>

@@ -59,6 +59,7 @@ $(window).load(function () {
         } else {
             $("#email-spouse").hide();
         }
+        $('#unfilled-email-alert').hide();
     }
 
     function toggleFileInPerson() {
@@ -94,4 +95,20 @@ $(window).load(function () {
     toggleSigningLocation();
     toggleSignVirtually();
     toggleFileInPerson();
+
+    $('#check-email-filled').on('click', function (e) {
+        var yourEmailInput = $('#email-you-input');
+        var yourEmailError = yourEmailInput.is(":visible") && !yourEmailInput.val();
+        var spouseEmailInput = $('#email-spouse-input');
+        var spouseEmailError = spouseEmailInput.is(":visible") && !spouseEmailInput.val();
+        if (yourEmailError || spouseEmailError) {
+            $('#unfilled-email-alert').show();
+            $('#error-email-you').toggle(yourEmailError)
+            $('#error-email-spouse').toggle(spouseEmailError)
+            e.preventDefault();
+        } else {
+            $('#unfilled-email-alert').hide();
+        }
+    });
+
 });
