@@ -12,7 +12,7 @@ class Document(models.Model):
     filename = models.CharField(max_length=128, null=True)  # saving the original filename separately
     """ File name and extension """
 
-    length = models.IntegerField(default=0)
+    size = models.IntegerField(default=0)
     """ Size of the file (size and name uniquely identify each file on the input) """
 
     file = models.FileField(upload_to=redis.generate_unique_filename, storage=redis.RedisStorage())
@@ -21,10 +21,10 @@ class Document(models.Model):
     doc_type = models.CharField(max_length=4, null=True, blank=True)
     """ CEIS Document Type Code (2-4 letters) """
 
-    party_id = models.IntegerField(default=0)
+    party_code = models.IntegerField(default=0)
     """ 1 = You, 2 = Your Spouse, 0 = Shared """
 
-    order = models.IntegerField(default=1)
+    sort_order = models.IntegerField(default=1)
     """ file order (page number in the PDF) """
 
     rotation = models.IntegerField(default=0)
@@ -33,12 +33,15 @@ class Document(models.Model):
     bceid_user = models.ForeignKey(BceidUser, related_name='uploads', on_delete=models.CASCADE)
     """ User who uploaded the attachment """
 
+    date_uploaded = models.DateTimeField(auto_now_add=True)
+    """ Date the record was last updated """
+
     class Meta:
-        unique_together = ("bceid_user", "doc_type", "party_id", "filename", "length")
+        unique_together = ("bceid_user", "doc_type", "party_code", "filename", "size")
 
     def save(self, *args, **kwargs):
         self.filename = self.file.name
-        self.length = self.file.size
+        self.size = self.file.size
 
         super(Document, self).save(*args, **kwargs)
 

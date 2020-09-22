@@ -39,7 +39,7 @@ class UploadScan(FormView):
 
 class UploadStorage(CreateView):
     model = Document
-    fields = ['file', 'doc_type', 'party_id']
+    fields = ['file', 'doc_type', 'party_code']
     template_name = "storage.html"
     success_url = settings.FORCE_SCRIPT_NAME + 'poc/storage'
 

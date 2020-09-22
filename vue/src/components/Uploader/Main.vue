@@ -102,7 +102,7 @@ export default {
     data() {
       return {
         doc_type: this.docType, 
-        party_id: this.party
+        party_code: this.party
       };
     }
   },
