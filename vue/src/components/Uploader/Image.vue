@@ -95,7 +95,8 @@ export default {
       font-size: 50px;
       margin-left: 15px;
       margin-top: 15px;
-      opacity: 0.75;
+      position: absolute;
+      top: 0;
     }
 
     &::after {
