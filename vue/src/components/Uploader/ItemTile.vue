@@ -3,7 +3,7 @@
     <uploaded-image :file="file" :image-style="imageStyle" @imageclick="showPreview" @removeclick="$emit('remove')" />
     <div class="bottom-wrapper">
       <div class="item-text">
-        {{file.name}} ({{ Math.round(file.size/1024 * 100) / 100 }}KB)
+        {{file.name}} <span class="no-wrap">({{ Math.round(file.size/1024/1024 * 100) / 100 }} MB)</span>
       </div>
       <div class="button-wrapper">
         <div v-if="!file.active && file.success && !isPdf">
@@ -20,7 +20,7 @@
             <i class="fa fa-undo fa-flip-horizontal"></i>
           </button>
         </div>
-        <div class="alert alert-danger" style="padding: 4px; margin-bottom: 0" v-if="file.error">Upload Error</div>
+        <div class="alert alert-danger" v-if="file.error">Upload Error</div>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import UploadedImage from './UploadedImage'
+import UploadedImage from './Image'
 import ProgressBar from './ProgressBar'
 
 export default {
@@ -77,6 +77,10 @@ export default {
       padding: 5px;
       line-height: 1.05;
       font-size: 0.95em;
+
+      .no-wrap {
+        white-space: nowrap;
+      }
     }
 
     .button-wrapper {
@@ -89,6 +93,11 @@ export default {
       border: 1px solid silver;
       background-color: #F2F2F2;
       margin-bottom: 10px;
+      
+      .alert-danger {
+        margin-bottom: 0;
+        padding: 0;
+      }
     }
   }
 </style>

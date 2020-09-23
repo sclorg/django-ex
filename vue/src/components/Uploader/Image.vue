@@ -80,6 +80,14 @@ export default {
     overflow: hidden;
     position: relative;
     z-index: 2;
+    display: flex;
+    align-items: center;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
     i.fa-file-pdf-o {
       color: #F40F02;
@@ -95,7 +103,6 @@ export default {
       content: "\f06e";
       position: absolute;
       left: 58px;
-      top: 65px;
       font-size: 43px;
       color: transparent;        
     }
@@ -129,13 +136,19 @@ export default {
       left: 130px;
       background-color: white;
       border-radius: 10px;
-      height: 22px;
+      height: 18px;
       line-height: 1;
       z-index: 4;
 
       i.fa {
         color: #365EBE;
         font-size: 23px;
+
+        &::before {
+          display: block;
+          margin-top: -2px;
+          margin-left: -1px;
+        }
       }
     }
   }
