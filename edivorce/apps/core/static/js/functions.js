@@ -337,6 +337,12 @@ var getValue = function(el, question){
     }
 };
 
+var isEmailValid = function(el) {
+    var value = el.val();
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(value);
+}
+
 // check if email is in valid format
 var validateEmail = function(el){
 
@@ -345,9 +351,7 @@ var validateEmail = function(el){
         .find('span.help-block')
         .remove();
 
-    var value = el.val();
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if (regex.test(value)) {
+    if (!el.val() || isEmailValid(el)) {
         return true;
     } else {
         el.closest('.form-group')

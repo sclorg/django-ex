@@ -53,7 +53,6 @@
     <Content Include="edivorce\apps\core\static\js\vendor\moment.min.js" />
     <Content Include="edivorce\apps\core\static\js\vendor\spin.min.js" />
     <Content Include="edivorce\apps\core\static\svg\bc-logo.svg" />
-    <Content Include="edivorce\apps\core\static\svg\icon-certificate.svg" />
     <Content Include="edivorce\apps\core\templates\401.html" />
     <Content Include="edivorce\apps\core\templates\404.html" />
     <Content Include="edivorce\apps\core\templates\407.html" />

@@ -1,8 +1,6 @@
 $(window).load(function () {
     function setSignSeparatelyDefaults() {
-        $("#sign-in-person-both").prop('checked', false);
-        $("#sign-virtual-both").prop('checked', false);
-        $("#sign-virtual-both").trigger('change');
+        $("#sign-in-person-both").prop('checked', true).trigger('change');
         if ($("input:radio[name='signing_location_you']:checked").length === 0) {
             $("#sign-in-person-you").prop('checked', true).trigger('change');
         }
@@ -12,10 +10,8 @@ $(window).load(function () {
     }
 
     function setSignTogetherDefaults() {
-        $("#sign-in-person-you").prop('checked', false);
-        $("#sign-virtual-you").prop('checked', false).trigger('change');
-        $("#sign-in-person-spouse").prop('checked', false);
-        $("#sign-virtual-spouse").prop('checked', false).trigger('change');
+        $("#sign-in-person-you").prop('checked', true).trigger('change');
+        $("#sign-in-person-spouse").prop('checked', true).trigger('change');
         if ($("input:radio[name='signing_location']:checked").length === 0) {
             $("#sign-in-person-both").prop('checked', true).trigger('change');
         }
@@ -29,7 +25,7 @@ $(window).load(function () {
                 setSignTogetherDefaults();
                 $("#signing-location-together").show();
                 $("#signing-location-separately").hide();
-            } else if ($("#sign-separately").prop('checked')) {
+            } else {
                 setSignSeparatelyDefaults();
                 $("#signing-location-together").hide();
                 $("#signing-location-separately").show();
@@ -44,21 +40,31 @@ $(window).load(function () {
     }
 
     function toggleSignVirtually() {
-        if ($("#sign-virtual-both").prop('checked') || $("#sign-virtual-you").prop('checked') || $("#sign-virtual-spouse").prop('checked')) {
+        var signVirtuallyBoth = $("#sign-virtual-both").prop('checked');
+        var signVirtuallyYou = $("#sign-virtual-you").prop('checked');
+        var signVirtuallySpouse = $("#sign-virtual-spouse").prop('checked');
+
+        var needEmailYou = (signVirtuallyBoth || signVirtuallyYou) && $("#existing-email-you").val() === '';
+        var needEmailSpouse = signVirtuallySpouse && $("#existing-email-spouse").val() === '';
+
+        if (needEmailYou || needEmailSpouse) {
             $("#sign-virtually").show();
         } else {
             $("#sign-virtually").hide();
         }
-        if ($("#sign-virtual-both").prop('checked') || $("#sign-virtual-you").prop('checked')) {
+        if (needEmailYou) {
             $("#email-you").show();
         } else {
             $("#email-you").hide();
+            $("#email-you-input").removeClass('error');
         }
-        if ($("#sign-virtual-spouse").prop('checked')) {
+        if (needEmailSpouse) {
             $("#email-spouse").show();
         } else {
             $("#email-spouse").hide();
+            $("#email-spouse-input").removeClass('error');
         }
+        $('#unfilled-email-alert').hide();
     }
 
     function toggleFileInPerson() {
@@ -71,17 +77,6 @@ $(window).load(function () {
         }
     }
 
-    function selectDefaults() {
-        if ($("input:radio[name='how_to_sign']:checked").length === 0) {
-            $("#sign-together").prop('checked', true).trigger('change');
-        }
-        if ($("input:radio[name='how_to_file']:checked").length === 0) {
-            $("#file-online").prop('checked', true).trigger('change');
-        }
-    }
-
-    selectDefaults()
-
     $("#sign-separately, #sign-together, #file-online, #file-in-person").change(toggleSigningLocation);
     $("#sign-virtual-both, " +
         "#sign-in-person-both, " +
@@ -91,7 +86,35 @@ $(window).load(function () {
         "#sign-virtual-spouse").change(toggleSignVirtually);
     $("#file-in-person, #file-online").change(toggleFileInPerson);
 
+    function setDefaults() {
+        if ($("input:radio[name='how_to_sign']:checked").length === 0) {
+            $("#sign-together").prop('checked', true).trigger('change');
+        }
+        if ($("input:radio[name='how_to_file']:checked").length === 0) {
+            $("#file-online").prop('checked', true).trigger('change');
+        }
+    }
+
+    setDefaults()
     toggleSigningLocation();
     toggleSignVirtually();
     toggleFileInPerson();
+
+    $('#check-email-filled').on('click', function (e) {
+        var yourEmailInput = $('#email-you-input');
+        var yourEmailError = yourEmailInput.is(":visible") && !(yourEmailInput.val() && isEmailValid(yourEmailInput));
+        var spouseEmailInput = $('#email-spouse-input');
+        var spouseEmailError = spouseEmailInput.is(":visible") && !(spouseEmailInput.val() && isEmailValid(spouseEmailInput));
+        if (yourEmailError || spouseEmailError) {
+            $('#unfilled-email-alert').show();
+            $('#error-email-you').toggle(yourEmailError)
+            $('#error-email-spouse').toggle(spouseEmailError)
+            yourEmailInput.toggleClass('error', yourEmailError);
+            spouseEmailInput.toggleClass('error', spouseEmailError);
+            e.preventDefault();
+        } else {
+            $('#unfilled-email-alert').hide();
+        }
+    });
+
 });

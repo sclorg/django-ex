@@ -14,7 +14,7 @@ var ajaxOnChange = function () {
         isValid = validateDate(el);
     }
 
-    if (el.is("#email_textbox")){
+    if (el.is(".email-textbox")){
         isValid = validateEmail(el);
     }
 
