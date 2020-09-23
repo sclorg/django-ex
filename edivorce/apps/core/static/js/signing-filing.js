@@ -98,13 +98,15 @@ $(window).load(function () {
 
     $('#check-email-filled').on('click', function (e) {
         var yourEmailInput = $('#email-you-input');
-        var yourEmailError = yourEmailInput.is(":visible") && !yourEmailInput.val();
+        var yourEmailError = yourEmailInput.is(":visible") && !(yourEmailInput.val() && isEmailValid(yourEmailInput));
         var spouseEmailInput = $('#email-spouse-input');
-        var spouseEmailError = spouseEmailInput.is(":visible") && !spouseEmailInput.val();
+        var spouseEmailError = spouseEmailInput.is(":visible") && !(spouseEmailInput.val() && isEmailValid(spouseEmailInput));
         if (yourEmailError || spouseEmailError) {
             $('#unfilled-email-alert').show();
             $('#error-email-you').toggle(yourEmailError)
             $('#error-email-spouse').toggle(spouseEmailError)
+            yourEmailInput.toggleClass('error', yourEmailError);
+            spouseEmailInput.toggleClass('error', spouseEmailError);
             e.preventDefault();
         } else {
             $('#unfilled-email-alert').hide();
