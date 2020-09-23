@@ -302,14 +302,27 @@ export default {
     }
   },
   created() {
-    // call the API to update the metadata every second, but only if the data has changed
-    // (throttling requests because rotating and re-ordering images can cause a lot of traffic)
+    // call the API to update the metadata every second, but only if
+    // the data has changed (throttling requests because rotating and
+    //  re-ordering images can cause a lot of traffic)
     setInterval(() => {
       if (this.isDirty) {
         this.saveMetaData();
         this.isDirty = false;
       }
     }, 1000);
+
+    // Prevent browser from loading a drag-and-dropped file if it's
+    // not dropped in the correct area
+    window.addEventListener("dragover",function(e){
+    e = e || event;
+    e.preventDefault();
+    },false);
+
+    window.addEventListener("drop",function(e){
+    e = e || event;
+    e.preventDefault();
+    },false);    
   }
 }
 </script>

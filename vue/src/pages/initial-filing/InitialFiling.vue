@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import Uploader from '../../components/Uploader/Main.vue';
+import Uploader from '../../components/Uploader/Uploader.vue';
 
 export default {
   name: 'App',
