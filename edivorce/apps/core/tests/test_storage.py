@@ -4,11 +4,14 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TransactionTestCase
 from redis.exceptions import ConnectionError
 
+from edivorce.apps.core.models import BceidUser
 from edivorce.apps.core.redis import generate_unique_filename
 from edivorce.apps.poc.models import Document
 
 
 class UploadStorageTests(TransactionTestCase):
+    def setUp(self):
+        self.user = BceidUser.objects.create(user_guid='1234')
 
     @mock.patch('redis.connection.ConnectionPool.get_connection')
     def test_storage_connection_error(self, mock_redis):
@@ -21,6 +24,7 @@ class UploadStorageTests(TransactionTestCase):
             file = SimpleUploadedFile('file.txt', b'this is some content')
             test = Document()
             test.file = file
+            test.bceid_user = self.user
             test.save()
         except ConnectionError:
             connection_error = True
@@ -37,6 +41,7 @@ class UploadStorageTests(TransactionTestCase):
         file = SimpleUploadedFile('file.txt', b'this is some content')
         test = Document()
         test.file = file
+        test.bceid_user = self.user
         test.save()
 
         self.assertTrue(mock_redis_save.called)
@@ -51,6 +56,7 @@ class UploadStorageTests(TransactionTestCase):
         file = SimpleUploadedFile('file.txt', b'this is some content')
         test = Document()
         test.file = file
+        test.bceid_user = self.user
         test.save()
 
         self.assertTrue(mock_redis_save.called)
@@ -85,6 +91,7 @@ class UploadStorageTests(TransactionTestCase):
 
         file = SimpleUploadedFile('file.txt', b'this is some content')
         test = Document()
+        test.bceid_user = self.user
         test.file = file
         test.save()
 
