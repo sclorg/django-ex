@@ -259,6 +259,10 @@ export default {
     border-radius: 6px;
     padding: 18px;
 
+    &:hover .fa-plus-circle {
+      opacity: 0.85;
+    }
+
     &.dragging {
       background-color: #F2E3F2;
     }
@@ -286,10 +290,6 @@ export default {
       font-size: 3rem;
       margin-bottom: 8px;
       color: #365EBE;
-
-      &:hover {
-        cursor: pointer;
-      }
     }
 
     .placeholder {

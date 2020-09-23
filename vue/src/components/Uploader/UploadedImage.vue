@@ -95,7 +95,7 @@ export default {
       content: "\f06e";
       position: absolute;
       left: 58px;
-      top: calc(50% - 11px);
+      top: 65px;
       font-size: 43px;
       color: transparent;        
     }

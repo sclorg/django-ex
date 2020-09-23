@@ -113,6 +113,7 @@ export default {
 
       &:hover {
         cursor: pointer !important;
+        opacity: 0.8;
       }
 
       i.fa {
