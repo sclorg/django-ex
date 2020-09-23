@@ -43,18 +43,22 @@ $(window).load(function () {
         var signVirtuallyBoth = $("#sign-virtual-both").prop('checked');
         var signVirtuallyYou = $("#sign-virtual-you").prop('checked');
         var signVirtuallySpouse = $("#sign-virtual-spouse").prop('checked');
-        if (signVirtuallyBoth || signVirtuallyYou || signVirtuallySpouse) {
+
+        var needEmailYou = (signVirtuallyBoth || signVirtuallyYou) && $("#existing-email-you").val() === '';
+        var needEmailSpouse = signVirtuallySpouse && $("#existing-email-spouse").val() === '';
+
+        if (needEmailYou || needEmailSpouse) {
             $("#sign-virtually").show();
         } else {
             $("#sign-virtually").hide();
         }
-        if (signVirtuallyBoth || signVirtuallyYou) {
+        if (needEmailYou) {
             $("#email-you").show();
         } else {
             $("#email-you").hide();
             $("#email-you-input").removeClass('error');
         }
-        if (signVirtuallySpouse) {
+        if (needEmailSpouse) {
             $("#email-spouse").show();
         } else {
             $("#email-spouse").hide();

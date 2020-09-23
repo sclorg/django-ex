@@ -135,6 +135,8 @@
     <h3>Signing Contact(s)</h3>
     <p>An e-mail address is required to setup a {% include "partials/tooltips/virtual_session.html" %}. What is the best e-mail address to contact you at in order to setup the virtual
         session?</p>
+    <input type="text" id="existing-email-you" value="{{ address_to_send_official_document_email_you }}" hidden>
+    <input type="text" id="existing-email-spouse" value="{{ address_to_send_official_document_email_spouse }}" hidden>
     <div id="email-you" class="form-inline">
         <label>E-mail Address for You: </label>{% input_field type="text" name="email_you" id="email-you-input" class="input-inline form-control" %}
     </div>

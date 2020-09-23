@@ -351,7 +351,7 @@ var validateEmail = function(el){
         .find('span.help-block')
         .remove();
 
-    if (isEmailValid(el)) {
+    if (!el.val() || isEmailValid(el)) {
         return true;
     } else {
         el.closest('.form-group')
