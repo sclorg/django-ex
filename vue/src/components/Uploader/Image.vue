@@ -90,10 +90,9 @@ export default {
     }
 
     i.fa-file-pdf-o {
-      color: #F40F02;
       display: block;
-      font-size: 50px;
-      margin-left: 15px;
+      font-size: 105px;
+      margin-left: 32px;
       margin-top: 15px;
       position: absolute;
       top: 0;
