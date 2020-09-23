@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 import os
+
+from django.urls import reverse_lazy
 from environs import Env
 from unipath import Path
 
@@ -45,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'mozilla_django_oidc',  # Load after auth
     'rest_framework',
     'debug_toolbar',
     'corsheaders',
@@ -62,7 +65,7 @@ if ENVIRONMENT in ['localdev', 'dev', 'test', 'minishift']:
     )
 
 MIDDLEWARE = (
-    'edivorce.apps.core.middleware.basicauth_middleware.BasicAuthMiddleware',
+    # 'edivorce.apps.core.middleware.basicauth_middleware.BasicAuthMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -71,9 +74,13 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware',
+    # 'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'edivorce.apps.core.middleware.keycloak.EDivorceKeycloakBackend',
 )
 
 ROOT_URLCONF = 'edivorce.urls'
@@ -99,11 +106,11 @@ WSGI_APPLICATION = 'wsgi.application'
 
 # need to disable auth in Django Rest Framework so it doesn't get triggered
 # by presence of Basic Auth headers
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'edivorce.apps.core.authenticators.BCeIDAuthentication',
-    ]
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'edivorce.apps.core.authenticators.BCeIDAuthentication',
+#     ]
+# }
 
 
 LOGGING = {
@@ -117,7 +124,7 @@ LOGGING = {
     'loggers': {
         '': {
             'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'level': env('DJANGO_LOG_LEVEL', 'INFO'),
         },
     },
 }
@@ -175,7 +182,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 SECURE_BROWSER_XSS_FILTER = True
 
-LOGOUT_URL = '/accounts/logout/'
+# LOGOUT_URL = '/accounts/logout/'
 
 # CLAMAV settings
 
@@ -187,3 +194,19 @@ EFILING_HUB_CLIENT_SECRET = env('EFILING_HUB_CLIENT_SECRET', 'abc')
 EFILING_HUB_API_BASE_URL = env('EFILING_HUB_API_BASE_URL', 'https://efiling.gov.bc.ca')
 
 EFILING_BCEID = env.dict('EFILING_BCEID', '', subcast=str)
+
+# Keycloak OpenID Connect settings
+# Provided by mozilla-django-oidc
+LOGIN_URL = reverse_lazy('oidc_authentication_init')
+OIDC_RP_SIGN_ALGO = 'RS256'
+OIDC_RP_SCOPES = 'openid email profile'
+OIDC_AUTH_REQUEST_EXTRA_PARAMS = {'kc_idp_hint': 'bceid'}  # this is needed to bypass the Keycloak login screen
+# OIDC_CREATE_USER = False
+OIDC_OP_JWKS_ENDPOINT = env('OIDC_OP_JWKS_ENDPOINT', '')
+OIDC_RP_CLIENT_ID = env('OIDC_RP_CLIENT_ID', '')
+OIDC_RP_CLIENT_SECRET = env('OIDC_RP_CLIENT_SECRET', '')
+OIDC_OP_AUTHORIZATION_ENDPOINT = env('OIDC_OP_AUTHORIZATION_ENDPOINT', '')
+OIDC_OP_TOKEN_ENDPOINT = env('OIDC_OP_TOKEN_ENDPOINT', '')
+OIDC_OP_USER_ENDPOINT = env('OIDC_OP_USER_ENDPOINT', '')
+LOGIN_REDIRECT_URL = env('LOGIN_REDIRECT_URL', '/')
+LOGOUT_REDIRECT_URL = env('LOGOUT_REDIRECT_URL', '/')

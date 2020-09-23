@@ -55,7 +55,7 @@
                             {% if request.user.is_authenticated %}
                             <span>
                                 {{ request.user.display_name}}
-                                &nbsp;&nbsp;|&nbsp;&nbsp; <a href="{% url 'logout' %}">Log out</a>
+                                &nbsp;&nbsp;|&nbsp;&nbsp; <a href="{% url 'oidc_logout' %}">Log out</a>
                             </span>
                             {% endif %}
                         </div>

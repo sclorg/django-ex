@@ -4,6 +4,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import bceid_required, intercept, prequal_completed
@@ -164,7 +165,7 @@ def logout(request):
     return response
 
 
-@bceid_required
+@login_required
 @prequal_completed
 @intercept
 def overview(request):
@@ -192,7 +193,7 @@ def overview(request):
     return response
 
 
-@bceid_required
+@login_required
 @prequal_completed
 def dashboard_nav(request, nav_step):
     """
@@ -212,7 +213,7 @@ def dashboard_nav(request, nav_step):
     return render(request, template_name=template_name, context=responses_dict)
 
 
-@bceid_required
+@login_required
 @prequal_completed
 def submit_initial_files(request):
     return _submit_files(request, initial=True)
@@ -309,7 +310,7 @@ def contact(request):
     return render(request, 'contact-us.html', context={'active_page': 'contact'})
 
 
-@bceid_required
+@login_required
 def intercept_page(request):
     """
     On intercept, show the Orders page to get the requested orders before the

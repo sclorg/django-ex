@@ -5,6 +5,7 @@ import json
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 
 import requests
 
@@ -16,7 +17,7 @@ from ..utils.user_response import get_data_for_user
 EXHIBITS = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'[::-1])
 
 
-@bceid_required
+@login_required
 def form(request, form_number):
     """ View for rendering PDF's and previews """
 
