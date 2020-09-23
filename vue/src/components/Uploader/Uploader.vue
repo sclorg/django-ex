@@ -392,3 +392,16 @@ export default {
     }
   }
 </style>
+
+<style type="css">
+  /* override vue-upload-component styles for IE11 issues */
+  .file-uploads-html5 input[type=file] {
+    height: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+
+  .file-uploads-html5 label {
+    display: inline;
+  }
+</style>

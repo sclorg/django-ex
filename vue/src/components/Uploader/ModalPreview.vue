@@ -1,6 +1,6 @@
 <template>
   <modal v-model="showModal" class="image-preview-modal" ref="modal" :footer="false" @hide="$emit('close')">
-    <img v-if="file.objectURL  && !file.error && file.type !== 'application/pdf'" :src="file.objectURL" :style="modalImageStyle" :data-rotate="rotateVal">
+    <img v-if="file.objectURL  && !file.error && file.type !== 'application/pdf'" :src="file.objectURL" :style="modalImageStyle">
   </modal>
 </template>
 

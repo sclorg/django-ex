@@ -101,8 +101,7 @@ export default {
     &::after {
       font-family: FontAwesome;
       content: "\f06e";
-      position: absolute;
-      left: 58px;
+      margin: auto;
       font-size: 43px;
       color: transparent;        
     }
