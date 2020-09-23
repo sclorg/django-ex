@@ -2,7 +2,8 @@
 <div>
   <div :class="['image-wrap', isValidImage ? 'valid' : '']" @click.prevent="showPreview($event)">
     <img v-if="isValidImage" :src="file.objectURL" :style="imageStyle"/>
-    <i class="fa fa-file-pdf-o" v-if="file.type === 'application/pdf'"></i>
+    <i class="fa fa-file-pdf-o" v-if="!this.file.error && file.type === 'application/pdf'"></i>
+    <i class="fa fa-frown-o" v-if="this.file.error"></i>    
     <button type="button" class="btn-remove" @click.prevent="$emit('removeclick')" aria-label="Delete">
       <i class="fa fa-times-circle"></i>
     </button>
@@ -89,13 +90,17 @@ export default {
       left: 0;
     }
 
-    i.fa-file-pdf-o {
+    i.fa-file-pdf-o, i.fa-frown-o {
       display: block;
       font-size: 105px;
       margin-left: 32px;
       margin-top: 15px;
       position: absolute;
       top: 0;
+    }
+
+    i.fa-frown-o {
+      color: #EEE;
     }
 
     &::after {
