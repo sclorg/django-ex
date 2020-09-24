@@ -36,10 +36,10 @@
     </div>
     <template v-else>
       <div class="text-danger error-top" v-if="fileErrors === 1">
-        <strong>One file has failed to upload to the server. Please remove the file marked 'Upload Error' and try uploading it again.</strong>
+        <strong>One file has failed to upload to the server. Please remove the file marked 'File Upload Error' and try uploading it again.</strong>
       </div>
       <div class="text-danger error-top" v-if="fileErrors > 1">
-        <strong>Some files have failed to upload to the server. Please remove the files marked 'Upload Error' and try uploading them again.</strong>
+        <strong>Some files have failed to upload to the server. Please remove the files marked 'File Upload Error' and try uploading them again.</strong>
       </div>      
       <div class="text-danger error-top" v-if="tooBig">
         <strong>The total of all uploaded files for this form cannot exceed {{ maxMegabytes }} MB.
@@ -77,7 +77,7 @@
   <div class="pull-right" v-if="!tooBig">
     <em>(Maximum {{ maxMegabytes }} MB)</em>
   </div>
-  <modal ref="warningModal" v-model="showWarning">
+  <modal ref="warningModal" class="warning-modal" v-model="showWarning">
     {{ warningText }}
   </modal>
 </div>
@@ -170,7 +170,7 @@ export default {
           //  Get the response status code (we can use this for error handling)
           if (newFile.xhr.status !== 200) {
             // todo: handler errors
-            this.showError('Error: ' + newFile.xhr.statusText);
+            this.showError('Error: ' + newFile.xhr.statusText + '. Please try the upload again. If this doesn\'t work, try again later.');
             console.log('status', newFile.xhr.status)
           }
         }
@@ -181,14 +181,14 @@ export default {
       if (newFile && !oldFile) {
         // Filter non-image file
         if (!/\.(jpeg|jpg|gif|png|pdf)$/i.test(newFile.name)) {
-          this.showError('Unsupported file type.  Allowed extensions are jpeg, jpg, gif,png and pdf.');
+          this.showError('Unsupported file type.  Allowed file types are .jpeg, .jpg, .gif, .png and .pdf.');
           return prevent()
         }
 
         this.files.forEach((file) => {
           // prevent duplicates (based on filename and length)
           if (file.name === newFile.name && file.length === newFile.length) {
-            this.showError('Duplicate file: ' + newFile.name);
+            this.showError('This file appears to have already been uploaded with for this document. Duplicate filename: ' + newFile.name);
             return prevent();
           }
         });
@@ -228,7 +228,7 @@ export default {
           // if it's not a PDF, make sure there are no PDFs already uplaoded
           this.files.forEach((file) => {
             if (file.type === 'application/pdf') {
-              this.showError('PDF documents cannot be combined with images.');
+              this.showError('PDF documents cannot be combined with images. Only a single PDF or multiple images can be uploaded into one form. ');
               this.$refs.upload.remove(newFile);
               return prevent();
             }
@@ -394,6 +394,15 @@ export default {
 </style>
 
 <style type="css">
+  /* hide the cancel button on the warnig modal */
+  .warning-modal button.btn-default {
+    display: none;
+  }
+
+  .warning-modal button.btn-primary {
+    min-width: 80px;
+  }
+
   /* override vue-upload-component styles for IE11 issues */
   .file-uploads-html5 input[type=file] {
     height: 0 !important;

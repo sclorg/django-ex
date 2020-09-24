@@ -20,7 +20,7 @@
             <i class="fa fa-undo fa-flip-horizontal"></i>
           </button>
         </div>
-        <div class="alert alert-danger" v-if="file.error">Upload Error</div>
+        <div class="alert alert-danger" v-if="file.error">File Upload Error</div>
       </div>
     </div>
   </div>
