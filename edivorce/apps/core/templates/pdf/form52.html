@@ -165,18 +165,16 @@
                 </tr>
                 <tr>
                     <td class="sig-col4 sig-line-text">
-                        <p>Signature of</p>
+                        <p class="small-margin">Signature of Claimant 1</p>
                         <p>
-                            <span class="fake-checkbox"></span> Claimant 1
-                            <span class="fake-checkbox"></span> lawyer for Claimant 1
+                            <strong>{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}</strong>
                         </p>
                     </td>
                     <td class="sig-col1">&nbsp;</td>
                     <td class="sig-col4 sig-line-text">
-                        <p>Signature of</p>
+                        <p class="small-margin">Signature of Claimant 2</p>
                         <p>
-                            <span class="fake-checkbox"></span> Claimant 2
-                            <span class="fake-checkbox"></span> lawyer for Claimant 2
+                            <strong>{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}</strong>
                         </p>
                     </td>
                 </tr>

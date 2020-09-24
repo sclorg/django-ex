@@ -134,6 +134,9 @@ i.fa {
 .sig-table .sig-line-text {
     font-size: 0.88em;
 }
+.sig-table .sig-line-text p.small-margin {
+  margin-bottom: 4px;
+}
 .sig-table .sig-col1 {
   width: 0.5in;
 }
