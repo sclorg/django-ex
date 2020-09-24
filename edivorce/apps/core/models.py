@@ -112,9 +112,6 @@ class UserResponse(models.Model):
 
 
 class Document(models.Model):
-    """
-    This is only a POC model and should not be loaded on a production system.
-    """
     filename = models.CharField(max_length=128, null=True)  # saving the original filename separately
     """ File name and extension """
 

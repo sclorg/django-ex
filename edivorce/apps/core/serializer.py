@@ -25,7 +25,7 @@ class UserResponseSerializer(serializers.ModelSerializer):
 
 class DocumentSerializer(serializers.ModelSerializer):
     doc_type = serializers.CharField()
-    party_code = serializers.IntegerField()
+    party_code = serializers.IntegerField(min_value=0, max_value=2)
     file = serializers.FileField()
     filename = serializers.CharField(read_only=True)
     size = serializers.IntegerField(read_only=True)
