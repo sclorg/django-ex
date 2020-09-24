@@ -10,7 +10,7 @@ from django.conf import settings
 
 from edivorce.apps.core.efilinghub import EFilingHub, PACKAGE_PARTY_FORMAT
 from edivorce.apps.core.validators import file_scan_validation
-from edivorce.apps.poc.models import Document
+from edivorce.apps.core.models import Document
 
 logger = logging.getLogger(__name__)
 

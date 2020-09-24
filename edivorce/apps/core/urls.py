@@ -1,7 +1,8 @@
 from django.conf.urls import url
+from rest_framework.routers import DefaultRouter
 
 from .views import main, system, pdf, api, localdev
-
+from .views.api import DocumentViewSet
 
 urlpatterns = [
     # url(r'^guide$', styleguide.guide),
@@ -33,3 +34,7 @@ urlpatterns = [
     url(r'^current$', system.current, name="current"),
     url(r'^$', main.home, name="home"),
 ]
+
+router = DefaultRouter()
+router.register(r'api/documents', DocumentViewSet, basename='document')
+urlpatterns += router.urls

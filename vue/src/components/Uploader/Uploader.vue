@@ -126,7 +126,7 @@ export default {
       return FormDefinitions[this.docType];
     },
     postAction() {
-      return this.$parent.proxyRootPath + "poc/storage"
+      return this.$parent.proxyRootPath + "api/documents/"
     },
     uniqueId() {
       if (this.party === 0) {
