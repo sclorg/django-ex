@@ -1,9 +1,10 @@
-from rest_framework import status
+from rest_framework import permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
-from ..models import Question
-from ..serializer import UserResponseSerializer
+from ..models import Document, Question
+from ..serializer import DocumentSerializer, UserResponseSerializer
 from ..utils.question_step_mapping import question_step_mapping
 from ..utils.user_response import save_to_session, save_to_db
 
@@ -47,3 +48,14 @@ class UserResponseHandler(APIView):
             return Response(status=status.HTTP_500_INTERNAL_ERROR)
 
         return Response(status=status.HTTP_200_OK)
+
+
+class DocumentViewSet(ModelViewSet):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Document.objects.all()
+    serializer_class = DocumentSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_anonymous:
+            return Document.objects.none()
+        return Document.objects.filter(bceid_user=self.request.user)

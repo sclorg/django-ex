@@ -3,6 +3,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 
+from edivorce.apps.core import redis
+
 
 @python_2_unicode_compatible
 class BceidUser(models.Model):
@@ -109,6 +111,55 @@ class UserResponse(models.Model):
         return '%s -> %s' % (self.bceid_user, self.question.key)
 
 
+class Document(models.Model):
+    filename = models.CharField(max_length=128, null=True)  # saving the original filename separately
+    """ File name and extension """
+
+    size = models.IntegerField(default=0)
+    """ Size of the file (size and name uniquely identify each file on the input) """
+
+    file = models.FileField(upload_to=redis.generate_unique_filename, storage=redis.RedisStorage())
+    """ File temporarily stored in Redis """
+
+    doc_type = models.CharField(max_length=4, null=True, blank=True)
+    """ CEIS Document Type Code (2-4 letters) """
+
+    party_code = models.IntegerField(default=0)
+    """ 1 = You, 2 = Your Spouse, 0 = Shared """
+
+    sort_order = models.IntegerField(default=1)
+    """ file order (page number in the PDF) """
+
+    rotation = models.IntegerField(default=0)
+    """ 0, 90, 180 or 270 """
+
+    bceid_user = models.ForeignKey(BceidUser, related_name='uploads', on_delete=models.CASCADE)
+    """ User who uploaded the attachment """
+
+    date_uploaded = models.DateTimeField(auto_now_add=True)
+    """ Date the record was last updated """
+
+    class Meta:
+        unique_together = ("bceid_user", "doc_type", "party_code", "filename", "size")
+
+    def save(self, *args, **kwargs):
+        self.filename = self.file.name
+        self.size = self.file.size
+
+        super(Document, self).save(*args, **kwargs)
+
+    def delete(self, **kwargs):
+        """
+        Override delete so we can delete the Redis object when this instance is deleted.
+        """
+        self.file.delete(save=False)
+
+        super(Document, self).delete(**kwargs)
+
+    def str(self):
+        return f'User {self.bceid_user.display_name}: {self.filename} ({self.doc_type} - {self.party_code})'
+
+
 class DontLog:
     def log_addition(self, *args):
         return
@@ -120,7 +171,11 @@ class DontLog:
         return
 
 
-class UserResponseAdmin(DontLog, admin.ModelAdmin):
+class BaseAdmin(DontLog, admin.ModelAdmin):
+    pass
+
+
+class UserResponseAdmin(BaseAdmin):
     list_display = ['get_user_name', 'question', 'value']
 
     def get_user_name(self, obj):
@@ -130,10 +185,7 @@ class UserResponseAdmin(DontLog, admin.ModelAdmin):
     get_user_name.short_description = 'User'
 
 
-class QuestionAdmin(DontLog, admin.ModelAdmin):
-    pass
-
-
 admin.site.register(BceidUser)
-admin.site.register(Question, QuestionAdmin)
+admin.site.register(Question, BaseAdmin)
 admin.site.register(UserResponse, UserResponseAdmin)
+admin.site.register(Document, BaseAdmin)
