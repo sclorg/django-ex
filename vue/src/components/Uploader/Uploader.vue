@@ -161,15 +161,17 @@ export default {
 
       // upload is complete
       if (newFile && oldFile && !newFile.active && oldFile.active) {
-
-        // todo: send metadata to the server 
-        console.log('Upload Complete; file=' + newFile.name)
         this.saveMetaData();
 
         if (newFile.xhr) {
-          //  Get the response status code (we can use this for error handling)
-          if (newFile.xhr.status !== 200) {
-            // todo: handler errors
+          //  Error Handling 
+          if (newFile.xhr.status === 400) {
+            // 400 validation error: show the message returned by the server
+            const message = JSON.parse(newFile.xhr.responseText)[0];
+            this.showError(message);
+            this.$refs.upload.remove(newFile);
+          } else if (newFile.xhr.status !== 200) {
+            // 500 server error: show the status text and a generic message
             this.showError('Error: ' + newFile.xhr.statusText + '. Please try the upload again. If this doesn\'t work, try again later.');
             console.log('status', newFile.xhr.status)
           }
@@ -304,7 +306,8 @@ export default {
   created() {
     // call the API to update the metadata every second, but only if
     // the data has changed (throttling requests because rotating and
-    //  re-ordering images can cause a lot of traffic)
+    // re-ordering images can cause a lot of traffic and possibly 
+    // result in out-of-order requests)
     setInterval(() => {
       if (this.isDirty) {
         this.saveMetaData();
