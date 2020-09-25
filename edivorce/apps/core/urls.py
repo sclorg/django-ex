@@ -1,12 +1,14 @@
 from django.conf.urls import url
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
 from .views import main, system, pdf, api, localdev
-from .views.api import DocumentViewSet
 
 urlpatterns = [
     # url(r'^guide$', styleguide.guide),
     url(r'^api/response$', api.UserResponseHandler.as_view()),
+    url(r'^api/documents/$', api.DocumentCreateView.as_view(), name='documents'),
+    path('api/documents/<doc_type>/<int:party_code>/', api.DocumentMetaDataView.as_view(), name='documents-meta'),
+    path('api/documents/<doc_type>/<int:party_code>/<filename>/<int:size>/', api.DocumentView.as_view(), name='document'),
 
     # url(r'^login/headers$', system.headers),
 
@@ -34,7 +36,3 @@ urlpatterns = [
     url(r'^current$', system.current, name="current"),
     url(r'^$', main.home, name="home"),
 ]
-
-router = DefaultRouter()
-router.register(r'api/documents', DocumentViewSet, basename='document')
-urlpatterns += router.urls

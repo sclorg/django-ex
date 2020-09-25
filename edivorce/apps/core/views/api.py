@@ -1,10 +1,11 @@
+from django.http import HttpResponse, HttpResponseGone
 from rest_framework import permissions, status
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
 
 from ..models import Document, Question
-from ..serializer import DocumentSerializer, UserResponseSerializer
+from ..serializer import CreateDocumentSerializer, DocumentMetadataSerializer, UserResponseSerializer
 from ..utils.question_step_mapping import question_step_mapping
 from ..utils.user_response import save_to_session, save_to_db
 
@@ -50,12 +51,38 @@ class UserResponseHandler(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
-class DocumentViewSet(ModelViewSet):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+class DocumentCreateView(CreateAPIView):
+    serializer_class = CreateDocumentSerializer
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Document.objects.all()
-    serializer_class = DocumentSerializer
+
+
+class DocumentMetaDataView(ListAPIView):
+    serializer_class = DocumentMetadataSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        if self.request.user.is_anonymous:
-            return Document.objects.none()
-        return Document.objects.filter(bceid_user=self.request.user)
+        doc_type = self.kwargs['doc_type']
+        party_code = self.kwargs['party_code']
+        return Document.objects.filter(doc_type=doc_type, party_code=party_code, bceid_user=self.request.user).order_by('sort_order')
+
+
+class DocumentView(RetrieveUpdateDestroyAPIView):
+    serializer_class = DocumentMetadataSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return Document.objects.get(bceid_user=self.request.user, **self.kwargs)
+
+    def retrieve(self, request, *args, **kwargs):
+        """ Return the file instead of meta data """
+        doc = self.get_object()
+        content_type = 'application/pdf' if 'pdf' in doc.filename else 'image/jpeg'
+
+        # If file doesn't exist anymore, delete it
+        try:
+            file_contents = doc.file.read()
+        except TypeError:
+            doc.delete()
+            return HttpResponseGone('File no longer exists')
+        return HttpResponse(file_contents, content_type=content_type)

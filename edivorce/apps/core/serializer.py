@@ -23,18 +23,19 @@ class UserResponseSerializer(serializers.ModelSerializer):
         instance.save()
 
 
-class DocumentSerializer(serializers.ModelSerializer):
-    doc_type = serializers.CharField()
-    party_code = serializers.IntegerField(min_value=0, max_value=2)
-    file = serializers.FileField()
+class CreateDocumentSerializer(serializers.ModelSerializer):
+    doc_type = serializers.CharField(required=True)
+    party_code = serializers.IntegerField(min_value=0, max_value=2, required=True)
+    file = serializers.FileField(required=True)
     filename = serializers.CharField(read_only=True)
     size = serializers.IntegerField(read_only=True)
     rotation = serializers.IntegerField(read_only=True)
     sort_order = serializers.IntegerField(read_only=True)
+    file_url = serializers.URLField(source='get_file_url', read_only=True)
 
     class Meta:
         model = Document
-        fields = ('file', 'doc_type', 'party_code', 'filename', 'size', 'rotation', 'sort_order')
+        fields = ('file', 'doc_type', 'party_code', 'filename', 'size', 'rotation', 'sort_order', 'file_url')
 
     def create(self, validated_data):
         filename = validated_data['file'].name
@@ -47,3 +48,22 @@ class DocumentSerializer(serializers.ModelSerializer):
         except IntegrityError:
             raise ValidationError("You have already uploaded that file")
         return response
+
+
+def valid_rotation(value):
+    if value % 90 != 0:
+        raise serializers.ValidationError('Rotation must be 0, 90, 180, or 270')
+
+
+class DocumentMetadataSerializer(serializers.ModelSerializer):
+    doc_type = serializers.CharField(read_only=True)
+    party_code = serializers.IntegerField(read_only=True)
+    filename = serializers.CharField(read_only=True)
+    size = serializers.IntegerField(read_only=True)
+    rotation = serializers.IntegerField(min_value=0, max_value=270, validators=[valid_rotation])
+    sort_order = serializers.IntegerField(read_only=True)
+    file_url = serializers.URLField(source='get_file_url', read_only=True)
+
+    class Meta:
+        model = Document
+        fields = ('doc_type', 'party_code', 'filename', 'size', 'rotation', 'sort_order', 'file_url')
