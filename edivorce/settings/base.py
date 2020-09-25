@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'compressor',
     'crispy_forms',
     'sass_processor',
+    'graphene_django',
 )
 
 # add the POC app only if applicable
@@ -103,6 +104,11 @@ REST_FRAMEWORK = {
         'edivorce.apps.core.authenticators.BCeIDAuthentication',
     ]
 }
+
+GRAPHENE = {
+    'SCHEMA': 'edivorce.apps.core.views.api.graphql_schema'
+}
+
 
 LOGGING = {
     'version': 1,

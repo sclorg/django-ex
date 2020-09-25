@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.db import models
+from django.db.models import F
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -141,10 +143,13 @@ class Document(models.Model):
 
     class Meta:
         unique_together = ("bceid_user", "doc_type", "party_code", "filename", "size")
+        ordering = ('sort_order',)
 
     def save(self, *args, **kwargs):
-        self.filename = self.file.name
-        self.size = self.file.size
+        if not self.filename:
+            self.filename = self.file.name
+        if not self.size:
+            self.size = self.file.size
 
         super(Document, self).save(*args, **kwargs)
 
@@ -153,11 +158,18 @@ class Document(models.Model):
         Override delete so we can delete the Redis object when this instance is deleted.
         """
         self.file.delete(save=False)
-
+        self.update_sort_orders()
         super(Document, self).delete(**kwargs)
 
-    def str(self):
+    def __str__(self):
         return f'User {self.bceid_user.display_name}: {self.filename} ({self.doc_type} - {self.party_code})'
+
+    def get_file_url(self):
+        return reverse('document', kwargs={'filename': self.filename, 'doc_type': self.doc_type, 'party_code': self.party_code, 'size': self.size})
+
+    def update_sort_orders(self):
+        q = Document.objects.filter(bceid_user=self.bceid_user, doc_type=self.doc_type, party_code=self.party_code, sort_order__gt=self.sort_order)
+        q.update(sort_order=F('sort_order') - 1)
 
 
 class DontLog:
