@@ -89,6 +89,7 @@ import { Tooltip, Modal } from 'uiv';
 import ItemTile from './ItemTile'
 import FormDefinitions from "../../utils/forms";
 import rotateFix from '../../utils/rotation';
+import axios from 'axios';
 
 export default {
   props: {
@@ -165,15 +166,16 @@ export default {
 
         if (newFile.xhr) {
           //  Error Handling 
-          if (newFile.xhr.status === 400) {
+          const statusCode = newFile.xhr.status;
+          if (statusCode === 400) {
             // 400 validation error: show the message returned by the server
             const message = JSON.parse(newFile.xhr.responseText)[0];
             this.showError(message);
             this.$refs.upload.remove(newFile);
-          } else if (newFile.xhr.status !== 200) {
+          } else if (statusCode !== 200 && statusCode !== 201 ) {
             // 500 server error: show the status text and a generic message
             this.showError('Error: ' + newFile.xhr.statusText + '. Please try the upload again. If this doesn\'t work, try again later.');
-            console.log('status', newFile.xhr.status)
+            console.log('status', statusCode)
           }
         }
       }
@@ -253,8 +255,14 @@ export default {
       }
     },
     remove(file) {
-      // todo: call the API to remove the file
-      this.$refs.upload.remove(file)
+      var url = this.$parent.proxyRootPath + "api/delete-document/";
+      axios.delete(url, {doc_type: this.docType, party_code: this.party, filename: file.name, size: file.size})
+          .then(response => {
+              this.$refs.upload.remove(file)
+          })
+          .catch(error => {
+            this.showError('Error deleting document from the server: ' + file.name);
+          });
     },
     moveUp(old_index) {
       if (old_index >= 1 && this.files.length > 1) {
