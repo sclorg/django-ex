@@ -92,7 +92,7 @@ class DocumentView(RetrieveUpdateDestroyAPIView):
 
 
 class DocumentType(graphene_django.DjangoObjectType):
-    url = graphene.String(source='get_file_url')
+    file_url = graphene.String(source='get_file_url')
 
     class Meta:
         model = Document
