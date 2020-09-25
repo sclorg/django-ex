@@ -255,12 +255,14 @@ export default {
       }
     },
     remove(file) {
-      var url = this.$parent.proxyRootPath + "api/delete-document/";
-      axios.delete(url, {doc_type: this.docType, party_code: this.party, filename: file.name, size: file.size})
+      const urlbase =  `${this.$parent.proxyRootPath}api/documents`;
+      const encFilename = encodeURIComponent(file.name);
+      const url = `${urlbase}/${this.docType}/${this.party}/${file.size}/${encFilename}`;
+      axios.delete(url)
           .then(response => {
               this.$refs.upload.remove(file)
           })
-          .catch(error => {
+          .catch((error) => {
             this.showError('Error deleting document from the server: ' + file.name);
           });
     },
