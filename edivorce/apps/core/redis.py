@@ -15,7 +15,7 @@ from django.core.files.base import File
 from django.core.files.storage import Storage
 from django.utils.deconstruct import deconstructible
 
-EX_EXPIRY = 60*24*7  # 1 week expiry
+EX_EXPIRY = 60*60*24*30  # 1 month expiry in seconds
 
 
 def generate_unique_filename(instance, filename):

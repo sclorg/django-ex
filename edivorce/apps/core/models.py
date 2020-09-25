@@ -143,6 +143,7 @@ class Document(models.Model):
 
     class Meta:
         unique_together = ("bceid_user", "doc_type", "party_code", "filename", "size")
+        ordering = ('sort_order',)
 
     def save(self, *args, **kwargs):
         if not self.filename:
