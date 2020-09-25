@@ -190,7 +190,7 @@ export default {
         this.files.forEach((file) => {
           // prevent duplicates (based on filename and length)
           if (file.name === newFile.name && file.length === newFile.length) {
-            this.showError('This file appears to have already been uploaded with for this document. Duplicate filename: ' + newFile.name);
+            this.showError('This file appears to have already been uploaded for this document. Duplicate filename: ' + newFile.name);
             return prevent();
           }
         });
