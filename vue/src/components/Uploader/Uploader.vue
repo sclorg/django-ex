@@ -90,6 +90,7 @@ import ItemTile from './ItemTile'
 import FormDefinitions from "../../utils/forms";
 import rotateFix from '../../utils/rotation';
 import axios from 'axios';
+import graphQLStringify from 'stringify-object';
 
 export default {
   props: {
@@ -310,7 +311,24 @@ export default {
         partyCode: this.party,
         files: allFiles
       };
-      console.log('Call API', data);
+      const graphQLData = graphQLStringify(data,{singleQuotes: false, inlineCharacterLimit: 99999});
+      console.log('Call API', graphQLData);
+      const url =  `${this.$parent.proxyRootPath}api/graphql/`;
+      axios.post(url, {
+        query: `
+          mutation updateMetadata {
+            updateMetadata(input:${graphQLData}){
+              documents{filename size rotation}
+            }
+          }
+        `})
+          .then(response => {
+              console.log('response', response);
+          })
+          .catch((error) => {
+            this.showError('Error saving metadata');
+            console.log('error', error);
+          });
     }
   },
   created() {
