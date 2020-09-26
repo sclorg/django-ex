@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "stringify-object": "^3.3.0",
     "uiv": "^0.36.1",
     "vue": "^2.6.11",
     "vue-upload-component": "^2.8.20"

@@ -6,6 +6,7 @@ from rest_framework import permissions, status
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from os.path import splitext
 
 from ..models import Document, Question
 from ..serializer import CreateDocumentSerializer, DocumentMetadataSerializer, UserResponseSerializer
@@ -80,7 +81,18 @@ class DocumentView(RetrieveUpdateDestroyAPIView):
     def retrieve(self, request, *args, **kwargs):
         """ Return the file instead of meta data """
         doc = self.get_object()
-        content_type = 'application/pdf' if 'pdf' in doc.filename else 'image/jpeg'
+        
+        # Get the content-type based on the file extension
+        content_types = {
+            ".pdf": "application/pdf",
+            ".gif": "image/gif",
+            ".png": "image/png",
+            ".jpe": "image/jpeg",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg"
+        }
+        _, extension = splitext(doc.filename.lower())
+        content_type = content_types[extension]
 
         # If file doesn't exist anymore, delete it
         try:
