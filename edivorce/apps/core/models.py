@@ -130,10 +130,16 @@ class Document(models.Model):
     """ 1 = You, 2 = Your Spouse, 0 = Shared """
 
     sort_order = models.IntegerField(default=1)
-    """ file order (page number in the PDF) """
+    """ File order (page number in the PDF) """
 
     rotation = models.IntegerField(default=0)
     """ 0, 90, 180 or 270 """
+
+    height = models.IntegerField(default=0)
+    """ Initial image height (before rotation) """
+
+    width = models.IntegerField(default=0)
+    """ Initial image width (before rotation) """    
 
     bceid_user = models.ForeignKey(BceidUser, related_name='uploads', on_delete=models.CASCADE)
     """ User who uploaded the attachment """
