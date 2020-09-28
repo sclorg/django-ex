@@ -248,8 +248,8 @@ export default {
           newFile.rotation = 0;
           const img = new Image();
           img.onload = function() {
-            newFile.width = this.width;
-            newFile.height = this.height;
+            newFile.width = this.width || 0;
+            newFile.height = this.height || 0;
           }
           img.src = newFile.objectURL;
         }
@@ -261,7 +261,10 @@ export default {
       const url = `${urlbase}/${this.docType}/${this.party}/${file.size}/${encFilename}`;
       axios.delete(url)
           .then(response => {
-              this.$refs.upload.remove(file)
+              var pos = this.files.findIndex(f => f.docType === file.docType && f.size === file.size);
+              if (pos > -1) {
+                this.files.splice(pos, 1);
+              }
           })
           .catch((error) => {
             this.showError('Error deleting document from the server: ' + file.name);
@@ -320,7 +323,7 @@ export default {
         query: `
           mutation updateMetadata {
             updateMetadata(input:${graphQLData}){
-              documents{filename size width height rotation}
+              documents{filename size width height rotation contentType}
             }
           }
         `})
@@ -334,6 +337,39 @@ export default {
     }
   },
   created() {
+    // get saved state from the server
+    const url =  `${this.$parent.proxyRootPath}api/graphql/`;
+    axios.post(url, {
+      query: `
+        query getMetadata {
+          documents(docType:"${this.docType}",partyCode:${this.party}) {
+            filename size width height rotation contentType
+          }
+        }
+      `,
+      variables: null})
+        .then(response => {
+            console.log('response', response);
+            response.data.data.documents.forEach((doc) => {
+              this.files.push({
+                name: doc.filename,
+                size: doc.size,
+                width: doc.width,
+                height: doc.height,
+                rotation: doc.rotation,
+                type: doc.contentType,
+                error: false,
+                success: true,
+                progress: '100.00',
+                objectURL: `${this.$parent.proxyRootPath}api/documents/${this.docType}/${this.party}/${doc.size}/${doc.filename}`
+              });
+            });
+        })
+        .catch((error) => {
+          this.showError('Error getting metadata');
+          console.log('error', error);
+        });
+
     // call the API to update the metadata every second, but only if
     // the data has changed (throttling requests because rotating and
     // re-ordering images can cause a lot of traffic and possibly 
