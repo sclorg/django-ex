@@ -46,7 +46,7 @@ class CreateDocumentSerializer(serializers.ModelSerializer):
         try:
             response.save()
         except IntegrityError:
-            raise ValidationError("You have already uploaded that file")
+            raise ValidationError("This file appears to have already been uploaded for this document. Duplicate filename: " + filename)
         return response
 
 

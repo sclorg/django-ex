@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^api/response$', api.UserResponseHandler.as_view()),
     url(r'^api/documents/$', api.DocumentCreateView.as_view(), name='documents'),
     path('api/documents/<doc_type>/<int:party_code>/', api.DocumentMetaDataView.as_view(), name='documents-meta'),
-    path('api/documents/<doc_type>/<int:party_code>/<filename>/<int:size>/', api.DocumentView.as_view(), name='document'),
+    path('api/documents/<doc_type>/<int:party_code>/<int:size>/<filename>', api.DocumentView.as_view(), name='document'),
     path('api/documents/<file_key>/', api.get_document_file_by_key, name='document_by_key'),
 
     # url(r'^login/headers$', system.headers),

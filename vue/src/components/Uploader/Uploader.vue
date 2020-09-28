@@ -89,6 +89,8 @@ import { Tooltip, Modal } from 'uiv';
 import ItemTile from './ItemTile'
 import FormDefinitions from "../../utils/forms";
 import rotateFix from '../../utils/rotation';
+import axios from 'axios';
+import graphQLStringify from 'stringify-object';
 
 export default {
   props: {
@@ -161,17 +163,20 @@ export default {
 
       // upload is complete
       if (newFile && oldFile && !newFile.active && oldFile.active) {
-
-        // todo: send metadata to the server 
-        console.log('Upload Complete; file=' + newFile.name)
         this.saveMetaData();
 
         if (newFile.xhr) {
-          //  Get the response status code (we can use this for error handling)
-          if (newFile.xhr.status !== 200) {
-            // todo: handler errors
+          //  Error Handling 
+          const statusCode = newFile.xhr.status;
+          if (statusCode === 400) {
+            // 400 validation error: show the message returned by the server
+            const message = JSON.parse(newFile.xhr.responseText)[0];
+            this.showError(message);
+            this.$refs.upload.remove(newFile);
+          } else if (statusCode !== 200 && statusCode !== 201 ) {
+            // 500 server error: show the status text and a generic message
             this.showError('Error: ' + newFile.xhr.statusText + '. Please try the upload again. If this doesn\'t work, try again later.');
-            console.log('status', newFile.xhr.status)
+            console.log('status', statusCode)
           }
         }
       }
@@ -188,7 +193,7 @@ export default {
         this.files.forEach((file) => {
           // prevent duplicates (based on filename and length)
           if (file.name === newFile.name && file.length === newFile.length) {
-            this.showError('This file appears to have already been uploaded with for this document. Duplicate filename: ' + newFile.name);
+            this.showError('This file appears to have already been uploaded for this document. Duplicate filename: ' + newFile.name);
             return prevent();
           }
         });
@@ -251,8 +256,16 @@ export default {
       }
     },
     remove(file) {
-      // todo: call the API to remove the file
-      this.$refs.upload.remove(file)
+      const urlbase =  `${this.$parent.proxyRootPath}api/documents`;
+      const encFilename = encodeURIComponent(file.name);
+      const url = `${urlbase}/${this.docType}/${this.party}/${file.size}/${encFilename}`;
+      axios.delete(url)
+          .then(response => {
+              this.$refs.upload.remove(file)
+          })
+          .catch((error) => {
+            this.showError('Error deleting document from the server: ' + file.name);
+          });
     },
     moveUp(old_index) {
       if (old_index >= 1 && this.files.length > 1) {
@@ -298,13 +311,31 @@ export default {
         partyCode: this.party,
         files: allFiles
       };
-      console.log('Call API', data);
+      const graphQLData = graphQLStringify(data,{singleQuotes: false, inlineCharacterLimit: 99999});
+      console.log('Call API', graphQLData);
+      const url =  `${this.$parent.proxyRootPath}api/graphql/`;
+      axios.post(url, {
+        query: `
+          mutation updateMetadata {
+            updateMetadata(input:${graphQLData}){
+              documents{filename size rotation}
+            }
+          }
+        `})
+          .then(response => {
+              console.log('response', response);
+          })
+          .catch((error) => {
+            this.showError('Error saving metadata');
+            console.log('error', error);
+          });
     }
   },
   created() {
     // call the API to update the metadata every second, but only if
     // the data has changed (throttling requests because rotating and
-    //  re-ordering images can cause a lot of traffic)
+    // re-ordering images can cause a lot of traffic and possibly 
+    // result in out-of-order requests)
     setInterval(() => {
       if (this.isDirty) {
         this.saveMetaData();

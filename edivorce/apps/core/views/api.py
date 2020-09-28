@@ -1,3 +1,5 @@
+import re
+
 import graphene
 import graphene_django
 from django.http import Http404, HttpResponse, HttpResponseGone
@@ -101,12 +103,18 @@ def get_document_file_by_key(request, file_key):
 
 
 def _content_type_from_filename(filename):
-    if filename.endswith('pdf'):
-        content_type = 'application/pdf'
-    elif filename.endswith('png'):
-        content_type = 'image/png'
-    else:
-        content_type = 'image/jpeg'
+    content_types = {
+        "pdf": "application/pdf",
+        "gif": "image/gif",
+        "png": "image/png",
+        "jpe": "image/jpeg",
+        "jpg": "image/jpeg",
+        "jpeg": "image/jpeg"
+    }
+    extension = re.split(r'[\._]', filename.lower())[-1]
+    content_type = content_types.get(extension)
+    if not content_type:
+        raise TypeError(f'Filetype "{extension}" not supported')
     return content_type
 
 
