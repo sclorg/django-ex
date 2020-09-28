@@ -171,6 +171,10 @@ class Document(models.Model):
         q = Document.objects.filter(bceid_user=self.bceid_user, doc_type=self.doc_type, party_code=self.party_code, sort_order__gt=self.sort_order)
         q.update(sort_order=F('sort_order') - 1)
 
+    @staticmethod
+    def get_file(file_key):
+        return redis.RedisStorage().open(file_key)
+
 
 class DontLog:
     def log_addition(self, *args):

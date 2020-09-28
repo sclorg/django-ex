@@ -60,6 +60,7 @@ class UploadStorage(CreateView):
 class UploadStorageDelete(DeleteView):
     model = Document
     success_url = settings.FORCE_SCRIPT_NAME + 'poc/storage'
+    template_name = 'poc/document_confirm_delete.html'
 
 
 def view_document_file(request, document_id):
