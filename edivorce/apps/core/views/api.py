@@ -1,12 +1,13 @@
+import re
+
 import graphene
 import graphene_django
-from django.http import HttpResponse, HttpResponseGone
+from django.http import Http404, HttpResponse, HttpResponseGone
 from graphql import GraphQLError
 from rest_framework import permissions, status
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from os.path import splitext
 
 from ..models import Document, Question
 from ..serializer import CreateDocumentSerializer, DocumentMetadataSerializer, UserResponseSerializer
@@ -80,27 +81,41 @@ class DocumentView(RetrieveUpdateDestroyAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         """ Return the file instead of meta data """
-        doc = self.get_object()
-        
-        # Get the content-type based on the file extension
-        content_types = {
-            ".pdf": "application/pdf",
-            ".gif": "image/gif",
-            ".png": "image/png",
-            ".jpe": "image/jpeg",
-            ".jpg": "image/jpeg",
-            ".jpeg": "image/jpeg"
-        }
-        _, extension = splitext(doc.filename.lower())
-        content_type = content_types[extension]
+        document = self.get_object()
+        content_type = _content_type_from_filename(document.filename)
 
         # If file doesn't exist anymore, delete it
         try:
-            file_contents = doc.file.read()
+            file_contents = document.file.read()
         except TypeError:
-            doc.delete()
+            document.delete()
             return HttpResponseGone('File no longer exists')
         return HttpResponse(file_contents, content_type=content_type)
+
+
+def get_document_file_by_key(request, file_key):
+    file = Document.get_file(file_key)
+    content_type = _content_type_from_filename(file.name)
+    try:
+        return HttpResponse(file, content_type=content_type)
+    except TypeError:
+        raise Http404("File not found")
+
+
+def _content_type_from_filename(filename):
+    content_types = {
+        "pdf": "application/pdf",
+        "gif": "image/gif",
+        "png": "image/png",
+        "jpe": "image/jpeg",
+        "jpg": "image/jpeg",
+        "jpeg": "image/jpeg"
+    }
+    extension = re.split(r'[\._]', filename.lower())[-1]
+    content_type = content_types.get(extension)
+    if not content_type:
+        raise TypeError(f'Filetype "{extension}" not supported')
+    return content_type
 
 
 class DocumentType(graphene_django.DjangoObjectType):

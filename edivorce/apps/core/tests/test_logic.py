@@ -5,6 +5,7 @@ from django.test import TestCase
 from edivorce.apps.core.models import BceidUser, UserResponse
 from edivorce.apps.core.utils.conditional_logic import get_cleaned_response_value, get_num_children_living_with
 from edivorce.apps.core.utils.user_response import get_data_for_user
+from edivorce.apps.core.views.api import _content_type_from_filename
 
 
 class ConditionalLogicTestCase(TestCase):
@@ -51,3 +52,24 @@ class ConditionalLogicTestCase(TestCase):
         self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with you'), '1')
         self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with spouse'), '2')
         self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with both'), '3')
+
+
+class ViewLogic(TestCase):
+    def test_content_type_from_filename(self):
+        self.assertEqual(_content_type_from_filename('test_file1.pdf'), 'application/pdf')
+        self.assertEqual(_content_type_from_filename('redis_key_test_file1_pdf'), 'application/pdf')
+        self.assertEqual(_content_type_from_filename('test_file2.png'), 'image/png')
+        self.assertEqual(_content_type_from_filename('redis_key_test_file2_png'), 'image/png')
+        self.assertEqual(_content_type_from_filename('Test File 3.GIF'), 'image/gif')
+        self.assertEqual(_content_type_from_filename('redis_key_test_file_3_GIF'), 'image/gif')
+        self.assertEqual(_content_type_from_filename('Test_File--4.JPEG'), 'image/jpeg')
+        self.assertEqual(_content_type_from_filename('redis_key_test_file_4_jpeg'), 'image/jpeg')
+        self.assertEqual(_content_type_from_filename('TestFile5.jpe'), 'image/jpeg')
+        self.assertEqual(_content_type_from_filename('redis_key_test_file_5_jpe'), 'image/jpeg')
+        self.assertEqual(_content_type_from_filename('testFile6.jpeg'), 'image/jpeg')
+        self.assertEqual(_content_type_from_filename('redis_key_testfile_6_jpeg'), 'image/jpeg')
+
+        with self.assertRaises(TypeError):
+            _content_type_from_filename('test_file7.HEIC')
+        with self.assertRaises(TypeError):
+            _content_type_from_filename('redis_key_testfile_7_svg')
