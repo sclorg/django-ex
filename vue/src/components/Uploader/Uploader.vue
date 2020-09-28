@@ -302,7 +302,9 @@ export default {
       this.files.forEach((file) => {
         allFiles.push({
           filename: file.name, 
-          size: file.size, 
+          size: file.size,
+          width: file.width,
+          height: file.height,
           rotation: rotateFix(file.rotation)
         });
       });
@@ -318,7 +320,7 @@ export default {
         query: `
           mutation updateMetadata {
             updateMetadata(input:${graphQLData}){
-              documents{filename size rotation}
+              documents{filename size width height rotation}
             }
           }
         `})

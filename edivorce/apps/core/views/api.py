@@ -123,6 +123,8 @@ class Query(graphene.ObjectType):
 class DocumentInput(graphene.InputObjectType):
     filename = graphene.String(required=True)
     size = graphene.Int(required=True)
+    width = graphene.Int()
+    height = graphene.Int()    
     rotation = graphene.Int()
 
 
@@ -152,6 +154,8 @@ class UpdateMetadata(graphene.Mutation):
             try:
                 doc = documents.get(filename=file['filename'], size=file['size'])
                 doc.sort_order = i + 1
+                doc.width =  file.get('width', file.width)
+                doc.height =  file.get('height', file.height)
                 doc.rotation = file.get('rotation', file.rotation)
                 if doc.rotation not in [0, 90, 180, 270]:
                     raise GraphQLError(f"Invalid rotation {doc.rotation}, must be 0, 90, 180, 270")
