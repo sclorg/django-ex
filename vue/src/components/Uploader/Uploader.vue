@@ -331,7 +331,15 @@ export default {
           }
         `})
           .then(response => {
-              console.log('response', response);
+              // check for errors in the graphQL response
+              if (response.data.errors && response.data.errors.length) {
+                response.data.errors.forEach((error) => {
+                  console.log('error', error.message || error);
+                  // if there was an error it's probably because the upload isn't finished yet
+                  // mark the metadata as dirty so it will save metadata again
+                  this.isDirty = true;
+                })
+              }
           })
           .catch((error) => {
             this.showError('Error saving metadata');
@@ -352,7 +360,6 @@ export default {
       `,
       variables: null})
         .then(response => {
-            console.log('response', response);
             response.data.data.documents.forEach((doc) => {
               this.files.push({
                 name: doc.filename,
