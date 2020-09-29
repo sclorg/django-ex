@@ -1,5 +1,3 @@
-import re
-
 import graphene
 import graphene_django
 from django.http import Http404, HttpResponse, HttpResponseGone
@@ -82,7 +80,7 @@ class DocumentView(RetrieveUpdateDestroyAPIView):
     def retrieve(self, request, *args, **kwargs):
         """ Return the file instead of meta data """
         document = self.get_object()
-        content_type = _content_type_from_filename(document.filename)
+        content_type = Document.content_type_from_filename(document.filename)
 
         # If file doesn't exist anymore, delete it
         try:
@@ -95,31 +93,16 @@ class DocumentView(RetrieveUpdateDestroyAPIView):
 
 def get_document_file_by_key(request, file_key):
     file = Document.get_file(file_key)
-    content_type = _content_type_from_filename(file.name)
+    content_type = Document.content_type_from_filename(file.name)
     try:
         return HttpResponse(file, content_type=content_type)
     except TypeError:
         raise Http404("File not found")
 
 
-def _content_type_from_filename(filename):
-    content_types = {
-        "pdf": "application/pdf",
-        "gif": "image/gif",
-        "png": "image/png",
-        "jpe": "image/jpeg",
-        "jpg": "image/jpeg",
-        "jpeg": "image/jpeg"
-    }
-    extension = re.split(r'[\._]', filename.lower())[-1]
-    content_type = content_types.get(extension)
-    if not content_type:
-        raise TypeError(f'Filetype "{extension}" not supported')
-    return content_type
-
-
 class DocumentType(graphene_django.DjangoObjectType):
     file_url = graphene.String(source='get_file_url')
+    content_type = graphene.String(source='get_content_type')
 
     class Meta:
         model = Document
