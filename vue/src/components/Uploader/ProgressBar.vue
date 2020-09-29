@@ -14,7 +14,7 @@
     <div class="item-tile" v-else> 
       <div class="status-wrap">
         <div>
-        Waiting...
+        Waiting...<br><br>
         </div>
         <div class="progress"></div>
       </div>
@@ -43,12 +43,12 @@ export default {
     font-size: 16px;
 
     .progress {
-      width: calc(100% + 1px);
-      background-color: #f2f2f3;
+      width: calc(100% - 1.5px);
+      background-color: #F2F2F3;
       height: 22px;
       position: relative;
-      bottom: -55px;
-      left: -1px;
+      bottom: -54px;
+      left: 1px;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
 
