@@ -3,7 +3,12 @@
     <uploaded-image :file="file" :image-style="imageStyle" @imageclick="showPreview" @removeclick="$emit('remove')" />
     <div class="bottom-wrapper">
       <div class="item-text">
-        {{file.name}} <span class="no-wrap">({{ Math.round(file.size/1024/1024 * 100) / 100 }} MB)</span>
+        <div class="filename-text">
+          {{file.name}}
+        </div>
+        <div class="size-text">
+          ({{ Math.round(file.size/1024/1024 * 100) / 100 }} MB)
+        </div>  
       </div>
       <div class="button-wrapper">
         <div v-if="!file.active && file.success && !isPdf">
@@ -71,19 +76,31 @@ export default {
 
     .item-text {
       text-align: center;
-      min-height: 75px;
-      max-height: 75px;
-      overflow: hidden;
-      padding: 5px;
-      line-height: 1.05;
-      font-size: 0.95em;
+      padding: 10px;
+      padding-bottom: 4px;
+      font-size: 16px; 
+      line-height: 24px;
+      min-height: 87px;
 
-      .no-wrap {
-        white-space: nowrap;
+
+      .filename-text {
+        min-height: 25px;
+        max-height: 50px;
+        overflow: hidden;
+        overflow-wrap: anywhere;;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;  
+      }    
+
+      .size-text {
+        min-height: 25px;
+        max-height: 25px;
       }
     }
 
     .button-wrapper {
+      margin-top: -4px;
       text-align: center;
     }
 

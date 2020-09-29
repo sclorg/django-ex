@@ -92,11 +92,12 @@ export default {
 
     i.fa-file-pdf-o, i.fa-frown-o {
       display: block;
-      font-size: 105px;
-      margin-left: 32px;
-      margin-top: 15px;
-      position: absolute;
-      top: 0;
+      font-size: 48px;
+      margin-left: 60px;
+    }
+
+    i.fa-file-pdf-o {
+      color: #D5D5D5;
     }
 
     i.fa-frown-o {
@@ -112,7 +113,7 @@ export default {
     }
 
     &.valid:hover {
-      background-color: #6484d3;
+      background-color: #365EBE;
       cursor: pointer;
 
       button.btn-remove {
@@ -129,7 +130,7 @@ export default {
     }
 
     &:hover img { 
-      opacity: 0.3;
+      opacity: 0.12;
     } 
   }
 

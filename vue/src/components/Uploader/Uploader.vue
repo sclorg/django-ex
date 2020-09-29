@@ -409,9 +409,10 @@ export default {
     border: 2px #365EBE dashed;
     border-radius: 6px;
     padding: 18px;
+    margin-bottom: 5px;
 
     &.dragging {
-      background-color: #F2E3F2;
+      background-color: #D7DFF2;
     }
 
     .cards {
