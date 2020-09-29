@@ -163,8 +163,6 @@ export default {
 
       // upload is complete
       if (newFile && oldFile && !newFile.active && oldFile.active) {
-        this.saveMetaData();
-
         if (newFile.xhr) {
           //  Error Handling 
           const statusCode = newFile.xhr.status;
@@ -173,6 +171,8 @@ export default {
             const message = JSON.parse(newFile.xhr.responseText)[0];
             this.showError(message);
             this.$refs.upload.remove(newFile);
+          } else if (statusCode === 403) {
+            this.showError('Error: Your user session has expired. Please log in again.');
           } else if (statusCode !== 200 && statusCode !== 201 ) {
             // 500 server error: show the status text and a generic message
             this.showError('Error: ' + newFile.xhr.statusText + '. Please try the upload again. If this doesn\'t work, try again later.');
@@ -253,7 +253,7 @@ export default {
           img.onload = function() {
             newFile.width = this.width || 0;
             newFile.height = this.height || 0;
-            self.saveMetaData();
+            self.isDirty = true;
           }
           img.src = newFile.objectURL;
         }
@@ -321,7 +321,6 @@ export default {
         files: allFiles
       };
       const graphQLData = graphQLStringify(data,{singleQuotes: false, inlineCharacterLimit: 99999});
-      console.log('Call API', graphQLData);
       const url =  `${this.$parent.proxyRootPath}api/graphql/`;
       axios.post(url, {
         query: `
