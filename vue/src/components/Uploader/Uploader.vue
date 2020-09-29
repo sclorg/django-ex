@@ -57,7 +57,7 @@
             @rotateleft="rotateLeft(index)"
             @rotateright="rotateRight(index)"/>
         </div>
-        <div class="card upload-button" v-if="!tooBig">
+        <div class="upload-button" v-if="!tooBig">
           <div class="upload-button-wrapper">
           <i class="fa fa-plus-circle"></i>
           </div>
@@ -407,7 +407,7 @@ export default {
     text-align: left;
     border: 2px #365EBE dashed;
     border-radius: 6px;
-    padding: 18px;
+    padding: 18px 32px 18px 18px;
     margin-bottom: 5px;
 
     &.dragging {
@@ -425,13 +425,13 @@ export default {
       margin-bottom: 10px;
       width: 160px;
       margin-right: 18px;
-
-      &.upload-button {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
     }
+
+    .upload-button {
+      position: absolute;
+      right: 18px;
+      top: 18px;        
+    }    
 
     .fa-plus-circle {
       font-size: 3rem;
