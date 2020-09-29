@@ -10,7 +10,7 @@
           ({{ Math.round(file.size/1024/1024 * 100) / 100 }} MB)
         </div>  
       </div>
-      <div class="button-wrapper">
+      <div class="button-wrapper" v-if="file.error || file.type !== 'application/pdf'">
         <div v-if="!file.active && file.success && !isPdf">
           <button type="button" @click.prevent="$emit('moveup')" :disabled="index === 0" aria-label="Move down one position">
             <i class="fa fa-chevron-circle-left"></i>
