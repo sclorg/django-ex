@@ -407,7 +407,7 @@ export default {
     text-align: left;
     border: 2px #365EBE dashed;
     border-radius: 6px;
-    padding: 18px 32px 18px 18px;
+    padding: 18px 32px 0 18px;
     margin-bottom: 5px;
 
     &.dragging {
@@ -429,8 +429,8 @@ export default {
 
     .upload-button {
       position: absolute;
-      right: 18px;
-      top: 18px;        
+      right: 16px;
+      top: 17px;        
     }    
 
     .fa-plus-circle {

@@ -1,5 +1,5 @@
 <template>
-  <div class="item-tile" v-if="file.progress === '100.00' || file.error">
+  <div :class="['item-tile', file.error ? 'error': '']" v-if="file.progress === '100.00' || file.error">
     <uploaded-image :file="file" :image-style="imageStyle" @imageclick="showPreview" @removeclick="$emit('remove')" />
     <div class="bottom-wrapper">
       <div class="item-text">
@@ -73,11 +73,11 @@ export default {
   .item-tile {
     margin-bottom: 5px;
     position: relative;
+    border: none !important;
 
     .item-text {
       text-align: center;
-      padding: 10px;
-      padding-bottom: 4px;
+      padding: 7px 10px;
       font-size: 16px; 
       line-height: 24px;
       min-height: 87px;
@@ -102,18 +102,33 @@ export default {
     .button-wrapper {
       margin-top: -4px;
       text-align: center;
+      min-height: 32px;
     }
 
     .bottom-wrapper {
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
       border: 1px solid silver;
+      border-top: none;
       background-color: #F2F2F2;
       margin-bottom: 10px;
       
       .alert-danger {
+        background-color: inherit;
+        border: none;
         margin-bottom: 0;
-        padding: 0;
+        padding: 2px 0 0 0;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+
+    &.error {
+      .bottom-wrapper {
+        background-color: #F7D4D5;
+        border: 1px solid #D8292F;
+        border-top: none;        
       }
     }
   }
@@ -152,6 +167,12 @@ export default {
 
       &:nth-of-type(2) {
         margin-right: 32px;
+      }
+    }
+
+    &.error {
+      button.btn-remove i.fa {
+        color: #D8292F;
       }
     }
   }
