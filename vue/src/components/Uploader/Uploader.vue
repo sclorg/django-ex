@@ -241,15 +241,19 @@ export default {
         }
 
         // Add extra data to to the file object
-        newFile.objectURL = ''
+        newFile.objectURL = '';
+        newFile.width = 0;
+        newFile.height = 0;
+        newFile.rotation = 0;
         let URL = window.URL || window.webkitURL
         if (URL && URL.createObjectURL) {
           newFile.objectURL = URL.createObjectURL(newFile.file)
-          newFile.rotation = 0;
           const img = new Image();
+          const self = this;
           img.onload = function() {
             newFile.width = this.width || 0;
             newFile.height = this.height || 0;
+            self.saveMetaData();
           }
           img.src = newFile.objectURL;
         }
