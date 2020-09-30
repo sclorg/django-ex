@@ -72,18 +72,12 @@ class DocumentCreateView(CreateAPIView):
 
 class DocumentView(RetrieveUpdateDestroyAPIView):
     serializer_class = DocumentMetadataSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
         return Document.objects.get(bceid_user=self.request.user, **self.kwargs)
 
     def retrieve(self, request, *args, **kwargs):
-        if not self.request.user.is_authenticated:
-            s = 'Anonymous'
-            if hasattr(self.request.user, 'sm_user'):
-                s = self.request.user.sm_user
-            return Response(data="Your are not authenticated (" + s + ")", status=status.HTTP_403_FORBIDDEN)
-
         """ Return the file instead of meta data """
         document = self.get_object()
         content_type = Document.content_type_from_filename(document.filename)
