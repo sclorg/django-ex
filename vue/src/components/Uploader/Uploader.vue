@@ -262,7 +262,8 @@ export default {
     remove(file) {
       const urlbase =  `${this.$parent.proxyRootPath}api/documents`;
       const encFilename = encodeURIComponent(file.name);
-      const url = `${urlbase}/${this.docType}/${this.party}/${file.size}/${encFilename}`;
+      // we add an extra 'x' to the file extension so the siteminder proxy doesn't treat it as an image
+      const url = `${urlbase}/${this.docType}/${this.party}/${encFilename}x/${file.size}/`;
       axios.delete(url)
           .then(response => {
               var pos = this.files.findIndex(f => f.docType === file.docType && f.size === file.size);
@@ -371,7 +372,8 @@ export default {
                 error: false,
                 success: true,
                 progress: '100.00',
-                objectURL: `${this.$parent.proxyRootPath}api/documents/${this.docType}/${this.party}/${doc.size}/${doc.filename}`
+                // we add an extra 'x' to the file extension so the siteminder proxy doesn't treat it as an image
+                objectURL: `${this.$parent.proxyRootPath}api/documents/${this.docType}/${this.party}/${doc.filename}x/${doc.size}/`
               });
             });
         })

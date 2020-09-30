@@ -60,16 +60,6 @@ class DocumentCreateView(CreateAPIView):
     queryset = Document.objects.all()
 
 
-#class DocumentMetaDataView(ListAPIView):
-#    serializer_class = DocumentMetadataSerializer
-#    permission_classes = [permissions.IsAuthenticated]
-#
-#    def get_queryset(self):
-#        doc_type = self.kwargs['doc_type']
-#        party_code = self.kwargs['party_code']
-#        return Document.objects.filter(doc_type=doc_type, party_code=party_code, bceid_user=self.request.user).order_by('sort_order')
-
-
 class DocumentView(RetrieveUpdateDestroyAPIView):
     serializer_class = DocumentMetadataSerializer
     permission_classes = [permissions.IsAuthenticated]
