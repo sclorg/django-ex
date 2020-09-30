@@ -450,6 +450,7 @@ export default {
 
     .placeholder {
       text-align: center;
+      margin-bottom: 18px;
     }
 
     .error-top {
