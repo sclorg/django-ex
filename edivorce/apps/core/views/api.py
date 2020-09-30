@@ -79,7 +79,10 @@ class DocumentView(RetrieveUpdateDestroyAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:
-            return Response(status=status.HTTP_403_FORBIDDEN)
+            s = 'Anonymous'
+            if hasattr(self.request.user, 'sm_user'):
+                s = self.request.user.sm_user
+            return Response(data="Your are not authenticated (" + s + ")", status=status.HTTP_403_FORBIDDEN)
 
         """ Return the file instead of meta data """
         document = self.get_object()
