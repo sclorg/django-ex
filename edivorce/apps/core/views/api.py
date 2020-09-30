@@ -60,24 +60,27 @@ class DocumentCreateView(CreateAPIView):
     queryset = Document.objects.all()
 
 
-class DocumentMetaDataView(ListAPIView):
-    serializer_class = DocumentMetadataSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        doc_type = self.kwargs['doc_type']
-        party_code = self.kwargs['party_code']
-        return Document.objects.filter(doc_type=doc_type, party_code=party_code, bceid_user=self.request.user).order_by('sort_order')
+#class DocumentMetaDataView(ListAPIView):
+#    serializer_class = DocumentMetadataSerializer
+#    permission_classes = [permissions.IsAuthenticated]
+#
+#    def get_queryset(self):
+#        doc_type = self.kwargs['doc_type']
+#        party_code = self.kwargs['party_code']
+#        return Document.objects.filter(doc_type=doc_type, party_code=party_code, bceid_user=self.request.user).order_by('sort_order')
 
 
 class DocumentView(RetrieveUpdateDestroyAPIView):
     serializer_class = DocumentMetadataSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
         return Document.objects.get(bceid_user=self.request.user, **self.kwargs)
 
     def retrieve(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
         """ Return the file instead of meta data """
         document = self.get_object()
         content_type = Document.content_type_from_filename(document.filename)
