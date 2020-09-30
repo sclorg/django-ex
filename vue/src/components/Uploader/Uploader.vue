@@ -262,18 +262,23 @@ export default {
     remove(file) {
       const urlbase =  `${this.$parent.proxyRootPath}api/documents`;
       const encFilename = encodeURIComponent(file.name);
-      // we add an extra 'x' to the file extension so the siteminder proxy doesn't treat it as an image
-      const url = `${urlbase}/${this.docType}/${this.party}/${encFilename}x/${file.size}/`;
-      axios.delete(url)
-          .then(response => {
-              var pos = this.files.findIndex(f => f.docType === file.docType && f.size === file.size);
+      if (!file.error) {
+        // we add an extra 'x' to the file extension so the siteminder proxy doesn't treat it as an image
+        const url = `${urlbase}/${this.docType}/${this.party}/${encFilename}x/${file.size}/`;        
+        axios.delete(url)
+            .then(response => {
+              const pos = this.files.findIndex(f => f.docType === file.docType && f.size === file.size);
               if (pos > -1) {
                 this.files.splice(pos, 1);
               }
-          })
-          .catch((error) => {
-            this.showError('Error deleting document from the server: ' + file.name);
-          });
+            })
+            .catch((error) => {
+              this.showError('Error deleting document from the server: ' + file.name);
+              this.$refs.upload.remove(file);
+            });
+      } else {
+        this.$refs.upload.remove(file);
+      }
     },
     moveUp(old_index) {
       if (old_index >= 1 && this.files.length > 1) {
@@ -458,7 +463,7 @@ export default {
     }
 
     .error-bottom {
-      margin-bottom: -10px;
+      margin-bottom: 8px;
     }
   }
 
