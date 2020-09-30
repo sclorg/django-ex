@@ -57,7 +57,7 @@
             @rotateleft="rotateLeft(index)"
             @rotateright="rotateRight(index)"/>
         </div>
-        <div class="card upload-button" v-if="!tooBig">
+        <div class="upload-button" v-if="!tooBig">
           <div class="upload-button-wrapper">
           <i class="fa fa-plus-circle"></i>
           </div>
@@ -163,8 +163,6 @@ export default {
 
       // upload is complete
       if (newFile && oldFile && !newFile.active && oldFile.active) {
-        this.saveMetaData();
-
         if (newFile.xhr) {
           //  Error Handling 
           const statusCode = newFile.xhr.status;
@@ -173,6 +171,8 @@ export default {
             const message = JSON.parse(newFile.xhr.responseText)[0];
             this.showError(message);
             this.$refs.upload.remove(newFile);
+          } else if (statusCode === 403) {
+            this.showError('Error: Your user session has expired. Please log in again.');
           } else if (statusCode !== 200 && statusCode !== 201 ) {
             // 500 server error: show the status text and a generic message
             this.showError('Error: ' + newFile.xhr.statusText + '. Please try the upload again. If this doesn\'t work, try again later.');
@@ -241,15 +241,19 @@ export default {
         }
 
         // Add extra data to to the file object
-        newFile.objectURL = ''
+        newFile.objectURL = '';
+        newFile.width = 0;
+        newFile.height = 0;
+        newFile.rotation = 0;
         let URL = window.URL || window.webkitURL
         if (URL && URL.createObjectURL) {
           newFile.objectURL = URL.createObjectURL(newFile.file)
-          newFile.rotation = 0;
           const img = new Image();
+          const self = this;
           img.onload = function() {
-            newFile.width = this.width;
-            newFile.height = this.height;
+            newFile.width = this.width || 0;
+            newFile.height = this.height || 0;
+            self.isDirty = true;
           }
           img.src = newFile.objectURL;
         }
@@ -258,10 +262,14 @@ export default {
     remove(file) {
       const urlbase =  `${this.$parent.proxyRootPath}api/documents`;
       const encFilename = encodeURIComponent(file.name);
-      const url = `${urlbase}/${this.docType}/${this.party}/${file.size}/${encFilename}`;
+      // we add an extra 'x' to the file extension so the siteminder proxy doesn't treat it as an image
+      const url = `${urlbase}/${this.docType}/${this.party}/${encFilename}x/${file.size}/`;
       axios.delete(url)
           .then(response => {
-              this.$refs.upload.remove(file)
+              var pos = this.files.findIndex(f => f.docType === file.docType && f.size === file.size);
+              if (pos > -1) {
+                this.files.splice(pos, 1);
+              }
           })
           .catch((error) => {
             this.showError('Error deleting document from the server: ' + file.name);
@@ -314,18 +322,25 @@ export default {
         files: allFiles
       };
       const graphQLData = graphQLStringify(data,{singleQuotes: false, inlineCharacterLimit: 99999});
-      console.log('Call API', graphQLData);
       const url =  `${this.$parent.proxyRootPath}api/graphql/`;
       axios.post(url, {
         query: `
           mutation updateMetadata {
             updateMetadata(input:${graphQLData}){
-              documents{filename size width height rotation}
+              documents{filename size width height rotation contentType}
             }
           }
         `})
           .then(response => {
-              console.log('response', response);
+              // check for errors in the graphQL response
+              if (response.data.errors && response.data.errors.length) {
+                response.data.errors.forEach((error) => {
+                  console.log('error', error.message || error);
+                  // if there was an error it's probably because the upload isn't finished yet
+                  // mark the metadata as dirty so it will save metadata again
+                  this.isDirty = true;
+                })
+              }
           })
           .catch((error) => {
             this.showError('Error saving metadata');
@@ -334,6 +349,39 @@ export default {
     }
   },
   created() {
+    // get saved state from the server
+    const url =  `${this.$parent.proxyRootPath}api/graphql/`;
+    axios.post(url, {
+      query: `
+        query getMetadata {
+          documents(docType:"${this.docType}",partyCode:${this.party}) {
+            filename size width height rotation contentType
+          }
+        }
+      `,
+      variables: null})
+        .then(response => {
+            response.data.data.documents.forEach((doc) => {
+              this.files.push({
+                name: doc.filename,
+                size: doc.size,
+                width: doc.width,
+                height: doc.height,
+                rotation: doc.rotation,
+                type: doc.contentType,
+                error: false,
+                success: true,
+                progress: '100.00',
+                // we add an extra 'x' to the file extension so the siteminder proxy doesn't treat it as an image
+                objectURL: `${this.$parent.proxyRootPath}api/documents/${this.docType}/${this.party}/${doc.filename}x/${doc.size}/`
+              });
+            });
+        })
+        .catch((error) => {
+          this.showError('Error getting metadata');
+          console.log('error', error);
+        });
+
     // call the API to update the metadata every second, but only if
     // the data has changed (throttling requests because rotating and
     // re-ordering images can cause a lot of traffic and possibly 
@@ -368,10 +416,11 @@ export default {
     text-align: left;
     border: 2px #365EBE dashed;
     border-radius: 6px;
-    padding: 18px;
+    padding: 18px 32px 0 18px;
+    margin-bottom: 5px;
 
     &.dragging {
-      background-color: #F2E3F2;
+      background-color: #D7DFF2;
     }
 
     .cards {
@@ -385,13 +434,13 @@ export default {
       margin-bottom: 10px;
       width: 160px;
       margin-right: 18px;
-
-      &.upload-button {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
     }
+
+    .upload-button {
+      position: absolute;
+      right: 16px;
+      top: 17px;        
+    }    
 
     .fa-plus-circle {
       font-size: 3rem;
@@ -401,6 +450,7 @@ export default {
 
     .placeholder {
       text-align: center;
+      margin-bottom: 18px;
     }
 
     .error-top {

@@ -7,8 +7,10 @@ urlpatterns = [
     # url(r'^guide$', styleguide.guide),
     url(r'^api/response$', api.UserResponseHandler.as_view()),
     url(r'^api/documents/$', api.DocumentCreateView.as_view(), name='documents'),
-    path('api/documents/<doc_type>/<int:party_code>/', api.DocumentMetaDataView.as_view(), name='documents-meta'),
-    path('api/documents/<doc_type>/<int:party_code>/<int:size>/<filename>', api.DocumentView.as_view(), name='document'),
+    path('api/documents/<file_key>/', api.get_document_file_by_key, name='document_by_key'),
+
+    # we add an extra 'x' to the file extension so the siteminder proxy doesn't treat it as an image
+    path('api/documents/<doc_type>/<int:party_code>/<filename>x/<int:size>/', api.DocumentView.as_view(), name='document'),    
 
     # url(r'^login/headers$', system.headers),
 

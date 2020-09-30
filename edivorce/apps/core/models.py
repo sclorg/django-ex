@@ -1,3 +1,5 @@
+import re
+
 from django.contrib import admin
 from django.db import models
 from django.db.models import F
@@ -173,9 +175,32 @@ class Document(models.Model):
     def get_file_url(self):
         return reverse('document', kwargs={'filename': self.filename, 'doc_type': self.doc_type, 'party_code': self.party_code, 'size': self.size})
 
+    def get_content_type(self):
+        return Document.content_type_from_filename(self.filename)
+
     def update_sort_orders(self):
         q = Document.objects.filter(bceid_user=self.bceid_user, doc_type=self.doc_type, party_code=self.party_code, sort_order__gt=self.sort_order)
         q.update(sort_order=F('sort_order') - 1)
+
+    @staticmethod
+    def get_file(file_key):
+        return redis.RedisStorage().open(file_key)
+
+    @staticmethod
+    def content_type_from_filename(filename):
+        content_types = {
+            "pdf": "application/pdf",
+            "gif": "image/gif",
+            "png": "image/png",
+            "jpe": "image/jpeg",
+            "jpg": "image/jpeg",
+            "jpeg": "image/jpeg"
+        }
+        extension = re.split(r'[\._]', filename.lower())[-1]
+        content_type = content_types.get(extension)
+        if not content_type:
+            return "application/unknown"
+        return content_type        
 
 
 class DontLog:

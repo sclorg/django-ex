@@ -3,7 +3,7 @@
     <div class="item-tile" v-if="file.progress !== '0.00'"> 
       <div class="status-wrap">
         <div>
-        Uploading... {{ file.progress}}%
+        Uploading...<br>{{ file.progress}}%
         </div>
         <div class="progress">
           <div :style="'width:' + file.progress + '%'">
@@ -14,7 +14,7 @@
     <div class="item-tile" v-else> 
       <div class="status-wrap">
         <div>
-        Waiting...
+        Waiting...<br><br>
         </div>
         <div class="progress"></div>
       </div>
@@ -40,14 +40,17 @@ export default {
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    font-size: 16px;
 
     .progress {
       width: calc(100% - 1.5px);
       background-color: #F2F2F3;
       height: 22px;
       position: relative;
-      bottom: -59.5px;
+      bottom: -54px;
       left: 1px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
 
       > div {
         background-color: #365EBE;

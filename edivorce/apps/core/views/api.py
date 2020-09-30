@@ -1,12 +1,11 @@
 import graphene
 import graphene_django
-from django.http import HttpResponse, HttpResponseGone
+from django.http import Http404, HttpResponse, HttpResponseGone
 from graphql import GraphQLError
 from rest_framework import permissions, status
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from os.path import splitext
 
 from ..models import Document, Question
 from ..serializer import CreateDocumentSerializer, DocumentMetadataSerializer, UserResponseSerializer
@@ -61,16 +60,6 @@ class DocumentCreateView(CreateAPIView):
     queryset = Document.objects.all()
 
 
-class DocumentMetaDataView(ListAPIView):
-    serializer_class = DocumentMetadataSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        doc_type = self.kwargs['doc_type']
-        party_code = self.kwargs['party_code']
-        return Document.objects.filter(doc_type=doc_type, party_code=party_code, bceid_user=self.request.user).order_by('sort_order')
-
-
 class DocumentView(RetrieveUpdateDestroyAPIView):
     serializer_class = DocumentMetadataSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -80,31 +69,30 @@ class DocumentView(RetrieveUpdateDestroyAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         """ Return the file instead of meta data """
-        doc = self.get_object()
-        
-        # Get the content-type based on the file extension
-        content_types = {
-            ".pdf": "application/pdf",
-            ".gif": "image/gif",
-            ".png": "image/png",
-            ".jpe": "image/jpeg",
-            ".jpg": "image/jpeg",
-            ".jpeg": "image/jpeg"
-        }
-        _, extension = splitext(doc.filename.lower())
-        content_type = content_types[extension]
+        document = self.get_object()
+        content_type = Document.content_type_from_filename(document.filename)
 
         # If file doesn't exist anymore, delete it
         try:
-            file_contents = doc.file.read()
+            file_contents = document.file.read()
         except TypeError:
-            doc.delete()
+            document.delete()
             return HttpResponseGone('File no longer exists')
         return HttpResponse(file_contents, content_type=content_type)
 
 
+def get_document_file_by_key(request, file_key):
+    file = Document.get_file(file_key)
+    content_type = Document.content_type_from_filename(file.name)
+    try:
+        return HttpResponse(file, content_type=content_type)
+    except TypeError:
+        raise Http404("File not found")
+
+
 class DocumentType(graphene_django.DjangoObjectType):
     file_url = graphene.String(source='get_file_url')
+    content_type = graphene.String(source='get_content_type')
 
     class Meta:
         model = Document
