@@ -69,7 +69,12 @@ class DocumentMetaDataView(ListAPIView):
     def get_queryset(self):
         doc_type = self.kwargs['doc_type']
         party_code = self.kwargs['party_code']
-        return Document.objects.filter(doc_type=doc_type, party_code=party_code, bceid_user=self.request.user).order_by('sort_order')
+        q = Document.objects.filter(doc_type=doc_type, party_code=party_code, bceid_user=self.request.user).order_by('sort_order')
+        for doc in q:
+            if not doc.file_exists():
+                q.delete()
+                return Document.objects.none()
+        return q
 
 
 class DocumentView(RetrieveUpdateDestroyAPIView):

@@ -151,6 +151,25 @@ class APITest(APITestCase):
         json_response = json.loads(response.content)
         self.assertEqual(len(json_response), 0)
 
+    def test_get_file(self):
+        document = self._create_document()
+        self.assertEqual(Document.objects.count(), 1)
+        url = reverse('document', kwargs={'doc_type': document.doc_type,
+                                          'party_code': document.party_code,
+                                          'filename': document.filename,
+                                          'size': document.size})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        self.client.force_authenticate(self.another_user)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        self.client.force_authenticate(self.user)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.content, document.file.read())
+
     def test_delete_document(self):
         document = self._create_document()
         self.assertEqual(Document.objects.count(), 1)
@@ -197,6 +216,33 @@ class APITest(APITestCase):
         self.assertContains(response,
                             'Rotation must be 0, 90, 180, or 270',
                             status_code=status.HTTP_400_BAD_REQUEST)
+
+    def test_missing_redis_document_deletes_all_documents(self):
+        doc_1 = self._create_document()
+        self._create_document()
+        self._create_document()
+        another_doc = self._create_document(party_code=2)
+
+        self.assertEqual(Document.objects.count(), 4)
+
+        url = reverse('documents-meta', kwargs={'doc_type': doc_1.doc_type, 'party_code': doc_1.party_code})
+        self.client.force_authenticate(self.user)
+
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        json_response = json.loads(response.content)
+        self.assertEqual(len(json_response), 3)
+
+        # Delete file from Redis
+        doc_1.file.delete()
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        json_response = json.loads(response.content)
+        self.assertEqual(len(json_response), 0)
+
+        # All files in for that doc_type/party_code/user were deleted
+        self.assertEqual(Document.objects.count(), 1)
+        self.assertEqual(Document.objects.first(), another_doc)
 
     def _create_document(self, doc_type=None, party_code=None):
         if not doc_type:

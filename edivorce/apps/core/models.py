@@ -179,7 +179,10 @@ class Document(models.Model):
 
     @staticmethod
     def get_file(file_key):
-        return redis.RedisStorage().open(file_key)
+        return redis.RedisStorage().get(file_key)
+
+    def file_exists(self):
+        return redis.RedisStorage().exists(self.file.name)
 
 
 class DontLog:
