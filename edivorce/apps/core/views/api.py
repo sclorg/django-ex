@@ -2,7 +2,7 @@ import re
 
 import graphene
 import graphene_django
-from django.http import Http404, HttpResponse, HttpResponseGone
+from django.http import Http404, HttpResponse, HttpResponseBadRequest, HttpResponseGone
 from graphql import GraphQLError
 from rest_framework import permissions, status
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView

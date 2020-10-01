@@ -54,6 +54,46 @@ class APITest(APITestCase):
         self.assertEqual(document.filename, file.name)
         self.assertEqual(document.size, file.size)
 
+    def test_post_duplicate_files_not_allowed(self):
+        url = reverse('documents')
+
+        file = self._create_file()
+        data = {
+            'file': file,
+            'doc_type': 'AAI',
+            'party_code': 1
+        }
+        self.client.force_authenticate(self.user)
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Document.objects.count(), 1)
+
+        file.seek(0)  #
+        response = self.client.post(url, data)
+        self.assertContains(response,
+                            'This file appears to have already been uploaded for this document.',
+                            status_code=status.HTTP_400_BAD_REQUEST)
+
+    def test_post_field_validation(self):
+        url = reverse('documents')
+
+        file = self._create_file(extension='HEIC')
+        data = {
+            'file': file,
+            'doc_type': 'INVALID',
+            'party_code': 3
+        }
+        self.client.force_authenticate(self.user)
+        response = self.client.post(url, data)
+        self.assertEqual(Document.objects.count(), 0)
+
+        json_response = json.loads(response.content)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('File type not supported', json_response['file'][0])
+        self.assertIn('Doc type not supported', json_response['doc_type'][0])
+        self.assertIn('Ensure this value is less than or equal to 2', json_response['party_code'][0])
+
     def test_get_documents_meta_must_be_logged_in(self):
         url = reverse('documents-meta', kwargs={'doc_type': self.default_doc_type, 'party_code': self.default_party_code})
         response = self.client.get(url)
@@ -120,9 +160,9 @@ class APITest(APITestCase):
         return document
 
     @staticmethod
-    def _create_file():
+    def _create_file(extension='jpg'):
         num_documents = Document.objects.count()
-        new_file = SimpleUploadedFile(f'test_file_{num_documents + 1}.jpg', b'test content')
+        new_file = SimpleUploadedFile(f'test_file_{num_documents + 1}.{extension}', b'test content')
         return new_file
 
     def _response_data_equals_document(self, response_doc, document_object):
