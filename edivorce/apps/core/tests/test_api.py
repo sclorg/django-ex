@@ -9,7 +9,7 @@ from rest_framework.test import APIClient, APITestCase
 from edivorce.apps.core.models import BceidUser, Document
 
 
-@modify_settings(MIDDLEWARE={'remove': 'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware',})
+@modify_settings(MIDDLEWARE={'remove': 'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware', })
 class APITest(APITestCase):
     def setUp(self):
         self.user = BceidUser.objects.create(user_guid='1234')
@@ -53,6 +53,8 @@ class APITest(APITestCase):
         self.assertEqual(document.party_code, 1)
         self.assertEqual(document.filename, file.name)
         self.assertEqual(document.size, file.size)
+        self.assertEqual(document.rotation, 0)
+        self.assertEqual(document.sort_order, 1)
 
     def test_post_duplicate_files_not_allowed(self):
         url = reverse('documents')
@@ -148,6 +150,53 @@ class APITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         json_response = json.loads(response.content)
         self.assertEqual(len(json_response), 0)
+
+    def test_delete_document(self):
+        document = self._create_document()
+        self.assertEqual(Document.objects.count(), 1)
+        url = reverse('document', kwargs={'doc_type': document.doc_type,
+                                          'party_code': document.party_code,
+                                          'filename': document.filename,
+                                          'size': document.size})
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(Document.objects.count(), 1)
+
+        self.client.force_authenticate(self.another_user)
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(Document.objects.count(), 1)
+
+        self.client.force_authenticate(self.user)
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Document.objects.count(), 0)
+
+    def test_update_document(self):
+        document = self._create_document()
+        url = reverse('document', kwargs={'doc_type': document.doc_type,
+                                          'party_code': document.party_code,
+                                          'filename': document.filename,
+                                          'size': document.size})
+        data = {
+            'rotation': 90
+        }
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        self.client.force_authenticate(self.another_user)
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        self.client.force_authenticate(self.user)
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data['rotation'] = 45
+        response = self.client.put(url, data)
+        self.assertContains(response,
+                            'Rotation must be 0, 90, 180, or 270',
+                            status_code=status.HTTP_400_BAD_REQUEST)
 
     def _create_document(self, doc_type=None, party_code=None):
         if not doc_type:

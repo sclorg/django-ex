@@ -77,7 +77,10 @@ class DocumentView(RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
-        return Document.objects.get(bceid_user=self.request.user, **self.kwargs)
+        try:
+            return Document.objects.get(bceid_user=self.request.user, **self.kwargs)
+        except Document.DoesNotExist:
+            raise Http404("Document not found")
 
     def retrieve(self, request, *args, **kwargs):
         """ Return the file instead of meta data """
