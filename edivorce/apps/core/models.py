@@ -156,6 +156,9 @@ class Document(models.Model):
             self.filename = self.file.name
         if not self.size:
             self.size = self.file.size
+        if not self.sort_order:
+            num_docs = self.get_documents_in_form().count()
+            self.sort_order = num_docs + 1
 
         super(Document, self).save(*args, **kwargs)
 
@@ -174,15 +177,19 @@ class Document(models.Model):
         return reverse('document', kwargs={'filename': self.filename, 'doc_type': self.doc_type, 'party_code': self.party_code, 'size': self.size})
 
     def update_sort_orders(self):
-        q = Document.objects.filter(bceid_user=self.bceid_user, doc_type=self.doc_type, party_code=self.party_code, sort_order__gt=self.sort_order)
+        q = self.get_documents_in_form().filter(sort_order__gt=self.sort_order)
         q.update(sort_order=F('sort_order') - 1)
 
     @staticmethod
     def get_file(file_key):
-        return redis.RedisStorage().get(file_key)
+        if redis.RedisStorage().exists(file_key):
+            return redis.RedisStorage().open(file_key)
 
     def file_exists(self):
         return redis.RedisStorage().exists(self.file.name)
+
+    def get_documents_in_form(self):
+        return Document.objects.filter(bceid_user=self.bceid_user, doc_type=self.doc_type, party_code=self.party_code)
 
 
 class DontLog:

@@ -2,7 +2,7 @@ import re
 
 import graphene
 import graphene_django
-from django.http import Http404, HttpResponse, HttpResponseBadRequest, HttpResponseGone
+from django.http import Http404, HttpResponse, HttpResponseGone, HttpResponseNotFound
 from graphql import GraphQLError
 from rest_framework import permissions, status
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
@@ -82,10 +82,14 @@ class DocumentView(RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
-        try:
-            return Document.objects.get(bceid_user=self.request.user, **self.kwargs)
-        except Document.DoesNotExist:
+        doc = Document.objects.filter(bceid_user=self.request.user, **self.kwargs).first()
+        if not doc:
             raise Http404("Document not found")
+        elif not doc.file_exists():
+            doc.get_documents_in_form().delete()
+            raise Http404("Document no longer exists")
+        else:
+            return doc
 
     def retrieve(self, request, *args, **kwargs):
         """ Return the file instead of meta data """
@@ -103,11 +107,10 @@ class DocumentView(RetrieveUpdateDestroyAPIView):
 
 def get_document_file_by_key(request, file_key):
     file = Document.get_file(file_key)
+    if not file:
+        return HttpResponseNotFound()
     content_type = _content_type_from_filename(file.name)
-    try:
-        return HttpResponse(file, content_type=content_type)
-    except TypeError:
-        raise Http404("File not found")
+    return HttpResponse(file, content_type=content_type)
 
 
 def _content_type_from_filename(filename):
@@ -147,7 +150,7 @@ class DocumentInput(graphene.InputObjectType):
     filename = graphene.String(required=True)
     size = graphene.Int(required=True)
     width = graphene.Int()
-    height = graphene.Int()    
+    height = graphene.Int()
     rotation = graphene.Int()
 
 
@@ -177,8 +180,8 @@ class UpdateMetadata(graphene.Mutation):
             try:
                 doc = documents.get(filename=file['filename'], size=file['size'])
                 doc.sort_order = i + 1
-                doc.width =  file.get('width', file.width)
-                doc.height =  file.get('height', file.height)
+                doc.width = file.get('width', file.width)
+                doc.height = file.get('height', file.height)
                 doc.rotation = file.get('rotation', file.rotation)
                 if doc.rotation not in [0, 90, 180, 270]:
                     raise GraphQLError(f"Invalid rotation {doc.rotation}, must be 0, 90, 180, 270")

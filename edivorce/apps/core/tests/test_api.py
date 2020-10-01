@@ -154,10 +154,8 @@ class APITest(APITestCase):
     def test_get_file(self):
         document = self._create_document()
         self.assertEqual(Document.objects.count(), 1)
-        url = reverse('document', kwargs={'doc_type': document.doc_type,
-                                          'party_code': document.party_code,
-                                          'filename': document.filename,
-                                          'size': document.size})
+        url = document.get_file_url()
+
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -170,13 +168,45 @@ class APITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.content, document.file.read())
 
+    def test_get_file_missing_from_redis(self):
+        document = self._create_document()
+        self._create_document()
+        another_document = self._create_document(party_code=2)
+
+        self.assertEqual(Document.objects.count(), 3)
+        url = document.get_file_url()
+
+        self.client.force_authenticate(self.user)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.content, document.file.read())
+
+        # Delete file from redis
+        document.file.delete()
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        self.assertEqual(Document.objects.count(), 1)
+        self.assertEqual(Document.objects.first(), another_document)
+
+    def test_get_file_by_key(self):
+        document = self._create_document()
+        url = reverse('file_by_key', kwargs={'file_key': document.file.name})
+
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.content, document.file.read())
+
+        # Delete file from redis
+        document.file.delete()
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
     def test_delete_document(self):
         document = self._create_document()
         self.assertEqual(Document.objects.count(), 1)
-        url = reverse('document', kwargs={'doc_type': document.doc_type,
-                                          'party_code': document.party_code,
-                                          'filename': document.filename,
-                                          'size': document.size})
+        url = document.get_file_url()
+
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(Document.objects.count(), 1)
@@ -193,10 +223,8 @@ class APITest(APITestCase):
 
     def test_update_document(self):
         document = self._create_document()
-        url = reverse('document', kwargs={'doc_type': document.doc_type,
-                                          'party_code': document.party_code,
-                                          'filename': document.filename,
-                                          'size': document.size})
+        url = document.get_file_url()
+
         data = {
             'rotation': 90
         }
