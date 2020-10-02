@@ -87,11 +87,6 @@ class BceidMiddleware(MiddlewareMixin):  # pylint: disable=too-few-public-method
         instance.
         """
 
-        # make sure the request didn't bypass the proxy
-        if (settings.DEPLOYMENT_TYPE not in ['localdev', 'minishift'] and
-                not self.__request_came_from_proxy(request)):
-            return redirect(settings.PROXY_BASE_URL + request.path)
-
         # HTTP_SM_USER is available on both secure and unsecure pages.  If it
         # has a value then we know that the user is still logged into BCeID.
         # This is an additional check to make sure we aren't letting users
@@ -154,29 +149,3 @@ class BceidMiddleware(MiddlewareMixin):  # pylint: disable=too-few-public-method
             request.user = anonymous_user
 
         return None
-
-    def __request_came_from_proxy(self, request):
-        """
-        Return True if the request is coming from inside the BC Government data
-        centre, False otherwise.
-
-        Health checks and static resources are allowed from any source.  The
-        latter is mainly so WeasyPrint can request CSS.
-        """
-        if request.path == settings.FORCE_SCRIPT_NAME + 'health':
-            return True
-
-        if request.path.startswith(settings.FORCE_SCRIPT_NAME[:-1] + settings.STATIC_URL):
-            return True
-
-        # If the request didn't come through NGINX then we allow it.  These requests
-        # are coming from other OpenShift pods (e.g. WeasyPrint fetching image files).
-        # The only public route to the application comes through the NGINX service.
-        if not request.META.get('X-Real-IP', None):
-            return True
-
-        bcgov_network = ip_network(settings.BCGOV_NETWORK)
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR', '').split(',')
-        forwarded_for = [ip.strip() for ip in x_forwarded_for if ip.strip() != '']
-
-        return any([ip_address(ip) in bcgov_network for ip in forwarded_for])
