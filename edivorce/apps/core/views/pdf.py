@@ -67,6 +67,7 @@ def __render_form(request, form_name, context):
 
     if output_as_html:
         context['css_root'] = settings.FORCE_SCRIPT_NAME[:-1]
+        context['image_root'] = settings.FORCE_SCRIPT_NAME[:-1]        
 
     template_name = form_name
     if not form_name.startswith('form'):
