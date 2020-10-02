@@ -1,74 +1,98 @@
 <template>
-<div>
-  <div :class="['image-wrap', isValidImage ? 'valid' : '']" @click.prevent="showPreview($event)">
-    <img v-if="isValidImage" :src="file.objectURL" :style="imageStyle"/>
-    <i class="fa fa-file-pdf-o" v-if="!this.file.error && file.type === 'application/pdf'"></i>
-    <i class="fa fa-frown-o" v-if="this.file.error"></i>    
-    <button type="button" class="btn-remove" @click.prevent="$emit('removeclick')" aria-label="Delete">
-      <i class="fa fa-times-circle"></i>
-    </button>
+  <div>
+    <div
+      :class="['image-wrap', isValidImage ? 'valid' : '']"
+      @click.prevent="showPreview($event)"
+    >
+      <img v-if="isValidImage" :src="file.objectURL" :style="imageStyle" />
+      <i
+        class="fa fa-file-pdf-o"
+        v-if="!this.file.error && file.type === 'application/pdf'"
+      ></i>
+      <i class="fa fa-frown-o" v-if="this.file.error"></i>
+      <button
+        type="button"
+        class="btn-remove"
+        @click.prevent="$emit('removeclick')"
+        aria-label="Delete"
+      >
+        <i class="fa fa-times-circle"></i>
+      </button>
+    </div>
+    <modal-preview
+      :file="file"
+      :imageStyle="imageStyle"
+      :scale="scale"
+      :rotate-val="rotateVal"
+      :show-modal="showModal"
+      @close="closePreview()"
+    />
   </div>
-    <modal-preview :file="file" 
-      :imageStyle="imageStyle" 
-      :rotate-val="rotateVal" 
-      :show-modal="showModal" 
-      @close="closePreview()" />  
-</div>
 </template>
 
 <script>
-import ModalPreview from './ModalPreview';
-import rotateFix from '../../utils/rotation';
+  import ModalPreview from "./ModalPreview";
+  import rotateFix from "../../utils/rotation";
 
-export default {
-  props: {
-    file: Object
-  },
-  components: {
-    ModalPreview
-  },
-  data: function () {
-    return {
-      showModal: false,
-    }
-  },
-  methods: {
-    showPreview($event) {
-      if (this.isValidImage) {
-        if ($event.target.tagName !== 'I' && $event.target.tagName !== 'BUTTON') {
-          this.showModal = true;
-        } 
-      }
+  export default {
+    props: {
+      file: Object,
     },
-    closePreview() {
-      this.showModal = false;
-    }
-  },
-  computed: {
-    isValidImage() {
-      return this.file.objectURL  && !this.file.error && this.file.type !== 'application/pdf';
+    components: {
+      ModalPreview,
     },
-    rotateVal() {
-      return rotateFix(this.file.rotation);
+    data: function() {
+      return {
+        showModal: false,
+      };
     },
-    imageStyle() {
-      if (this.rotateVal === 90) {
-        let scale = this.file.width / this.file.height;
-        let yshift = -100 * scale;
-        return "transform:rotate(90deg) translateY("+yshift+"%) scale("+scale+"); transform-origin: top left;";
-      }
-      if (this.rotateVal === 270) {
-        let scale = this.file.width / this.file.height;
-        let xshift = -100 * scale;
-        return "transform:rotate(270deg) translateX("+xshift+"%) scale("+scale+"); transform-origin: top left;";
-      }
-      if (this.rotateVal === 180) {
-        return "transform:rotate(180deg);";
-      }      
-      return '';
-    }
-  }
-}
+    methods: {
+      showPreview($event) {
+        if (this.isValidImage) {
+          if (
+            $event.target.tagName !== "I" &&
+            $event.target.tagName !== "BUTTON"
+          ) {
+            this.showModal = true;
+          }
+        }
+      },
+      closePreview() {
+        this.showModal = false;
+      },
+    },
+    computed: {
+      isValidImage() {
+        return (
+          this.file.objectURL &&
+          !this.file.error &&
+          this.file.type !== "application/pdf"
+        );
+      },
+      rotateVal() {
+        return rotateFix(this.file.rotation);
+      },
+      scale() {
+        if (!this.file.height || this.file.height <= 0) {
+          return 1;
+        }
+        return this.file.width / this.file.height;
+      },
+      imageStyle() {
+        const shift = -100 * this.scale;
+        if (this.rotateVal === 90) {
+          return `transform:rotate(90deg) translateY(${shift}%) scale(${this.scale}); transform-origin: top left;`;
+        }
+        if (this.rotateVal === 270) {
+          return `transform:rotate(270deg) translateX(${shift}%) scale(${this.scale}); transform-origin: top left;`;
+        }
+        if (this.rotateVal === 180) {
+          return "transform:rotate(180deg);";
+        }
+        return "";
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">
@@ -90,18 +114,19 @@ export default {
       left: 0;
     }
 
-    i.fa-file-pdf-o, i.fa-frown-o {
+    i.fa-file-pdf-o,
+    i.fa-frown-o {
       display: block;
       font-size: 48px;
       margin-left: 60px;
     }
 
     i.fa-file-pdf-o {
-      color: #D5D5D5;
+      color: #d5d5d5;
     }
 
     i.fa-frown-o {
-      color: #EEE;
+      color: #eee;
     }
 
     &::after {
@@ -109,11 +134,11 @@ export default {
       content: "\f06e";
       margin: auto;
       font-size: 43px;
-      color: transparent;        
+      color: transparent;
     }
 
     &.valid:hover {
-      background-color: #365EBE;
+      background-color: #365ebe;
       cursor: pointer;
 
       button.btn-remove {
@@ -129,9 +154,9 @@ export default {
       color: white;
     }
 
-    &:hover img { 
+    &:hover img {
       opacity: 0.12;
-    } 
+    }
   }
 
   button {
@@ -146,7 +171,7 @@ export default {
       z-index: 4;
 
       i.fa {
-        color: #365EBE;
+        color: #365ebe;
         font-size: 23px;
 
         &::before {

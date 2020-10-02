@@ -1,72 +1,103 @@
 <template>
-  <div :class="['item-tile', file.error ? 'error': '']" v-if="file.progress === '100.00' || file.error">
-    <uploaded-image :file="file" :image-style="imageStyle" @imageclick="showPreview" @removeclick="$emit('remove')" />
+  <div
+    :class="['item-tile', file.error ? 'error' : '']"
+    v-if="file.progress === '100.00' || file.error"
+  >
+    <uploaded-image
+      :file="file"
+      :image-style="imageStyle"
+      @imageclick="showPreview"
+      @removeclick="$emit('remove')"
+    />
     <div class="bottom-wrapper">
       <div class="item-text">
         <div class="filename-text">
-          {{file.name}}
+          {{ file.name }}
         </div>
         <div class="size-text">
-          ({{ Math.round(file.size/1024/1024 * 100) / 100 }} MB)
-        </div>  
+          ({{ Math.round((file.size / 1024 / 1024) * 100) / 100 }} MB)
+        </div>
       </div>
-      <div class="button-wrapper" v-if="file.error || file.type !== 'application/pdf'">
+      <div
+        class="button-wrapper"
+        v-if="file.error || file.type !== 'application/pdf'"
+      >
         <div v-if="!file.active && file.success && !isPdf">
-          <button type="button" @click.prevent="$emit('moveup')" :disabled="index === 0" aria-label="Move down one position">
+          <button
+            type="button"
+            @click.prevent="$emit('moveup')"
+            :disabled="index === 0"
+            aria-label="Move down one position"
+          >
             <i class="fa fa-chevron-circle-left"></i>
           </button>
-          <button type="button" @click.prevent="$emit('movedown')" :disabled="index >= (fileCount - 1)" aria-label="Move up one position">
+          <button
+            type="button"
+            @click.prevent="$emit('movedown')"
+            :disabled="index >= fileCount - 1"
+            aria-label="Move up one position"
+          >
             <i class="fa fa-chevron-circle-right"></i>
           </button>
-          <button type="button" aria-label="Rotate counter-clockwise" @click.prevent="$emit('rotateleft')">
+          <button
+            type="button"
+            aria-label="Rotate counter-clockwise"
+            @click.prevent="$emit('rotateleft')"
+          >
             <i class="fa fa-undo"></i>
           </button>
-          <button type="button" aria-label="Rotate clockwise" @click.prevent="$emit('rotateright')">
+          <button
+            type="button"
+            aria-label="Rotate clockwise"
+            @click.prevent="$emit('rotateright')"
+          >
             <i class="fa fa-undo fa-flip-horizontal"></i>
           </button>
         </div>
-        <div class="alert alert-danger" v-if="file.error">File Upload Error</div>
+        <div class="alert alert-danger" v-if="file.error">
+          File Upload Error
+        </div>
       </div>
     </div>
   </div>
   <div v-else>
-    <progress-bar :file="file"/>
+    <progress-bar :file="file" />
   </div>
 </template>
 
 <script>
-import UploadedImage from './Image'
-import ProgressBar from './ProgressBar'
+  import UploadedImage from "./Image";
+  import ProgressBar from "./ProgressBar";
 
-export default {
-  props: {
-    file: Object,
-    index: Number,
-    fileCount: Number
-  },
-  data: function () {
-    return {
-      showModal: false,
-    }
-  },
-  components: {
-    ProgressBar,
-    UploadedImage
-  },
-  methods: {
-    showPreview() {
-       this.showModal = true;
+  export default {
+    props: {
+      file: Object,
+      index: Number,
+      fileCount: Number,
     },
-    closePreview() {
-      this.showModal = false;
-    }
-  },
-  computed: {
-    isPdf() {
-      return this.file.type === 'application/pdf';
-    }
-  }
-}
+    data: function() {
+      return {
+        showModal: false,
+      };
+    },
+    components: {
+      ProgressBar,
+      UploadedImage,
+    },
+    methods: {
+      showPreview() {
+        this.showModal = true;
+      },
+      closePreview() {
+        this.showModal = false;
+      },
+    },
+    computed: {
+      isPdf() {
+        return this.file.type === "application/pdf";
+      },
+    },
+  };
 </script>
 
 <style lang="scss">
@@ -78,20 +109,19 @@ export default {
     .item-text {
       text-align: center;
       padding: 7px 10px;
-      font-size: 16px; 
+      font-size: 16px;
       line-height: 24px;
       min-height: 87px;
-
 
       .filename-text {
         min-height: 25px;
         max-height: 50px;
         overflow: hidden;
-        overflow-wrap: anywhere;;
+        overflow-wrap: anywhere;
         display: -webkit-box;
         -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;  
-      }    
+        -webkit-box-orient: vertical;
+      }
 
       .size-text {
         min-height: 25px;
@@ -110,9 +140,9 @@ export default {
       border-bottom-right-radius: 6px;
       border: 1px solid silver;
       border-top: none;
-      background-color: #F2F2F2;
+      background-color: #f2f2f2;
       margin-bottom: 10px;
-      
+
       .alert-danger {
         background-color: inherit;
         border: none;
@@ -126,9 +156,9 @@ export default {
 
     &.error {
       .bottom-wrapper {
-        background-color: #F7D4D5;
-        border: 1px solid #D8292F;
-        border-top: none;        
+        background-color: #f7d4d5;
+        border: 1px solid #d8292f;
+        border-top: none;
       }
     }
   }
@@ -137,7 +167,7 @@ export default {
 <style lang="scss">
   .item-tile {
     button {
-      position: relative; 
+      position: relative;
       z-index: 2;
       background-color: transparent;
       border: none;
@@ -172,7 +202,7 @@ export default {
 
     &.error {
       button.btn-remove i.fa {
-        color: #D8292F;
+        color: #d8292f;
       }
     }
   }

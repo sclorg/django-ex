@@ -13,4 +13,4 @@ export default function(rotation) {
     default:
       return 0;
   }
-};
+}
