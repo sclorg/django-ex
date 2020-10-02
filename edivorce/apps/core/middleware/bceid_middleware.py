@@ -70,6 +70,7 @@ class BceidMiddleware(MiddlewareMixin):  # pylint: disable=too-few-public-method
     In a local development environment, we generate a guid based on the login
     name and treat that guid/login name as guid/display name.
     """
+
     def process_request(self, request):  # pylint: disable=too-many-branches
         """
         Return None after populating request.user, or necessary redirects.
@@ -162,11 +163,16 @@ class BceidMiddleware(MiddlewareMixin):  # pylint: disable=too-few-public-method
         Health checks and static resources are allowed from any source.  The
         latter is mainly so WeasyPrint can request CSS.
         """
-
         if request.path == settings.FORCE_SCRIPT_NAME + 'health':
             return True
 
         if request.path.startswith(settings.FORCE_SCRIPT_NAME[:-1] + settings.STATIC_URL):
+            return True
+
+        # If the request didn't come through NGINX then we allow it.  These requests
+        # are coming from other OpenShift pods (e.g. WeasyPrint fetching image files).
+        # The only public route to the application comes through the NGINX service.
+        if not request.META.get('X-Real-IP', None):
             return True
 
         bcgov_network = ip_network(settings.BCGOV_NETWORK)
