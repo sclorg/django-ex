@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 import requests
 
 from ..decorators import bceid_required
+from ..models import Document
 from ..utils.derived import get_derived_data
 from ..utils.user_response import get_data_for_user
 
@@ -66,8 +67,12 @@ def __render_form(request, form_name, context):
     if output_as_html:
         context['css_root'] = settings.FORCE_SCRIPT_NAME[:-1]
 
+    template_name = form_name
+    if not form_name.startswith('form'):
+        template_name = 'images_to_pdf'
+
     # render to form as HTML
-    rendered_html = render_to_string('pdf/' + form_name + '.html',
+    rendered_html = render_to_string('pdf/' + template_name + '.html',
                                      context=context, request=request)
 
     # if '?html' is in the querystring, then return the plain html
@@ -93,3 +98,30 @@ def __add_claimant_info(responses, claimant):
             claimant_info[claimant_key] = responses[key]
     responses.update(claimant_info)
     return responses
+
+
+@bceid_required
+def images_to_pdf(request, doc_type, party_code):
+    documents = Document.objects.filter(
+        bceid_user=request.user, doc_type=doc_type, party_code=party_code)
+
+    if not documents:
+        return HttpResponse(status=204)
+
+    if party_code == 1:
+        form_name = doc_type + "_claimant1"
+    elif party_code == 2:
+        form_name = doc_type + "_claimant2"
+    else:
+        form_name = doc_type
+
+    if documents[0].filename.endswith(('.pdf', '.PDF')):
+        response = HttpResponse(documents[0].file.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=' + form_name + '.pdf'
+        return response
+
+    return __render_form(request, form_name, {
+        'css_root': settings.WEASYPRINT_CSS_LOOPBACK,
+        'images': documents,
+        'form': form_name
+    })

@@ -1,0 +1,40 @@
+{% load static %}
+{% load format_utils %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>{{ form }}</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/weasyprint.css" />
+
+    {% include 'partials/gtm_head.html' %}
+
+    <style type="text/css">
+    @page {
+        margin: 0.25cm;
+
+        @bottom-right {
+            content: none
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="print-wrapper">
+        {% for image in images %}
+            <img src="{{ css_root }}/api/documents/{{ image.file }}/{{ image.rotation }}/" style="{{ image|css_rotate }}">
+            {% if not forloop.last %}
+            <p style="page-break-before: always" ></p>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+
+</html>

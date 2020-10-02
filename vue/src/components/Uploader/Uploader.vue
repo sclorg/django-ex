@@ -98,6 +98,9 @@
     <div class="pull-right" v-if="!tooBig">
       <em>(Maximum {{ maxMegabytes }} MB)</em>
     </div>
+
+    <a v-if="files.length" :href="pdfURL" target="_blank">{{ pdfURL }}</a>
+
     <modal ref="warningModal" class="warning-modal" v-model="showWarning">
       {{ warningText }}
     </modal>

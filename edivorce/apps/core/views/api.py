@@ -5,6 +5,7 @@ from rest_framework import permissions, status
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from PIL import Image
 
 from ..models import Document, Question
 from ..serializer import CreateDocumentSerializer, DocumentMetadataSerializer, UserResponseSerializer
@@ -87,9 +88,44 @@ class DocumentView(RetrieveUpdateDestroyAPIView):
         return HttpResponse(file_contents, content_type=content_type)
 
 
-def get_document_file_by_key(request, file_key):
+def get_document_file_by_key(request, file_key, rotation):
     file = Document.get_file(file_key)
     if not file:
         return HttpResponseNotFound()
     content_type = Document.content_type_from_filename(file.name)
-    return HttpResponse(file, content_type=content_type)
+
+    # if it's a PDF or it doesn't require rotation
+    if content_type == 'application/pdf' or rotation == 0:
+        try:
+            return HttpResponse(file, content_type=content_type)
+        except TypeError:
+            raise Http404("File not found")
+
+    # if the file needs to be rotated
+    rot_img = __rotate_image(file, rotation)
+    extension = __get_file_extension(file)
+
+    try:
+        response = HttpResponse(content_type=content_type)
+        rot_img.save(response, extension)
+        return response
+    except TypeError:
+        raise Http404("File not found")
+
+
+def __get_file_extension(file):
+    extension = re.split(r'[\._]', file.name.upper())[-1]
+    if extension == "JPG" or extension == "JPE":
+        return "JPEG"
+    return extension
+
+
+def __rotate_image(file, rotation):
+    im = Image.open(file)
+
+    if rotation == 90:
+        return im.transpose(Image.ROTATE_270)
+    elif rotation == 270:
+        return im.transpose(Image.ROTATE_90)
+    else:
+        return im.transpose(Image.ROTATE_180)

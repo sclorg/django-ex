@@ -19,6 +19,7 @@ gunicorn==20.0.4
 idna==2.10
 libsass==0.20.0
 marshmallow==3.7.1
+Pillow==7.2.0
 promise==2.3
 psycopg2==2.8.5
 python-dotenv==0.14.0

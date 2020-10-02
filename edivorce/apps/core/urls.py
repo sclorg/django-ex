@@ -7,7 +7,7 @@ urlpatterns = [
     # url(r'^guide$', styleguide.guide),
     url(r'^api/response$', api.UserResponseHandler.as_view()),
     url(r'^api/documents/$', api.DocumentCreateView.as_view(), name='documents'),
-    path('api/documents/<file_key>/', api.get_document_file_by_key, name='file_by_key'),
+    path('api/documents/<file_key>/<int:rotation>/', api.get_document_file_by_key, name='document_by_key'),
 
     # we add an extra 'x' to the file extension so the siteminder proxy doesn't treat it as an image
     path('api/documents/<doc_type>/<int:party_code>/<filename>x/<int:size>/', api.DocumentView.as_view(), name='document'),
@@ -32,6 +32,7 @@ urlpatterns = [
     # url(r'^headers$', system.headers),
 
     url(r'^pdf-form(?P<form_number>[0-9]{1,3}(_we|_claimant1|_claimant2)?)$', pdf.form, name="pdf_form"),
+    path('pdf-images/<doc_type>/<int:party_code>/', pdf.images_to_pdf, name='pdf_images'),
     url(r'^prequalification/step_(?P<step>[0-9]{2})$', main.prequalification, name="prequalification"),
     url(r'^question/(?P<step>.*)/(?P<sub_step>.*)/$', main.question, name="question_steps"),
     url(r'^question/(?P<step>.*)$', main.question, name="question_steps"),

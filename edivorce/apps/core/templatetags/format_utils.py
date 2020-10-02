@@ -191,3 +191,19 @@ def agreed_child_support_amount(context, claimant_id, line_breaks=True):
         return context.get('amount_income_over_high_income_limit_{}'.format(claimant_id), '')
     else:
         return linebreaksli(context.get('amount_income_over_high_income_limit_{}'.format(claimant_id), ''))
+
+
+@register.filter
+def css_rotate(image):
+    """ Gets extra CSS needed for image rotation when generating PDFs """
+    if image.rotation == 90 or image.rotation == 270:
+        height = image.width
+        width = image.height
+    else:
+        height = image.height
+        width = image.width
+
+    if width == 0 or height/width < 1.3:
+        return 'width: 100%'
+    else:
+        return 'height: 26.7cm'
