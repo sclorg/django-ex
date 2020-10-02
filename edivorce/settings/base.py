@@ -105,10 +105,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-GRAPHENE = {
-    'SCHEMA': 'edivorce.apps.core.views.api.graphql_schema'
-}
-
 
 LOGGING = {
     'version': 1,

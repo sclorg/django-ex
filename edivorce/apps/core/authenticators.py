@@ -1,5 +1,7 @@
 from rest_framework import authentication
 
+from edivorce.apps.core.models import BceidUser
+
 
 class BCeIDAuthentication(authentication.BaseAuthentication):
     """
@@ -15,3 +17,6 @@ class BCeIDAuthentication(authentication.BaseAuthentication):
         except:
             request.user = request._request.user  # pylint: disable=protected-access
         return (request.user, None)
+
+    def get_user(self, pk):
+        return BceidUser.objects.get(pk=pk)

@@ -1,8 +1,10 @@
 import json
+from unittest.util import safe_repr
 
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import modify_settings
+from django.test import modify_settings, override_settings
 from django.urls import reverse
+from graphene_django.utils import GraphQLTestCase
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
@@ -34,7 +36,7 @@ class APITest(APITestCase):
         url = reverse('documents')
         self.assertEqual(Document.objects.count(), 0)
 
-        file = self._create_file()
+        file = _create_file()
         data = {
             'file': file,
             'doc_type': 'AAI',
@@ -59,7 +61,7 @@ class APITest(APITestCase):
     def test_post_duplicate_files_not_allowed(self):
         url = reverse('documents')
 
-        file = self._create_file()
+        file = _create_file()
         data = {
             'file': file,
             'doc_type': 'AAI',
@@ -80,7 +82,7 @@ class APITest(APITestCase):
     def test_post_field_validation(self):
         url = reverse('documents')
 
-        file = self._create_file(extension='HEIC')
+        file = _create_file(extension='HEIC')
         data = {
             'file': file,
             'doc_type': 'INVALID',
@@ -277,16 +279,10 @@ class APITest(APITestCase):
             doc_type = self.default_doc_type
         if not party_code:
             party_code = self.default_party_code
-        new_file = self._create_file()
+        new_file = _create_file()
         document = Document(file=new_file, bceid_user=self.user, party_code=party_code, doc_type=doc_type)
         document.save()
         return document
-
-    @staticmethod
-    def _create_file(extension='jpg'):
-        num_documents = Document.objects.count()
-        new_file = SimpleUploadedFile(f'test_file_{num_documents + 1}.{extension}', b'test content')
-        return new_file
 
     def _response_data_equals_document(self, response_doc, document_object):
         self.assertEqual(response_doc['doc_type'], document_object.doc_type)
@@ -296,3 +292,174 @@ class APITest(APITestCase):
         self.assertEqual(response_doc['rotation'], document_object.rotation)
         self.assertEqual(response_doc['sort_order'], document_object.sort_order)
         self.assertEqual(response_doc['file_url'], document_object.get_file_url())
+
+
+@override_settings(AUTHENTICATION_BACKENDS=('edivorce.apps.core.authenticators.BCeIDAuthentication',))
+@modify_settings(MIDDLEWARE={'remove': 'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware', })
+class GraphQLAPITest(GraphQLTestCase):
+    GRAPHQL_URL = reverse('graphql')
+
+    def setUp(self):
+        self.user = BceidUser.objects.create(user_guid='1234')
+        self.another_user = BceidUser.objects.create(user_guid='5678')
+        self.default_doc_type = 'MC'
+        self.default_party_code = 0
+
+    def _login(self):
+        self._client.force_login(self.user)
+
+    def test_not_logged_in(self):
+        response = self.query('{documents{filename}}')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        response = self.query('''
+                mutation ($input: DocumentMetaDataInput!) {
+                  updateMetadata(input: $input) {
+                    documents {
+                      filename
+                    }
+                  }
+                }''', input_data={})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_cannot_get_excluded_fields(self):
+        self._login()
+        response = self.query('{documents{id file}}')
+        print(response.content)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertContainsError('Cannot query field "id"', response)
+        self.assertContainsError('Cannot query field "file"', response)
+
+    def test_must_specify_doctype_partycode(self):
+        self._login()
+        response = self.query('{documents{filename}}')
+        print(response.content)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertContainsError('argument "docType" of type "String!" is required but not provided', response)
+        self.assertContainsError('argument "partyCode" of type "Int!" is required but not provided', response)
+
+    def test_get_only_returns_user_form_docs(self):
+        self._login()
+        doc = self._create_document()
+        self._create_document(user=self.another_user)
+        self._create_document(doc_type='AAI')
+        self._create_document(party_code=2)
+
+        response = self.query('''
+        {
+            documents (docType: "MC", partyCode: 0) {
+                filename
+            }
+        }''')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertResponseNoErrors(response)
+
+        content = json.loads(response.content)['data']
+        self.assertEqual(len(content['documents']), 1)
+        self.assertEqual(content['documents'][0]['filename'], doc.filename)
+
+    def test_update_metadata(self):
+        doc_1 = self._create_document()
+        doc_2 = self._create_document()
+
+        input_data = {
+            "docType": doc_1.doc_type,
+            "partyCode": doc_1.party_code,
+            "files": [
+                {
+                    'filename': doc_2.filename,
+                    'size': doc_2.size,
+                    'width': 600,
+                    'height': 800
+                },
+                {
+                    'filename': doc_1.filename,
+                    'size': doc_1.size,
+                    'rotation': 270
+                },
+            ]
+        }
+        query = '''
+                mutation ($input: DocumentMetaDataInput!) {
+                  updateMetadata(input: $input) {
+                    documents {
+                      filename
+                    }
+                  }
+                }
+            '''
+        self._login()
+        response = self.query(query, input_data=input_data)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertResponseNoErrors(response)
+
+        doc_1.refresh_from_db()
+        doc_2.refresh_from_db()
+        self.assertEqual(doc_1.sort_order, 2)
+        self.assertEqual(doc_1.rotation, 270)
+        self.assertEqual(doc_2.sort_order, 1)
+        self.assertEqual(doc_2.width, 600)
+        self.assertEqual(doc_2.height, 800)
+
+    def test_update_metadata_too_few_files(self):
+        doc_1 = self._create_document()
+        doc_2 = self._create_document()
+
+        input_data = {
+            "docType": doc_1.doc_type,
+            "partyCode": doc_1.party_code,
+            "files": [
+                {
+                    'filename': doc_2.filename,
+                    'size': doc_2.size,
+                    'rotation': 180,
+                    'width': 600,
+                    'height': 800
+                }
+            ]
+        }
+        query = '''
+                mutation ($input: DocumentMetaDataInput!) {
+                  updateMetadata(input: $input) {
+                    documents {
+                      filename
+                    }
+                  }
+                }
+            '''
+        self._login()
+        response = self.query(query, input_data=input_data)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertResponseHasErrors(response)
+        self.assertContainsError('there must be the same number of files', response)
+
+    def assertContainsError(self, msg, response):
+        content = json.loads(response.content)
+        errors = [error['message'] for error in content['errors']]
+        for error in errors:
+            if msg in error:
+                break
+        else:
+            error_msgs = "\n".join([safe_repr(error) for error in errors])
+            fail_message = f'Message: {safe_repr(msg)}\nNot found in errors:\n{error_msgs}'
+            self.fail(fail_message)
+
+    def _create_document(self, user=None, doc_type=None, party_code=None):
+        if not doc_type:
+            doc_type = self.default_doc_type
+        if not party_code:
+            party_code = self.default_party_code
+        if not user:
+            user = self.user
+        new_file = _create_file()
+        document = Document(file=new_file, bceid_user=user, party_code=party_code, doc_type=doc_type)
+        document.save()
+        return document
+
+
+def _create_file(extension='jpg'):
+    num_documents = Document.objects.count()
+    new_file = SimpleUploadedFile(f'test_file_{num_documents + 1}.{extension}', b'test content')
+    return new_file
