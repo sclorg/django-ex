@@ -59,21 +59,6 @@ class DocumentCreateView(CreateAPIView):
     queryset = Document.objects.all()
 
 
-class DocumentMetaDataView(ListAPIView):
-    serializer_class = DocumentMetadataSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        doc_type = self.kwargs['doc_type']
-        party_code = self.kwargs['party_code']
-        q = Document.objects.filter(doc_type=doc_type, party_code=party_code, bceid_user=self.request.user).order_by('sort_order')
-        for doc in q:
-            if not doc.file_exists():
-                q.delete()
-                return Document.objects.none()
-        return q
-
-
 class DocumentView(RetrieveUpdateDestroyAPIView):
     serializer_class = DocumentMetadataSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -91,7 +76,7 @@ class DocumentView(RetrieveUpdateDestroyAPIView):
     def retrieve(self, request, *args, **kwargs):
         """ Return the file instead of meta data """
         document = self.get_object()
-        content_type = _content_type_from_filename(document.filename)
+        content_type = Document.content_type_from_filename(document.filename)
 
         # If file doesn't exist anymore, delete it
         try:
@@ -106,21 +91,5 @@ def get_document_file_by_key(request, file_key):
     file = Document.get_file(file_key)
     if not file:
         return HttpResponseNotFound()
-    content_type = _content_type_from_filename(file.name)
+    content_type = Document.content_type_from_filename(file.name)
     return HttpResponse(file, content_type=content_type)
-
-
-def _content_type_from_filename(filename):
-    content_types = {
-        "pdf": "application/pdf",
-        "gif": "image/gif",
-        "png": "image/png",
-        "jpe": "image/jpeg",
-        "jpg": "image/jpeg",
-        "jpeg": "image/jpeg"
-    }
-    extension = re.split(r'[\._]', filename.lower())[-1]
-    content_type = content_types.get(extension)
-    if not content_type:
-        raise TypeError(f'Filetype "{extension}" not supported')
-    return content_type

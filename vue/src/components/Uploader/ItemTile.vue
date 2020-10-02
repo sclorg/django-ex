@@ -1,11 +1,16 @@
 <template>
-  <div class="item-tile" v-if="file.progress === '100.00' || file.error">
+  <div :class="['item-tile', file.error ? 'error': '']" v-if="file.progress === '100.00' || file.error">
     <uploaded-image :file="file" :image-style="imageStyle" @imageclick="showPreview" @removeclick="$emit('remove')" />
     <div class="bottom-wrapper">
       <div class="item-text">
-        {{file.name}} <span class="no-wrap">({{ Math.round(file.size/1024/1024 * 100) / 100 }} MB)</span>
+        <div class="filename-text">
+          {{file.name}}
+        </div>
+        <div class="size-text">
+          ({{ Math.round(file.size/1024/1024 * 100) / 100 }} MB)
+        </div>  
       </div>
-      <div class="button-wrapper">
+      <div class="button-wrapper" v-if="file.error || file.type !== 'application/pdf'">
         <div v-if="!file.active && file.success && !isPdf">
           <button type="button" @click.prevent="$emit('moveup')" :disabled="index === 0" aria-label="Move down one position">
             <i class="fa fa-chevron-circle-left"></i>
@@ -68,35 +73,62 @@ export default {
   .item-tile {
     margin-bottom: 5px;
     position: relative;
+    border: none !important;
 
     .item-text {
       text-align: center;
-      min-height: 75px;
-      max-height: 75px;
-      overflow: hidden;
-      padding: 5px;
-      line-height: 1.05;
-      font-size: 0.95em;
+      padding: 7px 10px;
+      font-size: 16px; 
+      line-height: 24px;
+      min-height: 87px;
 
-      .no-wrap {
-        white-space: nowrap;
+
+      .filename-text {
+        min-height: 25px;
+        max-height: 50px;
+        overflow: hidden;
+        overflow-wrap: anywhere;;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;  
+      }    
+
+      .size-text {
+        min-height: 25px;
+        max-height: 25px;
       }
     }
 
     .button-wrapper {
+      margin-top: -4px;
       text-align: center;
+      min-height: 32px;
     }
 
     .bottom-wrapper {
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
       border: 1px solid silver;
+      border-top: none;
       background-color: #F2F2F2;
       margin-bottom: 10px;
       
       .alert-danger {
+        background-color: inherit;
+        border: none;
         margin-bottom: 0;
-        padding: 0;
+        padding: 2px 0 0 0;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+
+    &.error {
+      .bottom-wrapper {
+        background-color: #F7D4D5;
+        border: 1px solid #D8292F;
+        border-top: none;        
       }
     }
   }
@@ -135,6 +167,12 @@ export default {
 
       &:nth-of-type(2) {
         margin-right: 32px;
+      }
+    }
+
+    &.error {
+      button.btn-remove i.fa {
+        color: #D8292F;
       }
     }
   }

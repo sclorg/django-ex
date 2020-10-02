@@ -98,61 +98,6 @@ class APITest(APITestCase):
         self.assertIn('Doc type not supported', json_response['doc_type'][0])
         self.assertIn('Ensure this value is less than or equal to 2', json_response['party_code'][0])
 
-    def test_get_documents_meta_must_be_logged_in(self):
-        url = reverse('documents-meta', kwargs={'doc_type': self.default_doc_type, 'party_code': self.default_party_code})
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
-    def test_get_documents_meta_no_documents(self):
-        url = reverse('documents-meta', kwargs={'doc_type': self.default_doc_type, 'party_code': self.default_party_code})
-        self.client.force_authenticate(self.user)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        json_response = json.loads(response.content)
-        self.assertEqual(len(json_response), 0)
-
-    def test_get_documents_meta_some_documents(self):
-        url = reverse('documents-meta', kwargs={'doc_type': self.default_doc_type, 'party_code': self.default_party_code})
-        self.client.force_authenticate(self.user)
-        doc_1 = self._create_document()
-        doc_2 = self._create_document()
-        self._create_document(party_code=1)
-        self._create_document(doc_type='CSA')
-
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        json_response = json.loads(response.content)
-        self.assertEqual(len(json_response), 2)
-        self._response_data_equals_document(json_response[0], doc_1)
-        self._response_data_equals_document(json_response[1], doc_2)
-
-    def test_get_documents_meta_different_doc_type_party_code(self):
-        url = reverse('documents-meta', kwargs={'doc_type': self.default_doc_type, 'party_code': self.default_party_code})
-        self.client.force_authenticate(self.user)
-
-        returned_doc = self._create_document()
-        self._create_document(doc_type='CSA')
-        self._create_document(party_code=1)
-
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        json_response = json.loads(response.content)
-        self.assertEqual(len(json_response), 1)
-        self._response_data_equals_document(json_response[0], returned_doc)
-
-    def test_get_documents_meta_different_user(self):
-        url = reverse('documents-meta', kwargs={'doc_type': self.default_doc_type, 'party_code': self.default_party_code})
-        self.client.force_authenticate(self.user)
-
-        self._create_document()
-        self._create_document()
-
-        self.client.force_authenticate(self.another_user)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        json_response = json.loads(response.content)
-        self.assertEqual(len(json_response), 0)
-
     def test_get_file(self):
         document = self._create_document()
         self.assertEqual(Document.objects.count(), 1)
@@ -246,33 +191,6 @@ class APITest(APITestCase):
         self.assertContains(response,
                             'Rotation must be 0, 90, 180, or 270',
                             status_code=status.HTTP_400_BAD_REQUEST)
-
-    def test_missing_redis_document_deletes_all_documents(self):
-        doc_1 = self._create_document()
-        self._create_document()
-        self._create_document()
-        another_doc = self._create_document(party_code=2)
-
-        self.assertEqual(Document.objects.count(), 4)
-
-        url = reverse('documents-meta', kwargs={'doc_type': doc_1.doc_type, 'party_code': doc_1.party_code})
-        self.client.force_authenticate(self.user)
-
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        json_response = json.loads(response.content)
-        self.assertEqual(len(json_response), 3)
-
-        # Delete file from Redis
-        doc_1.file.delete()
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        json_response = json.loads(response.content)
-        self.assertEqual(len(json_response), 0)
-
-        # All files in for that doc_type/party_code/user were deleted
-        self.assertEqual(Document.objects.count(), 1)
-        self.assertEqual(Document.objects.first(), another_doc)
 
     def _create_document(self, doc_type=None, party_code=None):
         if not doc_type:

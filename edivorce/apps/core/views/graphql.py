@@ -16,6 +16,7 @@ class PrivateGraphQLView(GraphQLView):
 
 class DocumentType(graphene_django.DjangoObjectType):
     file_url = graphene.String(source='get_file_url')
+    content_type = graphene.String(source='get_content_type')
 
     class Meta:
         model = Document
