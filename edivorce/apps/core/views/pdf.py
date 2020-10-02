@@ -63,6 +63,7 @@ def form(request, form_number):
 def __render_form(request, form_name, context):
 
     output_as_html = request.GET.get('html', None) is not None
+    output_as_debug = request.GET.get('debug', None) is not None    
 
     if output_as_html:
         context['css_root'] = settings.FORCE_SCRIPT_NAME[:-1]
@@ -76,7 +77,7 @@ def __render_form(request, form_name, context):
                                      context=context, request=request)
 
     # if '?html' is in the querystring, then return the plain html
-    if output_as_html:
+    if output_as_html or output_as_debug:
         return HttpResponse(rendered_html)
 
     # post the html to the weasyprint microservice
