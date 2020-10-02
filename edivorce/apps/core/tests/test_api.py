@@ -138,7 +138,7 @@ class APITest(APITestCase):
 
     def test_get_file_by_key(self):
         document = self._create_document()
-        url = reverse('file_by_key', kwargs={'file_key': document.file.name})
+        url = reverse('file_by_key', kwargs={'file_key': document.file.name, 'rotation': 0})
 
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
