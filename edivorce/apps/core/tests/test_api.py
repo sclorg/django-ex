@@ -276,6 +276,44 @@ class GraphQLAPITest(GraphQLTestCase):
         self.assertEqual(len(content['documents']), 1)
         self.assertEqual(content['documents'][0]['filename'], doc.filename)
 
+    def test_missing_redis_document_deletes_all_documents(self):
+        self._login()
+
+        doc_1 = self._create_document()
+        doc_2 = self._create_document()
+        doc_3 = self._create_document()
+        another_doc = self._create_document(party_code=2)
+
+        self.assertEqual(Document.objects.count(), 4)
+
+        query = '''
+         {
+             documents (docType: "MC", partyCode: 0) {
+                 filename
+             }
+         }'''
+        response = self.query(query)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertResponseNoErrors(response)
+
+        content = json.loads(response.content)['data']
+        self.assertEqual(len(content['documents']), 3)
+        self.assertEqual(content['documents'][0]['filename'], doc_1.filename)
+        self.assertEqual(content['documents'][1]['filename'], doc_2.filename)
+        self.assertEqual(content['documents'][2]['filename'], doc_3.filename)
+
+        # Delete file from Redis
+        doc_1.file.delete()
+        response = self.query(query)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertResponseNoErrors(response)
+        content = json.loads(response.content)['data']
+        self.assertEqual(len(content['documents']), 0)
+
+        # All files in for that doc_type/party_code/user were deleted
+        self.assertEqual(Document.objects.count(), 1)
+        self.assertEqual(Document.objects.first(), another_doc)
+
     def test_update_metadata(self):
         doc_1 = self._create_document()
         doc_2 = self._create_document()

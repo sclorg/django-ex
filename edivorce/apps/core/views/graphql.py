@@ -30,6 +30,10 @@ class Query(graphene.ObjectType):
         if info.context.user.is_anonymous:
             raise GraphQLError('Unauthorized')
         q = Document.objects.filter(bceid_user=info.context.user, **kwargs)
+        for doc in q:
+            if not doc.file_exists():
+                q.delete()
+                return Document.objects.none()
         return q
 
 
