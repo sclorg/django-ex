@@ -88,8 +88,8 @@ STATIC_URL = PROXY_URL_PREFIX + '/static/'
 
 # Internal Urls (within the OpenShift project)
 WEASYPRINT_URL = 'http://weasyprint:5001'
-WEASYPRINT_CSS_LOOPBACK = 'http://edivorce-django:8080'
-WEASYPRINT_CSS_LOOPBACK += PROXY_URL_PREFIX
+WEASYPRINT_IMAGE_LOOPBACK = 'http://edivorce-django:8080'
+WEASYPRINT_CSS_LOOPBACK = WEASYPRINT_IMAGE_LOOPBACK + PROXY_URL_PREFIX
 
 # Basic authentication settings (meant for dev/test environments)
 BASICAUTH_ENABLED = os.getenv('BASICAUTH_ENABLED', '').lower() == 'true'

@@ -122,6 +122,7 @@ def images_to_pdf(request, doc_type, party_code):
         return response
 
     return __render_form(request, form_name, {
+        'image_root': settings.WEASYPRINT_IMAGE_LOOPBACK,
         'css_root': settings.WEASYPRINT_CSS_LOOPBACK,
         'images': documents,
         'form': form_name
