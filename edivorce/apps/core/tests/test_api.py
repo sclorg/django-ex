@@ -1,16 +1,45 @@
 import json
+from unittest import mock
 from unittest.util import safe_repr
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import modify_settings, override_settings
 from django.urls import reverse
 from graphene_django.utils import GraphQLTestCase
+from redis import Redis
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
 from edivorce.apps.core.models import BceidUser, Document
 
 
+class MockRedis:
+    """Imitate a Redis object so unit tests can run on our GitHub test server without needing a real
+        Redis server."""
+
+    # The 'Redis' store
+    fake_redis = {}
+
+    def delete(self, key):
+        if key in MockRedis.fake_redis:
+            del MockRedis.fake_redis[key]
+
+    def exists(self, key):
+        return key in MockRedis.fake_redis
+
+    def get(self, key):
+        result = '' if key not in MockRedis.fake_redis else MockRedis.fake_redis[key]
+        return result
+
+    def set(self, name, value, *args, **kwargs):
+        MockRedis.fake_redis[name] = value
+        return name
+
+
+@mock.patch.object(Redis, 'set', MockRedis.set)
+@mock.patch.object(Redis, 'get', MockRedis.get)
+@mock.patch.object(Redis, 'delete', MockRedis.delete)
+@mock.patch.object(Redis, 'exists', MockRedis.exists)
 @modify_settings(MIDDLEWARE={'remove': 'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware', })
 class APITest(APITestCase):
     def setUp(self):
@@ -212,6 +241,10 @@ class APITest(APITestCase):
         self.assertEqual(response_doc['file_url'], document_object.get_file_url())
 
 
+@mock.patch.object(Redis, 'set', MockRedis.set)
+@mock.patch.object(Redis, 'get', MockRedis.get)
+@mock.patch.object(Redis, 'delete', MockRedis.delete)
+@mock.patch.object(Redis, 'exists', MockRedis.exists)
 @override_settings(AUTHENTICATION_BACKENDS=('edivorce.apps.core.authenticators.BCeIDAuthentication',))
 @modify_settings(MIDDLEWARE={'remove': 'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware', })
 class GraphQLAPITest(GraphQLTestCase):
@@ -243,7 +276,6 @@ class GraphQLAPITest(GraphQLTestCase):
     def test_cannot_get_excluded_fields(self):
         self._login()
         response = self.query('{documents{id file}}')
-        print(response.content)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertContainsError('Cannot query field "id"', response)
         self.assertContainsError('Cannot query field "file"', response)
@@ -251,7 +283,6 @@ class GraphQLAPITest(GraphQLTestCase):
     def test_must_specify_doctype_partycode(self):
         self._login()
         response = self.query('{documents{filename}}')
-        print(response.content)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertContainsError('argument "docType" of type "String!" is required but not provided', response)
         self.assertContainsError('argument "partyCode" of type "Int!" is required but not provided', response)
