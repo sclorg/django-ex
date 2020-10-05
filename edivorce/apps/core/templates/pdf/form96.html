@@ -1,0 +1,138 @@
+{% load static %}
+{% load format_utils %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Form 96</title>
+
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/bootstrap-slim.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ css_root }}/static/css/weasyprint.css" />
+
+  {% include 'partials/gtm_head.html' %}
+</head>
+
+<body>
+  <div class="print-wrapper">
+    <h1 class="text-center">Form F96 <br>(Rule 22-4 (6) )</h1>
+
+    <p class="text-right">
+      Court File No.: <span class="form-entry not-complete">&nbsp;</span>
+    </p>
+    <p class="text-right">
+      Court Registry: {% if responses.court_registry_for_filing %} {{ responses.court_registry_for_filing }} {% else %} <span class="form-entry not-complete"> </span> {% endif %}
+    </p>
+    <p class="text-center">
+      <em> In the Supreme Court of British Columbia </em>
+    </p>
+
+    <p>
+      <span class="claimant-label">Claimant 1:</span>
+      {% if responses.name_you %}
+        {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
+      {% else %}
+        <span class="form-entry not-complete">&nbsp;</span>
+      {% endif %}
+    </p>
+    <p>
+      <span class="claimant-label">Claimant 2:</span>
+      {% if responses.name_spouse %}
+        {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
+      {% else %}
+        <span class="form-entry not-complete">&nbsp;</span>
+      {% endif %}
+    </p>
+
+    <h2 class="text-center">
+      ELECTRONIC FILING STATEMENT
+    </h2>        
+
+    <p>[<em>Check whichever one of the following boxes is correct and complete the required information.</em>]</p>
+    <p class="schIndent1">{% checkbox False %}  I, 
+      <span class="form-entry not-complete form-underline">&nbsp;</span>, am the 
+      lawyer acting for {{ responses.which_claimant }}, 
+      {% if responses.which_claimant == 'Claimant 1' %}
+        {% required responses.name_you %}.
+      {% endif %}
+      {% if responses.which_claimant == 'Claimant 2' %}
+        {% required responses.name_spouse %}.
+      {% endif %}
+    </p>
+    <p class="schIndent1">{% checkbox False %}  I, 
+      {% if responses.which_claimant == 'Claimant 1' %}
+        {% required responses.name_you %},
+      {% endif %}
+      {% if responses.which_claimant == 'Claimant 2' %}
+        {% required responses.name_spouse %},
+      {% endif %}
+      am {{ responses.which_claimant }} and I am not represented by a lawyer.</p>
+    <p>
+      I advise as follows:
+    </p>
+
+    <ol class="numbered-paragraphs">
+    <li>The................<em>[type and identifying description of document]</em>................ 
+      is being submitted for filing electronically on behalf of 
+      {{ responses.which_claimant }}, 
+      {% if responses.which_claimant == 'Claimant 1' %}
+        {% required responses.name_you %}.
+      {% endif %}
+      {% if responses.which_claimant == 'Claimant 2' %}
+        {% required responses.name_spouse %}.
+      {% endif %}
+    </li>
+    <li>
+      The original paper version of the document being submitted for filing electronically 
+      appears to bear an original signature of the person identified as the signatory and 
+      I have no reason to believe that the signature placed on the document is not the 
+      signature of the identified signatory.
+    </li>
+    <li>
+      The version of the document that is being submitted for filing electronically appears 
+      to be a true copy of the original paper version of the document and I have no reason 
+      to believe that it is not a true copy of the original paper version.
+    </li>
+    </ol>
+
+    <table class="table sig-table">
+      <tbody>
+        <tr>
+          <td class="sig-col1">Date:</td>
+          <td class="sig-col2 underline"></td>
+          <td class="sig-col3"></td>
+          <td class="sig-col4 underline"></td>
+          <td class="sig-col3"></td>
+          <td class="sig-col5 underline"></td>
+        </tr>
+        <tr>
+          <td class="sig-col1"></td>
+          <td class="sig-col2 sig-line-text">[dd/mmm/yyyy]</td>
+          <td class="sig-col3"></td>
+          <td class="sig-col4 sig-line-text">
+            <p>Signature of</p>
+            <p style="white-space: nowrap">
+              {% checkbox False %} party
+              {% checkbox False %} lawyer for party(ies)
+            </p>
+          </td>
+          <td class="sig-col3"></td>
+          <td class="sig-col5 sig-line-text">
+            <p>[Print name]<p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <small class="bottom">Printed on {% now "F jS, Y" %} from https://justice.gov.bc.ca/divorce</small>
+    
+  </div>
+</body>
+
+</html>
