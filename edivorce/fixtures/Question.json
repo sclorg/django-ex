@@ -492,7 +492,9 @@
         "name": "You and your spouse are asking for an order for spousal support as follows",
         "description": "For step 6, Form 1 5. Spousal support",
         "summary_order": 47,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_spousal_support_orders_wanted",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "spouse_support_details"
@@ -502,7 +504,9 @@
         "name": "Please indicate which act you are asking for support under.",
         "description": "For step 6, Form 1 5. Spousal support",
         "summary_order": 48,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_spousal_support_orders_wanted",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "spouse_support_act"
@@ -512,7 +516,9 @@
         "name": "Your children",
         "description": "For Step 6, Your children - Children details",
         "summary_order": 49,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "claimant_children"
@@ -522,7 +528,9 @@
         "name": "How will you and your spouse be determining your income?",
         "description": "For Step 6, Your children - Income & expenses",
         "summary_order": 50,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "how_will_calculate_income"
@@ -532,7 +540,9 @@
         "name": "What is your annual gross income as determined above?",
         "description": "For Step 6, Your children - Income & expenses",
         "summary_order": 51,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "annual_gross_income"
@@ -542,7 +552,9 @@
         "name": "What is your spouse's annual gross income as determined above?",
         "description": "For Step 6, Your children - Income & expenses",
         "summary_order": 52,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "spouse_annual_gross_income"
@@ -564,7 +576,9 @@
         "name": "Are you claiming any special and extraordinary expenses?",
         "description": "For Step 6, Your children - Income & expenses",
         "summary_order": 54,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "special_extraordinary_expenses"
@@ -778,7 +792,9 @@
         "name": "Who is the payor?",
         "description": "For Step 6, Your children - Payor & fact sheets",
         "summary_order": 74,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "child_support_payor"
@@ -938,7 +954,9 @@
         "name": "Are you or your spouse claiming undue hardship?",
         "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet E - Undue hardship",
         "summary_order": 88,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "claiming_undue_hardship"
@@ -1210,7 +1228,9 @@
         "name": "Is medical coverage available for the children?",
         "description": "For Step 6, Your children - Payor & medical expenses",
         "summary_order": 112,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "medical_coverage_available"
@@ -1232,7 +1252,9 @@
         "name": "Are there any child support payments (in arrears) that have not been paid (as of today's date) under an existing order or written agreement?",
         "description": "For Step 6, Your children - Payor & medical expenses",
         "summary_order": 114,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "child_support_payments_in_arrears"
@@ -1254,7 +1276,9 @@
         "name": "What is the monthly child support amount proposed in the order to be paid by",
         "description": "For Step 6, Your children - What are you asking for",
         "summary_order": 116,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "child_support_in_order"
@@ -1312,7 +1336,9 @@
         "name": "Do you have a separation agreement that sets out what you've agreed to around parenting and child support?",
         "description": "For Step 6, Your children - What are you asking for",
         "summary_order": 121,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "have_separation_agreement"
@@ -1322,7 +1348,9 @@
         "name": "Do you have an order about support of the children?",
         "description": "For Step 6, Your children - What are you asking for",
         "summary_order": 122,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "YES"
     },
     "model": "core.question",
     "pk": "have_court_order"
@@ -1332,7 +1360,9 @@
         "name": "The court needs to know what the current parenting arrangements are for the children of the marriage. Please describe below.",
         "description": "For Step 6, Your children - What are you asking for",
         "summary_order": 123,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "what_parenting_arrangements"
@@ -1342,7 +1372,9 @@
         "name": "Are you asking the court for an order about parenting arrangements or contact with a child?",
         "description": "For Step 6, Your children - What are you asking for",
         "summary_order": 124,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_has_children_of_marriage",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "want_parenting_arrangements"
@@ -1388,7 +1420,9 @@
         "name": "How have you and your spouse agreed to deal with your property and debt?",
         "description": "For step 7, Form 1 6. Property and debt",
         "summary_order": 128,
-        "required": "Required"
+        "required": "Conditional",
+        "conditional_target": "determine_property_debt_orders_wanted",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "deal_with_property_debt"
@@ -1417,216 +1451,12 @@
 },
 {
     "fields": {
-        "name": "Please enter the details for any other orders that you are asking for.",
-        "description": "For step 8 other orders, Form 1 7. Other",
-        "summary_order": 131,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "other_orders_detail"
-},
-{
-    "fields": {
-        "name": "What is the best address to send you official court documents?",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 132,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_street_you"
-},
-{
-    "fields": {
-        "name": "City",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 133,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_city_you"
-},
-{
-    "fields": {
-        "name": "Prov",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 134,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_prov_you"
-},
-{
-    "fields": {
-        "name": "Country",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 135,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_country_you"
-},
-{
-    "fields": {
-        "name": "Other Country",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 136,
-        "required": "Conditional",
-        "conditional_target": "address_to_send_official_document_country_you",
-        "reveal_response": "Other"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_other_country_you"
-},
-{
-    "fields": {
-        "name": "Postal code",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 137,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_postal_code_you"
-},
-{
-    "fields": {
-        "name": "Fax number",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 138,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_fax_you"
-},
-{
-    "fields": {
-        "name": "Email",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 139,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_email_you"
-},
-{
-    "fields": {
-        "name": "What is the best address to send your spouse official court documents?",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 140,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_street_spouse"
-},
-{
-    "fields": {
-        "name": "City",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 141,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_city_spouse"
-},
-{
-    "fields": {
-        "name": "Prov",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 142,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_prov_spouse"
-},
-{
-    "fields": {
-        "name": "Country",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 143,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_country_spouse"
-},
-{
-    "fields": {
-        "name": "Other Country",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
-        "summary_order": 144,
-        "required": "Conditional",
-        "conditional_target": "address_to_send_official_document_country_spouse",
-        "reveal_response": "Other"
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_other_country_spouse"
-},
-{
-    "fields": {
-        "name": "Postal code",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 145,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_postal_code_spouse"
-},
-{
-    "fields": {
-        "name": "Fax number",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 146,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_fax_spouse"
-},
-{
-    "fields": {
-        "name": "Email",
-        "description": "For step 9, Form 1 8. Claimants' addresses for service",
-        "summary_order": 147,
-        "required": ""
-    },
-    "model": "core.question",
-    "pk": "address_to_send_official_document_email_spouse"
-},
-{
-    "fields": {
-        "name": "Divorce is to take effect on",
-        "description": "For step 9, Form 52 This Court Orders that",
-        "summary_order": 148,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "divorce_take_effect_on"
-},
-{
-    "fields": {
-        "name": "Divorce is to take effect on specific date",
-        "description": "For step 9 - specific date, Form 52 This Court Orders that",
-        "summary_order": 149,
-        "required": "Conditional",
-        "conditional_target": "divorce_take_effect_on",
-        "reveal_response": "specific date"
-    },
-    "model": "core.question",
-    "pk": "divorce_take_effect_on_specific_date"
-},
-{
-    "fields": {
-        "name": "Where will you be filing for divorce?",
-        "description": "For step 10, Form 1 court registry, Form 35 court registry, Form 36 court registry, Form 38(joint and sole) court registry, Form 52 court registry",
-        "summary_order": 150,
-        "required": "Required"
-    },
-    "model": "core.question",
-    "pk": "court_registry_for_filing"
-},
-{
-    "fields": {
         "name": "Are you asking for a name change?",
         "description": "For Step 10, Forms 38 and 52's Orders sections",
-        "summary_order": 151,
-        "required": "Required"
+        "summary_order": 131,
+        "required": "Conditional",
+        "conditional_target": "determine_other_orders_wanted",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "name_change_you"
@@ -1635,7 +1465,7 @@
     "fields": {
         "name": "Please enter the full name",
         "description": "For Step 10, Forms 38 and 52's Orders sections",
-        "summary_order": 152,
+        "summary_order": 132,
         "required": "Conditional",
         "conditional_target": "name_change_you",
         "reveal_response": "YES"
@@ -1647,8 +1477,10 @@
     "fields": {
         "name": "Is your spouse asking for a name change?",
         "description": "For Step 10, Forms 38 and 52's Orders sections",
-        "summary_order": 153,
-        "required": "Required"
+        "summary_order": 133,
+        "required": "Conditional",
+        "conditional_target": "determine_other_orders_wanted",
+        "reveal_response": "True"
     },
     "model": "core.question",
     "pk": "name_change_spouse"
@@ -1657,13 +1489,219 @@
     "fields": {
         "name": "Please enter the full name",
         "description": "For Step 10, Forms 38 and 52's Orders sections",
-        "summary_order": 154,
+        "summary_order": 134,
         "required": "Conditional",
         "conditional_target": "name_change_spouse",
         "reveal_response": "YES"
     },
     "model": "core.question",
     "pk": "name_change_spouse_fullname"
+},
+{
+    "fields": {
+        "name": "Please enter the details for any other orders that you are asking for.",
+        "description": "For step 8 other orders, Form 1 7. Other",
+        "summary_order": 135,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "other_orders_detail"
+},
+{
+    "fields": {
+        "name": "What is the best address to send you official court documents?",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 136,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_street_you"
+},
+{
+    "fields": {
+        "name": "City",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 137,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_city_you"
+},
+{
+    "fields": {
+        "name": "Prov",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 138,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_prov_you"
+},
+{
+    "fields": {
+        "name": "Country",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 139,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_country_you"
+},
+{
+    "fields": {
+        "name": "Other Country",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 140,
+        "required": "Conditional",
+        "conditional_target": "address_to_send_official_document_country_you",
+        "reveal_response": "Other"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_other_country_you"
+},
+{
+    "fields": {
+        "name": "Postal code",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 141,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_postal_code_you"
+},
+{
+    "fields": {
+        "name": "Fax number",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "summary_order": 142,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_fax_you"
+},
+{
+    "fields": {
+        "name": "Email",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "summary_order": 143,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_email_you"
+},
+{
+    "fields": {
+        "name": "What is the best address to send your spouse official court documents?",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 144,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_street_spouse"
+},
+{
+    "fields": {
+        "name": "City",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 145,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_city_spouse"
+},
+{
+    "fields": {
+        "name": "Prov",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 146,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_prov_spouse"
+},
+{
+    "fields": {
+        "name": "Country",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 147,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_country_spouse"
+},
+{
+    "fields": {
+        "name": "Other Country",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service, Form 38(joint) Affidavit section",
+        "summary_order": 148,
+        "required": "Conditional",
+        "conditional_target": "address_to_send_official_document_country_spouse",
+        "reveal_response": "Other"
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_other_country_spouse"
+},
+{
+    "fields": {
+        "name": "Postal code",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "summary_order": 149,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_postal_code_spouse"
+},
+{
+    "fields": {
+        "name": "Fax number",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "summary_order": 150,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_fax_spouse"
+},
+{
+    "fields": {
+        "name": "Email",
+        "description": "For step 9, Form 1 8. Claimants' addresses for service",
+        "summary_order": 151,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "address_to_send_official_document_email_spouse"
+},
+{
+    "fields": {
+        "name": "Divorce is to take effect on",
+        "description": "For step 9, Form 52 This Court Orders that",
+        "summary_order": 152,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "divorce_take_effect_on"
+},
+{
+    "fields": {
+        "name": "Divorce is to take effect on specific date",
+        "description": "For step 9 - specific date, Form 52 This Court Orders that",
+        "summary_order": 153,
+        "required": "Conditional",
+        "conditional_target": "divorce_take_effect_on",
+        "reveal_response": "specific date"
+    },
+    "model": "core.question",
+    "pk": "divorce_take_effect_on_specific_date"
+},
+{
+    "fields": {
+        "name": "Where will you be filing for divorce?",
+        "description": "For step 10, Form 1 court registry, Form 35 court registry, Form 36 court registry, Form 38(joint and sole) court registry, Form 52 court registry",
+        "summary_order": 154,
+        "required": "Required"
+    },
+    "model": "core.question",
+    "pk": "court_registry_for_filing"
 },
 {
     "fields": {
