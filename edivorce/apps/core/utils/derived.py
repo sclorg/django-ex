@@ -106,8 +106,7 @@ def get_derived_data(responses):
 
 def orders_wanted(responses, derived):
     """ Return a list of orders the user has indicated """
-
-    return json.loads(responses.get('want_which_orders', '[]'))
+    return conditional_logic.orders_wanted(responses)
 
 
 def children(responses, derived):

@@ -5,6 +5,14 @@ from edivorce.apps.core.utils.question_step_mapping import children_substep_ques
 from edivorce.apps.core.utils.conditional_logic import get_cleaned_response_value
 
 
+class Status:
+    STARTED = "Started"
+    COMPLETED = "Completed"
+    SKIPPED = "Skipped"
+    NOT_STARTED = "Not started"
+    HIDDEN = "Hidden"
+
+
 def evaluate_numeric_condition(target, reveal_response):
     """
     Tests whether the reveal_response contains a numeric condition.  If so, it will
@@ -56,19 +64,25 @@ def get_step_completeness(questions_by_step):
     return status_dict
 
 
+def has_required_questions(question_dicts):
+    return any([question for question in question_dicts if question['question__required'] != ''])
+
+
 def _get_step_status(question_dicts, has_responses):
     if not step_started(question_dicts):
-        if not has_responses:
-            status = "Not started"
+        if not has_required_questions(question_dicts):
+            status = Status.HIDDEN
+        elif not has_responses:
+            status = Status.NOT_STARTED
         else:
-            status = "Skipped"
+            status = Status.SKIPPED
     else:
         has_responses = True
         complete = is_complete(question_dicts)
         if complete:
-            status = "Completed"
+            status = Status.COMPLETED
         else:
-            status = "Started"
+            status = Status.STARTED
     return status, has_responses
 
 

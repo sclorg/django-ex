@@ -3,7 +3,7 @@ import json
 from django.test import TestCase
 
 from edivorce.apps.core.models import BceidUser, UserResponse
-from edivorce.apps.core.utils.conditional_logic import get_cleaned_response_value, get_num_children_living_with
+from edivorce.apps.core.utils import conditional_logic as logic
 from edivorce.apps.core.utils.user_response import get_data_for_user
 from edivorce.apps.core.models import Document
 
@@ -27,31 +27,54 @@ class ConditionalLogicTestCase(TestCase):
         return get_data_for_user(self.user)
 
     def test_get_cleaned_response_no_value(self):
-        self.assertIsNone(get_cleaned_response_value(None))
-        self.assertIsNone(get_cleaned_response_value(''))
-        self.assertIsNone(get_cleaned_response_value('  '))
-        self.assertIsNone(get_cleaned_response_value('[]'))
-        self.assertIsNone(get_cleaned_response_value('[["","  "]]'))
-        self.assertIsNone(get_cleaned_response_value('[["also known as",""]]'))
-        self.assertIsNone(get_cleaned_response_value('[["also known as",""],["also known as",""]]'))
+        self.assertIsNone(logic.get_cleaned_response_value(None))
+        self.assertIsNone(logic.get_cleaned_response_value(''))
+        self.assertIsNone(logic.get_cleaned_response_value('  '))
+        self.assertIsNone(logic.get_cleaned_response_value('[]'))
+        self.assertIsNone(logic.get_cleaned_response_value('[["","  "]]'))
+        self.assertIsNone(logic.get_cleaned_response_value('[["also known as",""]]'))
+        self.assertIsNone(logic.get_cleaned_response_value('[["also known as",""],["also known as",""]]'))
 
     def test_get_cleaned_response_with_value(self):
-        self.assertIsNotNone(get_cleaned_response_value('0'))
-        self.assertIsNotNone(get_cleaned_response_value('["hi"]'))
-        self.assertIsNotNone(get_cleaned_response_value('[["also known as","a"]]'))
+        self.assertIsNotNone(logic.get_cleaned_response_value('0'))
+        self.assertIsNotNone(logic.get_cleaned_response_value('["hi"]'))
+        self.assertIsNotNone(logic.get_cleaned_response_value('[["also known as","a"]]'))
 
     def test_num_children(self):
-        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with you'), '0')
-        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with spouse'), '0')
-        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with both'), '0')
+        # No children
+        self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with you'), '0')
+        self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with spouse'), '0')
+        self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with both'), '0')
 
         children = [self.child_live_with_you, self.child_live_with_spouse, self.child_live_with_spouse,
                     self.child_live_with_both, self.child_live_with_both, self.child_live_with_both]
         self.create_response('claimant_children', json.dumps(children))
 
-        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with you'), '1')
-        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with spouse'), '2')
-        self.assertEqual(get_num_children_living_with(self.questions_dict, 'Lives with both'), '3')
+        # Has children, but marked no children of marriage in prequal
+        self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with you'), '0')
+        self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with spouse'), '0')
+        self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with both'), '0')
+
+        # Has children, and marked YES to children of marriage in prequal
+        self.create_response('children_of_marriage', 'YES')
+        self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with you'), '1')
+        self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with spouse'), '2')
+        self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with both'), '3')
+
+    def test_shared_custody(self):
+        self.create_response('children_of_marriage', 'NO')
+        self.assertFalse(logic.determine_shared_custody(self.questions_dict))
+
+        children = [self.child_live_with_both, self.child_live_with_you]
+        self.create_response('claimant_children', json.dumps(children))
+        self.assertFalse(logic.determine_shared_custody(self.questions_dict))
+
+        self.create_response('children_of_marriage', 'YES')
+        self.assertTrue(logic.determine_shared_custody(self.questions_dict))
+
+        children = [self.child_live_with_spouse, self.child_live_with_you]
+        self.create_response('claimant_children', json.dumps(children))
+        self.assertFalse(logic.determine_shared_custody(self.questions_dict))
 
 
 class ViewLogic(TestCase):

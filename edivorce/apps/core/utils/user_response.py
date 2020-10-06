@@ -73,7 +73,7 @@ def _condition_met(target_response, reveal_response):
         if reveal_response.startswith('!'):
             if target_response == "" or target_response.lower() == reveal_response[1:].lower():
                 return False
-        elif str(target_response) != reveal_response:
+        elif str(target_response).lower() != reveal_response.lower():
             return False
     elif numeric_condition_met is False:
         return False

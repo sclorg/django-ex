@@ -3,7 +3,7 @@ import json
 from django.test import TestCase
 from edivorce.apps.core.models import UserResponse, Question, BceidUser
 from edivorce.apps.core.utils.derived import get_derived_data
-from edivorce.apps.core.utils.step_completeness import get_error_dict, get_step_completeness, is_complete
+from edivorce.apps.core.utils.step_completeness import Status, get_error_dict, get_step_completeness, is_complete
 
 from edivorce.apps.core.utils.user_response import get_data_for_user, get_step_responses
 
@@ -19,6 +19,12 @@ class StepCompletenessTestCase(TestCase):
         responses_dict_by_step = get_step_responses(responses_dict)
         return is_complete(responses_dict_by_step[step])
 
+    def check_step_status(self, step):
+        responses_dict = get_data_for_user(self.user)
+        responses_dict_by_step = get_step_responses(responses_dict)
+        step_completeness = get_step_completeness(responses_dict_by_step)
+        return step_completeness[step]
+
     def create_response(self, question, value):
         UserResponse.objects.create(bceid_user=self.user, question=Question.objects.get(key=question), value=value)
 
@@ -27,6 +33,7 @@ class StepCompletenessTestCase(TestCase):
 
         # No response should be False
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
 
         # Testing required questions
         # Missing few required questions
@@ -40,10 +47,12 @@ class StepCompletenessTestCase(TestCase):
         self.create_response('marriage_certificate_in_english', 'YES')
 
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.STARTED)
 
         # All required questions with one checking question with hidden question not shown
         self.create_response('divorce_reason', 'live separate')
         self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.COMPLETED)
 
         # Reconciliation
         UserResponse.objects.filter(question_id='try_reconcile_after_separated').update(value="YES")
@@ -86,10 +95,12 @@ class StepCompletenessTestCase(TestCase):
 
         # No response should be False
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
 
         # All required question
         self.create_response('want_which_orders', '["nothing"]')
         self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.COMPLETED)
 
         # Put empty response
         UserResponse.objects.filter(question_id='want_which_orders').update(value="[]")
@@ -100,6 +111,7 @@ class StepCompletenessTestCase(TestCase):
 
         # No response should be False
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
 
         # Testing required questions
         # Missing few required questions
@@ -107,6 +119,7 @@ class StepCompletenessTestCase(TestCase):
         self.create_response('last_name_before_married_you', 'Jackson')
         self.create_response('birthday_you', '11/11/1111')
         self.create_response('occupation_you', 'Plumber')
+        self.assertEqual(self.check_step_status(step), Status.STARTED)
 
         self.assertEqual(self.check_completeness(step), False)
 
@@ -128,6 +141,7 @@ class StepCompletenessTestCase(TestCase):
         # All required questions with two checking question with one hidden and one shown
         self.create_response('any_other_name_you', 'NO')
         self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.COMPLETED)
 
         # All required questions with two checking question with one hidden question missing
         UserResponse.objects.filter(question_id='any_other_name_you').update(value="YES")
@@ -146,6 +160,7 @@ class StepCompletenessTestCase(TestCase):
 
         # No response should be False
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
 
         # Testing required questions
         # Missing few required questions
@@ -155,6 +170,7 @@ class StepCompletenessTestCase(TestCase):
         self.create_response('occupation_spouse', 'Electrician')
 
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.STARTED)
 
         # Few required questions with one checking question with hidden question not shown
         self.create_response('any_other_name_spouse', 'NO')
@@ -175,6 +191,7 @@ class StepCompletenessTestCase(TestCase):
         # All required questions with two checking question with one hidden and one shown
         self.create_response('other_name_spouse', '[["also known as","Smith"]]')
         self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.COMPLETED)
 
         # All required questions with two checking question with one hidden question missing
         UserResponse.objects.filter(question_id='lived_in_bc_spouse').update(value="Moved to B.C. on")
@@ -197,10 +214,12 @@ class StepCompletenessTestCase(TestCase):
 
         # No response should be False
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
 
         # Some required questions
         self.create_response('when_were_you_live_married_like', '12/12/2007')
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.STARTED)
 
         self.create_response('when_were_you_married', '12/12/2008')
         self.assertEqual(self.check_completeness(step), False)
@@ -228,15 +247,23 @@ class StepCompletenessTestCase(TestCase):
         # All required questions
         self.create_response('where_were_you_married_other_country', 'Peru')
         self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.COMPLETED)
 
     def test_your_separation(self):
         step = 'your_separation'
         # No response should be False
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
 
-        # All required question
+        # One required question
         self.create_response('no_reconciliation_possible', 'I agree')
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.STARTED)
+
+        # All required question
+        self.create_response('no_collusion', 'I agree')
+        self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.COMPLETED)
 
         # Put empty response
         UserResponse.objects.filter(question_id='no_reconciliation_possible').update(value="")
@@ -245,61 +272,79 @@ class StepCompletenessTestCase(TestCase):
     def test_spousal_support(self):
         step = 'spousal_support'
 
+        # Step not required if spousal support not wanted
+        self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.HIDDEN)
+
         # No response should be False
+        self.create_response('want_which_orders', '["Spousal support"]')
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
 
         # One required question
         self.create_response('spouse_support_details', 'I will support you')
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.STARTED)
 
         # Two required questions
         self.create_response('spouse_support_act', 'Family Law')
         self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.COMPLETED)
 
         # Remove first added required response to test the second required question
         UserResponse.objects.get(question_id='spouse_support_details').delete()
-
         self.assertEqual(self.check_completeness(step), False)
 
-        # Put empty response
+        # Empty response doesn't count as answered
         UserResponse.objects.filter(question_id='spouse_support_details').update(value="")
-
         self.assertEqual(self.check_completeness(step), False)
 
     def test_property_and_debt(self):
         step = 'property_and_debt'
 
+        # Step not required if property and debt orders not wanted
+        self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.HIDDEN)
+
         # No response should be False
+        self.create_response('want_which_orders', '["Division of property and debts"]')
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
 
         # All required question with no hidden shown
         self.create_response('deal_with_property_debt', 'Equal division')
-
         self.assertEqual(self.check_completeness(step), True)
 
         # All required question with hidden shown but no response
         UserResponse.objects.filter(question_id='deal_with_property_debt').update(value="Unequal division")
-
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.STARTED)
 
         # Only one required question with hidden shown and answered
         self.create_response('how_to_divide_property_debt', 'Do not divide them')
-
         self.assertEqual(self.check_completeness(step), True)
 
         # All required question with optional fields
         self.create_response('other_property_claims', 'Want these property claims')
         self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.COMPLETED)
 
     def test_other_orders(self):
         step = 'other_orders'
 
+        # Step not required if other orders not wanted
+        self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.HIDDEN)
+
         # No response should be False
+        self.create_response('want_which_orders', '["Other orders"]')
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
 
         # All required question
         self.create_response('name_change_you', 'NO')
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.STARTED)
 
         self.create_response('name_change_spouse', 'NO')
         self.create_response('other_orders_detail', 'I want more orders')
@@ -316,16 +361,19 @@ class StepCompletenessTestCase(TestCase):
         # Put empty response
         UserResponse.objects.filter(question_id='other_orders_detail').update(value="")
         self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.COMPLETED)
 
     def test_other_questions(self):
         step = 'other_questions'
 
         # No response should be False
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
 
         # Some required question
         self.create_response('address_to_send_official_document_street_you', '123 Cambie st')
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.STARTED)
 
         self.create_response('address_to_send_official_document_city_you', 'Vancouver')
         self.assertEqual(self.check_completeness(step), False)
@@ -384,6 +432,7 @@ class StepCompletenessTestCase(TestCase):
         # All required questions
         self.create_response('address_to_send_official_document_other_country_spouse', 'Mexico')
         self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.COMPLETED)
 
         # Set Specific date on to empty
         UserResponse.objects.filter(question_id='divorce_take_effect_on_specific_date').update(value="")
@@ -394,10 +443,12 @@ class StepCompletenessTestCase(TestCase):
 
         # No response should be False
         self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
 
         # All required question
         self.create_response('court_registry_for_filing', 'Vancouver')
         self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_step_status(step), Status.COMPLETED)
 
         # Put empty response
         UserResponse.objects.filter(question_id='court_registry_for_filing').update(value="")
@@ -412,8 +463,9 @@ class ChildrenStepCompletenessTestCase(TestCase):
         self.child_live_with_you = {"child_name": "Child with you", "child_birth_date": "Dec 30, 2018", "child_live_with": "Lives with you", "child_relationship_to_you": "Natural child", "child_relationship_to_spouse": "Natural child", "child_live_with_other_details": ""}
         self.child_live_with_spouse = {"child_name": "Child with spouse", "child_birth_date": "Jan 4, 2009", "child_live_with": "Lives with spouse", "child_relationship_to_you": "Adopted child", "child_relationship_to_spouse": "Adopted child", "child_live_with_other_details": ""}
         self.child_live_with_both = {"child_name": "Child with both", "child_birth_date": "Jan 4, 2009", "child_live_with": "Lives with both", "child_relationship_to_you": "Adopted child", "child_relationship_to_spouse": "Adopted child", "child_live_with_other_details": ""}
+        self.create_response('children_of_marriage', 'YES')
 
-    def get_children_step_status(self, substep):
+    def get_children_step_status(self, substep=None):
         responses_dict = get_data_for_user(self.user)
         responses_dict_by_step = get_step_responses(responses_dict)
         step_completeness = get_step_completeness(responses_dict_by_step)
@@ -424,7 +476,7 @@ class ChildrenStepCompletenessTestCase(TestCase):
         return step_completeness[key]
 
     def is_step_complete(self, substep):
-        return self.get_children_step_status(substep) == 'Completed'
+        return self.get_children_step_status(substep) == Status.COMPLETED
 
     def create_response(self, question, value):
         response, _ = UserResponse.objects.get_or_create(bceid_user=self.user, question_id=question)
@@ -443,12 +495,21 @@ class ChildrenStepCompletenessTestCase(TestCase):
         derived_data = get_derived_data(responses_dict)
         return derived_data[derived_key]
 
+    def test_no_children(self):
+        self.create_response('children_of_marriage', 'NO')
+        self.assertEqual(self.get_children_step_status(), 'Hidden')
+        self.assertEqual(self.get_children_step_status('your_children'), 'Hidden')
+        self.assertEqual(self.get_children_step_status('income_expenses'), 'Hidden')
+        self.assertEqual(self.get_children_step_status('facts'), 'Hidden')
+        self.assertEqual(self.get_children_step_status('payor_medical'), 'Hidden')
+        self.assertEqual(self.get_children_step_status('what_for'), 'Hidden')
+
     def test_children_details(self):
         substep = 'your_children'
 
         # No response status is Not Started
         self.assertFalse(self.is_step_complete(substep))
-        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+        self.assertEqual(self.get_children_step_status(substep), Status.NOT_STARTED)
 
         # Empty list doesn't count as answered
         self.create_response('claimant_children', '[]')
@@ -456,7 +517,7 @@ class ChildrenStepCompletenessTestCase(TestCase):
 
         # Future question answered means status is Skipped
         self.create_response('have_separation_agreement', 'YES')
-        self.assertEqual(self.get_children_step_status(substep), 'Skipped')
+        self.assertEqual(self.get_children_step_status(substep), Status.SKIPPED)
 
         # Has valid value
         children = [self.child_live_with_you]
@@ -468,12 +529,12 @@ class ChildrenStepCompletenessTestCase(TestCase):
 
         children = [self.child_live_with_you, self.child_live_with_spouse]
         self.create_response('claimant_children', json.dumps(children))
-        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+        self.assertEqual(self.get_children_step_status(substep), Status.NOT_STARTED)
         self.assertFalse(self.is_step_complete(substep))
 
         # All basic required fields
         self.create_response('how_will_calculate_income', 'entered agreement')
-        self.assertEqual(self.get_children_step_status(substep), 'Started')
+        self.assertEqual(self.get_children_step_status(substep), Status.STARTED)
         self.create_response('annual_gross_income', '100')
         self.create_response('spouse_annual_gross_income', '100')
         self.create_response('special_extraordinary_expenses', 'NO')
@@ -500,7 +561,7 @@ class ChildrenStepCompletenessTestCase(TestCase):
         children = [self.child_live_with_you]
         self.create_response('claimant_children', json.dumps(children))
         self.create_response('annual_gross_income', '0')
-        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+        self.assertEqual(self.get_children_step_status(substep), Status.NOT_STARTED)
         self.assertFalse(self.is_step_complete(substep))
 
         # All basic required fields if there is only sole custody of children and payor makes less than $150,000
@@ -645,7 +706,7 @@ class ChildrenStepCompletenessTestCase(TestCase):
         substep = 'payor_medical'
 
         self.assertFalse(self.is_step_complete(substep))
-        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+        self.assertEqual(self.get_children_step_status(substep), Status.NOT_STARTED)
 
         # All basic required fields
         self.create_response('medical_coverage_available', 'NO')
@@ -665,7 +726,7 @@ class ChildrenStepCompletenessTestCase(TestCase):
         substep = 'what_for'
 
         self.assertFalse(self.is_step_complete(substep))
-        self.assertEqual(self.get_children_step_status(substep), 'Not started')
+        self.assertEqual(self.get_children_step_status(substep), Status.NOT_STARTED)
 
         # All basic required fields
         self.create_response('child_support_in_order', 'MATCH')
