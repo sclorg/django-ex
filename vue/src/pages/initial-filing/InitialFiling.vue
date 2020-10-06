@@ -57,11 +57,11 @@
           <Uploader doc-type="AFTL" />
         </div>
         <div>
-          <!-- OFI - Final Order -->
+          <!-- OFI - Final Order (F52) -->
           <Uploader doc-type="OFI" />
         </div>
         <div>
-          <!-- EFSS - Electronic Filing Statement - Supreme -->
+          <!-- EFSS - Electronic Filing Statement - Supreme (F96) -->
           <Uploader doc-type="EFSS" :party="1" />
         </div>
         <div>
@@ -69,7 +69,7 @@
           <Uploader doc-type="RDP" />
         </div>
         <div>
-          <!-- AAI - Agreement as to Annual Income -->
+          <!-- AAI - Agreement as to Annual Income (F9) -->
           <Uploader doc-type="AAI" />
         </div>
         <div>
@@ -104,15 +104,15 @@
           <Uploader doc-type="AFTL" />
         </div>
         <div>
-          <!-- OFI - Final Order -->
+          <!-- OFI - Final Order (F52) -->
           <Uploader doc-type="OFI" />
         </div>
         <div>
-          <!-- EFSS - Electronic Filing Statement - Supreme -->
+          <!-- EFSS - Electronic Filing Statement - Supreme (F96) -->
           <Uploader doc-type="EFSS" :party="1" />
         </div>
         <div>
-          <!-- EFSS - Electronic Filing Statement - Supreme -->
+          <!-- EFSS - Electronic Filing Statement - Supreme (F96) -->
           <Uploader doc-type="EFSS" :party="2" />
         </div>
         <div>
@@ -120,7 +120,7 @@
           <Uploader doc-type="RDP" />
         </div>
         <div>
-          <!-- AAI - Agreement as to Annual Income -->
+          <!-- AAI - Agreement as to Annual Income (F9) -->
           <Uploader doc-type="AAI" />
         </div>
         <div>

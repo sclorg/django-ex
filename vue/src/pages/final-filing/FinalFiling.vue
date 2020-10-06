@@ -2,11 +2,11 @@
   <div id="app">
     <div class="question-well-border-less" v-if="signingLocation === 'Virtual'">
       <div>
-        <!-- CSA - Child Support Affidavit -->
+        <!-- CSA - Child Support Affidavit (F37) -->
         <Uploader doc-type="CSA" />
       </div>
       <div>
-        <!-- AFDO - Affidavit - Desk Order Divorce -->
+        <!-- AFDO - Affidavit - Desk Order Divorce (F38) -->
         <Uploader doc-type="AFDO" />
       </div>
     </div>
@@ -17,19 +17,19 @@
       "
     >
       <div>
-        <!-- CSA - Child Support Affidavit -->
+        <!-- CSA - Child Support Affidavit (F37) -->
         <Uploader doc-type="CSA" :party="1" />
       </div>
       <div>
-        <!-- AFDO - Affidavit - Desk Order Divorce -->
+        <!-- AFDO - Affidavit - Desk Order Divorce (F38) -->
         <Uploader doc-type="AFDO" :party="1" />
       </div>
       <div>
-        <!-- CSA - Child Support Affidavit -->
+        <!-- CSA - Child Support Affidavit (F37) -->
         <Uploader doc-type="CSA" :party="2" />
       </div>
       <div>
-        <!-- AFDO - Affidavit - Desk Order Divorce -->
+        <!-- AFDO - Affidavit - Desk Order Divorce (F38) -->
         <Uploader doc-type="AFDO" :party="2" />
       </div>
     </div>
@@ -51,27 +51,27 @@
           <li>Certificate of Pleadings Form (F36)</li>
         </ul>
         <div>
-          <!-- CSA - Child Support Affidavit -->
+          <!-- CSA - Child Support Affidavit (F37) -->
           <Uploader doc-type="CSA" />
         </div>
         <div>
-          <!-- AFDO - Affidavit - Desk Order Divorce -->
+          <!-- AFDO - Affidavit - Desk Order Divorce (F38) -->
           <Uploader doc-type="AFDO" />
         </div>
         <div>
-          <!-- OFI - Final Order -->
+          <!-- OFI - Final Order (F52) -->
           <Uploader doc-type="OFI" />
         </div>
         <div>
-          <!-- EFSS - Electronic Filing Statement - Supreme -->
+          <!-- EFSS - Electronic Filing Statement - Supreme (F96) -->
           <Uploader doc-type="EFSS" :party="1" post-text=" - For You" />
         </div>
         <div>
-          <!-- EFSS - Electronic Filing Statement - Supreme -->
+          <!-- EFSS - Electronic Filing Statement - Supreme (F96) -->
           <Uploader doc-type="EFSS" :party="2" />
         </div>
         <div>
-          <!-- AAI - Agreement as to Annual Income -->
+          <!-- AAI - Agreement as to Annual Income (F9) -->
           <Uploader doc-type="AAI" />
         </div>
         <div>
