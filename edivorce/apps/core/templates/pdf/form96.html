@@ -35,16 +35,16 @@
 
     <p>
       <span class="claimant-label">Claimant 1:</span>
-      {% if responses.name_you %}
-        {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
+      {% if responses|name_you %}
+        {% include "partials/name_with_alias.html" with name=responses|name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
       {% else %}
         <span class="form-entry not-complete">&nbsp;</span>
       {% endif %}
     </p>
     <p>
       <span class="claimant-label">Claimant 2:</span>
-      {% if responses.name_spouse %}
-        {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
+      {% if responses|name_spouse %}
+        {% include "partials/name_with_alias.html" with name=responses|name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
       {% else %}
         <span class="form-entry not-complete">&nbsp;</span>
       {% endif %}
@@ -59,18 +59,18 @@
       <span class="form-entry not-complete form-underline">&nbsp;</span>, am the 
       lawyer acting for {{ responses.which_claimant }}, 
       {% if responses.which_claimant == 'Claimant 1' %}
-        {% required responses.name_you %}.
+        {% required responses|name_you %}.
       {% endif %}
       {% if responses.which_claimant == 'Claimant 2' %}
-        {% required responses.name_spouse %}.
+        {% required responses|name_spouse %}.
       {% endif %}
     </p>
     <p class="schIndent1">{% checkbox False %}  I, 
       {% if responses.which_claimant == 'Claimant 1' %}
-        {% required responses.name_you %},
+        {% required responses|name_you %},
       {% endif %}
       {% if responses.which_claimant == 'Claimant 2' %}
-        {% required responses.name_spouse %},
+        {% required responses|name_spouse %},
       {% endif %}
       am {{ responses.which_claimant }} and I am not represented by a lawyer.</p>
     <p>
@@ -82,10 +82,10 @@
       is being submitted for filing electronically on behalf of 
       {{ responses.which_claimant }}, 
       {% if responses.which_claimant == 'Claimant 1' %}
-        {% required responses.name_you %}.
+        {% required responses|name_you %}.
       {% endif %}
       {% if responses.which_claimant == 'Claimant 2' %}
-        {% required responses.name_spouse %}.
+        {% required responses|name_spouse %}.
       {% endif %}
     </li>
     <li>

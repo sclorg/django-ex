@@ -10,11 +10,18 @@
 
 <h1><small>Step 2:</small>Your Information (Claimant 1)</h1>
 
-<div class="question-well {% if name_you_error %}error{% endif %}">
+<div class="question-well {% if last_name_you_error or first_name_you_error %}error{% endif %}">
     <h3>Please enter your name (as it appears on your marriage certificate or registration of marriage)
-        {% if name_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
-    <span class="form-group">
-        {% input_field type="text" name="name_you" class="form-block input-wide response-textbox name" %}
+        {% if last_name_you_error or first_name_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
+    <span class="form-group name">
+        <p>Last name</p>
+        {% input_field type="text" name="last_name_you" class="form-block input-medium response-textbox name" %}
+        <p>First name</p>
+        {% input_field type="text" name="given_name_1_you" class="form-block input-medium response-textbox name" %}
+        <p>Middle name <span class="optional inline">If applicable</span></p>
+        {% input_field type="text" name="given_name_2_you" class="form-block input-medium response-textbox name" %}
+        <p>Middle name #2 <span class="optional inline">If applicable</span></p>        
+        {% input_field type="text" name="given_name_3_you" class="form-block input-medium response-textbox name" %}
     </span>
 
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_changed_name" aria-controls="collapse_changed_name">

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load format_utils %}
 {% load step_order %}
 {% load load_json %}
 
@@ -124,23 +125,21 @@
         <div class="radio">
             <label class="tight-spacing">
                 {% input_field type="radio" class="radio-with-other  children-input-block" name="child_live_with" value="Lives with you" data_target_id="other_child_details" data_reveal_target="false" data_mirror="true" data_mirror_target="#child_live_with_0" data_skip_ajax="true" %}
-                {% if name_you %}{{ name_you }}{% else %}You{% endif %}
+                {% you_name if_blank="You" %}
             </label>
             <p>Child lives primarily (more than 60%) with this parent. This is referred to as sole custody (Divorce Act) or guardianship (Family Law Act).</p>
         </div>
         <div class="radio">
             <label class="tight-spacing">
                 {% input_field type="radio" class="radio-with-other  children-input-block" name="child_live_with" value="Lives with spouse" data_target_id="other_child_details" data_reveal_target="false" data_mirror="true" data_mirror_target="#child_live_with_0" data_skip_ajax="true" %}
-                {% if name_spouse %}{{ name_spouse }}{% else %}Your spouse{% endif %}
+                {% spouse_name if_blank="Your spouse" %}
             </label>
             <p>Child lives primarily (more than 60%) with this parent.  This is  referred to as sole custody.</p>
         </div>
         <div class="radio">
             <label class="tight-spacing">
                 {% input_field type="radio" class="radio-with-other  children-input-block" name="child_live_with" value="Lives with both" data_target_id="other_child_details" data_reveal_target="false" data_mirror="true" data_mirror_target="#child_live_with_0" data_skip_ajax="true" %}
-                Both parents -
-                {% if name_you %}{{ name_you }}{% else %}you{% endif %} and
-                {% if name_spouse %}{{ name_spouse }}{% else %}your spouse{% endif %}
+                Both parents - {% you_name %} and {% spouse_name %}
             </label>
             <p>
                 The child lives with both parents more or less equally (between 40-60% of the time with each parent).

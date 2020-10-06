@@ -847,6 +847,13 @@ input {
 		width: 70%;
 	}
 
+	&.input-medium {
+		width: 70%;
+		@media (min-width: 992px) {
+			width: 45%;
+		}
+	}	
+
 	&.input-narrow {
 		max-width: 100px;
 	}

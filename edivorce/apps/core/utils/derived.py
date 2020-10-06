@@ -14,6 +14,7 @@ under the _derived_ key.
 import json
 
 from edivorce.apps.core.utils import conditional_logic
+from edivorce.apps.core.templatetags import format_utils
 
 # This array is order sensitive: later functions may depend on values from
 # earlier ones
@@ -401,12 +402,12 @@ def child_support_payor_by_name(responses, derived):
     payor = 'the payor'
     support_payor = child_support_payor(responses, derived)
     if support_payor == 'Claimant 1':
-        payor = responses.get('name_you', support_payor)
+        payor = format_utils.you_name(responses, support_payor)
     elif support_payor == 'Claimant 2':
-        payor = responses.get('name_spouse', support_payor)
+        payor = format_utils.spouse_name(responses, child_support_payor)
     elif support_payor == 'both Claimant 1 and Claimant 2':
-        payor = '{} and {}'.format(responses.get('name_you', 'myself'),
-                                   responses.get('name_spouse', 'my spouse'))
+        payor = '{} and {}'.format(format_utils.you_name(responses, 'myself'),
+                                   format_utils.spouse_name(responses, 'my spouse'))
     return payor
 
 

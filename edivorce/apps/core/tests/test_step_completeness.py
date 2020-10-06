@@ -115,7 +115,8 @@ class StepCompletenessTestCase(TestCase):
 
         # Testing required questions
         # Missing few required questions
-        self.create_response('name_you', 'John Doe')
+        self.create_response('last_name_you', 'Doe')
+        self.create_response('given_name_1_you', 'John')
         self.create_response('last_name_before_married_you', 'Jackson')
         self.create_response('birthday_you', '11/11/1111')
         self.create_response('occupation_you', 'Plumber')
@@ -164,7 +165,8 @@ class StepCompletenessTestCase(TestCase):
 
         # Testing required questions
         # Missing few required questions
-        self.create_response('name_spouse', 'John Doe')
+        self.create_response('last_name_spouse', 'Doe')
+        self.create_response('given_name_1_spouse', 'John')
         self.create_response('last_name_before_married_spouse', 'Jackson')
         self.create_response('birthday_spouse', '11/11/1111')
         self.create_response('occupation_spouse', 'Electrician')
@@ -202,7 +204,7 @@ class StepCompletenessTestCase(TestCase):
         self.assertEqual(self.check_completeness(step), True)
 
         # Put empty response
-        UserResponse.objects.filter(question_id='name_spouse').update(value="")
+        UserResponse.objects.filter(question_id='last_name_spouse').update(value="")
         self.assertEqual(self.check_completeness(step), False)
 
         # Put empty response
