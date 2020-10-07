@@ -13,9 +13,9 @@
 
 <h2>Your Spouse's Information</h2>
 
-<div class="question-well {% if last_name_spouse_error or first_name_spouse_error %}error{% endif %}">
-    <h3>What is your spouse's name ( enter name as it appears on the marriage certificate or registration of marriage)?
-        {% if last_name_spouse_error or first_name_spouse_error %}{% include 'partials/required.html' %}{% endif %}</h3>
+<div class="question-well {% if last_name_spouse_error or given_name_1_spouse_error %}error{% endif %}">
+    <h3>What is your spouse's name (enter name as it appears on the marriage certificate or registration of marriage)?
+        {% if last_name_spouse_error or given_name_1_spouse_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <span class="form-group name-group">
         <p>Last name</p>
         {% input_field type="text" name="last_name_spouse" class="form-block response-textbox" %}

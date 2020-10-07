@@ -10,9 +10,9 @@
 
 <h1><small>Step 2:</small>Your Information (Claimant 1)</h1>
 
-<div class="question-well {% if last_name_you_error or first_name_you_error %}error{% endif %}">
+<div class="question-well {% if last_name_you_error or given_name_1_you_error %}error{% endif %}">
     <h3>Please enter your name (as it appears on your marriage certificate or registration of marriage)
-        {% if last_name_you_error or first_name_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
+        {% if last_name_you_error or given_name_1_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <span class="form-group name-group">
         <p>Last name</p>
         {% input_field type="text" name="last_name_you" class="form-block response-textbox" %}

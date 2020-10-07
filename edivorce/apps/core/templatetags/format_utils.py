@@ -212,21 +212,23 @@ def css_rotate(image):
 @register.filter
 def name_you(responses):
     """ Gets and formats given_name_1_you, given_name_2_you, given_name_3_you, last_name_you from responses """
-    given_name_1 = responses.get('given_name_1_you', '') + ' '
-    given_name_2 = responses.get('given_name_2_you', '') + ' '
-    given_name_3 = responses.get('given_name_3_you', '') + ' '
-    last_name = responses.get('last_name_you', '')
-    return re.sub(' +', ' ', given_name_1 + given_name_2 + given_name_3 + last_name).strip()
+    given_name_1 = responses.get('given_name_1_you')
+    given_name_2 = responses.get('given_name_2_you')
+    given_name_3 = responses.get('given_name_3_you')
+    last_name = responses.get('last_name_you')
+    names = [given_name_1, given_name_2, given_name_3, last_name]
+    return ' '.join(filter(None, names))    
 
 
 @register.filter
 def name_spouse(responses):
     """ Gets and formats given_name_1_spouse, given_name_2_spouse, given_name_3_spouse, last_name_spouse from responses """    
-    given_name_1 = responses.get('given_name_1_spouse', '') + ' '
-    given_name_2 = responses.get('given_name_2_spouse', '') + ' '
-    given_name_3 = responses.get('given_name_3_spouse', '') + ' '
-    last_name = responses.get('last_name_spouse', '')
-    return re.sub(' +', ' ', given_name_1 + given_name_2 + given_name_3 + last_name).strip()
+    given_name_1 = responses.get('given_name_1_spouse')
+    given_name_2 = responses.get('given_name_2_spouse')
+    given_name_3 = responses.get('given_name_3_spouse')
+    last_name = responses.get('last_name_spouse')
+    names = [given_name_1, given_name_2, given_name_3, last_name]
+    return ' '.join(filter(None, names))
 
 
 @register.simple_tag(takes_context=True)    
