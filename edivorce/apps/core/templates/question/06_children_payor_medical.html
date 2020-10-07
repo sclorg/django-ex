@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load format_utils %}
 {% load step_order %}
 
 {% block title %}{{ block.super }}: Your Children {% endblock %}
@@ -10,8 +11,8 @@
 <h1><small>Step {% step_order step="children" %}:</small>Children - Medical & other expenses</h1>
 
     <div id="__claimant_names" hidden>
-        <input name="name_you" value="{{ name_you }}" title="name_you" hidden />
-        <input name="name_spouse" value="{{ name_spouse }}" title="name_spouse" hidden />
+        <input name="name_you" value="{% you_name if_blank='You' %}" title="name_you" hidden />
+        <input name="name_spouse" value="{% spouse_name if_blank='Your spouse' %}" title="name_spouse" hidden />
         <input name="claimant_children" value="{{ claimant_children }}" title="claimant_children" hidden />
     </div>
 

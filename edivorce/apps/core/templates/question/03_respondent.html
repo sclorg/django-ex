@@ -13,11 +13,18 @@
 
 <h2>Your Spouse's Information</h2>
 
-<div class="question-well {% if name_spouse_error %}error{% endif %}">
-    <h3>What is your spouse's name ( enter name as it appears on the marriage certificate or registration of marriage)?
-        {% if name_spouse_error %}{% include 'partials/required.html' %}{% endif %}</h3>
-    <span class="form-group">
-        {% input_field type="text" name="name_spouse" class="form-block input-wide response-textbox name" %}
+<div class="question-well {% if last_name_spouse_error or given_name_1_spouse_error %}error{% endif %}">
+    <h3>What is your spouse's name (enter name as it appears on the marriage certificate or registration of marriage)?
+        {% if last_name_spouse_error or given_name_1_spouse_error %}{% include 'partials/required.html' %}{% endif %}</h3>
+    <span class="form-group name-group">
+        <p>Last name</p>
+        {% input_field type="text" name="last_name_spouse" class="form-block response-textbox" %}
+        <p>First name</p>
+        {% input_field type="text" name="given_name_1_spouse" class="form-block response-textbox" %}
+        <p>Middle name <span class="optional inline">If applicable</span></p>
+        {% input_field type="text" name="given_name_2_spouse" class="form-block response-textbox" %}
+        <p>Middle name #2 <span class="optional inline">If applicable</span></p>        
+        {% input_field type="text" name="given_name_3_spouse" class="form-block response-textbox" %}
     </span>
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
          data-target="#collapse_legal_name" aria-controls="collapse_legal_name">
@@ -93,8 +100,8 @@
         <div id="other_names_fields">
             {% if other_name_spouse %}
                 {% multiple_values_to_list source=other_name_spouse as values %}
-                {% for alias_type, value in values %}
-                    {% include "partials/alias_field.html" with name="other_name_spouse" alias_type=alias_type value=value delete_button="true" %}
+                {% for value in values %}
+                    {% include "partials/alias_field.html" with name="other_name_spouse" alias_type=value.0 last_name=value.1 given_1=value.2 given_2=value.3 given_3=value.4 delete_button="true" %} 
                 {% endfor %}
             {% else %}
                  {% include "partials/alias_field.html" with name="other_name_spouse" value='' %}

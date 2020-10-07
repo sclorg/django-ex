@@ -38,11 +38,11 @@
             This is the <span class="form-entry-sm not-complete form-underline"></span> affidavit<br>
             of
 {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 1' %}
-            {% required responses.name_you %}
+            {% required responses|name_you %}
 {% endif %}
 {% if responses.which_claimant == 'both' %}and<br>{% endif %}
 {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 2' %}
-            {% required responses.name_spouse %}
+            {% required responses|name_spouse %}
 {% endif %}
             in this case,<br>
             and was made on <span class="form-entry-md not-complete form-underline"></span>
@@ -56,11 +56,11 @@
 
         <p>Claimant 1:</p>
 
-        <p>{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}</p>
+        <p>{% include "partials/name_with_alias.html" with name=responses|name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}</p>
 
         <p>Claimant 2:</p>
 
-        <p>{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}</p>
+        <p>{% include "partials/name_with_alias.html" with name=responses|name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}</p>
 
         <h1 class="text-center">
             CHILD SUPPORT AFFIDAVIT
@@ -70,8 +70,8 @@
   {% if responses.which_claimant == 'both' %}We{% else %}I{% endif %},
 
   {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 1' %}
-            {% if responses.name_you %}
-                {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}
+            {% if responses|name_you %}
+                {% include "partials/name_with_alias.html" with name=responses|name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}
             {% else %}<span class="form-entry not-complete"></span>{% endif %},
             of
 
@@ -93,8 +93,8 @@
   {% if responses.which_claimant == 'both' %}and<br />{% endif %}
 
   {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 2' %}
-            {% if responses.name_spouse %}
-                {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}
+            {% if responses|name_spouse %}
+                {% include "partials/name_with_alias.html" with name=responses|name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}
             {% else %}<span class="form-entry not-complete"></span>{% endif %}, of
 
             {% required responses.address_to_send_official_document_street_spouse trail=',' %}
@@ -136,7 +136,7 @@
                     <th style="text-align: left">Province of residence</th>
                   </tr>
                   <tr>
-                    <td>{% response responses.name_you %}</td>
+                    <td>{% response responses|name_you %}</td>
                     <td>{% response responses.address_to_send_official_document_prov_you %}</td>
                   </tr>
                   <tr>
@@ -144,7 +144,7 @@
                     <th style="text-align: left">Province of residence</th>
                   </tr>
                   <tr>
-                    <td>{% response responses.name_spouse %}</td>
+                    <td>{% response responses|name_spouse %}</td>
                     <td>{% response responses.address_to_send_official_document_prov_spouse %}</td>
                   </tr>
                 </table>
@@ -334,10 +334,10 @@
         </ol>
 
   {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 1' %}
-        {% include 'pdf/partials/notary_signature.html' with name=responses.name_you %}
+        {% include 'pdf/partials/notary_signature.html' with name=responses|name_you %}
   {% endif %}
   {% if responses.which_claimant == 'both' or responses.which_claimant == 'Claimant 2' %}
-        {% include 'pdf/partials/notary_signature.html' with name=responses.name_spouse %}
+        {% include 'pdf/partials/notary_signature.html' with name=responses|name_spouse %}
   {% endif %}
         {% include 'pdf/partials/fact_sheet_a.html' %}
         {% include 'pdf/partials/fact_sheet_b.html' %}

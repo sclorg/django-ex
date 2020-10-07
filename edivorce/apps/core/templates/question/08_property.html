@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load format_utils %}
 {% load step_order %}
 
 {% block title %}{{ block.super }}: Application Location{% endblock %}
@@ -59,8 +60,7 @@
 </div>
 
 <div class="question-well {% if deal_with_property_debt_error %}error{% endif %}">
-    <h3>How have you and
-      {% if name_spouse %}{{ name_spouse }}{% else %}your spouse{% endif %}
+    <h3>How have you and {% spouse_name %}
       agreed to deal with your property and debt?{% if deal_with_property_debt_error %}{% include 'partials/required.html' %}{% endif %}
     </h3>
     <div class="radio">
@@ -166,8 +166,8 @@
     </p>
     <div>
         <label>
-            {% if name_you %}{{ name_you }}{% else %}Claimant 1{% endif %}
-            and {% if name_spouse %}{{ name_spouse }}{% else %}Claimant 2{% endif %}
+            {% you_name if_blank="Claimant 1" %} and 
+            {% spouse_name if_blank="Claimant 2" %}
             ask for an order respecting an interest in property or for
             compensation instead of an interest in that property, as follows:
         </label>
@@ -183,10 +183,10 @@
                 <h1 class="modal-title">Property and Debt</h1>
             </div>
             <div class="modal-body">
-                <p>{{ name_you }}, next up let's go over some questions
-                pertaining to the division of property and debt. The answers
-                you provide will be used to populate what's called a Draft
-                Final Order (Form 52). </p>
+                <p>{% you_name if_blank="Claimant 1" %}, next up let's go over 
+                some questions pertaining to the division of property and debt. 
+                The answers you provide will be used to populate what's called 
+                a Draft Final Order (Form 52). </p>
 
                 <p>A draft final order sets out what orders (decisions) you
                 want the court to make. This will be reviewed by a judge or

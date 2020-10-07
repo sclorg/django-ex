@@ -73,11 +73,18 @@ def process_json_list(question_key, json_list):
 
 
 def get_other_name_tags(json_list):
-    list_items = format_html_join(
-        '\n',
-        '<li>{} {}</li>',
-        ((alias_type, value) for alias_type, value in json_list if value))
-    return list_items
+    if len(json_list) > 0 and len(json_list[0]) == 5:
+        # new json format with fielded names
+        return format_html_join(
+            '\n',
+            '<li>{} {} {} {} {}</li>',
+            ((alias_type, last_name, given1, given2, given3) for alias_type, last_name, given1, given2, given3 in json_list if last_name))
+    else:
+        # old json format with unfielded names
+        return format_html_join(
+            '\n',
+            '<li>{} {}</li>',
+            ((alias_type, value) for alias_type, value in json_list if value))
 
 
 def get_reconciliation_period_tags(json_list):

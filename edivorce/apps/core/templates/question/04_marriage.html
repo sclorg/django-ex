@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load format_utils %}
 {% load step_order %}
 
 {% block title %}{{ block.super }}: Your Marriage{% endblock %}
@@ -42,7 +43,7 @@
 </div>
 
 <div id="lived_together" class="question-well {% if when_were_you_live_married_like_error %}error{% endif %}">
-    <h3>When did you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} begin to live together in a marriage-like relationship?
+    <h3>When did you and {% spouse_name %} begin to live together in a marriage-like relationship?
         {% if when_were_you_live_married_like_error %}{% include 'partials/required.html' %}{% endif %}</h3>
     <p>
         <span class="input-group date date-picker-group">
@@ -100,7 +101,7 @@
 </div>
 
 <div class="question-well {% if marital_status_before_you_error %}error{% endif %}">
-    <h3>Before you got married to {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %}, what was your marital status?
+    <h3>Before you got married to {% spouse_name %}, what was your marital status?
         {% if marital_status_before_you_error %}{% include 'partials/required.html' %}{% endif %}
     </h3>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_you" value="Never married" %}Never married</label></div>
@@ -109,7 +110,7 @@
 </div>
 
 <div class="question-well {% if marital_status_before_spouse_error %}error{% endif %}">
-    <h3>What was the marital status of {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %} before your marriage?
+    <h3>What was the marital status of {% spouse_name %} before your marriage?
         {% if marital_status_before_spouse_error %}{% include 'partials/required.html' %}{% endif %}
     </h3>
     <div class="radio"><label>{% input_field type="radio" name="marital_status_before_spouse" value="Never married" %}Never married</label></div>

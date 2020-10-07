@@ -38,11 +38,11 @@
         </p>
         <p style="max-height: 32px">
             <span class="claimant-label">Claimant 1:</span>
-            {% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
+            {% include "partials/name_with_alias.html" with name=responses|name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you class_name='form-entry_claimant' %}
         </p>
         <p style="max-height: 32px">
             <span class="claimant-label">Claimant 2:</span>
-            {% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
+            {% include "partials/name_with_alias.html" with name=responses|name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse class_name='form-entry_claimant' %}
         </p>
         <h2 class="text-center">
            FINAL ORDER
@@ -67,9 +67,9 @@
             <p>THIS COURT ORDERS that</p>
             <p>
                 Subject to section 12 of the <em>Divorce Act</em> (Canada), claimant 1,
-                {% if responses.name_you %}{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}{% else %}<span class="form-entry not-complete"></span>{% endif %},
+                {% if responses|name_you %}{% include "partials/name_with_alias.html" with name=responses|name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}{% else %}<span class="form-entry not-complete"></span>{% endif %},
                 and claimant 2,
-                {% if responses.name_spouse %}{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}{% else %}<span class="form-entry not-complete"></span>{% endif %},
+                {% if responses|name_spouse %}{% include "partials/name_with_alias.html" with name=responses|name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}{% else %}<span class="form-entry not-complete"></span>{% endif %},
                 who were married at
                 {% if responses.where_were_you_married_city and responses.where_were_you_married_country %}
                     {% required responses.where_were_you_married_city %},
@@ -167,14 +167,14 @@
                     <td class="sig-col4 sig-line-text">
                         <p class="small-margin">Signature of Claimant 1</p>
                         <p>
-                            <strong>{% include "partials/name_with_alias.html" with name=responses.name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}</strong>
+                            <strong>{% include "partials/name_with_alias.html" with name=responses|name_you use_other_name=responses.any_other_name_you other_names=responses.other_name_you %}</strong>
                         </p>
                     </td>
                     <td class="sig-col1">&nbsp;</td>
                     <td class="sig-col4 sig-line-text">
                         <p class="small-margin">Signature of Claimant 2</p>
                         <p>
-                            <strong>{% include "partials/name_with_alias.html" with name=responses.name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}</strong>
+                            <strong>{% include "partials/name_with_alias.html" with name=responses|name_spouse use_other_name=responses.any_other_name_spouse other_names=responses.other_name_spouse %}</strong>
                         </p>
                     </td>
                 </tr>

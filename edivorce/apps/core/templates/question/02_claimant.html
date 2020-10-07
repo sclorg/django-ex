@@ -10,11 +10,18 @@
 
 <h1><small>Step 2:</small>Your Information (Claimant 1)</h1>
 
-<div class="question-well {% if name_you_error %}error{% endif %}">
+<div class="question-well {% if last_name_you_error or given_name_1_you_error %}error{% endif %}">
     <h3>Please enter your name (as it appears on your marriage certificate or registration of marriage)
-        {% if name_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
-    <span class="form-group">
-        {% input_field type="text" name="name_you" class="form-block input-wide response-textbox name" %}
+        {% if last_name_you_error or given_name_1_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
+    <span class="form-group name-group">
+        <p>Last name</p>
+        {% input_field type="text" name="last_name_you" class="form-block response-textbox" %}
+        <p>First name</p>
+        {% input_field type="text" name="given_name_1_you" class="form-block response-textbox" %}
+        <p>Middle name <span class="optional inline">If applicable</span></p>
+        {% input_field type="text" name="given_name_2_you" class="form-block response-textbox" %}
+        <p>Middle name #2 <span class="optional inline">If applicable</span></p>        
+        {% input_field type="text" name="given_name_3_you" class="form-block response-textbox" %}
     </span>
 
     <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false" data-target="#collapse_changed_name" aria-controls="collapse_changed_name">
@@ -81,9 +88,11 @@
         </div>
         <div id="other_names_fields">
 
-                    {% if other_name_you %}
+                {% if other_name_you %}
                     {% multiple_values_to_list source=other_name_you as values %}
-                    {% for alias_type, value in values %} {% include "partials/alias_field.html" with name="other_name_you" alias_type=alias_type value=value delete_button="true" %} {% endfor %}
+                    {% for value in values %}
+                        {% include "partials/alias_field.html" with name="other_name_you" alias_type=value.0 last_name=value.1 given_1=value.2 given_2=value.3 given_3=value.4 delete_button="true" %} 
+                    {% endfor %}
                 {% else %}
                     {% include "partials/alias_field.html" with name="other_name_you" %}
                 {% endif %}

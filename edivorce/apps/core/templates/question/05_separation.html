@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load format_utils %}
 {% load step_order %}
 
 {% block title %}{{ block.super }}: Reason For Divorce{% endblock %}
@@ -31,7 +32,7 @@
 
 <div class="question-well {% if no_collusion_error %}error{% endif %}">
     <p>
-        We are legally required to ask whether or not you and {% if name_spouse %} {{ name_spouse }} {% else %} your spouse {% endif %}
+        We are legally required to ask whether or not you and {% spouse_name %}
          have agreed to deceive the court. This is called “<span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
            title="<b>Collusion</b><br /><br />Basically this statement confirms that you and your spouse haven’t lied or tried to deceive the court
            in any way (for example, saying that you’ve been separated for longer than you have been). It is a legal requirement that you confirm you
