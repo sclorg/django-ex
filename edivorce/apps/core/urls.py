@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^incomplete$', main.incomplete, name="incomplete"),
     url(r'^intercept$', main.intercept_page, name="intercept"),
     url(r'^dashboard/(?P<nav_step>.*)', main.dashboard_nav, name="dashboard_nav"),
+    path('submit/initial', main.submit_initial_files, name="submit_initial_files"),
+    path('submit/final', main.submit_final_files, name="submit_final_files"),
     url(r'^health$', system.health),
     url(r'^legal$', main.legal, name="legal"),
     url(r'^acknowledgements$', main.acknowledgements, name="acknowledgements"),

@@ -1379,6 +1379,7 @@ textarea {
 	}
 }
 
+/* Specific pages */
 .signing-filing {
     .question-well {
         margin-top: 15px;
@@ -1420,6 +1421,16 @@ textarea {
         }
     }
 }
+
+.wait-for-number {
+    p {
+        margin-bottom: 15px;
+    }
+    ul {
+        margin-bottom: 30px;
+    }
+}
+
 /* Column Grid in flexbox */
 .row-flex {
     display: -webkit-box;
@@ -2165,4 +2176,8 @@ span.hard-stop {
 		transition: 0.2s ease-out all;
 		margin-right: 0;
 	}
+}
+
+.no-margin-bottom {
+    margin-bottom: 0 !important;
 }

@@ -1706,7 +1706,7 @@
 {
     "fields": {
         "name": "Select how you would like to swear/affirm your affidavit(s)?",
-        "description": "E-filing prototype",
+        "description": "For stage 2, Signing and filing options",
         "summary_order": 155,
         "required": ""
     },
@@ -1716,7 +1716,7 @@
 {
     "fields": {
         "name": "Select how you would like to file your documents",
-        "description": "E-filing prototype",
+        "description": "For stage 2, Signing and filing options",
         "summary_order": 156,
         "required": ""
     },
@@ -1726,7 +1726,7 @@
 {
     "fields": {
         "name": "Select where you would like to swear/affirm your affidavit(s)",
-        "description": "E-filing prototype",
+        "description": "For stage 2, Signing and filing options",
         "summary_order": 157,
         "required": ""
     },
@@ -1736,7 +1736,7 @@
 {
     "fields": {
         "name": "Select where you would like to swear/affirm your affidavit(s)",
-        "description": "E-filing prototype",
+        "description": "For stage 2, Signing and filing options",
         "summary_order": 158,
         "required": ""
     },
@@ -1746,7 +1746,7 @@
 {
     "fields": {
         "name": "Select where your spouse would like to swear/affirm your affidavit(s)",
-        "description": "E-filing prototype",
+        "description": "For stage 2, Signing and filing options",
         "summary_order": 159,
         "required": ""
     },
@@ -1756,7 +1756,7 @@
 {
     "fields": {
         "name": "E-mail Address for You",
-        "description": "E-filing prototype",
+        "description": "For stage 2, Signing and filing options",
         "summary_order": 160,
         "required": ""
     },
@@ -1766,11 +1766,51 @@
 {
     "fields": {
         "name": "E-mail Address for Your Spouse",
-        "description": "E-filing prototype",
+        "description": "For stage 2, Signing and filing options",
         "summary_order": 161,
         "required": ""
     },
     "model": "core.question",
     "pk": "email_spouse"
+},
+{
+    "fields": {
+        "name": "Has the user successfully submitted the initial filing",
+        "description": "For stage 4, Initial filing",
+        "summary_order": 162,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "initial_filing_submitted"
+},
+{
+    "fields": {
+        "name": "Initial Filing CSO Online Package #",
+        "description": "For stage 4, Initial filing",
+        "summary_order": 163,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "initial_filing_package_number"
+},
+{
+    "fields": {
+        "name": "Initial Filing receipt link",
+        "description": "For stage 4, Initial filing",
+        "summary_order": 164,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "initial_filing_receipt_link"
+},
+{
+    "fields": {
+        "name": "Initial Filing download package link",
+        "description": "For stage 4, Initial filing",
+        "summary_order": 165,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "initial_filing_package_link"
 }
 ]

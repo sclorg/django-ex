@@ -1,37 +1,56 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ block.super }}: Overview{% endblock %}
+{% block title %}{{ block.super }}: Wait for number{% endblock %}
 
 {% block progress %}{% include "partials/dashnav.html" with active_page=active_page %}{% endblock %}
 
+{% block container_col %}wait-for-number{% endblock %}
 {% block content %}
     <h1>Wait for Court Filing Number</h1>
+    {% if initial_filing_submitted %}
+        <p>
+            You’ve successfully completed your initial filing with the Court Registry.
+        </p>
+        <p>
+            <b>Your {% include "partials/tooltips/online_package_number.html" with with_cso=True %} is {{ initial_filing_package_number }}</b>
+        </p>
+        <p class="no-margin-bottom">
+            You can view the following items at any time:
+        </p>
+        <ul>
+            <li><a href="{{ initial_filing_receipt_link }}" target="_blank">Your eFiling Receipt</a> on the CSO eFiling Hub</li>
+            <li><a href="{{ initial_filing_package_link }}" target="_blank">The package of all documents</a> you have submitted for filing</li>
+        </ul>
+    {% else %}
+        <p>
+            You still have to complete your initial filing with the Court Registry.
+            Go to the <a href="{% url 'dashboard_nav' 'initial_filing' %}">Initial Filing</a> step.
+        </p>
+        <p>
+            <b>Once filed, you will receive a {% include "partials/tooltips/online_package_number.html" with with_cso=True %}</b>
+        </p>
+        <p class="no-margin-bottom">
+            You will be able to view the following items at any time:
+        </p>
+        <ul>
+            <li>Your eFiling Receipt on the CSO eFiling Hub</li>
+            <li>The package of all documents you have submitted for filing</li>
+        </ul>
+    {% endif %}
     <p>
-        You’ve successfully completed your initial filing with the Court Registry.
+        In order to complete your divorce you’ll need to file the final set of documents.
+        To do this you’ll require a {% include "partials/tooltips/court_file_number.html" %}
+        which will be provided from the Court Registry once they have reviewed and approved
+        your initial filing. <b>This review can take up to a week to complete.</b>
+        You'll receive an e-mail with details of your initial filing.
     </p>
     <p>
-        Your CSO Online Package # (?) is 123-456-789
+        If you have any questions or concerns about your initial filing, please contact
+        CSO Online Support at <a href="mailto:Courts.CSO@gov.bc.ca" target="_blank">Courts.CSO@gov.bc.ca</a>
+        and include your {% include "partials/tooltips/online_package_number.html" %}.
     </p>
     <p>
-        You can view the following items at any time:
-    </p>
-    <ul>
-        <li>Your eFiling Receipt on the CSO eFiling Hub</li>
-        <li>The package of all documents you have filed at the CSO eFiling Hub</li>
-    </ul>
-    <p>
-        In order to complete your divorce you’ll need to file the final set of documents. To do this you’ll require a Court Filing Number (?) which
-        will
-        be provided from the Court Registry once they have reviewed and approval your initial filing. This review can take up to a week to complete.
-        You’ll receive an e-mail with details of your initial filing.
-    </p>
-    <p>
-        If you have any questions or concerns about your initial filing, please contact CSO Online Support at Courts.CSO@gov.bc.ca and include your
-        Online
-        Package # (?).
-    </p>
-    <p>
-        Once you have received your Court Filing Number via e-mail, click Next to proceed with the remaining steps in the process.
+        <b>Once you have received your Court Filing Number</b> via e-mail, click Next to proceed with the remaining steps in the process.
     </p>
 {% endblock %}
 
@@ -46,5 +65,12 @@
     <!-- no sidebar -->
 {% endblock %}
 {% block sidebarText %}
-    {% include "dashboard/partials/sidebar_help.html" %}
+    <h3>How long does it take to get a file number?</h3>
+    <p>
+        The time depends on how many filings are received at the court registry you are filing with.
+        Normally, you will receive a file number within a week of submitting online.
+        If you do not receive a file number, you can send an email to <a href="mailto:Courts.CSO@gov.bc.ca" target="_blank">CSO Support Helpdesk</a>.
+        Please provide the package number and registry location you submitted your documents to
+        and they will be able to help.
+    </p>
 {% endblock %}
