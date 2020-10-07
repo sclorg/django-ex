@@ -9,17 +9,27 @@
         </select>
     {% endcomment %}
     
-    <label>Also known as</label>
-        <span class="form-group name-group name-group--indented">
-            <p>Last name</p>
-            {% input_field type="text" name=name value=last_name multiple="true" class="form-block response-textbox alias-last-name" %}
-            <p>First name</p>
+    <div class="alias-header">
+        <label>Also known as</label>
+        <input type="button" class="btn btn-danger btn-delete-name form-control pull-right" value="Delete" />    
+    </div>
+    <div class="form-group name-group alias-body">
+        <div>
+            <p>First Name</p>
             {% input_field type="text" name=name value=given_1 multiple="true" class="form-block response-textbox alias-given-1" %}
-            <p>Middle name <span class="optional inline">If applicable</span></p>
+        </div>
+        <div>
+            <p>Middle Name 1</p>
             {% input_field type="text" name=name value=given_2 multiple="true" ignore_error=True class="form-block response-textbox alias-given-2" %}
-            <p>Middle name #2 <span class="optional inline">If applicable</span></p>        
+        </div>
+        <div>
+            <p>Middle Name 2</p>        
             {% input_field type="text" name=name value=given_3 multiple="true" ignore_error=True class="form-block response-textbox alias-given-3" %}
-        </span>
+        </div>
+        <div>
+            <p>Last Name</p>
+            {% input_field type="text" name=name value=last_name multiple="true" class="form-block response-textbox alias-last-name" %}
+        </div>        
+    </div>
 
-        <input type="button" class="btn btn-danger btn-delete-name form-control" value="Delete" />
 </div>
