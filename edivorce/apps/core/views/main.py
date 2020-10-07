@@ -1,5 +1,4 @@
 import datetime
-from copy import deepcopy
 
 from django.conf import settings
 from django.shortcuts import render, redirect
@@ -8,6 +7,7 @@ from django.utils import timezone
 
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import bceid_required, intercept, prequal_completed
+from ..utils.cso_filing import file_documents
 from ..utils.question_step_mapping import list_of_registries
 from ..utils.step_completeness import get_error_dict, get_missed_question_keys, get_step_completeness, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
@@ -201,6 +201,31 @@ def dashboard_nav(request, nav_step):
     responses_dict['active_page'] = nav_step
     template_name = 'dashboard/%s.html' % nav_step
     return render(request, template_name=template_name, context=responses_dict)
+
+
+@bceid_required
+@prequal_completed
+def submit_initial_files(request):
+    return _submit_files(request, initial=True)
+
+
+@bceid_required
+@prequal_completed
+def submit_final_files(request):
+    return _submit_files(request, initial=False)
+
+
+def _submit_files(request, initial=False):
+    responses_dict = get_data_for_user(request.user)
+    if initial:
+        nav_step = 'wait_for_number'
+        file_documents(request.user, initial=True)
+    else:
+        nav_step = 'next_steps'
+        file_documents(request.user, initial=False)
+
+    responses_dict['active_page'] = nav_step
+    return redirect(reverse('dashboard_nav', kwargs={'nav_step': nav_step}), context=responses_dict)
 
 
 @bceid_required
