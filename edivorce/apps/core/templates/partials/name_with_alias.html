@@ -1,2 +1,12 @@
 {% load input_field %}
-<span class="{{class_name}}">{{ name }}{% if other_names and use_other_name == 'YES' %}{% multiple_values_to_list source=other_names as values %}{% for alias_type, value in values %}{% if value != '' %} {{alias_type}} {{value}}{% endif %}{% endfor %}{% endif %}</span>
+<span class="{{class_name}}">
+    {{ name }}
+    {% if other_names and use_other_name == 'YES' %}
+        {% multiple_values_to_list source=other_names as values %}
+        {% for value in values %}
+            {% if value.1 != '' %} 
+                {{ value.0 }} {{ value.1 }} {{ value.2 }} {{ value.3 }} {{ value.4 }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</span>

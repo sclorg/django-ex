@@ -271,10 +271,12 @@ var getValue = function(el, question){
     // for adding other_name fields, create list of [aliasType, alias]
     else if (question === "other_name_you" || question === "other_name_spouse"){
         var aliasType = "also known as";
-        $('#other_names_fields').find("input[type=text]").each(function () {
-            // as per request, alias type will always be also known as for now
-            // aliasType = $(this).val() === '' ? '' : $(this).siblings(".alias-type").val();
-            value.push([aliasType, $(this).val().trim()]);
+        $('#other_names_fields').find('.alias-field-group').each(function () {
+            var lastName = $(this).find(".alias-last-name").val();
+            var given1 = $(this).find(".alias-given-1").val();
+            var given2 = $(this).find(".alias-given-2").val();
+            var given3 = $(this).find(".alias-given-3").val();
+            value.push([aliasType, lastName, given1, given2, given3]);
         });
         return JSON.stringify(value);
     }

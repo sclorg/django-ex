@@ -615,6 +615,30 @@ select.form-control {
 		width: 70%;
 	}
 }
+
+.form-group.name-group {
+
+	&--indented {
+		@media (min-width: 992px) {
+			padding-left: 24px;
+		}
+	}
+	
+	p {
+		margin-bottom: 3px;
+	}
+
+	input[type=text] {
+		width: 70% !important;
+		@media (min-width: 992px) and (max-width: 1199px) {
+			width: 55% !important;
+		}
+		@media (min-width: 1200px) {
+			width: 45% !important;
+		}		
+	}	
+}
+
 /* Buttons & Icons*/
 .btn {
 	line-height: initial;
@@ -846,13 +870,6 @@ input {
 	&.input-wide {
 		width: 70%;
 	}
-
-	&.input-medium {
-		width: 70%;
-		@media (min-width: 992px) {
-			width: 45%;
-		}
-	}	
 
 	&.input-narrow {
 		max-width: 100px;

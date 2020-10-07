@@ -149,11 +149,11 @@ class StepCompletenessTestCase(TestCase):
         self.assertEqual(self.check_completeness(step), False)
 
         # All required questions with all checking question with all hidden questions
-        self.create_response('other_name_you', '[["also known as","Smith"]]')
+        self.create_response('other_name_you', '[["also known as","Smith","James","Jerry","Joseph"]]')
         self.assertEqual(self.check_completeness(step), True)
 
         # Put empty response
-        UserResponse.objects.filter(question_id='other_name_you').update(value='[["",""]]')
+        UserResponse.objects.filter(question_id='other_name_you').update(value='[["","","","",""]]')
         self.assertEqual(self.check_completeness(step), False)
 
     def test_your_spouse(self):
@@ -191,7 +191,7 @@ class StepCompletenessTestCase(TestCase):
         self.assertEqual(self.check_completeness(step), False)
 
         # All required questions with two checking question with one hidden and one shown
-        self.create_response('other_name_spouse', '[["also known as","Smith"]]')
+        self.create_response('other_name_spouse', '[["also known as","Smith","James","Jerry","Joseph"]]')
         self.assertEqual(self.check_completeness(step), True)
         self.assertEqual(self.check_step_status(step), Status.COMPLETED)
 
@@ -208,7 +208,7 @@ class StepCompletenessTestCase(TestCase):
         self.assertEqual(self.check_completeness(step), False)
 
         # Put empty response
-        UserResponse.objects.filter(question_id='other_name_spouse').update(value='[["",""]]')
+        UserResponse.objects.filter(question_id='other_name_spouse').update(value='[["","","","",""]]')
         self.assertEqual(self.check_completeness(step), False)
 
     def test_your_marriage(self):
