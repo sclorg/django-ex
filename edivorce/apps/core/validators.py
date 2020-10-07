@@ -41,4 +41,22 @@ def file_scan_validation(file):
 
     if result and result['stream'][0] == 'FOUND':
         logger.warning('Virus found: {}'.format(file.name))
-        raise ValidationError('Infected file found.', code='infected')
+        raise ValidationError('Infected file found. ' + file.name, code='infected')
+
+
+def valid_file_extension(file):
+    extension = file.name.split('.')[-1]
+    if extension.lower() not in ['pdf', 'png', 'gif', 'jpg', 'jpe', 'jpeg']:
+        raise ValidationError(f'File type not supported: {extension}')
+
+
+def valid_doc_type(value):
+    valid_codes = ['AAI', 'AFDO', 'AFTL', 'CSA', 'EFSS', 'MC', 'NCV', 'OFI', 'RDP']
+    if value.upper() not in valid_codes:
+        raise ValidationError(
+            f'Doc type not supported: {value}. Valid codes: {", ".join(valid_codes)}')
+
+
+def valid_rotation(value):
+    if value % 90 != 0:
+        raise serializers.ValidationError('Rotation must be 0, 90, 180, or 270')
