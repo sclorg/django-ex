@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from .models import Document, UserResponse
-from .validators import *
+from .validators import file_scan_validation, valid_file_extension, valid_doc_type, valid_rotation
 
 
 class UserResponseSerializer(serializers.ModelSerializer):

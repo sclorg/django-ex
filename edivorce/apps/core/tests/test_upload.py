@@ -5,7 +5,6 @@ from unittest import mock
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework import serializers
-from rest_framework.test import APIRequestFactory
 
 from ..validators import file_scan_validation
 from ..models import Document

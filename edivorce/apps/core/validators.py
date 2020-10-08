@@ -2,7 +2,6 @@ import logging
 import clamd
 import sys
 
-from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from django.conf import settings
 
@@ -59,4 +58,4 @@ def valid_doc_type(value):
 
 def valid_rotation(value):
     if value % 90 != 0:
-        raise serializers.ValidationError('Rotation must be 0, 90, 180, or 270')
+        raise ValidationError('Rotation must be 0, 90, 180, or 270')
