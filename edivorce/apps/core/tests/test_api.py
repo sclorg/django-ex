@@ -72,7 +72,10 @@ class APITest(APITestCase):
             'party_code': 1
         }
         self.client.force_authenticate(self.user)
-        response = self.client.post(url, data)
+
+        with self.settings(CLAMAV_ENABLED=False):
+            response = self.client.post(url, data)
+
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         self.assertEqual(Document.objects.count(), 1)
@@ -97,13 +100,18 @@ class APITest(APITestCase):
             'party_code': 1
         }
         self.client.force_authenticate(self.user)
-        response = self.client.post(url, data)
+
+        with self.settings(CLAMAV_ENABLED=False):
+            response = self.client.post(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Document.objects.count(), 1)
 
         file.seek(0)  #
-        response = self.client.post(url, data)
+
+        with self.settings(CLAMAV_ENABLED=False):
+            response = self.client.post(url, data)
+
         self.assertContains(response,
                             'This file appears to have already been uploaded for this document.',
                             status_code=status.HTTP_400_BAD_REQUEST)

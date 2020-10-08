@@ -32,13 +32,13 @@ class ConditionalLogicTestCase(TestCase):
         self.assertIsNone(logic.get_cleaned_response_value('  '))
         self.assertIsNone(logic.get_cleaned_response_value('[]'))
         self.assertIsNone(logic.get_cleaned_response_value('[["","  "]]'))
-        self.assertIsNone(logic.get_cleaned_response_value('[["also known as",""]]'))
-        self.assertIsNone(logic.get_cleaned_response_value('[["also known as",""],["also known as",""]]'))
+        self.assertIsNone(logic.get_cleaned_response_value('[["also known as","","","",""]]'))
+        self.assertIsNone(logic.get_cleaned_response_value('[["also known as","","","",""],["also known as","","","",""]]'))
 
     def test_get_cleaned_response_with_value(self):
         self.assertIsNotNone(logic.get_cleaned_response_value('0'))
         self.assertIsNotNone(logic.get_cleaned_response_value('["hi"]'))
-        self.assertIsNotNone(logic.get_cleaned_response_value('[["also known as","a"]]'))
+        self.assertIsNotNone(logic.get_cleaned_response_value('[["also known as","a","b","",""]]'))
 
     def test_num_children(self):
         # No children
