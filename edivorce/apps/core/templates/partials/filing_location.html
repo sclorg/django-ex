@@ -1,0 +1,14 @@
+{% if court_registry_for_filing %}
+    <ul class="no-bullets" id="court-registry-location">
+        <li id="court-registry-city"><b>{{ court_registry_for_filing }}</b></li>
+        <li id="court-registry-address"></li>
+        <li id="court-registry-postal-code"></li>
+    </ul>
+{% else %}
+    <div class="review-warning">
+        <span class="no-margin-bottom">
+            You haven't selected a court registry location.
+            Go to the <a href="{% url 'question_steps' 'location' %}">Filing Location question</a> page.
+        </span>
+    </div>
+{% endif %}

@@ -764,6 +764,10 @@ i.fa.fa-question-circle {
     }
 }
 
+.error-text {
+    color: $color-red;
+}
+
 .table-error {
     border: 2px solid $color-red !important;
     -webkit-transition: 0.1s ease-in-out all;
@@ -1468,12 +1472,26 @@ textarea {
     }
 }
 
-.wait-for-number {
+.dashboard-content {
     p {
         margin-bottom: 15px;
     }
     ul {
         margin-bottom: 30px;
+    }
+
+    .no-margin-bottom {
+        margin-bottom: 0 !important;
+    }
+
+    .add-top-margin {
+        margin-top: 30px;
+    }
+
+    .no-bullets {
+        li {
+            list-style: none;
+        }
     }
 }
 
@@ -2222,8 +2240,4 @@ span.hard-stop {
 		transition: 0.2s ease-out all;
 		margin-right: 0;
 	}
-}
-
-.no-margin-bottom {
-    margin-bottom: 0 !important;
 }
