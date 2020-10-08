@@ -749,6 +749,10 @@ i.fa.fa-question-circle {
     }
 }
 
+.error-text {
+    color: $color-red;
+}
+
 .table-error {
     border: 2px solid $color-red !important;
     -webkit-transition: 0.1s ease-in-out all;

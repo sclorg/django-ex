@@ -104,11 +104,7 @@
             <p>
                 You have indicated your closest court registry is:
             </p>
-            <ul class="no-bullets">
-                <li>City</li>
-                <li>Address</li>
-                <li>Postal Code</li>
-            </ul>
+            {% include "partials/filing_location.html" %}
             <p>
                 If you are planning to {% include "partials/tooltips/swear_affirm.html" %} with a lawyer, notary or other commissioner please contact
                 them directly.
@@ -144,11 +140,7 @@
             <p>
                 You have indicated your closest court registry is:
             </p>
-            <ul class="no-bullets">
-                <li>City</li>
-                <li>Address</li>
-                <li>Postal Code</li>
-            </ul>
+            {% include "partials/filing_location.html" %}
             <p>
                 If you are planning to {% include "partials/tooltips/swear_affirm.html" %} with a lawyer, notary or other commissioner please contact
                 them directly.
@@ -202,11 +194,7 @@
             <p>
                 You have indicated your closest court registry is:
             </p>
-            <ul class="no-bullets">
-                <li>City</li>
-                <li>Address</li>
-                <li>Postal Code</li>
-            </ul>
+            {% include "partials/filing_location.html" %}
             <p>
                 If they are planning to {% include "partials/tooltips/swear_affirm.html" %} with a lawyer, notary or other commissioner please contact
                 them directly.
@@ -234,11 +222,7 @@
             <p>
                 You have indicated your closest court registry is:
             </p>
-            <ul class="no-bullets">
-                <li>City</li>
-                <li>Address</li>
-                <li>Postal Code</li>
-            </ul>
+            {% include "partials/filing_location.html" %}
             <p>
                 If you are planning to {% include "partials/tooltips/swear_affirm.html" %} with a lawyer, notary or other commissioner please contact
                 them directly.
@@ -274,9 +258,9 @@
             where you can learn more about how to submit the remaining documents to the court registry.
         </p>
         <div class="bg-danger">
-            <p>
+            <span>
                 Please note: <b>sworn/affirmed affidavits must be filed within 30 days of swearing/affirming them.</b>
-            </p>
+            </span>
         </div>
     </div>
 {% endblock %}
