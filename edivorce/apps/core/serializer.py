@@ -3,7 +3,6 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from .models import Document, UserResponse
-from .validators import file_scan_validation
 
 
 class UserResponseSerializer(serializers.ModelSerializer):
@@ -39,8 +38,7 @@ def valid_doc_type(value):
 class CreateDocumentSerializer(serializers.ModelSerializer):
     doc_type = serializers.CharField(required=True, validators=[valid_doc_type])
     party_code = serializers.IntegerField(min_value=0, max_value=2, required=True)
-    file = serializers.FileField(required=True,
-                                 validators=[valid_file_extension, file_scan_validation])
+    file = serializers.FileField(required=True, validators=[valid_file_extension])
     filename = serializers.CharField(read_only=True)
     size = serializers.IntegerField(read_only=True)
     rotation = serializers.IntegerField(read_only=True)
