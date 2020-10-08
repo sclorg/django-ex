@@ -1,5 +1,5 @@
 {% load input_field %}
-<div class="form-inline clearfix">
+<div class="form-inline clearfix alias-field-group">
     {% comment As per request, alias type will fixed to "also know as" %}
         <select class="response-dropdown alias-type form-control" name={{name}}>
             <option value="also known as" {% if alias_type == 'also known as' %} selected {% endif %}>Also known as</option>
@@ -9,10 +9,27 @@
         </select>
     {% endcomment %}
     
-    <label>Also known as</label>
-        <span class="form-group">
-            {% input_field type="text" name=name value=value multiple="true" class="form-control response-textbox alias-names" %}
-        </span>
+    <div class="alias-header">
+        <label>Also known as</label>
+        <input type="button" class="btn btn-danger btn-delete-name form-control pull-right" value="Delete" />    
+    </div>
+    <div class="form-group name-group alias-body">
+        <div>
+            <p>First Name</p>
+            {% input_field type="text" name=name value=given_1 multiple="true" class="form-block response-textbox alias-given-1" %}
+        </div>
+        <div>
+            <p>Middle Name 1</p>
+            {% input_field type="text" name=name value=given_2 multiple="true" ignore_error=True class="form-block response-textbox alias-given-2" %}
+        </div>
+        <div>
+            <p>Middle Name 2</p>        
+            {% input_field type="text" name=name value=given_3 multiple="true" ignore_error=True class="form-block response-textbox alias-given-3" %}
+        </div>
+        <div>
+            <p>Last Name</p>
+            {% input_field type="text" name=name value=last_name multiple="true" class="form-block response-textbox alias-last-name" %}
+        </div>        
+    </div>
 
-        <input type="button" class="btn btn-danger btn-delete-name form-control" value="Delete" />
 </div>

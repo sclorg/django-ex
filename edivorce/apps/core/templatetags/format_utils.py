@@ -138,12 +138,12 @@ def payorize(context):
     payor = 'the payor'
     child_support_payor = context.get('child_support_payor', None)
     if child_support_payor == 'Myself (Claimant 1)':
-        payor = context.get('name_you', child_support_payor)
+        payor = you_name(context, child_support_payor)
     elif child_support_payor == 'My Spouse (Claimant 2)':
-        payor = context.get('name_spouse', child_support_payor)
+        payor = spouse_name(context, child_support_payor)
     elif child_support_payor == 'Both myself and my spouse':
-        payor = '{} and {}'.format(context.get('name_you', 'myself'),
-                                   context.get('name_spouse', 'my spouse'))
+        payor = '{} and {}'.format(you_name(context, 'myself'),
+                                   spouse_name(context, 'my spouse'))
     return payor
 
 
@@ -207,3 +207,41 @@ def css_rotate(image):
         return 'width: 100%'
     else:
         return 'height: 26.7cm'
+
+
+@register.filter
+def name_you(responses):
+    """ Gets and formats given_name_1_you, given_name_2_you, given_name_3_you, last_name_you from responses """
+    given_name_1 = responses.get('given_name_1_you')
+    given_name_2 = responses.get('given_name_2_you')
+    given_name_3 = responses.get('given_name_3_you')
+    last_name = responses.get('last_name_you')
+    names = [given_name_1, given_name_2, given_name_3, last_name]
+    return ' '.join(filter(None, names))    
+
+
+@register.filter
+def name_spouse(responses):
+    """ Gets and formats given_name_1_spouse, given_name_2_spouse, given_name_3_spouse, last_name_spouse from responses """    
+    given_name_1 = responses.get('given_name_1_spouse')
+    given_name_2 = responses.get('given_name_2_spouse')
+    given_name_3 = responses.get('given_name_3_spouse')
+    last_name = responses.get('last_name_spouse')
+    names = [given_name_1, given_name_2, given_name_3, last_name]
+    return ' '.join(filter(None, names))
+
+
+@register.simple_tag(takes_context=True)    
+def you_name(context, if_blank='you'):
+    if name_you(context):
+        return name_you(context)
+    else:
+        return if_blank
+    
+
+@register.simple_tag(takes_context=True)
+def spouse_name(context, if_blank='your spouse'):
+    if name_spouse(context):
+        return name_spouse(context)
+    else:
+        return if_blank

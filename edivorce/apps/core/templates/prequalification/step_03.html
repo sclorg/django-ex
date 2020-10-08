@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load format_utils %}
 
 {% block title %}{{ block.super }}: Prequalification{% endblock %}
 
@@ -126,24 +127,20 @@
 
 <div class="question-well">
     <h3>
-      Did {% if name_you %}{{ name_you }}{% else %}you{% endif %}
-      and {% if name_spouse %}{{ name_spouse }}{% else %}your spouse{% endif %}
-      attempt to reconcile after you separated
+      Did you and {% spouse_name %} attempt to reconcile after you separated
       <span id="separation_date_span">{% if separation_date %} on {{ separation_date }}{% endif %}</span>?
     </h3>
     <div class="radio">
       <label>
         {% input_field type="radio" name="try_reconcile_after_separated" value="NO" data_target_id="reconciliation_period" data_reveal_target="false" %}
-        No, {% if name_spouse %}{{ name_spouse }}{% else %}my spouse{% endif %}
-        and I have not reconciled (gotten back together)
+        No, {% spouse_name if_blank="my spouse" %} and I have not reconciled (gotten back together)
       </label>
     </div>
     <div class="radio">
       <label>
         {% input_field type="radio" name="try_reconcile_after_separated" value="YES" data_target_id="reconciliation_period" data_reveal_target="true" %}
-        Yes, {% if name_spouse %}{{ name_spouse }}{% else %}my spouse{% endif %}
-        and I lived together again during the following period(s) in an
-        unsuccessful attempt to reconcile
+        Yes, {% spouse_name if_blank="my spouse" %} and I lived together again during the following 
+        period(s) in an unsuccessful attempt to reconcile
       </label>
     </div>
 

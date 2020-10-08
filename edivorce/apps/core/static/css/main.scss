@@ -615,6 +615,37 @@ select.form-control {
 		width: 70%;
 	}
 }
+
+.alias-header {
+	width: 100%;
+}
+
+.form-group.name-group {
+	@media (min-width: 992px) {
+		display: flex !important;
+		flex-direction: row;
+		justify-content: space-between;
+		margin-top: 20px;
+    	margin-bottom: 8px;
+	}
+
+	> div {
+		width: 80%;
+
+		@media (min-width: 992px) {
+			width: 24%;
+		}
+
+		input {
+			width: 99%;
+		}
+	}
+
+	p {
+		margin-bottom: 3px;
+	}
+}
+
 /* Buttons & Icons*/
 .btn {
 	line-height: initial;

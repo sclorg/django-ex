@@ -194,7 +194,11 @@
             const statusCode = newFile.xhr.status;
             if (statusCode === 400) {
               // 400 validation error: show the message returned by the server
-              const message = JSON.parse(newFile.xhr.responseText)[0];
+              let message = newFile.xhr.responseText;
+              const response = JSON.parse(message);
+              if (response.file) {
+                message = response.file[0];
+              }
               this.showError(message);
               this.$refs.upload.remove(newFile);
             } else if (statusCode === 403) {
