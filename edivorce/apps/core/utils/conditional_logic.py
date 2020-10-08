@@ -194,7 +194,42 @@ def get_cleaned_response_value(response):
     if response is None:
         return None
     response = response.strip()
-    search_text = response.replace('also known as', '')
-    if re.search(r'\w+', search_text):
+
+    if response.startswith('[["also known as","'):
+        return __get_cleaned_aka(response)
+
+    if re.search(r'\w+', response):
         return response
+    return None
+
+
+def __get_cleaned_aka(response):
+    """Checks is other_name_you and other_name_spouse (a.k.a. fields) are valid, and 
+       containt both a first name and a last name"""
+    try:
+        aka = json.loads(response)
+    except:
+        return None
+
+    if len(aka) == 0 or len(aka[0]) != 5:
+        return None
+
+    has_lastname1 = re.search(r'\w+', aka[0][1])
+    has_firstname1 = re.search(r'\w+', aka[0][2])
+
+    if has_lastname1 and has_firstname1:
+        if len(aka) == 1:
+            return response
+
+        has_lastname2 = re.search(r'\w+', aka[1][1])
+        has_firstname2 = re.search(r'\w+', aka[1][2])
+
+        # firstname and lastname can both be blank or both have values
+        # but you can't have a value for one and not the other.
+        if has_lastname2 and has_firstname2:
+            return response
+
+        if not has_lastname2 and not has_firstname2:
+            return response
+
     return None
