@@ -3,7 +3,6 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from .models import Document, UserResponse
-from .validators import *
 
 
 class UserResponseSerializer(serializers.ModelSerializer):
@@ -24,11 +23,22 @@ class UserResponseSerializer(serializers.ModelSerializer):
         instance.save()
 
 
+def valid_file_extension(file):
+    extension = file.name.split('.')[-1]
+    if extension.lower() not in ['pdf', 'png', 'gif', 'jpg', 'jpe', 'jpeg']:
+        raise ValidationError(f'File type not supported: {extension}')
+
+
+def valid_doc_type(value):
+    valid_codes = ['AAI', 'AFDO', 'AFTL', 'CSA', 'EFSS', 'MC', 'NCV', 'OFI', 'RDP']
+    if value.upper() not in valid_codes:
+        raise ValidationError(f'Doc type not supported: {value}. Valid codes: {", ".join(valid_codes)}')
+
+
 class CreateDocumentSerializer(serializers.ModelSerializer):
     doc_type = serializers.CharField(required=True, validators=[valid_doc_type])
     party_code = serializers.IntegerField(min_value=0, max_value=2, required=True)
-    file = serializers.FileField(required=True,
-                                 validators=[valid_file_extension, file_scan_validation])
+    file = serializers.FileField(required=True, validators=[valid_file_extension])
     filename = serializers.CharField(read_only=True)
     size = serializers.IntegerField(read_only=True)
     rotation = serializers.IntegerField(read_only=True)
@@ -50,6 +60,11 @@ class CreateDocumentSerializer(serializers.ModelSerializer):
         except IntegrityError:
             raise ValidationError("This file appears to have already been uploaded for this document. Duplicate filename: " + filename)
         return response
+
+
+def valid_rotation(value):
+    if value % 90 != 0:
+        raise serializers.ValidationError('Rotation must be 0, 90, 180, or 270')
 
 
 class DocumentMetadataSerializer(serializers.ModelSerializer):
