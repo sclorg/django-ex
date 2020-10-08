@@ -1,5 +1,5 @@
 {% load input_field %}
-<div class="form-inline clearfix alias-field-group">
+<div class="form-inline clearfix alias-field-group alias-header">
     {% comment As per request, alias type will fixed to "also know as" %}
         <select class="response-dropdown alias-type form-control" name={{name}}>
             <option value="also known as" {% if alias_type == 'also known as' %} selected {% endif %}>Also known as</option>
@@ -9,10 +9,10 @@
         </select>
     {% endcomment %}
     
-    <div class="alias-header">
-        <label>Also known as</label>
-        <input type="button" class="btn btn-danger btn-delete-name form-control pull-right" value="Delete" />    
-    </div>
+    <label>Also known as</label>
+    <input type="button" class="btn btn-danger btn-delete-name form-control pull-right" value="Delete" />
+    <br>
+    
     <div class="form-group name-group alias-body">
         <div>
             <p>First Name</p>

@@ -646,6 +646,21 @@ select.form-control {
 	}
 }
 
+div#other_names_fields {
+	.form-inline {
+		.form-group {
+			@media (min-width: 992px) {
+				flex: inherit;
+			}
+		}
+
+		label {
+			width: calc(100% - 90px);
+			text-align: left;
+		}
+	}
+}
+
 /* Buttons & Icons*/
 .btn {
 	line-height: initial;
