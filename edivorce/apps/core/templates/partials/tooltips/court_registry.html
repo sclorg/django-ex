@@ -1,0 +1,19 @@
+<span class="tooltip-link" data-toggle="tooltip" data-placement="right"
+      data-html="true"
+      title="
+                <b>Court Registry</b>
+                <br /><br />
+                You have selected to file at the following Ministry of Attorney General Court Registry location:
+                <br />
+                <br />
+                {% if court_registry_for_filing %}
+                    {{ court_registry_for_filing }}
+                    <br />
+                    {{ court_registry_for_filing_address }}
+                    <br />
+                    {{ court_registry_for_filing_postal_code }}
+                {% else %}
+                    No Court Registry was chosen
+                {% endif %}
+                ">
+          Court Registry<i class="fa fa-question-circle" aria-hidden="true"></i></span>

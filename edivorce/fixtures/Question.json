@@ -1872,5 +1872,55 @@
     },
     "model": "core.question",
     "pk": "initial_filing_package_link"
+},
+{
+    "fields": {
+        "name": "Has the user successfully submitted the final filing",
+        "description": "For stage 7, Final filing",
+        "summary_order": 172,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "final_filing_submitted"
+},
+{
+    "fields": {
+        "name": "Final Filing CSO Online Package #",
+        "description": "For stage 7, Final filing",
+        "summary_order": 173,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "final_filing_package_number"
+},
+{
+    "fields": {
+        "name": "Final Filing receipt link",
+        "description": "For stage 7, Final filing",
+        "summary_order": 174,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "final_filing_receipt_link"
+},
+{
+    "fields": {
+        "name": "Final Filing download package link",
+        "description": "For stage 7, Final filing",
+        "summary_order": 175,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "final_filing_package_link"
+},
+{
+    "fields": {
+        "name": "Final filing status",
+        "description": "For stage 8, Next steps",
+        "summary_order": 176,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "final_filing_status"
 }
 ]
