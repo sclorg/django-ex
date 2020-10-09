@@ -10,6 +10,9 @@ def file_documents(user, initial=False):
     prefix = 'initial' if initial else 'final'
     _save_response(user, f'{prefix}_filing_submitted', True)
 
+    if not initial:
+        _save_response(user, f'final_filing_status', 'Submitted')
+
     package_number_parts = []
     for _ in range(3):
         num = ''
