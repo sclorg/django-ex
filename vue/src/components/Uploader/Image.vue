@@ -9,8 +9,8 @@
         class="pdf"
         :src="pdfIconUrl"
         v-if="!this.file.error && file.type === 'application/pdf'"
-        width="50" 
-        height="50"
+        width="65" 
+        height="65"
       >
       <i class="fa fa-frown-o" v-if="this.file.error"></i>
       <button
@@ -121,7 +121,7 @@
     }
 
     img.pdf {
-      margin-left: 52px;
+      margin-left: 45px;
     }
 
     i.fa-frown-o {
