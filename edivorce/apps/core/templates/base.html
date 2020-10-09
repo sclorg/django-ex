@@ -54,8 +54,12 @@
                         <div class="top_banner-user">
                             {% if request.user.is_authenticated %}
                             <span>
-                                {{ request.user.display_name}}
-                                &nbsp;&nbsp;|&nbsp;&nbsp; <a href="{% url 'oidc_logout' %}">Log out</a>
+                                <form action="{% url 'oidc_logout' %}" method="post">
+                                    {{ request.user.display_name}}
+                                    &nbsp;&nbsp;|&nbsp;&nbsp; 
+                                    {% csrf_token %}
+                                    <input type="submit" value="Log out">
+                                </form>
                             </span>
                             {% endif %}
                         </div>

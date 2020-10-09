@@ -6,12 +6,13 @@ from django.db.models import F
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
+from django.contrib.auth.models import AbstractUser
 
 from edivorce.apps.core import redis
 
 
 @python_2_unicode_compatible
-class BceidUser(models.Model):
+class BceidUser(AbstractUser):
     """
     BCeID user table
     """
@@ -24,12 +25,6 @@ class BceidUser(models.Model):
 
     sm_user = models.TextField(blank=True)
     """ SiteMinder user value """
-
-    date_joined = models.DateTimeField(default=timezone.now)
-    """ First login timestamp """
-
-    last_login = models.DateTimeField(default=timezone.now)
-    """ Most recent login timestamp """
 
     has_seen_orders_page = models.BooleanField(default=False)
     """ Flag for intercept page """
@@ -48,9 +43,9 @@ class BceidUser(models.Model):
     def is_anonymous(self):
         return False
 
-    is_staff = True
-
-    is_active = True
+    @property
+    def is_active(self):
+        return True
 
     def has_module_perms(self, *args):
         return True

@@ -983,12 +983,18 @@ textarea {
 		float: right;
 		margin-top: 16px;
 
-		a {
+		input[type=submit] {
 			color: #ffffff;
+			background-color: transparent;
+			display: inline;
+			padding: 0;
+			line-height: 1.5;
+			border: none;
 
 			&:active,
 			&:hover {
 				color: #fcfcfc;
+				text-decoration: underline;
 			}
 		}
 	}

@@ -79,6 +79,8 @@ MIDDLEWARE = (
     'whitenoise.middleware.WhiteNoiseMiddleware',
 )
 
+AUTH_USER_MODEL = 'core.BceidUser'
+
 AUTHENTICATION_BACKENDS = (
     'edivorce.apps.core.middleware.keycloak.EDivorceKeycloakBackend',
 )
@@ -106,11 +108,12 @@ WSGI_APPLICATION = 'wsgi.application'
 
 # need to disable auth in Django Rest Framework so it doesn't get triggered
 # by presence of Basic Auth headers
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'edivorce.apps.core.authenticators.BCeIDAuthentication',
-#     ]
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'mozilla_django_oidc.contrib.drf.OIDCAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+    ]
+}
 
 
 LOGGING = {
@@ -208,5 +211,5 @@ OIDC_RP_CLIENT_SECRET = env('OIDC_RP_CLIENT_SECRET', '')
 OIDC_OP_AUTHORIZATION_ENDPOINT = env('OIDC_OP_AUTHORIZATION_ENDPOINT', '')
 OIDC_OP_TOKEN_ENDPOINT = env('OIDC_OP_TOKEN_ENDPOINT', '')
 OIDC_OP_USER_ENDPOINT = env('OIDC_OP_USER_ENDPOINT', '')
-LOGIN_REDIRECT_URL = env('LOGIN_REDIRECT_URL', '/')
+LOGIN_REDIRECT_URL = env('LOGIN_REDIRECT_URL', '/overview')
 LOGOUT_REDIRECT_URL = env('LOGOUT_REDIRECT_URL', '/')
