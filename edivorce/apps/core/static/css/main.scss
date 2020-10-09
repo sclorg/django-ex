@@ -4,20 +4,19 @@ $brand-blue: #003366;
 $brand-gold: #fcba19;
 $brand-titles: #003366;
 $brand-links: #365ebe;
-/*#2b5580;*/
 $brand-buttons: $brand-links;
 $color-blue-dark: $brand-titles;
 $color-blue-medium: #38598A;
 $color-blue-light: $brand-buttons;
-$color-blue-lighter: #d4dce5;
+$color-blue-lighter: #d7dff2;
 $color-grey-dark: $body-copy;
 $color-grey-medium: #9D9D9D;
 $color-grey-light: #d5d5d5;
 $color-grey-lighter: #efefef;
-$color-grey-lightest: #fdfdfd;
+$color-grey-lightest: #f2f2f2;
 $color-green: #57b26a;
 $color-green-light: #d5e6d8;
-$color-green-dark: #246A33;
+$color-green-dark: #2e8540;
 $color-gold-light: #e6ca85;
 $color-red: #D8292F;
 $color-red-light: #F7D4D5;
@@ -189,7 +188,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 	&[readonly] {
 		color: #8c8c8c;
-		background: #f2f2f2;
+		background: $color-grey-lightest;
 	}
 
 	input, textarea {
@@ -207,7 +206,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 		&[readonly] {
 			color: #8c8c8c;
-			background: #f2f2f2;
+			background: $color-grey-lightest;
 		}
 	}
 
@@ -219,7 +218,7 @@ input[type=number]::-webkit-outer-spin-button {
 .fact-sheet-control {
 	&[readonly] {
 		color: #8c8c8c;
-		background: #f2f2f2;
+		background: $color-grey-lightest;
 	}
 	border-bottom: 1px solid #ddd;
 	border-right: 1px solid #ddd;
@@ -257,7 +256,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .fact-sheet-input {
 	&[readonly] {
-		background: #f2f2f2;
+		background: $color-grey-lightest;
 	}
 }
 
@@ -310,7 +309,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .child-support-amount[readonly] {
-	background: #f2f2f2;
+	background: $color-grey-lightest;
 }
 
 div.dollar-prefix {
@@ -424,11 +423,11 @@ div.percent-suffix {
 }
 
 .checkmark {
-	background: lighten($color-green, 10%);
+	background: $color-green-dark;
 	position: relative;
 	padding: 22px 20px 20px 90px;
 	color: #ffffff;
-	border-radius: 10px;
+	border-radius: 8px;
 	font-size: 32px;
 
 	&:before {
@@ -1061,6 +1060,13 @@ textarea {
 
 	.flex-row {
 		width: 45%;
+		border-radius: 8px;
+		background-color: $color-blue-lighter;
+		border: 1px solid $brand-buttons; 
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: 24px 30px;
 	}
 }
 
@@ -2076,7 +2082,7 @@ textarea {
 }
 
 .modal-footer {
-	background: #f5f5f5;
+	background: $color-grey-lightest;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 }
@@ -2108,6 +2114,18 @@ textarea {
 
 .shaded-box {
     background-color: rgba(0,0,0,0.7);
+}
+
+.light-shaded-box {
+	background-color: $color-grey-lightest;
+	border-radius: 8px;
+	padding: 18px 30px;
+	margin-bottom: 28px;
+
+	p {
+		margin: 0;
+		max-width: 100%;
+	}
 }
 
 #delete_child_modal,

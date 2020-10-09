@@ -5,44 +5,55 @@
 {% block content %}
 
 <h1 class="checkmark">You have met the conditions for using the Online Divorce Assistant</h1>
-<h2> Register or Login</h2>
+
+<div class="question-well">
+    <h3>1. Gather your documents</h3>
+    <p>You will need the following documents to move forward with the divorce request:</p>
+    <ul>
+        <li>Marriage certificate</li>
+        <li>Separation agreement (if applicable)</li>
+        <li>Court order (if applicable)</li>
+    </ul>
+</div>
+
+<div class="question-well">
+<h3>2. Register or Login</h3>
 <p>You will need a <strong>Basic BCeID</strong> or <strong>BC Services Card</strong> account to access the Online Divorce Assistant. This will also enable you to securely access multiple other online government services.</p>
 
-    <hr />
+<div class="light-shaded-box">
+    <p><strong>NOTE about logging in with your BC Services Card</strong></p>
+    <p>
+        You can log in and use the Online Divorce Assistant with your BC Services Card.  
+        However, you are limited to filing in-person at a BC Court Registry as online 
+        filing with a BC Services Card is currently not available.
+    </p>
+</div>
 
 <div class="success-buttons">
     <div class="flex-row" id="bcId" style="width: 30%;">
         <h3>Register for a <br>Basic BCeID</br></h3>
         <p>Once you register, you’ll be taken back to this website.</p>
+        <a class="btn btn-primary btn-lg btn-block" href="{% url 'register' %}">
+            Register
+        </a>
     </div>
     <div class="flex-row" id="scard" style="width: 30%;">
         <h3>Set up your <br>BC Services Card</br></h3>
         <p>Once you're set up, you’ll be taken back to this website.</p>
+        <a class="btn btn-primary btn-lg btn-block" href="{% url 'register_sc' %}">
+            Set Up
+        </a>
     </div>
     <div class="flex-row" id="login" style="width: 30%;">
         <h3>Login with a <br>BCeID or BC Services Card</br></h3>
         <p>Once you login, you’ll be taken back to this website.</p>
-
-    </div>
-</div>
-<div class="success-buttons">
-    <div class="flex-row" id="bcId" style="width: 30%;">
-        <a class="btn btn-success btn-lg btn-block" href="{% url 'register' %}">
-            Register
-        </a>
-    </div>
-    <div class="flex-row"id="scard" style="width: 30%;">
-        <a class="btn btn-success btn-lg btn-block" href="{% url 'register_sc' %}">
-            Set Up
-        </a>
-    </div>
-    <div class="flex-row"id="login" style="width: 30%;">
-        <a class="btn btn-success btn-lg btn-block" href="{% url 'login' %}">
+        <a class="btn btn-primary btn-lg btn-block" href="{% url 'login' %}">
             Login
         </a>
     </div>
 </div>
 
+</div>
 
 <p>&nbsp;</p>
 
