@@ -95,7 +95,7 @@
         return "";
       },
       pdfIconUrl() {
-        return "../../static/svg/pdf-icon.svg";
+        return `${this.$parent.$parent.$parent.$parent.proxyRootPath}static/svg/pdf-icon.svg`;
       }
     },
   };
