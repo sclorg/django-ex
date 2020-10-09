@@ -4,11 +4,14 @@
       :class="['image-wrap', isValidImage ? 'valid' : '']"
       @click.prevent="showPreview($event)"
     >
-      <img v-if="isValidImage" :src="file.objectURL" :style="imageStyle" />
-      <i
-        class="fa fa-file-pdf-o"
+      <img v-if="isValidImage" class="image" :src="file.objectURL" :style="imageStyle" />
+      <img 
+        class="pdf"
+        :src="pdfIconUrl"
         v-if="!this.file.error && file.type === 'application/pdf'"
-      ></i>
+        width="50" 
+        height="50"
+      >
       <i class="fa fa-frown-o" v-if="this.file.error"></i>
       <button
         type="button"
@@ -91,6 +94,9 @@
         }
         return "";
       },
+      pdfIconUrl() {
+        return "../../static/svg/pdf-icon.svg";
+      }
     },
   };
 </script>
@@ -108,24 +114,20 @@
     display: flex;
     align-items: center;
 
-    img {
+    img.image {
       position: absolute;
       top: 0;
       left: 0;
     }
 
-    i.fa-file-pdf-o,
+    img.pdf {
+      margin-left: 52px;
+    }
+
     i.fa-frown-o {
       display: block;
       font-size: 48px;
       margin-left: 60px;
-    }
-
-    i.fa-file-pdf-o {
-      color: #d5d5d5;
-    }
-
-    i.fa-frown-o {
       color: #eee;
     }
 
@@ -154,7 +156,7 @@
       color: white;
     }
 
-    &:hover img {
+    &:hover img.image {
       opacity: 0.12;
     }
   }
