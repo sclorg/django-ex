@@ -99,6 +99,7 @@ class BceidMiddleware(MiddlewareMixin):  # pylint: disable=too-few-public-method
         siteminder_user = request.META.get('HTTP_SM_USER', '')
         is_localdev = settings.DEPLOYMENT_TYPE in ['localdev', 'minishift']
         update_user = False
+        using_bc_services_card = False
 
         guid = request.META.get('HTTP_SMGOV_USERGUID', '')
         given_names = request.META.get('HTTP_SMGOV_GIVENNAMES', '')
@@ -108,6 +109,7 @@ class BceidMiddleware(MiddlewareMixin):  # pylint: disable=too-few-public-method
         # HTTP_SMGOV_USERDISPLAYNAME is not included when BC Services Card authentication is used.
         if not displayname and (surname or given_names):
             displayname = "{0} {1}".format(given_names, surname)
+            using_bc_services_card = True
 
         # HTTP_SM_USER is typically '.' when BC Services Card authentication is used.
         if (not siteminder_user or siteminder_user == '.') and given_names and surname:
@@ -135,6 +137,9 @@ class BceidMiddleware(MiddlewareMixin):  # pylint: disable=too-few-public-method
                 if created or not request.user.sm_user:
                     request.user.sm_user = siteminder_user
                     update_user = True
+            if request.user.is_bcsc != using_bc_services_card:
+                request.user.is_bcsc = using_bc_services_card
+                update_user = True
             if request.user.display_name != displayname:
                 request.user.display_name = displayname
                 update_user = True
