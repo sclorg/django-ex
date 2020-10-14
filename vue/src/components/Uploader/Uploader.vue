@@ -115,6 +115,7 @@
   import rotateFix from "../../utils/rotation";
   import axios from "axios";
   import graphQLStringify from "stringify-object";
+  import Compressor from "compressorjs";
 
   export default {
     props: {
@@ -130,6 +131,7 @@
         showWarning: false,
         warningText: "",
         isDirty: false,
+        retries: 0,
       };
     },
     components: {
@@ -214,7 +216,11 @@
             }
           }
         }
-        this.$refs.upload.active = true;
+
+        // Automatically activate upload after compression completes
+        if (newFile && oldFile && newFile.compressed && !newFile.active && !oldFile.active) {
+          newFile.active = true;
+        }        
       },
       inputFilter(newFile, oldFile, prevent) {
         if (newFile && !oldFile) {
@@ -235,6 +241,31 @@
               return prevent();
             }
           });
+
+          // Automatic compression
+          const self = this;
+          if (newFile.file && newFile.type.substr(0, 6) === "image/") {
+            new Compressor(newFile.file, {
+              quality: 0.9,
+              maxWidth: 3600,
+              maxHeight: 3600,              
+              success(result) {
+                console.log(result);
+                self.$refs.upload.update(newFile, {
+                  error: "",
+                  file: result,
+                  size: result.size,
+                  type: result.type,
+                  compressed: true
+                });
+              },
+              error(err) {
+                self.$refs.upload.update(newFile, {
+                  error: "compression failed",
+                });
+              },
+            });
+          }
         }
 
         if (newFile) {
@@ -405,20 +436,21 @@
           })
           .then((response) => {
             // check for errors in the graphQL response
+            this.retries = 0;            
             if (response.data.errors && response.data.errors.length) {
               response.data.errors.forEach((error) => {
                 console.log("error", error.message || error);
                 // if there was an error it's probably because the upload isn't finished yet
                 // mark the metadata as dirty so it will save metadata again
-                this.isDirty = true;
               });
             }
           })
           .catch((error) => {
             this.showError("Error saving metadata");
             console.log("error", error);
+            this.retries++;
           });
-      },
+      }
     },
     created() {
       // get saved state from the server
@@ -461,7 +493,7 @@
       // re-ordering images can cause a lot of traffic and possibly
       // result in out-of-order requests)
       setInterval(() => {
-        if (this.isDirty) {
+        if (this.isDirty && this.retries < 15) {
           this.saveMetaData();
           this.isDirty = false;
         }

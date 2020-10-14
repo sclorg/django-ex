@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "compressorjs": "^1.0.6",
     "core-js": "^3.6.5",
     "stringify-object": "^3.3.0",
     "uiv": "^0.36.1",
