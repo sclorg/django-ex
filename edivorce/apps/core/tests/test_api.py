@@ -108,8 +108,7 @@ class APITest(APITestCase):
 
         file.seek(0)
 
-        with self.settings(CLAMAV_ENABLED=True):
-            response = self.client.post(url, data)
+        response = self.client.post(url, data)
 
         self.assertContains(response,
                             'This file appears to have already been uploaded for this document.',
