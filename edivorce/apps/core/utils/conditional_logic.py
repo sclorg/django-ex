@@ -14,8 +14,10 @@ def if_no_children(return_val):
     return decorator_no_children
 
 
+@if_no_children(return_val=False)
 def determine_has_children_of_marriage(questions_dict):
-    return questions_dict.get('children_of_marriage', '') == 'YES'
+    has_under_19 = questions_dict.get('has_children_under_19', '') == 'YES'
+    return has_under_19 or determine_child_over_19_supported(questions_dict)
 
 
 @if_no_children(return_val=[])

@@ -72,23 +72,20 @@ def _adjust_for_orders(next_item, want_which_orders, children_of_marriage=None, 
 
 @register.simple_tag(takes_context=True)
 def step_order(context, step):
-    want_which_orders = __parse_json_which_orders_selected(context)
     base_order = template_step_order[step]
     order = base_order
+    derived_data = context.get('derived', dict())
 
-    if base_order > 5 and (
-            context.get('children_of_marriage', None) != 'YES' and
-            context.get('derived', dict()).get('has_children_of_marriage', None) is False
-    ):
+    if base_order > 5 and not derived_data.get('has_children_of_marriage'):
         order -= 1
 
-    if base_order > 6 and 'Spousal support' not in want_which_orders:
+    if base_order > 6 and not derived_data.get('wants_spousal_support'):
         order -= 1
 
-    if base_order > 7 and 'Division of property and debts' not in want_which_orders:
+    if base_order > 7 and not derived_data.get('wants_property_division'):
         order -= 1
 
-    if base_order > 8 and 'Other orders' not in want_which_orders:
+    if base_order > 8 and not derived_data.get('wants_other_orders'):
         order -= 1
 
     return order

@@ -41,7 +41,7 @@
         <span class="progress-content"><small>Step 5</small><br />Your separation</span>
         {% include "partials/progress_icon.html" with step_status_string=step_status.your_separation with_status=True %}
     </a>
-    {% if children_of_marriage == 'YES' or derived.has_children_of_marriage %}
+    {% if derived.has_children_of_marriage %}
     <a href="{% url 'question_steps' 'children' 'your_children'%}" class="progress-question {% if step_status.your_children == 'Completed' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step {% step_order step="children" %}</small><br />Your children</span>
@@ -49,7 +49,7 @@
     </a>
     {% endif %}
 
-    {% if 'Spousal support' in which_orders.0.value|load_json %}
+    {% if derived.wants_spousal_support %}
     <a href="{% url 'question_steps' 'support' %}" class="progress-question {% if step_status.spousal_support == 'Completed' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-life-ring" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step {% step_order step="support" %}</small><br />Spousal support</span>
@@ -57,7 +57,7 @@
     </a>
     {% endif %}
 
-    {% if 'Division of property and debts' in which_orders.0.value|load_json %}
+    {% if derived.wants_property_division %}
     <a href="{% url 'question_steps' 'property' %}" class="progress-question {% if step_status.property_and_debt == 'Completed' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-home" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step {% step_order step="property" %}</small><br />Property and debt</span>
@@ -65,7 +65,7 @@
     </a>
     {% endif %}
 
-    {% if 'Other orders' in which_orders.0.value|load_json %}
+    {% if derived.wants_other_orders %}
     <a href="{% url 'question_steps' 'other_orders' %}" class="progress-question {% if step_status.other_orders == 'Completed' %} complete {% endif %}">
         <span class="progress-icon"><i class="fa fa-gavel" aria-hidden="true"></i></span>
         <span class="progress-content"><small>Step {% step_order step="other_orders" %}</small><br />Other orders</span>

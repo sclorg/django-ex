@@ -76,6 +76,27 @@ class ConditionalLogicTestCase(TestCase):
         self.create_response('claimant_children', json.dumps(children))
         self.assertFalse(logic.determine_shared_custody(self.questions_dict))
 
+    def test_has_children_of_marriage(self):
+        self.assertFalse(logic.determine_has_children_of_marriage(self.questions_dict))
+
+        self.create_response('children_of_marriage', 'NO')
+        self.assertFalse(logic.determine_has_children_of_marriage(self.questions_dict))
+
+        self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
+        self.assertTrue(logic.determine_has_children_of_marriage(self.questions_dict))
+
+        self.create_response('has_children_under_19', 'NO')
+        self.create_response('has_children_over_19', 'NO')
+        self.assertFalse(logic.determine_has_children_of_marriage(self.questions_dict))
+
+        self.create_response('has_children_over_19', 'YES')
+        self.create_response('children_financial_support', '["NO"]')
+        self.assertFalse(logic.determine_has_children_of_marriage(self.questions_dict))
+
+        self.create_response('children_financial_support', '["Yes, attending post secondary institution"]')
+        self.assertTrue(logic.determine_has_children_of_marriage(self.questions_dict))
+
 
 class ViewLogic(TestCase):
     def test_content_type_from_filename(self):
