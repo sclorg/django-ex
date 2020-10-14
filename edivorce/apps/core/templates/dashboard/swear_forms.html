@@ -29,7 +29,9 @@
         for {% include "partials/tooltips/swear_affirm.html" with text="swearing/affirming" %}:
     </p>
     <ul>
-        <li>{% include "partials/tooltips/form_child_support_37.html" %}</li>
+        {% if derived.has_children_of_marriage %}
+            <li>{% include "partials/tooltips/form_child_support_37.html" %}</li>
+        {% endif %}
         <li>{% include "partials/tooltips/form_desk_order_38.html" %}</li>
     </ul>
     {% if how_to_sign == 'Together' and signing_location == 'Virtual' %}
