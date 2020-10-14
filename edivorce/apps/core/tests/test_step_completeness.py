@@ -500,24 +500,36 @@ class ChildrenStepCompletenessTestCase(TestCase):
 
     def test_no_children(self):
         self.create_response('children_of_marriage', 'NO')
-        self.assertEqual(self.get_children_step_status(), 'Hidden')
-        self.assertEqual(self.get_children_step_status('your_children'), 'Hidden')
-        self.assertEqual(self.get_children_step_status('income_expenses'), 'Hidden')
-        self.assertEqual(self.get_children_step_status('facts'), 'Hidden')
-        self.assertEqual(self.get_children_step_status('payor_medical'), 'Hidden')
-        self.assertEqual(self.get_children_step_status('what_for'), 'Hidden')
+        self.assertEqual(self.get_children_step_status(), Status.HIDDEN)
+        self.assertEqual(self.get_children_step_status('your_children'), Status.HIDDEN)
+        self.assertEqual(self.get_children_step_status('income_expenses'), Status.HIDDEN)
+        self.assertEqual(self.get_children_step_status('facts'), Status.HIDDEN)
+        self.assertEqual(self.get_children_step_status('payor_medical'), Status.HIDDEN)
+        self.assertEqual(self.get_children_step_status('what_for'), Status.HIDDEN)
 
     def test_only_grown_children(self):
         self.create_response('children_of_marriage', 'YES')
         self.create_response('has_children_under_19', 'NO')
         self.create_response('has_children_over_19', 'YES')
         self.create_response('children_financial_support', '["NO"]')
-        self.assertEqual(self.get_children_step_status(), 'Hidden')
-        self.assertEqual(self.get_children_step_status('your_children'), 'Hidden')
-        self.assertEqual(self.get_children_step_status('income_expenses'), 'Hidden')
-        self.assertEqual(self.get_children_step_status('facts'), 'Hidden')
-        self.assertEqual(self.get_children_step_status('payor_medical'), 'Hidden')
-        self.assertEqual(self.get_children_step_status('what_for'), 'Hidden')
+        self.assertEqual(self.get_children_step_status(), Status.HIDDEN)
+        self.assertEqual(self.get_children_step_status('your_children'), Status.HIDDEN)
+        self.assertEqual(self.get_children_step_status('income_expenses'), Status.HIDDEN)
+        self.assertEqual(self.get_children_step_status('facts'), Status.HIDDEN)
+        self.assertEqual(self.get_children_step_status('payor_medical'), Status.HIDDEN)
+        self.assertEqual(self.get_children_step_status('what_for'), Status.HIDDEN)
+
+    def test_has_children(self):
+        self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'NO')
+        self.create_response('has_children_over_19', 'YES')
+        self.create_response('children_financial_support', '["Yes, other reason"]')
+        self.assertEqual(self.get_children_step_status(), Status.NOT_STARTED)
+        self.assertEqual(self.get_children_step_status('your_children'), Status.NOT_STARTED)
+        self.assertEqual(self.get_children_step_status('income_expenses'), Status.NOT_STARTED)
+        self.assertEqual(self.get_children_step_status('facts'), Status.NOT_STARTED)
+        self.assertEqual(self.get_children_step_status('payor_medical'), Status.NOT_STARTED)
+        self.assertEqual(self.get_children_step_status('what_for'), Status.NOT_STARTED)
 
     def test_children_details(self):
         substep = 'your_children'
