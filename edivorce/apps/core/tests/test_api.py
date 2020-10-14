@@ -40,7 +40,8 @@ class MockRedis:
 @mock.patch.object(Redis, 'get', MockRedis.get)
 @mock.patch.object(Redis, 'delete', MockRedis.delete)
 @mock.patch.object(Redis, 'exists', MockRedis.exists)
-@modify_settings(MIDDLEWARE={'remove': 'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware', })
+@modify_settings(MIDDLEWARE={'remove': 'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware'})
+@override_settings(CLAMAV_ENABLED=False)
 class APITest(APITestCase):
     def setUp(self):
         self.user = BceidUser.objects.create(user_guid='1234')
@@ -73,8 +74,7 @@ class APITest(APITestCase):
         }
         self.client.force_authenticate(self.user)
 
-        with self.settings(CLAMAV_ENABLED=False):
-            response = self.client.post(url, data)
+        response = self.client.post(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -101,20 +101,75 @@ class APITest(APITestCase):
         }
         self.client.force_authenticate(self.user)
 
-        with self.settings(CLAMAV_ENABLED=False):
-            response = self.client.post(url, data)
+        response = self.client.post(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Document.objects.count(), 1)
 
-        file.seek(0)  #
+        file.seek(0)
 
-        with self.settings(CLAMAV_ENABLED=False):
+        with self.settings(CLAMAV_ENABLED=True):
             response = self.client.post(url, data)
 
         self.assertContains(response,
                             'This file appears to have already been uploaded for this document.',
                             status_code=status.HTTP_400_BAD_REQUEST)
+
+    def test_post_only_one_pdf(self):
+        url = reverse('documents')
+
+        file = _create_file()
+        data = {
+            'file': file,
+            'doc_type': 'AAI',
+            'party_code': 1
+        }
+        self.client.force_authenticate(self.user)
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Document.objects.count(), 1)
+
+        file = _create_file(extension='pdf')
+        data = {
+            'file': file,
+            'doc_type': 'AAI',
+            'party_code': 1
+        }
+
+        response = self.client.post(url, data)
+
+        self.assertContains(response,
+                            "Only one PDF is allowed per form, and PDF documents cannot be combined with images.",
+                            status_code=status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Document.objects.count(), 1)
+
+    def test_post_no_existing_pdfs(self):
+        url = reverse('documents')
+
+        file = _create_file(extension='pdf')
+        data = {
+            'file': file,
+            'doc_type': 'AAI',
+            'party_code': 1
+        }
+        self.client.force_authenticate(self.user)
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Document.objects.count(), 1)
+
+        file = _create_file()
+        data = {
+            'file': file,
+            'doc_type': 'AAI',
+            'party_code': 1
+        }
+
+        response = self.client.post(url, data)
+
+        self.assertContains(response,
+                            "PDF documents cannot be combined with images. Only a single PDF or multiple images can be uploaded into one form.",
+                            status_code=status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Document.objects.count(), 1)
 
     def test_post_field_validation(self):
         url = reverse('documents')
