@@ -218,7 +218,7 @@
         }
 
         // Automatically activate upload after compression completes
-        if (newFile && oldFile && newFile.compressed && !newFile.active && !oldFile.active) {
+        if (newFile && newFile.compressed && !newFile.active) {
           newFile.active = true;
         }        
       },
@@ -265,6 +265,9 @@
                 });
               },
             });
+          } 
+          else {
+            newFile.compressed = true;
           }
         }
 
