@@ -128,7 +128,7 @@ $(window).load(function () {
                 $('#court-registry-address').text(data.address);
                 $('#court-registry-postal-code').text(data.postal_code);
         }).error((response) => {
-            $('#court-registry-address').html('<span class="error-text">Error retrieving address</span>');
+            $('#court-registry-address').html('<span class="error-text">No address found</span>');
             $('#court-registry-postal-code').html('<a href="https://www.bccourts.ca/supreme_court/court_locations_and_contacts.aspx">Look up address</a>');
         });
     }
