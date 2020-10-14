@@ -57,6 +57,7 @@ class ConditionalLogicTestCase(TestCase):
 
         # Has children, and marked YES to children of marriage in prequal
         self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
         self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with you'), '1')
         self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with spouse'), '2')
         self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with both'), '3')
@@ -70,6 +71,7 @@ class ConditionalLogicTestCase(TestCase):
         self.assertFalse(logic.determine_shared_custody(self.questions_dict))
 
         self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
         self.assertTrue(logic.determine_shared_custody(self.questions_dict))
 
         children = [self.child_live_with_spouse, self.child_live_with_you]

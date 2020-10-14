@@ -466,6 +466,7 @@ class ChildrenStepCompletenessTestCase(TestCase):
         self.child_live_with_spouse = {"child_name": "Child with spouse", "child_birth_date": "Jan 4, 2009", "child_live_with": "Lives with spouse", "child_relationship_to_you": "Adopted child", "child_relationship_to_spouse": "Adopted child", "child_live_with_other_details": ""}
         self.child_live_with_both = {"child_name": "Child with both", "child_birth_date": "Jan 4, 2009", "child_live_with": "Lives with both", "child_relationship_to_you": "Adopted child", "child_relationship_to_spouse": "Adopted child", "child_live_with_other_details": ""}
         self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
 
     def get_children_step_status(self, substep=None):
         responses_dict = get_data_for_user(self.user)
@@ -499,6 +500,18 @@ class ChildrenStepCompletenessTestCase(TestCase):
 
     def test_no_children(self):
         self.create_response('children_of_marriage', 'NO')
+        self.assertEqual(self.get_children_step_status(), 'Hidden')
+        self.assertEqual(self.get_children_step_status('your_children'), 'Hidden')
+        self.assertEqual(self.get_children_step_status('income_expenses'), 'Hidden')
+        self.assertEqual(self.get_children_step_status('facts'), 'Hidden')
+        self.assertEqual(self.get_children_step_status('payor_medical'), 'Hidden')
+        self.assertEqual(self.get_children_step_status('what_for'), 'Hidden')
+
+    def test_only_grown_children(self):
+        self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'NO')
+        self.create_response('has_children_over_19', 'YES')
+        self.create_response('children_financial_support', '["NO"]')
         self.assertEqual(self.get_children_step_status(), 'Hidden')
         self.assertEqual(self.get_children_step_status('your_children'), 'Hidden')
         self.assertEqual(self.get_children_step_status('income_expenses'), 'Hidden')
