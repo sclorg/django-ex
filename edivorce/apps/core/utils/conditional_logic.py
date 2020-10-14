@@ -3,19 +3,21 @@ import json
 import re
 
 
+def determine_has_children_of_marriage(questions_dict):
+    has_children = questions_dict.get('children_of_marriage', '') == 'YES'
+    has_under_19 = questions_dict.get('has_children_under_19', '') == 'YES'
+    return has_children and (has_under_19 or _children_over_19_supported(questions_dict))
+
+
 def if_no_children(return_val):
     def decorator_no_children(func):
         @functools.wraps(func)
         def inner(questions_dict, *args, **kwargs):
-            if questions_dict.get('children_of_marriage', '') != 'YES':
+            if not determine_has_children_of_marriage(questions_dict):
                 return return_val
             return func(questions_dict, *args, **kwargs)
         return inner
     return decorator_no_children
-
-
-def determine_has_children_of_marriage(questions_dict):
-    return questions_dict.get('children_of_marriage', '') == 'YES'
 
 
 @if_no_children(return_val=[])
@@ -69,6 +71,10 @@ def determine_split_custody(questions_dict):
 
 @if_no_children(return_val=False)
 def determine_child_over_19_supported(questions_dict):
+    return _children_over_19_supported(questions_dict)
+
+
+def _children_over_19_supported(questions_dict):
     has_children_over_19 = questions_dict.get('has_children_over_19', '') == 'YES'
     support = json.loads(questions_dict.get('children_financial_support', '[]'))
     supporting_children = len(support) > 0 and 'NO' not in support

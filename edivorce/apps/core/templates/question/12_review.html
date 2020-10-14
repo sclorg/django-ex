@@ -129,7 +129,7 @@
 </div>
 {% endif %}
 
-{% if 'Spousal support' in which_orders.0.value|load_json %}
+{% if derived.wants_spousal_support %}
 <div class="question-well step-review {% if step_status.spousal_support != 'Completed' %}error{% endif %}">
 	<div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_7" aria-controls="collapse_changed_name">
 		<div>
@@ -147,7 +147,7 @@
 </div>
 {% endif %}
 
-{% if 'Division of property and debts' in which_orders.0.value|load_json %}
+{% if derived.wants_property_division %}
 <div class="question-well step-review {% if step_status.property_and_debt != 'Completed' %}error{% endif %}">
     <div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_8" aria-controls="collapse_changed_name">
     	<div>
@@ -165,7 +165,7 @@
 </div>
 {% endif %}
 
-{% if 'Other orders' in which_orders.0.value|load_json %}
+{% if derived.wants_other_orders %}
 <div class="question-well step-review {% if step_status.other_orders != 'Completed' %}error{% endif %}">
     <div class="collapse-trigger" data-toggle="collapse" aria-expanded="true" data-target="#review_step_9" aria-controls="collapse_changed_name">
     	<div>

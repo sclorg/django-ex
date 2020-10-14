@@ -57,6 +57,7 @@ class ConditionalLogicTestCase(TestCase):
 
         # Has children, and marked YES to children of marriage in prequal
         self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
         self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with you'), '1')
         self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with spouse'), '2')
         self.assertEqual(logic.get_num_children_living_with(self.questions_dict, 'Lives with both'), '3')
@@ -70,11 +71,33 @@ class ConditionalLogicTestCase(TestCase):
         self.assertFalse(logic.determine_shared_custody(self.questions_dict))
 
         self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
         self.assertTrue(logic.determine_shared_custody(self.questions_dict))
 
         children = [self.child_live_with_spouse, self.child_live_with_you]
         self.create_response('claimant_children', json.dumps(children))
         self.assertFalse(logic.determine_shared_custody(self.questions_dict))
+
+    def test_has_children_of_marriage(self):
+        self.assertFalse(logic.determine_has_children_of_marriage(self.questions_dict))
+
+        self.create_response('children_of_marriage', 'NO')
+        self.assertFalse(logic.determine_has_children_of_marriage(self.questions_dict))
+
+        self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
+        self.assertTrue(logic.determine_has_children_of_marriage(self.questions_dict))
+
+        self.create_response('has_children_under_19', 'NO')
+        self.create_response('has_children_over_19', 'NO')
+        self.assertFalse(logic.determine_has_children_of_marriage(self.questions_dict))
+
+        self.create_response('has_children_over_19', 'YES')
+        self.create_response('children_financial_support', '["NO"]')
+        self.assertFalse(logic.determine_has_children_of_marriage(self.questions_dict))
+
+        self.create_response('children_financial_support', '["Yes, attending post secondary institution"]')
+        self.assertTrue(logic.determine_has_children_of_marriage(self.questions_dict))
 
 
 class ViewLogic(TestCase):
