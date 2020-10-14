@@ -213,7 +213,11 @@ class Document(models.Model):
         content_type = content_types.get(extension)
         if not content_type:
             return "application/unknown"
-        return content_type        
+        return content_type
+
+    @property
+    def is_pdf(self):
+        return self.filename.split('.')[-1].lower() == 'pdf'
 
 
 class DontLog:

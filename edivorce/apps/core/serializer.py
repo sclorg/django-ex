@@ -42,13 +42,20 @@ class CreateDocumentSerializer(serializers.ModelSerializer):
         filename = validated_data['file'].name
         size = validated_data['file'].size
         user = self.context['request'].user
-        order = Document.objects.filter(bceid_user=user, doc_type=validated_data['doc_type'], party_code=validated_data['party_code']).count() + 1
-        response = Document(bceid_user=user, filename=filename, size=size, sort_order=order, **validated_data)
+        existing_docs = Document.objects.filter(bceid_user=user, doc_type=validated_data['doc_type'], party_code=validated_data['party_code'])
+        for other_doc in existing_docs:
+            if other_doc.is_pdf:
+                raise ValidationError("PDF documents cannot be combined with images. Only a single PDF or multiple images can be uploaded into one form.")
+
+        sort_order = existing_docs.count() + 1
+        document = Document(bceid_user=user, filename=filename, size=size, sort_order=sort_order, **validated_data)
+        if document.is_pdf and existing_docs.count() > 0:
+            raise ValidationError("Only one PDF is allowed per form, and PDF documents cannot be combined with images.")
         try:
-            response.save()
+            document.save()
         except IntegrityError:
             raise ValidationError("This file appears to have already been uploaded for this document. Duplicate filename: " + filename)
-        return response
+        return document
 
 
 class DocumentMetadataSerializer(serializers.ModelSerializer):
