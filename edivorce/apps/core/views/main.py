@@ -48,6 +48,7 @@ def prequalification(request, step):
     else:
         responses_dict = get_data_for_user(request.user)
         responses_dict['active_page'] = 'prequalification'
+        responses_dict['derived'] = get_derived_data(responses_dict)
         responses_by_step = get_step_responses(responses_dict)
         step_status = get_step_completeness(responses_by_step)
         responses_dict['step_status'] = step_status
@@ -198,6 +199,7 @@ def dashboard_nav(request, nav_step):
     Dashboard: All other pages
     """
     responses_dict = get_data_for_user(request.user)
+    responses_dict['derived'] = get_derived_data(responses_dict)
     responses_dict['active_page'] = nav_step
     template_name = 'dashboard/%s.html' % nav_step
     return render(request, template_name=template_name, context=responses_dict)
