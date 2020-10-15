@@ -7,6 +7,16 @@
 
 {% block content %}
     <h1>Review and Print your Divorce Forms</h1>
+    {% if derived.any_errors %}
+        <div class="review-warning">
+            <div><span class="exclamation"><i class="fa fa-fw fa-exclamation-circle"></i></span></div>
+            <div>
+                At least one question in the <a href="{% url 'question_steps' 'review' %}">Questionnaire</a> portion of this application is incomplete.
+                Generally, filing incomplete forms will cause your filing to be rejected by the Court Registry.
+                We recommend you go back to the <a href="{% url 'question_steps' 'review' %}">Questionnaire</a> and complete all pages.
+            </div>
+        </div>
+    {% endif %}
     <p>
         To get divorced, you need to get a divorce order. Only the court has the
         ability to divorce a married couple. To get a court order you have to
@@ -489,8 +499,10 @@
                 ">Completed Identification of Applicant (VSA 512)<i class="fa fa-question-circle" aria-hidden="true"></i></span>
                     for anyone requesting a name change
                     <ul>
-                        {% if name_change_you == 'YES' %}<li>Claimant 1 ({% you_name %})</li>{% endif %}
-                        {% if name_change_spouse == 'YES' %}<li>Claimant 2 ({% spouse_name %})</li>{% endif %}
+                        {% if name_change_you == 'YES' %}
+                            <li>Claimant 1 ({% you_name %})</li>{% endif %}
+                        {% if name_change_spouse == 'YES' %}
+                            <li>Claimant 2 ({% spouse_name %})</li>{% endif %}
                     </ul>
                 </li>
             {% endif %}

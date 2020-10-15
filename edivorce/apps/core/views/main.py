@@ -199,12 +199,16 @@ def dashboard_nav(request, nav_step):
     Dashboard: All other pages
     """
     responses_dict = get_data_for_user(request.user)
-    responses_dict['derived'] = get_derived_data(responses_dict)
     responses_dict['active_page'] = nav_step
     template_name = 'dashboard/%s.html' % nav_step
     if nav_step in ('print_form', 'swear_forms', 'next_steps') and responses_dict.get('court_registry_for_filing'):
         responses_dict['court_registry_for_filing_address'] = f"123 {responses_dict.get('court_registry_for_filing')} St"
         responses_dict['court_registry_for_filing_postal_code'] = 'V0A 1A1'
+    if nav_step in ('print_form',):
+        responses_dict_by_step = get_step_responses(responses_dict)
+        responses_dict.update(get_error_dict(responses_dict_by_step))
+
+    responses_dict['derived'] = get_derived_data(responses_dict)
     return render(request, template_name=template_name, context=responses_dict)
 
 
