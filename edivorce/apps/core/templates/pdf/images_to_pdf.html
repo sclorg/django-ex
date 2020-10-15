@@ -29,7 +29,7 @@
 <body>
     <div class="print-wrapper">
         {% for image in images %}
-            <img src="{{ image_root }}/api/documents/{{ image.file }}/{{ image.rotation }}/" style="{{ image|css_rotate }}">
+            <img src="{{ image_root }}/api/documents/{{ image.file }}/{{ image.rotation }}/" style="max-width: 100%; max-height: 26.9cm;">
             {% if not forloop.last %}
             <p style="page-break-before: always" ></p>
             {% endif %}
