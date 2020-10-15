@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load format_utils %}
 
 {% block title %}{{ block.super }}: Overview{% endblock %}
 
@@ -6,30 +7,23 @@
 
 {% block content %}
     <h1>Review and Print your Divorce Forms</h1>
+    {% if derived.any_errors %}
+        <div class="review-warning">
+            <div><span class="exclamation"><i class="fa fa-fw fa-exclamation-circle"></i></span></div>
+            <div>
+                At least one question in the <a href="{% url 'question_steps' 'review' %}">Questionnaire</a> portion of
+                this application is incomplete.
+                Generally, filing incomplete forms will cause your filing to be rejected by the Court Registry.
+                We recommend you go back to the <a href="{% url 'question_steps' 'review' %}">Questionnaire</a> and complete all pages.
+            </div>
+        </div>
+    {% endif %}
     <p>
         To get divorced, you need to get a divorce order. Only the court has the
         ability to divorce a married couple. To get a court order you have to
-        start a court case. What this means is you will have to print off the forms
-        listed below, and file them (open your court case) at a
-        <span class="tooltip-link" data-toggle="tooltip" data-placement="auto"
-              data-html="true" data-trigger="click"
-              title="
-            <b>Court Registry</b>
-            <br /><br />
-            Registries are located in courthouses around the province. You can
-            file your divorce documents at any
-            <a href='http://www.courts.gov.bc.ca/supreme_court/court_locations_and_contacts.aspx'
-            target='_blank'>Supreme Court registry</a>. Usually, people file
-            their documents at the Supreme Court registry nearest to where they
-            live or work (Supreme Court registry addresses).
-          ">
-      court registry<i class="fa fa-question-circle" aria-hidden="true"></i>
-    </span>.
+        start a court case. On the next step you'll learn about how you can file
+        the forms below along with any applicable attachments at a {% include "partials/tooltips/court_registry.html" %}.
     </p>
-
-    <p>&nbsp;</p>
-
-    <h3>Print These Forms</h3>
 
     <p>
         <a href="{% url 'dashboard_nav' 'help_saving_pdf' %}">Get help opening and saving PDF forms</a> |
@@ -62,7 +56,6 @@
             </div>
         </div>
     </div>
-
     <div class="review-well clearfix">
         <div class="collapse-trigger collapsed" data-toggle="collapse"
              aria-expanded="false" data-target="#collapseF35"
@@ -138,7 +131,7 @@
         </div>
         <p class="review-buttons">
             <a href="{% url 'pdf_form' '52' %}" class="btn btn-primary spinner"
-               target="_blank"><i class="fa fa-print" aria-hidden="true"></i>
+               target="_blank"><i class="fa fa-pencil" aria-hidden="true"></i>
                 Review, Print & Sign
             </a>
         </p>
@@ -186,7 +179,7 @@
             </div>
             <p class="review-buttons">
                 <a href="{% url 'pdf_form' '96_claimant1' %}" class="btn btn-primary spinner"
-                   target="_blank"><i class="fa fa-print" aria-hidden="true"></i>
+                   target="_blank"><i class="fa fa-pencil" aria-hidden="true"></i>
                     Review, Print & Sign
                 </a>
             </p>
@@ -194,82 +187,69 @@
             <div class="collapse" id="collapseF96y">
                 <div>
                     <p>
-                        Some text here
+                        This form is used to confirm that the document you are filing electronically shows your original signature and is a true
+                        copy of the original paper version of the document.
                     </p>
-                </div>
-            </div>
-        </div>
-        <div class="review-well clearfix">
-            <div class="collapse-trigger collapsed" data-toggle="collapse"
-                 aria-expanded="false" data-target="#collapseF96s"
-                 aria-controls="collapseF96s">
-                <div>
-                    <span>Electronic Filing Statement (F96) - to be signed by your spouse</span>
-                </div>
-            </div>
-            <p class="review-buttons">
-                <a href="{% url 'pdf_form' '96_claimant2' %}" class="btn btn-primary spinner"
-                   target="_blank"><i class="fa fa-print" aria-hidden="true"></i>
-                    Review, Print & Sign
-                </a>
-            </p>
-            <div class="clearfix"></div>
-            <div class="collapse" id="collapseF96s">
-                <div>
                     <p>
-                        Some text here
+                        - Requires signature by both you and your spouse (but not a signature in front of a commissioner)
                     </p>
                 </div>
             </div>
         </div>
-    {% endif %}
-    {% if how_to_sign == 'Together' %}
-        {% if children_of_marriage == 'YES' %}
+        {% if how_to_sign == 'Separately' %}
             <div class="review-well clearfix">
                 <div class="collapse-trigger collapsed" data-toggle="collapse"
-                     aria-expanded="false" data-target="#collapseF37a"
-                     aria-controls="collapseF37a">
+                     aria-expanded="false" data-target="#collapseF96s"
+                     aria-controls="collapseF96s">
+                    <div>
+                        <span>Electronic Filing Statement (F96) - to be signed by your spouse</span>
+                    </div>
+                </div>
+                <p class="review-buttons">
+                    <a href="{% url 'pdf_form' '96_claimant2' %}" class="btn btn-primary spinner"
+                       target="_blank"><i class="fa fa-pencil" aria-hidden="true"></i>
+                        Review, Print & Sign
+                    </a>
+                </p>
+                <div class="clearfix"></div>
+                <div class="collapse" id="collapseF96s">
+                    <div>
+                        <p>
+                            This form is used to confirm that the document you are filing electronically shows your original signature and is a true
+                            copy of the original paper version of the document.
+                        </p>
+                        <p>
+                            - Requires signature by both you and your spouse (but not a signature in front of a commissioner)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if how_to_sign == 'Together' %}
+        {% if derived.has_children_of_marriage %}
+            <div class="review-well clearfix">
+                <div class="collapse-trigger collapsed" data-toggle="collapse"
+                     aria-expanded="false" data-target="#collapseF37"
+                     aria-controls="collapseF37">
                     <div>
                         <span>Child Support Affidavit (F37) - signing together</span>
                     </div>
                 </div>
                 <p class="review-buttons">
                     <a href="{% url 'pdf_form' '37' %}" class="btn btn-primary spinner"
-                       target="_blank"><i class="fa fa-print" aria-hidden="true"></i>
+                       target="_blank"><i class="fa fa-hand-stop-o" aria-hidden="true"></i>
                         Review, Print & Swear
                     </a>
                 </p>
                 <div class="clearfix"></div>
-                <div class="collapse" id="collapseF37a">
+                <div class="collapse" id="collapseF37">
                     <div>
                         <p>$40 per affidavit (if sworn at a court registry)</p>
                         <p>
                             Since your divorce won't require an appearance before a judge, you must fill out and
-                            swear/affirm<i class="fa fa-question-circle" data-toggle="tooltip"
-                                           data-placement="auto" data-html="true" data-trigger="click"
-                                           title="
-                    <b>Swear/Affirm</b>
-                    <br /><br />
-                    To &ldquo;take an oath&rdquo; in front of a lawyer, notary
-                    public, or commissioner for taking affidavits that
-                    statements made in court or the contents of an affidavit
-                    are true to the best of your knowledge and belief that your
-                    oath is &ldquo;under an immediate sense of responsibility
-                    to God&rdquo;. A non-religious alternative is to affirm.
-                  "
-                                           aria-hidden="true"></i>
-                            a Child Support
-                            Affidavit<i class="fa fa-question-circle" data-toggle="tooltip"
-                                        data-placement="auto" data-html="true" data-trigger="click"
-                                        title="
-                    <b>Affidavit</b>
-                    <br /><br />
-                    A document that contains facts that you swear under
-                    oath or affirm to be true.  A lawyer, notary public, or
-                    commissioner for taking affidavits must witness your
-                    signature and sign your affidavit.
-                  "
-                                        aria-hidden="true"></i>
+                            {% include "partials/tooltips/swear_affirm.html" %}
+                            a Child Support {% include "partials/tooltips/affidavit.html" with text='Affidavit' %}
                             Form (F37). This document gives information about the children and child support.
                         </p>
                         <p>
@@ -292,7 +272,7 @@
             </div>
             <p class="review-buttons">
                 <a href="{% url 'pdf_form' '38' %}" class="btn btn-primary spinner"
-                   target="_blank"><i class="fa fa-print" aria-hidden="true"></i>
+                   target="_blank"><i class="fa fa-hand-stop-o" aria-hidden="true"></i>
                     Review, Print & Swear
                 </a>
             </p>
@@ -302,31 +282,8 @@
                     <p>$40 per affidavit (if sworn at a court registry)</p>
                     <p>
                         Since your divorce won't require an appearance before a judge,
-                        you must fill out and
-                        swear/affirm<i class="fa fa-question-circle" data-toggle="tooltip"
-                                       data-placement="auto" data-html="true" data-trigger="click"
-                                       title="
-                <b>Swear/Affirm</b>
-                <br /><br />
-                To &ldquo;take an oath&rdquo; in front of a lawyer, notary
-                public, or commissioner for taking affidavits that
-                statements made in court or the contents of an affidavit
-                are true to the best of your knowledge and belief that your
-                oath is &ldquo;under an immediate sense of responsibility
-                to God&rdquo;. A non-religious alternative is to affirm.
-              "
-                                       aria-hidden="true"></i>
-                        an Affidavit<i class="fa fa-question-circle" data-toggle="tooltip"
-                                       data-placement="auto" data-html="true" data-trigger="click"
-                                       title="
-                <b>Affidavit</b>
-                <br /><br />
-                A document that contains facts that you swear under
-                oath or affirm to be true.  A lawyer, notary public, or
-                commissioner for taking affidavits must witness your
-                signature and sign your affidavit.
-              "
-                                       aria-hidden="true"></i>
+                        you must fill out and {% include "partials/tooltips/swear_affirm.html" %}
+                        an {% include "partials/tooltips/affidavit.html" with text='Affidavit' %}
                         Desk Order Divorce Form (F38). This document sets out the facts
                         of your marriage and separation.
                     </p>
@@ -334,75 +291,133 @@
             </div>
         </div>
     {% elif how_to_sign == 'Separately' %}
-        {% if children_of_marriage == 'YES' %}
+        {% if derived.has_children_of_marriage %}
             <div class="review-well clearfix">
-                <div class="collapse-trigger empty">
+                <div class="collapse-trigger collapsed" data-toggle="collapse"
+                     aria-expanded="false" data-target="#collapseF37y"
+                     aria-controls="collapseF37y">
                     <div>
-                        <span>Child Support Affidavit (F37) - signing separately</span>
-                    </div>
-                </div>
-                <div class="collapse empty">
-                    <div>
-                        Claimant 1
+                        <span>Child Support Affidavit (F37) - to be signed / sworn by you</span>
                     </div>
                 </div>
                 <p class="review-buttons">
                     <a href="{% url 'pdf_form' '37_claimant1' %}" class="btn btn-primary spinner"
-                       target="_blank"><i class="fa fa-print" aria-hidden="true"></i>
+                       target="_blank"><i class="fa fa-hand-stop-o" aria-hidden="true"></i>
                         Review, Print & Swear
                     </a>
                 </p>
                 <div class="clearfix"></div>
-                <div class="collapse empty">
+                <div class="collapse" id="collapseF37y">
                     <div>
-                        Claimant 2
+                        <p>$40 per affidavit (if sworn at a court registry)</p>
+                        <p>
+                            Since your divorce won't require an appearance before a judge, you must fill out and
+                            {% include "partials/tooltips/swear_affirm.html" %}
+                            a Child Support {% include "partials/tooltips/affidavit.html" with text='Affidavit' %}
+                            Form (F37). This document gives information about the children and child support.
+                        </p>
+                        <p>
+                            You'll notice that some of the information in the affidavit is the same as what's in your Notice of
+                            Joint Family Claim Form (F1). Because the Notice of Joint Family Claim is not a sworn document, and
+                            the judge/master must have sworn evidence to make a decision, you must swear or affirm that the
+                            information in these affidavits is true.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="review-well clearfix">
+                <div class="collapse-trigger collapsed" data-toggle="collapse"
+                     aria-expanded="false" data-target="#collapseF37s"
+                     aria-controls="collapseF37s">
+                    <div>
+                        <span>Child Support Affidavit (F37) - to be signed / sworn by your spouse</span>
                     </div>
                 </div>
                 <p class="review-buttons">
                     <a href="{% url 'pdf_form' '37_claimant2' %}" class="btn btn-primary spinner"
-                       target="_blank"><i class="fa fa-print" aria-hidden="true"></i>
+                       target="_blank"><i class="fa fa-hand-stop-o" aria-hidden="true"></i>
                         Review, Print & Swear
                     </a>
                 </p>
                 <div class="clearfix"></div>
+                <div class="collapse" id="collapseF37s">
+                    <div>
+                        <p>$40 per affidavit (if sworn at a court registry)</p>
+                        <p>
+                            Since your divorce won't require an appearance before a judge, you must fill out and
+                            {% include "partials/tooltips/swear_affirm.html" %}
+                            a Child Support {% include "partials/tooltips/affidavit.html" with text='Affidavit' %}
+                            Form (F37). This document gives information about the children and child support.
+                        </p>
+                        <p>
+                            You'll notice that some of the information in the affidavit is the same as what's in your Notice of
+                            Joint Family Claim Form (F1). Because the Notice of Joint Family Claim is not a sworn document, and
+                            the judge/master must have sworn evidence to make a decision, you must swear or affirm that the
+                            information in these affidavits is true.
+                        </p>
+                    </div>
+                </div>
             </div>
         {% endif %}
-        {% if married_marriage_like == 'Legally married' %}
-            <div class="review-well clearfix">
-                <div class="collapse-trigger empty">
-                    <div>
-                        <span>Affidavit Desk Order Divorce Form (F38) - signing separately</span>
-                    </div>
+        <div class="review-well clearfix">
+            <div class="collapse-trigger collapsed" data-toggle="collapse"
+                 aria-expanded="false" data-target="#collapseF38y"
+                 aria-controls="collapseF38y">
+                <div>
+                    <span>Affidavit Desk Order Divorce Form (F38) - to be signed / sworn by you</span>
                 </div>
-                <div class="collapse empty">
-                    <div>
-                        Claimant 1
-                    </div>
-                </div>
-                <p class="review-buttons">
-                    <a href="{% url 'pdf_form' '38_claimant1' %}" class="btn btn-primary spinner"
-                       target="_blank"><i class="fa fa-print" aria-hidden="true"></i>
-                        Review, Print & Swear
-                    </a>
-                </p>
-                <div class="clearfix"></div>
-                <div class="collapse empty">
-                    <div>
-                        Claimant 2
-                    </div>
-                </div>
-                <p class="review-buttons">
-                    <a href="{% url 'pdf_form' '38_claimant2' %}" class="btn btn-primary spinner"
-                       target="_blank"><i class="fa fa-print" aria-hidden="true"></i>
-                        Review, Print & Swear
-                    </a>
-                </p>
-                <div class="clearfix"></div>
             </div>
-        {% endif %}
+            <p class="review-buttons">
+                <a href="{% url 'pdf_form' '38_claimant1' %}" class="btn btn-primary spinner"
+                   target="_blank"><i class="fa fa-hand-stop-o" aria-hidden="true"></i>
+                    Review, Print & Swear
+                </a>
+            </p>
+            <div class="clearfix"></div>
+            <div class="collapse" id="collapseF38y">
+                <div>
+                    <p>$40 per affidavit (if sworn at a court registry)</p>
+                    <p>
+                        Since your divorce won't require an appearance before a judge,
+                        you must fill out and {% include "partials/tooltips/swear_affirm.html" %}
+                        an {% include "partials/tooltips/affidavit.html" with text='Affidavit' %}
+                        Desk Order Divorce Form (F38). This document sets out the facts
+                        of your marriage and separation.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="review-well clearfix">
+            <div class="collapse-trigger collapsed" data-toggle="collapse"
+                 aria-expanded="false" data-target="#collapseF38s"
+                 aria-controls="collapseF38s">
+                <div>
+                    <span>Affidavit Desk Order Divorce Form (F38) - to be signed / sworn by your spouse</span>
+                </div>
+            </div>
+            <p class="review-buttons">
+                <a href="{% url 'pdf_form' '38_claimant2' %}" class="btn btn-primary spinner"
+                   target="_blank"><i class="fa fa-hand-stop-o" aria-hidden="true"></i>
+                    Review, Print & Swear
+                </a>
+            </p>
+            <div class="clearfix"></div>
+            <div class="collapse" id="collapseF38s">
+                <div>
+                    <p>$40 per affidavit (if sworn at a court registry)</p>
+                    <p>
+                        Since your divorce won't require an appearance before a judge,
+                        you must fill out and {% include "partials/tooltips/swear_affirm.html" %}
+                        an {% include "partials/tooltips/affidavit.html" with text='Affidavit' %}
+                        Desk Order Divorce Form (F38). This document sets out the facts
+                        of your marriage and separation.
+                    </p>
+                </div>
+            </div>
+        </div>
     {% else %}
-        <h2>You must select whether you are signing together or separately in the <a href="{% url 'dashboard_nav' 'sign_file_options' %}">Signing and
-            Filing Options</a> step.</h2>
+        <h2>You must select whether you are signing together or separately in the
+            <a href="{% url 'dashboard_nav' 'sign_file_options' %}">Signing and Filing Options</a> step.</h2>
     {% endif %}
 
     <div class="question-well">
@@ -410,18 +425,74 @@
         <p>The following additional documents are required as part of your filing:</p>
         <ul>
             <li>
-                Proof of marriage. Original or certified Marriage Certificate or Registration of Divorce. If not in English, also provide
-                Affidavit of Translation and English translation.
+                <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
+                      data-html="true"
+                      title="
+                <b>Proof of marriage</b>
+                <br /><br />
+                To get a divorce, you need an original marriage certificate or certified true copy of your registration of marriage to prove you are married.
+                There are other options described in this tool if you can't get a copy of your marriage certificate or registration of marriage.
+                <br /><br />
+                - Does not require signatures.
+                ">Proof of marriage<i class="fa fa-question-circle" aria-hidden="true"></i></span>.
+                Original or certified Marriage Certificate or Registration of Divorce. If not in English, also provide
+                <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
+                      data-html="true"
+                      title="
+                <b>Affidavit of Translation</b>
+                <br /><br />
+                The Affidavit of Translation is an affidavit which is sworn by a translator before a notary, lawyer or commissioner for taking Affidavits.
+                The original certificate of marriage should be exhibited to the Affidavit of Translation together with the translation of the translator.
+                ">Affidavit of Translation<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                and English translation.
             </li>
             <li>
-                Completed Registration of Divorce form (Federal)
+                <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
+                      data-html="true"
+                      title="
+                <b>Registration of Divorce form</b>
+                <br /><br />
+                This form is for a central divorce registry in Ottawa.
+                They use the form to check to make sure there is no other divorce proceeding pending in Canada.
+                They also keep track of all divorces in Canada.
+                <br /><br />
+                - Does not require signatures.
+                ">Completed Registration of Divorce form (Federal)<i class="fa fa-question-circle" aria-hidden="true"></i></span>
             </li>
-            <li>
-                Completed Identification of Applicant (VSA 512) for anyone requesting a name change
-            </li>
-            <li>
-                Completed Agreement as to Annual Income (F9)
-            </li>
+            {% if name_change_you == 'YES' or name_change_spouse == 'YES' %}
+                <li>
+                <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
+                      data-html="true"
+                      title="
+                <b>Identification of Applicant (VSA 512)</b>
+                <br /><br />
+                This form is used by the Court to notify Vital Statistics of court-ordered legal changes of name.
+                <br /><br />
+                - Does not require signatures.
+                ">Completed Identification of Applicant (VSA 512)<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                    for anyone requesting a name change
+                    <ul>
+                        {% if name_change_you == 'YES' %}
+                            <li>Claimant 1 ({% you_name %})</li>{% endif %}
+                        {% if name_change_spouse == 'YES' %}
+                            <li>Claimant 2 ({% spouse_name %})</li>{% endif %}
+                    </ul>
+                </li>
+            {% endif %}
+            {% if derived.has_children_of_marriage %}
+                <li>
+                <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
+                      data-html="true"
+                      title="
+                <b>Agreement as to Annual Income (F9)</b>
+                <br /><br />
+                This form is used if both you and your spouse agree on the income of the person who will be paying child support.
+                It is used instead of a Financial Statement (F8) if you need to provide the court with proof of income.
+                <br /><br />
+                - Does not require signatures.
+                ">Completed Agreement as to Annual Income (F9)<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                </li>
+            {% endif %}
         </ul>
     </div>
 
@@ -434,10 +505,10 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        If you need to make changes to your forms, you can return
-                        to the Divorce Questionnaire section to review and update
-                        your answers. You will then need to Review and Print your
-                        forms again.
+                        If you need to make changes to your forms, you can return to the
+                        <a href="{% url 'question_steps' 'review' %}">Divorce Questionnaire</a>
+                        section to review and update your answers.
+                        You will then need to Review and Print your forms again.
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -463,5 +534,30 @@
 {% endblock %}
 
 {% block sidebarText %}
-    {% include "dashboard/partials/sidebar_help.html" %}
+    <h3>Signing, Swearing and Completing Forms</h3>
+    <p>
+        This page lists all of the forms needed to file for divorce.
+        Each form indicates what you'll need to do to get it ready for filing
+        (submitting to the Court Registry).
+    </p>
+    <p>
+        Those forms that require <b>Reviewing and Printing</b> are automatically created
+        based on your answers in the questionnaire portion of this tool.
+        Assuming the content is correct, they should be ready for filing without additional work.
+    </p>
+    <p>
+        Those that require <b>Reviewing, Printing and Signing</b> have also been automatically
+        created based on your answers in the questionnaire portion of this tool but they do
+        require you and your spouse's signature before filing.
+    </p>
+    <p>
+        Those that require <b>Reviewing, Printing and Swearing</b> have been created for you based
+        on your answers in the questionnaire but must be sworn / affirmed in front of a commissioner.
+        You can learn more about this process on the Swear Forms step of this tool.
+    </p>
+    <p>
+        The remaining <b>Additional Documents</b> are not created by this tool but are additional
+        documents that will be required. You must complete the forms and attach them to your
+        filing.
+    </p>
 {% endblock %}
