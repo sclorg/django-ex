@@ -117,9 +117,7 @@ def children(responses, derived):
 
 
 def has_children_of_marriage(responses, derived):
-    """ Returns whether or not the their are children of marriage for claim"""
-
-    return responses.get('children_of_marriage', '') == 'YES'
+    return conditional_logic.determine_has_children_of_marriage(responses)
 
 
 def wants_divorce_order(responses, derived):

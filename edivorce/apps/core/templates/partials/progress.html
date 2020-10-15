@@ -34,7 +34,7 @@
         {% include "partials/progress_icon.html" with step_status_string=step_status.your_separation%}
     </a>
 
-    {% if children_of_marriage == 'YES' or derived.has_children_of_marriage %}
+    {% if derived.has_children_of_marriage %}
     <a href="{% url 'question_steps' 'children' 'your_children' %}" class="progress-question collapse-trigger {% if step_status.your_children == 'Completed' %} complete {% endif %} {% if active_page == 'children' %} active {% endif %}"
        data-toggle="collapse" aria-expanded="false" data-target="#children_nav" aria-controls="children_nav">
         <span class="progress-icon"><i class="fa fa-users" aria-hidden="true"></i></span>

@@ -247,8 +247,9 @@
           if (newFile.file && newFile.type.substr(0, 6) === "image/") {
             new Compressor(newFile.file, {
               quality: 0.9,
-              maxWidth: 3600,
-              maxHeight: 3600,              
+              maxWidth: 3300,
+              maxHeight: 3300,
+              convertSize: Infinity,           
               success(result) {
                 console.log(result);
                 self.$refs.upload.update(newFile, {
