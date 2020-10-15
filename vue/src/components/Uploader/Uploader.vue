@@ -251,9 +251,8 @@
               maxHeight: 3300,
               convertSize: Infinity,           
               success(result) {
-                console.log(result);
                 self.$refs.upload.update(newFile, {
-                  error: "",
+                  error: false,
                   file: result,
                   size: result.size,
                   type: result.type,
@@ -261,6 +260,7 @@
                 });
               },
               error(err) {
+                console.log(err);
                 self.$refs.upload.update(newFile, {
                   error: "compression failed",
                 });

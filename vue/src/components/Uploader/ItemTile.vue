@@ -22,7 +22,7 @@
         class="button-wrapper"
         v-if="file.error || file.type !== 'application/pdf'"
       >
-        <div v-if="!file.active && file.success && !isPdf">
+        <div v-if="file.success && !isPdf">
           <button
             type="button"
             @click.prevent="$emit('moveup')"
