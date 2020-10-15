@@ -2,7 +2,6 @@ from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 
 from edivorce.apps.poc import views
-from ..core.decorators import bceid_required
 
 urlpatterns = [
     url(r'scan', login_required(views.UploadScan.as_view()), name="poc-scan"),

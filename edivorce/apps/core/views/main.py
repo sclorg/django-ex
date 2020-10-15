@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
 from edivorce.apps.core.utils.derived import get_derived_data
-from ..decorators import bceid_required, intercept, prequal_completed
+from ..decorators import intercept, prequal_completed
 from ..utils.cso_filing import file_documents
 from ..utils.question_step_mapping import list_of_registries
 from ..utils.step_completeness import get_error_dict, get_missed_question_keys, get_step_completeness, is_complete, get_formatted_incomplete_list
@@ -72,7 +72,7 @@ def success(request):
         if request.user.is_authenticated:
             return redirect(reverse('overview'))
         else:
-            return render(request, 'success.html', context={'register_url': settings.REGISTER_URL,'register_sc_url': settings.REGISTER_SC_URL})
+            return render(request, 'success.html', context={'register_url': settings.REGISTER_BCEID_URL,'register_sc_url': settings.REGISTER_BCSC_URL})
     return redirect(reverse('incomplete'))
 
 
@@ -103,7 +103,7 @@ def register(request):
         return render(request, 'localdev/register.html')
 
     request.session['went_to_register'] = True
-    return redirect(settings.REGISTER_URL)
+    return redirect(settings.REGISTER_BCEID_URL)
 
 def register_sc(request):
     """
@@ -113,7 +113,7 @@ def register_sc(request):
         return render(request, 'localdev/register.html')
 
     request.session['went_to_register'] = True
-    return redirect(settings.REGISTER_SC_URL)
+    return redirect(settings.REGISTER_BCSC_URL)
 
 def login(request):
     """
@@ -219,7 +219,7 @@ def submit_initial_files(request):
     return _submit_files(request, initial=True)
 
 
-@bceid_required
+@login_required
 @prequal_completed
 def submit_final_files(request):
     return _submit_files(request, initial=False)
@@ -238,7 +238,7 @@ def _submit_files(request, initial=False):
     return redirect(reverse('dashboard_nav', kwargs={'nav_step': nav_step}), context=responses_dict)
 
 
-@bceid_required
+@login_required
 @prequal_completed
 def question(request, step, sub_step=None):
     """

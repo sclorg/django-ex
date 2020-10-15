@@ -203,13 +203,7 @@ EFILING_BCEID = env.dict('EFILING_BCEID', '', subcast=str)
 LOGIN_URL = reverse_lazy('oidc_authentication_init')
 OIDC_RP_SIGN_ALGO = 'RS256'
 OIDC_RP_SCOPES = 'openid email profile'
-OIDC_AUTH_REQUEST_EXTRA_PARAMS = {'kc_idp_hint': 'bceid'}  # this is needed to bypass the Keycloak login screen
-# OIDC_CREATE_USER = False
-OIDC_OP_JWKS_ENDPOINT = env('OIDC_OP_JWKS_ENDPOINT', '')
-OIDC_RP_CLIENT_ID = env('OIDC_RP_CLIENT_ID', '')
-OIDC_RP_CLIENT_SECRET = env('OIDC_RP_CLIENT_SECRET', '')
-OIDC_OP_AUTHORIZATION_ENDPOINT = env('OIDC_OP_AUTHORIZATION_ENDPOINT', '')
-OIDC_OP_TOKEN_ENDPOINT = env('OIDC_OP_TOKEN_ENDPOINT', '')
-OIDC_OP_USER_ENDPOINT = env('OIDC_OP_USER_ENDPOINT', '')
-LOGIN_REDIRECT_URL = env('LOGIN_REDIRECT_URL', '/overview')
-LOGOUT_REDIRECT_URL = env('LOGOUT_REDIRECT_URL', '/')
+# this is needed to bypass the Keycloak login screen
+OIDC_AUTH_REQUEST_EXTRA_PARAMS = {'kc_idp_hint': 'bceid'}
+OIDC_RP_CLIENT_ID = env('KEYCLOAK_CLIENT_ID', '')
+OIDC_RP_CLIENT_SECRET = env('KEYCLOAK_CLIENT_SECRET', '')

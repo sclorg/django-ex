@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 
 import requests
 
-from ..decorators import bceid_required
 from ..models import Document
 from ..utils.derived import get_derived_data
 from ..utils.user_response import get_data_for_user
@@ -112,7 +111,7 @@ def __add_claimant_info(responses, claimant):
     return responses
 
 
-@bceid_required
+@login_required
 def images_to_pdf(request, doc_type, party_code):
     documents = Document.objects.filter(
         bceid_user=request.user, doc_type=doc_type, party_code=party_code)

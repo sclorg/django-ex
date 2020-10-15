@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.urls import path
 
-from .views import main, system, pdf, api, localdev
+from .views import main, system, pdf, api
 
 urlpatterns = [
     # url(r'^guide$', styleguide.guide),
@@ -16,7 +16,6 @@ urlpatterns = [
     # url(r'^login/headers$', system.headers),
 
     url(r'^login$', main.login, name="login"),
-    url(r'^bceid$', localdev.bceid, name="bceid"),
     url(r'^register$', main.register, name="register"),
     url(r'^register_sc$', main.register_sc, name="register_sc"),
     url(r'^logout$', main.logout, name="logout"),

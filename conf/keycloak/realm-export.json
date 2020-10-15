@@ -894,7 +894,22 @@
             "claim.name": "email",
             "jsonType.label": "String"
           }
-        }
+        },
+        {
+          "id": "0cad3a2d-36bd-4cf2-bbd7-39ce784916ad",
+          "name": "universal-id",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-script-based-protocol-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "universal-id",
+            "jsonType.label": "String",
+            "script": "user.id.toUpperCase().replace(/-/g, '')"
+          }
+        }        
       ]
     },
     {
