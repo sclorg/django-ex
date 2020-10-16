@@ -9,16 +9,8 @@ import django.utils.timezone
 def set_username(apps, schema_editor):
     Series = apps.get_model('core', 'bceiduser')
     for series in Series.objects.all().iterator():
-        if series.sm_user:
-            series.username = series.sm_user
-        else:
-            series.username = 'user' + str(series.id)
-
-        try:
-            series.save()
-        except:
-            series.username = 'user' + str(series.id)
-            series.save()
+        series.username = 'user' + str(series.id)
+        series.save()
 
 
 def reverse_func(apps, schema_editor):
