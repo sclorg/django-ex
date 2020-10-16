@@ -1,3 +1,4 @@
+from mozilla_django_oidc import utils
 from .base import *
 
 
@@ -72,7 +73,7 @@ if DEPLOYMENT_TYPE == 'dev':
     OIDC_OP_AUTHORIZATION_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/auth'
     OIDC_OP_TOKEN_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/token'
     OIDC_OP_USER_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/userinfo'
-    OIDC_RP_CLIENT_ID = 'edivorce-app'
+    OIDC_RP_CLIENT_ID = 'edivorce-dev'
     # end of temporary settings
 
 if DEPLOYMENT_TYPE == 'test':
@@ -144,3 +145,12 @@ REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', '')
 # Keycloak OpenID Connect settings
 LOGIN_REDIRECT_URL = PROXY_URL_PREFIX + '/signin'
 LOGOUT_REDIRECT_URL = PROXY_URL_PREFIX
+
+
+def monkey_absolutify(request, path):
+    return PROXY_BASE_URL + path
+
+
+# monkey-patching mozilla_django_oidc.utils.absolutify so it doesn't
+# return urls prefixed with 'http://edivorce-django:8080' on OpenShift
+utils.absolutify = monkey_absolutify
