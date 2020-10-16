@@ -67,6 +67,14 @@ if DEPLOYMENT_TYPE == 'dev':
     REGISTER_BCEID_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5522'
     REGISTER_BCSC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://dev.justice.gov.bc.ca/divorce/oidc/authenticate'
 
+    # temporary settings (WAITING FOR DIV-1207)
+    OIDC_OP_JWKS_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/certs'
+    OIDC_OP_AUTHORIZATION_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/auth'
+    OIDC_OP_TOKEN_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/token'
+    OIDC_OP_USER_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/userinfo'
+    OIDC_RP_CLIENT_ID = 'edivorce-app'
+    # end of temporary settings
+
 if DEPLOYMENT_TYPE == 'test':
     PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
     REGISTER_BCEID_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
