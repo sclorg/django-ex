@@ -53,7 +53,7 @@ def prequal_completed(function=None):
                             return redirect(reverse('prequalification', kwargs={'step': step}))
                     return redirect(reverse('prequalification', kwargs={'step': '01'}))
             else:
-                return redirect(base_url + '/login')
+                return redirect('oidc_authentication_init')
 
         _view.__name__ = view_func.__name__
         _view.__dict__ = view_func.__dict__

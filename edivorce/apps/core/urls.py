@@ -13,9 +13,7 @@ urlpatterns = [
     # we add an extra 'x' to the file extension so the siteminder proxy doesn't treat it as an image
     path('api/documents/<doc_type>/<int:party_code>/<filename>x/<int:size>/', api.DocumentView.as_view(), name='document'),
 
-    # url(r'^login/headers$', system.headers),
-
-    url(r'^login$', main.login, name="login"),
+    url(r'^signin$', main.signin, name="signin"),
     url(r'^register$', main.register, name="register"),
     url(r'^register_sc$', main.register_sc, name="register_sc"),
     url(r'^logout$', main.logout, name="logout"),

@@ -46,5 +46,5 @@ OIDC_OP_JWKS_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/open
 OIDC_OP_AUTHORIZATION_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/auth'
 OIDC_OP_TOKEN_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/token'
 OIDC_OP_USER_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/userinfo'
-LOGIN_REDIRECT_URL = '/overview'
+LOGIN_REDIRECT_URL = '/signin'
 LOGOUT_REDIRECT_URL = '/'
