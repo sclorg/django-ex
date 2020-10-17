@@ -65,7 +65,7 @@ if ENVIRONMENT in ['localdev', 'dev', 'test', 'minishift']:
     )
 
 MIDDLEWARE = (
-    # 'edivorce.apps.core.middleware.basicauth_middleware.BasicAuthMiddleware',
+    'edivorce.apps.core.middleware.basicauth_middleware.BasicAuthMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -74,7 +74,6 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 )
@@ -185,10 +184,6 @@ DEBUG_TOOLBAR_CONFIG = {
 
 SECURE_BROWSER_XSS_FILTER = True
 
-# LOGOUT_URL = '/accounts/logout/'
-
-# CLAMAV settings
-
 # eFiling Hub settings
 EFILING_HUB_TOKEN_BASE_URL = env('EFILING_HUB_TOKEN_BASE_URL', 'https://efiling.gov.bc.ca')
 EFILING_HUB_REALM = env('EFILING_HUB_REALM', 'abc')
@@ -205,5 +200,4 @@ OIDC_RP_SIGN_ALGO = 'RS256'
 OIDC_RP_SCOPES = 'openid email profile'
 # this is needed to bypass the Keycloak login screen
 OIDC_AUTH_REQUEST_EXTRA_PARAMS = {'kc_idp_hint': 'bceid'}
-OIDC_RP_CLIENT_ID = env('KEYCLOAK_CLIENT_ID', '')
 OIDC_RP_CLIENT_SECRET = env('KEYCLOAK_CLIENT_SECRET', '')

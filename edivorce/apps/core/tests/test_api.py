@@ -307,8 +307,6 @@ class APITest(APITestCase):
 @mock.patch.object(Redis, 'get', MockRedis.get)
 @mock.patch.object(Redis, 'delete', MockRedis.delete)
 @mock.patch.object(Redis, 'exists', MockRedis.exists)
-@override_settings(AUTHENTICATION_BACKENDS=('edivorce.apps.core.authenticators.BCeIDAuthentication',))
-@modify_settings(MIDDLEWARE={'remove': 'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware', })
 class GraphQLAPITest(GraphQLTestCase):
     GRAPHQL_URL = reverse('graphql')
 
