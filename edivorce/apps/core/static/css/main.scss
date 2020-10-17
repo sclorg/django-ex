@@ -1501,6 +1501,16 @@ textarea {
     }
 }
 
+.filing-page {
+    .upload-area {
+        padding: 32px 20px 32px 20px;
+        margin-bottom: 50px;
+        background-color: $color-grey-lightest;
+        border: 1px solid $color-grey-medium;
+        border-radius: 8px;
+    }
+}
+
 /* Column Grid in flexbox */
 .row-flex {
     display: -webkit-box;

@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import bceid_required, intercept, prequal_completed
-from ..utils.cso_filing import file_documents
+from ..utils.cso_filing import file_documents, forms_to_file
 from ..utils.question_step_mapping import list_of_registries
 from ..utils.step_completeness import get_error_dict, get_missed_question_keys, get_step_completeness, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
@@ -204,11 +204,15 @@ def dashboard_nav(request, nav_step):
     if nav_step in ('print_form', 'swear_forms', 'next_steps') and responses_dict.get('court_registry_for_filing'):
         responses_dict['court_registry_for_filing_address'] = f"123 {responses_dict.get('court_registry_for_filing')} St"
         responses_dict['court_registry_for_filing_postal_code'] = 'V0A 1A1'
-    if nav_step in ('print_form',):
+    if nav_step in ('print_form', 'initial_filing'):
         responses_dict_by_step = get_step_responses(responses_dict)
         responses_dict.update(get_error_dict(responses_dict_by_step))
 
     responses_dict['derived'] = get_derived_data(responses_dict)
+    if nav_step == 'initial_filing':
+        forms = forms_to_file(responses_dict, initial=True)
+        responses_dict['form_types'] = forms
+
     return render(request, template_name=template_name, context=responses_dict)
 
 
