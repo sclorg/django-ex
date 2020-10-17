@@ -76,7 +76,7 @@ def forms_to_file(responses_dict, initial=False):
             if derived['wants_other_orders'] and responses_dict.get('name_change_you') == 'YES':
                 forms.append({'doc_type': 'NCV', 'party_code': 1})
             if derived['wants_other_orders'] and responses_dict.get('name_change_spouse') == 'YES':
-                forms.append({'doc_type': 'NCV', 'party_code': 1})
+                forms.append({'doc_type': 'NCV', 'party_code': 2})
         else:
             return []
     return forms
