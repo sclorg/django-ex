@@ -1,4 +1,5 @@
 aniso8601==7.0.0
+beautifulsoup4==4.9.3
 certifi==2020.6.20
 chardet==3.0.4
 clamd==1.0.2
@@ -31,6 +32,7 @@ rjsmin==1.1.0
 Rx==1.6.1
 singledispatch==3.4.0.3
 six==1.15.0
+soupsieve==2.0.1
 sqlparse==0.3.1
 Unidecode==1.1.1
 Unipath==1.1
