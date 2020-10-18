@@ -2,7 +2,7 @@ name: eDivorce - Link Check
 
 on:
   schedule:
-  - cron: "*/2 * * * *"
+  - cron: "0 3 * * *"
 
 jobs:
   build:
