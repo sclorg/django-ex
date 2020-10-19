@@ -44,8 +44,8 @@ class MockRedis:
 @override_settings(CLAMAV_ENABLED=False)
 class APITest(APITestCase):
     def setUp(self):
-        self.user = BceidUser.objects.create(user_guid='1234')
-        self.another_user = BceidUser.objects.create(user_guid='5678')
+        self.user = _get_or_create_user(user_guid='1234')
+        self.another_user = _get_or_create_user(user_guid='5678')
         self.client = APIClient()
         self.default_doc_type = 'MC'
         self.default_party_code = 0
@@ -53,10 +53,10 @@ class APITest(APITestCase):
     def test_get_documents(self):
         url = reverse('documents')
         response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
         response = self.client.post(url, {})
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
         self.client.force_authenticate(self.user)
         response = self.client.get(url)
@@ -195,7 +195,7 @@ class APITest(APITestCase):
         url = document.get_file_url()
 
         response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
         self.client.force_authenticate(self.another_user)
         response = self.client.get(url)
@@ -246,7 +246,7 @@ class APITest(APITestCase):
         url = document.get_file_url()
 
         response = self.client.delete(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(Document.objects.count(), 1)
 
         self.client.force_authenticate(self.another_user)
@@ -267,7 +267,7 @@ class APITest(APITestCase):
             'rotation': 90
         }
         response = self.client.put(url, data)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
         self.client.force_authenticate(self.another_user)
         response = self.client.put(url, data)
@@ -307,14 +307,12 @@ class APITest(APITestCase):
 @mock.patch.object(Redis, 'get', MockRedis.get)
 @mock.patch.object(Redis, 'delete', MockRedis.delete)
 @mock.patch.object(Redis, 'exists', MockRedis.exists)
-@override_settings(AUTHENTICATION_BACKENDS=('edivorce.apps.core.authenticators.BCeIDAuthentication',))
-@modify_settings(MIDDLEWARE={'remove': 'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware', })
 class GraphQLAPITest(GraphQLTestCase):
     GRAPHQL_URL = reverse('graphql')
 
     def setUp(self):
-        self.user = BceidUser.objects.create(user_guid='1234')
-        self.another_user = BceidUser.objects.create(user_guid='5678')
+        self.user = _get_or_create_user(user_guid='1234')
+        self.another_user = _get_or_create_user(user_guid='5678')
         self.default_doc_type = 'MC'
         self.default_party_code = 0
 
@@ -512,3 +510,10 @@ def _create_file(extension='jpg'):
     num_documents = Document.objects.count()
     new_file = SimpleUploadedFile(f'test_file_{num_documents + 1}.{extension}', b'test content')
     return new_file
+
+
+def _get_or_create_user(user_guid):
+    try:
+        return BceidUser.objects.get(user_guid=user_guid)
+    except BceidUser.DoesNotExist:
+        return BceidUser.objects.create(user_guid=user_guid, username=user_guid)

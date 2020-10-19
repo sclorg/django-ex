@@ -13,10 +13,6 @@ def health(request):  # pylint: disable=unused-argument
     return HttpResponse(Question.objects.count())
 
 
-def headers(request):
-    return render(request, 'localdev/debug.html')
-
-
 def current(request):
     """
     Debug tool usable in dev and test environments, available at /current

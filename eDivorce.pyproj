@@ -71,9 +71,7 @@
     <Content Include="edivorce\apps\core\templates\incomplete.html" />
     <Content Include="edivorce\apps\core\templates\intro.html" />
     <Content Include="edivorce\apps\core\templates\legal.html" />
-    <Content Include="edivorce\apps\core\templates\localdev\bceid.html" />
     <Content Include="edivorce\apps\core\templates\localdev\debug.html" />
-    <Content Include="edivorce\apps\core\templates\localdev\register.html" />
     <Content Include="edivorce\apps\core\templates\login.html" />
     <Content Include="edivorce\apps\core\templates\logout.html" />
     <Content Include="edivorce\apps\core\templates\overview.html" />
@@ -139,7 +137,6 @@
     <Compile Include="edivorce\apps\core\context_processors.py" />
     <Compile Include="edivorce\apps\core\decorators.py" />
     <Compile Include="edivorce\apps\core\middleware\basicauth_middleware.py" />
-    <Compile Include="edivorce\apps\core\middleware\bceid_middleware.py" />
     <Compile Include="edivorce\apps\core\middleware\__init__.py" />
     <Compile Include="edivorce\apps\core\migrations\0001_initial.py" />
     <Compile Include="edivorce\apps\core\migrations\0002_legalform_order.py" />
@@ -179,7 +176,6 @@
     <Compile Include="edivorce\apps\core\utils\user_response.py" />
     <Compile Include="edivorce\apps\core\utils\__init__.py" />
     <Compile Include="edivorce\apps\core\views\api.py" />
-    <Compile Include="edivorce\apps\core\views\localdev.py" />
     <Compile Include="edivorce\apps\core\views\main.py" />
     <Compile Include="edivorce\apps\core\views\pdf.py" />
     <Compile Include="edivorce\apps\core\views\styleguide.py" />

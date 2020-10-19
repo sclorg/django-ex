@@ -32,6 +32,7 @@
         :post-action="postAction"
         :input-id="inputId"
         name="file"
+        :headers="{ 'X-CSRFToken': getCSRFToken() }"
         :class="['drop-zone', dragging ? 'dragging' : '']"
         :data="inputKeys"
         @input-file="inputFile"
@@ -185,7 +186,7 @@
       },
       pdfURL() {
         return `${this.$parent.proxyRootPath}pdf-images/${this.docType}/${this.party}/`;
-      },
+      }
     },
     methods: {
       inputFile(newFile, oldFile) {
@@ -220,7 +221,7 @@
         // Automatically activate upload after compression completes
         if (newFile && newFile.compressed && !newFile.active) {
           newFile.active = true;
-        }        
+        }
       },
       inputFilter(newFile, oldFile, prevent) {
         if (newFile && !oldFile) {
@@ -249,14 +250,14 @@
               quality: 0.9,
               maxWidth: 3300,
               maxHeight: 3300,
-              convertSize: Infinity,           
+              convertSize: Infinity,
               success(result) {
                 self.$refs.upload.update(newFile, {
                   error: false,
                   file: result,
                   size: result.size,
                   type: result.type,
-                  compressed: true
+                  compressed: true,
                 });
               },
               error(err) {
@@ -346,11 +347,12 @@
       remove(file) {
         const urlbase = `${this.$parent.proxyRootPath}api/documents`;
         const encFilename = encodeURIComponent(file.name);
+        const token = this.getCSRFToken();
         if (!file.error) {
           // we add an extra 'x' to the file extension so the siteminder proxy doesn't treat it as an image
           const url = `${urlbase}/${this.docType}/${this.party}/${encFilename}x/${file.size}/`;
           axios
-            .delete(url)
+            .delete(url, { headers: { "X-CSRFToken": token } })
             .then((response) => {
               const pos = this.files.findIndex(
                 (f) => f.docType === file.docType && f.size === file.size
@@ -410,13 +412,15 @@
       saveMetaData() {
         let allFiles = [];
         this.files.forEach((file) => {
-          allFiles.push({
-            filename: file.name,
-            size: file.size,
-            width: file.width,
-            height: file.height,
-            rotation: rotateFix(file.rotation),
-          });
+          if (!file.error) {
+            allFiles.push({
+              filename: file.name,
+              size: file.size,
+              width: file.width,
+              height: file.height,
+              rotation: rotateFix(file.rotation),
+            });
+          }
         });
         const data = {
           docType: this.docType,
@@ -440,20 +444,34 @@
           })
           .then((response) => {
             // check for errors in the graphQL response
-            this.retries = 0;            
+            this.retries = 0;
             if (response.data.errors && response.data.errors.length) {
               response.data.errors.forEach((error) => {
                 console.log("error", error.message || error);
                 // if there was an error it's probably because the upload isn't finished yet
                 // mark the metadata as dirty so it will save metadata again
+                this.retries++;
+                this.isDirty = true;                
               });
             }
           })
           .catch((error) => {
             this.showError("Error saving metadata");
             console.log("error", error);
-            this.retries++;
           });
+      },
+      getCSRFToken() {
+        const name = "csrftoken";
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              return decodeURIComponent(cookie.substring(name.length + 1));
+            }
+          }
+        }
+        return null;
       }
     },
     created() {

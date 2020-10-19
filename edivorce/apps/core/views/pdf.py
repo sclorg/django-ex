@@ -5,10 +5,10 @@ import json
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 
 import requests
 
-from ..decorators import bceid_required
 from ..models import Document
 from ..utils.derived import get_derived_data
 from ..utils.user_response import get_data_for_user
@@ -16,7 +16,7 @@ from ..utils.user_response import get_data_for_user
 EXHIBITS = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'[::-1])
 
 
-@bceid_required
+@login_required
 def form(request, form_number):
     """ View for rendering PDF's and previews """
 
@@ -111,7 +111,7 @@ def __add_claimant_info(responses, claimant):
     return responses
 
 
-@bceid_required
+@login_required
 def images_to_pdf(request, doc_type, party_code):
     documents = Document.objects.filter(
         bceid_user=request.user, doc_type=doc_type, party_code=party_code)

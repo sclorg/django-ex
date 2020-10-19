@@ -4,9 +4,10 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 from edivorce.apps.core.utils.derived import get_derived_data
-from ..decorators import bceid_required, intercept, prequal_completed
+from ..decorators import intercept, prequal_completed
 from ..utils.cso_filing import file_documents
 from ..utils.question_step_mapping import list_of_registries
 from ..utils.step_completeness import get_error_dict, get_missed_question_keys, get_step_completeness, is_complete, get_formatted_incomplete_list
@@ -24,14 +25,10 @@ def home(request):
     """
     This is the homepage
     """
-    # HTTP_SM_USER is available on both unsecure and secure pages.
-    # If it has a value then we know the user is logged into BCeID/siteminder
-    siteminder_is_authenticated = request.META.get('HTTP_SM_USER', '') != ''
-
     # if the user is returning from BCeID registration, then log them in to the site
-    if siteminder_is_authenticated and request.session.get('went_to_register', False):
+    if request.user.is_authenticated and request.session.get('went_to_register', False):
         request.session['went_to_register'] = False
-        return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/login')
+        return redirect('oidc_authentication_init')
 
     return render(request, 'intro.html', context={'hide_nav': True})
 
@@ -71,7 +68,7 @@ def success(request):
         if request.user.is_authenticated:
             return redirect(reverse('overview'))
         else:
-            return render(request, 'success.html', context={'register_url': settings.REGISTER_URL,'register_sc_url': settings.REGISTER_SC_URL})
+            return render(request, 'success.html', context={'register_url': settings.REGISTER_BCEID_URL,'register_sc_url': settings.REGISTER_BCSC_URL})
     return redirect(reverse('incomplete'))
 
 
@@ -102,7 +99,7 @@ def register(request):
         return render(request, 'localdev/register.html')
 
     request.session['went_to_register'] = True
-    return redirect(settings.REGISTER_URL)
+    return redirect(settings.REGISTER_BCEID_URL)
 
 def register_sc(request):
     """
@@ -112,38 +109,16 @@ def register_sc(request):
         return render(request, 'localdev/register.html')
 
     request.session['went_to_register'] = True
-    return redirect(settings.REGISTER_SC_URL)
+    return redirect(settings.REGISTER_BCSC_URL)
 
-def login(request):
-    """
-    This page is proxy-protected by Siteminder.  Users who are not
-    logged into BCeID will get a login page.  Users who are logged into
-    BCeID will be redirected to the dashboard
-    """
-    if settings.DEPLOYMENT_TYPE in ['localdev', 'minishift'] and not request.session.get('fake_bceid_guid'):
-        return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/bceid')
-
+def signin(request):
     if not request.user.is_authenticated:
-        # Fix for weird siteminder behaviour......
-        # If a user is logged into an IDIR then they can see the login page but
-        # the SMGOV headers are missing.  If this is the case, then log them out
-        # of their IDIR, and redirect them back to here again....
-
-        # FUTURE DEV NOTE: The DC elements of HTTP_SM_USERDN header will tell us
-        # exactly how the user is logged in. But it doesn't seem like a very
-        # good idea at this time to rely on this magic string.  e.g. CN=Smith\,
-        # John,OU=Users,OU=Attorney General,OU=BCGOV,DC=idir,DC=BCGOV
-
-        if request.GET.get('noretry', '') != 'true':
-            return redirect(settings.LOGOUT_URL_TEMPLATE % (
-                settings.PROXY_BASE_URL,
-                settings.FORCE_SCRIPT_NAME[:-1] + '/login%3Fnoretry=true'))
-
         return render(request, '407.html')
 
-    if timezone.now() - request.user.last_login > datetime.timedelta(minutes=1):
-        request.user.last_login = timezone.now()
-        request.user.save()
+    ## I think Django might be doing this automatically now that we have switched to mozilla-django-oidc?
+    #if timezone.now() - request.user.last_login > datetime.timedelta(minutes=1):
+    #    request.user.last_login = timezone.now()
+    #    request.user.save()
 
     copy_session_to_db(request, request.user)
 
@@ -164,7 +139,7 @@ def logout(request):
     return response
 
 
-@bceid_required
+@login_required
 @prequal_completed
 @intercept
 def overview(request):
@@ -192,7 +167,7 @@ def overview(request):
     return response
 
 
-@bceid_required
+@login_required
 @prequal_completed
 def dashboard_nav(request, nav_step):
     """
@@ -212,13 +187,13 @@ def dashboard_nav(request, nav_step):
     return render(request, template_name=template_name, context=responses_dict)
 
 
-@bceid_required
+@login_required
 @prequal_completed
 def submit_initial_files(request):
     return _submit_files(request, initial=True)
 
 
-@bceid_required
+@login_required
 @prequal_completed
 def submit_final_files(request):
     return _submit_files(request, initial=False)
@@ -237,7 +212,7 @@ def _submit_files(request, initial=False):
     return redirect(reverse('dashboard_nav', kwargs={'nav_step': nav_step}), context=responses_dict)
 
 
-@bceid_required
+@login_required
 @prequal_completed
 def question(request, step, sub_step=None):
     """
@@ -309,7 +284,7 @@ def contact(request):
     return render(request, 'contact-us.html', context={'active_page': 'contact'})
 
 
-@bceid_required
+@login_required
 def intercept_page(request):
     """
     On intercept, show the Orders page to get the requested orders before the

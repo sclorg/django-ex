@@ -1,4 +1,6 @@
+from mozilla_django_oidc import utils
 from .base import *
+
 
 def openshift_db_config():
     '''
@@ -45,42 +47,61 @@ COMPRESS_OFFLINE = True
 #
 # See nginx-proxy/conf.d/server.conf for related settings
 #
-DEPLOYMENT_TYPE = os.getenv('ENVIRONMENT_TYPE')
+DEPLOYMENT_TYPE = env('ENVIRONMENT_TYPE', 'unittest')
 
 PROXY_URL_PREFIX = ''
 PROXY_BASE_URL = os.getenv('PROXY_BASE_URL', 'https://justice.gov.bc.ca')
 
+if DEPLOYMENT_TYPE in ['dev', 'unittest']:
+    DEBUG = True
+    # Keycloak OpenID Connect settings
+    OIDC_OP_JWKS_ENDPOINT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/certs'
+    OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/auth'
+    OIDC_OP_TOKEN_ENDPOINT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/token'
+    OIDC_OP_USER_ENDPOINT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/userinfo'
+    OIDC_RP_CLIENT_ID = 'e-divorce-app'
+
 if DEPLOYMENT_TYPE == 'dev':
     PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
-    DEBUG = True
     CSRF_COOKIE_AGE = None
     SESSION_COOKIE_AGE = 3600
-    REGISTER_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5522'
-    REGISTER_SC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://dev.justice.gov.bc.ca/divorce/login'
-    LOGOUT_URL_TEMPLATE = 'https://logontest7.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
-    LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
+    REGISTER_BCEID_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5522'
+    REGISTER_BCSC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://dev.justice.gov.bc.ca/divorce/oidc/authenticate'
 
 if DEPLOYMENT_TYPE == 'test':
     PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
-    REGISTER_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
-    REGISTER_SC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://test.justice.gov.bc.ca/divorce/login'
-    LOGOUT_URL_TEMPLATE = 'https://logontest7.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
-    LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
+    REGISTER_BCEID_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
+    REGISTER_BCSC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://test.justice.gov.bc.ca/divorce/oidc/authenticate'
+    # Keycloak OpenID Connect settings
+    OIDC_OP_JWKS_ENDPOINT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/certs'
+    OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/auth'
+    OIDC_OP_TOKEN_ENDPOINT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/token'
+    OIDC_OP_USER_ENDPOINT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/userinfo'
+    OIDC_RP_CLIENT_ID = 'XXXXXXXX'
 
 if DEPLOYMENT_TYPE == 'prod':
     PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
-    REGISTER_URL = 'https://www.bceid.ca/directories/bluepages/details.aspx?serviceID=5203'
-    REGISTER_SC_URL = 'https://logon7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed49&partnerList=fed49&flags=0001:0,8&TARGET=http://justice.gov.bc.ca/divorce/login'
-    LOGOUT_URL_TEMPLATE = 'https://logon7.gov.bc.ca/clp-cgi/logoff.cgi?returl=%s%s&retnow=1'
-    LOGOUT_URL = LOGOUT_URL_TEMPLATE % (PROXY_BASE_URL, PROXY_URL_PREFIX)
+    REGISTER_BCEID_URL = 'https://www.bceid.ca/directories/bluepages/details.aspx?serviceID=5203'
+    REGISTER_BCSC_URL = 'https://logon7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed49&partnerList=fed49&flags=0001:0,8&TARGET=http://justice.gov.bc.ca/divorce/oidc/authenticate'
+    # Keycloak OpenID Connect settings
+    OIDC_OP_JWKS_ENDPOINT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/certs'
+    OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/auth'
+    OIDC_OP_TOKEN_ENDPOINT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/token'
+    OIDC_OP_USER_ENDPOINT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/userinfo'
+    OIDC_RP_CLIENT_ID = 'XXXXXXXX'
     # Google Tag Manager (Production)
     GTM_ID = 'GTM-W4Z2SPS'
 
 if DEPLOYMENT_TYPE == 'minishift':
     DEBUG = True
-    REGISTER_URL = '#'
-    REGISTER_SC_URL ='#'
+    REGISTER_BCEID_URL = '#'
+    REGISTER_BCSC_URL = '#'
     PROXY_BASE_URL = ''
+    # Keycloak OpenID Connect settings
+    OIDC_OP_JWKS_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/certs'
+    OIDC_OP_AUTHORIZATION_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/auth'
+    OIDC_OP_TOKEN_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/token'
+    OIDC_OP_USER_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/userinfo'
 
 # Internal Relative Urls
 FORCE_SCRIPT_NAME = PROXY_URL_PREFIX + '/'
@@ -101,8 +122,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 if DEPLOYMENT_TYPE != 'minishift':
     SESSION_COOKIE_PATH = PROXY_URL_PREFIX
-    SESSION_COOKIE_SECURE=True
-    CSRF_COOKIE_SECURE=True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # CLAMAV settings
 CLAMAV_ENABLED = True
@@ -114,3 +135,16 @@ REDIS_HOST = os.getenv('REDIS_HOST', 'redis')
 REDIS_PORT = 6379
 REDIS_DB = ''
 REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', '')
+
+# Keycloak OpenID Connect settings
+LOGIN_REDIRECT_URL = PROXY_URL_PREFIX + '/signin'
+LOGOUT_REDIRECT_URL = PROXY_URL_PREFIX
+
+
+def monkey_absolutify(request, path):
+    return PROXY_BASE_URL + path
+
+
+# monkey-patching mozilla_django_oidc.utils.absolutify so it doesn't
+# return urls prefixed with 'http://edivorce-django:8080' on OpenShift
+utils.absolutify = monkey_absolutify
