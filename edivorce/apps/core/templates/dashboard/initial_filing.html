@@ -5,11 +5,37 @@
 
 {% block progress %}{% include "partials/dashnav.html" with active_page=active_page %}{% endblock %}
 
-{% block container_col %}filing-page{% endblock %}
+{% block container_col %}dashboard-content{% endblock %}
 
 {% block content %}
     <h1>Initial Filing</h1>
-    {% if how_to_file == 'Online' %}
+    {% if initial_filing_submitted %}
+        <p>
+            You have already completed this step.
+        </p>
+        <p>
+            <b>Your {% include "partials/tooltips/online_package_number.html" with with_cso=True %} is {{ initial_filing_package_number }}</b>
+        </p>
+        <p class="no-margin-bottom">
+            You can view the following items at any time:
+        </p>
+        <ul>
+            <li><a href="{{ initial_filing_receipt_link }}" target="_blank">Your eFiling Receipt</a> on the CSO eFiling Hub</li>
+            <li><a href="{{ initial_filing_package_link }}" target="_blank">The package of all documents</a> you have submitted for filing</li>
+        </ul>
+        <p>
+            In order to complete your divorce you’ll need to file the final set of documents.
+            To do this you’ll require a {% include "partials/tooltips/court_file_number.html" %}
+            which will be provided from the Court Registry once they have reviewed and approved
+            your initial filing. <b>This review can take up to a week to complete.</b>
+            You'll receive an e-mail with details of your initial filing.
+        </p>
+        <p>
+            If you have any questions, concerns or mistakes about your initial filing, please contact
+            CSO Online Support at <a href="mailto:Courts.CSO@gov.bc.ca" target="_blank">Courts.CSO@gov.bc.ca</a>
+            and include your {% include "partials/tooltips/online_package_number.html" %}.
+        </p>
+    {% elif how_to_file == 'Online' %}
         {% if derived.any_errors %}
             {% include "dashboard/partials/question_incomplete_warning.html" %}
         {% endif %}
@@ -92,15 +118,18 @@
 {% block formbuttons %}
     <div class="form-buttons clearfix">
         <a class="btn btn-primary" href="{% url 'dashboard_nav' 'print_form' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
-        <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'wait_for_number' %}">Next&nbsp;&nbsp;&nbsp;<i
-                class="fa fa-arrow-circle-o-right"></i></a>
-        <a class="btn btn-primary pull-right save-spinner" href="{% url 'submit_initial_files' %}">
-            <i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;
-            Submit Documents</a>
+        {% if initial_filing_submitted %}
+            <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'wait_for_number' %}">Next&nbsp;&nbsp;&nbsp;<i
+                    class="fa fa-arrow-circle-o-right"></i></a>
+        {% else %}
+            <a class="btn btn-success pull-right save-spinner" href="{% url 'submit_initial_files' %}">
+                <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;
+                Submit Documents</a>
+        {% endif %}
+        <a class="btn btn-primary pull-right save-spinner" href="{% url 'overview' %}"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;Save and return
+            later</a>
+
     </div>
-{% endblock %}
-{% block sidebarNav %}
-    <!-- no sidebar -->
 {% endblock %}
 {% block sidebarText %}
     <h3>What happens with the initial filing?</h3>

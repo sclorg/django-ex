@@ -17,7 +17,7 @@
       Uploader,
     },
     props: {
-      formTypes: JSON,
+      formTypes: Array,
       proxyRootPath: String,
     },
   };
