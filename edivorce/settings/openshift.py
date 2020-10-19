@@ -59,6 +59,7 @@ if DEPLOYMENT_TYPE in ['dev', 'unittest']:
     OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/auth'
     OIDC_OP_TOKEN_ENDPOINT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/token'
     OIDC_OP_USER_ENDPOINT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/userinfo'
+    KEYCLOAK_LOGOUT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/logout'
     OIDC_RP_CLIENT_ID = 'e-divorce-app'
 
 if DEPLOYMENT_TYPE == 'dev':
@@ -77,6 +78,7 @@ if DEPLOYMENT_TYPE == 'test':
     OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/auth'
     OIDC_OP_TOKEN_ENDPOINT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/token'
     OIDC_OP_USER_ENDPOINT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/userinfo'
+    KEYCLOAK_LOGOUT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/logout'
     OIDC_RP_CLIENT_ID = 'XXXXXXXX'
 
 if DEPLOYMENT_TYPE == 'prod':
@@ -88,6 +90,7 @@ if DEPLOYMENT_TYPE == 'prod':
     OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/auth'
     OIDC_OP_TOKEN_ENDPOINT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/token'
     OIDC_OP_USER_ENDPOINT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/userinfo'
+    KEYCLOAK_LOGOUT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/logout'
     OIDC_RP_CLIENT_ID = 'XXXXXXXX'
     # Google Tag Manager (Production)
     GTM_ID = 'GTM-W4Z2SPS'
@@ -102,6 +105,8 @@ if DEPLOYMENT_TYPE == 'minishift':
     OIDC_OP_AUTHORIZATION_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/auth'
     OIDC_OP_TOKEN_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/token'
     OIDC_OP_USER_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/userinfo'
+    KEYCLOAK_LOGOUT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/logout'
+    OIDC_RP_CLIENT_ID = 'edivorce-app'
 
 # Internal Relative Urls
 FORCE_SCRIPT_NAME = PROXY_URL_PREFIX + '/'
@@ -138,7 +143,6 @@ REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', '')
 
 # Keycloak OpenID Connect settings
 LOGIN_REDIRECT_URL = PROXY_URL_PREFIX + '/signin'
-LOGOUT_REDIRECT_URL = PROXY_URL_PREFIX
 
 
 def monkey_absolutify(request, path):

@@ -1,4 +1,7 @@
+from django.conf import settings
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
+from mozilla_django_oidc.utils import absolutify
+
 from ..models import BceidUser
 
 
@@ -37,3 +40,9 @@ class EDivorceKeycloakBackend(OIDCAuthenticationBackend):
         if not user_guid:
             return self.UserModel.objects.none()
         return self.UserModel.objects.filter(user_guid=user_guid)
+
+
+def keycloak_logout(request):
+    redirect_uri = absolutify(request, '/')
+
+    return f'{settings.KEYCLOAK_LOGOUT}?redirect_uri={redirect_uri}'
