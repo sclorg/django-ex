@@ -43,6 +43,6 @@ class EDivorceKeycloakBackend(OIDCAuthenticationBackend):
 
 
 def keycloak_logout(request):
-    redirect_uri = absolutify(request, '/')
+    redirect_uri = absolutify(request, settings.PROXY_URL_PREFIX + '/')
 
     return f'{settings.KEYCLOAK_LOGOUT}?redirect_uri={redirect_uri}'
