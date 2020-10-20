@@ -152,14 +152,8 @@ class EFilingHubTests(TransactionTestCase):
         self.assertTrue('transaction_id' in self.request.session)
 
     def test_bceid_get_current(self):
-        self.request.session['smgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
+        self.request.session['bcgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
         with self.settings(DEPLOYMENT_TYPE='prod'):
-            bceid = self.hub._get_bceid(self.request)
-            self.assertEqual(bceid, '70fc9ce1-0cd6-4170-b842-bbabb88452a9')
-
-    def test_bceid_get_local_fake(self):
-        self.request.session['fake_bceid_guid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
-        with self.settings(DEPLOYMENT_TYPE='localdev'):
             bceid = self.hub._get_bceid(self.request)
             self.assertEqual(bceid, '70fc9ce1-0cd6-4170-b842-bbabb88452a9')
 
@@ -194,7 +188,7 @@ class EFilingHubTests(TransactionTestCase):
 
     @mock.patch('edivorce.apps.core.efilinghub.EFilingHub._get_api')
     def test_upload_success(self, mock_get_api):
-        self.request.session['smgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
+        self.request.session['bcgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
         with self.settings(DEPLOYMENT_TYPE='prod'):
             mock_get_api.side_effect = [
                 self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE)),
@@ -208,7 +202,7 @@ class EFilingHubTests(TransactionTestCase):
 
     @mock.patch('edivorce.apps.core.efilinghub.EFilingHub._get_api')
     def test_upload_failed_initial_upload(self, mock_get_api):
-        self.request.session['smgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
+        self.request.session['bcgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
         with self.settings(DEPLOYMENT_TYPE='prod'):
             mock_get_api.side_effect = [
                 self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE), status=401),
@@ -220,7 +214,7 @@ class EFilingHubTests(TransactionTestCase):
 
     @mock.patch('edivorce.apps.core.efilinghub.EFilingHub._get_api')
     def test_upload_failed_generate_url(self, mock_get_api):
-        self.request.session['smgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
+        self.request.session['bcgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
         with self.settings(DEPLOYMENT_TYPE='prod'):
             mock_get_api.side_effect = [
                 self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE)),

@@ -23,6 +23,8 @@ class EDivorceKeycloakBackend(OIDCAuthenticationBackend):
         user.user_guid = claims.get('universal-id', '')
         user.save()
 
+        self.request.session['bcgov_userguid'] = user.user_guid
+
         return user
 
     def update_user(self, user, claims):
@@ -32,6 +34,8 @@ class EDivorceKeycloakBackend(OIDCAuthenticationBackend):
         user.sm_user = claims.get('preferred_username', '')
         user.user_guid = claims.get('universal-id', '')
         user.save()
+
+        self.request.session['bcgov_userguid'] = user.user_guid        
 
         return user
 
@@ -43,6 +47,6 @@ class EDivorceKeycloakBackend(OIDCAuthenticationBackend):
 
 
 def keycloak_logout(request):
-    redirect_uri = absolutify(request, settings.PROXY_URL_PREFIX + '/')
+    redirect_uri = absolutify(request, settings.FORCE_SCRIPT_NAME)
 
     return f'{settings.KEYCLOAK_LOGOUT}?redirect_uri={redirect_uri}'

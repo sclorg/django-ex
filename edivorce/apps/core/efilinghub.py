@@ -159,12 +159,9 @@ class EFilingHub:
                 # unavailable for a local eDivorce environment. Use an env specified mapping
                 # to figure out what we should pass through to eFiling Hub. This BCEID username
                 # needs to match with what you will be logging in with to the Test BCEID environment.
-                username = request.session.get('login_name', None)
-                if username:
-                    if username in settings.EFILING_BCEID:
-                        return settings.EFILING_BCEID[username]
-                return request.session.get('fake_bceid_guid', None)
-            return request.session.get('smgov_userguid', None)
+                # return 'ade9f711-d8c5-402e-8f70-5f0a1d4cc181'
+                return '53993f22-be67-43b9-94f2-222eca1b3bf7'
+            return request.session.get('bcgov_userguid', None)
 
         guid = _get_raw_bceid(request)
         if guid:
