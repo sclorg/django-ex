@@ -43,5 +43,20 @@ services:
       - "5005:5001"
     restart: always
 
+  # Keycloak
+  keycloak:
+    container_name: edivorce-keycloak
+    image: jboss/keycloak:9.0.3
+    environment:
+      DB_VENDOR: H2
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /tmp/realm-export.json
+    volumes:
+      - ./conf/keycloak/realm-export.json:/tmp/realm-export.json
+    ports:
+      - 8081:8080
+    command: ["-Dkeycloak.profile.feature.upload_scripts=enabled"]
+
 volumes:
   data-redis:

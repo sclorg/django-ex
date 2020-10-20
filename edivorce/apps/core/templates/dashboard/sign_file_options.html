@@ -51,7 +51,7 @@
     </div>
 </div>
 <h3>Filing Options</h3>
-{% if where_were_you_married_country == 'Canada' and not request.user.is_bcsc %}
+{% if where_were_you_married_country == 'Canada' %}
     <p>You can file (?) your application for divorce in different ways.</p>
 {% endif %}
 <p>To file (?) your documents, you will need:</p>
@@ -72,7 +72,7 @@
     <li>You will need to have your affidavit(s) sworn/affirmed (see above)</li>
     <li>Photo ID</li>
 </ul>
-{% if where_were_you_married_country == 'Canada' and not request.user.is_bcsc %}
+{% if where_were_you_married_country == 'Canada' %}
     <div class="question-well">
         <h3>Select how you would like to file (?) your documents:</h3>
         <div class="radio"><label>{% input_field type="radio" name="how_to_file" value="Online" id="file-online" %}

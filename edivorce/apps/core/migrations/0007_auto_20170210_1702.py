@@ -12,15 +12,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='BceidUser',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('user_guid', models.CharField(unique=True, max_length=36, db_index=True)),
-                ('date_joined', models.DateTimeField(default=django.utils.timezone.now)),
-                ('last_login', models.DateTimeField(default=django.utils.timezone.now)),
-            ],
-        ),
         migrations.RemoveField(
             model_name='profile',
             name='user',

@@ -1,14 +1,18 @@
+-i https://pypi.org/simple
 aniso8601==7.0.0
+beautifulsoup4==4.9.3
 certifi==2020.6.20
+cffi==1.14.2
 chardet==3.0.4
 clamd==1.0.2
-Django==2.2.15
+cryptography==3.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
 django-appconf==1.0.4
 django-compressor==2.4
 django-cors-headers==3.5.0
 django-crispy-forms==1.9.2
 django-debug-toolbar==2.2
 django-sass-processor==0.8
+django==2.2.15
 djangorestframework==3.11.1
 environs==8.0.0
 graphene==2.1.8
@@ -17,22 +21,27 @@ graphql-core==2.3.2
 graphql-relay==2.0.1
 gunicorn==20.0.4
 idna==2.10
+josepy==1.4.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
 libsass==0.20.0
 marshmallow==3.7.1
-Pillow==7.2.0
+mozilla-django-oidc==1.2.4
+pillow==7.2.0
 promise==2.3
 psycopg2==2.8.5
+pycparser==2.20; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
+pyopenssl==19.1.0
 python-dotenv==0.14.0
 pytz==2020.1
 rcssmin==1.0.6
 redis==3.5.3
 requests==2.24.0
 rjsmin==1.1.0
-Rx==1.6.1
+rx==1.6.1
 singledispatch==3.4.0.3
 six==1.15.0
+soupsieve==2.0.1
 sqlparse==0.3.1
-Unidecode==1.1.1
-Unipath==1.1
+unidecode==1.1.1
+unipath==1.1
 urllib3==1.25.10
 whitenoise==3.3.1

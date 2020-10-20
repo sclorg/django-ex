@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 import os
+
+from django.urls import reverse_lazy
 from environs import Env
 from unipath import Path
 
@@ -45,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'mozilla_django_oidc',  # Load after auth
     'rest_framework',
     'debug_toolbar',
     'corsheaders',
@@ -71,9 +74,14 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'edivorce.apps.core.middleware.bceid_middleware.BceidMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+)
+
+AUTH_USER_MODEL = 'core.BceidUser'
+
+AUTHENTICATION_BACKENDS = (
+    'edivorce.apps.core.middleware.keycloak.EDivorceKeycloakBackend',
 )
 
 ROOT_URLCONF = 'edivorce.urls'
@@ -101,7 +109,8 @@ WSGI_APPLICATION = 'wsgi.application'
 # by presence of Basic Auth headers
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'edivorce.apps.core.authenticators.BCeIDAuthentication',
+        'mozilla_django_oidc.contrib.drf.OIDCAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
     ]
 }
 
@@ -117,7 +126,7 @@ LOGGING = {
     'loggers': {
         '': {
             'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'level': env('DJANGO_LOG_LEVEL', 'INFO'),
         },
     },
 }
@@ -175,10 +184,6 @@ DEBUG_TOOLBAR_CONFIG = {
 
 SECURE_BROWSER_XSS_FILTER = True
 
-LOGOUT_URL = '/accounts/logout/'
-
-# CLAMAV settings
-
 # eFiling Hub settings
 EFILING_HUB_TOKEN_BASE_URL = env('EFILING_HUB_TOKEN_BASE_URL', 'https://efiling.gov.bc.ca')
 EFILING_HUB_REALM = env('EFILING_HUB_REALM', 'abc')
@@ -187,3 +192,13 @@ EFILING_HUB_CLIENT_SECRET = env('EFILING_HUB_CLIENT_SECRET', 'abc')
 EFILING_HUB_API_BASE_URL = env('EFILING_HUB_API_BASE_URL', 'https://efiling.gov.bc.ca')
 
 EFILING_BCEID = env.dict('EFILING_BCEID', '', subcast=str)
+
+# Keycloak OpenID Connect settings
+# Provided by mozilla-django-oidc
+LOGIN_URL = reverse_lazy('oidc_authentication_init')
+OIDC_RP_SIGN_ALGO = 'RS256'
+OIDC_RP_SCOPES = 'openid email profile'
+# this is needed to bypass the Keycloak login screen
+OIDC_AUTH_REQUEST_EXTRA_PARAMS = {'kc_idp_hint': 'bceid'}
+OIDC_RP_CLIENT_SECRET = env('KEYCLOAK_CLIENT_SECRET', '')
+OIDC_OP_LOGOUT_URL_METHOD = 'edivorce.apps.core.middleware.keycloak.keycloak_logout'

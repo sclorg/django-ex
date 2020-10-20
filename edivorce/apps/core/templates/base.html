@@ -13,10 +13,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         {% compress css %}
-        <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
-        <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-datepicker3.min.css" %}">
-        <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}">
-        <link rel="stylesheet" type="text/css" href="{% sass_src "css/main.scss" %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datepicker3.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% sass_src 'css/main.scss' %}" />
         {% endcompress %}
         {% block extra_css %}
         {% endblock %}
@@ -54,8 +54,12 @@
                         <div class="top_banner-user">
                             {% if request.user.is_authenticated %}
                             <span>
-                                {{ request.user.display_name}}
-                                &nbsp;&nbsp;|&nbsp;&nbsp; <a href="{% url 'logout' %}">Log out</a>
+                                <form action="{% url 'oidc_logout' %}" method="post">
+                                    {{ request.user.display_name}}
+                                    &nbsp;&nbsp;|&nbsp;&nbsp; 
+                                    {% csrf_token %}
+                                    <input type="submit" value="Log out">
+                                </form>
                             </span>
                             {% endif %}
                         </div>

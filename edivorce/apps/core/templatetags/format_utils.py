@@ -194,22 +194,6 @@ def agreed_child_support_amount(context, claimant_id, line_breaks=True):
 
 
 @register.filter
-def css_rotate(image):
-    """ Gets extra CSS needed for image rotation when generating PDFs """
-    if image.rotation == 90 or image.rotation == 270:
-        height = image.width
-        width = image.height
-    else:
-        height = image.height
-        width = image.width
-
-    if width == 0 or height/width < 1.3:
-        return 'width: 100%'
-    else:
-        return 'height: 26.7cm'
-
-
-@register.filter
 def name_you(responses):
     """ Gets and formats given_name_1_you, given_name_2_you, given_name_3_you, last_name_you from responses """
     given_name_1 = responses.get('given_name_1_you')

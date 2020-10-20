@@ -22,6 +22,8 @@ if settings.ENVIRONMENT in ['localdev', 'minishift']:
     urlpatterns.append(url(r'^404/$', main.page_not_found, {'exception': Exception()}))
     urlpatterns.append(url(r'^500/$', main.server_error))
 
+urlpatterns.append(url(r'^oidc/', include('mozilla_django_oidc.urls')))
+
 urlpatterns.append(url(r'^', include('edivorce.apps.core.urls')))
 
 handler404 = main.page_not_found

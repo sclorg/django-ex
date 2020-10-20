@@ -994,12 +994,18 @@ textarea {
 		float: right;
 		margin-top: 16px;
 
-		a {
+		input[type=submit] {
 			color: #ffffff;
+			background-color: transparent;
+			display: inline;
+			padding: 0;
+			line-height: 1.5;
+			border: none;
 
 			&:active,
 			&:hover {
 				color: #fcfcfc;
+				text-decoration: underline;
 			}
 		}
 	}
@@ -2134,18 +2140,6 @@ textarea {
 
 .shaded-box {
     background-color: rgba(0,0,0,0.7);
-}
-
-.light-shaded-box {
-	background-color: $color-grey-lightest;
-	border-radius: 8px;
-	padding: 18px 30px;
-	margin-bottom: 28px;
-
-	p {
-		margin: 0;
-		max-width: 100%;
-	}
 }
 
 #delete_child_modal,
