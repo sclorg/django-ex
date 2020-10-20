@@ -5,8 +5,8 @@
       <a href="javascript:void(0)" :id="'Tooltip-' + uniqueId">
         {{ formDef.name }} <i class="fa fa-question-circle"></i>
       </a>
-      <strong v-if="party === 1"> - For You</strong>
-      <strong v-if="party === 2"> - For Your Spouse</strong>
+      <span v-if="party === 1"> - For You</span>
+      <span v-if="party === 2"> - For Your Spouse</span>
     </h5>
     <tooltip :text="formDef.help" :target="'#Tooltip-' + uniqueId"></tooltip>
     <label :for="inputId" class="sr-only">
@@ -96,11 +96,12 @@
         </template>
       </file-upload>
     </div>
-    <div class="pull-right" v-if="!tooBig">
+    <div class="pull-left">
+      <a v-if="files.length" :href="pdfURL" target="_blank">{{ pdfURL }}</a>
+    </div>
+    <div class="text-right" v-if="!tooBig">
       <em>(Maximum {{ maxMegabytes }} MB)</em>
     </div>
-
-    <a v-if="files.length" :href="pdfURL" target="_blank">{{ pdfURL }}</a>
 
     <modal ref="warningModal" class="warning-modal" v-model="showWarning">
       {{ warningText }}
@@ -267,7 +268,7 @@
                 });
               },
             });
-          } 
+          }
           else {
             newFile.compressed = true;
           }
@@ -550,9 +551,9 @@
     width: 100%;
     display: block;
     text-align: left;
-    border: 2px #365ebe dashed;
-    border-radius: 6px;
-    padding: 18px 32px 0 18px;
+    border: 1px #365ebe dashed;
+    border-radius: 8px;
+    padding: 20px 32px 0 24px;
     margin-bottom: 5px;
 
     &.dragging {
@@ -600,10 +601,12 @@
 
   h5.uploader-label {
     display: block;
-    margin-top: 30px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     font-weight: normal;
-    font-size: 1em;
+    font-size: 21px;
+    color: #365ebe;
+    text-decoration: underline;
 
     a {
       font-weight: bold;

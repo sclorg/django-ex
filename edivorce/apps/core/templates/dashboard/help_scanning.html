@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }}: Overview{% endblock %}
+
+{% block progress %}
+    {% include "partials/dashnav.html" with active_page=active_page %}
+{% endblock %}
+
+{% block content %}
+    <h1>Placeholder</h1>
+    <div>
+        <p>
+            Some content
+        </p>
+    </div>
+{% endblock %}
+
+{% block backToDashboard %}
+    <div class="mid_banner-dash">
+        <a href="{% url 'dashboard_nav' 'initial_filing' %}">
+            <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> View
+            Application Stages
+        </a>
+    </div>
+{% endblock %}
+
+{% block formbuttons %}
+    <!-- no button -->
+{% endblock %}
+
+{% block sidebarNav %}
+    <!-- no sidebarNav -->
+{% endblock %}
+
+{% block sidebar %}
+    <!-- no sidebar -->
+{% endblock %}

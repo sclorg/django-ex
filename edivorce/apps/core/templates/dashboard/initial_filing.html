@@ -5,35 +5,107 @@
 
 {% block progress %}{% include "partials/dashnav.html" with active_page=active_page %}{% endblock %}
 
+{% block container_col %}dashboard-content{% endblock %}
+
 {% block content %}
     <h1>Initial Filing</h1>
-    {% if how_to_file == 'Online' %}
+    {% if initial_filing_submitted %}
         <p>
-            Your filing (submitting completed documents to the court registry) occurs in two parts. The initial filing initiates the divorce
-            proceeding. Once
-            initial filing is complete you will receive a Court Filing Number. This number is important as it will allow you or your spouse to file
-            the
+            You have already completed this step.
+        </p>
+        <p>
+            <b>Your {% include "partials/tooltips/online_package_number.html" with with_cso=True %} is {{ initial_filing_package_number }}</b>
+        </p>
+        <p class="no-margin-bottom">
+            You can view the following items at any time:
+        </p>
+        <ul>
+            <li><a href="{{ initial_filing_receipt_link }}" target="_blank">Your eFiling Receipt</a> on the CSO eFiling Hub</li>
+            <li><a href="{{ initial_filing_package_link }}" target="_blank">The package of all documents</a> you have submitted for filing</li>
+        </ul>
+        <p>
+            In order to complete your divorce you’ll need to file the final set of documents.
+            To do this you’ll require a {% include "partials/tooltips/court_file_number.html" %}
+            which will be provided from the Court Registry once they have reviewed and approved
+            your initial filing. <b>This review can take up to a week to complete.</b>
+            You'll receive an e-mail with details of your initial filing.
+        </p>
+        <p>
+            If you have any questions, concerns or mistakes about your initial filing, please contact
+            CSO Online Support at <a href="mailto:Courts.CSO@gov.bc.ca" target="_blank">Courts.CSO@gov.bc.ca</a>
+            and include your {% include "partials/tooltips/online_package_number.html" %}.
+        </p>
+    {% elif how_to_file == 'Online' %}
+        <div class="review-warning" id="error-message-box" {% if not messages %}hidden{% endif %}>
+            <ul id="error-messages" class="{% if messages|length == 1 %}no-bullets {% endif %}no-margin-bottom">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if derived.any_errors %}
+            {% include "dashboard/partials/question_incomplete_warning.html" %}
+        {% endif %}
+        <p>
+            Your filing (submitting completed documents to the court registry) occurs in two parts.
+            The initial filing initiates the divorce proceeding.
+            Once initial filing is complete you will receive a Court Filing Number.
+            This number is important as it will allow you or your spouse to file the
             remaining documents required to complete your divorce.
         </p>
-        <p>Missing a form required on this page? Check the <a href="{% url 'dashboard_nav' 'print_form' %}">Review Forms</a> step.</p>
-        <p><a>Need help with Scanning your documents?</a></p>
+        <p><b>Missing a form required on this page?</b> Check the <a href="{% url 'dashboard_nav' 'print_form' %}">Review Forms</a> step.</p>
+        <p><a href="{% url 'dashboard_nav' 'help_scanning' %}">Need help with Scanning your documents?</a></p>
 
-        <div id="vue-app">
-            <initial-filing-uploader 
-                signing-location="{{ signing_location }}"
-                signing-location-you="{{ signing_location_you }}"
-                signing-location-spouse="{{ signing_location_spouse }}"
-                proxy-root-path="{{ proxy_root_path }}">
-            </initial-filing-uploader>
+        <div class="upload-area">
+            {% if how_to_sign == 'Together' and signing_location == 'In-person' %}
+                <div>
+                    <p>The {% include "partials/tooltips/joint_family_claim.html" with text="Notice of Joint Family Claim Form (F1)" %} will be
+                        automatically filed for you.</p>
+                </div>
+            {% elif how_to_sign == 'Separately' and signing_location_you == 'In-person' %}
+                <div>
+                    <p>The {% include "partials/tooltips/joint_family_claim.html" with text="Notice of Joint Family Claim Form (F1)" %} will be
+                        automatically filed for you.</p>
+                </div>
+            {% else %}
+                <p>The following forms will be automatically filed for you:</p>
+                <ul>
+                    <li>{% include "partials/tooltips/joint_family_claim.html" with text="Notice of Joint Family Claim Form (F1)" %}</li>
+                    <li>{% include "partials/tooltips/requisition_form.html" %}</li>
+                    <li>{% include "partials/tooltips/certificate_of_pleading.html" %}</li>
+                </ul>
+                <p>
+                    The following forms will be submitted for you but
+                    require {% include "partials/tooltips/swear_affirm.html" with text="swearing/affirming" %}
+                    before filing (see next step for details)
+                </p>
+                <ul>
+                    <li>{% include "partials/tooltips/form_child_support_37.html" %}</li>
+                    <li>{% include "partials/tooltips/form_desk_order_38.html" %}</li>
+                </ul>
+            {% endif %}
+            <div id="vue-app">
+                <initial-filing-uploader
+                        :form-types="{{ form_types }}"
+                        proxy-root-path="{{ proxy_root_path }}">
+                </initial-filing-uploader>
+            </div>
         </div>
 
         <h3>Filing with Court Services Online</h3>
-        <p>When you click Next, you will be taken to the Court Services Online e-filing hub. In the next few steps you will be able to do a final
-            review of your filed documentation, pay for your filing and (if completed successfully) receive a Package Number.</p>
-        <p>Once your filings have been reviewed by the Court Registry (?), you will be provided a Court Filing Number (?) via e-mail. This may
-            take up
-            to one week.</p>
-        <p>You will need your Court Filing Number if you are filing any additional documentation.</p>
+        <p>
+            When you click Next, you will be taken to the Court Services Online e-filing hub.
+            In the next few steps you will be able to do a final review of the documents you are submitting for filing,
+            pay for your filing and (if completed successfully) receive a Package Number.
+        </p>
+        <p>
+            Once your filings have been reviewed by the {% include "partials/tooltips/court_registry.html" %},
+            you will be provided a {% include "partials/tooltips/court_file_number.html" %} via e-mail.
+            This may take up to one week.
+        </p>
+        <p>
+            <b>You will need your Court Filing Number if you are filing any additional documentation.</b>
+        </p>
     {% elif how_to_file == 'In-person' %}
         <p>
             You don't need to complete this step. Go to <a href="{% url 'dashboard_nav' 'swear_forms' %}">Swear Forms</a> for further instruction.
@@ -53,21 +125,35 @@
 {% block formbuttons %}
     <div class="form-buttons clearfix">
         <a class="btn btn-primary" href="{% url 'dashboard_nav' 'print_form' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
-    {% if initial_filing_submitted %}
-        <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'wait_for_number' %}">Next&nbsp;&nbsp;&nbsp;<i
-                class="fa fa-arrow-circle-o-right"></i></a>
-    {% else %}
-        <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'wait_for_number' %}">Next</a>
-    {% endif %}
-        <a class="btn btn-primary pull-right save-spinner" href="{% url 'submit_initial_files' %}"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;
-            Submit Documents</a>
+        {% if initial_filing_submitted %}
+            <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'wait_for_number' %}">Next&nbsp;&nbsp;&nbsp;<i
+                    class="fa fa-arrow-circle-o-right"></i></a>
+        {% else %}
+            <a class="btn btn-success pull-right" href="{% url 'submit_initial_files' %}" id="submitDocuments">
+                <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;
+                Submit Documents</a>
+        {% endif %}
+        <a class="btn btn-primary pull-right save-spinner" href="{% url 'overview' %}"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;Save and return
+            later</a>
+
     </div>
 {% endblock %}
-{% block sidebarNav %}
-    <!-- no sidebar -->
-{% endblock %}
 {% block sidebarText %}
-    {% include "dashboard/partials/sidebar_help.html" %}
+    <h3>What happens with the initial filing?</h3>
+    <p>
+        The registry staff will review the documents you have submitted for filing
+        and providing that all required fields have been properly completed,
+        they will process the $210.00 fee, assign a file number to the documents
+        and stamp/seal them.
+    </p>
+    <p>
+        Note: There is an additional $7.00 fee for submitting each package online.
+    </p>
+    <p>
+        You will be notified via email whether your initial filing was accepted or not.
+        If corrections should be required, you will need to make the corrections identified
+        and resubmit your initial filing.
+    </p>
 {% endblock %}
 
 {% block extra_css %}
@@ -82,4 +168,5 @@
     <script type="text/javascript" src="{% static 'dist/vue/js/chunk-vendors.js' %}"></script>
     <script type="text/javascript" src="{% static 'dist/vue/js/chunk-common.js' %}"></script>
     <script type="text/javascript" src="{% static 'dist/vue/js/initialFiling.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/filing.js' %}"></script>
 {% endblock %}

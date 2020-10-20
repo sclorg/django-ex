@@ -1,6 +1,7 @@
 import datetime
 
 from django.conf import settings
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -8,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import intercept, prequal_completed
-from ..utils.cso_filing import file_documents
+from ..utils.cso_filing import file_documents, forms_to_file
 from ..utils.question_step_mapping import list_of_registries
 from ..utils.step_completeness import get_error_dict, get_missed_question_keys, get_step_completeness, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
@@ -179,11 +180,23 @@ def dashboard_nav(request, nav_step):
     if nav_step in ('print_form', 'swear_forms', 'next_steps') and responses_dict.get('court_registry_for_filing'):
         responses_dict['court_registry_for_filing_address'] = f"123 {responses_dict.get('court_registry_for_filing')} St"
         responses_dict['court_registry_for_filing_postal_code'] = 'V0A 1A1'
-    if nav_step in ('print_form',):
+    if nav_step in ('print_form', 'initial_filing'):
         responses_dict_by_step = get_step_responses(responses_dict)
         responses_dict.update(get_error_dict(responses_dict_by_step))
 
     responses_dict['derived'] = get_derived_data(responses_dict)
+    if nav_step == 'initial_filing':
+        forms = forms_to_file(responses_dict, initial=True)
+        responses_dict['form_types'] = forms
+        if request.GET.get('cancelled'):
+            messages.add_message(request, messages.ERROR,
+                                 'You have cancelled the filing of your documents. '
+                                 'You can complete the filing process at your convenience.')
+        elif request.GET.get('no_connection'):
+            messages.add_message(request, messages.ERROR,
+                                 'The connection to the BC Government’s eFiling Hub is currently not working. '
+                                 'This is a temporary problem. '
+                                 'Please try again now and if this issue persists try again later.')
     return render(request, template_name=template_name, context=responses_dict)
 
 
@@ -202,14 +215,18 @@ def submit_final_files(request):
 def _submit_files(request, initial=False):
     responses_dict = get_data_for_user(request.user)
     if initial:
-        nav_step = 'wait_for_number'
-        file_documents(request.user, initial=True)
+        original_step = 'initial_filing'
+        next_page = 'wait_for_number'
     else:
-        nav_step = 'next_steps'
-        file_documents(request.user, initial=False)
-
-    responses_dict['active_page'] = nav_step
-    return redirect(reverse('dashboard_nav', kwargs={'nav_step': nav_step}), context=responses_dict)
+        original_step = 'final_filing'
+        next_page = 'next_steps'
+    missing_forms = file_documents(request.user, responses_dict, initial=initial)
+    if missing_forms:
+        next_page = original_step
+        for form_name in missing_forms:
+            messages.add_message(request, messages.ERROR, f'Missing documents for {form_name}')
+    responses_dict['active_page'] = next_page
+    return redirect(reverse('dashboard_nav', kwargs={'nav_step': next_page}), context=responses_dict)
 
 
 @login_required

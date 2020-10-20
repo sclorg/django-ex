@@ -23,6 +23,7 @@ class UploadStorageTests(TransactionTestCase):
             file = SimpleUploadedFile('file.txt', b'this is some content')
             test = Document()
             test.file = file
+            test.doc_type = 'MC'
             test.bceid_user = self.user
             test.save()
         except ConnectionError:
@@ -40,6 +41,7 @@ class UploadStorageTests(TransactionTestCase):
         file = SimpleUploadedFile('file.txt', b'this is some content')
         test = Document()
         test.file = file
+        test.doc_type = 'MC'
         test.bceid_user = self.user
         test.save()
 
@@ -55,6 +57,7 @@ class UploadStorageTests(TransactionTestCase):
         file = SimpleUploadedFile('file.txt', b'this is some content')
         test = Document()
         test.file = file
+        test.doc_type = 'MC'
         test.bceid_user = self.user
         test.save()
 
@@ -90,11 +93,11 @@ class UploadStorageTests(TransactionTestCase):
 
         file = SimpleUploadedFile('file.txt', b'this is some content')
         test = Document()
-        test.bceid_user = self.user
         test.file = file
+        test.doc_type = 'MC'        
+        test.bceid_user = self.user
         test.save()
 
         test.delete()
 
         self.assertTrue(mock_redis_delete.called)
-
