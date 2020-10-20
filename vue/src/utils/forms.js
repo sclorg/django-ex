@@ -41,16 +41,34 @@ export default {
     help:
       "This form is used by the Court to notify Vital Statistics of court-ordered legal changes of name. - Does not require signatures.",
   },
+  NJF: {
+    name: "Notice of Joint Family Claim (F1)",
+    preText: "auto",
+    help:
+      "This form starts your divorce proceeding. It gives the court details about you and your spouse, your marriage and separation, and what you're asking the court for. - Does not require signatures when filed online.",
+  },  
   OFI: {
     name: "Draft Final Order Form (F52)",
     preText: "Upload the signed and scanned",
     help:
       "This will be your divorce order once the judge has signed it. It sets out the court order. - Requires signature by both you and your spouse (but not a signature in front of a commissioner)",
   },
+  RCP: {
+    name: "Certificate of Pleadings Form (F36)",
+    preText: "auto",
+    help:
+      "This form is completed by registry staff after your application has been reviewed by them. It shows the judge that your application has been checked and is complete. - Does not require signatures of you or your spouse.",
+  },  
   RDP: {
     name: "Registration of Joint Divorce Proceedings (JUS280)",
     preText: "Complete, scan and upload the",
     help:
       "This form is for a central divorce registry in Ottawa. They use the form to check to make sure there is no other divorce proceeding pending in Canada. They also keep track of all divorces in Canada. - Does not require signatures.",
+  },
+  RFO: {
+    name: "Requisition Form (F35)",
+    preText: "auto",
+    help:
+      "This form is a request to the Court for your application for divorce. It tells the court that you want a divorce and outlines all the documents you are filing in support of your application. - Does not require signatures when filed online.",
   },
 };

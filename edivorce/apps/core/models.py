@@ -136,7 +136,7 @@ class Document(models.Model):
     """ Initial image height (before rotation) """
 
     width = models.IntegerField(default=0)
-    """ Initial image width (before rotation) """    
+    """ Initial image width (before rotation) """
 
     bceid_user = models.ForeignKey(BceidUser, related_name='uploads', on_delete=models.CASCADE)
     """ User who uploaded the attachment """
@@ -152,8 +152,11 @@ class Document(models.Model):
         'EFSS': "Electronic Filing Statement (F96)",
         'MC': "Proof of Marriage",
         'NCV': "Identification of Applicant (VSA 512)",
+        'NJF': "Notice of Joint Family Claim (F1)",
         'OFI': "Draft Final Order Form (F52)",
+        'RCP': "Certificate of Pleadings Form (F36)",
         'RDP': "Registration of Joint Divorce Proceedings (JUS280)",
+        'RFO': "Requisition Form (F35)"
     }
 
     class Meta:

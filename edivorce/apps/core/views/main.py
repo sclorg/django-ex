@@ -69,7 +69,7 @@ def success(request):
         if request.user.is_authenticated:
             return redirect(reverse('overview'))
         else:
-            return render(request, 'success.html', context={'register_url': settings.REGISTER_BCEID_URL,'register_sc_url': settings.REGISTER_BCSC_URL})
+            return render(request, 'success.html', context={'register_url': settings.REGISTER_BCEID_URL, 'register_sc_url': settings.REGISTER_BCSC_URL})
     return redirect(reverse('incomplete'))
 
 
@@ -102,6 +102,7 @@ def register(request):
     request.session['went_to_register'] = True
     return redirect(settings.REGISTER_BCEID_URL)
 
+
 def register_sc(request):
     """
     Sets a session variable and redirects users to register for BC Services Card
@@ -112,12 +113,13 @@ def register_sc(request):
     request.session['went_to_register'] = True
     return redirect(settings.REGISTER_BCSC_URL)
 
+
 def signin(request):
     if not request.user.is_authenticated:
         return render(request, '407.html')
 
-    ## I think Django might be doing this automatically now that we have switched to mozilla-django-oidc?
-    #if timezone.now() - request.user.last_login > datetime.timedelta(minutes=1):
+    # I think Django might be doing this automatically now that we have switched to mozilla-django-oidc?
+    # if timezone.now() - request.user.last_login > datetime.timedelta(minutes=1):
     #    request.user.last_login = timezone.now()
     #    request.user.save()
 
@@ -313,4 +315,3 @@ def intercept_page(request):
     responses_dict['intercepted'] = True
 
     return render(request, template_name=template, context=responses_dict)
-
