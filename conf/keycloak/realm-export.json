@@ -603,12 +603,14 @@
     {
       "id": "d2c2bdf9-7388-4dad-8704-5fdfb5f91a0d",
       "clientId": "edivorce-app",
+      "rootUrl": "",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
+        "http://127.0.0.1:8000/*",
         "http://localhost:8000/*"
       ],
       "webOrigins": [

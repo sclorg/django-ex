@@ -43,7 +43,7 @@ To run this project in your development machine, follow these steps:
 
     `docker-compose up -d`
 
-9. Log in to the Keycloak administration console on http://127.0.0.1:8081 as user=admin/password=admin. Under Manage Users, create yourself a test account.  Username, Email, First Name and Last Name fields are needed.  
+9. Log in to the Keycloak administration console on http://127.0.0.1:8081 as user=admin/password=admin. Under Manage Users, create yourself a test account.  Username, Email, First Name and Last Name fields are needed. Don't forget to set a password on the 'Credentials' tab.
 
 10. Open your browser and go to http://127.0.0.1:8000, you will be greeted with the eDivorce homepage.  You can log in with the account you created in step 9. 
 
