@@ -2,12 +2,22 @@ import random
 
 from django.conf import settings
 
-from edivorce.apps.core.models import UserResponse
+from edivorce.apps.core.models import Document, UserResponse
 from edivorce.apps.core.utils.derived import get_derived_data
 
 
-def file_documents(user, initial=False):
-    """ Save dummy data for now. Eventually replace with data from CSO. """
+def file_documents(user, responses, initial=False):
+    forms = forms_to_file(responses, initial)
+    missing_forms = []
+    for form in forms:
+        docs = Document.objects.filter(bceid_user=user, doc_type=form['doc_type'], party_code=form.get('party_code', 0))
+        if docs.count() == 0:
+            missing_forms.append(Document.form_types[form['doc_type']])
+
+    if missing_forms:
+        return missing_forms
+
+    # Save dummy data for now. Eventually replace with data from CSO
     prefix = 'initial' if initial else 'final'
     _save_response(user, f'{prefix}_filing_submitted', True)
 

@@ -152,6 +152,18 @@ class Document(models.Model):
     date_uploaded = models.DateTimeField(auto_now_add=True)
     """ Date the record was last updated """
 
+    form_types = {
+        'AAI': "Agreement as to Annual Income (F9)",
+        'AFDO': "Affidavit - Desk Order Divorce Form (F38)",
+        'AFTL': "Affidavit of Translation Form",
+        'CSA': "Child Support Affidavit (F37)",
+        'EFSS': "Electronic Filing Statement (F96)",
+        'MC': "Proof of Marriage",
+        'NCV': "Identification of Applicant (VSA 512)",
+        'OFI': "Draft Final Order Form (F52)",
+        'RDP': "Registration of Joint Divorce Proceedings (JUS280)",
+    }
+
     class Meta:
         unique_together = ("bceid_user", "doc_type", "party_code", "filename", "size")
         ordering = ('sort_order',)
@@ -164,6 +176,8 @@ class Document(models.Model):
         if not self.sort_order:
             num_docs = self.get_documents_in_form().count()
             self.sort_order = num_docs + 1
+        if self.doc_type not in self.form_types:
+            raise ValueError(f"Invalid doc_type '{self.doc_type}'")
 
         super(Document, self).save(*args, **kwargs)
 

@@ -1,6 +1,7 @@
 import datetime
 
 from django.conf import settings
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -212,7 +213,15 @@ def dashboard_nav(request, nav_step):
     if nav_step == 'initial_filing':
         forms = forms_to_file(responses_dict, initial=True)
         responses_dict['form_types'] = forms
-
+        if request.GET.get('cancelled'):
+            messages.add_message(request, messages.ERROR,
+                                 'You have cancelled the filing of your documents. '
+                                 'You can complete the filing process at your convenience.')
+        elif request.GET.get('no_connection'):
+            messages.add_message(request, messages.ERROR,
+                                 'The connection to the BC Government’s eFiling Hub is currently not working. '
+                                 'This is a temporary problem. '
+                                 'Please try again now and if this issue persists try again later.')
     return render(request, template_name=template_name, context=responses_dict)
 
 
@@ -231,14 +240,18 @@ def submit_final_files(request):
 def _submit_files(request, initial=False):
     responses_dict = get_data_for_user(request.user)
     if initial:
-        nav_step = 'wait_for_number'
-        file_documents(request.user, initial=True)
+        original_step = 'initial_filing'
+        next_page = 'wait_for_number'
     else:
-        nav_step = 'next_steps'
-        file_documents(request.user, initial=False)
-
-    responses_dict['active_page'] = nav_step
-    return redirect(reverse('dashboard_nav', kwargs={'nav_step': nav_step}), context=responses_dict)
+        original_step = 'final_filing'
+        next_page = 'next_steps'
+    missing_forms = file_documents(request.user, responses_dict, initial=initial)
+    if missing_forms:
+        next_page = original_step
+        for form_name in missing_forms:
+            messages.add_message(request, messages.ERROR, f'Missing documents for {form_name}')
+    responses_dict['active_page'] = next_page
+    return redirect(reverse('dashboard_nav', kwargs={'nav_step': next_page}), context=responses_dict)
 
 
 @bceid_required

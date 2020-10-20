@@ -21,6 +21,7 @@ $color-gold-light: #e6ca85;
 $color-red: #D8292F;
 $color-red-light: #F7D4D5;
 $color-red-dark: #AC2025;
+$color-yellow-light: #fcf8e3;
 
 $font-custom: Myriad-Pro, Calibri, Arial, Sans Serif;
 $font-custom-bold: Myriad-Pro-Bold, Calibri, Arial, Sans Serif;
@@ -370,9 +371,9 @@ div.percent-suffix {
 .bg-danger {
 	position: relative;
 	padding: 30px 30px 30px 75px;
-	border-radius: 10px;
+	border-radius: 8px;
 	margin-bottom: 20px;
-	background-color: #fcf8e3;
+	background-color: $color-yellow-light;
 
 	&:after {
 		content: "\f071";
@@ -733,16 +734,26 @@ i.fa.fa-question-circle {
 
 .review-warning {
     background-color: $color-red-light;
-    padding: 20px;
-    margin: 30px 0;
     border-radius: 8px;
-    display: flex;
-    .exclamation i {
-        font-size: 25px;
-        color: $color-red-dark;
+    position: relative;
+    padding: 30px 30px 30px 75px;
+    margin-bottom: 20px;
+
+    ul {
+        padding-left: 15px;
     }
-    div {
-        margin: 10px;
+
+    &:after {
+        content: "\f06a";
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        position: absolute;
+        font-size: 24px;
+        color: $color-red-dark;
+        top: 30px;
+        left: 27px;
     }
     .warning, .progress-status i {
         color: $color-red-dark;
@@ -1495,6 +1506,7 @@ textarea {
     }
 
     .no-bullets {
+        padding-left: 0;
         li {
             list-style: none;
         }

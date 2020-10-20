@@ -36,6 +36,13 @@
             and include your {% include "partials/tooltips/online_package_number.html" %}.
         </p>
     {% elif how_to_file == 'Online' %}
+        <div class="review-warning" id="error-message-box" {% if not messages %}hidden{% endif %}>
+            <ul id="error-messages" class="{% if messages|length == 1 %}no-bullets {% endif %}no-margin-bottom">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
         {% if derived.any_errors %}
             {% include "dashboard/partials/question_incomplete_warning.html" %}
         {% endif %}
@@ -122,7 +129,7 @@
             <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'wait_for_number' %}">Next&nbsp;&nbsp;&nbsp;<i
                     class="fa fa-arrow-circle-o-right"></i></a>
         {% else %}
-            <a class="btn btn-success pull-right save-spinner" href="{% url 'submit_initial_files' %}">
+            <a class="btn btn-success pull-right" href="{% url 'submit_initial_files' %}" id="submitDocuments">
                 <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;
                 Submit Documents</a>
         {% endif %}
@@ -161,4 +168,5 @@
     <script type="text/javascript" src="{% static 'dist/vue/js/chunk-vendors.js' %}"></script>
     <script type="text/javascript" src="{% static 'dist/vue/js/chunk-common.js' %}"></script>
     <script type="text/javascript" src="{% static 'dist/vue/js/initialFiling.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/filing.js' %}"></script>
 {% endblock %}
