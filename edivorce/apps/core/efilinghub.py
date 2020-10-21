@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 PACKAGE_DOCUMENT_FORMAT = {
     "name": "string",
-    "type": "WNC",
+    "type": "AFDO",
     "isAmendment": "false",
     "isSupremeCourtScheduling": "false",
     "data": {},
@@ -21,9 +21,9 @@ PACKAGE_DOCUMENT_FORMAT = {
 PACKAGE_PARTY_FORMAT = {
     "partyType": "IND",
     "roleType": "CLA",
-    "firstName": "",
+    "firstName": "FirstName",
     "middleName": "",
-    "lastName": "",
+    "lastName": "LastName",
 }
 
 PACKAGE_FORMAT = {
@@ -31,11 +31,10 @@ PACKAGE_FORMAT = {
     "filingPackage": {
         "documents": [],
         "court": {
-            "location": "1211",
-            "level": "P",
-            "courtClass": "F",
+            "location": "4801",
+            "level": "S",
+            "courtClass": "E",
             "division": "I",
-            "fileNumber": "1234",
             "participatingClass": "string"
         },
         "parties": []
@@ -159,8 +158,7 @@ class EFilingHub:
                 # unavailable for a local eDivorce environment. Use an env specified mapping
                 # to figure out what we should pass through to eFiling Hub. This BCEID username
                 # needs to match with what you will be logging in with to the Test BCEID environment.
-                # return 'ade9f711-d8c5-402e-8f70-5f0a1d4cc181'
-                return '53993f22-be67-43b9-94f2-222eca1b3bf7'
+                return settings.EFILING_BCEID
             return request.session.get('bcgov_userguid', None)
 
         guid = _get_raw_bceid(request)
@@ -208,8 +206,8 @@ class EFilingHub:
         if bce_id is None:
             raise PermissionDenied()
 
-        response = self._get_api(request, f'{self.api_base_url}/submission/documents', transaction_id, bce_id,
-                                 headers={}, files=files)
+        url = f'{self.api_base_url}/submission/documents'
+        response = self._get_api(request, url, transaction_id, bce_id, headers={}, files=files)
         if response.status_code == 200:
             response = json.loads(response.text)
 

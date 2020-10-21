@@ -191,7 +191,7 @@ EFILING_HUB_CLIENT_ID = env('EFILING_HUB_CLIENT_ID', 'abc')
 EFILING_HUB_CLIENT_SECRET = env('EFILING_HUB_CLIENT_SECRET', 'abc')
 EFILING_HUB_API_BASE_URL = env('EFILING_HUB_API_BASE_URL', 'https://efiling.gov.bc.ca')
 
-EFILING_BCEID = env.dict('EFILING_BCEID', '', subcast=str)
+EFILING_BCEID = env('EFILING_BCEID', '', subcast=str)
 
 # Keycloak OpenID Connect settings
 # Provided by mozilla-django-oidc
