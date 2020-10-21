@@ -188,8 +188,8 @@ def dashboard_nav(request, nav_step):
 
     responses_dict['derived'] = get_derived_data(responses_dict)
     if nav_step == 'initial_filing':
-        forms = forms_to_file(responses_dict, initial=True)
-        responses_dict['form_types'] = forms
+        uploaded, generated = forms_to_file(responses_dict, initial=True)
+        responses_dict['form_types'] = uploaded
         if request.GET.get('cancelled'):
             messages.add_message(request, messages.ERROR,
                                  'You have cancelled the filing of your documents. '
