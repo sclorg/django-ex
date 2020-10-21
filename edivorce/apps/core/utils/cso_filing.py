@@ -68,10 +68,15 @@ def forms_to_file(responses_dict, initial=False):
     name_change_spouse = derived['wants_other_orders'] and responses_dict.get('name_change_spouse') == 'YES'
     has_children = derived['has_children_of_marriage']
 
+    married_in_canada = responses_dict.get('where_were_you_married_country') == 'Canada'
+    marriage_province = responses_dict.get('where_were_you_married_prov', '').strip().upper()
+    married_in_quebec = married_in_canada and marriage_province.startswith('Q')
+
     if initial:
         generated.append({'doc_type': 'NJF', 'form_number': 1})
         uploaded.append({'doc_type': 'MC', 'party_code': 0})
-        uploaded.append({'doc_type': 'AFTL', 'party_code': 0})
+        if married_in_quebec:
+            uploaded.append({'doc_type': 'AFTL', 'party_code': 0})
 
         if signing_location_both == 'In-person' or signing_location_you == 'In-person':
             # claimant 1 is signing with a commissioner
