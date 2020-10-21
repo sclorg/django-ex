@@ -11,7 +11,7 @@ register = template.Library()
 
 def _get_next_step(context, step, sub_step, direction):
     want_which_orders = json.loads(context.get('want_which_orders', '[]'))
-    children_of_marriage = context.get('children_of_marriage', None)
+    children_of_marriage = context.get('derived', {}).get('has_children_of_marriage')
     sub_step_name = _get_next_sub_step(step, sub_step, want_which_orders,
                                        children_of_marriage=children_of_marriage,
                                        direction=direction)
@@ -48,25 +48,23 @@ def _get_next_sub_step(step, sub_step, want_which_orders, children_of_marriage, 
     return None
 
 
-def _adjust_for_orders(next_item, want_which_orders, children_of_marriage=None, direction=None):
+def _adjust_for_orders(next_item, want_which_orders, children_of_marriage, direction):
+    print(children_of_marriage)
+    tests = [
+        lambda next_item: next_item == 6 and not children_of_marriage,
+        lambda next_item: next_item == 7 and 'Spousal support' not in want_which_orders,
+        lambda next_item: next_item == 8 and 'Division of property and debts' not in want_which_orders,
+        lambda next_item: next_item == 9 and 'Other orders' not in want_which_orders
+    ]
     addend = 1
     if direction != 'next':
         addend = -1
-
+        tests.reverse()
     next_item += addend
 
-    if next_item == 6 and 'YES' != children_of_marriage:
-        next_item += addend
-
-    if next_item == 7 and 'Spousal support' not in want_which_orders:
-        next_item += addend
-
-    if next_item == 8 and 'Division of property and debts' not in want_which_orders:
-        next_item += addend
-
-    if next_item == 9 and 'Other orders' not in want_which_orders:
-        next_item += addend
-
+    for test in tests:
+        if test(next_item):
+            next_item += addend
     return next_item
 
 
