@@ -17,7 +17,7 @@ EXHIBITS = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'[::-1])
 
 
 @login_required
-def form(request, form_number):
+def pdf_form(request, form_number):
     """ View for rendering PDF's and previews """
 
     responses = get_data_for_user(request.user)
