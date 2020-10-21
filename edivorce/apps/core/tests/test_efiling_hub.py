@@ -1,5 +1,4 @@
 import json
-import requests
 from unittest import mock
 
 from django.contrib.sessions.middleware import SessionMiddleware
