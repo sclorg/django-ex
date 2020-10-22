@@ -6,7 +6,7 @@
 
 {% block container_col %}dashboard-content{% endblock %}
 {% block content %}
-    <h1>Wait for Court Filing Number</h1>
+    <h1>Wait for Court File Number</h1>
     {% if initial_filing_submitted %}
         <p>
             You’ve successfully completed your initial filing with the Court Registry.
@@ -21,37 +21,31 @@
             <li><a href="{{ initial_filing_receipt_link }}" target="_blank">Your eFiling Receipt</a> on the CSO eFiling Hub</li>
             <li><a href="{{ initial_filing_package_link }}" target="_blank">The package of all documents</a> you have submitted for filing</li>
         </ul>
+        <p>
+            In order to complete your divorce you’ll need to file the final set of documents.
+            To do this you’ll require a {% include "partials/tooltips/court_file_number.html" %}
+            which will be provided from the Court Registry once they have reviewed and approved
+            your initial filing. <b>This review can take up to a week to complete.</b>
+            You'll receive an e-mail with details of your initial filing.
+        </p>
+        <p>
+            If you have any questions or concerns about your initial filing, please contact
+            CSO Online Support at <a href="mailto:Courts.CSO@gov.bc.ca" target="_blank">Courts.CSO@gov.bc.ca</a>
+            and include your {% include "partials/tooltips/online_package_number.html" %}.
+        </p>
+        <p>
+            <b>Once you have received your Court File Number</b> via e-mail, click Next to proceed with the remaining steps in the process.
+        </p>
     {% else %}
         <p>
-            You still have to complete your initial filing with the Court Registry.
-            Go to the <a href="{% url 'dashboard_nav' 'initial_filing' %}">Initial Filing</a> step.
+            Once you have submitted your Initial Filing of documents, you can return to this page and get instructions for
+            the next steps to complete your filing.
         </p>
         <p>
-            <b>Once filed, you will receive a {% include "partials/tooltips/online_package_number.html" with with_cso=True %}</b>
+            Please return to this page once you have completed the
+            <a href="{% url 'dashboard_nav' 'initial_filing' %}">Initial Filing</a> step.
         </p>
-        <p class="no-margin-bottom">
-            You will be able to view the following items at any time:
-        </p>
-        <ul>
-            <li>Your eFiling Receipt on the CSO eFiling Hub</li>
-            <li>The package of all documents you have submitted for filing</li>
-        </ul>
     {% endif %}
-    <p>
-        In order to complete your divorce you’ll need to file the final set of documents.
-        To do this you’ll require a {% include "partials/tooltips/court_file_number.html" %}
-        which will be provided from the Court Registry once they have reviewed and approved
-        your initial filing. <b>This review can take up to a week to complete.</b>
-        You'll receive an e-mail with details of your initial filing.
-    </p>
-    <p>
-        If you have any questions or concerns about your initial filing, please contact
-        CSO Online Support at <a href="mailto:Courts.CSO@gov.bc.ca" target="_blank">Courts.CSO@gov.bc.ca</a>
-        and include your {% include "partials/tooltips/online_package_number.html" %}.
-    </p>
-    <p>
-        <b>Once you have received your Court Filing Number</b> via e-mail, click Next to proceed with the remaining steps in the process.
-    </p>
 {% endblock %}
 
 {% block backToDashboard %}

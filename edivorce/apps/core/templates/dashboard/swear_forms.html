@@ -12,11 +12,11 @@
             affidavits {% include "partials/tooltips/swear_affirm.html" with text="sworn/affirmed" %}.</p>
     {% elif how_to_file == 'Online' %}
         <p>
-            <b>You must have a Court Filing Number in order to proceed</b>
+            <b>You must have a Court File Number in order to proceed</b>
             with {% include "partials/tooltips/swear_affirm.html" with text="swearing/affirming" %} your affidavits.
             If you do not have a {% include "partials/tooltips/court_file_number.html" %} return to the <a
                 href="{% url 'dashboard_nav' 'wait_for_number' %}">
-            Wait for Court Filing Number</a> step.
+            Wait for Court File Number</a> step.
         </p>
     {% else %}
         <p>
