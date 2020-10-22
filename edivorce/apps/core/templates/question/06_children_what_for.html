@@ -367,7 +367,7 @@
         </blockquote>
         {% input_field type="textarea" name="order_respecting_arrangement" class="response-textarea form-control" maxlength="20000" rows="7"%}
     </div>
-    {% if 'Child support' in want_which_orders|load_json %}
+    {% if derived.wants_child_support %}
         <div class="question-well {% if order_for_child_support_error %}error{% endif %}" id="child_support_description">
         <h3>If you are asking for an
                         <span class="tooltip-link"
@@ -469,12 +469,8 @@
                 </p>
             </div>
         </div>
-
-
     </div>
-
 {% endblock content %}
-
 
 {% block formBack %}{% prev_step step='children' sub_step='what_for' %}{% endblock %}
 {% block formNext %}{% next_step step='children' sub_step='what_for' %}{% endblock %}
@@ -530,6 +526,4 @@
         <li>where the children are going to live, and </li>
         <li>how much time the children will spend with each parent who is a guardian.</li>
     </ul>
-
-
 {% endblock %}

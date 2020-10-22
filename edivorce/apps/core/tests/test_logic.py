@@ -3,7 +3,9 @@ import json
 from django.test import TestCase
 
 from edivorce.apps.core.models import BceidUser, UserResponse
+from edivorce.apps.core.templatetags.step_order import next_step, prev_step
 from edivorce.apps.core.utils import conditional_logic as logic
+from edivorce.apps.core.utils.derived import get_derived_data
 from edivorce.apps.core.utils.user_response import get_data_for_user
 from edivorce.apps.core.models import Document
 
@@ -116,3 +118,75 @@ class ViewLogic(TestCase):
         self.assertEqual(Document.content_type_from_filename('redis_key_testfile_6_jpeg'), 'image/jpeg')
         self.assertEqual(Document.content_type_from_filename('test_file7.HEIC'), 'application/unknown')
         self.assertEqual(Document.content_type_from_filename('redis_key_testfile_7_svgg'), 'application/unknown')
+
+
+class TemplateTagLogic(TestCase):
+    fixtures = ['Question.json']
+    def setUp(self):
+        self.user = BceidUser.objects.create(user_guid='1234')
+
+    def create_response(self, question, value):
+        response, _ = UserResponse.objects.get_or_create(bceid_user=self.user, question_id=question)
+        response.value = value
+        response.save()
+
+    @property
+    def context(self):
+        responses_dict = get_data_for_user(self.user)
+        derived = get_derived_data(responses_dict)
+        responses_dict['derived'] = derived
+        return responses_dict
+
+    def test_next(self):
+        self.assertEqual(next_step(self.context, 'orders'), 'claimant')
+        self.assertEqual(next_step(self.context, 'claimant'), 'respondent')
+        self.assertEqual(next_step(self.context, 'respondent'), 'marriage')
+        self.assertEqual(next_step(self.context, 'marriage'), 'separation')
+        self.assertEqual(next_step(self.context, 'separation'), 'other_questions')
+        self.assertEqual(next_step(self.context, 'other_questions'), 'location')
+
+        self.create_response('want_which_orders', '["Other orders"]')
+        self.assertEqual(next_step(self.context, 'separation'), 'other_orders')
+
+        self.create_response('want_which_orders', '["Spousal support"]')
+        self.assertEqual(next_step(self.context, 'separation'), 'support')
+
+        self.create_response('want_which_orders', '["Division of property and debts"]')
+        self.assertEqual(next_step(self.context, 'separation'), 'property')
+
+        self.create_response('want_which_orders', '[]')
+        self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
+        self.assertEqual(next_step(self.context, 'separation'), 'children/your_children/')
+        self.assertEqual(next_step(self.context, 'children', sub_step='your_children'), '/question/children/income_expenses/')
+        self.assertEqual(next_step(self.context, 'children', sub_step='income_expenses'), '/question/children/facts/')
+        self.assertEqual(next_step(self.context, 'children', sub_step='facts'), '/question/children/payor_medical/')
+        self.assertEqual(next_step(self.context, 'children', sub_step='payor_medical'), '/question/children/what_for/')
+        self.assertEqual(next_step(self.context, 'children', sub_step='what_for'), '/question/other_questions')
+    
+    def test_previous(self):
+        self.assertEqual(prev_step(self.context, 'location'), 'other_questions')
+        self.assertEqual(prev_step(self.context, 'other_questions'), 'separation')
+        self.assertEqual(prev_step(self.context, 'separation'), 'marriage')
+        self.assertEqual(prev_step(self.context, 'marriage'), 'respondent')
+        self.assertEqual(prev_step(self.context, 'respondent'), 'claimant')
+        self.assertEqual(prev_step(self.context, 'claimant'), 'orders')
+
+        self.create_response('want_which_orders', '["Other orders"]')
+        self.assertEqual(prev_step(self.context, 'other_questions'), 'other_orders')
+
+        self.create_response('want_which_orders', '["Spousal support"]')
+        self.assertEqual(prev_step(self.context, 'other_questions'), 'support')
+
+        self.create_response('want_which_orders', '["Division of property and debts"]')
+        self.assertEqual(prev_step(self.context, 'other_questions'), 'property')
+
+        self.create_response('want_which_orders', '[]')
+        self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
+        self.assertEqual(prev_step(self.context, 'other_questions'), 'children/what_for/')
+        self.assertEqual(prev_step(self.context, 'children', sub_step='what_for'), '/question/children/payor_medical/')
+        self.assertEqual(prev_step(self.context, 'children', sub_step='payor_medical'), '/question/children/facts/')
+        self.assertEqual(prev_step(self.context, 'children', sub_step='facts'), '/question/children/income_expenses/')
+        self.assertEqual(prev_step(self.context, 'children', sub_step='income_expenses'), '/question/children/your_children/')
+        self.assertEqual(prev_step(self.context, 'children', sub_step='your_children'), '/question/separation')
