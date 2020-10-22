@@ -267,8 +267,11 @@ def _submit_files(request, initial=False):
     party2['lastName'] = responses_dict.get('last_name_spouse', '').strip()
     parties.append(party2)
 
+    location_name = responses_dict.get('court_registry_for_filing', '')
+    location = list_of_registries.get(location_name, '0000')
+
     hub = EFilingHub()
-    redirect_url, msg = hub.upload(request, post_files, doc_types, parties=parties)
+    redirect_url, msg = hub.upload(request, post_files, doc_types, parties, location)
 
     if redirect_url:
         return redirect(redirect_url)
@@ -307,7 +310,7 @@ def question(request, step, sub_step=None):
     responses_dict['active_page'] = step
     # If page is filing location page, add registries dictionary for list of court registries
     if step == "location":
-        responses_dict['registries'] = sorted(list_of_registries)
+        responses_dict['registries'] = sorted(list_of_registries.keys())
 
     responses_dict['sub_step'] = sub_step
     responses_dict['derived'] = derived

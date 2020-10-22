@@ -310,11 +310,34 @@ page_step_mapping = {
 }
 
 """ List of court registries """
-list_of_registries = ['Fort St. John', 'Dawson Creek', 'Prince Rupert',
-                      'Terrace', 'Smithers', 'Prince George', 'Quesnel',
-                      'Williams Lake', 'Campbell River', 'Powell River',
-                      'Courtenay', 'Port Alberni', 'Duncan', 'Nanaimo',
-                      'Victoria', 'Golden', 'Kamloops', 'Salmon Arm', 'Vernon',
-                      'Kelowna', 'Penticton', 'Nelson', 'Rossland', 'Cranbrook',
-                      'Chilliwack', 'New Westminster', 'Vancouver',
-                      'Fort Nelson', 'Revelstoke']
+list_of_registries = {
+    'Campbell River': '1031',
+    'Chilliwack': '3521',
+    'Courtenay': '1041',
+    'Cranbrook': '4711',
+    'Dawson Creek': '5731',
+    'Duncan': '1051',
+    'Fort Nelson': '5751',
+    'Fort St. John': '5771',
+    'Golden': '4741',
+    'Kamloops': '4781',
+    'Kelowna': '4801',
+    'Nanaimo': '1091',
+    'Nelson': '4871',
+    'New Westminster': '3581',
+    'Penticton': '4891',
+    'Port Alberni': '1121',
+    'Powell River': '1145',
+    'Prince George': '5891',
+    'Prince Rupert': '5901',
+    'Quesnel': '5921',
+    'Revelstoke': '4911',
+    'Rossland': '4921',
+    'Salmon Arm': '4941',
+    'Smithers': '5931',
+    'Terrace': '5951',
+    'Vancouver': '6011',
+    'Vernon': '4971',
+    'Victoria': '1201',
+    'Williams Lake': '5971'
+}
