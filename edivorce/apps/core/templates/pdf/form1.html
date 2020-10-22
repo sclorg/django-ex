@@ -364,7 +364,7 @@
                     <td>
                       <strong>Children:</strong>
                       <br><br>
-                      <span class="td-list-item">{% checkbox children_of_marriage='NO' %}</span>
+                      <span class="td-list-item">{% checkbox has_children_of_marriage='False' %}</span>
                       <div class="td-list-text">
                         There are no children of the marriage, as defined by
                         the <em>Divorce Act</em> (Canada), or children of whom
@@ -372,7 +372,7 @@
                         of the <em>Family Law Act</em>.
                       </div>
                       <br><strong>OR</strong><br><br>
-                      <span class="td-list-item">{% checkbox children_of_marriage='YES' %}</span>
+                      <span class="td-list-item">{% checkbox derived.has_children_of_marriage %}</span>
                       <div class="td-list-text">
                           There are children of the marriage, as defined by the
                           <em>Divorce Act</em> (Canada), or children of whom
@@ -385,8 +385,8 @@
                                   <th align="center">Full name</th>
                                   <th align="center">Birth date<br />[<em>dd/mmm/yyyy</em>]</th>
                                   <th align="center">Resides with</th>
-                              </tr
-      {% if responses.children_of_marriage == 'YES' %}
+                              </tr>
+      {% if derived.has_children_of_marriage %}
           {% for child in responses.children %}
                               <tr>
                                   <td align="center">{{ child.child_name }}</td>
@@ -418,14 +418,14 @@
                 <tr>
                   <td colname="c2">
                     <span class="td-list-item">
-                      A. {% checkbox want_parenting_arrangements='YES' children_of_marriage='YES' want_which_orders='Child support' %}
+                      A. {% checkbox derived.has_children_of_marriage derived.wants_child_support want_parenting_arrangements='YES' %}
                     </span>
                       <div class="td-list-text">
                           Claimant 1 and Claimant 2 are asking for the following
                           order respecting arrangements for parenting or
                           contact:
                           <span class="form-entry form-textarea not-complete form-list-textarea">
-    {% if responses.children_of_marriage == 'YES' and responses.want_parenting_arrangements == 'YES' and responses.order_respecting_arrangement and 'Child support' in responses.want_which_orders %}
+    {% if derived.has_children_of_marriage and responses.want_parenting_arrangements == 'YES' and responses.order_respecting_arrangement and derived.wants_child_support %}
                             <ul>{{ responses.order_respecting_arrangement|striptags|linebreaksli }}</ul>
     {% endif %}
                           </span>
@@ -435,18 +435,18 @@
                 <tr>
                     <td colname="c2">
                         <span class="td-list-item">
-                          B. 
+                          B.
                           {% if responses.child_support_in_order == 'NO' %}
                             {% checkbox false %}
                           {% else %}
-                            {% checkbox responses.order_for_child_support children_of_marriage='YES' want_which_orders='Child support' %}
+                            {% checkbox responses.order_for_child_support derived.has_children_of_marriage derived.wants_child_support %}
                           {% endif %}
                         </span>
                         <div class="td-list-text">
                             Claimant 1 and Claimant 2 are asking for an order for
                             child support as follows:
                             <span class="form-entry form-textarea not-complete form-list-textarea">
-    {% if responses.children_of_marriage == 'YES' and responses.order_for_child_support and 'Child support' in responses.want_which_orders and responses.child_support_in_order != 'NO' %}
+    {% if derived.has_children_of_marriage and responses.order_for_child_support and derived.wants_child_support and responses.child_support_in_order != 'NO' %}
                               <ul>{{ responses.order_for_child_support|striptags|linebreaksli }}</ul>
     {% endif %}
                             </span>
@@ -456,12 +456,12 @@
                 <tr>
                     <td colname="c2">
                         <span class="td-list-item">
-                          C. {% checkbox responses.describe_order_special_extra_expenses children_of_marriage='YES' want_which_orders='Child support' special_extraordinary_expenses='YES' %}
+                          C. {% checkbox derived.wants_child_support derived.has_children_of_marriage special_extraordinary_expenses='YES' %}
                         </span>
                         <div class="td-list-text">
                           Claimant 1 and Claimant 2 are asking for an order for Special and Extraordinary Expenses as follows:<br>
                             <span class="form-entry form-textarea not-complete form-list-textarea">
-    {% if responses.children_of_marriage == 'YES' and responses.special_extraordinary_expenses == 'YES' and 'Child support' in responses.want_which_orders %}
+    {% if derived.has_children_of_marriage and responses.special_extraordinary_expenses == 'YES' and derived.wants_child_support %}
                               <ul>{{ responses.describe_order_special_extra_expenses|striptags|linebreaksli }}</ul>
     {% endif %}
                             </span>
@@ -472,7 +472,7 @@
                 <tr>
                     <td colname="c2">
                         <span class="td-list-item">
-                          D. {% checkbox responses.child_support_act children_of_marriage='YES' want_which_orders='Child support' %}
+                          D. {% checkbox responses.child_support_act derived.has_children_of_marriage derived.wants_child_support %}
                         </span>
                         <div class="td-list-text">
                           Claimant 1 and Claimant 2 are asking for the orders
@@ -480,10 +480,10 @@
                           following statute(s):<br>
                           [<em>Check one or both of the following boxes, as
                             applicable.</em>]<br><br>
-                          {% checkbox child_support_act='the Divorce Act (Canada)' children_of_marriage='YES' want_which_orders='Child support' %}
+                          {% checkbox derived.has_children_of_marriage derived.wants_child_support child_support_act='the Divorce Act (Canada)' %}
                           the <em>Divorce Act</em> (Canada)
                           &nbsp;&nbsp;&nbsp;&nbsp;
-                          {% checkbox child_support_act='the Family Law Act' children_of_marriage='YES' want_which_orders='Child support' %}
+                          {% checkbox derived.has_children_of_marriage derived.wants_child_support child_support_act='the Family Law Act' %}
                           the <em>Family Law Act</em>
                         </div>
                     </td>
@@ -496,11 +496,11 @@
             <tbody>
                 <tr>
                     <td colname="c2">
-                      <span class="td-list-item">{% checkbox want_which_orders='Spousal support' %}</span>
+                      <span class="td-list-item">{% checkbox derived.wants_spousal_support %}</span>
                         <div class="td-list-text">
                           Claimant 1 and Claimant 2 are asking for an order for spousal support as follows:<br>
                           <span class="form-entry form-textarea not-complete">
-                          {% if 'Spousal support' in responses.want_which_orders and responses.spouse_support_details %}
+                          {% if derived.wants_spousal_support and responses.spouse_support_details %}
                           <ul>{{responses.spouse_support_details|striptags|linebreaksli }}</ul>
                           {% endif %}
                           </span>
@@ -510,16 +510,16 @@
                 <tr>
                     <td colname="c2">
                         <span class="td-list-item">
-                          {% checkbox responses.spouse_support_act want_which_orders='Spousal support' %}
+                          {% checkbox responses.spouse_support_act derived.wants_spousal_support %}
                         </span>
                         <div class="td-list-text">
                           Claimant 1 and Claimant 2 are asking for an order for spousal support under:<br>
                          [<em>Check one or both of the following boxes, as applicable.</em>]
                           <br><br>
-                          {% checkbox want_which_orders='Spousal support' spouse_support_act='The Divorce Act (Canada)' %}
+                          {% checkbox derived.wants_spousal_support spouse_support_act='The Divorce Act (Canada)' %}
                           the <em> Divorce Act </em> (Canada)
                           &nbsp;&nbsp;&nbsp;&nbsp;
-                          {% checkbox want_which_orders='Spousal support' spouse_support_act='The Family Law Act' %}
+                          {% checkbox derived.wants_spousal_support spouse_support_act='The Family Law Act' %}
 
                           the <em> Family Law Act </em>
                         </div>
@@ -535,13 +535,13 @@
               <td>
                 <div><strong>A. Property claims under the <em>Family Law Act</em></strong><br><br></div>
                 <span class="td-list-item">
-                  {% checkbox want_which_orders='Division of property and debts' %}
+                  {% checkbox derived.wants_property_division %}
                 </span>
                 <div class="td-list-text">
                   Claimant 1 and Claimant 2 are asking for an order for:<br><br>
                   <div>
                     <span class="td-list-item">
-                      {% checkbox want_which_orders='Division of property and debts' deal_with_property_debt='Equal division' %}
+                      {% checkbox derived.wants_property_division deal_with_property_debt='Equal division' %}
                     </span>
                     <div class="td-list-text">
                       an equal division of family property and family debt<br><br>
@@ -549,12 +549,12 @@
                   </div>
                   <div>
                     <span class="td-list-item">
-                      {% checkbox want_which_orders='Division of property and debts' deal_with_property_debt='Unequal division' %}
+                      {% checkbox derived.wants_property_division deal_with_property_debt='Unequal division' %}
                     </span>
                     <div class="td-list-text">
                       an unequal division of family property and family debt as follows:
                       <span class="form-entry form-textarea not-complete">
-                        {% if responses.deal_with_property_debt == 'Unequal division' and responses.how_to_divide_property_debt and 'Division of property and debts' in responses.want_which_orders %}
+                        {% if derived.wants_property_division and responses.deal_with_property_debt == 'Unequal division' and responses.how_to_divide_property_debt %}
                         <ul>{{ responses.how_to_divide_property_debt|striptags|linebreaksli }}</ul>
                         {% endif %}
                       </span>
@@ -566,13 +566,13 @@
             <tr>
               <td>
                 <div><strong>B. Other property claims</strong><br><br></div>
-                <span class="td-list-item">{% checkbox responses.other_property_claims %}</span>
+                <span class="td-list-item">{% checkbox derived.wants_property_division responses.other_property_claims %}</span>
                   <div class="td-list-text">
                     Claimant 1 and Claimant 2 ask for an order respecting
                     an interest in property or for compensation instead
                     of an interest in that property, as follows:<br>
                     <span class="form-entry form-textarea not-complete">
-                      {% if responses.other_property_claims %}
+                      {% if derived.wants_property_division and responses.other_property_claims %}
                         <ul>{{ responses.other_property_claims|striptags|linebreaksli }}</ul>
                       {% endif %}
                     </span>
@@ -586,14 +586,17 @@
         <table class="table table-bordered table-fixed">
             <tbody>
                 <tr>
-                    {% check_list source=responses.want_which_orders value='Other orders' as order_wanted %}
                     <td>
                       <span class="td-list-item">
-                        {% if order_wanted and responses.other_orders_detail or responses.name_change_you == 'YES' or responses.name_change_spouse == 'YES' %}
-                          {% checkbox %}
-                        {% else %}
+                      {% if derived.wants_other_orders %}
+                          {% if responses.other_orders_detail or responses.name_change_you == 'YES' or responses.name_change_spouse == 'YES' %}
+                            {% checkbox %}
+                          {% else %}
+                            {% checkbox False %}
+                          {% endif %}
+                      {% else %}
                           {% checkbox False %}
-                        {% endif %}
+                      {% endif %}
                       </span>
                         <div class="td-list-text">
                         Claimant 1 and Claimant 2 are asking for an order in the
@@ -601,11 +604,11 @@
 
                         <span class="form-entry form-textarea not-complete">
                           <ul>
-                          {% if responses.other_orders_detail and order_wanted %}
+                          {% if derived.wants_other_orders and responses.other_orders_detail %}
                               {{ responses.other_orders_detail|striptags|linebreaksli }}
                           {% endif %}
 
-                          {% if responses.name_change_you == 'YES' %}
+                          {% if derived.wants_other_orders and responses.name_change_you == 'YES' %}
                             <li>
                               Pursuant to Section 5 of the Name Act, Claimant 1 shall
                               bear the name of {{ responses.name_change_you_fullname }}
@@ -613,7 +616,7 @@
                             </li>
                           {% endif %}
 
-                          {% if responses.name_change_spouse == 'YES' %}
+                          {% if derived.wants_other_orders and responses.name_change_spouse == 'YES' %}
                             <li>
                               Pursuant to Section 5 of the Name Act, Claimant 2 shall
                               bear the name of {{ responses.name_change_spouse_fullname }}

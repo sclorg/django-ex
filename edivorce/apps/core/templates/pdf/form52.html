@@ -110,7 +110,7 @@
                 </li>
     {% endif %}
 
-    {% if responses.children_of_marriage == 'YES' and derived.wants_child_support %}
+    {% if derived.has_children_of_marriage and derived.wants_child_support %}
         {% for order in derived.pursuant_parenting_arrangement %}
                 <li>{{ order }}</li>
         {% endfor %}
@@ -121,7 +121,7 @@
         {% endif %}
     {% endif %}
 
-    {% if responses.children_of_marriage == 'YES' and responses.special_extraordinary_expenses == 'YES' %}
+    {% if derived.has_children_of_marriage and responses.special_extraordinary_expenses == 'YES' %}
                 {{ responses.describe_order_special_extra_expenses|striptags|linebreaksli }}
     {% endif %}
 

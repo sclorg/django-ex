@@ -81,8 +81,16 @@ def checkbox(context, *args, **kwargs):
     pass a False value as an argument.
     """
     args_pass = all(args)
-    kwargs_pass = all([value in context['responses'].get(question, '')
-                       for question, value in kwargs.items()])
+    kwargs_list = []
+    for question, value in kwargs.items():
+        if question in context['responses']:
+            dict_with_question = context['responses']
+        elif question in context['derived']:
+            dict_with_question = context['derived']
+        else:
+            raise KeyError(f'{question} not found in responses or derived')
+        kwargs_list.append(str(value) in str(dict_with_question[question]))
+    kwargs_pass = all(kwargs_list)
 
     return mark_safe('<i class="fa fa%s-square-o" aria-hidden="true"></i>' %
                      ('-check' if args_pass and kwargs_pass else ''))
@@ -130,7 +138,11 @@ def money(amount, symbol=True):
     except ValueError:
         pass
 
-    return ''
+    try:
+        amount = float(amount)
+        return '{:.2f}'.format(amount)
+    except ValueError:
+        return amount
 
 
 @register.simple_tag(takes_context=True)
