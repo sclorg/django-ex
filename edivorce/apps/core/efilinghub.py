@@ -166,10 +166,11 @@ class EFilingHub:
             return str(uuid.UUID(guid))
         return guid
 
-    def _format_package(self, request, files, parties):
+    def _format_package(self, request, files, doc_types, parties):
         documents = []
-        for file in files:
+        for index, file in enumerate(files):
             document = PACKAGE_DOCUMENT_FORMAT.copy()
+            document['type'] = doc_types[index]
             document['name'] = file[1][0]
             documents.append(document)
         package = PACKAGE_FORMAT.copy()
@@ -188,7 +189,7 @@ class EFilingHub:
 
     # -- EFILING HUB INTERFACE --
 
-    def upload(self, request, files, parties=None):
+    def upload(self, request, files, doc_types=None, parties=None):
         """
         Does an initial upload of documents and gets the generated eFiling Hub url.
         :param parties:
@@ -216,7 +217,7 @@ class EFilingHub:
                 headers = {
                     'Content-Type': 'application/json'
                 }
-                package_data = self._format_package(request, files, parties=parties)
+                package_data = self._format_package(request, files, doc_types, parties=parties)
                 url = f"{self.api_base_url}/submission/{response['submissionId']}/generateUrl"
                 response = self._get_api(request, url, transaction_id, bce_id, headers=headers,
                                          data=json.dumps(package_data))

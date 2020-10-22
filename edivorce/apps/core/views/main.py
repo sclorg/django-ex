@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import intercept, prequal_completed
-from ..utils.cso_filing import file_documents, forms_to_file
+from ..utils.cso_filing import file_documents, forms_to_file, get_filename
+from ..efilinghub import EFilingHub, PACKAGE_PARTY_FORMAT, PACKAGE_DOCUMENT_FORMAT
 from ..utils.question_step_mapping import list_of_registries
 from ..utils.step_completeness import get_error_dict, get_missed_question_keys, get_step_completeness, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
@@ -20,6 +21,7 @@ from ..utils.user_response import (
     get_responses_from_session,
     get_responses_from_session_grouped_by_steps,
 )
+from .pdf import images_to_pdf, pdf_form
 
 
 def home(request):
@@ -188,7 +190,7 @@ def dashboard_nav(request, nav_step):
 
     responses_dict['derived'] = get_derived_data(responses_dict)
     if nav_step == 'initial_filing':
-        uploaded, generated = forms_to_file(responses_dict, initial=True)
+        uploaded, _ = forms_to_file(responses_dict, initial=True)
         responses_dict['form_types'] = uploaded
         if request.GET.get('cancelled'):
             messages.add_message(request, messages.ERROR,
@@ -228,6 +230,51 @@ def _submit_files(request, initial=False):
         for form_name in missing_forms:
             messages.add_message(request, messages.ERROR, f'Missing documents for {form_name}')
     responses_dict['active_page'] = next_page
+
+    #################
+    # todo: refactor this!!!!
+
+    post_files = []
+    doc_types = []
+
+    (uploaded, generated) = forms_to_file(responses_dict, initial)
+
+    for form in generated:
+        pdf_response = pdf_form(request, str(form['form_number']))
+        filename = get_filename(form['doc_type'], 0)
+        post_files.append(('files', (filename, pdf_response.content)))
+        doc_types.append(form['doc_type'])
+
+    for document in uploaded:
+        pdf_response = images_to_pdf(request, document['doc_type'], document['party_code'])
+        if pdf_response.status_code == 200:
+            filename = get_filename(document['doc_type'], document['party_code'])
+            post_files.append(('files', (filename, pdf_response.content)))
+            doc_types.append(document['doc_type'])
+
+    # generate the list of parties to send to eFiling Hub
+    parties = []
+
+    party1 = PACKAGE_PARTY_FORMAT.copy()
+    party1['firstName'] = responses_dict.get('given_name_1_you', '').strip()
+    party1['middleName'] = (responses_dict.get('given_name_2_you', '') + ' ' + responses_dict.get('given_name_3_you', '')).strip()
+    party1['lastName'] = responses_dict.get('last_name_you', '').strip()
+    parties.append(party1)
+
+    party2 = PACKAGE_PARTY_FORMAT.copy()
+    party2['firstName'] = responses_dict.get('given_name_1_spouse', '').strip()
+    party2['middleName'] = (responses_dict.get('given_name_2_spouse', '') + ' ' + responses_dict.get('given_name_3_spouse', '')).strip()
+    party2['lastName'] = responses_dict.get('last_name_spouse', '').strip()
+    parties.append(party2)
+
+    hub = EFilingHub()
+    redirect_url, msg = hub.upload(request, post_files, doc_types, parties=parties)
+
+    if redirect_url:
+        return redirect(redirect_url)
+
+    #################
+
     return redirect(reverse('dashboard_nav', kwargs={'nav_step': next_page}), context=responses_dict)
 
 

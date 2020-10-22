@@ -172,7 +172,8 @@ class EFilingHubTests(TransactionTestCase):
             party['firstName'] = 'Party {}'.format(i)
             party['lastName'] = 'Test'
             parties.append(party)
-        package = self.hub._format_package(self.request, files, parties=parties)
+        doc_types = ['MC', 'RDP']
+        package = self.hub._format_package(self.request, files, doc_types, parties=parties)
 
         self.assertTrue(package)
         self.assertEqual(package['filingPackage']['documents'][0]['name'], 'form_0.pdf')

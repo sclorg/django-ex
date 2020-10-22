@@ -1,4 +1,5 @@
 import random
+import re
 
 from django.conf import settings
 
@@ -87,7 +88,8 @@ def forms_to_file(responses_dict, initial=False):
             generated.append({'doc_type': 'RFO', 'form_number': 35})
             generated.append({'doc_type': 'RCP', 'form_number': 36})
             uploaded.append({'doc_type': 'OFI', 'party_code': 0})
-            uploaded.append({'doc_type': 'EFSS', 'party_code': 1})
+            if married_in_quebec:
+                uploaded.append({'doc_type': 'EFSS', 'party_code': 1})
             uploaded.append({'doc_type': 'RDP', 'party_code': 0})
             if has_children:
                 uploaded.append({'doc_type': 'AAI', 'party_code': 0})
@@ -99,9 +101,10 @@ def forms_to_file(responses_dict, initial=False):
             generated.append({'doc_type': 'RFO', 'form_number': 35})
             generated.append({'doc_type': 'RCP', 'form_number': 36})
             uploaded.append({'doc_type': 'OFI', 'party_code': 0})
-            uploaded.append({'doc_type': 'EFSS', 'party_code': 1})
-            if how_to_sign == 'Separately':
-                uploaded.append({'doc_type': 'EFSS', 'party_code': 2})
+            if married_in_quebec:
+                uploaded.append({'doc_type': 'EFSS', 'party_code': 1})
+                if how_to_sign == 'Separately':
+                    uploaded.append({'doc_type': 'EFSS', 'party_code': 2})
             uploaded.append({'doc_type': 'RDP', 'party_code': 0})
             if has_children:
                 uploaded.append({'doc_type': 'AAI', 'party_code': 0})
@@ -147,3 +150,14 @@ def forms_to_file(responses_dict, initial=False):
             return [], []
 
     return uploaded, generated
+
+
+def get_filename(doc_type, party_code):
+    form_name = Document.form_types[doc_type]
+    slug = re.sub('[^0-9a-zA-Z]+', '-', form_name).strip('-')
+    if party_code == 0:
+        return slug + ".pdf"
+    elif party_code == 1:
+        return slug + "--Claimant1.pdf"
+    else:
+        return slug + "--Claimant2.pdf"
