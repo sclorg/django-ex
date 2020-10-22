@@ -90,15 +90,19 @@ $(window).load(function () {
         if ($("input:radio[name='how_to_sign']:checked").length === 0) {
             $("#sign-together").prop('checked', true).trigger('change');
         }
-        if ($("input:radio[name='how_to_file']:checked").length === 0) {
+        if ($("input:radio[name='how_to_file']").length === 0) {
+            ajaxCall('how_to_file', 'In-person');
+        } else if ($("input:radio[name='how_to_file']:checked").length === 0) {
             $("#file-online").prop('checked', true).trigger('change');
         }
     }
 
     setDefaults()
-    toggleSigningLocation();
-    toggleSignVirtually();
-    toggleFileInPerson();
+    if ($("input:radio[name='how_to_file']").length > 0) {
+        toggleSigningLocation();
+        toggleSignVirtually();
+        toggleFileInPerson();
+    }
 
     $('#check-email-filled').on('click', function (e) {
         var yourEmailInput = $('#email-you-input');
