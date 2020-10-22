@@ -23,9 +23,8 @@ class FilingLogic(TestCase):
 
     def test_forms_to_file_initial_together_in_person(self):
         def assert_package_1_needed(uploaded, generated):
-            self.assertEqual(len(uploaded), 3)
+            self.assertEqual(len(uploaded), 2)
             self.assertIn({'doc_type': doc_type("proof of marriage"), 'party_code': 0}, uploaded)
-            self.assertIn({'doc_type': doc_type("affidavit of translation"), 'party_code': 0}, uploaded)
             self.assertIn({'doc_type': doc_type("joint divorce proceedings"), 'party_code': 0}, uploaded)
 
             self.assertEqual(len(generated), 1)
@@ -62,11 +61,10 @@ class FilingLogic(TestCase):
 
             doc_count = len(uploaded)
             if with_efss_spouse:
-                self.assertEqual(doc_count, 6)
-            else:
                 self.assertEqual(doc_count, 5)
+            else:
+                self.assertEqual(doc_count, 4)
             self.assertIn({'doc_type': doc_type("proof of marriage"), 'party_code': 0}, uploaded)
-            self.assertIn({'doc_type': doc_type("affidavit of translation"), 'party_code': 0}, uploaded)
             self.assertIn({'doc_type': doc_type("draft final order"), 'party_code': 0}, uploaded)
             self.assertIn({'doc_type': doc_type("joint divorce proceedings"), 'party_code': 0}, uploaded)
             self.assertIn({'doc_type': doc_type("electronic filing"), 'party_code': 1}, uploaded)
@@ -111,9 +109,8 @@ class FilingLogic(TestCase):
         def assert_package_1_2_needed():
             uploaded, generated = forms_to_file(self.questions_dict, initial=True)
 
-            self.assertEqual(len(uploaded), 5)
+            self.assertEqual(len(uploaded), 4)
             self.assertIn({'doc_type': doc_type("proof of marriage"), 'party_code': 0}, uploaded)
-            self.assertIn({'doc_type': doc_type("affidavit of translation"), 'party_code': 0}, uploaded)
             self.assertIn({'doc_type': doc_type("draft final order"), 'party_code': 0}, uploaded)
             self.assertIn({'doc_type': doc_type("joint divorce proceedings"), 'party_code': 0}, uploaded)
             self.assertIn({'doc_type': doc_type("electronic filing"), 'party_code': 1}, uploaded)
@@ -127,14 +124,14 @@ class FilingLogic(TestCase):
             self.create_response('children_of_marriage', 'YES')
             self.create_response('has_children_under_19', 'YES')
             uploaded, generated = forms_to_file(self.questions_dict, initial=True)
-            self.assertEqual(len(uploaded), 6)
+            self.assertEqual(len(uploaded), 5)
             self.assertIn({'doc_type': doc_type("agreement as to annual income"), 'party_code': 0}, uploaded)
 
             self.create_response('want_which_orders', '["Other orders"]')
             self.create_response('name_change_you', 'YES')
             self.create_response('name_change_spouse', 'YES')
             uploaded, generated = forms_to_file(self.questions_dict, initial=True)
-            self.assertEqual(len(uploaded), 7)
+            self.assertEqual(len(uploaded), 6)
             self.assertIn({'doc_type': doc_type("identification of applicant"), 'party_code': 1}, uploaded)
 
         self.create_response('how_to_sign', 'Separately')

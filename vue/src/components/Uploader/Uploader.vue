@@ -605,10 +605,9 @@
     margin-bottom: 20px;
     font-weight: normal;
     font-size: 21px;
-    color: #365ebe;
-    text-decoration: underline;
 
     a {
+      color: #365ebe;
       font-weight: bold;
       text-decoration: underline;
     }
