@@ -7,7 +7,7 @@ from django.test import TransactionTestCase
 from django.test.client import RequestFactory
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from edivorce.apps.core.efilinghub import EFilingHub, PACKAGE_PARTY_FORMAT
+from edivorce.apps.core.efilinghub import EFilingHub, PACKAGE_PARTY_FORMAT, PACKAGE_DOCUMENT_FORMAT
 
 SAMPLE_TOKEN_RESPONSE = {
     "access_token": "klkadlfjadsfkj",
@@ -64,48 +64,58 @@ class EFilingHubTests(TransactionTestCase):
 
     @mock.patch('requests.post')
     def test_get_token(self, mock_request_post):
-        mock_request_post.return_value = self._mock_response(text=json.dumps(SAMPLE_TOKEN_RESPONSE))
+        mock_request_post.return_value = self._mock_response(
+            text=json.dumps(SAMPLE_TOKEN_RESPONSE))
 
         self.assertTrue(self.hub._get_token(self.request))
-        self.assertEqual(self.request.session['access_token'], SAMPLE_TOKEN_RESPONSE['access_token'])
+        self.assertEqual(self.request.session['access_token'],
+                         SAMPLE_TOKEN_RESPONSE['access_token'])
 
     @mock.patch('requests.post')
     def test_get_token_error(self, mock_request_post):
-        mock_request_post.return_value = self._mock_response(text=json.dumps(SAMPLE_TOKEN_RESPONSE), status=401)
+        mock_request_post.return_value = self._mock_response(
+            text=json.dumps(SAMPLE_TOKEN_RESPONSE), status=401)
 
         self.assertFalse(self.hub._get_token(self.request))
         self.assertFalse("access_token" in self.request.session)
 
     @mock.patch('requests.post')
     def test_renew_token(self, mock_request_post):
-        mock_request_post.return_value = self._mock_response(text=json.dumps(SAMPLE_TOKEN_RESPONSE))
+        mock_request_post.return_value = self._mock_response(
+            text=json.dumps(SAMPLE_TOKEN_RESPONSE))
         self.request.session['refresh_token'] = 'alskdfjadlfads'
 
         self.assertTrue(self.hub._refresh_token(self.request))
-        self.assertEqual(self.request.session['access_token'], SAMPLE_TOKEN_RESPONSE['access_token'])
+        self.assertEqual(self.request.session['access_token'],
+                         SAMPLE_TOKEN_RESPONSE['access_token'])
 
     @mock.patch('requests.post')
     def test_renew_token_anon(self, mock_request_post):
         # if we don't have a refresh token in session, this should fail
-        mock_request_post.return_value = self._mock_response(text=json.dumps(SAMPLE_TOKEN_RESPONSE))
+        mock_request_post.return_value = self._mock_response(
+            text=json.dumps(SAMPLE_TOKEN_RESPONSE))
 
         self.assertFalse(self.hub._refresh_token(self.request))
         self.assertFalse("access_token" in self.request.session)
 
     @mock.patch('requests.post')
     def test_renew_token_error(self, mock_request_post):
-        mock_request_post.return_value = self._mock_response(text=json.dumps(SAMPLE_TOKEN_RESPONSE), status=401)
+        mock_request_post.return_value = self._mock_response(
+            text=json.dumps(SAMPLE_TOKEN_RESPONSE), status=401)
         self.request.session['refresh_token'] = 'alskdfjadlfads'
 
         self.assertTrue(self.hub._refresh_token(self.request))
-        self.assertEqual(self.request.session['access_token'], SAMPLE_TOKEN_RESPONSE['access_token'])
+        self.assertEqual(self.request.session['access_token'],
+                         SAMPLE_TOKEN_RESPONSE['access_token'])
 
     @mock.patch('requests.post')
     def test_get_api_success(self, mock_request_post):
-        mock_request_post.return_value = self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE))
+        mock_request_post.return_value = self._mock_response(
+            text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE))
         self.request.session['access_token'] = 'aslkfjadskfjd'
 
-        response = self.hub._get_api(self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
+        response = self.hub._get_api(
+            self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
 
         self.assertTrue(response)
         self.assertEqual(response.status_code, 200)
@@ -124,7 +134,8 @@ class EFilingHubTests(TransactionTestCase):
             self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE))
         ]
 
-        response = self.hub._get_api(self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
+        response = self.hub._get_api(
+            self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
 
         self.assertTrue(response)
         self.assertEqual(response.status_code, 200)
@@ -133,10 +144,12 @@ class EFilingHubTests(TransactionTestCase):
 
     @mock.patch('requests.post')
     def test_get_api_no_token(self, mock_request_post):
-        mock_request_post.return_value = self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE))
+        mock_request_post.return_value = self._mock_response(
+            text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE))
 
         with self.assertRaises(Exception):
-            response = self.hub._get_api(self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
+            response = self.hub._get_api(
+                self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
 
     def test_transaction_id_current(self):
         self.request.session['transaction_id'] = 'alksdjflaskdjf'
@@ -163,18 +176,23 @@ class EFilingHubTests(TransactionTestCase):
 
     def test_format_package(self):
         files = []
+        documents = []        
         for i in range(0, 2):
-            file = SimpleUploadedFile('form_{}.pdf'.format(i), b'test content')
+            document = PACKAGE_DOCUMENT_FORMAT.copy()
+            filename = 'form_{}.pdf'.format(i)
+            document['name'] = filename
+            file = SimpleUploadedFile(filename, b'test content')
             files.append(('files', (file.name, file.read())))
+            documents.append(document)
         parties = []
         for i in range(0, 2):
             party = PACKAGE_PARTY_FORMAT.copy()
             party['firstName'] = 'Party {}'.format(i)
             party['lastName'] = 'Test'
             parties.append(party)
-        doc_types = ['MC', 'RDP']
+
         location = '6011'
-        package = self.hub._format_package(self.request, files, doc_types, parties, location)
+        package = self.hub._format_package(self.request, files, documents, parties, location)
 
         self.assertTrue(package)
         self.assertEqual(package['filingPackage']['documents'][0]['name'], 'form_0.pdf')

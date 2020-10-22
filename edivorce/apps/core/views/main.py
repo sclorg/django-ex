@@ -1,4 +1,5 @@
 import datetime
+import hashlib
 
 from django.conf import settings
 from django.contrib import messages
@@ -235,35 +236,47 @@ def _submit_files(request, initial=False):
     # todo: refactor this!!!!
 
     post_files = []
-    doc_types = []
+    documents = []
 
     (uploaded, generated) = forms_to_file(responses_dict, initial)
 
     for form in generated:
         pdf_response = pdf_form(request, str(form['form_number']))
+        document = PACKAGE_DOCUMENT_FORMAT.copy()
         filename = get_filename(form['doc_type'], 0)
+        document['name'] = filename
+        document['type'] = form['doc_type']
+        document['md5'] = hashlib.md5(pdf_response.content).hexdigest()
         post_files.append(('files', (filename, pdf_response.content)))
-        doc_types.append(form['doc_type'])
+        documents.append(document)
 
-    for document in uploaded:
-        pdf_response = images_to_pdf(request, document['doc_type'], document['party_code'])
+    for form in uploaded:
+        pdf_response = images_to_pdf(request, form['doc_type'], form['party_code'])
         if pdf_response.status_code == 200:
-            filename = get_filename(document['doc_type'], document['party_code'])
+            document = PACKAGE_DOCUMENT_FORMAT.copy()
+            filename = get_filename(form['doc_type'], 0)
+            document['name'] = filename
+            document['type'] = form['doc_type']
+            document['md5'] = hashlib.md5(pdf_response.content).hexdigest()
             post_files.append(('files', (filename, pdf_response.content)))
-            doc_types.append(document['doc_type'])
+            documents.append(document)
 
     # generate the list of parties to send to eFiling Hub
     parties = []
 
     party1 = PACKAGE_PARTY_FORMAT.copy()
     party1['firstName'] = responses_dict.get('given_name_1_you', '').strip()
-    party1['middleName'] = (responses_dict.get('given_name_2_you', '') + ' ' + responses_dict.get('given_name_3_you', '')).strip()
+    party1['middleName'] = (responses_dict.get('given_name_2_you', '') +
+                            ' ' +
+                            responses_dict.get('given_name_3_you', '')).strip()
     party1['lastName'] = responses_dict.get('last_name_you', '').strip()
     parties.append(party1)
 
     party2 = PACKAGE_PARTY_FORMAT.copy()
     party2['firstName'] = responses_dict.get('given_name_1_spouse', '').strip()
-    party2['middleName'] = (responses_dict.get('given_name_2_spouse', '') + ' ' + responses_dict.get('given_name_3_spouse', '')).strip()
+    party2['middleName'] = (responses_dict.get('given_name_2_spouse', '') +
+                            ' ' +
+                            responses_dict.get('given_name_3_spouse', '')).strip()
     party2['lastName'] = responses_dict.get('last_name_spouse', '').strip()
     parties.append(party2)
 
@@ -271,7 +284,7 @@ def _submit_files(request, initial=False):
     location = list_of_registries.get(location_name, '0000')
 
     hub = EFilingHub()
-    redirect_url, msg = hub.upload(request, post_files, doc_types, parties, location)
+    redirect_url, msg = hub.upload(request, post_files, documents, parties, location)
 
     if redirect_url:
         return redirect(redirect_url)

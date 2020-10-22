@@ -83,13 +83,13 @@ def checkbox(context, *args, **kwargs):
     args_pass = all(args)
     kwargs_list = []
     for question, value in kwargs.items():
+        dict_with_question = None
         if question in context['responses']:
             dict_with_question = context['responses']
         elif question in context['derived']:
             dict_with_question = context['derived']
-        else:
-            raise KeyError(f'{question} not found in responses or derived')
-        kwargs_list.append(str(value) in str(dict_with_question[question]))
+        if dict_with_question:
+            kwargs_list.append(str(value) in str(dict_with_question[question]))
     kwargs_pass = all(kwargs_list)
 
     return mark_safe('<i class="fa fa%s-square-o" aria-hidden="true"></i>' %
