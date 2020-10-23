@@ -21,7 +21,7 @@ def file_documents(request, responses, initial=False):
 
     hub = EFilingHub(initial_filing=initial)
 
-    post_files, documents = hub.get_files(request, uploaded, generated)
+    post_files, documents = hub.get_files(request, responses, uploaded, generated)
     location = hub.get_location(responses)
     parties = hub.get_parties(responses)
 
