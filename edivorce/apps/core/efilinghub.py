@@ -237,9 +237,8 @@ class EFilingHub:
         location_name = responses.get('court_registry_for_filing', '')
         location = list_of_registries.get(location_name, '0000')
 
-        package_data = self._format_package(request, post_files, documents, parties, location)
+        return post_files, documents, parties, location
 
-        return package_data, post_files
 
     def _get_document(self, doc_type, party_code):
         document = PACKAGE_DOCUMENT_FORMAT.copy()
@@ -259,8 +258,13 @@ class EFilingHub:
             return slug + "--Claimant2.pdf"
 
     # -- EFILING HUB INTERFACE --
+    def prepare(self, request, responses, uploaded=None, generated=None):
+        post_files, documents, parties, location = self._get_data(request, responses, uploaded, generated)
 
-    def upload(self, request, responses, uploaded, generated):
+        return self._format_package(request, post_files, documents, parties, location)
+        
+
+    def upload(self, request, files, documents=None, parties=None, location=None):
         """
         Does an initial upload of documents and gets the generated eFiling Hub url.
         :param parties:
@@ -278,7 +282,7 @@ class EFilingHub:
         if bce_id is None:
             raise PermissionDenied()
 
-        package_data, files = self._get_data(request, responses, uploaded, generated)
+        # package_data, files = self._get_data(request, responses, uploaded, generated)
 
         url = f'{self.api_base_url}/submission/documents'
         response = self._get_api(request, url, transaction_id, bce_id, headers={}, files=files)
@@ -290,6 +294,7 @@ class EFilingHub:
                 headers = {
                     'Content-Type': 'application/json'
                 }
+                package_data = self._format_package(request, files, documents, parties, location)
                 url = f"{self.api_base_url}/submission/{response['submissionId']}/generateUrl"
                 response = self._get_api(request, url, transaction_id, bce_id, headers=headers,
                                          data=json.dumps(package_data))
