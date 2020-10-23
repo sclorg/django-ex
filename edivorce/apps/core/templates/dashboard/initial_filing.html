@@ -85,10 +85,10 @@
                 </ul>
             {% endif %}
             <div id="vue-app">
-                <initial-filing-uploader
+                <filing-uploader
                         :form-types="{{ form_types }}"
                         proxy-root-path="{{ proxy_root_path }}">
-                </initial-filing-uploader>
+                </filing-uploader>
             </div>
         </div>
 
@@ -158,15 +158,15 @@
 
 {% block extra_css %}
     <link rel="stylesheet" type="text/css" href="{% static 'dist/vue/css/chunk-common.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'dist/vue/css/initialFiling.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'dist/vue/css/filingUploader.css' %}"/>
     <link rel="preload" as="script" href="{% static 'dist/vue/js/chunk-vendors.js' %}"/>
     <link rel="preload" as="script" href="{% static 'dist/vue/js/chunk-common.js' %}"/>
-    <link rel="preload" as="script" href="{% static 'dist/vue/js/initialFiling.js' %}"/>
+    <link rel="preload" as="script" href="{% static 'dist/vue/js/filingUploader.js' %}"/>
 {% endblock %}
 
 {% block extra_js %}
     <script type="text/javascript" src="{% static 'dist/vue/js/chunk-vendors.js' %}"></script>
     <script type="text/javascript" src="{% static 'dist/vue/js/chunk-common.js' %}"></script>
-    <script type="text/javascript" src="{% static 'dist/vue/js/initialFiling.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dist/vue/js/filingUploader.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/filing.js' %}"></script>
 {% endblock %}
