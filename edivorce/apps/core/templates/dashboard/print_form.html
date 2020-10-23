@@ -416,7 +416,8 @@
         <h3>Additional Documents to Print and Complete</h3>
         <p>The following additional documents are required as part of your filing:</p>
         <ul>
-            <li>
+            {% if original_marriage_certificate == 'YES' %}
+                <li>
                 <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
                       data-html="true"
                       title="
@@ -427,17 +428,18 @@
                 <br /><br />
                 - Does not require signatures.
                 ">Proof of marriage<i class="fa fa-question-circle" aria-hidden="true"></i></span>.
-                Original or certified Marriage Certificate or Registration of Divorce. If not in English, also provide
-                <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-                      data-html="true"
-                      title="
+                    Original or certified Marriage Certificate or Registration of Divorce. If not in English, also provide
+                    <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
+                          data-html="true"
+                          title="
                 <b>Affidavit of Translation</b>
                 <br /><br />
                 The Affidavit of Translation is an affidavit which is sworn by a translator before a notary, lawyer or commissioner for taking Affidavits.
                 The original certificate of marriage should be exhibited to the Affidavit of Translation together with the translation of the translator.
                 ">Affidavit of Translation<i class="fa fa-question-circle" aria-hidden="true"></i></span>
-                and English translation.
-            </li>
+                    and English translation.
+                </li>
+            {% endif %}
             <li>
                 <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
                       data-html="true"

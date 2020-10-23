@@ -69,15 +69,17 @@ def forms_to_file(responses_dict, initial=False):
     name_change_spouse = derived['wants_other_orders'] and responses_dict.get('name_change_spouse') == 'YES'
     has_children = derived['has_children_of_marriage']
 
+    provide_marriage_certificate = responses_dict.get('original_marriage_certificate') == 'YES'
     married_in_canada = responses_dict.get('where_were_you_married_country') == 'Canada'
     marriage_province = responses_dict.get('where_were_you_married_prov', '').strip().upper()
-    married_in_quebec = married_in_canada and marriage_province.startswith('Q')
+    married_in_quebec = married_in_canada and marriage_province.lower().startswith('q')
 
     if initial:
         generated.append({'doc_type': 'NJF', 'form_number': 1})
-        uploaded.append({'doc_type': 'MC', 'party_code': 0})
-        if married_in_quebec:
-            uploaded.append({'doc_type': 'AFTL', 'party_code': 0})
+        if provide_marriage_certificate:
+            uploaded.append({'doc_type': 'MC', 'party_code': 0})
+            if married_in_quebec:
+                uploaded.append({'doc_type': 'AFTL', 'party_code': 0})
 
         if signing_location_both == 'In-person' or signing_location_you == 'In-person':
             # claimant 1 is signing with a commissioner
@@ -88,8 +90,7 @@ def forms_to_file(responses_dict, initial=False):
             generated.append({'doc_type': 'RFO', 'form_number': 35})
             generated.append({'doc_type': 'RCP', 'form_number': 36})
             uploaded.append({'doc_type': 'OFI', 'party_code': 0})
-            if married_in_quebec:
-                uploaded.append({'doc_type': 'EFSS', 'party_code': 1})
+            uploaded.append({'doc_type': 'EFSS', 'party_code': 1})
             uploaded.append({'doc_type': 'RDP', 'party_code': 0})
             if has_children:
                 uploaded.append({'doc_type': 'AAI', 'party_code': 0})
@@ -101,10 +102,9 @@ def forms_to_file(responses_dict, initial=False):
             generated.append({'doc_type': 'RFO', 'form_number': 35})
             generated.append({'doc_type': 'RCP', 'form_number': 36})
             uploaded.append({'doc_type': 'OFI', 'party_code': 0})
-            if married_in_quebec:
-                uploaded.append({'doc_type': 'EFSS', 'party_code': 1})
-                if how_to_sign == 'Separately':
-                    uploaded.append({'doc_type': 'EFSS', 'party_code': 2})
+            uploaded.append({'doc_type': 'EFSS', 'party_code': 1})
+            if how_to_sign == 'Separately':
+                uploaded.append({'doc_type': 'EFSS', 'party_code': 2})
             uploaded.append({'doc_type': 'RDP', 'party_code': 0})
             if has_children:
                 uploaded.append({'doc_type': 'AAI', 'party_code': 0})
