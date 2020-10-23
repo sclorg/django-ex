@@ -99,7 +99,7 @@ class EfilingHubUpload(FormView):
                 party['lastName'] = 'Test'
                 parties.append(party)
 
-            hub = EFilingHub()
+            hub = EFilingHub(initial_filing=True)
             redirect, msg = hub.upload(request, post_files, parties=parties)
             if redirect:
                 self.success_url = redirect

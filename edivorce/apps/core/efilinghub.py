@@ -1,11 +1,17 @@
+import hashlib
 import json
-import requests
 import logging
+import re
+import requests
 import uuid
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
+
+from edivorce.apps.core.models import Document
+from edivorce.apps.core.utils.question_step_mapping import list_of_registries
+from edivorce.apps.core.views.pdf import images_to_pdf, pdf_form
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +55,7 @@ PACKAGE_FORMAT = {
 
 class EFilingHub:
 
-    def __init__(self):
+    def __init__(self, initial_filing):
         self.client_id = settings.EFILING_HUB_CLIENT_ID
         self.client_secret = settings.EFILING_HUB_CLIENT_SECRET
         self.token_base_url = settings.EFILING_HUB_TOKEN_BASE_URL
@@ -57,6 +63,7 @@ class EFilingHub:
         self.api_base_url = settings.EFILING_HUB_API_BASE_URL
 
         self.submission_id = None
+        self.initial_filing = initial_filing
 
     def _get_token(self, request):
         payload = f'client_id={self.client_id}&grant_type=client_credentials&client_secret={self.client_secret}'
@@ -177,14 +184,83 @@ class EFilingHub:
             reverse('dashboard_nav', args=['check_with_registry']))
         package['navigationUrls']['error'] = request.build_absolute_uri(
             reverse('dashboard_nav', args=['check_with_registry']))
-        package['navigationUrls']['cancel'] = request.build_absolute_uri(
-            reverse('dashboard_nav', args=['check_with_registry']))
+        if self.initial_filing:
+            package['navigationUrls']['cancel'] = request.build_absolute_uri(
+                reverse('dashboard_nav', args=['initial_filing']))
+        else:
+            package['navigationUrls']['cancel'] = request.build_absolute_uri(
+                reverse('dashboard_nav', args=['final_filing']))
 
         return package
 
+    def _get_data(self, request, responses, uploaded, generated):
+
+        post_files = []
+        documents = []
+
+        for form in generated:
+            document = self._get_document(form['doc_type'], 0)
+            pdf_response = pdf_form(request, str(form['form_number']))
+            document['md5'] = hashlib.md5(pdf_response.content).hexdigest()
+            post_files.append(('files', (document['name'], pdf_response.content)))
+            documents.append(document)
+
+        for form in uploaded:
+            party_code = form['party_code']
+            doc_type = form['doc_type']
+            pdf_response = images_to_pdf(request, doc_type, party_code)
+            if pdf_response.status_code == 200:
+                document = self._get_document(doc_type, party_code)
+                document['md5'] = hashlib.md5(pdf_response.content).hexdigest()
+                post_files.append(('files', (document['name'], pdf_response.content)))
+                documents.append(document)
+
+        # generate the list of parties to send to eFiling Hub
+        parties = []
+
+        party1 = PACKAGE_PARTY_FORMAT.copy()
+        party1['firstName'] = responses.get('given_name_1_you', '').strip()
+        party1['middleName'] = (responses.get('given_name_2_you', '') +
+                                ' ' +
+                                responses.get('given_name_3_you', '')).strip()
+        party1['lastName'] = responses.get('last_name_you', '').strip()
+        parties.append(party1)
+
+        party2 = PACKAGE_PARTY_FORMAT.copy()
+        party2['firstName'] = responses.get('given_name_1_spouse', '').strip()
+        party2['middleName'] = (responses.get('given_name_2_spouse', '') +
+                                ' ' +
+                                responses.get('given_name_3_spouse', '')).strip()
+        party2['lastName'] = responses.get('last_name_spouse', '').strip()
+        parties.append(party2)
+
+        location_name = responses.get('court_registry_for_filing', '')
+        location = list_of_registries.get(location_name, '0000')
+
+        package_data = self._format_package(request, post_files, documents, parties, location)
+
+        return package_data, post_files
+
+    def _get_document(self, doc_type, party_code):
+        document = PACKAGE_DOCUMENT_FORMAT.copy()
+        filename = self._get_filename(doc_type, party_code)
+        document['name'] = filename
+        document['type'] = doc_type
+        return document
+
+    def _get_filename(self, doc_type, party_code):
+        form_name = Document.form_types[doc_type]
+        slug = re.sub('[^0-9a-zA-Z]+', '-', form_name).strip('-')
+        if party_code == 0:
+            return slug + ".pdf"
+        elif party_code == 1:
+            return slug + "--Claimant1.pdf"
+        else:
+            return slug + "--Claimant2.pdf"
+
     # -- EFILING HUB INTERFACE --
 
-    def upload(self, request, files, documents=None, parties=None, location=None):
+    def upload(self, request, responses, uploaded, generated):
         """
         Does an initial upload of documents and gets the generated eFiling Hub url.
         :param parties:
@@ -202,6 +278,8 @@ class EFilingHub:
         if bce_id is None:
             raise PermissionDenied()
 
+        package_data, files = self._get_data(request, responses, uploaded, generated)
+
         url = f'{self.api_base_url}/submission/documents'
         response = self._get_api(request, url, transaction_id, bce_id, headers={}, files=files)
         if response.status_code == 200:
@@ -212,7 +290,6 @@ class EFilingHub:
                 headers = {
                     'Content-Type': 'application/json'
                 }
-                package_data = self._format_package(request, files, documents, parties, location)
                 url = f"{self.api_base_url}/submission/{response['submissionId']}/generateUrl"
                 response = self._get_api(request, url, transaction_id, bce_id, headers=headers,
                                          data=json.dumps(package_data))

@@ -1,22 +1,29 @@
 import random
-import re
 
 from django.conf import settings
 
+from edivorce.apps.core.efilinghub import EFilingHub
 from edivorce.apps.core.models import Document, UserResponse
 from edivorce.apps.core.utils.derived import get_derived_data
 
 
-def file_documents(user, responses, initial=False):
-    (forms, _) = forms_to_file(responses, initial)
+def file_documents(request, responses, initial=False):
+    user = request.user
+    (uploaded, generated) = forms_to_file(responses, initial)
     missing_forms = []
-    for form in forms:
+    for form in uploaded:
         docs = Document.objects.filter(bceid_user=user, doc_type=form['doc_type'], party_code=form.get('party_code', 0))
         if docs.count() == 0:
             missing_forms.append(Document.form_types[form['doc_type']])
 
     if missing_forms:
-        return missing_forms
+        return missing_forms, None
+
+    hub = EFilingHub(initial_filing=initial)
+    redirect_url, msg = hub.upload(request, responses, uploaded, generated)
+
+    if redirect_url:
+        return None, redirect_url
 
     # Save dummy data for now. Eventually replace with data from CSO
     prefix = 'initial' if initial else 'final'
@@ -150,14 +157,3 @@ def forms_to_file(responses_dict, initial=False):
             return [], []
 
     return uploaded, generated
-
-
-def get_filename(doc_type, party_code):
-    form_name = Document.form_types[doc_type]
-    slug = re.sub('[^0-9a-zA-Z]+', '-', form_name).strip('-')
-    if party_code == 0:
-        return slug + ".pdf"
-    elif party_code == 1:
-        return slug + "--Claimant1.pdf"
-    else:
-        return slug + "--Claimant2.pdf"

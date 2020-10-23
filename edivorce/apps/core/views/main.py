@@ -1,17 +1,12 @@
-import datetime
-import hashlib
-
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import intercept, prequal_completed
-from ..utils.cso_filing import file_documents, forms_to_file, get_filename
-from ..efilinghub import EFilingHub, PACKAGE_PARTY_FORMAT, PACKAGE_DOCUMENT_FORMAT
+from ..utils.cso_filing import forms_to_file
 from ..utils.question_step_mapping import list_of_registries
 from ..utils.step_completeness import get_error_dict, get_missed_question_keys, get_step_completeness, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
@@ -22,7 +17,6 @@ from ..utils.user_response import (
     get_responses_from_session,
     get_responses_from_session_grouped_by_steps,
 )
-from .pdf import images_to_pdf, pdf_form
 
 
 def home(request):
@@ -117,32 +111,13 @@ def register_sc(request):
     return redirect(settings.REGISTER_BCSC_URL)
 
 
-def signin(request):
+def after_login(request):
     if not request.user.is_authenticated:
         return render(request, '407.html')
-
-    # I think Django might be doing this automatically now that we have switched to mozilla-django-oidc?
-    # if timezone.now() - request.user.last_login > datetime.timedelta(minutes=1):
-    #    request.user.last_login = timezone.now()
-    #    request.user.save()
 
     copy_session_to_db(request, request.user)
 
     return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
-
-
-def logout(request):
-    """
-    Clear session and log out of BCeID
-    """
-    request.session.flush()
-
-    response = redirect(settings.LOGOUT_URL)
-
-    if settings.DEPLOYMENT_TYPE in ['localdev', 'minishift']:
-        response = redirect('/')
-
-    return response
 
 
 @login_required
@@ -203,95 +178,6 @@ def dashboard_nav(request, nav_step):
                                  'This is a temporary problem. '
                                  'Please try again now and if this issue persists try again later.')
     return render(request, template_name=template_name, context=responses_dict)
-
-
-@login_required
-@prequal_completed
-def submit_initial_files(request):
-    return _submit_files(request, initial=True)
-
-
-@login_required
-@prequal_completed
-def submit_final_files(request):
-    return _submit_files(request, initial=False)
-
-
-def _submit_files(request, initial=False):
-    responses_dict = get_data_for_user(request.user)
-    if initial:
-        original_step = 'initial_filing'
-        next_page = 'wait_for_number'
-    else:
-        original_step = 'final_filing'
-        next_page = 'next_steps'
-    missing_forms = file_documents(request.user, responses_dict, initial=initial)
-    if missing_forms:
-        next_page = original_step
-        for form_name in missing_forms:
-            messages.add_message(request, messages.ERROR, f'Missing documents for {form_name}')
-    responses_dict['active_page'] = next_page
-
-    #################
-    # todo: refactor this!!!!
-
-    post_files = []
-    documents = []
-
-    (uploaded, generated) = forms_to_file(responses_dict, initial)
-
-    for form in generated:
-        pdf_response = pdf_form(request, str(form['form_number']))
-        document = PACKAGE_DOCUMENT_FORMAT.copy()
-        filename = get_filename(form['doc_type'], 0)
-        document['name'] = filename
-        document['type'] = form['doc_type']
-        document['md5'] = hashlib.md5(pdf_response.content).hexdigest()
-        post_files.append(('files', (filename, pdf_response.content)))
-        documents.append(document)
-
-    for form in uploaded:
-        pdf_response = images_to_pdf(request, form['doc_type'], form['party_code'])
-        if pdf_response.status_code == 200:
-            document = PACKAGE_DOCUMENT_FORMAT.copy()
-            filename = get_filename(form['doc_type'], 0)
-            document['name'] = filename
-            document['type'] = form['doc_type']
-            document['md5'] = hashlib.md5(pdf_response.content).hexdigest()
-            post_files.append(('files', (filename, pdf_response.content)))
-            documents.append(document)
-
-    # generate the list of parties to send to eFiling Hub
-    parties = []
-
-    party1 = PACKAGE_PARTY_FORMAT.copy()
-    party1['firstName'] = responses_dict.get('given_name_1_you', '').strip()
-    party1['middleName'] = (responses_dict.get('given_name_2_you', '') +
-                            ' ' +
-                            responses_dict.get('given_name_3_you', '')).strip()
-    party1['lastName'] = responses_dict.get('last_name_you', '').strip()
-    parties.append(party1)
-
-    party2 = PACKAGE_PARTY_FORMAT.copy()
-    party2['firstName'] = responses_dict.get('given_name_1_spouse', '').strip()
-    party2['middleName'] = (responses_dict.get('given_name_2_spouse', '') +
-                            ' ' +
-                            responses_dict.get('given_name_3_spouse', '')).strip()
-    party2['lastName'] = responses_dict.get('last_name_spouse', '').strip()
-    parties.append(party2)
-
-    location_name = responses_dict.get('court_registry_for_filing', '')
-    location = list_of_registries.get(location_name, '0000')
-
-    hub = EFilingHub()
-    redirect_url, msg = hub.upload(request, post_files, documents, parties, location)
-
-    if redirect_url:
-        return redirect(redirect_url)
-
-    #################
-
-    return redirect(reverse('dashboard_nav', kwargs={'nav_step': next_page}), context=responses_dict)
 
 
 @login_required

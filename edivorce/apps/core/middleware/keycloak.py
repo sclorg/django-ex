@@ -2,8 +2,6 @@ from django.conf import settings
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from mozilla_django_oidc.utils import absolutify
 
-from ..models import BceidUser
-
 
 class EDivorceKeycloakBackend(OIDCAuthenticationBackend):
 
@@ -35,7 +33,7 @@ class EDivorceKeycloakBackend(OIDCAuthenticationBackend):
         user.user_guid = claims.get('universal-id', '')
         user.save()
 
-        self.request.session['bcgov_userguid'] = user.user_guid        
+        self.request.session['bcgov_userguid'] = user.user_guid
 
         return user
 
@@ -47,6 +45,8 @@ class EDivorceKeycloakBackend(OIDCAuthenticationBackend):
 
 
 def keycloak_logout(request):
+    request.session.flush()
+
     redirect_uri = absolutify(request, settings.FORCE_SCRIPT_NAME)
 
     return f'{settings.KEYCLOAK_LOGOUT}?redirect_uri={redirect_uri}'
