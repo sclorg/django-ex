@@ -1507,12 +1507,18 @@ textarea {
         margin-bottom: 0 !important;
     }
 
+    .add-bottom-margin {
+        margin-bottom: 30px;
+    }
+
     .add-top-margin {
         margin-top: 30px;
     }
 
-    .no-bullets {
+    .no-padding-left {
         padding-left: 0;
+    }
+    .no-bullets {
         li {
             list-style: none;
         }

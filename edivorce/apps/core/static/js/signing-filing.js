@@ -90,6 +90,8 @@ $(window).load(function () {
         if ($("input:radio[name='how_to_sign']:checked").length === 0) {
             $("#sign-together").prop('checked', true).trigger('change');
         }
+
+        // If filing options are not visible, default to In-person
         if ($("input:radio[name='how_to_file']").length === 0) {
             ajaxCall('how_to_file', 'In-person');
         } else if ($("input:radio[name='how_to_file']:checked").length === 0) {
@@ -97,7 +99,12 @@ $(window).load(function () {
         }
     }
 
-    setDefaults()
+    // Set signing and filing defaults if the signing option is on the page
+    if ($("input:radio[name='how_to_sign']").length > 0) {
+        setDefaults()
+    }
+
+    // Set filing location defaults if the filing option is on the page
     if ($("input:radio[name='how_to_file']").length > 0) {
         toggleSigningLocation();
         toggleSignVirtually();
@@ -128,9 +135,9 @@ $(window).load(function () {
             {
                 type: 'GET',
             }).success((response) => {
-                var data = JSON.parse(response);
-                $('#court-registry-address').text(data.address);
-                $('#court-registry-postal-code').text(data.postal_code);
+            var data = JSON.parse(response);
+            $('#court-registry-address').text(data.address);
+            $('#court-registry-postal-code').text(data.postal_code);
         }).error((response) => {
             $('#court-registry-address').html('<span class="error-text">No address found</span>');
             $('#court-registry-postal-code').html('<a href="https://www.bccourts.ca/supreme_court/court_locations_and_contacts.aspx">Look up address</a>');

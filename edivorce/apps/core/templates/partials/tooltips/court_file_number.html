@@ -5,4 +5,5 @@
                 <br /><br />
                 This is the filing # given by the Court Registry to your spouse when they filed their portion
                 of the documents. If unknown, please check with your spouse before entering your Court File #.">
-          Court File Number<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+          {% if text %}{{ text }}{% else %}Court File Number{% endif %}
+    <i class="fa fa-question-circle" aria-hidden="true"></i></span>
