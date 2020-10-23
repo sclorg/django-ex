@@ -193,7 +193,25 @@ class EFilingHub:
 
         return package
 
-    def _get_data(self, request, responses, uploaded, generated):
+    def _get_document(self, doc_type, party_code):
+        document = PACKAGE_DOCUMENT_FORMAT.copy()
+        filename = self._get_filename(doc_type, party_code)
+        document['name'] = filename
+        document['type'] = doc_type
+        return document
+
+    def _get_filename(self, doc_type, party_code):
+        form_name = Document.form_types[doc_type]
+        slug = re.sub('[^0-9a-zA-Z]+', '-', form_name).strip('-')
+        if party_code == 0:
+            return slug + ".pdf"
+        elif party_code == 1:
+            return slug + "--Claimant1.pdf"
+        else:
+            return slug + "--Claimant2.pdf"
+
+    # -- EFILING HUB INTERFACE --
+    def get_files(self, request, uploaded, generated):
 
         post_files = []
         documents = []
@@ -215,6 +233,10 @@ class EFilingHub:
                 post_files.append(('files', (document['name'], pdf_response.content)))
                 documents.append(document)
 
+        return post_files, documents
+
+    def get_parties(self, responses):
+
         # generate the list of parties to send to eFiling Hub
         parties = []
 
@@ -234,35 +256,14 @@ class EFilingHub:
         party2['lastName'] = responses.get('last_name_spouse', '').strip()
         parties.append(party2)
 
+        return parties
+
+    def get_location(self, responses):
+
         location_name = responses.get('court_registry_for_filing', '')
         location = list_of_registries.get(location_name, '0000')
 
-        return post_files, documents, parties, location
-
-
-    def _get_document(self, doc_type, party_code):
-        document = PACKAGE_DOCUMENT_FORMAT.copy()
-        filename = self._get_filename(doc_type, party_code)
-        document['name'] = filename
-        document['type'] = doc_type
-        return document
-
-    def _get_filename(self, doc_type, party_code):
-        form_name = Document.form_types[doc_type]
-        slug = re.sub('[^0-9a-zA-Z]+', '-', form_name).strip('-')
-        if party_code == 0:
-            return slug + ".pdf"
-        elif party_code == 1:
-            return slug + "--Claimant1.pdf"
-        else:
-            return slug + "--Claimant2.pdf"
-
-    # -- EFILING HUB INTERFACE --
-    def prepare(self, request, responses, uploaded=None, generated=None):
-        post_files, documents, parties, location = self._get_data(request, responses, uploaded, generated)
-
-        return self._format_package(request, post_files, documents, parties, location)
-        
+        return location
 
     def upload(self, request, files, documents=None, parties=None, location=None):
         """

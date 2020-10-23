@@ -20,7 +20,12 @@ def file_documents(request, responses, initial=False):
         return missing_forms, None
 
     hub = EFilingHub(initial_filing=initial)
-    redirect_url, msg = hub.upload(request, responses, uploaded, generated)
+
+    post_files, documents = hub.get_files(request, uploaded, generated)
+    location = hub.get_location(responses)
+    parties = hub.get_parties(responses)
+
+    redirect_url, msg = hub.upload(request, post_files, documents, parties, location)    
 
     if redirect_url:
         return None, redirect_url
