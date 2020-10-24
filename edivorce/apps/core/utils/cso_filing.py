@@ -8,15 +8,22 @@ from edivorce.apps.core.utils.derived import get_derived_data
 
 
 def file_documents(user, responses, initial=False):
-    (forms, _) = forms_to_file(responses, initial)
-    missing_forms = []
-    for form in forms:
+    errors = []
+    if not initial:
+        user_has_submitted_initial = _get_response(user, 'initial_filing_submitted')
+        if not user_has_submitted_initial:
+            errors.append("You must file the initial filing first before submitting the final filing.")
+        court_file_number = _get_response(user, 'court_file_number')
+        if not court_file_number:
+            errors.append("You must input your Court File Number")
+    uploaded_forms, _ = forms_to_file(responses, initial)
+    for form in uploaded_forms:
         docs = Document.objects.filter(bceid_user=user, doc_type=form['doc_type'], party_code=form.get('party_code', 0))
         if docs.count() == 0:
-            missing_forms.append(Document.form_types[form['doc_type']])
+            errors.append(f"Missing documents for {Document.form_types[form['doc_type']]}")
 
-    if missing_forms:
-        return missing_forms
+    if errors:
+        return errors
 
     # Save dummy data for now. Eventually replace with data from CSO
     prefix = 'initial' if initial else 'final'
@@ -51,6 +58,12 @@ def _save_response(user, question, value):
     response, _ = UserResponse.objects.get_or_create(bceid_user=user, question_id=question)
     response.value = value
     response.save()
+
+
+def _get_response(user, question):
+    response = UserResponse.objects.filter(bceid_user=user, question_id=question).first()
+    if response:
+        return response.value
 
 
 def forms_to_file(responses_dict, initial=False):
@@ -141,7 +154,8 @@ def forms_to_file(responses_dict, initial=False):
             uploaded.append({'doc_type': 'OFI', 'party_code': 0})
             uploaded.append({'doc_type': 'EFSS', 'party_code': 1})
             uploaded.append({'doc_type': 'EFSS', 'party_code': 2})
-            uploaded.append({'doc_type': 'AII', 'party_code': 0})
+            if has_children:
+                uploaded.append({'doc_type': 'AAI', 'party_code': 0})
             if name_change_you:
                 uploaded.append({'doc_type': 'NCV', 'party_code': 1})
             if name_change_spouse:

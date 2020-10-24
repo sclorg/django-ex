@@ -238,11 +238,11 @@ def _submit_files(request, initial=False):
     else:
         original_step = 'final_filing'
         next_page = 'next_steps'
-    missing_forms = file_documents(request.user, responses_dict, initial=initial)
-    if missing_forms:
+    errors = file_documents(request.user, responses_dict, initial=initial)
+    if errors:
         next_page = original_step
-        for form_name in missing_forms:
-            messages.add_message(request, messages.ERROR, f'Missing documents for {form_name}')
+        for error in errors:
+            messages.add_message(request, messages.ERROR, error)
         responses_dict['active_page'] = next_page
         return redirect(reverse('dashboard_nav', kwargs={'nav_step': next_page}), context=responses_dict)
     responses_dict['active_page'] = next_page
