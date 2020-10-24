@@ -47,7 +47,7 @@ class EFilingHubTests(TransactionTestCase):
         middleware.process_request(self.request)
         self.request.session.save()
         
-        self.hub = EFilingHub()
+        self.hub = EFilingHub(initial_filing=True)
 
     def _mock_response(self, status=200, text="Text", json_data=None, raise_for_status=None):
         mock_resp = mock.Mock()

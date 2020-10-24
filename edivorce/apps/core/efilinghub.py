@@ -1,11 +1,18 @@
+import datetime
+import hashlib
 import json
-import requests
 import logging
+import re
+import requests
 import uuid
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
+
+from edivorce.apps.core.models import Document
+from edivorce.apps.core.utils.question_step_mapping import list_of_registries
+from edivorce.apps.core.views.pdf import images_to_pdf, pdf_form
 
 logger = logging.getLogger(__name__)
 
@@ -46,10 +53,58 @@ PACKAGE_FORMAT = {
     }
 }
 
+NJF_ALIAS_FORMAT = {
+    "nameType": "AKA",
+    "surname": "",
+    "given1": "",
+    "given2": "",
+    "given3": ""
+}
+
+NJF_JSON_FORMAT = {
+    "parties": [
+        {
+            "label": "Claimant 1",
+            "surname": "",
+            "given1": "",
+            "given2": "",
+            "given3": "",
+            "birthDate": "",
+            "email": "",
+            "aliases": [],
+            "surnameAtBirth": "",
+            "surnameBeforeMarriage": "",
+            "signingVirtually": False
+        },
+        {
+            "label": "Claimant 2",
+            "surname": "",
+            "given1": "",
+            "given2": "",
+            "given3": "",
+            "birthDate": "",
+            "email": "",
+            "aliases": [],
+            "surnameAtBirth": "",
+            "surnameBeforeMarriage": "",
+            "signingVirtually": False
+        }
+    ],
+    "placeOfMarriage": {
+        "country": "",
+        "province": "",
+        "city": ""
+    },
+    "dateOfMarriage": "",
+    "reasonForDivorce": "S",
+    "act": "",
+    "ordersSought": []
+}
+
 
 class EFilingHub:
 
-    def __init__(self):
+    def __init__(self, initial_filing):
         self.client_id = settings.EFILING_HUB_CLIENT_ID
         self.client_secret = settings.EFILING_HUB_CLIENT_SECRET
         self.token_base_url = settings.EFILING_HUB_TOKEN_BASE_URL
@@ -57,6 +112,7 @@ class EFilingHub:
         self.api_base_url = settings.EFILING_HUB_API_BASE_URL
 
         self.submission_id = None
+        self.initial_filing = initial_filing
 
     def _get_token(self, request):
         payload = f'client_id={self.client_id}&grant_type=client_credentials&client_secret={self.client_secret}'
@@ -177,12 +233,141 @@ class EFilingHub:
             reverse('dashboard_nav', args=['check_with_registry']))
         package['navigationUrls']['error'] = request.build_absolute_uri(
             reverse('dashboard_nav', args=['check_with_registry']))
-        package['navigationUrls']['cancel'] = request.build_absolute_uri(
-            reverse('dashboard_nav', args=['check_with_registry']))
+        if self.initial_filing:
+            package['navigationUrls']['cancel'] = request.build_absolute_uri(
+                reverse('dashboard_nav', args=['initial_filing']))
+        else:
+            package['navigationUrls']['cancel'] = request.build_absolute_uri(
+                reverse('dashboard_nav', args=['final_filing']))
 
         return package
 
+    def _get_document(self, doc_type, party_code):
+        document = PACKAGE_DOCUMENT_FORMAT.copy()
+        filename = self._get_filename(doc_type, party_code)
+        document['name'] = filename
+        document['type'] = doc_type
+        return document
+
+    def _get_filename(self, doc_type, party_code):
+        form_name = Document.form_types[doc_type]
+        slug = re.sub('[^0-9a-zA-Z]+', '-', form_name).strip('-')
+        if party_code == 0:
+            return slug + ".pdf"
+        elif party_code == 1:
+            return slug + "--Claimant1.pdf"
+        else:
+            return slug + "--Claimant2.pdf"
+
+    def _get_json_data(self, responses):
+
+        def format_date(str):
+            try:
+                return datetime.datetime.strptime(str, '%b %d, %Y').strftime('%Y-%m-%d')
+            except:
+                return ''
+
+        r = responses
+        d = NJF_JSON_FORMAT.copy()
+
+        signing_location_you = ''
+        signing_location_spouse = ''
+
+        if r.get('how_to_sign') == 'Together':
+            signing_location_you = r.get('signing_location')
+            signing_location_spouse = r.get('signing_location')
+        elif r.get('how_to_sign') == 'Separately':
+            signing_location_you = r.get('signing_location_you')
+            signing_location_spouse = r.get('signing_location_spouse')
+
+        party1 = d["parties"][0]
+        party1["surname"] = r.get('last_name_you', '').strip()
+        party1["given1"] = r.get('given_name_1_you', '').strip()
+        party1["given2"] = r.get('given_name_2_you', '').strip()
+        party1["given3"] = r.get('given_name_3_you', '').strip()
+        party1["birthDate"] = format_date(r.get('birthday_you'))
+        party1["surnameAtBirth"] = r.get('last_name_born_you', '').strip()
+        party1["surnameBeforeMarriage"] = r.get('last_name_before_married_you', '').strip()
+        email = r.get('email_you', '').strip()
+        if not email:
+            email = r.get('address_to_send_official_document_email_you', '').strip()
+        party1["email"] = email
+        party1["signingVirtually"] = signing_location_you == 'Virtual'
+        party1["aliases"] = []
+
+        party2 = d["parties"][1]
+        party2["surname"] = r.get('last_name_spouse', '').strip()
+        party2["given1"] = r.get('given_name_1_spouse', '').strip()
+        party2["given2"] = r.get('given_name_2_spouse', '').strip()
+        party2["given3"] = r.get('given_name_3_spouse', '').strip()
+        party2["birthDate"] = format_date(r.get('birthday_spouse'))
+        party2["surnameAtBirth"] = r.get('last_name_born_spouse', '').strip()
+        party2["surnameBeforeMarriage"] = r.get('last_name_before_married_spouse', '').strip()
+        email = r.get('email_spouse', '').strip()
+        if not email:
+            email = r.get('address_to_send_official_document_email_spouse', '').strip()
+        party2["email"] = email
+        party2["signingVirtually"] = signing_location_spouse == 'Virtual'
+        party2["aliases"] = []
+
+        d["dateOfMarriage"] = format_date(r.get('when_were_you_married'))
+
+        return d
+
     # -- EFILING HUB INTERFACE --
+    def get_files(self, request, responses, uploaded, generated):
+
+        post_files = []
+        documents = []
+
+        for form in generated:
+            doc_type = form['doc_type']
+            document = self._get_document(doc_type, 0)
+            if doc_type == 'NJF':
+                document['data'] = self._get_json_data(responses)
+            pdf_response = pdf_form(request, str(form['form_number']))
+            document['md5'] = hashlib.md5(pdf_response.content).hexdigest()
+            post_files.append(('files', (document['name'], pdf_response.content)))
+            documents.append(document)
+
+        for form in uploaded:
+            party_code = form['party_code']
+            doc_type = form['doc_type']
+            pdf_response = images_to_pdf(request, doc_type, party_code)
+            if pdf_response.status_code == 200:
+                document = self._get_document(doc_type, party_code)
+                document['md5'] = hashlib.md5(pdf_response.content).hexdigest()
+                post_files.append(('files', (document['name'], pdf_response.content)))
+                documents.append(document)
+
+        return post_files, documents
+
+    def get_parties(self, responses):
+
+        # generate the list of parties to send to eFiling Hub
+        parties = []
+
+        party1 = PACKAGE_PARTY_FORMAT.copy()
+        party1['firstName'] = responses.get('given_name_1_you', '').strip()
+        party1['middleName'] = (responses.get('given_name_2_you', '') +
+                                ' ' +
+                                responses.get('given_name_3_you', '')).strip()
+        party1['lastName'] = responses.get('last_name_you', '').strip()
+        parties.append(party1)
+
+        party2 = PACKAGE_PARTY_FORMAT.copy()
+        party2['firstName'] = responses.get('given_name_1_spouse', '').strip()
+        party2['middleName'] = (responses.get('given_name_2_spouse', '') +
+                                ' ' +
+                                responses.get('given_name_3_spouse', '')).strip()
+        party2['lastName'] = responses.get('last_name_spouse', '').strip()
+        parties.append(party2)
+
+        return parties
+
+    def get_location(self, responses):
+        location_name = responses.get('court_registry_for_filing', '')
+        return list_of_registries.get(location_name, '0000')
 
     def upload(self, request, files, documents=None, parties=None, location=None):
         """
@@ -202,6 +387,8 @@ class EFilingHub:
         if bce_id is None:
             raise PermissionDenied()
 
+        # package_data, files = self._get_data(request, responses, uploaded, generated)
+
         url = f'{self.api_base_url}/submission/documents'
         response = self._get_api(request, url, transaction_id, bce_id, headers={}, files=files)
         if response.status_code == 200:
@@ -214,8 +401,8 @@ class EFilingHub:
                 }
                 package_data = self._format_package(request, files, documents, parties, location)
                 url = f"{self.api_base_url}/submission/{response['submissionId']}/generateUrl"
-                response = self._get_api(request, url, transaction_id, bce_id, headers=headers,
-                                         data=json.dumps(package_data))
+                data = json.dumps(package_data)
+                response = self._get_api(request, url, transaction_id, bce_id, headers, data)
 
                 if response.status_code == 200:
                     response = json.loads(response.text)

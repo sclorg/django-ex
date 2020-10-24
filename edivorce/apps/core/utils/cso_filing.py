@@ -1,13 +1,14 @@
 import random
-import re
 
 from django.conf import settings
 
+from edivorce.apps.core.efilinghub import EFilingHub
 from edivorce.apps.core.models import Document, UserResponse
 from edivorce.apps.core.utils.derived import get_derived_data
 
 
-def file_documents(user, responses, initial=False):
+def file_documents(request, responses, initial=False):
+    user = request.user
     errors = []
     if not initial:
         user_has_submitted_initial = _get_response(user, 'initial_filing_submitted')
@@ -16,14 +17,26 @@ def file_documents(user, responses, initial=False):
         court_file_number = _get_response(user, 'court_file_number')
         if not court_file_number:
             errors.append("You must input your Court File Number")
-    uploaded_forms, _ = forms_to_file(responses, initial)
-    for form in uploaded_forms:
+
+    uploaded, generated = forms_to_file(responses, initial)
+    for form in uploaded:
         docs = Document.objects.filter(bceid_user=user, doc_type=form['doc_type'], party_code=form.get('party_code', 0))
         if docs.count() == 0:
             errors.append(f"Missing documents for {Document.form_types[form['doc_type']]}")
 
     if errors:
-        return errors
+        return errors, None
+
+    hub = EFilingHub(initial_filing=initial)
+
+    post_files, documents = hub.get_files(request, responses, uploaded, generated)
+    location = hub.get_location(responses)
+    parties = hub.get_parties(responses)
+
+    redirect_url, msg = hub.upload(request, post_files, documents, parties, location)
+
+    if redirect_url:
+        return errors, redirect_url
 
     # Save dummy data for now. Eventually replace with data from CSO
     prefix = 'initial' if initial else 'final'
@@ -52,6 +65,7 @@ def file_documents(user, responses, initial=False):
 
     package_link = base_url + '/cso/register.do?packageNumber=' + package_number
     _save_response(user, f'{prefix}_filing_package_link', package_link)
+    return None, None
 
 
 def _save_response(user, question, value):
@@ -164,14 +178,3 @@ def forms_to_file(responses_dict, initial=False):
             return [], []
 
     return uploaded, generated
-
-
-def get_filename(doc_type, party_code):
-    form_name = Document.form_types[doc_type]
-    slug = re.sub('[^0-9a-zA-Z]+', '-', form_name).strip('-')
-    if party_code == 0:
-        return slug + ".pdf"
-    elif party_code == 1:
-        return slug + "--Claimant1.pdf"
-    else:
-        return slug + "--Claimant2.pdf"

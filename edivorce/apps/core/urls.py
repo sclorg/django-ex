@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.urls import path
 
-from .views import main, system, pdf, api
+from .views import main, system, pdf, api, efiling
 
 urlpatterns = [
     # url(r'^guide$', styleguide.guide),
@@ -13,17 +13,16 @@ urlpatterns = [
     # we add an extra 'x' to the file extension so the siteminder proxy doesn't treat it as an image
     path('api/documents/<doc_type>/<int:party_code>/<filename>x/<int:size>/', api.DocumentView.as_view(), name='document'),
 
-    url(r'^signin$', main.signin, name="signin"),
+    url(r'^signin$', main.after_login, name="signin"),
     url(r'^register$', main.register, name="register"),
     url(r'^register_sc$', main.register_sc, name="register_sc"),
-    url(r'^logout$', main.logout, name="logout"),
     url(r'^overview$', main.overview, name="overview"),
     url(r'^success$', main.success, name="success"),
     url(r'^incomplete$', main.incomplete, name="incomplete"),
     url(r'^intercept$', main.intercept_page, name="intercept"),
     url(r'^dashboard/(?P<nav_step>.*)', main.dashboard_nav, name="dashboard_nav"),
-    path('submit/initial', main.submit_initial_files, name="submit_initial_files"),
-    path('submit/final', main.submit_final_files, name="submit_final_files"),
+    path('submit/initial', efiling.submit_initial_files, name="submit_initial_files"),
+    path('submit/final', efiling.submit_final_files, name="submit_final_files"),
     url(r'^health$', system.health),
     url(r'^legal$', main.legal, name="legal"),
     url(r'^acknowledgements$', main.acknowledgements, name="acknowledgements"),
