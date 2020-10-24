@@ -92,7 +92,9 @@
                 </div>
             </div>
             <div class="upload-area">
-                {% if how_to_sign == 'Together' and signing_location == 'In-person' %}
+                {% if how_to_sign == 'Together' and signing_location == 'Virtual' %}
+                {% elif how_to_sign == 'Separately' and signing_location_you == 'Virtual' and signing_location_spouse == 'Virtual' %}
+                {% else %}
                     <p>
                         The following forms will be automatically filed for you:
                     </p>
