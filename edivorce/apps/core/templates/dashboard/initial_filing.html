@@ -129,7 +129,7 @@
             <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'wait_for_number' %}">Next&nbsp;&nbsp;&nbsp;<i
                     class="fa fa-arrow-circle-o-right"></i></a>
         {% elif how_to_file == 'Online' %}
-            <a class="btn btn-success pull-right" href="{% url 'submit_initial_files' %}" id="submitDocuments">
+            <a class="btn btn-success pull-right save-spinner" href="{% url 'submit_initial_files' %}" id="submitDocuments">
                 <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;
                 Submit Documents</a>
         {% else %}
@@ -160,16 +160,13 @@
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'dist/vue/css/chunk-common.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'dist/vue/css/filingUploader.css' %}"/>
     <link rel="preload" as="script" href="{% static 'dist/vue/js/chunk-vendors.js' %}"/>
-    <link rel="preload" as="script" href="{% static 'dist/vue/js/chunk-common.js' %}"/>
     <link rel="preload" as="script" href="{% static 'dist/vue/js/filingUploader.js' %}"/>
 {% endblock %}
 
 {% block extra_js %}
     <script type="text/javascript" src="{% static 'dist/vue/js/chunk-vendors.js' %}"></script>
-    <script type="text/javascript" src="{% static 'dist/vue/js/chunk-common.js' %}"></script>
     <script type="text/javascript" src="{% static 'dist/vue/js/filingUploader.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/filing.js' %}"></script>
 {% endblock %}
