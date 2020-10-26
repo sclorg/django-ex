@@ -37,7 +37,7 @@ def file_documents(request, responses, initial=False):
     return None, None
 
 
-def after_file_documents(request, responses, initial=False):
+def after_file_documents(request, initial=False):
     user = request.user
 
     # Save dummy data for now. Eventually replace with data from CSO
@@ -81,19 +81,14 @@ def forms_to_file(responses_dict, initial=False):
 
     how_to_file = responses_dict.get('how_to_file')
     how_to_sign = responses_dict.get('how_to_sign')
-    signing_location_both = responses_dict.get(
-        'signing_location') if how_to_sign == 'Together' else None
-    signing_location_you = responses_dict.get(
-        'signing_location_you') if how_to_sign == 'Separately' else None
-    signing_location_spouse = responses_dict.get(
-        'signing_location_spouse') if how_to_sign == 'Separately' else None
+    signing_location_both = responses_dict.get('signing_location') if how_to_sign == 'Together' else None
+    signing_location_you = responses_dict.get('signing_location_you') if how_to_sign == 'Separately' else None
+    signing_location_spouse = responses_dict.get('signing_location_spouse') if how_to_sign == 'Separately' else None
 
     derived = responses_dict.get('derived', get_derived_data(responses_dict))
 
-    name_change_you = derived['wants_other_orders'] and responses_dict.get(
-        'name_change_you') == 'YES'
-    name_change_spouse = derived['wants_other_orders'] and responses_dict.get(
-        'name_change_spouse') == 'YES'
+    name_change_you = derived['wants_other_orders'] and responses_dict.get('name_change_you') == 'YES'
+    name_change_spouse = derived['wants_other_orders'] and responses_dict.get('name_change_spouse') == 'YES'
     has_children = derived['has_children_of_marriage']
 
     provide_marriage_certificate = responses_dict.get('original_marriage_certificate') == 'YES'

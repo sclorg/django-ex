@@ -62,7 +62,7 @@ def _after_submit_files(request, initial=False):
     else:
         next_page = 'next_steps'
 
-    after_file_documents(request, responses_dict, initial=initial)
+    after_file_documents(request, initial=initial)
 
     responses_dict['active_page'] = next_page
 
