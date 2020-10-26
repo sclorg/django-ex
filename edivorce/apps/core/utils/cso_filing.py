@@ -28,19 +28,23 @@ def file_documents(request, responses, initial=False):
     if errors:
         return errors, None
 
-    hub = EFilingHub(initial_filing=initial)
+    if not settings.EFILING_HUB_ENABLED:
+        return after_file_documents(request, initial)
 
+    hub = EFilingHub(initial_filing=initial)
     post_files, documents = hub.get_files(request, responses, uploaded, generated)
     location = hub.get_location(responses)
     parties = hub.get_parties(responses)
 
     redirect_url, msg = hub.upload(request, post_files, documents, parties, location)
 
-    if redirect_url:
-        return errors, redirect_url
+    if msg != 'success':
+        errors.append(msg)
+        return errors, None
 
-    if msg:
-        return [msg], None
+    if redirect_url:
+        return None, redirect_url
+
     return None, None
 
 

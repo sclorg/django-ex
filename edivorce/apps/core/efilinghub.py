@@ -231,19 +231,19 @@ class EFilingHub:
             package['filingPackage']['parties'] = parties
         # update return urls
         if self.initial_filing:
-            package['navigationUrls']['error'] = request.build_absolute_uri(
-                reverse('dashboard_nav', args=['initial_filing']))
-            package['navigationUrls']['cancel'] = request.build_absolute_uri(
-                reverse('dashboard_nav', args=['initial_filing'])) + '?cancelled=1'
-            package['navigationUrls']['success'] = request.build_absolute_uri(
-                reverse('after_submit_initial_files'))
+            package['navigationUrls']['error'] = self._get_absolute_url(
+                request, reverse('dashboard_nav', args=['initial_filing']))
+            package['navigationUrls']['cancel'] = self._get_absolute_url(
+                request, reverse('dashboard_nav', args=['initial_filing'])) + '?cancelled=1'
+            package['navigationUrls']['success'] = self._get_absolute_url(
+                request, reverse('after_submit_initial_files'))
         else:
-            package['navigationUrls']['error'] = request.build_absolute_uri(
-                reverse('dashboard_nav', args=['final_filing']))
-            package['navigationUrls']['cancel'] = request.build_absolute_uri(
-                reverse('dashboard_nav', args=['final_filing'])) + '?cancelled=1'
-            package['navigationUrls']['success'] = request.build_absolute_uri(
-                reverse('after_submit_final_files'))
+            package['navigationUrls']['error'] = self._get_absolute_url(
+                request, reverse('dashboard_nav', args=['final_filing']))
+            package['navigationUrls']['cancel'] = self._get_absolute_url(
+                request, reverse('dashboard_nav', args=['final_filing'])) + '?cancelled=1'
+            package['navigationUrls']['success'] = self._get_absolute_url(
+                request, reverse('after_submit_final_files'))
 
         return package
 
@@ -365,6 +365,12 @@ class EFilingHub:
                 d["ordersSought"].append('OTH')
 
         return d
+
+    def _get_absolute_url(self, request, path):
+        if settings.PROXY_BASE_URL:
+            return settings.PROXY_BASE_URL + path
+        else:
+            return request.build_absolute_uri(path)
 
     # -- EFILING HUB INTERFACE --
     def get_files(self, request, responses, uploaded, generated):

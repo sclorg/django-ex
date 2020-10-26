@@ -49,3 +49,5 @@ OIDC_OP_USER_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/open
 KEYCLOAK_LOGOUT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/logout'
 OIDC_RP_CLIENT_ID = 'edivorce-app'
 LOGIN_REDIRECT_URL = '/signin'
+
+EFILING_HUB_ENABLED = False

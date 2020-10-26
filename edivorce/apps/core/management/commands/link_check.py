@@ -29,6 +29,9 @@ class Command(BaseCommand):
                     file_path = os.path.join(root, file)
 
                     fs = open(file_path)
+
+                    print('Parsing: ' + fs.name)
+
                     soup = BeautifulSoup(fs, 'html.parser')
                     links = soup.find_all('a', href=True)
                     for link in links:
