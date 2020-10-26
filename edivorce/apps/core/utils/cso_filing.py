@@ -38,7 +38,7 @@ def file_documents(request, responses, initial=False):
 
     redirect_url, msg = hub.upload(request, post_files, documents, parties, location)
 
-    if msg:
+    if msg != 'success':
         errors.append(msg)
         return errors, None
 

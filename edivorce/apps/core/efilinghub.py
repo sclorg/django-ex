@@ -231,17 +231,17 @@ class EFilingHub:
             package['filingPackage']['parties'] = parties
         # update return urls
         package['navigationUrls']['error'] = self._get_absolute_url(
-            reverse('dashboard_nav', args=['check_with_registry']))
+            request, reverse('dashboard_nav', args=['check_with_registry']))
         if self.initial_filing:
             package['navigationUrls']['cancel'] = self._get_absolute_url(
-                reverse('dashboard_nav', args=['initial_filing']))
+                request, reverse('dashboard_nav', args=['initial_filing']))
             package['navigationUrls']['success'] = self._get_absolute_url(
-                reverse('after_submit_initial_files'))
+                request, reverse('after_submit_initial_files'))
         else:
             package['navigationUrls']['cancel'] = self._get_absolute_url(
-                reverse('dashboard_nav', args=['final_filing']))
+                request, reverse('dashboard_nav', args=['final_filing']))
             package['navigationUrls']['success'] = self._get_absolute_url(
-                reverse('after_submit_final_files'))
+                request, reverse('after_submit_final_files'))
 
         return package
 
@@ -364,8 +364,11 @@ class EFilingHub:
 
         return d
 
-    def _get_absolute_url(self, path):
-        return settings.PROXY_BASE_URL + path
+    def _get_absolute_url(self, request, path):
+        if settings.PROXY_BASE_URL:
+            return settings.PROXY_BASE_URL + path
+        else:
+            return request.get_host() + path
 
     # -- EFILING HUB INTERFACE --
     def get_files(self, request, responses, uploaded, generated):
