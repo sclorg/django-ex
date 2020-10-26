@@ -97,7 +97,8 @@ NJF_JSON_FORMAT = {
     },
     "dateOfMarriage": "",
     "reasonForDivorce": "S",
-    "act": "",
+    "childSupportAct": [],
+    "spouseSupportAct": "",
     "ordersSought": []
 }
 
@@ -267,6 +268,19 @@ class EFilingHub:
             except:
                 return ''
 
+        def get_aliases(str):
+            aliases = []
+            names = json.loads(str)
+            for name in names:
+                if len(name) == 5 and name[1] != '' and name[2] != '':
+                    alias = NJF_ALIAS_FORMAT.copy()
+                    alias["surname"] = name[1]
+                    alias["given1"] = name[2]
+                    alias["given2"] = name[3]
+                    alias["given3"] = name[4]
+                    aliases.append(alias)
+            return aliases
+
         r = responses
         d = NJF_JSON_FORMAT.copy()
 
@@ -281,36 +295,70 @@ class EFilingHub:
             signing_location_spouse = r.get('signing_location_spouse')
 
         party1 = d["parties"][0]
-        party1["surname"] = r.get('last_name_you', '').strip()
-        party1["given1"] = r.get('given_name_1_you', '').strip()
-        party1["given2"] = r.get('given_name_2_you', '').strip()
-        party1["given3"] = r.get('given_name_3_you', '').strip()
+        party1["surname"] = r.get('last_name_you', '')
+        party1["given1"] = r.get('given_name_1_you', '')
+        party1["given2"] = r.get('given_name_2_you', '')
+        party1["given3"] = r.get('given_name_3_you', '')
         party1["birthDate"] = format_date(r.get('birthday_you'))
-        party1["surnameAtBirth"] = r.get('last_name_born_you', '').strip()
-        party1["surnameBeforeMarriage"] = r.get('last_name_before_married_you', '').strip()
-        email = r.get('email_you', '').strip()
+        party1["surnameAtBirth"] = r.get('last_name_born_you', '')
+        party1["surnameBeforeMarriage"] = r.get('last_name_before_married_you', '')
+        email = r.get('email_you', '')
         if not email:
-            email = r.get('address_to_send_official_document_email_you', '').strip()
+            email = r.get('address_to_send_official_document_email_you', '')
         party1["email"] = email
         party1["signingVirtually"] = signing_location_you == 'Virtual'
-        party1["aliases"] = []
+        if r.get('any_other_name_you') == 'YES':
+            party1["aliases"] = get_aliases(r.get('other_name_you'))
 
         party2 = d["parties"][1]
-        party2["surname"] = r.get('last_name_spouse', '').strip()
-        party2["given1"] = r.get('given_name_1_spouse', '').strip()
-        party2["given2"] = r.get('given_name_2_spouse', '').strip()
-        party2["given3"] = r.get('given_name_3_spouse', '').strip()
+        party2["surname"] = r.get('last_name_spouse', '')
+        party2["given1"] = r.get('given_name_1_spouse', '')
+        party2["given2"] = r.get('given_name_2_spouse', '')
+        party2["given3"] = r.get('given_name_3_spouse', '')
         party2["birthDate"] = format_date(r.get('birthday_spouse'))
-        party2["surnameAtBirth"] = r.get('last_name_born_spouse', '').strip()
-        party2["surnameBeforeMarriage"] = r.get('last_name_before_married_spouse', '').strip()
-        email = r.get('email_spouse', '').strip()
+        party2["surnameAtBirth"] = r.get('last_name_born_spouse', '')
+        party2["surnameBeforeMarriage"] = r.get('last_name_before_married_spouse', '')
+        email = r.get('email_spouse', '')
         if not email:
-            email = r.get('address_to_send_official_document_email_spouse', '').strip()
+            email = r.get('address_to_send_official_document_email_spouse', '')
         party2["email"] = email
         party2["signingVirtually"] = signing_location_spouse == 'Virtual'
-        party2["aliases"] = []
+        if r.get('any_other_name_spouse') == 'YES':
+            party2["aliases"] = get_aliases(r.get('other_name_spouse'))
 
         d["dateOfMarriage"] = format_date(r.get('when_were_you_married'))
+        d["placeOfMarriage"]["country"] = r.get('where_were_you_married_country', '')
+        d["placeOfMarriage"]["province"] = r.get('where_were_you_married_prov', '')
+        d["placeOfMarriage"]["city"] = r.get('where_were_you_married_city', '')
+
+        d["childSupportAct"] = json.loads(r.get('child_support_act', '[]'))
+        d["spouseSupportAct"] = r.get('spouse_support_act', '')
+
+        orders_sought = json.load(r.get('want_which_orders', '[]'))
+
+        if 'A legal end to the marriage' in orders_sought:
+            d["ordersSought"].append('DIV')
+
+        if 'Spousal support' in orders_sought:
+            d["ordersSought"].append('SSU')
+
+        if 'Division of property and debts' in orders_sought:
+            division = r.get('deal_with_property_debt', '')
+            if division == 'Equal division':
+                d["ordersSought"].append('DFA')
+            if division == 'Unequal division':
+                d["ordersSought"].append('RFA')
+            if re.sub(r'\W+', '', r.get('other_property_claims', '')) != '':
+                d["ordersSought"].append('PRO')
+
+        if 'Child support' in orders_sought:
+            d["ordersSought"].append('CSU')
+
+        if 'Other orders' in orders_sought:
+            if r.get('name_change_you') == 'YES' or r.get('name_change_spouse') == 'YES':
+                d["ordersSought"].append('NAM')
+            if re.sub(r'\W+', '', r.get('other_orders_detail ', '')) != '':
+                d["ordersSought"].append('OTH')
 
         return d
 
@@ -348,19 +396,19 @@ class EFilingHub:
         parties = []
 
         party1 = PACKAGE_PARTY_FORMAT.copy()
-        party1['firstName'] = responses.get('given_name_1_you', '').strip()
+        party1['firstName'] = responses.get('given_name_1_you', '')
         party1['middleName'] = (responses.get('given_name_2_you', '') +
                                 ' ' +
                                 responses.get('given_name_3_you', '')).strip()
-        party1['lastName'] = responses.get('last_name_you', '').strip()
+        party1['lastName'] = responses.get('last_name_you', '')
         parties.append(party1)
 
         party2 = PACKAGE_PARTY_FORMAT.copy()
-        party2['firstName'] = responses.get('given_name_1_spouse', '').strip()
+        party2['firstName'] = responses.get('given_name_1_spouse', '')
         party2['middleName'] = (responses.get('given_name_2_spouse', '') +
                                 ' ' +
                                 responses.get('given_name_3_spouse', '')).strip()
-        party2['lastName'] = responses.get('last_name_spouse', '').strip()
+        party2['lastName'] = responses.get('last_name_spouse', '')
         parties.append(party2)
 
         return parties
