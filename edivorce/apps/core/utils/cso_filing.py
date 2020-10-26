@@ -20,7 +20,8 @@ def file_documents(request, responses, initial=False):
 
     uploaded, generated = forms_to_file(responses, initial)
     for form in uploaded:
-        docs = Document.objects.filter(bceid_user=user, doc_type=form['doc_type'], party_code=form.get('party_code', 0))
+        docs = Document.objects.filter(
+            bceid_user=user, doc_type=form['doc_type'], party_code=form.get('party_code', 0))
         if docs.count() == 0:
             errors.append(f"Missing documents for {Document.form_types[form['doc_type']]}")
 
@@ -34,11 +35,19 @@ def file_documents(request, responses, initial=False):
         location = hub.get_location(responses)
         parties = hub.get_parties(responses)
 
-
         redirect_url, msg = hub.upload(request, post_files, documents, parties, location)
 
         if redirect_url:
             return errors, redirect_url
+
+        if msg:
+            return msg, None
+
+    return None, None
+
+
+def after_file_documents(request, initial=False):
+    user = request.user
 
     # Save dummy data for now. Eventually replace with data from CSO
     prefix = 'initial' if initial else 'final'

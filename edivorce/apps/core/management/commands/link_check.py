@@ -35,7 +35,7 @@ class Command(BaseCommand):
                         if link is None:
                             continue
                         if link['href'].startswith('http'):
-                            filename = str(file_path.name)
+                            filename = str(fs.name)
 
                             status = self._check_link(link['href'])
                             if status:
