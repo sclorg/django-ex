@@ -230,16 +230,18 @@ class EFilingHub:
         if parties:
             package['filingPackage']['parties'] = parties
         # update return urls
-        package['navigationUrls']['success'] = request.build_absolute_uri(
-            reverse('dashboard_nav', args=['check_with_registry']))
         package['navigationUrls']['error'] = request.build_absolute_uri(
             reverse('dashboard_nav', args=['check_with_registry']))
         if self.initial_filing:
             package['navigationUrls']['cancel'] = request.build_absolute_uri(
                 reverse('dashboard_nav', args=['initial_filing']))
+            package['navigationUrls']['success'] = request.build_absolute_uri(
+                reverse('after_submit_initial_files'))
         else:
             package['navigationUrls']['cancel'] = request.build_absolute_uri(
                 reverse('dashboard_nav', args=['final_filing']))
+            package['navigationUrls']['success'] = request.build_absolute_uri(
+                reverse('after_submit_final_files'))
 
         return package
 
@@ -334,7 +336,7 @@ class EFilingHub:
         d["childSupportAct"] = json.loads(r.get('child_support_act', '[]'))
         d["spouseSupportAct"] = r.get('spouse_support_act', '')
 
-        orders_sought = json.load(r.get('want_which_orders', '[]'))
+        orders_sought = json.loads(r.get('want_which_orders', '[]'))
 
         if 'A legal end to the marriage' in orders_sought:
             d["ordersSought"].append('DIV')

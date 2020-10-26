@@ -12,7 +12,8 @@ def file_documents(request, responses, initial=False):
     (uploaded, generated) = forms_to_file(responses, initial)
     missing_forms = []
     for form in uploaded:
-        docs = Document.objects.filter(bceid_user=user, doc_type=form['doc_type'], party_code=form.get('party_code', 0))
+        docs = Document.objects.filter(
+            bceid_user=user, doc_type=form['doc_type'], party_code=form.get('party_code', 0))
         if docs.count() == 0:
             missing_forms.append(Document.form_types[form['doc_type']])
 
@@ -25,10 +26,19 @@ def file_documents(request, responses, initial=False):
     location = hub.get_location(responses)
     parties = hub.get_parties(responses)
 
-    redirect_url, msg = hub.upload(request, post_files, documents, parties, location)    
+    redirect_url, msg = hub.upload(request, post_files, documents, parties, location)
 
     if redirect_url:
         return None, redirect_url
+
+    if msg:
+        return msg, None
+
+    return None, None
+
+
+def after_file_documents(request, responses, initial=False):
+    user = request.user
 
     # Save dummy data for now. Eventually replace with data from CSO
     prefix = 'initial' if initial else 'final'
@@ -71,14 +81,19 @@ def forms_to_file(responses_dict, initial=False):
 
     how_to_file = responses_dict.get('how_to_file')
     how_to_sign = responses_dict.get('how_to_sign')
-    signing_location_both = responses_dict.get('signing_location') if how_to_sign == 'Together' else None
-    signing_location_you = responses_dict.get('signing_location_you') if how_to_sign == 'Separately' else None
-    signing_location_spouse = responses_dict.get('signing_location_spouse') if how_to_sign == 'Separately' else None
+    signing_location_both = responses_dict.get(
+        'signing_location') if how_to_sign == 'Together' else None
+    signing_location_you = responses_dict.get(
+        'signing_location_you') if how_to_sign == 'Separately' else None
+    signing_location_spouse = responses_dict.get(
+        'signing_location_spouse') if how_to_sign == 'Separately' else None
 
     derived = responses_dict.get('derived', get_derived_data(responses_dict))
 
-    name_change_you = derived['wants_other_orders'] and responses_dict.get('name_change_you') == 'YES'
-    name_change_spouse = derived['wants_other_orders'] and responses_dict.get('name_change_spouse') == 'YES'
+    name_change_you = derived['wants_other_orders'] and responses_dict.get(
+        'name_change_you') == 'YES'
+    name_change_spouse = derived['wants_other_orders'] and responses_dict.get(
+        'name_change_spouse') == 'YES'
     has_children = derived['has_children_of_marriage']
 
     provide_marriage_certificate = responses_dict.get('original_marriage_certificate') == 'YES'
