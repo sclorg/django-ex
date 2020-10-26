@@ -382,7 +382,7 @@ class EFilingHub:
             if doc_type == 'NJF':
                 document['data'] = self._get_json_data(responses)
             pdf_response = pdf_form(request, str(form['form_number']))
-            document['md5'] = hashlib.md5(pdf_response.content).hexdigest()
+            document['md5'] = hashlib.md5(pdf_response.content).hexdigest() # nosec
             post_files.append(('files', (document['name'], pdf_response.content)))
             documents.append(document)
 
@@ -392,7 +392,7 @@ class EFilingHub:
             pdf_response = images_to_pdf(request, doc_type, party_code)
             if pdf_response.status_code == 200:
                 document = self._get_document(doc_type, party_code)
-                document['md5'] = hashlib.md5(pdf_response.content).hexdigest()
+                document['md5'] = hashlib.md5(pdf_response.content).hexdigest() # nosec
                 post_files.append(('files', (document['name'], pdf_response.content)))
                 documents.append(document)
 
