@@ -3,17 +3,11 @@ module.exports = {
   filenameHashing: false,
   runtimeCompiler: true,
   pages: {
-    initialFiling: {
-      entry: 'src/pages/initial-filing/main.js',
-      template: 'public/initial-filing.html',
+    filingUploader: {
+      entry: 'src/pages/filing-uploader/main.js',
+      template: 'public/filing-uploader.html',
       filename: 'index.html',
-      chunks: ['chunk-vendors', 'chunk-common', 'initialFiling']
-    },
-    finalFiling: {
-      entry: 'src/pages/final-filing/main.js',
-      template: 'public/final-filing.html',
-      filename: 'final-filing.html',
-      chunks: ['chunk-vendors', 'chunk-common', 'finalFiling']
+      chunks: ['chunk-vendors', 'chunk-common', 'filingUploader']
     }
   },
   configureWebpack: {

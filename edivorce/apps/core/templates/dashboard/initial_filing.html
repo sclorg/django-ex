@@ -37,7 +37,7 @@
         </p>
     {% elif how_to_file == 'Online' %}
         <div class="review-warning" id="error-message-box" {% if not messages %}hidden{% endif %}>
-            <ul id="error-messages" class="{% if messages|length == 1 %}no-bullets {% endif %}no-margin-bottom">
+            <ul id="error-messages" class="{% if messages|length == 1 %}no-bullets no-padding-left {% endif %}no-margin-bottom">
                 {% for message in messages %}
                     <li>{{ message }}</li>
                 {% endfor %}
@@ -59,20 +59,20 @@
         <div class="upload-area">
             {% if how_to_sign == 'Together' and signing_location == 'In-person' %}
                 <div>
-                    <p>The {% include "partials/tooltips/joint_family_claim.html" with text="Notice of Joint Family Claim Form (F1)" %} will be
+                    <p>The {% include "partials/tooltips/joint_family_claim_1.html" with text="Notice of Joint Family Claim Form (F1)" %} will be
                         automatically filed for you.</p>
                 </div>
             {% elif how_to_sign == 'Separately' and signing_location_you == 'In-person' %}
                 <div>
-                    <p>The {% include "partials/tooltips/joint_family_claim.html" with text="Notice of Joint Family Claim Form (F1)" %} will be
+                    <p>The {% include "partials/tooltips/joint_family_claim_1.html" with text="Notice of Joint Family Claim Form (F1)" %} will be
                         automatically filed for you.</p>
                 </div>
             {% else %}
                 <p>The following forms will be automatically filed for you:</p>
                 <ul>
-                    <li>{% include "partials/tooltips/joint_family_claim.html" with text="Notice of Joint Family Claim Form (F1)" %}</li>
-                    <li>{% include "partials/tooltips/requisition_form.html" %}</li>
-                    <li>{% include "partials/tooltips/certificate_of_pleading.html" %}</li>
+                    <li>{% include "partials/tooltips/joint_family_claim_1.html" with text="Notice of Joint Family Claim Form (F1)" %}</li>
+                    <li>{% include "partials/tooltips/requisition_form_35.html" %}</li>
+                    <li>{% include "partials/tooltips/certificate_of_pleading_36.html" %}</li>
                 </ul>
                 <p>
                     The following forms will be submitted for you but
@@ -85,10 +85,10 @@
                 </ul>
             {% endif %}
             <div id="vue-app">
-                <initial-filing-uploader
+                <filing-uploader
                         :form-types="{{ form_types }}"
                         proxy-root-path="{{ proxy_root_path }}">
-                </initial-filing-uploader>
+                </filing-uploader>
             </div>
         </div>
 
@@ -128,10 +128,13 @@
         {% if initial_filing_submitted %}
             <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'wait_for_number' %}">Next&nbsp;&nbsp;&nbsp;<i
                     class="fa fa-arrow-circle-o-right"></i></a>
-        {% else %}
-            <a class="btn btn-success pull-right" href="{% url 'submit_initial_files' %}" id="submitDocuments">
+        {% elif how_to_file == 'Online' %}
+            <a class="btn btn-success pull-right save-spinner" href="{% url 'submit_initial_files' %}" id="submitDocuments">
                 <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;
                 Submit Documents</a>
+        {% else %}
+            <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'swear_forms' %}">Next&nbsp;&nbsp;&nbsp;<i
+                    class="fa fa-arrow-circle-o-right"></i></a>
         {% endif %}
         <a class="btn btn-primary pull-right save-spinner" href="{% url 'overview' %}"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;Save and return
             later</a>
@@ -157,16 +160,13 @@
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'dist/vue/css/chunk-common.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'dist/vue/css/initialFiling.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'dist/vue/css/filingUploader.css' %}"/>
     <link rel="preload" as="script" href="{% static 'dist/vue/js/chunk-vendors.js' %}"/>
-    <link rel="preload" as="script" href="{% static 'dist/vue/js/chunk-common.js' %}"/>
-    <link rel="preload" as="script" href="{% static 'dist/vue/js/initialFiling.js' %}"/>
+    <link rel="preload" as="script" href="{% static 'dist/vue/js/filingUploader.js' %}"/>
 {% endblock %}
 
 {% block extra_js %}
     <script type="text/javascript" src="{% static 'dist/vue/js/chunk-vendors.js' %}"></script>
-    <script type="text/javascript" src="{% static 'dist/vue/js/chunk-common.js' %}"></script>
-    <script type="text/javascript" src="{% static 'dist/vue/js/initialFiling.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dist/vue/js/filingUploader.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/filing.js' %}"></script>
 {% endblock %}

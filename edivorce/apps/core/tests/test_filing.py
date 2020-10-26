@@ -99,7 +99,7 @@ class FilingLogic(TestCase):
             self.create_response('children_of_marriage', 'YES')
             self.create_response('has_children_under_19', 'YES')
             uploaded, generated = forms_to_file(self.questions_dict, initial=True)
-            self.assertEqual(len(uploaded), doc_count+1)
+            self.assertEqual(len(uploaded), doc_count + 1)
             self.assertIn({'doc_type': doc_type("agreement as to annual income"), 'party_code': 0}, uploaded)
 
             self.create_response('want_which_orders', '["Other orders"]')
@@ -189,6 +189,84 @@ class FilingLogic(TestCase):
         self.create_response('signing_location_spouse', 'In-person')
 
         assert_package_1_2_needed()
+
+    def test_final_forms_to_file_together_virtually(self):
+        self.create_response('how_to_sign', 'Together')
+        self.create_response('signing_location', 'Virtual')
+        self.create_response('children_of_marriage', 'NO')
+
+        uploaded, generated = forms_to_file(self.questions_dict, initial=False)
+
+        self.assertEqual(len(uploaded), 1)
+        self.assertIn({'doc_type': doc_type("desk order divorce form"), 'party_code': 0}, uploaded)
+
+        self.assertEqual(len(generated), 0)
+        self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
+
+        uploaded, generated = forms_to_file(self.questions_dict, initial=False)
+
+        self.assertEqual(len(uploaded), 2)
+        self.assertIn({'doc_type': doc_type("child support affidavit"), 'party_code': 0}, uploaded)
+
+    def test_final_forms_to_file_separately_virtually(self):
+        self.create_response('how_to_sign', 'Separately')
+        self.create_response('signing_location_you', 'Virtual')
+        self.create_response('signing_location_spouse', 'Virtual')
+        self.create_response('children_of_marriage', 'NO')
+
+        uploaded, generated = forms_to_file(self.questions_dict, initial=False)
+
+        self.assertEqual(len(uploaded), 2)
+        self.assertIn({'doc_type': doc_type("desk order divorce form"), 'party_code': 1}, uploaded)
+        self.assertIn({'doc_type': doc_type("desk order divorce form"), 'party_code': 2}, uploaded)
+
+        self.assertEqual(len(generated), 0)
+        self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
+
+        uploaded, generated = forms_to_file(self.questions_dict, initial=False)
+
+        self.assertEqual(len(uploaded), 4)
+        self.assertIn({'doc_type': doc_type("child support affidavit"), 'party_code': 1}, uploaded)
+        self.assertIn({'doc_type': doc_type("child support affidavit"), 'party_code': 2}, uploaded)
+
+    def test_final_forms_to_file_in_person(self):
+        self.create_response('how_to_sign', 'Together')
+        self.create_response('signing_location', 'In-person')
+
+        # No conditional forms
+        self.create_response('children_of_marriage', 'NO')
+        uploaded, generated = forms_to_file(self.questions_dict, initial=False)
+
+        self.assertEqual(len(uploaded), 4)
+        self.assertIn({'doc_type': doc_type("electronic filing"), 'party_code': 1}, uploaded)
+        self.assertIn({'doc_type': doc_type("electronic filing"), 'party_code': 2}, uploaded)
+        self.assertIn({'doc_type': doc_type("desk order divorce form"), 'party_code': 0}, uploaded)
+        self.assertIn({'doc_type': doc_type("draft final order"), 'party_code': 0}, uploaded)
+
+        self.assertEqual(len(generated), 2)
+        self.assertIn({'doc_type': doc_type("requisition form"), 'form_number': 35}, generated)
+        self.assertIn({'doc_type': doc_type("certificate of pleadings"), 'form_number': 36}, generated)
+
+        # Conditional forms
+        self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
+        uploaded, generated = forms_to_file(self.questions_dict, initial=False)
+        self.assertEqual(len(uploaded), 6)
+        self.assertIn({'doc_type': doc_type("child support affidavit"), 'party_code': 0}, uploaded)
+        self.assertIn({'doc_type': doc_type("agreement as to annual income"), 'party_code': 0}, uploaded)
+
+        self.create_response('want_which_orders', '["Other orders"]')
+        self.create_response('name_change_you', 'YES')
+        uploaded, generated = forms_to_file(self.questions_dict, initial=False)
+        self.assertEqual(len(uploaded), 7)
+        self.assertIn({'doc_type': doc_type("identification of applicant"), 'party_code': 1}, uploaded)
+
+        self.create_response('name_change_spouse', 'YES')
+        uploaded, generated = forms_to_file(self.questions_dict, initial=False)
+        self.assertEqual(len(uploaded), 8)
+        self.assertIn({'doc_type': doc_type("identification of applicant"), 'party_code': 2}, uploaded)
 
 
 def doc_type(text):

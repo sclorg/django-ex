@@ -1875,9 +1875,19 @@
 },
 {
     "fields": {
-        "name": "Has the user successfully submitted the final filing",
+        "name": "Court File Number",
         "description": "For stage 7, Final filing",
         "summary_order": 172,
+        "required": ""
+    },
+    "model": "core.question",
+    "pk": "court_file_number"
+},
+{
+    "fields": {
+        "name": "Has the user successfully submitted the final filing",
+        "description": "For stage 7, Final filing",
+        "summary_order": 173,
         "required": ""
     },
     "model": "core.question",
@@ -1887,7 +1897,7 @@
     "fields": {
         "name": "Final Filing CSO Online Package #",
         "description": "For stage 7, Final filing",
-        "summary_order": 173,
+        "summary_order": 174,
         "required": ""
     },
     "model": "core.question",
@@ -1897,7 +1907,7 @@
     "fields": {
         "name": "Final Filing receipt link",
         "description": "For stage 7, Final filing",
-        "summary_order": 174,
+        "summary_order": 175,
         "required": ""
     },
     "model": "core.question",
@@ -1907,7 +1917,7 @@
     "fields": {
         "name": "Final Filing download package link",
         "description": "For stage 7, Final filing",
-        "summary_order": 175,
+        "summary_order": 176,
         "required": ""
     },
     "model": "core.question",
@@ -1917,7 +1927,7 @@
     "fields": {
         "name": "Final filing status",
         "description": "For stage 8, Next steps",
-        "summary_order": 176,
+        "summary_order": 177,
         "required": ""
     },
     "model": "core.question",

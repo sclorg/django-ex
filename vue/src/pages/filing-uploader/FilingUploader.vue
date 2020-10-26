@@ -22,13 +22,3 @@
     },
   };
 </script>
-
-<style scoped lang="scss">
-  .upload-area {
-    padding: 32px 20px 32px 20px;
-    margin-bottom: 50px;
-    background-color: #f2f2f2;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-  }
-</style>

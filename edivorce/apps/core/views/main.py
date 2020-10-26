@@ -157,27 +157,40 @@ def dashboard_nav(request, nav_step):
     responses_dict = get_data_for_user(request.user)
     responses_dict['active_page'] = nav_step
     template_name = 'dashboard/%s.html' % nav_step
-    if nav_step in ('print_form', 'swear_forms', 'next_steps') and responses_dict.get('court_registry_for_filing'):
-        responses_dict['court_registry_for_filing_address'] = f"123 {responses_dict.get('court_registry_for_filing')} St"
-        responses_dict['court_registry_for_filing_postal_code'] = 'V0A 1A1'
-    if nav_step in ('print_form', 'initial_filing'):
-        responses_dict_by_step = get_step_responses(responses_dict)
-        responses_dict.update(get_error_dict(responses_dict_by_step))
+    if nav_step in ('print_form', 'swear_forms', 'next_steps', 'final_filing') and responses_dict.get('court_registry_for_filing'):
+        _add_court_registry_address(responses_dict)
+    if nav_step in ('print_form', 'initial_filing', 'final_filing'):
+        _add_question_errors(responses_dict)
+    if nav_step in ('initial_filing', 'final_filing'):
+        _add_error_messages(nav_step, request, responses_dict)
 
     responses_dict['derived'] = get_derived_data(responses_dict)
-    if nav_step == 'initial_filing':
-        uploaded, _ = forms_to_file(responses_dict, initial=True)
-        responses_dict['form_types'] = uploaded
-        if request.GET.get('cancelled'):
-            messages.add_message(request, messages.ERROR,
-                                 'You have cancelled the filing of your documents. '
-                                 'You can complete the filing process at your convenience.')
-        elif request.GET.get('no_connection'):
-            messages.add_message(request, messages.ERROR,
-                                 'The connection to the BC Government’s eFiling Hub is currently not working. '
-                                 'This is a temporary problem. '
-                                 'Please try again now and if this issue persists try again later.')
     return render(request, template_name=template_name, context=responses_dict)
+
+
+def _add_court_registry_address(responses_dict):
+    responses_dict['court_registry_for_filing_address'] = f"123 {responses_dict.get('court_registry_for_filing')} St"
+    responses_dict['court_registry_for_filing_postal_code'] = 'V0A 1A1'
+
+
+def _add_question_errors(responses_dict):
+    responses_dict_by_step = get_step_responses(responses_dict)
+    responses_dict.update(get_error_dict(responses_dict_by_step))
+
+
+def _add_error_messages(nav_step, request, responses_dict):
+    initial = 'initial' in nav_step
+    uploaded, _ = forms_to_file(responses_dict, initial=initial)
+    responses_dict['form_types'] = uploaded
+    if request.GET.get('cancelled'):
+        messages.add_message(request, messages.ERROR,
+                             'You have cancelled the filing of your documents. '
+                             'You can complete the filing process at your convenience.')
+    elif request.GET.get('no_connection'):
+        messages.add_message(request, messages.ERROR,
+                             'The connection to the BC Government’s eFiling Hub is currently not working. '
+                             'This is a temporary problem. '
+                             'Please try again now and if this issue persists try again later.')
 
 
 @login_required

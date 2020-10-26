@@ -9,30 +9,39 @@ from edivorce.apps.core.utils.derived import get_derived_data
 
 def file_documents(request, responses, initial=False):
     user = request.user
-    (uploaded, generated) = forms_to_file(responses, initial)
-    missing_forms = []
+    errors = []
+    if not initial:
+        user_has_submitted_initial = _get_response(user, 'initial_filing_submitted')
+        if not user_has_submitted_initial:
+            errors.append("You must file the initial filing first before submitting the final filing.")
+        court_file_number = _get_response(user, 'court_file_number')
+        if not court_file_number:
+            errors.append("You must input your Court File Number")
+
+    uploaded, generated = forms_to_file(responses, initial)
     for form in uploaded:
         docs = Document.objects.filter(
             bceid_user=user, doc_type=form['doc_type'], party_code=form.get('party_code', 0))
         if docs.count() == 0:
-            missing_forms.append(Document.form_types[form['doc_type']])
+            errors.append(f"Missing documents for {Document.form_types[form['doc_type']]}")
 
-    if missing_forms:
-        return missing_forms, None
+    if errors:
+        return errors, None
 
-    hub = EFilingHub(initial_filing=initial)
+    if settings.EFILING_HUB_ENABLED:
+        hub = EFilingHub(initial_filing=initial)
 
-    post_files, documents = hub.get_files(request, responses, uploaded, generated)
-    location = hub.get_location(responses)
-    parties = hub.get_parties(responses)
+        post_files, documents = hub.get_files(request, responses, uploaded, generated)
+        location = hub.get_location(responses)
+        parties = hub.get_parties(responses)
 
-    redirect_url, msg = hub.upload(request, post_files, documents, parties, location)
+        redirect_url, msg = hub.upload(request, post_files, documents, parties, location)
 
-    if redirect_url:
-        return None, redirect_url
+        if redirect_url:
+            return errors, redirect_url
 
-    if msg:
-        return msg, None
+        if msg:
+            return msg, None
 
     return None, None
 
@@ -67,12 +76,19 @@ def after_file_documents(request, initial=False):
 
     package_link = base_url + '/cso/register.do?packageNumber=' + package_number
     _save_response(user, f'{prefix}_filing_package_link', package_link)
+    return None, None
 
 
 def _save_response(user, question, value):
     response, _ = UserResponse.objects.get_or_create(bceid_user=user, question_id=question)
     response.value = value
     response.save()
+
+
+def _get_response(user, question):
+    response = UserResponse.objects.filter(bceid_user=user, question_id=question).first()
+    if response:
+        return response.value
 
 
 def forms_to_file(responses_dict, initial=False):
@@ -163,7 +179,8 @@ def forms_to_file(responses_dict, initial=False):
             uploaded.append({'doc_type': 'OFI', 'party_code': 0})
             uploaded.append({'doc_type': 'EFSS', 'party_code': 1})
             uploaded.append({'doc_type': 'EFSS', 'party_code': 2})
-            uploaded.append({'doc_type': 'AII', 'party_code': 0})
+            if has_children:
+                uploaded.append({'doc_type': 'AAI', 'party_code': 0})
             if name_change_you:
                 uploaded.append({'doc_type': 'NCV', 'party_code': 1})
             if name_change_spouse:

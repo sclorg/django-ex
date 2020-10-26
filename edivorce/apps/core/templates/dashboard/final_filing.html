@@ -1,42 +1,273 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load format_utils %}
 {% load static %}
 
 {% block title %}{{ block.super }}: Overview{% endblock %}
+{% block container_col %}dashboard-content{% endblock %}
 
 {% block progress %}{% include "partials/dashnav.html" with active_page=active_page %}{% endblock %}
 
 {% block content %}
     <h1>Final Filing</h1>
-    {% if how_to_file == 'Online' %}
-        <p>
-            Now that you have received a Court Filing Number and both sworn / affirmed your affidavits, you can proceed with the filing of your
-            remaining
-            documentation. If you have not received a Court Filing Number check the Wait for Court Filing step. If you have not sworn / affirmed your
-            affidavits, check the Swear Forms step. Enter your Court Filing Number below:
-        </p>
-        <div><label>Court Filing #</label>{% input_field type="text" name="court_filing_no" id="court_filing_no" class="input-inline form-control" %}
+    {% if final_filing_submitted %}
+        <div>
+            <p>
+                You have already completed this step.
+            </p>
+            <p>
+                <b>Your {% include "partials/tooltips/online_package_number.html" with with_cso=True %} is {{ final_filing_package_number }}</b>
+            </p>
+
+            <div class="question-well add-bottom-margin">
+                <h3>Filing Status</h3>
+                <p>
+                    You will receive e-mails from the system as your filing is processed by the Court Registry.
+                    You can also check here to see the status of your filing:
+                </p>
+                <p class="no-margin-bottom">
+                    Current Filing Status:
+                </p>
+                <ul class="no-bullets">
+                    <li>
+                        <b>{{ final_filing_status }}</b> -
+                        {% if final_filing_status == 'Submitted' %}
+                            Your filing has been submitted to the Court Registry and will be reviewed soon.
+                        {% else %}
+                            No filing status description
+                        {% endif %}
+                    </li>
+                </ul>
+                <p class="no-margin-bottom">
+                    You can view the following items at any time:
+                </p>
+                <ul class="no-margin-bottom">
+                    <li><a href="{{ final_filing_receipt_link }}" target="_blank">Your eFiling Receipt</a> on the CSO eFiling Hub</li>
+                    <li>The <a href="{{ final_filing_package_link }}" target="_blank">complete package of all documents</a>
+                        you have filed at the CSO eFiling Hub
+                    </li>
+                </ul>
+            </div>
+            <p>
+                If you have any questions, concerns or made mistakes in your final filing, please contact
+                CSO Online Support at <a href="mailto:Courts.CSO@gov.bc.ca" target="_blank">Courts.CSO@gov.bc.ca</a>
+                and include your {% include "partials/tooltips/online_package_number.html" %}.
+            </p>
         </div>
+    {% else %}
+        <div class="review-warning" id="error-message-box" {% if not messages %}hidden{% endif %}>
+            <ul id="error-messages" class="{% if messages|length == 1 %}no-bullets no-padding-left {% endif %}no-margin-bottom">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if derived.any_errors %}
+            {% include "dashboard/partials/question_incomplete_warning.html" %}
+        {% endif %}
+        <div>
+            <p>
+                Here you will file file (?) completed documents to the court registry.
+            </p>
+            <p>
+                <b>Missing a form required on this page?</b> Check the
+                <a href="{% url 'dashboard_nav' 'print_form' %}">Review Forms</a> step.
+            </p>
+            <p><a href="{% url 'dashboard_nav' 'help_scanning' %}">Need help with Scanning your documents?</a></p>
+        </div>
+        {% if how_to_file == 'Online' %}
+            <div class="add-bottom-margin">
+                <p>
+                    <b>Now that you have received a Court File Number and both sworn / affirmed your affidavits</b>,
+                    you can proceed with the filing of your remaining documents.
+                    If you have not received a Court File Number, check the
+                    <a href="{% url 'dashboard_nav' 'wait_for_number' %}">Wait for Court File</a> step.
+                    If you have not sworn / affirmed your affidavits, check the
+                    <a href="{% url 'dashboard_nav' 'swear_forms' %}">Swear/Affirm Forms</a> step.
+                    Enter your Court File Number below:
+                </p>
+                <div>
+                    <label>{% include "partials/tooltips/court_file_number.html" with text="Court File #" %}</label>
+                    {% input_field type="text" name="court_file_number" class="input-inline" %}
+                </div>
+            </div>
+            <div class="upload-area">
+                {% if how_to_sign == 'Together' and signing_location == 'Virtual' %}
+                {% elif how_to_sign == 'Separately' and signing_location_you == 'Virtual' and signing_location_spouse == 'Virtual' %}
+                {% else %}
+                    <p>
+                        The following forms will be automatically filed for you:
+                    </p>
+                    <ul>
+                        <li>
+                            {% include "partials/tooltips/requisition_form_35.html" %}
+                        </li>
+                        <li>
+                            {% include "partials/tooltips/certificate_of_pleading_36.html" %}
+                        </li>
+                    </ul>
+                {% endif %}
+                <div id="vue-app">
+                    <filing-uploader
+                            :form-types="{{ form_types }}"
+                            proxy-root-path="{{ proxy_root_path }}">
+                    </filing-uploader>
+                </div>
+            </div>
+        {% elif how_to_file == 'In-person' %}
+            {% if how_to_sign == 'Together' %}
+                <div>
+                    <p>
+                        Staple each form together and then fasten all forms with a paper clip,
+                        in the following order:
+                    </p>
+                    <ul>
+                        <li>{% include "partials/tooltips/joint_family_claim_1.html" with text="Notice of Joint Family Claim Form (F1)" %}
+                            signed by both you and your spouse
+                        </li>
+                        <li>{% include "partials/tooltips/requisition_form_35.html" %} signed by both you and your spouse</li>
+                        <li>{% include "partials/tooltips/draft_final_order_52.html" %} signed by both you and your spouse</li>
+                        <li>{% include "partials/tooltips/certificate_of_pleading_36.html" %}</li>
+                        {% if derived.has_children_of_marriage %}
+                            <li>{% include "partials/tooltips/form_child_support_37.html" %} sworn/affirmed by both you</li>
+                        {% endif %}
+                        <li>{% include "partials/tooltips/form_desk_order_38.html" with text="Affidavit Desk Order Divorce (F38)" %} sworn/affirmed by
+                            both you
+                        </li>
+                        {% if derived.has_children_of_marriage %}
+                            <li>{% include "partials/tooltips/agreement_to_annual_income_9.html" %}</li>
+                        {% endif %}
+                    </ul>
+                    <p>Also ensure you bring the following additional documentation:</p>
+                    <ul>
+                        {% if original_marriage_certificate == 'YES' %}
+                            <li>{% include "partials/tooltips/proof_of_marriage.html" %}</li>
+                        {% endif %}
+                        <li>{% include "partials/tooltips/joint_divorce_proceedings.html" %}</li>
+                        {% if derived.wants_other_orders and name_change_you == 'YES' %}
+                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} for You</li>
+                        {% endif %}
+                        {% if derived.wants_other_orders and name_change_spouse == 'YES' %}
+                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} for Your Spouse</li>
+                        {% endif %}
+                        {% if derived.has_children_of_marriage %}
+                            <li>{% include "partials/tooltips/agreement_to_annual_income_9.html" %}</li>
+                        {% endif %}
+                    </ul>
+                    <p>
+                        If you have other court orders or a written separation agreement,
+                        they should also be attached to your Child Support Affidavit (F37).
+                    </p>
+                    <p>
+                        If you are filing by mail, you’ll need to include a cheque made payable to BC Court Services
+                        in the amount of $x.xx to cover the filing costs of your divorce.
+                    </p>
+                    <p>
+                        You have indicated that you will file at the following court registry:
+                    </p>
+                    <ul class="no-bullets">
+                        <li>{{ court_registry_for_filing }}</li>
+                        <li>{{ court_registry_for_filing_address }}</li>
+                        <li>{{ court_registry_for_filing_postal_code }}</li>
+                    </ul>
+                    <p>
+                        Once filed, you will receive a {% include "partials/tooltips/court_file_number.html" %}.
+                        This number will be used if you need to file any additional documents.
+                    </p>
+                </div>
+            {% elif how_to_sign == 'Separately' %}
+                <div>
+                    <p>
+                        Staple each form together and then fasten all forms with a paper clip,
+                        in the following order:
+                    </p>
+                    <ul>
+                        <li>{% include "partials/tooltips/joint_family_claim_1.html" with text="Notice of Joint Family Claim Form (F1)" %}
+                            signed by both you and your spouse
+                        </li>
+                        <li>{% include "partials/tooltips/requisition_form_35.html" %} signed by both you and your spouse</li>
+                        <li>{% include "partials/tooltips/draft_final_order_52.html" %} signed by both you and your spouse</li>
+                        <li>{% include "partials/tooltips/certificate_of_pleading_36.html" %}</li>
+                        {% if derived.has_children_of_marriage %}
+                            <li>{% include "partials/tooltips/form_child_support_37.html" %} sworn/affirmed by both you</li>
+                        {% endif %}
+                        <li>{% include "partials/tooltips/form_desk_order_38.html" with text="Affidavit Desk Order Divorce (F38)" %} sworn/affirmed by
+                            both you
+                        </li>
+                        {% if derived.has_children_of_marriage %}
+                            <li>{% include "partials/tooltips/agreement_to_annual_income_9.html" %}</li>
+                        {% endif %}
+                    </ul>
+                    <p>Also ensure you bring the following additional documentation:</p>
+                    <ul>
+                        {% if original_marriage_certificate == 'YES' %}
+                            <li>{% include "partials/tooltips/proof_of_marriage.html" %}</li>
+                        {% endif %}
+                        <li>{% include "partials/tooltips/joint_divorce_proceedings.html" %}</li>
+                        {% if derived.wants_other_orders and name_change_you == 'YES' %}
+                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} for Claimant 1 ({% you_name %})</li>
+                        {% endif %}
+                        {% if derived.has_children_of_marriage %}
+                            <li>{% include "partials/tooltips/agreement_to_annual_income_9.html" %}</li>
+                        {% endif %}
+                    </ul>
+                    <p>
+                        If you have other court orders or a written separation agreement,
+                        they should also be attached to your Child Support Affidavit (F37).
+                    </p>
+                    <p>
+                        If you are filing by mail, you’ll need to include a cheque made payable to BC Court Services
+                        in the amount of $x.xx to cover the filing costs of your divorce.
+                    </p>
+                    <p>
+                        You have indicated that you will file at the following court registry:
+                    </p>
+                    <ul class="no-bullets">
+                        <li>{{ court_registry_for_filing }}</li>
+                        <li>{{ court_registry_for_filing_address }}</li>
+                        <li>{{ court_registry_for_filing_postal_code }}</li>
+                    </ul>
+                    <p>
+                        Once sworn/affirmed and filed, you will receive a {% include "partials/tooltips/court_file_number.html" %}.
+                        This number will be used if you need to file any additional documentation.
+                    </p>
+                    <h2>Spouse - Document Requirements</h2>
+                    <p class="no-margin-bottom">
+                        The following sworn/affirmed affidavits still remain to be filed:
+                    </p>
+                    <ul>
+                        <li>{% include "partials/tooltips/form_child_support_37.html" %} sworn/affirmed by your spouse</li>
+                        <li>{% include "partials/tooltips/form_desk_order_38.html" %} sworn/affirmed by your spouse</li>
+                        <li>{% include "partials/tooltips/identification_of_applicant.html" %} - for your Spouse</li>
+                    </ul>
+                    <p>
+                        If you are filing by mail, you’ll need to include a cheque made payable to BC Court Services
+                        in the amount of $x.xx to cover the filing costs of your divorce.
+                        The documents must be filed using the {% include "partials/tooltips/court_file_number.html" %}
+                        that you received via e-mail.
+                        If you have not received a Court File Number then please check the
+                        <a href="{% url 'dashboard_nav' 'wait_for_number' %}">Wait for Court File Number</a> step.
+                    </p>
+                    <p>
+                        You have indicated that you will file at the following court registry:
+                    </p>
+                    <ul class="no-bullets">
+                        <li>{{ court_registry_for_filing }}</li>
+                        <li>{{ court_registry_for_filing_address }}</li>
+                        <li>{{ court_registry_for_filing_postal_code }}</li>
+                    </ul>
+                </div>
+            {% endif %}
+        {% else %}
+            hello
+        {% endif %}
     {% endif %}
-
-    <div id="vue-app">
-        <final-filing-uploader 
-            signing-location="{{ signing_location }}"
-            signing-location-you="{{ signing_location_you }}"
-            signing-location-spouse="{{ signing_location_spouse }}"
-            how-to-sign="{{ how_to_sign }}"
-            how-to-file="{{ how_to_file }}"
-            sign-file-options-url="{% url 'dashboard_nav' 'sign_file_options' %}"
-            print-form-url="{% url 'dashboard_nav' 'print_form' %}"
-            proxy-root-path="{{ proxy_root_path }}">
-        </final-filing-uploader>
-    </div>
-
-    {% if how_to_file == 'Online' %}
+    {% if not final_filing_submitted and how_to_file == 'Online' %}
         <h3>Filing with Court Services Online</h3>
-        <p>When you click Next, you will be taken to the Court Services Online e-filing hub. In the next few steps you will be able to do a final
-            review of your filed documentation, pay for your filing and (if completed successfully) receive a Package Number. This final step will
-            complete your divorce filing.</p>
+        <p>When you click Submit Documents, you will be taken to the Court Services Online e-filing hub.
+            In the next few steps you will be able to do a final review of your filed documentation,
+            pay for your filing and (if completed successfully) receive a Package Number.
+            This final step will complete your divorce filing.</p>
     {% endif %}
 
 {% endblock %}
@@ -48,30 +279,41 @@
 {% block formbuttons %}
     <div class="form-buttons clearfix">
         <a class="btn btn-primary" href="{% url 'dashboard_nav' 'swear_forms' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
-        <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'next_steps' %}">Next&nbsp;&nbsp;&nbsp;<i
+        {% if how_to_file == 'Online' and not final_filing_submitted %}
+            <a class="btn btn-success pull-right save-spinner" href="{% url 'submit_final_files' %}" id="submitDocuments">
+                <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;
+                Submit Documents</a>
+        {% else %}
+            <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'next_steps' %}">Next&nbsp;&nbsp;&nbsp;<i
                     class="fa fa-arrow-circle-o-right"></i></a>
-        <a class="btn btn-primary pull-right save-spinner" href="{% url 'submit_final_files' %}"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;
-            Submit Documents</a>
+        {% endif %}
+        <a class="btn btn-primary pull-right save-spinner" href="{% url 'overview' %}"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;
+            Save and return later</a>
     </div>
 {% endblock %}
 
-{% block sidebarNav %}
-    <!-- no sidebar -->
-{% endblock %}
 {% block sidebarText %}
-    {% include "dashboard/partials/sidebar_help.html" %}
+    <p>
+        An application for divorce can be completed in one step or two steps depending on
+        how you are swearing/affirming your affidavit(s).
+        The two steps include an initial filing and a final filing.
+        The initial filing is where you will start the proceeding for divorce
+        by filing your Notice of Joint Family Claim.
+    </p>
+    <p>
+        The final filing is the application asking the court to order the divorce
+        and includes your sworn/affirmed affidavit(s) and other supporting documents.
+    </p>
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'dist/vue/css/chunk-common.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'dist/vue/css/finalFiling.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'dist/vue/css/filingUploader.css' %}"/>
     <link rel="preload" as="script" href="{% static 'dist/vue/js/chunk-vendors.js' %}"/>
-    <link rel="preload" as="script" href="{% static 'dist/vue/js/chunk-common.js' %}"/>
-    <link rel="preload" as="script" href="{% static 'dist/vue/js/finalFiling.js' %}"/>
+    <link rel="preload" as="script" href="{% static 'dist/vue/js/filingUploader.js' %}"/>
 {% endblock %}
 
 {% block extra_js %}
     <script type="text/javascript" src="{% static 'dist/vue/js/chunk-vendors.js' %}"></script>
-    <script type="text/javascript" src="{% static 'dist/vue/js/chunk-common.js' %}"></script>
-    <script type="text/javascript" src="{% static 'dist/vue/js/finalFiling.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dist/vue/js/filingUploader.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/filing.js' %}"></script>
 {% endblock %}
