@@ -9,7 +9,7 @@
 {% block content %}
     <h1>Filing Completed</h1>
     {% if how_to_file == 'Online' %}
-        {% if final_filing_submitted %}
+        {% if final_filing_submitted == 'True' %}
             <p>
                 You have successfully completed filing online.
             </p>
@@ -31,7 +31,7 @@
             This e-mail will include a {% include "partials/tooltips/court_file_number.html" %}, please keep this number for your records and use it
             if filing any additional documents.
         </p>
-        {% if final_filing_submitted %}
+        {% if final_filing_submitted == 'True' %}
             <div class="question-well">
                 <h3>Filing Status</h3>
                 <p>
