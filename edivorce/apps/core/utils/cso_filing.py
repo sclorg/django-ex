@@ -27,16 +27,18 @@ def file_documents(request, responses, initial=False):
     if errors:
         return errors, None
 
-    hub = EFilingHub(initial_filing=initial)
+    if settings.EFILING_HUB_ENABLED:
+        hub = EFilingHub(initial_filing=initial)
 
-    post_files, documents = hub.get_files(request, responses, uploaded, generated)
-    location = hub.get_location(responses)
-    parties = hub.get_parties(responses)
+        post_files, documents = hub.get_files(request, responses, uploaded, generated)
+        location = hub.get_location(responses)
+        parties = hub.get_parties(responses)
 
-    redirect_url, msg = hub.upload(request, post_files, documents, parties, location)
 
-    if redirect_url:
-        return errors, redirect_url
+        redirect_url, msg = hub.upload(request, post_files, documents, parties, location)
+
+        if redirect_url:
+            return errors, redirect_url
 
     # Save dummy data for now. Eventually replace with data from CSO
     prefix = 'initial' if initial else 'final'
