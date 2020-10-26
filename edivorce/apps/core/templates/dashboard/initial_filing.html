@@ -9,7 +9,7 @@
 
 {% block content %}
     <h1>Initial Filing</h1>
-    {% if initial_filing_submitted %}
+    {% if initial_filing_submitted == 'True' %}
         <p>
             You have already completed this step.
         </p>
@@ -94,7 +94,7 @@
 
         <h3>Filing with Court Services Online</h3>
         <p>
-            When you click Next, you will be taken to the Court Services Online e-filing hub.
+            When you click Submit Documents, you will be taken to the Court Services Online e-filing hub.
             In the next few steps you will be able to do a final review of the documents you are submitting for filing,
             pay for your filing and (if completed successfully) receive a Package Number.
         </p>
@@ -125,7 +125,7 @@
 {% block formbuttons %}
     <div class="form-buttons clearfix">
         <a class="btn btn-primary" href="{% url 'dashboard_nav' 'print_form' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
-        {% if initial_filing_submitted %}
+        {% if initial_filing_submitted == 'True' %}
             <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'wait_for_number' %}">Next&nbsp;&nbsp;&nbsp;<i
                     class="fa fa-arrow-circle-o-right"></i></a>
         {% elif how_to_file == 'Online' %}

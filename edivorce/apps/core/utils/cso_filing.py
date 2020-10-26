@@ -53,7 +53,7 @@ def after_file_documents(request, initial=False):
 
     # Save dummy data for now. Eventually replace with data from CSO
     prefix = 'initial' if initial else 'final'
-    _save_response(user, f'{prefix}_filing_submitted', True)
+    _save_response(user, f'{prefix}_filing_submitted', 'True')
 
     if not initial:
         _save_response(user, f'final_filing_status', 'Submitted')

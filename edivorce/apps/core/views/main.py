@@ -191,6 +191,8 @@ def _add_error_messages(nav_step, request, responses_dict):
                              'The connection to the BC Government’s eFiling Hub is currently not working. '
                              'This is a temporary problem. '
                              'Please try again now and if this issue persists try again later.')
+    elif request.GET.get('message'):
+        messages.add_message(request, messages.ERROR, request.GET.get('message'))
 
 
 @login_required

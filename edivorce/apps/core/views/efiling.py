@@ -37,6 +37,8 @@ def _submit_files(request, initial=False):
 
     if errors:
         next_page = original_step
+        if not isinstance(errors, list):
+            errors = [errors]
         for error in errors:
             messages.add_message(request, messages.ERROR, error)
 
