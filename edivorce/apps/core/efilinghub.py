@@ -230,17 +230,17 @@ class EFilingHub:
         if parties:
             package['filingPackage']['parties'] = parties
         # update return urls
-        package['navigationUrls']['error'] = request.build_absolute_uri(
+        package['navigationUrls']['error'] = self._get_absolute_url(
             reverse('dashboard_nav', args=['check_with_registry']))
         if self.initial_filing:
-            package['navigationUrls']['cancel'] = request.build_absolute_uri(
+            package['navigationUrls']['cancel'] = self._get_absolute_url(
                 reverse('dashboard_nav', args=['initial_filing']))
-            package['navigationUrls']['success'] = request.build_absolute_uri(
+            package['navigationUrls']['success'] = self._get_absolute_url(
                 reverse('after_submit_initial_files'))
         else:
-            package['navigationUrls']['cancel'] = request.build_absolute_uri(
+            package['navigationUrls']['cancel'] = self._get_absolute_url(
                 reverse('dashboard_nav', args=['final_filing']))
-            package['navigationUrls']['success'] = request.build_absolute_uri(
+            package['navigationUrls']['success'] = self._get_absolute_url(
                 reverse('after_submit_final_files'))
 
         return package
@@ -363,6 +363,9 @@ class EFilingHub:
                 d["ordersSought"].append('OTH')
 
         return d
+
+    def _get_absolute_url(self, path):
+        return settings.PROXY_BASE_URL + path
 
     # -- EFILING HUB INTERFACE --
     def get_files(self, request, responses, uploaded, generated):
