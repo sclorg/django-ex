@@ -368,7 +368,7 @@ class EFilingHub:
         if settings.PROXY_BASE_URL:
             return settings.PROXY_BASE_URL + path
         else:
-            return request.get_host() + path
+            return request.build_absolute_uri(path) 
 
     # -- EFILING HUB INTERFACE --
     def get_files(self, request, responses, uploaded, generated):
