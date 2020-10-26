@@ -128,10 +128,13 @@
         {% if initial_filing_submitted %}
             <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'wait_for_number' %}">Next&nbsp;&nbsp;&nbsp;<i
                     class="fa fa-arrow-circle-o-right"></i></a>
-        {% else %}
+        {% elif how_to_file == 'Online' %}
             <a class="btn btn-success pull-right" href="{% url 'submit_initial_files' %}" id="submitDocuments">
                 <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;
                 Submit Documents</a>
+        {% else %}
+            <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'swear_forms' %}">Next&nbsp;&nbsp;&nbsp;<i
+                    class="fa fa-arrow-circle-o-right"></i></a>
         {% endif %}
         <a class="btn btn-primary pull-right save-spinner" href="{% url 'overview' %}"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;Save and return
             later</a>

@@ -279,13 +279,13 @@
 {% block formbuttons %}
     <div class="form-buttons clearfix">
         <a class="btn btn-primary" href="{% url 'dashboard_nav' 'swear_forms' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
-        {% if final_filing_submitted %}
-            <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'next_steps' %}">Next&nbsp;&nbsp;&nbsp;<i
-                    class="fa fa-arrow-circle-o-right"></i></a>
-        {% else %}
+        {% if how_to_file == 'Online' and not final_filing_submitted %}
             <a class="btn btn-success pull-right" href="{% url 'submit_final_files' %}" id="submitDocuments">
                 <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;
                 Submit Documents</a>
+        {% else %}
+            <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'next_steps' %}">Next&nbsp;&nbsp;&nbsp;<i
+                    class="fa fa-arrow-circle-o-right"></i></a>
         {% endif %}
         <a class="btn btn-primary pull-right save-spinner" href="{% url 'overview' %}"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;&nbsp;
             Save and return later</a>
