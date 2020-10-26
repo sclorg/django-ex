@@ -11,7 +11,7 @@ def file_documents(request, responses, initial=False):
     user = request.user
     errors = []
     if not initial:
-        user_has_submitted_initial = _get_response(user, 'initial_filing_submitted')
+        user_has_submitted_initial = _get_response(user, 'initial_filing_submitted') == 'True'
         if not user_has_submitted_initial:
             errors.append("You must file the initial filing first before submitting the final filing.")
         court_file_number = _get_response(user, 'court_file_number')
