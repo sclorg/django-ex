@@ -50,4 +50,4 @@ KEYCLOAK_LOGOUT = 'http://localhost:8081/auth/realms/justice/protocol/openid-con
 OIDC_RP_CLIENT_ID = 'edivorce-app'
 LOGIN_REDIRECT_URL = '/signin'
 
-EFILING_HUB_ENABLED = False
+EFILING_HUB_ENABLED = True
