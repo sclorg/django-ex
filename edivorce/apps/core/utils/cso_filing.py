@@ -1,3 +1,4 @@
+import base64
 import random
 
 from django.conf import settings
@@ -58,14 +59,26 @@ def after_file_documents(request, initial=False):
     if not initial:
         _save_response(user, f'final_filing_status', 'Submitted')
 
-    package_number_parts = []
-    for _ in range(3):
-        num = ''
-        for _ in range(3):
-            num += str(random.randint(0, 9))
-        package_number_parts.append(num)
+    if settings.EFILING_HUB_ENABLED:
+        package_number = ''
+        base64_message = request.GET.get('packageRef', '')
+        base64_bytes = base64_message.encode('ascii')
+        message_bytes = base64.b64decode(base64_bytes)
+        message = message_bytes.decode('ascii')
 
-    package_number = '-'.join(package_number_parts)
+        parts = message.split('=')
+        if len(parts) == 2:
+            package_number = parts[1]
+
+    if not settings.EFILING_HUB_ENABLED:
+        package_number_parts = []
+        for _ in range(3):
+            num = ''
+            for _ in range(3):
+                num += str(random.randint(0, 9))
+            package_number_parts.append(num)
+        package_number = '-'.join(package_number_parts)
+
     _save_response(user, f'{prefix}_filing_package_number', package_number)
 
     if settings.DEPLOYMENT_TYPE == 'localdev':
@@ -73,10 +86,10 @@ def after_file_documents(request, initial=False):
     else:
         base_url = settings.PROXY_BASE_URL
 
-    receipt_link = base_url + '/cso/payment/viewReceipt.do?packageNumber=' + package_number
+    receipt_link = base_url + '/cso/filing/status/viewDocument.do?actionType=viewReceipt&packageNo=' + package_number
     _save_response(user, f'{prefix}_filing_receipt_link', receipt_link)
 
-    package_link = base_url + '/cso/register.do?packageNumber=' + package_number
+    package_link = base_url + '/cso/accounts/bceidNotification.do?packageNo=' + package_number
     _save_response(user, f'{prefix}_filing_package_link', package_link)
     return None, None
 
