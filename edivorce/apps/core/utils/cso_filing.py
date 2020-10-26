@@ -43,6 +43,9 @@ def file_documents(request, responses, initial=False):
         if msg:
             return msg, None
 
+    else:
+        return after_file_documents(request, initial)
+
     return None, None
 
 
