@@ -8,7 +8,8 @@ from django import forms
 from django.http import HttpResponse
 from django.conf import settings
 
-from edivorce.apps.core.efilinghub import EFilingHub, PACKAGE_PARTY_FORMAT
+from edivorce.apps.core.utils.efiling_submission import EFilingSubmission
+from edivorce.apps.core.utils.efiling_packaging import PACKAGE_PARTY_FORMAT
 from edivorce.apps.core.validators import file_scan_validation
 from edivorce.apps.core.models import Document
 
@@ -74,7 +75,7 @@ def view_document_file(request, document_id):
     return response
 
 
-class EfilingHubUpload(FormView):
+class EFilingSubmissionUpload(FormView):
     form_class = MultipleUploadForm
     template_name = 'hub.html'
     success_url = '/poc/hub'
@@ -99,7 +100,7 @@ class EfilingHubUpload(FormView):
                 party['lastName'] = 'Test'
                 parties.append(party)
 
-            hub = EFilingHub(initial_filing=True)
+            hub = EFilingSubmission(initial_filing=True)
             redirect, msg = hub.upload(request, post_files, parties=parties)
             if redirect:
                 self.success_url = redirect

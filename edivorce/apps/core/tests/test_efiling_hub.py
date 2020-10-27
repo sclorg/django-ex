@@ -7,7 +7,8 @@ from django.test import TransactionTestCase
 from django.test.client import RequestFactory
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from edivorce.apps.core.efilinghub import EFilingHub, PACKAGE_PARTY_FORMAT, PACKAGE_DOCUMENT_FORMAT
+from edivorce.apps.core.utils.efiling_submission import EFilingSubmission
+from edivorce.apps.core.utils.efiling_packaging import EFilingPackaging, PACKAGE_PARTY_FORMAT, PACKAGE_DOCUMENT_FORMAT
 
 SAMPLE_TOKEN_RESPONSE = {
     "access_token": "klkadlfjadsfkj",
@@ -36,7 +37,7 @@ GENERATE_URL_RESPONSE_ERROR = {
 }
 
 
-class EFilingHubTests(TransactionTestCase):
+class EFilingSubmissionTests(TransactionTestCase):
 
     def setUp(self):
         # Every test needs access to the request factory.
@@ -47,7 +48,8 @@ class EFilingHubTests(TransactionTestCase):
         middleware.process_request(self.request)
         self.request.session.save()
         
-        self.hub = EFilingHub(initial_filing=True)
+        self.hub = EFilingSubmission(initial_filing=True)
+        self.packaging = EFilingPackaging(initial_filing=True)
 
     def _mock_response(self, status=200, text="Text", json_data=None, raise_for_status=None):
         mock_resp = mock.Mock()
@@ -192,7 +194,7 @@ class EFilingHubTests(TransactionTestCase):
             parties.append(party)
 
         location = '6011'
-        package = self.hub._format_package(self.request, files, documents, parties, location)
+        package = self.packaging.format_package(self.request, files, documents, parties, location)
 
         self.assertTrue(package)
         self.assertEqual(package['filingPackage']['documents'][0]['name'], 'form_0.pdf')
@@ -205,7 +207,7 @@ class EFilingHubTests(TransactionTestCase):
             with self.assertRaises(PermissionDenied):
                 redirect, msg = self.hub.upload(self.request, None)
 
-    @mock.patch('edivorce.apps.core.efilinghub.EFilingHub._get_api')
+    @mock.patch('edivorce.apps.core.utils.efiling_submission.EFilingSubmission._get_api')
     def test_upload_success(self, mock_get_api):
         self.request.session['bcgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
         with self.settings(DEPLOYMENT_TYPE='prod'):
@@ -219,7 +221,7 @@ class EFilingHubTests(TransactionTestCase):
             self.assertEqual(redirect, GENERATE_URL_RESPONSE['efilingUrl'])
             self.assertEqual(msg, 'success')
 
-    @mock.patch('edivorce.apps.core.efilinghub.EFilingHub._get_api')
+    @mock.patch('edivorce.apps.core.utils.efiling_submission.EFilingSubmission._get_api')
     def test_upload_failed_initial_upload(self, mock_get_api):
         self.request.session['bcgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
         with self.settings(DEPLOYMENT_TYPE='prod'):
@@ -231,7 +233,7 @@ class EFilingHubTests(TransactionTestCase):
 
             self.assertFalse(redirect)
 
-    @mock.patch('edivorce.apps.core.efilinghub.EFilingHub._get_api')
+    @mock.patch('edivorce.apps.core.utils.efiling_submission.EFilingSubmission._get_api')
     def test_upload_failed_generate_url(self, mock_get_api):
         self.request.session['bcgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
         with self.settings(DEPLOYMENT_TYPE='prod'):
