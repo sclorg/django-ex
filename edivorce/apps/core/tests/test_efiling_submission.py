@@ -176,37 +176,6 @@ class EFilingSubmissionTests(TransactionTestCase):
             bceid = self.hub._get_bceid(self.request)
             self.assertFalse(bceid)
 
-    def test_format_package(self):
-        files = []
-        documents = []        
-        for i in range(0, 2):
-            document = PACKAGE_DOCUMENT_FORMAT.copy()
-            filename = 'form_{}.pdf'.format(i)
-            document['name'] = filename
-            file = SimpleUploadedFile(filename, b'test content')
-            files.append(('files', (file.name, file.read())))
-            documents.append(document)
-        parties = []
-        for i in range(0, 2):
-            party = PACKAGE_PARTY_FORMAT.copy()
-            party['firstName'] = 'Party {}'.format(i)
-            party['lastName'] = 'Test'
-            parties.append(party)
-
-        location = '6011'
-        package = self.packaging.format_package(self.request, files, documents, parties, location)
-
-        self.assertTrue(package)
-        self.assertEqual(package['filingPackage']['documents'][0]['name'], 'form_0.pdf')
-        self.assertEqual(package['filingPackage']['documents'][1]['name'], 'form_1.pdf')
-        self.assertEqual(package['filingPackage']['parties'][0]['firstName'], 'Party 0')
-        self.assertEqual(package['filingPackage']['parties'][1]['firstName'], 'Party 1')
-
-    def test_upload_anonymous_user(self):
-        with self.settings(DEPLOYMENT_TYPE='prod'):
-            with self.assertRaises(PermissionDenied):
-                redirect, msg = self.hub.upload(self.request, None)
-
     @mock.patch('edivorce.apps.core.utils.efiling_submission.EFilingSubmission._get_api')
     def test_upload_success(self, mock_get_api):
         self.request.session['bcgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'

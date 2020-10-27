@@ -99,9 +99,13 @@ def _package_and_submit(request, uploaded, generated, responses, initial):
     hub = EFilingSubmission(initial_filing=initial)
     packaging = EFilingPackaging(initial_filing=initial)
     post_files, documents = packaging.get_files(request, responses, uploaded, generated)
-    location = packaging.get_location(responses)
-    parties = packaging.get_parties(responses)
-    redirect_url, msg = hub.upload(request, post_files, documents, parties, location)
+    redirect_url, msg = hub.upload(
+        request,
+        post_files,
+        documents,
+        parties=packaging.get_parties(responses),
+        location=packaging.get_location(responses)
+    )
     return msg, redirect_url
 
 
