@@ -13,7 +13,7 @@ class Command(BaseCommand):
 
     def _check_link(self, address):
         try:
-            resp = urlopen(address)
+            resp = urlopen(address) # nosec - This is for internal use only to check for broken links.
             if resp.status in [400, 404, 403, 408, 409, 501, 502, 503]:
                 return f"{resp.status} - {resp.reason}"
         except Exception as e:

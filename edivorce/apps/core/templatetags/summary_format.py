@@ -8,7 +8,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 
 NO_ANSWER = 'No answer'
-MISSING_RESPONSE = mark_safe('<div class="table-error"><span class="warning">MISSING REQUIRED FIELD</span></div>')
+MISSING_RESPONSE = mark_safe('<div class="table-error"><span class="warning">MISSING REQUIRED FIELD</span></div>') # nosec
 
 register = template.Library()
 
@@ -151,7 +151,7 @@ def format_review_row_heading(title, style="", substep=None):
     """ Used for children sub-section tables """
     if substep:
         url = reverse('question_steps', args=['children', substep])
-        extra_html = mark_safe(f'<span class="review-buttons"><a href="{url}">Edit</a></span>')
+        extra_html = mark_safe(f'<span class="review-buttons"><a href="{url}">Edit</a></span>') # nosec
     else:
         extra_html = ''
     return format_html(
