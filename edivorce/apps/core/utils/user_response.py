@@ -106,6 +106,8 @@ def _get_question_details(question, questions_dict, responses_by_key):
         if response:
             value = get_cleaned_response_value(response)
         error = required and not value
+        if not error:
+            error = _other_errors(question, value)
     else:
         value = None
         error = None
@@ -116,6 +118,12 @@ def _get_question_details(question, questions_dict, responses_by_key):
         'show': show
     }
     return details
+
+
+def _other_errors(question, value):
+    if question == 'want_which_orders' and 'A legal end to the marriage' not in value:
+        return True
+    return False
 
 
 def _is_question_required(question, questions_dict, responses_by_key):

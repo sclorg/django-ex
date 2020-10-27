@@ -26,7 +26,9 @@ class StepCompletenessTestCase(TestCase):
         return step_completeness[step]
 
     def create_response(self, question, value):
-        UserResponse.objects.create(bceid_user=self.user, question=Question.objects.get(key=question), value=value)
+        response, _ = UserResponse.objects.get_or_create(bceid_user=self.user, question_id=question)
+        response.value = value
+        response.save()
 
     def test_prequalification(self):
         step = 'prequalification'
@@ -97,14 +99,19 @@ class StepCompletenessTestCase(TestCase):
         self.assertEqual(self.check_completeness(step), False)
         self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
 
-        # All required question
-        self.create_response('want_which_orders', '["nothing"]')
+        # Empty response
+        self.create_response('want_which_orders', '[]')
+        self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.NOT_STARTED)
+
+        # Divorce order is required
+        self.create_response('want_which_orders', '["Child support"]')
+        self.assertEqual(self.check_completeness(step), False)
+        self.assertEqual(self.check_step_status(step), Status.STARTED)
+
+        self.create_response('want_which_orders', '["A legal end to the marriage"]')
         self.assertEqual(self.check_completeness(step), True)
         self.assertEqual(self.check_step_status(step), Status.COMPLETED)
-
-        # Put empty response
-        UserResponse.objects.filter(question_id='want_which_orders').update(value="[]")
-        self.assertEqual(self.check_completeness(step), False)
 
     def test_your_info(self):
         step = 'your_information'
