@@ -29,12 +29,17 @@
 asked to provide details for each request.</p>
 
 <div class="checkbox-group">
-    <div class="question-well">
+    <div class="question-well {% if want_which_orders_error %}error{% endif %}">
         <div class="checkbox">
             <label class="checkbox-header">
                 {% input_field type="checkbox" name="want_which_orders" value="A legal end to the marriage" %}<b>A legal end to the marriage</b>
             </label>
         </div>
+        {% if want_which_orders_error %}
+            <p class="warning">
+                You must select this option in order to complete a divorce using this tool.
+            </p>
+        {% endif %}
         <p>
             Divorce is the end of a legal marriage. To get a divorce, you must
             go through a legal process and get a court order that says the
