@@ -144,6 +144,8 @@ REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', '')
 # Keycloak OpenID Connect settings
 LOGIN_REDIRECT_URL = PROXY_URL_PREFIX + '/signin'
 
+# Enable Efiling Hub
+EFILING_HUB_ENABLED = True
 
 def monkey_absolutify(request, path):
     return PROXY_BASE_URL + path
