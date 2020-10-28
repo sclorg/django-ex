@@ -8,7 +8,13 @@
       <span v-if="party === 1"> - For You</span>
       <span v-if="party === 2"> - For Your Spouse</span>
     </h5>
-    <tooltip :text="formDef.help" :target="'#Tooltip-' + uniqueId"></tooltip>
+    <tooltip
+      :text="formDef.help"
+      trigger="outside-click"
+      :target="'#Tooltip-' + uniqueId"
+      placement="right"
+      :auto-placement="true"
+    ></tooltip>
     <label :for="inputId" class="sr-only">
       {{ formDef.preText }} {{ formDef.name }}
       <span v-if="party === 1"> - For You</span>
@@ -96,9 +102,6 @@
         </template>
       </file-upload>
     </div>
-    <div class="pull-left">
-      <a v-if="files.length" :href="pdfURL" target="_blank">{{ pdfURL }}</a>
-    </div>
     <div class="text-right" v-if="!tooBig">
       <em>(Maximum {{ maxMegabytes }} MB)</em>
     </div>
@@ -185,9 +188,6 @@
       tooBig() {
         return this.totalSize > this.maxMegabytes * 1024 * 1024;
       },
-      pdfURL() {
-        return `${this.$parent.proxyRootPath}pdf-images/${this.docType}/${this.party}/`;
-      }
     },
     methods: {
       inputFile(newFile, oldFile) {
@@ -268,8 +268,7 @@
                 });
               },
             });
-          }
-          else {
+          } else {
             newFile.compressed = true;
           }
         }
@@ -452,7 +451,7 @@
                 // if there was an error it's probably because the upload isn't finished yet
                 // mark the metadata as dirty so it will save metadata again
                 this.retries++;
-                this.isDirty = true;                
+                this.isDirty = true;
               });
             }
           })
