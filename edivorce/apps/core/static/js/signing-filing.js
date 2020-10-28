@@ -1,6 +1,9 @@
 $(window).load(function () {
     function setSignSeparatelyDefaults() {
+        // Set sign together default so if the user chooses it, it is reset
         $("#sign-in-person-both").prop('checked', true).trigger('change');
+
+        // If sign separately locations are not set, set the defaults (first page load)
         if ($("input:radio[name='signing_location_you']:checked").length === 0) {
             $("#sign-in-person-you").prop('checked', true).trigger('change');
         }
@@ -10,8 +13,11 @@ $(window).load(function () {
     }
 
     function setSignTogetherDefaults() {
+        // Set sign separately defaults so if the user chooses it, they are reset
         $("#sign-in-person-you").prop('checked', true).trigger('change');
         $("#sign-in-person-spouse").prop('checked', true).trigger('change');
+
+        // If sign together location is not set, set the default (first page load)
         if ($("input:radio[name='signing_location']:checked").length === 0) {
             $("#sign-in-person-both").prop('checked', true).trigger('change');
         }
@@ -91,11 +97,18 @@ $(window).load(function () {
             $("#sign-together").prop('checked', true).trigger('change');
         }
 
-        // If filing options are not visible, default to In-person
+        // If filing options are not visible, default to filing In-person
         if ($("input:radio[name='how_to_file']").length === 0) {
             ajaxCall('how_to_file', 'In-person');
         } else if ($("input:radio[name='how_to_file']:checked").length === 0) {
             $("#file-online").prop('checked', true).trigger('change');
+        }
+
+        // If virtual swearing is not available, default to swearing In-person
+        if ($("#signing-location").length === 0) {
+            ajaxCall('signing_location', 'In-person');
+            ajaxCall('signing_location_you', 'In-person');
+            ajaxCall('signing_location_spouse', 'In-person');
         }
     }
 

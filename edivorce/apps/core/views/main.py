@@ -164,6 +164,7 @@ def dashboard_nav(request, nav_step):
     if nav_step in ('initial_filing', 'final_filing'):
         _add_error_messages(nav_step, request, responses_dict)
 
+    responses_dict['virtual_swearing_enabled'] = settings.VIRTUAL_SWEARING_ENABLED
     responses_dict['derived'] = get_derived_data(responses_dict)
     return render(request, template_name=template_name, context=responses_dict)
 

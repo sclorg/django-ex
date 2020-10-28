@@ -203,3 +203,5 @@ OIDC_RP_SCOPES = 'openid email profile'
 OIDC_AUTH_REQUEST_EXTRA_PARAMS = {'kc_idp_hint': 'bceid'}
 OIDC_RP_CLIENT_SECRET = env('KEYCLOAK_CLIENT_SECRET', '')
 OIDC_OP_LOGOUT_URL_METHOD = 'edivorce.apps.core.middleware.keycloak.keycloak_logout'
+
+VIRTUAL_SWEARING_ENABLED = False

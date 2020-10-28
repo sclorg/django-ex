@@ -231,6 +231,39 @@ class FilingLogic(TestCase):
         self.assertIn({'doc_type': doc_type("child support affidavit"), 'party_code': 1}, uploaded)
         self.assertIn({'doc_type': doc_type("child support affidavit"), 'party_code': 2}, uploaded)
 
+    def test_final_forms_to_file_you_virtual_spouse_in_person(self):
+        self.create_response('how_to_sign', 'Separately')
+        self.create_response('signing_location_you', 'Virtual')
+        self.create_response('signing_location_spouse', 'In-person')
+
+        # No conditional forms
+        self.create_response('children_of_marriage', 'NO')
+        uploaded, generated = forms_to_file(self.questions_dict, initial=False)
+
+        self.assertEqual(len(uploaded), 2)
+        self.assertIn({'doc_type': doc_type("desk order divorce form"), 'party_code': 1}, uploaded)
+        self.assertIn({'doc_type': doc_type("desk order divorce form"), 'party_code': 2}, uploaded)
+
+        self.assertEqual(len(generated), 0)
+
+        # Conditional forms
+        self.create_response('children_of_marriage', 'YES')
+        self.create_response('has_children_under_19', 'YES')
+        uploaded, generated = forms_to_file(self.questions_dict, initial=False)
+        self.assertEqual(len(uploaded), 4)
+        self.assertIn({'doc_type': doc_type("child support affidavit"), 'party_code': 1}, uploaded)
+        self.assertIn({'doc_type': doc_type("child support affidavit"), 'party_code': 2}, uploaded)
+
+        self.create_response('want_which_orders', '["Other orders"]')
+        self.create_response('name_change_you', 'YES')
+        uploaded, generated = forms_to_file(self.questions_dict, initial=False)
+        self.assertEqual(len(uploaded), 4)
+
+        self.create_response('name_change_spouse', 'YES')
+        uploaded, generated = forms_to_file(self.questions_dict, initial=False)
+        self.assertEqual(len(uploaded), 5)
+        self.assertIn({'doc_type': doc_type("identification of applicant"), 'party_code': 2}, uploaded)
+
     def test_final_forms_to_file_in_person(self):
         self.create_response('how_to_sign', 'Together')
         self.create_response('signing_location', 'In-person')
