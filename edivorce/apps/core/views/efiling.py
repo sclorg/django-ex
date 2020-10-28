@@ -31,11 +31,8 @@ def _submit_files(request, initial=False):
     """ App flow logic """
     responses_dict = get_data_for_user(request.user)
 
-    return_val = _validate_and_submit_documents(request, responses_dict, initial=initial)
-    # Inelegant way to handle eFiling enabled flag. If one value was returned, it's a redirect.
-    if not isinstance(return_val, tuple):
-        return return_val
-    errors, hub_redirect_url = return_val
+    errors, hub_redirect_url = _validate_and_submit_documents(
+        request, responses_dict, initial=initial)
 
     if hub_redirect_url:
         return redirect(hub_redirect_url)
@@ -83,7 +80,8 @@ def _validate_and_submit_documents(request, responses, initial=False):
         return errors, None
 
     if not settings.EFILING_HUB_ENABLED:
-        return _after_submit_files(request, initial)
+        redirect = _after_submit_files(request, initial)
+        return None, redirect.url
 
     msg, redirect_url = _package_and_submit(request, uploaded, generated, responses, initial)
 
