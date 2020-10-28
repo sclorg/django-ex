@@ -94,6 +94,7 @@
             <div class="upload-area">
                 {% if how_to_sign == 'Together' and signing_location == 'Virtual' %}
                 {% elif how_to_sign == 'Separately' and signing_location_you == 'Virtual' and signing_location_spouse == 'Virtual' %}
+                {% elif how_to_sign == 'Separately' and signing_location_you == 'Virtual' and signing_location_spouse == 'In-person' %}
                 {% else %}
                     <p>
                         The following forms will be automatically filed for you:
@@ -259,7 +260,9 @@
                 </div>
             {% endif %}
         {% else %}
-            hello
+            <p>
+                You must select how you want to file in the <a href="{% url 'dashboard_nav' 'sign_file_options' %}">Signing & Filing Options</a> step.
+            </p>
         {% endif %}
     {% endif %}
     {% if final_filing_submitted != 'True' and how_to_file == 'Online' %}

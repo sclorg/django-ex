@@ -8,160 +8,178 @@
 {% block container_col %}signing-filing{% endblock %}
 
 {% block content %}
-<h1>Signing and Filing Options</h1>
-<h3>Signing Options</h3>
-<p>
-    To complete your application for divorce, you must
-    {% include "partials/tooltips/swear_affirm.html" with text="swear/affirm and sign" %}
-    your {% include "partials/tooltips/affidavit.html" %}. The affidavit(s) must be sworn/affirmed and
-    signed by both you and your spouse. You have a choice on how you will both swear/affirm and sign.
-</p>
-<div class="question-well">
-    <h3>Select how you would like to {% include "partials/tooltips/swear_affirm.html" %}
-        your {% include "partials/tooltips/affidavit.html" %}:</h3>
-    <div class="radio"><label>{% input_field type="radio" name="how_to_sign" value="Together" id="sign-together" %}
-        We will swear/affirm and sign Together using the same affidavit(s)</label></div>
-    <div class="list-item-description">
-        <p>You must both go together to the registry or to a commissioner for taking affidavits to swear/affirm and sign the affidavit(s). This option
-            costs less (less filing fees) and is typically faster and easier for both of you.</p>
-        <p>There are strict rules for when you can swear/affirm and sign your {% include "partials/tooltips/form_desk_order_38.html" %}. You must do it:</p>
-        <ul>
-            <li>At the same time as you are filing your {% include "partials/tooltips/joint_family_claim_1.html" %} (You can file the Notice and swear/affirm and sign your affidavit at
-                the registry (or virtually with the registry) at the same time.)</li>
-            <p style="margin-top: 20px">OR</p>
-            <li>After you've filed your {% include "partials/tooltips/joint_family_claim_1.html" %}. (You can file the Notice first, and then come back into this tool or go to the
-                registry to file your affidavit(s).)
-            </li>
-        </ul>
+    <h1>Signing and Filing Options</h1>
+    <h3>Signing Options</h3>
+    <p>
+        To complete your application for divorce, you must
+        {% include "partials/tooltips/swear_affirm.html" with text="swear/affirm and sign" %}
+        your {% include "partials/tooltips/affidavit.html" %}. The affidavit(s) must be sworn/affirmed and
+        signed by both you and your spouse. You have a choice on how you will both swear/affirm and sign.
+    </p>
+    <div class="question-well">
+        <h3>Select how you would like to {% include "partials/tooltips/swear_affirm.html" %}
+            your {% include "partials/tooltips/affidavit.html" %}:</h3>
+        <div class="radio"><label>{% input_field type="radio" name="how_to_sign" value="Together" id="sign-together" %}
+            We will swear/affirm and sign Together using the same affidavit(s)</label></div>
+        <div class="list-item-description">
+            <p>You must both go together to the registry or to a commissioner for taking affidavits to swear/affirm and sign the affidavit(s).
+                This option costs less (less filing fees) and is typically faster and easier for both of you.</p>
+            <p>There are strict rules for when you can swear/affirm and sign your {% include "partials/tooltips/form_desk_order_38.html" %}.
+                You must do it:</p>
+            <ul>
+                <li>At the same time as you are filing your {% include "partials/tooltips/joint_family_claim_1.html" %}
+                    (You can file the Notice and swear/affirm and sign your affidavit at
+                    the registry (or virtually with the registry) at the same time.)
+                </li>
+                <p style="margin-top: 20px">OR</p>
+                <li>After you've filed your {% include "partials/tooltips/joint_family_claim_1.html" %}.
+                    (You can file the Notice first, and then come back into this tool or go to the registry to file your affidavit(s).)
+                </li>
+            </ul>
+        </div>
+        <div class="radio"><label>{% input_field type="radio" name="how_to_sign" value="Separately" id="sign-separately" %}
+            We will swear/affirm and sign Separately our own affidavit(s)</label></div>
+        <div class="list-item-description">
+            <p>You can each swear/affirm and sign your own version of the affidavit (you can go separately to the registry or a commissioner for
+                taking affidavits to swear/affirm and sign the affidavit(s)).</p>
+            <p>There are strict rules for when you can swear/affirm and sign your {% include "partials/tooltips/form_desk_order_38.html" %}.
+                You must:</p>
+            <ul>
+                <li>Swear/affirm and sign one person’s affidavit(s) at the same time as you are filing
+                    your {% include "partials/tooltips/joint_family_claim_1.html" %} (You can file the
+                    Notice and swear your affidavit at the registry (or virtually with the registry) at the same time.)
+                    This would allow one party to swear/affirm and sign their affidavit(s) before the Notice has been filed.
+                </li>
+                <p style="margin-top: 20px">OR</p>
+                <li>Swear/affirm and sign both parties’ affidavit(s) after you've filed
+                    your {% include "partials/tooltips/joint_family_claim_1.html" %}. (You can file the Notice first,
+                    and then come back into this tool or go to the registry to file your affidavit(s).)
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="radio"><label>{% input_field type="radio" name="how_to_sign" value="Separately" id="sign-separately" %}
-        We will swear/affirm and sign Separately our own affidavit(s)</label></div>
-    <div class="list-item-description">
-        <p>You can each swear/affirm and sign your own version of the affidavit (you can go separately to the registry or a commissioner for taking
-            affidavits to swear/affirm and sign the affidavit(s)).</p>
-        <p>There are strict rules for when you can swear/affirm and sign your {% include "partials/tooltips/form_desk_order_38.html" %}. You must:</p>
-        <ul>
-            <li>Swear/affirm and sign one person’s affidavit(s) at the same time as you are filing your {% include "partials/tooltips/joint_family_claim_1.html" %} (You can file the
-                Notice and swear your affidavit at the registry (or virtually with the registry) at the same time.) This would allow one party to
-                swear/affirm and sign their affidavit(s) before the Notice has been filed.</li>
-            <p style="margin-top: 20px">OR</p>
-            <li>Swear/affirm and sign both parties’ affidavit(s) after you've filed your {% include "partials/tooltips/joint_family_claim_1.html" %}. (You can file the Notice first,
-                and then come back into this tool or go to the registry to file your affidavit(s).)</li>
-        </ul>
-    </div>
-</div>
-<h3>Filing Options</h3>
-{% if where_were_you_married_country == 'Canada' %}
-    <p>You can file (?) your application for divorce in different ways.</p>
-{% endif %}
-<p>To file (?) your documents, you will need:</p>
+    <h3>Filing Options</h3>
+    {% if where_were_you_married_country == 'Canada' %}
+        <p>You can file (?) your application for divorce in different ways.</p>
+    {% endif %}
+    <p>To file (?) your documents, you will need:</p>
 
-<ul>
-    <li>a printer (or a print service)</li>
-    <li>payment for filing fees (see More Information sidebar for more information)</li>
-    <li>a copy of your marriage certificate (from any jurisdiction)</li>
-    <li><span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-              data-html="true"
-              title="
+    <ul>
+        <li>a printer (or a print service)</li>
+        <li>payment for filing fees (see More Information sidebar for more information)</li>
+        <li>a copy of your marriage certificate (from any jurisdiction)</li>
+        <li><span class="tooltip-link" data-toggle="tooltip" data-placement="right"
+                  data-html="true"
+                  title="
                 <b>Registration of Joint Divorce Proceedings (JUS280)</b>
                 <br /><br />
                 This form is for a central divorce registry in Ottawa. They use the form to check to make sure there is no other divorce proceeding pending in Canada. They also keep track of all divorces in Canada.
                 <br />- Does not require signatures.">
-          Registration of Divorce Proceedings<i class="fa fa-question-circle" aria-hidden="true"></i></span> form</li>
-    <li>Both you and your spouse to sign some of the same documents</li>
-    <li>You will need to have your affidavit(s) sworn/affirmed (see above)</li>
-    <li>Photo ID</li>
-</ul>
-{% if where_were_you_married_country == 'Canada' %}
-    <div class="question-well">
-        <h3>Select how you would like to file (?) your documents:</h3>
-        <div class="radio"><label>{% input_field type="radio" name="how_to_file" value="Online" id="file-online" %}
-            We will file Online through this tool</label></div>
-        <div class="list-item-description">
-            <p>To file online you will also need:</p>
+          Registration of Divorce Proceedings<i class="fa fa-question-circle" aria-hidden="true"></i></span> form
+        </li>
+        <li>Both you and your spouse to sign some of the same documents</li>
+        <li>You will need to have your affidavit(s) sworn/affirmed (see above)</li>
+        <li>Photo ID</li>
+    </ul>
+    {% if where_were_you_married_country == 'Canada' %}
+        <div class="question-well">
+            <h3>Select how you would like to file (?) your documents:</h3>
+            <div class="radio"><label>{% input_field type="radio" name="how_to_file" value="Online" id="file-online" %}
+                We will file Online through this tool</label></div>
+            <div class="list-item-description">
+                <p>To file online you will also need:</p>
+                <ul>
+                    <li>a scanner or mobile phone with a camera capable of scanning your documents</li>
+                    <li>a credit card</li>
+                    <li>your marriage certificate must be from a Canadian jurisdiction only</li>
+                </ul>
+            </div>
+            <div class="radio"><label>{% input_field type="radio" name="how_to_file" value="In-person" id="file-in-person" %}
+                We will file In-person at the court registry (you can also mail the documents to the court registry)</label></div>
+            <div class="list-item-description">
+                <p>To file in-person you need only the items list above under Filing Options.</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="question-well">
+            <h3>File your documents in-person at the court registry (you can also mail the documents to the court registry)</h3>
+            <p>Based on your previous selections, you must file In-person.</p>
+            <p>To file in-person you need only the items listed under Filing Options.</p>
+        </div>
+    {% endif %}
+    {% if virtual_swearing_enabled %}
+        <h3 id="signing-location" hidden>Swear/Affirm and Signing Location</h3>
+        <div class="question-well" id="signing-location-together" hidden>
+            <h3>Select where you would like to {% include "partials/tooltips/swear_affirm.html" %} your affidavit(s):</h3>
+            <div class="radio"><label>{% input_field type="radio" name="signing_location" value="In-person" id="sign-in-person-both" %}
+                We will sign with a lawyer, notary or other {% include "partials/tooltips/commissioner.html" with hover=True %} for taking affidavits
+            </label></div>
+            <div class="radio"><label>{% input_field type="radio" name="signing_location" value="Virtual" id="sign-virtual-both" %}
+                We will sign in a {% include "partials/tooltips/virtual_session.html" with hover=True %} with the court registry</label> - You will
+                require a computer with internet access and a webcam
+            </div>
+        </div>
+        <div class="question-well" id="signing-location-separately" hidden>
+            <h3>Select where you would like to {% include "partials/tooltips/swear_affirm.html" %} your affidavit(s):</h3>
+            <div class="radio"><label>{% input_field type="radio" name="signing_location_you" value="In-person" id="sign-in-person-you" %}
+                I will sign with a lawyer, notary or other {% include "partials/tooltips/commissioner.html" with hover=True %} for taking affidavits
+            </label></div>
+            <div class="radio"><label>{% input_field type="radio" name="signing_location_you" value="Virtual" id="sign-virtual-you" %}
+                I will sign in a {% include "partials/tooltips/virtual_session.html" with hover=True %} with the court registry</label>
+            </div>
+            <div class="list-item-description">
+                - Requires a computer with internet access and a webcam
+            </div>
+            <h3>Select where your spouse would like to {% include "partials/tooltips/swear_affirm.html" %} your affidavit(s):</h3>
+            <div class="radio"><label>{% input_field type="radio" name="signing_location_spouse" value="In-person" id="sign-in-person-spouse" %}
+                My spouse will sign with a lawyer, notary or other {% include "partials/tooltips/commissioner.html" with hover=True %} for taking affidavits
+            </label></div>
+            <div class="radio"><label>{% input_field type="radio" name="signing_location_spouse" value="Virtual" id="sign-virtual-spouse" %}
+                My spouse will sign in a {% include "partials/tooltips/virtual_session.html" with hover=True %} with the court registry</label>
+            </div>
+            <div class="list-item-description">
+                - Requires a computer with internet access and a webcam
+            </div>
+        </div>
+
+        <div id="sign-virtually" hidden>
+            <h3>Signing Contact(s)</h3>
+            <p>
+                An e-mail address is required to setup a {% include "partials/tooltips/virtual_session.html" %}. What is the best e-mail address to
+                contact you at in order to setup the virtual session?
+            </p>
+            <input type="text" id="existing-email-you" value="{{ address_to_send_official_document_email_you }}" hidden>
+            <input type="text" id="existing-email-spouse" value="{{ address_to_send_official_document_email_spouse }}" hidden>
+            <div id="email-you" class="form-inline">
+                <label>E-mail Address for You: </label>
+                {% input_field type="text" name="email_you" id="email-you-input" class="input-inline form-control" %}
+            </div>
+            <div id="email-spouse" class="form-inline">
+                <label>E-mail Address for Your Spouse: </label>
+                {% input_field type="text" name="email_spouse" id="email-spouse-input" class="input-inline form-control" %}
+            </div>
+        </div>
+        <div class="question-well" id="sign-in-person" hidden>
+            <p>
+                To file in-person, you and your spouse must sign your affidavit(s) with the court registry, a lawyer, notary or
+                other {% include "partials/tooltips/commissioner.html" %} for taking affidavits.
+            </p>
+        </div>
+
+        <div class="information-message bg-danger add-top-margin" id="unfilled-email-alert" hidden>
+            <p>
+                You must provide a valid email for the following field(s) before you can continue:
+            </p>
             <ul>
-                <li>a scanner or mobile phone with a camera capable of scanning your documents</li>
-                <li>a credit card</li>
-                <li>your marriage certificate must be from a Canadian jurisdiction only</li>
+                <li id="error-email-you">E-mail Address for You</li>
+                <li id="error-email-spouse">E-mail Address for Your Spouse</li>
             </ul>
         </div>
-        <div class="radio"><label>{% input_field type="radio" name="how_to_file" value="In-person" id="file-in-person" %}
-            We will file In-person at the court registry (you can also mail the documents to the court registry)</label></div>
-        <div class="list-item-description">
-            <p>To file in-person you need only the items list above under Filing Options.</p>
-        </div>
-    </div>
-{% else %}
-    <div class="question-well">
-        <h3>File your documents in-person at the court registry (you can also mail the documents to the court registry)</h3>
-        <p>Based on your previous selections, you must file In-person.</p>
-        <p>To file in-person you need only the items listed under Filing Options.</p>
-    </div>
-{% endif %}
-<h3 id="signing-location" hidden>Swear/Affirm and Signing Location</h3>
-<div class="question-well" id="signing-location-together" hidden>
-    <h3>Select where you would like to {% include "partials/tooltips/swear_affirm.html" %} your affidavit(s):</h3>
-    <div class="radio"><label>{% input_field type="radio" name="signing_location" value="In-person" id="sign-in-person-both" %}
-        We will sign with a lawyer, notary or other {% include "partials/tooltips/commissioner.html" with hover=True %} for taking affidavits
-    </label></div>
-    <div class="radio"><label>{% input_field type="radio" name="signing_location" value="Virtual" id="sign-virtual-both" %}
-        We will sign in a {% include "partials/tooltips/virtual_session.html" with hover=True %} with the court registry</label> - You will require a computer with internet access and a webcam
-    </div>
-</div>
-<div class="question-well" id="signing-location-separately" hidden>
-    <h3>Select where you would like to {% include "partials/tooltips/swear_affirm.html" %} your affidavit(s):</h3>
-    <div class="radio"><label>{% input_field type="radio" name="signing_location_you" value="In-person" id="sign-in-person-you" %}
-        I will sign with a lawyer, notary or other {% include "partials/tooltips/commissioner.html" with hover=True %} for taking affidavits
-    </label></div>
-    <div class="radio"><label>{% input_field type="radio" name="signing_location_you" value="Virtual" id="sign-virtual-you" %}
-        I will sign in a {% include "partials/tooltips/virtual_session.html" with hover=True %} with the court registry</label>
-    </div>
-    <div class="list-item-description">
-        - Requires a computer with internet access and a webcam
-    </div>
-    <h3>Select where your spouse would like to {% include "partials/tooltips/swear_affirm.html" %} your affidavit(s):</h3>
-    <div class="radio"><label>{% input_field type="radio" name="signing_location_spouse" value="In-person" id="sign-in-person-spouse" %}
-        My spouse will sign with a lawyer, notary or other {% include "partials/tooltips/commissioner.html" with hover=True %} for taking affidavits
-    </label></div>
-    <div class="radio"><label>{% input_field type="radio" name="signing_location_spouse" value="Virtual" id="sign-virtual-spouse" %}
-        My spouse will sign in a {% include "partials/tooltips/virtual_session.html" with hover=True %} with the court registry</label>
-    </div>
-    <div class="list-item-description">
-        - Requires a computer with internet access and a webcam
-    </div>
-</div>
-
-<div id="sign-virtually" hidden>
-    <h3>Signing Contact(s)</h3>
-    <p>An e-mail address is required to setup a {% include "partials/tooltips/virtual_session.html" %}. What is the best e-mail address to contact you at in order to setup the virtual
-        session?</p>
-    <input type="text" id="existing-email-you" value="{{ address_to_send_official_document_email_you }}" hidden>
-    <input type="text" id="existing-email-spouse" value="{{ address_to_send_official_document_email_spouse }}" hidden>
-    <div id="email-you" class="form-inline">
-        <label>E-mail Address for You: </label>{% input_field type="text" name="email_you" id="email-you-input" class="input-inline form-control" %}
-    </div>
-    <div id="email-spouse" class="form-inline">
-        <label>E-mail Address for Your Spouse: </label>{% input_field type="text" name="email_spouse" id="email-spouse-input" class="input-inline form-control" %}
-    </div>
-</div>
-<div class="question-well" id="sign-in-person" hidden>
-    <p>To file in-person, you and your spouse must sign your affidavit(s) with the court registry, a lawyer, notary or other {% include "partials/tooltips/commissioner.html" %} for
-        taking affidavits.</p>
-</div>
-
-<div class="information-message bg-danger add-top-margin" id="unfilled-email-alert" hidden>
-    <p>
-        You must provide a valid email for the following field(s) before you can continue:
-    </p>
-    <ul>
-        <li id="error-email-you">E-mail Address for You</li>
-        <li id="error-email-spouse">E-mail Address for Your Spouse</li>
-    </ul>
-</div>
+    {% endif %}
 {% endblock %}
 
 {% block backToDashboard %}
-<!-- no back to dashboard -->
+    <!-- no back to dashboard -->
 {% endblock %}
 
 {% block formBack %}{% url 'overview' %}{% endblock %}
@@ -171,17 +189,17 @@
 {% block sidebarText %}
     <h3>What is the process to file for divorce?</h3>
     <p>Ultimately you need to file (submit) your divorce with the Court Registry.
-    Assuming everything goes well, your divorce will be reviewed by the
-    Court Registry and passed along to a judge for approval.</p>
+        Assuming everything goes well, your divorce will be reviewed by the
+        Court Registry and passed along to a judge for approval.</p>
     <p>This tool will create a number of the key forms required for filing automatically.
-    A few of these forms will need to be signed by you.
-    At least one affidavit will require signing / swearing in front of a commissioner
-    before being filed. There are also additional forms that are not generated by this tool
-    that you'll need to complete.
+        A few of these forms will need to be signed by you.
+        At least one affidavit will require signing / swearing in front of a commissioner
+        before being filed. There are also additional forms that are not generated by this tool
+        that you'll need to complete.
     </p>
     <p>The remaining steps in this tool will walk you through the different forms you'll need
-    and what to do with each of them.
-    These steps will differ based on how you select to sign and file your documentation on this page.</p>
+        and what to do with each of them.
+        These steps will differ based on how you select to sign and file your documentation on this page.</p>
     <p>Once you've got your paperwork together, completed, signed and sworn, you can file it with
-    the Court Registry.</p>
+        the Court Registry.</p>
 {% endblock %}

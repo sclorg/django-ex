@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from edivorce.apps.core.utils.derived import get_derived_data
 
 
@@ -78,6 +80,16 @@ def forms_to_file(responses_dict, initial=False):
             if has_children:
                 uploaded.append({'doc_type': 'CSA', 'party_code': 2})
             uploaded.append({'doc_type': 'AFDO', 'party_code': 2})
+
+        elif signing_location_you == 'Virtual' and signing_location_spouse == 'In-person':
+            if has_children:
+                uploaded.append({'doc_type': 'CSA', 'party_code': 1})
+            uploaded.append({'doc_type': 'AFDO', 'party_code': 1})
+            if has_children:
+                uploaded.append({'doc_type': 'CSA', 'party_code': 2})
+            uploaded.append({'doc_type': 'AFDO', 'party_code': 2})
+            if name_change_spouse:
+                uploaded.append({'doc_type': 'NCV', 'party_code': 2})
 
         elif (signing_location_both == 'In-person' or signing_location_you == 'In-person' or signing_location_spouse == 'In-person') and how_to_file == 'Online':
             # at least one party has signed with a commissioner and Filing Online
