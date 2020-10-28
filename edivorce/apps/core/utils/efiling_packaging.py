@@ -39,7 +39,7 @@ PACKAGE_FORMAT = {
             "level": "S",
             "courtClass": "E",
             "division": "I",
-            "participatingClass": "string"
+            "fileNumber": None
         },
         "parties": []
     },
@@ -105,12 +105,14 @@ class EFilingPackaging:
     def __init__(self, initial_filing):
         self.initial_filing = initial_filing
 
-    def format_package(self, request, files, documents, parties, location):
+    def format_package(self, request, files, documents, parties, location, file_number):
         package = PACKAGE_FORMAT.copy()
         package['filingPackage']['court']['location'] = location
         package['filingPackage']['documents'] = documents
         if parties:
             package['filingPackage']['parties'] = parties
+        if file_number:
+            package['filingPackage']['court']['fileNumber'] = file_number
         # update return urls
         if self.initial_filing:
             package['navigationUrls']['error'] = self._get_absolute_url(
@@ -266,7 +268,7 @@ class EFilingPackaging:
             if doc_type == 'NJF':
                 document['data'] = self._get_json_data(responses)
             pdf_response = pdf_form(request, str(form['form_number']))
-            document['md5'] = hashlib.md5(pdf_response.content).hexdigest() # nosec
+            document['md5'] = hashlib.md5(pdf_response.content).hexdigest()  # nosec
             post_files.append(('files', (document['name'], pdf_response.content)))
             documents.append(document)
 
@@ -276,7 +278,7 @@ class EFilingPackaging:
             pdf_response = images_to_pdf(request, doc_type, party_code)
             if pdf_response.status_code == 200:
                 document = self._get_document(doc_type, party_code)
-                document['md5'] = hashlib.md5(pdf_response.content).hexdigest() # nosec
+                document['md5'] = hashlib.md5(pdf_response.content).hexdigest()  # nosec
                 post_files.append(('files', (document['name'], pdf_response.content)))
                 documents.append(document)
 
@@ -308,3 +310,9 @@ class EFilingPackaging:
     def get_location(self, responses):
         location_name = responses.get('court_registry_for_filing', '')
         return list_of_registries.get(location_name, '0000')
+
+    def get_file_number(self, responses):
+        if not self.initial_filing:
+            return responses.get('court_file_number', '')
+        else:
+            return ''

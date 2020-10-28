@@ -42,7 +42,7 @@ class EFilingPackagingTests(TransactionTestCase):
             parties.append(party)
 
         location = '6011'
-        package = self.packaging.format_package(self.request, files, documents, parties, location)
+        package = self.packaging.format_package(self.request, files, documents, parties, location, '')
 
         self.assertTrue(package)
         self.assertEqual(package['filingPackage']['documents'][0]['name'], 'form_0.pdf')

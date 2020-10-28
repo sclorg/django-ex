@@ -105,7 +105,8 @@ def _package_and_submit(request, uploaded, generated, responses, initial):
         post_files,
         documents,
         parties=packaging.get_parties(responses),
-        location=packaging.get_location(responses)
+        location=packaging.get_location(responses),
+        file_number=packaging.get_file_number(responses)
     )
     return msg, redirect_url
 

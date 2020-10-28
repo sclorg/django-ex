@@ -132,7 +132,7 @@ class EFilingSubmission:
             return str(uuid.UUID(guid))
         return guid
 
-    def upload(self, request, files, documents=None, parties=None, location=None):
+    def upload(self, request, files, documents=None, parties=None, location=None, file_number=None):
         """
         Does an initial upload of documents and gets the generated eFiling Hub url.
         :param parties:
@@ -150,8 +150,6 @@ class EFilingSubmission:
         if bce_id is None:
             raise PermissionDenied()
 
-        # package_data, files = self._get_data(request, responses, uploaded, generated)
-
         url = f'{self.api_base_url}/submission/documents'
         print('DEBUG: ' + url)
         response = self._get_api(request, url, transaction_id, bce_id, headers={}, files=files)
@@ -163,7 +161,8 @@ class EFilingSubmission:
                 headers = {
                     'Content-Type': 'application/json'
                 }
-                package_data = self.packaging.format_package(request, files, documents, parties, location)
+                package_data = self.packaging.format_package(
+                    request, files, documents, parties, location, file_number)
                 url = f"{self.api_base_url}/submission/{response['submissionId']}/generateUrl"
                 print('DEBUG: ' + url)
                 data = json.dumps(package_data)
