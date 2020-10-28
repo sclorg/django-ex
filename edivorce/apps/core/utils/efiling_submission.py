@@ -153,6 +153,7 @@ class EFilingSubmission:
         # package_data, files = self._get_data(request, responses, uploaded, generated)
 
         url = f'{self.api_base_url}/submission/documents'
+        print('DEBUG: ' + url)
         response = self._get_api(request, url, transaction_id, bce_id, headers={}, files=files)
         if response.status_code == 200:
             response = json.loads(response.text)
@@ -164,7 +165,9 @@ class EFilingSubmission:
                 }
                 package_data = self.packaging.format_package(request, files, documents, parties, location)
                 url = f"{self.api_base_url}/submission/{response['submissionId']}/generateUrl"
+                print('DEBUG: ' + url)
                 data = json.dumps(package_data)
+                print('DEBUG: ' + data)
                 response = self._get_api(request, url, transaction_id, bce_id, headers, data)
 
                 if response.status_code == 200:
