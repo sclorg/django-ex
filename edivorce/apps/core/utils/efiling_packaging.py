@@ -105,12 +105,12 @@ class EFilingPackaging:
     def __init__(self, initial_filing):
         self.initial_filing = initial_filing
 
-    def format_package(self, request, files, documents, parties, location, file_number):
+    def format_package(self, request, responses, files, documents):
         package = PACKAGE_FORMAT.copy()
-        package['filingPackage']['court']['location'] = location
         package['filingPackage']['documents'] = documents
-        if parties:
-            package['filingPackage']['parties'] = parties
+        package['filingPackage']['court']['location'] = self._get_location(responses)        
+        package['filingPackage']['parties'] = self._get_parties(responses)
+        file_number = self._get_file_number(responses)
         if file_number:
             package['filingPackage']['court']['fileNumber'] = file_number
         # update return urls
@@ -284,7 +284,7 @@ class EFilingPackaging:
 
         return post_files, documents
 
-    def get_parties(self, responses):
+    def _get_parties(self, responses):
 
         # generate the list of parties to send to eFiling Hub
         parties = []
@@ -307,11 +307,11 @@ class EFilingPackaging:
 
         return parties
 
-    def get_location(self, responses):
+    def _get_location(self, responses):
         location_name = responses.get('court_registry_for_filing', '')
         return list_of_registries.get(location_name, '0000')
 
-    def get_file_number(self, responses):
+    def _get_file_number(self, responses):
         if not self.initial_filing:
             return responses.get('court_file_number', '')
         else:

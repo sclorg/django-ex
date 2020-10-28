@@ -132,7 +132,7 @@ class EFilingSubmission:
             return str(uuid.UUID(guid))
         return guid
 
-    def upload(self, request, files, documents=None, parties=None, location=None, file_number=None):
+    def upload(self, request, responses, files, documents=None, parties=None):
         """
         Does an initial upload of documents and gets the generated eFiling Hub url.
         :param parties:
@@ -161,8 +161,7 @@ class EFilingSubmission:
                 headers = {
                     'Content-Type': 'application/json'
                 }
-                package_data = self.packaging.format_package(
-                    request, files, documents, parties, location, file_number)
+                package_data = self.packaging.format_package(request, responses, files, documents)
                 url = f"{self.api_base_url}/submission/{response['submissionId']}/generateUrl"
                 print('DEBUG: ' + url)
                 data = json.dumps(package_data)

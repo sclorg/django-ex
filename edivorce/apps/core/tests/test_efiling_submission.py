@@ -184,7 +184,7 @@ class EFilingSubmissionTests(TransactionTestCase):
                 self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE)),
                 self._mock_response(text=json.dumps(GENERATE_URL_RESPONSE))
             ]
-            redirect, msg = self.hub.upload(self.request, {})
+            redirect, msg = self.hub.upload(self.request, {}, {})
 
             self.assertTrue(redirect)
             self.assertEqual(redirect, GENERATE_URL_RESPONSE['efilingUrl'])
@@ -198,7 +198,7 @@ class EFilingSubmissionTests(TransactionTestCase):
                 self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE), status=401),
                 self._mock_response(text=json.dumps(GENERATE_URL_RESPONSE))
             ]
-            redirect, msg = self.hub.upload(self.request, {})
+            redirect, msg = self.hub.upload(self.request, {}, {})
 
             self.assertFalse(redirect)
 
@@ -210,6 +210,6 @@ class EFilingSubmissionTests(TransactionTestCase):
                 self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE)),
                 self._mock_response(text=json.dumps(GENERATE_URL_RESPONSE_ERROR), status=403)
             ]
-            redirect, msg = self.hub.upload(self.request, {})
+            redirect, msg = self.hub.upload(self.request, {}, {})
 
             self.assertFalse(redirect)

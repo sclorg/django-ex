@@ -34,15 +34,15 @@ class EFilingPackagingTests(TransactionTestCase):
             file = SimpleUploadedFile(filename, b'test content')
             files.append(('files', (file.name, file.read())))
             documents.append(document)
-        parties = []
-        for i in range(0, 2):
-            party = PACKAGE_PARTY_FORMAT.copy()
-            party['firstName'] = 'Party {}'.format(i)
-            party['lastName'] = 'Test'
-            parties.append(party)
 
-        location = '6011'
-        package = self.packaging.format_package(self.request, files, documents, parties, location, '')
+        responses = {
+            'last_name_you': 'Test',
+            'given_name_1_you': 'Party 0',
+            'last_name_spouse': 'Test',
+            'given_name_1_spouse': 'Party 1'
+        }
+
+        package = self.packaging.format_package(self.request, responses, files, documents)
 
         self.assertTrue(package)
         self.assertEqual(package['filingPackage']['documents'][0]['name'], 'form_0.pdf')
@@ -54,18 +54,18 @@ class EFilingPackagingTests(TransactionTestCase):
         responses = {
             "court_registry_for_filing": "Vancouver"
         }
-        location = self.packaging.get_location(responses)
+        location = self.packaging._get_location(responses)
         self.assertEqual(location, '6011')
 
     def test_get_location_fail(self):
         responses = {
             "court_registry_for_filing": "Tokyo"
         }
-        location = self.packaging.get_location(responses)
+        location = self.packaging._get_location(responses)
         self.assertEqual(location, '0000')
 
         responses = {}
-        location = self.packaging.get_location(responses)
+        location = self.packaging._get_location(responses)
         self.assertEqual(location, '0000')
 
     def test_get_json_data_signing_location(self):
