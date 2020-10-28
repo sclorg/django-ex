@@ -87,7 +87,6 @@ def forms_to_file(responses_dict, initial=False):
             uploaded.append({'doc_type': 'AFDO', 'party_code': 2})
 
         elif signing_location_you == 'Virtual' and signing_location_spouse == 'In-person':
-            print('got here')
             if has_children:
                 uploaded.append({'doc_type': 'CSA', 'party_code': 1})
             uploaded.append({'doc_type': 'AFDO', 'party_code': 1})

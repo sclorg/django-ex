@@ -49,7 +49,6 @@ def _get_next_sub_step(step, sub_step, want_which_orders, children_of_marriage, 
 
 
 def _adjust_for_orders(next_item, want_which_orders, children_of_marriage, direction):
-    print(children_of_marriage)
     tests = [
         lambda next_item: next_item == 6 and not children_of_marriage,
         lambda next_item: next_item == 7 and 'Spousal support' not in want_which_orders,
