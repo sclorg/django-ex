@@ -8,35 +8,34 @@
 
 {% block content %}
     <h1>Filing Completed</h1>
-    {% if how_to_file == 'Online' %}
-        {% if final_filing_submitted == 'True' %}
+    {% if how_to_file == 'Online' and final_filing_submitted != 'True' %}
+        <p>
+            Once you have submitted your Final Filing of documents, you can return to this page and get instructions for
+            the next steps to complete your filing.
+        </p>
+        <p>
+            Please return to this page once you have completed the
+            <a href="{% url 'dashboard_nav' 'final_filing' %}">Final Filing</a> step.
+        </p>
+    {% else %}
+        {% if how_to_file == 'Online' %}
             <p>
                 You have successfully completed filing online.
             </p>
             <p>
                 <b>Your {% include "partials/tooltips/online_package_number.html" with with_cso=True %} is {{ final_filing_package_number }}</b>
             </p>
-        {% else %}
             <p>
-                You still have to complete your filing with the Court Registry.
-                Go to the <a href="{% url 'dashboard_nav' 'final_filing' %}">Final Filing</a> step.
+                Once your filing has been reviewed by the {% include "partials/tooltips/court_registry.html" %},
+                you will receive an e-mail confirmation of your filing.
+                This e-mail will include a {% include "partials/tooltips/court_file_number.html" %},
+                please keep this number for your records and use it if filing any additional documents.
             </p>
-            <p>
-                <b>Once filed, you will receive a {% include "partials/tooltips/online_package_number.html" with with_cso=True %}</b>
-            </p>
-        {% endif %}
-        <p>
-            Once your filing has been reviewed by the {% include "partials/tooltips/court_registry.html" %}, you will receive an e-mail confirmation
-            of your filing.
-            This e-mail will include a {% include "partials/tooltips/court_file_number.html" %}, please keep this number for your records and use it
-            if filing any additional documents.
-        </p>
-        {% if final_filing_submitted == 'True' %}
             <div class="question-well">
                 <h3>Filing Status</h3>
                 <p>
-                    You will receive e-mails from the system as your filing is processed by the Court Registry. You can also check here to see the
-                    status of your filing:
+                    You will receive e-mails from the system as your filing is processed by the Court Registry.
+                    You can also check here to see the status of your filing:
                 </p>
                 <p class="no-margin-bottom">
                     Current Filing Status:
@@ -62,45 +61,45 @@
                 </ul>
             </div>
         {% endif %}
-    {% endif %}
-    <div class="question-well">
-        <h3>What happens at the registry?</h3>
-        <p>
-            The court registry staff will check your documents to make sure they've been completed properly.
-        </p>
-        <p>
-            If you're not sure whether you've filled out the documents correctly, get some
-            <a href="https://familylaw.lss.bc.ca/help/who_LegalAdvice.php" target="_blank">legal advice</a> before you file your documents — from
-            <a href="https://familylaw.lss.bc.ca/help/who_FamilyDutyCounsel.php" target="_blank">family duty counsel</a>
-            or (in Vancouver) from the Vancouver
-            <a href="https://familylaw.lss.bc.ca/help/jacSelfHelpAndInfoServices.php" target="_blank">Justice Access Centre</a> Self-Help and
-            Information Services.
-        </p>
-        <p>
-            If the court registry is satisfied that your documents are in order, they will stamp the documents with the date, the court seal, and a
-            file number.
-        </p>
-        <p>
-            You now have a divorce file open in the Supreme Court.
-        </p>
-    </div>
-    <div class="question-well">
-        <h3>Next Steps</h3>
-        <p>
-            Once your divorce has been reviewed, you will receive an e-mail from the court registry with information about the next steps.
-            If your divorce is approved, you can move to the next step and order a certificate of divorce.
-        </p>
+        <div class="question-well">
+            <h3>What happens at the registry?</h3>
+            <p>
+                The court registry staff will check your documents to make sure they've been completed properly.
+            </p>
+            <p>
+                If you're not sure whether you've filled out the documents correctly, get some
+                <a href="https://familylaw.lss.bc.ca/help/who_LegalAdvice.php" target="_blank">legal advice</a> before you file your documents — from
+                <a href="https://familylaw.lss.bc.ca/help/who_FamilyDutyCounsel.php" target="_blank">family duty counsel</a>
+                or (in Vancouver) from the Vancouver
+                <a href="https://familylaw.lss.bc.ca/help/jacSelfHelpAndInfoServices.php" target="_blank">Justice Access Centre</a> Self-Help and
+                Information Services.
+            </p>
+            <p>
+                If the court registry is satisfied that your documents are in order, they will stamp the documents with the date,
+                the court seal, and a file number.
+            </p>
+            <p>
+                You now have a divorce file open in the Supreme Court.
+            </p>
+        </div>
+        <div class="question-well">
+            <h3>Next Steps</h3>
+            <p>
+                Once your divorce has been reviewed, you will receive an e-mail from the court registry with information about the next steps.
+                If your divorce is approved, you can move to the next step and order a certificate of divorce.
+            </p>
 
-        <p class="add-top-margin">
-            <b>Haven’t Heard Back?</b>
-        </p>
-        <p>
-            If you don’t hear back within 30 days from the court registry, please contact CSO Online Support at
-            <a href="mailto:Courts.CSO@gov.bc.ca" target="_blank">Courts.CSO@gov.bc.ca</a>
-            and include your {% include "partials/tooltips/court_file_number.html" %} / Filing Location
-            or {% include "partials/tooltips/online_package_number.html" %}.
-        </p>
-    </div>
+            <p class="add-top-margin">
+                <b>Haven’t Heard Back?</b>
+            </p>
+            <p>
+                If you don’t hear back within 30 days from the court registry, please contact CSO Online Support at
+                <a href="mailto:Courts.CSO@gov.bc.ca" target="_blank">Courts.CSO@gov.bc.ca</a>
+                and include your {% include "partials/tooltips/court_file_number.html" %} / Filing Location
+                or {% include "partials/tooltips/online_package_number.html" %}.
+            </p>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block backToDashboard %}
