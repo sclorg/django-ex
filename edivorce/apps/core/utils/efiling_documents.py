@@ -9,14 +9,9 @@ def forms_to_file(responses_dict, initial=False):
 
     how_to_file = responses_dict.get('how_to_file')
     how_to_sign = responses_dict.get('how_to_sign')
-    if settings.VIRTUAL_SWEARING_ENABLED:
-        signing_location_both = responses_dict.get('signing_location') if how_to_sign == 'Together' else None
-        signing_location_you = responses_dict.get('signing_location_you') if how_to_sign == 'Separately' else None
-        signing_location_spouse = responses_dict.get('signing_location_spouse') if how_to_sign == 'Separately' else None
-    else:
-        signing_location_both = 'In-person' if how_to_sign == 'Together' else None
-        signing_location_you = 'In-person' if how_to_sign == 'Separately' else None
-        signing_location_spouse = 'In-person' if how_to_sign == 'Separately' else None
+    signing_location_both = responses_dict.get('signing_location') if how_to_sign == 'Together' else None
+    signing_location_you = responses_dict.get('signing_location_you') if how_to_sign == 'Separately' else None
+    signing_location_spouse = responses_dict.get('signing_location_spouse') if how_to_sign == 'Separately' else None
 
     derived = responses_dict.get('derived', get_derived_data(responses_dict))
 
