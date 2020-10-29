@@ -160,64 +160,42 @@
             </div>
         </div>
     </div>
+
     {% if how_to_file == 'Online' %}
         <div class="review-well clearfix">
             <div class="collapse-trigger collapsed" data-toggle="collapse"
-                 aria-expanded="false" data-target="#collapseF96y"
-                 aria-controls="collapseF96y">
+                aria-expanded="false" data-target="#collapseF96t"
+                aria-controls="collapseF96t">
                 <div>
-                    <span>Electronic Filing Statement (F96) - to be signed by you</span>
+                    <span>
+                        Electronic Filing Statement (F96) for your Affadivit of Translation - 
+                        to be signed by you
+                    </span>
                 </div>
             </div>
             <p class="review-buttons">
-                <a href="{% url 'pdf_form' '96_claimant1' %}" class="btn btn-primary spinner"
-                   target="_blank"><i class="fa fa-pencil" aria-hidden="true"></i>
+                <a href="{% url 'pdf_form' '96_translation' %}" class="btn btn-primary spinner"
+                target="_blank"><i class="fa fa-pencil" aria-hidden="true"></i>
                     Review, Print & Sign
                 </a>
             </p>
+            <div class="review-explanation">(<em><strong>Optional</strong></em> - Only required if your marriage certificate is NOT in English)</div>
             <div class="clearfix"></div>
-            <div class="collapse" id="collapseF96y">
+            <div class="collapse" id="collapseF96t">
                 <div>
                     <p>
-                        This form is used to confirm that the document you are filing electronically shows your original signature and is a true
-                        copy of the original paper version of the document.
+                        This form is used to confirm that the document you are filing electronically 
+                        shows your original signature and is a true copy of the original paper 
+                        version of the document.
                     </p>
                     <p>
-                        - Requires signature by both you and your spouse (but not a signature in front of a commissioner)
-                    </p>
+                        - Requires signature by you only (but not a signature in front of a commissioner)
+                    </p>                    
                 </div>
             </div>
         </div>
-        {% if how_to_sign == 'Separately' %}
-            <div class="review-well clearfix">
-                <div class="collapse-trigger collapsed" data-toggle="collapse"
-                     aria-expanded="false" data-target="#collapseF96s"
-                     aria-controls="collapseF96s">
-                    <div>
-                        <span>Electronic Filing Statement (F96) - to be signed by your spouse</span>
-                    </div>
-                </div>
-                <p class="review-buttons">
-                    <a href="{% url 'pdf_form' '96_claimant2' %}" class="btn btn-primary spinner"
-                       target="_blank"><i class="fa fa-pencil" aria-hidden="true"></i>
-                        Review, Print & Sign
-                    </a>
-                </p>
-                <div class="clearfix"></div>
-                <div class="collapse" id="collapseF96s">
-                    <div>
-                        <p>
-                            This form is used to confirm that the document you are filing electronically shows your original signature and is a true
-                            copy of the original paper version of the document.
-                        </p>
-                        <p>
-                            - Requires signature by both you and your spouse (but not a signature in front of a commissioner)
-                        </p>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
     {% endif %}
+
     {% if how_to_sign == 'Together' %}
         {% if derived.has_children_of_marriage %}
             <div class="review-well clearfix">
@@ -411,6 +389,65 @@
         <h2>You must select whether you are signing together or separately in the
             <a href="{% url 'dashboard_nav' 'sign_file_options' %}">Signing and Filing Options</a> step.</h2>
     {% endif %}
+
+    {% if how_to_file == 'Online' %}
+        <div class="review-well clearfix">
+            <div class="collapse-trigger collapsed" data-toggle="collapse"
+                 aria-expanded="false" data-target="#collapseF96y"
+                 aria-controls="collapseF96y">
+                <div>
+                    <span>Electronic Filing Statement (F96) for above Affidavits - to be signed by you</span>
+                </div>
+            </div>
+            <p class="review-buttons">
+                <a href="{% url 'pdf_form' '96_claimant1' %}" class="btn btn-primary spinner"
+                   target="_blank"><i class="fa fa-pencil" aria-hidden="true"></i>
+                    Review, Print & Sign
+                </a>
+            </p>
+            <div class="clearfix"></div>
+            <div class="collapse" id="collapseF96y">
+                <div>
+                    <p>
+                        This form is used to confirm that the document you are filing electronically shows your original signature and is a true
+                        copy of the original paper version of the document.
+                    </p>
+                    <p>
+                        - Requires signature by you only (but not a signature in front of a commissioner)
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% if how_to_sign == 'Separately' %}
+            <div class="review-well clearfix">
+                <div class="collapse-trigger collapsed" data-toggle="collapse"
+                     aria-expanded="false" data-target="#collapseF96s"
+                     aria-controls="collapseF96s">
+                    <div>
+                        <span>Electronic Filing Statement (F96) for above Affidavits - to be signed by your spouse</span>
+                    </div>
+                </div>
+                <p class="review-buttons">
+                    <a href="{% url 'pdf_form' '96_claimant2' %}" class="btn btn-primary spinner"
+                       target="_blank"><i class="fa fa-pencil" aria-hidden="true"></i>
+                        Review, Print & Sign
+                    </a>
+                </p>
+                <div class="clearfix"></div>
+                <div class="collapse" id="collapseF96s">
+                    <div>
+                        <p>
+                            This form is used to confirm that the document you are filing electronically shows your original signature and is a true
+                            copy of the original paper version of the document.
+                        </p>
+                        <p>
+                            - Requires signature by your spouse only (but not a signature in front of a commissioner)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}    
 
     <div class="question-well">
         <h3>Additional Documents to Print and Complete</h3>

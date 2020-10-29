@@ -59,7 +59,11 @@ def pdf_form(request, form_number):
     elif form_number == '96_claimant2':
         form_number = '96'
         responses = __add_claimant_info(responses, '_spouse')
-        responses['which_claimant'] = 'Claimant 2'        
+        responses['which_claimant'] = 'Claimant 2'
+    elif form_number == '96_translation':
+        form_number = '96'
+        responses = __add_claimant_info(responses, '_you')
+        responses['which_claimant'] = 'Claimant 1'
 
     return __render_form(request, 'form%s' % form_number, {
         'css_root': settings.WEASYPRINT_CSS_LOOPBACK,
@@ -72,11 +76,11 @@ def pdf_form(request, form_number):
 def __render_form(request, form_name, context):
 
     output_as_html = request.GET.get('html', None) is not None
-    output_as_debug = request.GET.get('debug', None) is not None    
+    output_as_debug = request.GET.get('debug', None) is not None
 
     if output_as_html:
         context['css_root'] = settings.FORCE_SCRIPT_NAME[:-1]
-        context['image_root'] = settings.FORCE_SCRIPT_NAME[:-1]        
+        context['image_root'] = settings.FORCE_SCRIPT_NAME[:-1]
 
     template_name = form_name
     if not form_name.startswith('form'):

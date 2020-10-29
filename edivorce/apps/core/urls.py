@@ -32,7 +32,7 @@ urlpatterns = [
 
     # url(r'^headers$', system.headers),
 
-    url(r'^pdf-form(?P<form_number>[0-9]{1,3}(_we|_claimant1|_claimant2)?)$', pdf.pdf_form, name="pdf_form"),
+    url(r'^pdf-form(?P<form_number>[0-9]{1,3}(_we|_claimant1|_claimant2|_translation)?)$', pdf.pdf_form, name="pdf_form"),
     path('pdf-images/<doc_type>/<int:party_code>/', pdf.images_to_pdf, name='pdf_images'),
     url(r'^prequalification/step_(?P<step>[0-9]{2})$', main.prequalification, name="prequalification"),
     url(r'^question/(?P<step>.*)/(?P<sub_step>.*)/$', main.question, name="question_steps"),
