@@ -21,6 +21,8 @@ def pdf_form(request, form_number):
     """ View for rendering PDF's and previews """
 
     responses = get_data_for_user(request.user)
+    derived = get_derived_data(responses)
+    has_children = derived['has_children_of_marriage']
 
     if (form_number == '1' or form_number.startswith('37') or
             form_number.startswith('38') or
@@ -56,19 +58,28 @@ def pdf_form(request, form_number):
         form_number = '96'
         responses = __add_claimant_info(responses, '_you')
         responses['which_claimant'] = 'Claimant 1'
+        if has_children:
+            responses['which_affidavits'] = 'Child Support Affidavit (F37) and Affidavit - Desk Order Divorce Form (F38)'
+        else:
+            responses['which_affidavits'] = 'Affidavit - Desk Order Divorce Form (F38)'
     elif form_number == '96_claimant2':
         form_number = '96'
         responses = __add_claimant_info(responses, '_spouse')
         responses['which_claimant'] = 'Claimant 2'
+        if has_children:
+            responses['which_affidavits'] = 'Child Support Affidavit (F37) and Affidavit - Desk Order Divorce Form (F38)'
+        else:
+            responses['which_affidavits'] = 'Affidavit - Desk Order Divorce Form (F38)'
     elif form_number == '96_translation':
         form_number = '96'
         responses = __add_claimant_info(responses, '_you')
         responses['which_claimant'] = 'Claimant 1'
+        responses['which_affidavits'] = 'Affidavit of Translation'
 
     return __render_form(request, 'form%s' % form_number, {
         'css_root': settings.WEASYPRINT_CSS_LOOPBACK,
         'responses': responses,
-        'derived': get_derived_data(responses),
+        'derived': derived,
         'exhibits': EXHIBITS[:],
     })
 
