@@ -49,28 +49,26 @@ COMPRESS_OFFLINE = True
 #
 DEPLOYMENT_TYPE = env('ENVIRONMENT_TYPE', 'unittest')
 
-PROXY_URL_PREFIX = ''
+PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
 PROXY_BASE_URL = os.getenv('PROXY_BASE_URL', 'https://justice.gov.bc.ca')
 
 if DEPLOYMENT_TYPE in ['dev', 'unittest']:
     DEBUG = True
     # Keycloak OpenID Connect settings
-    OIDC_OP_JWKS_ENDPOINT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/certs'
-    OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/auth'
-    OIDC_OP_TOKEN_ENDPOINT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/token'
-    OIDC_OP_USER_ENDPOINT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/userinfo'
-    KEYCLOAK_LOGOUT = 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/logout'
+    OIDC_OP_JWKS_ENDPOINT = 'https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/certs'
+    OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/auth'
+    OIDC_OP_TOKEN_ENDPOINT = 'https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/token'
+    OIDC_OP_USER_ENDPOINT = 'https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/userinfo'
+    KEYCLOAK_LOGOUT = 'https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/logout'
     OIDC_RP_CLIENT_ID = 'e-divorce-app'
 
 if DEPLOYMENT_TYPE == 'dev':
-    PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
     CSRF_COOKIE_AGE = None
     SESSION_COOKIE_AGE = 3600
     REGISTER_BCEID_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5522'
     REGISTER_BCSC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://dev.justice.gov.bc.ca/divorce/oidc/authenticate'
 
 if DEPLOYMENT_TYPE == 'test':
-    PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
     REGISTER_BCEID_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
     REGISTER_BCSC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://test.justice.gov.bc.ca/divorce/oidc/authenticate'
     # Keycloak OpenID Connect settings
@@ -82,7 +80,6 @@ if DEPLOYMENT_TYPE == 'test':
     OIDC_RP_CLIENT_ID = 'e-divorce-app'
 
 if DEPLOYMENT_TYPE == 'prod':
-    PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
     REGISTER_BCEID_URL = 'https://www.bceid.ca/directories/bluepages/details.aspx?serviceID=5203'
     REGISTER_BCSC_URL = 'https://logon7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed49&partnerList=fed49&flags=0001:0,8&TARGET=http://justice.gov.bc.ca/divorce/oidc/authenticate'
     # Keycloak OpenID Connect settings
