@@ -108,7 +108,7 @@ class EFilingPackaging:
     def format_package(self, request, responses, files, documents):
         package = PACKAGE_FORMAT.copy()
         package['filingPackage']['documents'] = documents
-        package['filingPackage']['court']['location'] = self._get_location(responses)        
+        package['filingPackage']['court']['location'] = self._get_location(responses)
         package['filingPackage']['parties'] = self._get_parties(responses)
         file_number = self._get_file_number(responses)
         if file_number:
@@ -135,7 +135,10 @@ class EFilingPackaging:
         document = PACKAGE_DOCUMENT_FORMAT.copy()
         filename = self._get_filename(doc_type, party_code)
         document['name'] = filename
-        document['type'] = doc_type
+        if doc_type in ['EFSS1', 'EFSS2']:
+            document['type'] = 'EFSS'
+        else:
+            document['type'] = doc_type
         return document
 
     def _get_filename(self, doc_type, party_code):

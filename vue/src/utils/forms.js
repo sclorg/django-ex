@@ -28,7 +28,7 @@ export default {
     name: "Electronic Filing Statement (F96)",
     preText: "Upload the signed and scanned",
     help:
-      "This form is used to confirm that the document you are filing electronically shows your original signature and is a true copy of the original paper version of the document. - Requires signature by both you and your spouse (but not a signature in front of a commissioner)",
+      "This form is used to confirm that the document you are filing electronically shows your original signature and is a true copy of the original paper version of the document. - Requires signature you only (but not a signature in front of a commissioner)",
     postText: "for your Affidavit of Translation form",
     optional: "Required only if your marriage certificate is NOT in English",
   },
@@ -36,7 +36,7 @@ export default {
     name: "Electronic Filing Statement (F96)",
     preText: "Upload the signed and scanned",
     help:
-      "This form is used to confirm that the document you are filing electronically shows your original signature and is a true copy of the original paper version of the document. - Requires signature by both you and your spouse (but not a signature in front of a commissioner)",
+      "This form is used to confirm that the document you are filing electronically shows your original signature and is a true copy of the original paper version of the document. - Requires signature by the party named on the form (but not a signature in front of a commissioner)",
   },
   MC: {
     name: "Proof of Marriage",

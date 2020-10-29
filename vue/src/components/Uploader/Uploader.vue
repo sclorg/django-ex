@@ -8,6 +8,9 @@
       <span v-if="party === 1"> - For You</span>
       <span v-if="party === 2"> - For Your Spouse</span>
     </h5>
+    <p v-if="formDef.optional">
+      (<em><strong>Optional</strong></em>: {{ formDef.optional }})
+    </p>
     <tooltip
       :text="formDef.help"
       trigger="outside-click"
@@ -44,7 +47,7 @@
         @input-file="inputFile"
         @input-filter="inputFilter"
       >
-        <div v-if="files.length === 0" class="placeholder">
+        <div v-if="files.length === 0" class="placeholder" :class="{'optional': formDef.optional}">
           <i class="fa fa-plus-circle"></i><br />
           <em>
             Drag and Drop the PDF document or JPG pages here,<br />or click here
