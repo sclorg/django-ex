@@ -120,7 +120,7 @@ class Document(models.Model):
     file = models.FileField(upload_to=redis.generate_unique_filename, storage=redis.RedisStorage())
     """ File temporarily stored in Redis """
 
-    doc_type = models.CharField(max_length=4, null=True, blank=True)
+    doc_type = models.CharField(max_length=5, null=True, blank=True)
     """ CEIS Document Type Code (2-4 letters) """
 
     party_code = models.IntegerField(default=0)
@@ -149,7 +149,8 @@ class Document(models.Model):
         'AFDO': "Affidavit - Desk Order Divorce Form (F38)",
         'AFTL': "Affidavit of Translation Form",
         'CSA': "Child Support Affidavit (F37)",
-        'EFSS': "Electronic Filing Statement (F96)",
+        'EFSS1': "Electronic Filing Statement for Translation (F96)",
+        'EFSS2': "Electronic Filing Statement for Affadivits (F96)",
         'MC': "Proof of Marriage",
         'NCV': "Identification of Applicant (VSA 512)",
         'NJF': "Notice of Joint Family Claim (F1)",

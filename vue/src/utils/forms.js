@@ -16,6 +16,7 @@ export default {
     preText: "Scan and upload the sworn",
     help:
       "The Affidavit of Translation is an affidavit which is sworn by a translator before a notary, lawyer or commissioner for taking Affidavits.  The original certificate of marriage should be exhibited to the Affidavit of Translation together with the translation of the translator.",
+    optional: "Required only if your marriage certificate is NOT in English",
   },
   CSA: {
     name: "Child Support Affidavit (F37)",
@@ -23,7 +24,15 @@ export default {
     help:
       "This form gives facts about your children and child support, including the order you're asking the court for. You must also attach your separation agreement or court orders about children to this form as exhibits.  - Required swearing/affiming and signatures by both you and your spouse in front of a commissioner.",
   },
-  EFSS: {
+  EFSS1: {
+    name: "Electronic Filing Statement (F96)",
+    preText: "Upload the signed and scanned",
+    help:
+      "This form is used to confirm that the document you are filing electronically shows your original signature and is a true copy of the original paper version of the document. - Requires signature by both you and your spouse (but not a signature in front of a commissioner)",
+    postText: "for your Affidavit of Translation form",
+    optional: "Required only if your marriage certificate is NOT in English",
+  },
+  EFSS2: {
     name: "Electronic Filing Statement (F96)",
     preText: "Upload the signed and scanned",
     help:
@@ -46,7 +55,7 @@ export default {
     preText: "auto",
     help:
       "This form starts your divorce proceeding. It gives the court details about you and your spouse, your marriage and separation, and what you're asking the court for. - Does not require signatures when filed online.",
-  },  
+  },
   OFI: {
     name: "Draft Final Order Form (F52)",
     preText: "Upload the signed and scanned",
@@ -58,7 +67,7 @@ export default {
     preText: "auto",
     help:
       "This form is completed by registry staff after your application has been reviewed by them. It shows the judge that your application has been checked and is complete. - Does not require signatures of you or your spouse.",
-  },  
+  },
   RDP: {
     name: "Registration of Joint Divorce Proceedings (JUS280)",
     preText: "Complete, scan and upload the",
