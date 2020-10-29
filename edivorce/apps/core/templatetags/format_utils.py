@@ -118,7 +118,7 @@ def age(date):
     printing '46 years' instead of print '46 years, 7 months'.
     """
     try:
-        birth = datetime.strptime(date, strptime)
+        birth = datetime.strptime(date, '%b %d, %Y')
     except ValueError:
         try:
             birth = datetime.strptime(date, '%b %d, %Y')
