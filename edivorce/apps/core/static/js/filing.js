@@ -2,11 +2,8 @@ $(window).ready(function () {
     $('#submitDocuments').on('click', function (e) {
         var missingForms = []
         $('div#app').children().each(function (i, child) {
-            placeholder = $(child).find("div.placeholder");
-            if (placeholder.length > 0) {
-                if (!placeholder.hasClass('optional')) {
-                    missingForms.push($(child).find("h5 a").text());
-                }
+            if ($(child).find("div.placeholder.required").length > 0) {
+                missingForms.push($(child).find("h5 a").text());
             }
         })
         var errorBox = $('#error-message-box');

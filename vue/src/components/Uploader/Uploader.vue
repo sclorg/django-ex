@@ -53,7 +53,7 @@
         <div
           v-if="files.length === 0"
           class="placeholder"
-          :class="{ optional: formDef.optional }"
+          :class="{ 'required': !formDef.optional }"
         >
           <i class="fa fa-plus-circle"></i><br />
           <em>
