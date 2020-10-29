@@ -1,9 +1,9 @@
 ﻿<template>
   <div id="app">
-    <template v-for="item in formTypes">
-        <div>
-          <Uploader v-bind:doc-type="item.doc_type" :party="item.party_code"/>
-        </div>
+    <template v-for="(item, index) in formTypes">
+      <div :key="index">
+        <Uploader :doc-type="item.doc_type" :party="item.party_code" />
+      </div>
     </template>
   </div>
 </template>

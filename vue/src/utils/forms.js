@@ -4,12 +4,14 @@ export default {
     preText: "Complete, scan and upload the",
     help:
       "This form is used if both you and your spouse agree on the income of the person who will be paying child support. It is used instead of a Financial Statement (F8) if you need to provide the court with proof of income. - Does not require signatures.",
+    postText: "form"
   },
   AFDO: {
     name: "Affidavit - Desk Order Divorce Form (F38)",
     preText: "Upload the sworn/affirmed and scanned",
     help:
       "This form sets out all the facts of your marriage and separation for the court and gives information about parenting time if you have children. - Required swearing/affirming and signatures by both you and your spouse in front of a commissioner.",
+    indicateWhenJoint: true,
   },
   AFTL: {
     name: "Affidavit of Translation Form",
@@ -23,6 +25,7 @@ export default {
     preText: "Upload the sworn/affirmed and scanned",
     help:
       "This form gives facts about your children and child support, including the order you're asking the court for. You must also attach your separation agreement or court orders about children to this form as exhibits.  - Required swearing/affiming and signatures by both you and your spouse in front of a commissioner.",
+    indicateWhenJoint: true,
   },
   EFSS1: {
     name: "Electronic Filing Statement (F96)",

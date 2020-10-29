@@ -1,18 +1,21 @@
 <template>
   <div>
-    <h5 class="uploader-label">
+    <h5 class="uploader-label" :class="{ 'has-optional': formDef.optional }">
       {{ formDef.preText }}
       <a href="javascript:void(0)" :id="'Tooltip-' + uniqueId">
         {{ formDef.name }} <i class="fa fa-question-circle"></i>
       </a>
-      <span v-if="party === 1"> - For You</span>
-      <span v-if="party === 2"> - For Your Spouse</span>
+      <span v-if="formDef.postText"> {{ formDef.postText }}</span>
+      <span v-else-if="party === 1"> for You</span>
+      <span v-else-if="party === 2"> for Your Spouse</span>
+      <span v-else-if="party === 0 && formDef.indicateWhenJoint"> - Joint</span>
     </h5>
     <p v-if="formDef.optional">
-      (<em><strong>Optional</strong></em>: {{ formDef.optional }})
+      (<em><strong>Optional</strong></em
+      >: {{ formDef.optional }})
     </p>
     <tooltip
-      :text="formDef.help"
+      :text="formatHelpText(formDef.name, formDef.help)"
       trigger="outside-click"
       :target="'#Tooltip-' + uniqueId"
       placement="right"
@@ -47,7 +50,11 @@
         @input-file="inputFile"
         @input-filter="inputFilter"
       >
-        <div v-if="files.length === 0" class="placeholder" :class="{'optional': formDef.optional}">
+        <div
+          v-if="files.length === 0"
+          class="placeholder"
+          :class="{ optional: formDef.optional }"
+        >
           <i class="fa fa-plus-circle"></i><br />
           <em>
             Drag and Drop the PDF document or JPG pages here,<br />or click here
@@ -475,7 +482,10 @@
           }
         }
         return null;
-      }
+      },
+      formatHelpText(title, body) {
+        return "<b>" + title + "</b><br><br>" + body;
+      },
     },
     created() {
       // get saved state from the server
@@ -607,6 +617,10 @@
     margin-bottom: 20px;
     font-weight: normal;
     font-size: 21px;
+
+    &.has-optional {
+      margin-bottom: 0;
+    }
 
     a {
       color: #365ebe;
