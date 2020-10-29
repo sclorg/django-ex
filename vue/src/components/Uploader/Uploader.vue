@@ -15,7 +15,7 @@
       >: {{ formDef.optional }})
     </p>
     <tooltip
-      :text="formatHelpText(formDef.name, formDef.help)"
+      :text="formatHelpText(formDef.name, formDef.help, formDef.signature)"
       trigger="outside-click"
       :target="'#Tooltip-' + uniqueId"
       placement="right"
@@ -483,8 +483,12 @@
         }
         return null;
       },
-      formatHelpText(title, body) {
-        return "<b>" + title + "</b><br><br>" + body;
+      formatHelpText(title, body, signature) {
+        let text = "<b>" + title + "</b><br><br>" + body;
+        if (signature) {
+          text += "<br><br>" + signature;
+        }
+        return text;
       },
     },
     created() {
