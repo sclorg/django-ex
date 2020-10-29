@@ -163,8 +163,8 @@ class FilingLogic(TestCase):
 
         self.assertEqual(len(uploaded), 3)
         self.assertIn({'doc_type': doc_type("desk order divorce form"), 'party_code': 0}, uploaded)
-        self.assertIn({'doc_type': doc_type("electronic filing statement for affadivits"), 'party_code': 1}, uploaded)
-        self.assertIn({'doc_type': doc_type("electronic filing statement for affadivits"), 'party_code': 2}, uploaded)
+        self.assertIn({'doc_type': doc_type("electronic filing statement for affidavits"), 'party_code': 1}, uploaded)
+        self.assertIn({'doc_type': doc_type("electronic filing statement for affidavits"), 'party_code': 2}, uploaded)
 
         self.assertEqual(len(generated), 0)
         self.create_response('children_of_marriage', 'YES')
@@ -186,8 +186,8 @@ class FilingLogic(TestCase):
         self.assertEqual(len(uploaded), 4)
         self.assertIn({'doc_type': doc_type("desk order divorce form"), 'party_code': 1}, uploaded)
         self.assertIn({'doc_type': doc_type("desk order divorce form"), 'party_code': 2}, uploaded)
-        self.assertIn({'doc_type': doc_type("electronic filing statement for affadivits"), 'party_code': 1}, uploaded)
-        self.assertIn({'doc_type': doc_type("electronic filing statement for affadivits"), 'party_code': 2}, uploaded)        
+        self.assertIn({'doc_type': doc_type("electronic filing statement for affidavits"), 'party_code': 1}, uploaded)
+        self.assertIn({'doc_type': doc_type("electronic filing statement for affidavits"), 'party_code': 2}, uploaded)        
 
         self.assertEqual(len(generated), 0)
         self.create_response('children_of_marriage', 'YES')
@@ -208,8 +208,8 @@ class FilingLogic(TestCase):
         uploaded, generated = forms_to_file(self.questions_dict, initial=False)
 
         self.assertEqual(len(uploaded), 4)
-        self.assertIn({'doc_type': doc_type("electronic filing statement for affadivits"), 'party_code': 1}, uploaded)
-        self.assertIn({'doc_type': doc_type("electronic filing statement for affadivits"), 'party_code': 2}, uploaded)
+        self.assertIn({'doc_type': doc_type("electronic filing statement for affidavits"), 'party_code': 1}, uploaded)
+        self.assertIn({'doc_type': doc_type("electronic filing statement for affidavits"), 'party_code': 2}, uploaded)
         self.assertIn({'doc_type': doc_type("desk order divorce form"), 'party_code': 0}, uploaded)
         self.assertIn({'doc_type': doc_type("draft final order"), 'party_code': 0}, uploaded)
 

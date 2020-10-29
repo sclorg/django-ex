@@ -150,7 +150,7 @@ class Document(models.Model):
         'AFTL': "Affidavit of Translation Form",
         'CSA': "Child Support Affidavit (F37)",
         'EFSS1': "Electronic Filing Statement for Translation (F96)",
-        'EFSS2': "Electronic Filing Statement for Affadivits (F96)",
+        'EFSS2': "Electronic Filing Statement for Affidavits (F96)",
         'MC': "Proof of Marriage",
         'NCV': "Identification of Applicant (VSA 512)",
         'NJF': "Notice of Joint Family Claim (F1)",
