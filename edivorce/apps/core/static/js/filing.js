@@ -18,6 +18,9 @@ $(window).ready(function () {
             window.scrollTo(0, 0);
         } else {
             errorBox.hide();
+            // show the spinner overlay
+            $('div#progress-overlay').show();
+            $('div#progress-overlay-spinner').spin('large');            
         }
     });
 });
