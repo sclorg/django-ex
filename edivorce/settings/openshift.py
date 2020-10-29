@@ -74,11 +74,11 @@ if DEPLOYMENT_TYPE == 'test':
     REGISTER_BCEID_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
     REGISTER_BCSC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://test.justice.gov.bc.ca/divorce/oidc/authenticate'
     # Keycloak OpenID Connect settings
-    OIDC_OP_JWKS_ENDPOINT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/certs'
-    OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/auth'
-    OIDC_OP_TOKEN_ENDPOINT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/token'
-    OIDC_OP_USER_ENDPOINT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/userinfo'
-    KEYCLOAK_LOGOUT = 'https://sso-test.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/logout'
+    OIDC_OP_JWKS_ENDPOINT = 'https://test.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/certs'
+    OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://test.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/auth'
+    OIDC_OP_TOKEN_ENDPOINT = 'https://test.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/token'
+    OIDC_OP_USER_ENDPOINT = 'https://test.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/userinfo'
+    KEYCLOAK_LOGOUT = 'https://test.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/logout'
     OIDC_RP_CLIENT_ID = 'e-divorce-app'
 
 if DEPLOYMENT_TYPE == 'prod':
@@ -86,12 +86,12 @@ if DEPLOYMENT_TYPE == 'prod':
     REGISTER_BCEID_URL = 'https://www.bceid.ca/directories/bluepages/details.aspx?serviceID=5203'
     REGISTER_BCSC_URL = 'https://logon7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed49&partnerList=fed49&flags=0001:0,8&TARGET=http://justice.gov.bc.ca/divorce/oidc/authenticate'
     # Keycloak OpenID Connect settings
-    OIDC_OP_JWKS_ENDPOINT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/certs'
-    OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/auth'
-    OIDC_OP_TOKEN_ENDPOINT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/token'
-    OIDC_OP_USER_ENDPOINT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/userinfo'
-    KEYCLOAK_LOGOUT = 'https://sso.pathfinder.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/logout'
-    OIDC_RP_CLIENT_ID = 'XXXXXXXX'
+    OIDC_OP_JWKS_ENDPOINT = 'https://oidc.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/certs'
+    OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://oidc.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/auth'
+    OIDC_OP_TOKEN_ENDPOINT = 'https://oidc.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/token'
+    OIDC_OP_USER_ENDPOINT = 'https://oidc.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/userinfo'
+    KEYCLOAK_LOGOUT = 'https://oidc.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/logout'
+    OIDC_RP_CLIENT_ID = 'e-divorce-app'
     # Google Tag Manager (Production)
     GTM_ID = 'GTM-W4Z2SPS'
 
@@ -149,6 +149,7 @@ EFILING_HUB_ENABLED = True
 
 # Enable virtual swearing
 VIRTUAL_SWEARING_ENABLED = False
+
 
 def monkey_absolutify(request, path):
     return PROXY_BASE_URL + path
