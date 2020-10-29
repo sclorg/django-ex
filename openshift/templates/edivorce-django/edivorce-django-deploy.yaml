@@ -173,7 +173,7 @@ parameters:
   value: jag-csb-edivorce-tools
 - name: TAG_NAME
   displayName: Environment TAG name
-  description: The TAG name for this environment, e.g., dev, test, prod, or minishift.
+  description: The TAG name for this environment, e.g., dev, test, or prod.
   required: true
   value: dev
 - name: PROXY_URL_PREFIX

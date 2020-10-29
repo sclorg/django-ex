@@ -9,7 +9,7 @@ from .apps.core.views.graphql import PrivateGraphQLView, graphql_schema
 
 urlpatterns = []
 
-if settings.ENVIRONMENT in ['localdev', 'dev', 'test', 'minishift']:
+if settings.ENVIRONMENT in ['localdev', 'dev', 'test']:
     import debug_toolbar
     urlpatterns.append(url(r'^__debug__/', include(debug_toolbar.urls)),)
     urlpatterns.append(url(r'^poc/', include('edivorce.apps.poc.urls')))
@@ -17,7 +17,7 @@ if settings.ENVIRONMENT in ['localdev', 'dev', 'test', 'minishift']:
 else:
     urlpatterns.append(path('api/graphql/', csrf_exempt(PrivateGraphQLView.as_view(graphiql=False, schema=graphql_schema)), name='graphql'))
 
-if settings.ENVIRONMENT in ['localdev', 'minishift']:
+if settings.ENVIRONMENT == 'localdev':
     urlpatterns.append(url(r'^admin/', admin.site.urls))
     urlpatterns.append(url(r'^404/$', main.page_not_found, {'exception': Exception()}))
     urlpatterns.append(url(r'^500/$', main.server_error))

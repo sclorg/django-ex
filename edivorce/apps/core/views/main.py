@@ -93,7 +93,7 @@ def register(request):
     """
     Sets a session variable and redirects users to register for BCeID
     """
-    if settings.DEPLOYMENT_TYPE in ['localdev', 'minishift']:
+    if settings.DEPLOYMENT_TYPE == 'localdev':
         return render(request, 'localdev/register.html')
 
     request.session['went_to_register'] = True
@@ -104,7 +104,7 @@ def register_sc(request):
     """
     Sets a session variable and redirects users to register for BC Services Card
     """
-    if settings.DEPLOYMENT_TYPE in ['localdev', 'minishift']:
+    if settings.DEPLOYMENT_TYPE == 'localdev':
         return render(request, 'localdev/register.html')
 
     request.session['went_to_register'] = True

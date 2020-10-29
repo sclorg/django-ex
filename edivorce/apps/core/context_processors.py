@@ -7,5 +7,5 @@ def settings_processor(request):
         'gtm_id': settings.GTM_ID,
         'proxy_root_path': settings.FORCE_SCRIPT_NAME,
         'deployment_environment': settings.ENVIRONMENT,
-        'show_debug': settings.ENVIRONMENT in ['localdev', 'dev', 'test', 'minishift']
+        'show_debug': settings.ENVIRONMENT in ['localdev', 'dev', 'test']
     }

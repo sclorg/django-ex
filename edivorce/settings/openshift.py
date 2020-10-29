@@ -95,19 +95,6 @@ if DEPLOYMENT_TYPE == 'prod':
     # Google Tag Manager (Production)
     GTM_ID = 'GTM-W4Z2SPS'
 
-if DEPLOYMENT_TYPE == 'minishift':
-    DEBUG = True
-    REGISTER_BCEID_URL = '#'
-    REGISTER_BCSC_URL = '#'
-    PROXY_BASE_URL = ''
-    # Keycloak OpenID Connect settings
-    OIDC_OP_JWKS_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/certs'
-    OIDC_OP_AUTHORIZATION_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/auth'
-    OIDC_OP_TOKEN_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/token'
-    OIDC_OP_USER_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/userinfo'
-    KEYCLOAK_LOGOUT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/logout'
-    OIDC_RP_CLIENT_ID = 'edivorce-app'
-
 # Internal Relative Urls
 FORCE_SCRIPT_NAME = PROXY_URL_PREFIX + '/'
 STATIC_URL = PROXY_URL_PREFIX + '/static/'
@@ -124,11 +111,6 @@ BASICAUTH_PASSWORD = os.getenv('BASICAUTH_PASSWORD', '')
 
 # Lock down the session cookie settings
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-if DEPLOYMENT_TYPE != 'minishift':
-    SESSION_COOKIE_PATH = PROXY_URL_PREFIX
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
 
 # CLAMAV settings
 CLAMAV_ENABLED = True

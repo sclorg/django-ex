@@ -59,7 +59,7 @@ INSTALLED_APPS = (
 )
 
 # add the POC app only if applicable
-if ENVIRONMENT in ['localdev', 'dev', 'test', 'minishift']:
+if ENVIRONMENT in ['localdev', 'dev', 'test']:
     INSTALLED_APPS += (
         'edivorce.apps.poc',
     )
@@ -174,7 +174,7 @@ GTM_ID = 'GTM-NJLR7LT'
 
 
 def show_toolbar(request):
-    return ENVIRONMENT in ['localdev', 'dev', 'minishift']
+    return ENVIRONMENT in ['localdev', 'dev']
 
 
 DEBUG_TOOLBAR_CONFIG = {

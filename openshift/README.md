@@ -29,6 +29,8 @@ Some useful commands to help you determine your current context:
 
 ## Setting up a local OpenShift environment
 
+NOTE: THIS DOCUMENTATION HAS NOT BEEN UPDATED SINCE E-FILING WAS IMPLEMENTED. ADDITIONAL DEPENDENCIES LIKE CLAMAV, REDIS, KEYCLOAK, AND THE E-FILING HUB HAVE WERE ADDDED IN THIS RELEASE.
+
 If you are NOT setting up a local OpenShift environment you can skip over this section, otherwise read on.
 
 Setting up a local OpenShift environment is not much different than setting up a hosted environment, there are just a few extra steps and then you can follow the same instructions in either case.
