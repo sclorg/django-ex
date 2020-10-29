@@ -62,6 +62,9 @@ if DEPLOYMENT_TYPE in ['dev', 'unittest']:
     KEYCLOAK_LOGOUT = 'https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/logout'
     OIDC_RP_CLIENT_ID = 'e-divorce-app'
 
+if DEPLOYMENT_TYPE == 'unittest':
+    PROXY_URL_PREFIX = ''
+
 if DEPLOYMENT_TYPE == 'dev':
     CSRF_COOKIE_AGE = None
     SESSION_COOKIE_AGE = 3600
