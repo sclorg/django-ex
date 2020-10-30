@@ -14,10 +14,10 @@ logger = logging.getLogger(__name__)
 class EFilingSubmission:
 
     def __init__(self, initial_filing):
-        self.client_id = settings.EFILING_HUB_CLIENT_ID
+        self.client_id = settings.EFILING_HUB_KEYCLOAK_CLIENT_ID
         self.client_secret = settings.EFILING_HUB_KEYCLOAK_SECRET
-        self.token_base_url = settings.EFILING_HUB_TOKEN_BASE_URL
-        self.token_realm = settings.EFILING_HUB_REALM
+        self.token_base_url = settings.EFILING_HUB_KEYCLOAK_BASE_URL
+        self.token_realm = settings.EFILING_HUB_KEYCLOAK_REALM
         self.api_base_url = settings.EFILING_HUB_API_BASE_URL
 
         self.submission_id = None

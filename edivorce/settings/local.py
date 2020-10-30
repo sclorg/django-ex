@@ -42,11 +42,13 @@ REDIS_PASSWORD = env('REDIS_PASSWORD', '')
 
 # Keycloak OpenID Connect settings
 # Provided by mozilla-django-oidc
-OIDC_OP_JWKS_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/certs'
-OIDC_OP_AUTHORIZATION_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/auth'
-OIDC_OP_TOKEN_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/token'
-OIDC_OP_USER_ENDPOINT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/userinfo'
-KEYCLOAK_LOGOUT = 'http://localhost:8081/auth/realms/justice/protocol/openid-connect/logout'
+EDIVORCE_KEYCLOAK_BASE_URL = 'http://localhost:8081'
+EDIVORCE_KEYCLOAK_REALM = 'justice'
+KEYCLOAK_LOGOUT = f'{EDIVORCE_KEYCLOAK_BASE_URL}/auth/realms/{EDIVORCE_KEYCLOAK_REALM}/protocol/openid-connect/logout'
+OIDC_OP_JWKS_ENDPOINT = f'{EDIVORCE_KEYCLOAK_BASE_URL}/auth/realms/{EDIVORCE_KEYCLOAK_REALM}/protocol/openid-connect/certs'
+OIDC_OP_AUTHORIZATION_ENDPOINT = f'{EDIVORCE_KEYCLOAK_BASE_URL}/auth/realms/{EDIVORCE_KEYCLOAK_REALM}/protocol/openid-connect/auth'
+OIDC_OP_TOKEN_ENDPOINT = f'{EDIVORCE_KEYCLOAK_BASE_URL}/auth/realms/{EDIVORCE_KEYCLOAK_REALM}/protocol/openid-connect/token'
+OIDC_OP_USER_ENDPOINT = f'{EDIVORCE_KEYCLOAK_BASE_URL}/auth/realms/{EDIVORCE_KEYCLOAK_REALM}/protocol/openid-connect/userinfo'
 OIDC_RP_CLIENT_ID = 'edivorce-app'
 LOGIN_REDIRECT_URL = '/signin'
 
