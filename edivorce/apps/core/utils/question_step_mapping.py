@@ -27,6 +27,8 @@ pre_qual_step_question_mapping = {
     '05': {
         'original_marriage_certificate',
         'provide_certificate_later',
+        'provide_certificate_later_reason',
+        'not_provide_certificate_reason',
         'marriage_certificate_in_english'
     },
     '06': {
