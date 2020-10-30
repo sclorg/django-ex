@@ -49,20 +49,15 @@ DEPLOYMENT_TYPE = env('ENVIRONMENT_TYPE', 'unittest')
 PROXY_URL_PREFIX = os.getenv('PROXY_URL_PREFIX', '/divorce')
 PROXY_BASE_URL = os.getenv('PROXY_BASE_URL', 'https://justice.gov.bc.ca')
 
-if DEPLOYMENT_TYPE in ['dev', 'unittest']:
-    DEBUG = True
-    EDIVORCE_KEYCLOAK_BASE_URL = 'https://dev.oidc.gov.bc.ca'
-    EFILING_HUB_API_BASE_URL = 'https://fla-nginx-proxy-qzaydf-dev.pathfinder.gov.bc.ca/api'
-    EFILING_HUB_KEYCLOAK_BASE_URL = 'https://dev.oidc.gov.bc.ca'
-
-if DEPLOYMENT_TYPE == 'unittest':
-    PROXY_URL_PREFIX = ''
-
 if DEPLOYMENT_TYPE == 'dev':
+    DEBUG = True
     CSRF_COOKIE_AGE = None
     SESSION_COOKIE_AGE = 3600
     REGISTER_BCEID_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5522'
     REGISTER_BCSC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://dev.justice.gov.bc.ca/divorce/oidc/authenticate'
+    EDIVORCE_KEYCLOAK_BASE_URL = 'https://dev.oidc.gov.bc.ca'
+    EFILING_HUB_API_BASE_URL = 'https://fla-nginx-proxy-qzaydf-dev.pathfinder.gov.bc.ca/api'
+    EFILING_HUB_KEYCLOAK_BASE_URL = 'https://dev.oidc.gov.bc.ca'
 
 if DEPLOYMENT_TYPE == 'test':
     REGISTER_BCEID_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
@@ -79,6 +74,12 @@ if DEPLOYMENT_TYPE == 'prod':
     EFILING_HUB_KEYCLOAK_BASE_URL = 'https://oidc.gov.bc.ca'
     # Google Tag Manager (Production)
     GTM_ID = 'GTM-W4Z2SPS'
+
+if DEPLOYMENT_TYPE == 'unittest':
+    EDIVORCE_KEYCLOAK_BASE_URL = ''
+    EFILING_HUB_API_BASE_URL = ''
+    EFILING_HUB_KEYCLOAK_BASE_URL = ''
+    PROXY_URL_PREFIX = ''
 
 # Keycloak OpenID Connect settings
 EDIVORCE_KEYCLOAK_CLIENT_ID = 'e-divorce-app'
