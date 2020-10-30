@@ -113,7 +113,7 @@ objects:
               secretKeyRef:
                 key: edivorce-client-secret
                 name: "keycloak-secrets"
-          - name: EFILING_KEYCLOAK_SECRET
+          - name: EFILING_HUB_KEYCLOAK_SECRET
             valueFrom:
               secretKeyRef:
                 key: efiling-client-secret
@@ -143,7 +143,7 @@ objects:
       app: "${NAME}"
   data:
     edivorce-client-secret: "${EDIVORCE_KEYCLOAK_SECRET}"
-    efiling-client-secret: "${EFILING_KEYCLOAK_SECRET}"
+    efiling-client-secret: "${EFILING_HUB_KEYCLOAK_SECRET}"
   type: Opaque
 - kind: HorizontalPodAutoscaler
   apiVersion: autoscaling/v1
@@ -209,7 +209,7 @@ parameters:
 - name: EDIVORCE_KEYCLOAK_SECRET
   displayName: Keycloak client secret for the e-divorce-app client
   required: true
-- name: EFILING_KEYCLOAK_SECRET
+- name: EFILING_HUB_KEYCLOAK_SECRET
   displayName: Keycloak client secret for the efiling hub
   required: true
 - name: BASICAUTH_USERNAME

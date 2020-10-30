@@ -52,9 +52,13 @@ PROXY_BASE_URL = os.getenv('PROXY_BASE_URL', 'https://justice.gov.bc.ca')
 if DEPLOYMENT_TYPE in ['dev', 'unittest']:
     DEBUG = True
     # Keycloak OpenID Connect settings
-    OIDC_BASE_URL = 'https://dev.oidc.gov.bc.ca'
-    OIDC_REALM = 'tz0e228w'
-    OIDC_RP_CLIENT_ID = 'e-divorce-app'
+    EDIVORCE_KEYCLOAK_BASE_URL = 'https://dev.oidc.gov.bc.ca'
+    EDIVORCE_KEYCLOAK_REALM = 'tz0e228w'
+    EDIVORCE_KEYCLOAK_CLIENT_ID = 'e-divorce-app'
+    # EFiling Hub Settings
+    EFILING_HUB_KEYCLOAK_CLIENT_ID = 'e-divorce'
+    EFILING_HUB_KEYCLOAK_BASE_URL = 'https://dev.oidc.gov.bc.ca'
+    EFILING_HUB_API_BASE_URL = 'https://fla-nginx-proxy-qzaydf-dev.pathfinder.gov.bc.ca/api'
 
 if DEPLOYMENT_TYPE == 'unittest':
     PROXY_URL_PREFIX = ''
@@ -69,26 +73,39 @@ if DEPLOYMENT_TYPE == 'test':
     REGISTER_BCEID_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
     REGISTER_BCSC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://test.justice.gov.bc.ca/divorce/oidc/authenticate'
     # Keycloak OpenID Connect settings
-    OIDC_BASE_URL = 'https://test.oidc.gov.bc.ca'
-    OIDC_REALM = 'tz0e228w'
-    OIDC_RP_CLIENT_ID = 'e-divorce-app'
+    EDIVORCE_KEYCLOAK_BASE_URL = 'https://test.oidc.gov.bc.ca'
+    EDIVORCE_KEYCLOAK_REALM = 'tz0e228w'
+    EDIVORCE_KEYCLOAK_CLIENT_ID = 'e-divorce-app'
+    # EFiling Hub Settings
+    EFILING_HUB_KEYCLOAK_CLIENT_ID = 'e-divorce'
+    EFILING_HUB_KEYCLOAK_BASE_URL = 'https://sso-test.pathfinder.gov.bc.ca'
+    EFILING_HUB_API_BASE_URL = 'https://efiling-api-nginx-proxy-qzaydf-test.pathfinder.gov.bc.ca/api'
 
 if DEPLOYMENT_TYPE == 'prod':
     REGISTER_BCEID_URL = 'https://www.bceid.ca/directories/bluepages/details.aspx?serviceID=5203'
     REGISTER_BCSC_URL = 'https://logon7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed49&partnerList=fed49&flags=0001:0,8&TARGET=http://justice.gov.bc.ca/divorce/oidc/authenticate'
     # Keycloak OpenID Connect settings
-    OIDC_BASE_URL = 'https://oidc.gov.bc.ca'
-    OIDC_REALM = 'tz0e228w'
-    OIDC_RP_CLIENT_ID = 'e-divorce-app'
+    EDIVORCE_KEYCLOAK_BASE_URL = 'https://oidc.gov.bc.ca'
+    EDIVORCE_KEYCLOAK_REALM = 'tz0e228w'
+    EDIVORCE_KEYCLOAK_CLIENT_ID = 'e-divorce-app'
+    # EFiling Hub Settings
+    EFILING_HUB_KEYCLOAK_CLIENT_ID = 'e-divorce'
+    EFILING_HUB_KEYCLOAK_BASE_URL = 'https://oidc.gov.bc.ca'
+    EFILING_HUB_API_BASE_URL = 'https://to-be-filled-in-later'
+
     # Google Tag Manager (Production)
     GTM_ID = 'GTM-W4Z2SPS'
 
 # Keycloak OpenID Connect settings
-OIDC_OP_JWKS_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/certs'
-OIDC_OP_AUTHORIZATION_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/auth'
-OIDC_OP_TOKEN_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/token'
-OIDC_OP_USER_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/userinfo'
-KEYCLOAK_LOGOUT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/logout'
+KEYCLOAK_LOGOUT = f'{EDIVORCE_KEYCLOAK_BASE_URL}/auth/realms/{EDIVORCE_KEYCLOAK_REALM}/protocol/openid-connect/logout'
+OIDC_OP_JWKS_ENDPOINT = f'{EDIVORCE_KEYCLOAK_BASE_URL}/auth/realms/{EDIVORCE_KEYCLOAK_REALM}/protocol/openid-connect/certs'
+OIDC_OP_AUTHORIZATION_ENDPOINT = f'{EDIVORCE_KEYCLOAK_BASE_URL}/auth/realms/{EDIVORCE_KEYCLOAK_REALM}/protocol/openid-connect/auth'
+OIDC_OP_TOKEN_ENDPOINT = f'{EDIVORCE_KEYCLOAK_BASE_URL}/auth/realms/{EDIVORCE_KEYCLOAK_REALM}/protocol/openid-connect/token'
+OIDC_OP_USER_ENDPOINT = f'{EDIVORCE_KEYCLOAK_BASE_URL}/auth/realms/{EDIVORCE_KEYCLOAK_REALM}/protocol/openid-connect/userinfo'
+OIDC_RP_CLIENT_ID = EDIVORCE_KEYCLOAK_CLIENT_ID
+
+# EFiling Hub Settings
+EFILING_HUB_KEYCLOAK_REALM = EDIVORCE_KEYCLOAK_REALM
 
 # Internal Relative Urls
 FORCE_SCRIPT_NAME = PROXY_URL_PREFIX + '/'

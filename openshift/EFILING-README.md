@@ -40,6 +40,6 @@ Click "Add Value from Config Map or Secret"
 - select key = "edivorce-client-secrets"
 
 Click "Add Value from Config Map or Secret"
-- name = EFILING_KEYCLOAK_SECRET
+- name = EFILING_HUB_KEYCLOAK_SECRET
 - select a resource = "keycloak-secrets"
 - select key = "efiling-client-secrets"
