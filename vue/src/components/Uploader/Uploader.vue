@@ -635,7 +635,7 @@
 </style>
 
 <style type="css">
-  /* hide the cancel button on the warnig modal */
+  /* hide the cancel button on the warning modal */
   .warning-modal button.btn-default {
     display: none;
   }
