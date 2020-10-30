@@ -86,7 +86,7 @@ if DEPLOYMENT_TYPE == 'prod':
 # Keycloak OpenID Connect settings
 OIDC_OP_JWKS_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/certs'
 OIDC_OP_AUTHORIZATION_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/auth'
-OIDC_OP_TOKEN_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}protocol/openid-connect/token'
+OIDC_OP_TOKEN_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/token'
 OIDC_OP_USER_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/userinfo'
 KEYCLOAK_LOGOUT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/logout'
 
