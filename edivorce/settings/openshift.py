@@ -51,9 +51,7 @@ PROXY_BASE_URL = os.getenv('PROXY_BASE_URL', 'https://justice.gov.bc.ca')
 
 if DEPLOYMENT_TYPE in ['dev', 'unittest']:
     DEBUG = True
-    # Keycloak OpenID Connect settings
     EDIVORCE_KEYCLOAK_BASE_URL = 'https://dev.oidc.gov.bc.ca'
-    # EFiling Hub Settings
     EFILING_HUB_API_BASE_URL = 'https://fla-nginx-proxy-qzaydf-dev.pathfinder.gov.bc.ca/api'
     EFILING_HUB_KEYCLOAK_BASE_URL = 'https://dev.oidc.gov.bc.ca'
 
@@ -69,18 +67,14 @@ if DEPLOYMENT_TYPE == 'dev':
 if DEPLOYMENT_TYPE == 'test':
     REGISTER_BCEID_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
     REGISTER_BCSC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://test.justice.gov.bc.ca/divorce/oidc/authenticate'
-    # Keycloak OpenID Connect settings
     EDIVORCE_KEYCLOAK_BASE_URL = 'https://test.oidc.gov.bc.ca'
-    # EFiling Hub Settings
     EFILING_HUB_API_BASE_URL = 'https://efiling-api-nginx-proxy-qzaydf-test.pathfinder.gov.bc.ca/api'
     EFILING_HUB_KEYCLOAK_BASE_URL = 'https://sso-test.pathfinder.gov.bc.ca'
 
 if DEPLOYMENT_TYPE == 'prod':
     REGISTER_BCEID_URL = 'https://www.bceid.ca/directories/bluepages/details.aspx?serviceID=5203'
     REGISTER_BCSC_URL = 'https://logon7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed49&partnerList=fed49&flags=0001:0,8&TARGET=http://justice.gov.bc.ca/divorce/oidc/authenticate'
-    # Keycloak OpenID Connect settings
     EDIVORCE_KEYCLOAK_BASE_URL = 'https://oidc.gov.bc.ca'
-    # EFiling Hub Settings
     EFILING_HUB_API_BASE_URL = 'https://to-be-filled-in-later'
     EFILING_HUB_KEYCLOAK_BASE_URL = 'https://oidc.gov.bc.ca'
     # Google Tag Manager (Production)
