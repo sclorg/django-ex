@@ -28,7 +28,7 @@ def file_scan_validation(file):
     file.seek(0)
 
     # we're just going to assume a network connection to clamav here .. no local unix socket support
-    scanner = clamd.ClamdNetworkSocket(settings.CLAMAV_TCP_ADDR, settings.CLAMAV_TCP_PORT)
+    scanner = clamd.ClamdNetworkSocket(settings.CLAMAV_HOST, settings.CLAMAV_PORT)
     try:
         result = scanner.instream(file)
     except:

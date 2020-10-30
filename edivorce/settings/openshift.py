@@ -1,4 +1,4 @@
-from mozilla_django_oidc import utils
+from mozilla_django_oidc import utils as mozilla_django_oidc_utils
 from .base import *
 
 
@@ -40,10 +40,7 @@ DATABASES = {
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
 
-# The app will be served out of a subdirectory of justice.gov.bc.ca via reverse-proxy
-# PROD: /divorce
-# TEST: /divorce-test
-# DEV: /divorce-dev
+# The app will be served out of the subdirectory justice.gov.bc.ca/divorce via reverse-proxy
 #
 # See nginx-proxy/conf.d/server.conf for related settings
 #
@@ -55,11 +52,8 @@ PROXY_BASE_URL = os.getenv('PROXY_BASE_URL', 'https://justice.gov.bc.ca')
 if DEPLOYMENT_TYPE in ['dev', 'unittest']:
     DEBUG = True
     # Keycloak OpenID Connect settings
-    OIDC_OP_JWKS_ENDPOINT = 'https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/certs'
-    OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/auth'
-    OIDC_OP_TOKEN_ENDPOINT = 'https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/token'
-    OIDC_OP_USER_ENDPOINT = 'https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/userinfo'
-    KEYCLOAK_LOGOUT = 'https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/logout'
+    OIDC_BASE_URL = 'https://dev.oidc.gov.bc.ca'
+    OIDC_REALM = 'tz0e228w'
     OIDC_RP_CLIENT_ID = 'e-divorce-app'
 
 if DEPLOYMENT_TYPE == 'unittest':
@@ -75,25 +69,26 @@ if DEPLOYMENT_TYPE == 'test':
     REGISTER_BCEID_URL = 'https://www.test.bceid.ca/directories/bluepages/details.aspx?serviceID=5521'
     REGISTER_BCSC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://test.justice.gov.bc.ca/divorce/oidc/authenticate'
     # Keycloak OpenID Connect settings
-    OIDC_OP_JWKS_ENDPOINT = 'https://test.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/certs'
-    OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://test.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/auth'
-    OIDC_OP_TOKEN_ENDPOINT = 'https://test.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/token'
-    OIDC_OP_USER_ENDPOINT = 'https://test.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/userinfo'
-    KEYCLOAK_LOGOUT = 'https://test.oidc.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/logout'
+    OIDC_BASE_URL = 'https://test.oidc.gov.bc.ca'
+    OIDC_REALM = 'tz0e228w'
     OIDC_RP_CLIENT_ID = 'e-divorce-app'
 
 if DEPLOYMENT_TYPE == 'prod':
     REGISTER_BCEID_URL = 'https://www.bceid.ca/directories/bluepages/details.aspx?serviceID=5203'
     REGISTER_BCSC_URL = 'https://logon7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed49&partnerList=fed49&flags=0001:0,8&TARGET=http://justice.gov.bc.ca/divorce/oidc/authenticate'
     # Keycloak OpenID Connect settings
-    OIDC_OP_JWKS_ENDPOINT = 'https://oidc.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/certs'
-    OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://oidc.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/auth'
-    OIDC_OP_TOKEN_ENDPOINT = 'https://oidc.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/token'
-    OIDC_OP_USER_ENDPOINT = 'https://oidc.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/userinfo'
-    KEYCLOAK_LOGOUT = 'https://oidc.gov.bc.ca/auth/realms/XXXXXXXX/protocol/openid-connect/logout'
+    OIDC_BASE_URL = 'https://oidc.gov.bc.ca'
+    OIDC_REALM = 'tz0e228w'
     OIDC_RP_CLIENT_ID = 'e-divorce-app'
     # Google Tag Manager (Production)
     GTM_ID = 'GTM-W4Z2SPS'
+
+# Keycloak OpenID Connect settings
+OIDC_OP_JWKS_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/certs'
+OIDC_OP_AUTHORIZATION_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/auth'
+OIDC_OP_TOKEN_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}protocol/openid-connect/token'
+OIDC_OP_USER_ENDPOINT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/userinfo'
+KEYCLOAK_LOGOUT = f'{OIDC_BASE_URL}/auth/realms/{OIDC_REALM}/protocol/openid-connect/logout'
 
 # Internal Relative Urls
 FORCE_SCRIPT_NAME = PROXY_URL_PREFIX + '/'
@@ -114,8 +109,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # CLAMAV settings
 CLAMAV_ENABLED = True
-CLAMAV_TCP_PORT = 3310
-CLAMAV_TCP_ADDR = os.getenv('CLAMAV_TCP_ADDR', 'clamav')
+CLAMAV_PORT = 3310
+CLAMAV_HOST = os.getenv('CLAMAV_HOST', 'clamav')
 
 # Redis settings
 REDIS_HOST = os.getenv('REDIS_HOST', 'redis')
@@ -139,4 +134,4 @@ def monkey_absolutify(request, path):
 
 # monkey-patching mozilla_django_oidc.utils.absolutify so it doesn't
 # return urls prefixed with 'http://edivorce-django:8080' on OpenShift
-utils.absolutify = monkey_absolutify
+mozilla_django_oidc_utils.absolutify = monkey_absolutify

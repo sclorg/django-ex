@@ -31,8 +31,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # CLAMAV settings
 CLAMAV_ENABLED = env.bool('CLAMAV_ENABLED', True)
-CLAMAV_TCP_PORT = env.int('CLAMAV_TCP_PORT', 3310)
-CLAMAV_TCP_ADDR = env('CLAMAV_TCP_ADDR', 'localhost')
+CLAMAV_PORT = env.int('CLAMAV_PORT', 3310)
+CLAMAV_HOST = env('CLAMAV_HOST', 'localhost')
 
 # Redis settings
 REDIS_HOST = env('REDIS_HOST', 'localhost')

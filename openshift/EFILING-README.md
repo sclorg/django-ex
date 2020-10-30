@@ -22,7 +22,7 @@ Select the "Environment" tab.
 Add 2 new environment variables:
 
 REDIS_HOST=redis
-CLAMAV_TCP_ADDR=clamav
+CLAMAV_HOST=clamav
 
 Click "Add Value from Config Map or Secret"
 

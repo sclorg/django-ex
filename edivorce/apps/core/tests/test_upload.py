@@ -28,7 +28,7 @@ class UploadScanTests(TestCase):
             self.assertTrue(serializer.is_valid(), serializer.errors)
 
     def test_validation_invalid_network_connection(self):
-        with self.settings(CLAMAV_TCP_PORT=9999):
+        with self.settings(CLAMAV_PORT=9999):
             infected = SimpleUploadedFile('infected.txt', clamd.EICAR)
             serializer = TestUploadSerializer(data={'upload': infected})
 
