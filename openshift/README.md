@@ -125,19 +125,6 @@ Use `-h` to get advanced usage information.  Use the `-l` option to apply any lo
 
 #### Mandatory Settings:
 
-**PROXY_NETWORK**
-
-While running `genDepls.sh` you will be prompted for the network address of the upstream proxy. This is used to ensure that requests come from the Justice Proxy only.  You will need to enter the address in IPV4 CIDR notation e.g. 10.10.15.10/16. The actual value you need to enter cannot be stored on Github because this would violate BC Government Github policies. The PROXY_NETWORK setting is currently the same for all 3 environments (dev, test, and prod)
-
-An example of the [edivorce-django-deploy.overrides.sh](./edivorce-django-deploy.overrides.sh) script prompting for the value to use for PROXY_NETWORK;
-```
-Processing deployment configuration; templates/edivorce-django/edivorce-django-deploy.yaml ...
-Loading parameter overrides for templates/edivorce-django/edivorce-django-deploy.yaml ...
-
-Enter the network of the upstream proxy (in CIDR notation; for example 0.0.0.0/0); defaults to 0.0.0.0/0:
-
-```
-
 SITEMINDER_WHITE_LIST
 
 While running `genDepls.sh` you will be prompted for a list of IP addresses that make up the white-list of hosts allowed to access the service.

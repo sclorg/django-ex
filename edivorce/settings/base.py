@@ -159,8 +159,6 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-BCGOV_NETWORK = os.environ.get('PROXY_NETWORK', '0.0.0.0/0')
-
 FORCE_SCRIPT_NAME = '/'
 
 FIXTURE_DIRS = (
@@ -201,7 +199,7 @@ OIDC_RP_SIGN_ALGO = 'RS256'
 OIDC_RP_SCOPES = 'openid email profile'
 # this is needed to bypass the Keycloak login screen
 OIDC_AUTH_REQUEST_EXTRA_PARAMS = {'kc_idp_hint': 'bceid'}
-OIDC_RP_CLIENT_SECRET = env('KEYCLOAK_CLIENT_SECRET', '')
+OIDC_RP_CLIENT_SECRET = env('EDIVORCE_KEYCLOAK_SECRET', '')
 OIDC_OP_LOGOUT_URL_METHOD = 'edivorce.apps.core.middleware.keycloak.keycloak_logout'
 
 VIRTUAL_SWEARING_ENABLED = False

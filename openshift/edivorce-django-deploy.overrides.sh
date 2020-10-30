@@ -22,11 +22,5 @@ generatePassword() {
 _userName=$(generateUsername)
 _password=$(generatePassword)
 
-read -r -p $'\n\033[1;33mEnter the network of the upstream proxy (in CIDR notation; for example 0.0.0.0/0); defaults to 0.0.0.0/0:\033[0m\n' PROXY_NETWORK
-if [ -z "${PROXY_NETWORK}" ]; then
-  PROXY_NETWORK="0.0.0.0/0"
-fi
-
-SPECIALDEPLOYPARMS="-p PROXY_NETWORK=${PROXY_NETWORK} -p BASICAUTH_USERNAME=${_userName} -p BASICAUTH_PASSWORD=${_password}"
+SPECIALDEPLOYPARMS="-p BASICAUTH_USERNAME=${_userName} -p BASICAUTH_PASSWORD=${_password}"
 echo ${SPECIALDEPLOYPARMS}
-

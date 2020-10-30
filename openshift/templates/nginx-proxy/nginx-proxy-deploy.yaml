@@ -134,5 +134,5 @@ parameters:
   value: "edivorce-dev.pathfinder.bcgov"
 - name: SITEMINDER_WHITE_LIST
   displayName: SiteMinder Whitelist
-  description: The whitelist containing all of the trusted siteminder IPs.
+  description: The whitelist containing all of the trusted siteminder IPs (separated by spaces).
   required: false

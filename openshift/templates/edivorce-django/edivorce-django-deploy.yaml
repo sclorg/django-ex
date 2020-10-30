@@ -96,8 +96,6 @@ objects:
             value: "${PROXY_URL_PREFIX}"
           - name: PROXY_BASE_URL
             value: "${PROXY_BASE_URL}"
-          - name: PROXY_NETWORK
-            value: "${PROXY_NETWORK}"
           - name: BASICAUTH_ENABLED
             value: "${BASICAUTH_ENABLED}"
           - name: BASICAUTH_USERNAME
@@ -110,6 +108,16 @@ objects:
               secretKeyRef:
                 key: basic-auth-password
                 name: ${NAME}
+          - name: EDIVORCE_KEYCLOAK_SECRET
+            valueFrom:
+              secretKeyRef:
+                key: edivorce-client-secret
+                name: "keycloak-secrets"
+          - name: EFILING_KEYCLOAK_SECRET
+            valueFrom:
+              secretKeyRef:
+                key: efiling-client-secret
+                name: "keycloak-secrets"
           resources:
             limits:
               cpu: ${CPU_LIMIT}
@@ -126,6 +134,16 @@ objects:
   data:
     basic-auth-password: "${BASICAUTH_PASSWORD}"
     basic-auth-username: "${BASICAUTH_USERNAME}"
+  type: Opaque
+- kind: Secret
+  apiVersion: v1
+  metadata:
+    name: "keycloak-secrets"
+    labels:
+      app: "${NAME}"
+  data:
+    edivorce-client-secret: "${EDIVORCE_KEYCLOAK_SECRET}"
+    efiling-client-secret: "${EFILING_KEYCLOAK_SECRET}"
   type: Opaque
 - kind: HorizontalPodAutoscaler
   apiVersion: autoscaling/v1
@@ -184,13 +202,16 @@ parameters:
   displayName: Proxy Base URL
   description: The proxy base URL (aka Host URL) for the application.  For example `https://justice.gov.bc.ca`
   required: false
-- name: PROXY_NETWORK
-  displayName: Network of upstream proxy (CIDR notation 0.0.0.0/0)
-  required: true
 - name: BASICAUTH_ENABLED
   displayName: Enable basic auth (recommended for Dev and Test environments)
   required: true
   value: "False"
+- name: EDIVORCE_KEYCLOAK_SECRET
+  displayName: Keycloak client secret for the e-divorce-app client
+  required: true
+- name: EFILING_KEYCLOAK_SECRET
+  displayName: Keycloak client secret for the efiling hub
+  required: true
 - name: BASICAUTH_USERNAME
   displayName: Basic Auth Username
   description: Basic Auth Username. Needs to be basee64 encoded.
