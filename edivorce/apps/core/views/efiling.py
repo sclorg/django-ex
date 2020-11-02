@@ -14,6 +14,8 @@ from ..utils.efiling_packaging import EFilingPackaging
 from ..utils.efiling_submission import EFilingSubmission
 from ..utils.user_response import get_data_for_user
 
+MAX_MEGABYTES = 10
+
 
 @login_required
 @prequal_completed
@@ -72,10 +74,16 @@ def _validate_and_submit_documents(request, responses, initial=False):
     uploaded, generated = forms_to_file(responses, initial)
     for form in uploaded:
         if form['doc_type'] not in ['EFSS1', 'AFTL']:
+            total_size = 0
             docs = Document.objects.filter(
                 bceid_user=user, doc_type=form['doc_type'], party_code=form.get('party_code', 0))
             if docs.count() == 0:
                 errors.append(f"Missing documents for {Document.form_types[form['doc_type']]}")
+            for doc in docs:
+                total_size += doc.size
+            if total_size > MAX_MEGABYTES * 1024 * 1024:
+                errors.append(
+                    f"{Document.form_types[form['doc_type']]} exceeds the { MAX_MEGABYTES } MB size limit")
 
     if errors:
         return errors, None

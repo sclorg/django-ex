@@ -293,10 +293,7 @@
             // only allow one file over the limit (so we can show the red messaging on the screen)
             let previousTotalSize = 0;
             this.files.forEach((file) => {
-              if (
-                (file.name !== newFile.name || file.size !== newFile.size) &&
-                !file.error
-              ) {
+              if (file.name !== newFile.name && !file.error) {
                 previousTotalSize += file.size;
               }
             });
