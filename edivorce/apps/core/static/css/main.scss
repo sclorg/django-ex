@@ -7,7 +7,8 @@ $brand-links: #365ebe;
 $brand-buttons: $brand-links;
 $color-blue-dark: $brand-titles;
 $color-blue-medium: #38598A;
-$color-blue-light: $brand-buttons;
+$color-blue: $brand-buttons;
+$color-blue-light: #265EBE;
 $color-blue-lighter: #d7dff2;
 $color-grey-dark: $body-copy;
 $color-grey-medium: #606060;
@@ -16,12 +17,14 @@ $color-grey-lighter: #efefef;
 $color-grey-lightest: #f2f2f2;
 $color-green: #2e8540;
 $color-green-light: #d5e6d8;
-$color-green-dark: #1c5428;
+$color-green-darker: #246A33;
+$color-green-darkest: #1c5428;
 $color-gold-dark: #925E00;
 $color-gold-light: #FEEABA;
-$color-red: #D8292F;
 $color-red-light: #F7D4D5;
-$color-red-dark: #9A1C21;
+$color-red: #D8292F;
+$color-red-darker: #AC2025;
+$color-red-darkest: #9A1C21;
 
 $font-custom: Myriad-Pro, Calibri, Arial, Sans Serif;
 $font-custom-bold: Myriad-Pro-Bold, Calibri, Arial, Sans Serif;
@@ -227,9 +230,9 @@ input[type=number]::-webkit-outer-spin-button {
 	font-size: 16px;
 
 	a {
-		color: #494949;
+		color: $color-grey-medium;
 		i {
-			color: #494949;
+			color: $color-grey-medium;
 		}
 
 		&:hover {
@@ -245,9 +248,9 @@ input[type=number]::-webkit-outer-spin-button {
 .fact-sheet-button {
 	a {
 		padding-right: 6px;
-		color: #494949;
+		color: $color-grey-medium;
 		i {
-			color: #494949;
+			color: $color-grey-medium;
 			&:hover {
 				color: $brand-buttons;
 			}
@@ -320,7 +323,7 @@ div.dollar-prefix {
 		content: '$ ';
 		top: 0;
 		height: 100%;
-		padding-left: 5px;
+		padding-left: 10px;
 		position: absolute;
 		display: flex;
 		flex-direction: row;
@@ -395,7 +398,7 @@ div.percent-suffix {
 	&.hard-stop {
 		background-color: $color-red-light;
         hr {
-            border-top: 1px solid $color-red-dark;
+            border-top: 1px solid $color-red-darkest;
         }
 
 		&:after {
@@ -406,7 +409,7 @@ div.percent-suffix {
 			text-decoration: inherit;
 			position: absolute;
 			font-size: 24px;
-			color: $color-red-dark;
+			color: $color-red-darkest;
 			top: 30px;
 			left: 27px;
 		}
@@ -543,8 +546,8 @@ div.percent-suffix {
 
 .collapse-trigger {
 	& > div {
-		color: $color-blue-light;
-		border-bottom: solid 1px $color-blue-light;
+		color: $color-blue;
+		border-bottom: solid 1px $color-blue;
 		display: inline;
 		cursor: pointer;
 
@@ -657,10 +660,12 @@ div#other_names_fields {
 			}
 		}
 
-		label {
-			width: calc(100% - 90px);
-			text-align: left;
-		}
+		.label-group {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+        }
 	}
 }
 
@@ -697,10 +702,10 @@ i.fa.fa-question-circle {
 	margin: 30px 0;
 
 	.btn {
-		font-size: 18px;
+		font-size: 16px;
 		border: none;
-		border-radius: 10px;
-		padding: 12px 15px;
+		border-radius: 4px;
+		padding: 16px;
 		background-color: $brand-buttons;
 		color: #ffffff;
 		margin-bottom: 12px;
@@ -708,7 +713,7 @@ i.fa.fa-question-circle {
 		transition: all 0.1s ease-in-out;
 
 		&:hover {
-			background-color: darken($brand-buttons, 20%);
+			background-color: $brand-blue;
 			-webkit-transition: all 0.1s ease-in-out;
 			transition: all 0.1s ease-in-out;
 		}
@@ -724,7 +729,7 @@ i.fa.fa-question-circle {
 			transition: all 0.1s ease-in-out;
 
 			&:hover {
-				background-color: darken($color-green, 20%);
+				background-color: $color-green-darkest;
 				-webkit-transition: all 0.1s ease-in-out;
 				transition: all 0.1s ease-in-out;
 			}
@@ -741,7 +746,7 @@ i.fa.fa-question-circle {
     border-radius: 8px;
     position: relative;
     padding: 30px 30px 30px 75px;
-    margin-bottom: 20px;
+    margin-top: 30px;
 
     ul {
         padding-left: 15px;
@@ -755,12 +760,12 @@ i.fa.fa-question-circle {
         text-decoration: inherit;
         position: absolute;
         font-size: 24px;
-        color: $color-red-dark;
+        color: $color-red-darker;
         top: 30px;
-        left: 27px;
+        left: 30px;
     }
     .warning, .progress-status i {
-        color: $color-red-dark;
+        color: $color-red-darker;
         font-weight: bolder;
         margin: 0 3px;
     }
@@ -827,19 +832,32 @@ i.fa.fa-question-circle {
 }
 
 .btn-radio {
-	color: $brand-titles;
-	background-color: $color-blue-lighter;
-	font-size: 16px;
-	text-transform: uppercase;
-	letter-spacing: 0.08em;
-	font-weight: 600;
-	padding: 20px 0;
-	width: 60px;
-	height: 60px;
-	border-radius: 30px;
-	border: 3px solid $color-blue-lighter;
-	-webkit-transition: all 0.1s ease-in-out;
-	transition: all 0.1s ease-in-out;
+    color: $color-blue-light;
+    background-color: $color-blue-lighter;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    padding: 18px 0;
+    width: 52px;
+    height: 52px;
+    margin-left: 7px;
+    margin-top: 7px;
+    border-radius: 26px;
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+
+    &:before {
+        content: " ";
+        position: absolute;
+        display: block;
+        width: 64px;
+        height: 64px;
+        border-radius: 32px;
+        margin-top: -25.2px;
+        margin-left: -7.2px;
+        border: 1px solid $color-grey-medium;
+    }
 }
 
 .btn-radio.active,
@@ -881,7 +899,7 @@ fieldset[disabled] .btn-radio:hover {
 }
 
 .btn-radio + .btn-radio {
-	margin-left: 15px;
+	margin-left: 27px;
 }
 
 .btn-radio-group {
@@ -916,9 +934,9 @@ fieldset[disabled] .btn-radio:hover {
 /* Form Elements*/
 input {
 	border-radius: 4px;
-	color: #494949;
-	padding: 12px 15px;
-	border: solid 1px $color-grey-light;
+	color: $color-grey-medium;
+	padding: 12px 15px 12px 20px;
+	border: solid 1px $color-grey-medium;
 	line-height: 1em;
 
 	&:focus {
@@ -981,7 +999,7 @@ input {
 textarea {
 	width: 100%;
 	border-radius: 10px;
-	color: #494949;
+	color: $color-grey-medium;
 	padding: 12px 15px;
 	border: solid 1px $color-grey-light;
 	line-height: 24px;
@@ -1055,23 +1073,36 @@ textarea {
 	.mid_banner-dash a,
 	.mid_banner-link a,
 	.more_information-link a {
-		padding: 10px 16px;
+		padding: 15px 16px;
 		float: right;
 		margin-left: 6px;
 
 		&.active,
 		&:hover {
 			color: #fff;
-			background-color: $brand-gold;
-			text-decoration: none;
-
 			i {
 				color: #fff;
 			}
 		}
 	}
 
-	.mid_banner-dash a {
+    .mid_banner-dash a,
+    .mid_banner-link a {
+        &.active,
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .more_information-link a {
+        &.active,
+        &:hover {
+            background-color: $brand-gold;
+            text-decoration: none;
+        }
+    }
+
+        .mid_banner-dash a {
 		margin-left: 24px;
 	}
 
@@ -1143,12 +1174,16 @@ textarea {
 		.form-group {
 			display: block;
 			width: 100%;
+			margin-top: 5px;
 			margin-bottom: 5px;
 			@media (min-width: 992px) {
 				-webkit-box-flex: 1;
 				-ms-flex: 1;
 				flex: 1;
 			}
+            input {
+                margin-bottom: 0;
+            }
 		}
 
 		.form-control {
@@ -1161,7 +1196,7 @@ textarea {
 		}
 		margin-bottom: 10px;
 		padding: 10px;
-		background: $color-grey-lighter;
+		background: $color-grey-lightest;
 		border-radius: 5px;
 
 		label {
@@ -1209,7 +1244,7 @@ textarea {
 
 .footer {
 	background-color: $brand-blue;
-	border-top: 3px solid $brand-gold;
+	border-top: 2px solid $brand-gold;
 	padding: 15px;
 
 	.footer-container ul {
@@ -1237,14 +1272,14 @@ textarea {
 
 .question-well {
 	min-height: 20px;
-	padding: 25px;
-	margin-top: 25px;
+	padding: 30px;
+	margin-top: 28px;
 	border: 1px solid $color-grey-light;
-	border-radius: 10px;
+	border-radius: 8px;
 	background: #ffffff;
 
 	&.hasFocus {
-		border: 1px solid $color-blue-light;
+		border: 1px solid $color-blue;
 		-webkit-transition: 0.1s ease-in-out all;
 		transition: 0.1s ease-in-out all;
 	}
@@ -1267,9 +1302,10 @@ textarea {
         font-family: $font-custom-bold;
         font-weight: bold;
         text-transform: uppercase;
-        padding: 4px 6px;
+        padding: 6px;
         margin-left: 16px;
         white-space: nowrap;
+        vertical-align: bottom;
         &.inline {
             border: none;
             padding: 0;
@@ -1279,6 +1315,7 @@ textarea {
     .required {
         color: $color-red;
         border: $color-red 2px solid;
+        vertical-align: text-bottom;
     }
 
     .optional {
@@ -1487,6 +1524,11 @@ textarea {
             width: 30%;
             min-width: 192px;
         }
+
+        thead {
+            -moz-border-radius-topleft: 8px;
+            -moz-border-radius-topright: 8px;
+        }
 	}
 
 	.collapse > div,
@@ -1608,7 +1650,7 @@ textarea {
 
     .content-column {
         max-width: 1280px;
-        padding: 36px 6% 50px;
+        padding: 36px 6% 54px;
         position: relative;
     }
 
@@ -1616,7 +1658,7 @@ textarea {
         -webkit-box-flex: 0;
         -ms-flex: 0 0 280px;
         flex: 0 0 280px;
-        background-color: $color-grey-lighter;
+        background-color: $color-grey-lightest;
         -webkit-box-ordinal-group: 3;
         -ms-flex-order: 2;
         order: 2;
@@ -1837,7 +1879,7 @@ textarea {
         align-items: center;
         height: 70px;
         margin-bottom: 12px;
-        padding: 0 24px;
+        padding: 0 16px;
         font-weight: bold;
 
         .progress-icon {
@@ -1886,8 +1928,8 @@ textarea {
 		&.complete {
 			i,
 			span {
-				color: $color-green-dark;
-				border-color: $color-green-dark;
+				color: $color-green-darker;
+				border-color: $color-green-darker;
 			}
 		}
 
@@ -1911,10 +1953,10 @@ textarea {
             float: right;
 
             &.incomplete, &.skipped {
-                color: $color-red-dark;
+                color: $color-red;
             }
             &.complete {
-                color: $color-green-dark;
+                color: $color-green-darker;
             }
         }
     }
@@ -1927,8 +1969,16 @@ textarea {
     		padding: 5px 24px 5px 22px;
 			border-left:2px solid $brand-gold;
 			width: 100%;
-		}
 
+            .progress-status i {
+                &.complete {
+                    color: $color-green-darkest;
+                }
+                &.incomplete, &.skipped {
+                    color: $color-red-darkest;
+                }
+            }
+		}
 
 		.progress-sub-question {
 			width: 190px;
@@ -2025,8 +2075,12 @@ textarea {
 
 		&:focus,
 		&:hover {
-			background-color: $color-blue-lighter;
+			background-color: $color-grey-lightest;
 			text-decoration: none;
+
+            &.incomplete, &.skipped {
+                color: $color-red-darker;
+            }
 		}
 
 		&:first-child {
@@ -2097,9 +2151,14 @@ textarea {
             }
 
             &.complete .progress-icon i {
-                border: solid 1px $color-green-dark;
-                background-color: $color-green-dark;
+                border: solid 1px $color-green-darker;
+                background-color: $color-green-darker;
                 color: $brand-gold;
+            }
+        }
+        .progress-status {
+            i.incomplete, i.skipped {
+                color: $color-red-darker;
             }
         }
     }

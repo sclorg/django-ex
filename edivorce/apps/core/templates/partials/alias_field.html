@@ -8,9 +8,10 @@
             <option value="with assumed name of" {% if alias_type == 'with assumed name of' %} selected {% endif %}>With assumed name of</option>
         </select>
     {% endcomment %}
-    
-    <label>Also known as</label>
-    <input type="button" class="btn btn-danger btn-delete-name form-control pull-right" value="Delete" />
+    <div class="label-group">
+        <label>Also known as</label>
+        <input type="button" class="btn btn-danger btn-delete-name form-control pull-right" value="Delete" />
+    </div>
     <div class="form-group name-group alias-body">
         <div>
             <p>First Name</p>
