@@ -197,8 +197,6 @@ EFILING_BCEID = env('EFILING_BCEID', '', subcast=str)
 LOGIN_URL = reverse_lazy('oidc_authentication_init')
 OIDC_RP_SIGN_ALGO = 'RS256'
 OIDC_RP_SCOPES = 'openid email profile'
-# this is needed to bypass the Keycloak login screen
-OIDC_AUTH_REQUEST_EXTRA_PARAMS = {'kc_idp_hint': 'bceid'}
 OIDC_RP_CLIENT_SECRET = env('EDIVORCE_KEYCLOAK_SECRET', '')
 OIDC_OP_LOGOUT_URL_METHOD = 'edivorce.apps.core.middleware.keycloak.keycloak_logout'
 

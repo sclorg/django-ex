@@ -91,6 +91,8 @@ OIDC_OP_TOKEN_ENDPOINT = f'{EDIVORCE_KEYCLOAK_BASE_URL}/auth/realms/{EDIVORCE_KE
 OIDC_OP_USER_ENDPOINT = f'{EDIVORCE_KEYCLOAK_BASE_URL}/auth/realms/{EDIVORCE_KEYCLOAK_REALM}/protocol/openid-connect/userinfo'
 OIDC_RP_CLIENT_ID = EDIVORCE_KEYCLOAK_CLIENT_ID
 LOGIN_REDIRECT_URL = PROXY_URL_PREFIX + '/signin'
+# this is needed to bypass the Keycloak login screen
+OIDC_AUTH_REQUEST_EXTRA_PARAMS = {'kc_idp_hint': 'bceid'}
 
 # EFiling Hub Settings
 EFILING_HUB_ENABLED = True
