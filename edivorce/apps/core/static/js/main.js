@@ -1236,7 +1236,7 @@ var date_picker = function (selector, showOnFocus) {
         showOnFocus: showOnFocus,
         startView: 'decade',
         clearBtn: true
-    }).on('dp.change', function(e) {
+    }).on('dp.change hide', function(e) {
          $(this).find('input').trigger('change');
     }).on('show', function(e) {
          $(this).closest(selector).find('input').attr('readonly','readonly');
