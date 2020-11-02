@@ -569,7 +569,7 @@
     text-align: left;
     border: 1px #365ebe dashed;
     border-radius: 8px;
-    padding: 20px 32px 0 24px;
+    padding: 20px 32px 0 20px;
     margin-bottom: 5px;
 
     &.dragging {
@@ -596,7 +596,7 @@
     }
 
     .fa-plus-circle {
-      font-size: 3rem;
+      font-size: 30px;
       margin-bottom: 8px;
       color: #365ebe;
     }

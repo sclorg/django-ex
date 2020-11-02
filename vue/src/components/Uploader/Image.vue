@@ -105,8 +105,8 @@
   .image-wrap {
     height: 160px;
     border: 1px solid black;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     background-color: white;
     overflow: hidden;
     position: relative;

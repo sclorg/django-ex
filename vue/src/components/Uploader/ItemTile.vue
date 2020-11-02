@@ -138,7 +138,7 @@
     .bottom-wrapper {
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
-      border: 1px solid silver;
+      border: 1px solid #d5d5d5;
       border-top: none;
       background-color: #f2f2f2;
       margin-bottom: 10px;
@@ -178,7 +178,7 @@
 
       &:disabled {
         i.fa {
-          opacity: 0.15;
+          color: #d5d5d5;
         }
       }
 
