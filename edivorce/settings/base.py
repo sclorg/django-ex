@@ -191,4 +191,5 @@ OIDC_RP_CLIENT_SECRET = env('EDIVORCE_KEYCLOAK_SECRET', '')
 OIDC_OP_LOGOUT_URL_METHOD = 'edivorce.apps.core.middleware.keycloak.keycloak_logout'
 
 # eFiling settings
+EFILING_HUB_KEYCLOAK_SECRET = env('EFILING_HUB_KEYCLOAK_SECRET', '')
 VIRTUAL_SWEARING_ENABLED = False
