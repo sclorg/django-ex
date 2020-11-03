@@ -21,19 +21,6 @@ services:
       - data-redis:/data
     restart: always
 
-  # Redis Commander
-  redis-commander:
-    container_name: edivorce-redis-commander
-    hostname: redis-commander
-    image: rediscommander/redis-commander:latest
-    restart: always
-    environment:
-      - REDIS_PORT=6379
-      - REDIS_HOST=redis
-      - REDIS_PASSWORD=admin
-    ports:
-      - "8082:8081"
-
   # Weasyprint (PDF generator)
   weasyprint:
     container_name: edivorce-weasyprint
@@ -57,6 +44,7 @@ services:
     ports:
       - 8081:8080
     command: ["-Dkeycloak.profile.feature.upload_scripts=enabled"]
+    restart: always    
 
 volumes:
   data-redis:
