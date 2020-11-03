@@ -19,7 +19,12 @@
     <div class="question-well">
         <h3>Select how you would like to {% include "partials/tooltips/swear_affirm.html" %}
             your {% include "partials/tooltips/affidavit.html" %}:</h3>
-        <div class="radio"><label>{% input_field type="radio" name="how_to_sign" value="Together" id="sign-together" %}
+        <div class="radio"><label>
+            {% if initial_filing_submitted %}
+                {% input_field type="radio" name="how_to_sign" value="Together" id="sign-together" disabled="" %}
+            {% else %}
+                {% input_field type="radio" name="how_to_sign" value="Together" id="sign-together" %}
+            {% endif %}
             We will swear/affirm and sign Together using the same affidavit(s)</label></div>
         <div class="list-item-description">
             <p>You must both go together to the registry or to a commissioner for taking affidavits to swear/affirm and sign the affidavit(s).
@@ -37,7 +42,12 @@
                 </li>
             </ul>
         </div>
-        <div class="radio"><label>{% input_field type="radio" name="how_to_sign" value="Separately" id="sign-separately" %}
+        <div class="radio"><label>
+            {% if initial_filing_submitted %}
+                {% input_field type="radio" name="how_to_sign" value="Separately" id="sign-separately" disabled="" %}
+            {% else %}
+                {% input_field type="radio" name="how_to_sign" value="Separately" id="sign-separately" %}
+            {% endif %}
             We will swear/affirm and sign Separately our own affidavit(s)</label></div>
         <div class="list-item-description">
             <p>You can each swear/affirm and sign your own version of the affidavit (you can go separately to the registry or a commissioner for
@@ -84,7 +94,12 @@
     {% if where_were_you_married_country == 'Canada' %}
         <div class="question-well">
             <h3>Select how you would like to file (?) your documents:</h3>
-            <div class="radio"><label>{% input_field type="radio" name="how_to_file" value="Online" id="file-online" %}
+            <div class="radio"><label>
+                {% if initial_filing_submitted %}
+                    {% input_field type="radio" name="how_to_file" value="Online" id="file-online" disabled="" %}
+                {% else %}
+                    {% input_field type="radio" name="how_to_file" value="Online" id="file-online" %}
+                {% endif %}
                 We will file Online through this tool</label></div>
             <div class="list-item-description">
                 <p>To file online you will also need:</p>
@@ -94,7 +109,12 @@
                     <li>your marriage certificate must be from a Canadian jurisdiction only</li>
                 </ul>
             </div>
-            <div class="radio"><label>{% input_field type="radio" name="how_to_file" value="In-person" id="file-in-person" %}
+            <div class="radio"><label>
+                {% if initial_filing_submitted %}
+                    {% input_field type="radio" name="how_to_file" value="In-person" id="file-in-person" disabled="" %}
+                {% else %}
+                    {% input_field type="radio" name="how_to_file" value="In-person" id="file-in-person" %}
+                {% endif %}
                 We will file In-person at the court registry (you can also mail the documents to the court registry)</label></div>
             <div class="list-item-description">
                 <p>To file in-person you need only the items list above under Filing Options.</p>
@@ -111,20 +131,40 @@
         <h3 id="signing-location" hidden>Swear/Affirm and Signing Location</h3>
         <div class="question-well" id="signing-location-together" hidden>
             <h3>Select where you would like to {% include "partials/tooltips/swear_affirm.html" %} your affidavit(s):</h3>
-            <div class="radio"><label>{% input_field type="radio" name="signing_location" value="In-person" id="sign-in-person-both" %}
+            <div class="radio"><label>
+                {% if initial_filing_submitted %}
+                    {% input_field type="radio" name="signing_location" value="In-person" id="sign-in-person-both" disabled="" %}
+                {% else %}
+                    {% input_field type="radio" name="signing_location" value="In-person" id="sign-in-person-both" %}
+                {% endif %}
                 We will sign with a lawyer, notary or other {% include "partials/tooltips/commissioner.html" with hover=True %} for taking affidavits
             </label></div>
-            <div class="radio"><label>{% input_field type="radio" name="signing_location" value="Virtual" id="sign-virtual-both" %}
+            <div class="radio"><label>
+                {% if initial_filing_submitted %}
+                    {% input_field type="radio" name="signing_location" value="Virtual" id="sign-virtual-both" disabled="" %}
+                {% else %}
+                    {% input_field type="radio" name="signing_location" value="Virtual" id="sign-virtual-both" %}
+                {% endif %}
                 We will sign in a {% include "partials/tooltips/virtual_session.html" with hover=True %} with the court registry</label> - You will
                 require a computer with internet access and a webcam
             </div>
         </div>
         <div class="question-well" id="signing-location-separately" hidden>
             <h3>Select where you would like to {% include "partials/tooltips/swear_affirm.html" %} your affidavit(s):</h3>
-            <div class="radio"><label>{% input_field type="radio" name="signing_location_you" value="In-person" id="sign-in-person-you" %}
+            <div class="radio"><label>
+                {% if initial_filing_submitted %}
+                    {% input_field type="radio" name="signing_location_you" value="In-person" id="sign-in-person-you" disabled="" %}
+                {% else %}
+                    {% input_field type="radio" name="signing_location_you" value="In-person" id="sign-in-person-you" %}
+                {% endif %}
                 I will sign with a lawyer, notary or other {% include "partials/tooltips/commissioner.html" with hover=True %} for taking affidavits
             </label></div>
-            <div class="radio"><label>{% input_field type="radio" name="signing_location_you" value="Virtual" id="sign-virtual-you" %}
+            <div class="radio"><label>
+                {% if initial_filing_submitted %}
+                    {% input_field type="radio" name="signing_location_you" value="Virtual" id="sign-virtual-you" disabled="" %}
+                {% else %}
+                    {% input_field type="radio" name="signing_location_you" value="Virtual" id="sign-virtual-you" %}
+                {% endif %}
                 I will sign in a {% include "partials/tooltips/virtual_session.html" with hover=True %} with the court registry</label>
             </div>
             <div class="list-item-description">
