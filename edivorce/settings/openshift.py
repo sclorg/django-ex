@@ -127,9 +127,6 @@ REDIS_PORT = 6379
 REDIS_DB = ''
 REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', '')
 
-# Enable virtual swearing
-VIRTUAL_SWEARING_ENABLED = False
-
 
 def monkey_absolutify(request, path):
     return PROXY_BASE_URL + path
