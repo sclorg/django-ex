@@ -19,13 +19,3 @@ generated and a through model for mapping questions into the form and having a
 transformation step on user values.  (Note that the field mapping drawn from the
 PDFs is not represented internally here; that effort is solely to cross-map
 re-used fields on the forms).
-
-## Authentication
-
-Currently authentication is pure Django authentication; there is no registration
-mechanism; users may be created and logged in via the admin app (which will be
-disabled for production).  
-
-The current plan is for BCEID to be used.  This will require middleware that
-authenticates/provisions users based on a trusted header provided by Siteminder,
-according to BCEID's integration in the pathfinder environment.
