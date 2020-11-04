@@ -47,7 +47,7 @@ class EFilingSubmissionTests(TransactionTestCase):
         middleware = SessionMiddleware()
         middleware.process_request(self.request)
         self.request.session.save()
-        
+
         self.hub = EFilingSubmission(initial_filing=True)
         self.packaging = EFilingPackaging(initial_filing=True)
 
@@ -70,8 +70,7 @@ class EFilingSubmissionTests(TransactionTestCase):
             text=json.dumps(SAMPLE_TOKEN_RESPONSE))
 
         self.assertTrue(self.hub._get_token(self.request))
-        self.assertEqual(self.request.session['access_token'],
-                         SAMPLE_TOKEN_RESPONSE['access_token'])
+        self.assertEqual(self.hub.access_token, SAMPLE_TOKEN_RESPONSE['access_token'])
 
     @mock.patch('requests.post')
     def test_get_token_error(self, mock_request_post):
@@ -85,11 +84,10 @@ class EFilingSubmissionTests(TransactionTestCase):
     def test_renew_token(self, mock_request_post):
         mock_request_post.return_value = self._mock_response(
             text=json.dumps(SAMPLE_TOKEN_RESPONSE))
-        self.request.session['refresh_token'] = 'alskdfjadlfads'
+        self.hub.refresh_token = 'alskdfjadlfads'
 
         self.assertTrue(self.hub._refresh_token(self.request))
-        self.assertEqual(self.request.session['access_token'],
-                         SAMPLE_TOKEN_RESPONSE['access_token'])
+        self.assertEqual(self.hub.access_token, SAMPLE_TOKEN_RESPONSE['access_token'])
 
     @mock.patch('requests.post')
     def test_renew_token_anon(self, mock_request_post):
@@ -104,17 +102,16 @@ class EFilingSubmissionTests(TransactionTestCase):
     def test_renew_token_error(self, mock_request_post):
         mock_request_post.return_value = self._mock_response(
             text=json.dumps(SAMPLE_TOKEN_RESPONSE), status=401)
-        self.request.session['refresh_token'] = 'alskdfjadlfads'
+        self.hub.refresh_token = 'alskdfjadlfads'
 
         self.assertTrue(self.hub._refresh_token(self.request))
-        self.assertEqual(self.request.session['access_token'],
-                         SAMPLE_TOKEN_RESPONSE['access_token'])
+        self.assertEqual(self.hub.access_token, SAMPLE_TOKEN_RESPONSE['access_token'])
 
     @mock.patch('requests.post')
     def test_get_api_success(self, mock_request_post):
         mock_request_post.return_value = self._mock_response(
             text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE))
-        self.request.session['access_token'] = 'aslkfjadskfjd'
+        self.hub.access_token = 'aslkfjadskfjd'
 
         response = self.hub._get_api(
             self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
@@ -126,8 +123,8 @@ class EFilingSubmissionTests(TransactionTestCase):
 
     @mock.patch('requests.post')
     def test_get_api_expired_token(self, mock_request_post):
-        self.request.session['access_token'] = 'aslkfjadskfjd'
-        self.request.session['refresh_token'] = 'alskdfjadlfads'
+        self.hub.access_token = 'aslkfjadskfjd'
+        self.hub.refresh_token = 'alskdfjadlfads'
 
         # we want 3 mock side effects for post .. a 401 on the first and success on token renewal
         mock_request_post.side_effect = [
