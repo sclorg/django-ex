@@ -20,7 +20,7 @@
         <h3>Select how you would like to {% include "partials/tooltips/swear_affirm.html" %}
             your {% include "partials/tooltips/affidavit.html" %}:</h3>
         <div class="radio"><label>
-            {% if initial_filing_submitted %}
+            {% if initial_filing_submitted == 'True' %}
                 {% input_field type="radio" name="how_to_sign" value="Together" id="sign-together" disabled="" %}
             {% else %}
                 {% input_field type="radio" name="how_to_sign" value="Together" id="sign-together" %}
@@ -43,7 +43,7 @@
             </ul>
         </div>
         <div class="radio"><label>
-            {% if initial_filing_submitted %}
+            {% if initial_filing_submitted == 'True' %}
                 {% input_field type="radio" name="how_to_sign" value="Separately" id="sign-separately" disabled="" %}
             {% else %}
                 {% input_field type="radio" name="how_to_sign" value="Separately" id="sign-separately" %}
@@ -95,7 +95,7 @@
         <div class="question-well">
             <h3>Select how you would like to file (?) your documents:</h3>
             <div class="radio"><label>
-                {% if initial_filing_submitted %}
+                {% if initial_filing_submitted == 'True' %}
                     {% input_field type="radio" name="how_to_file" value="Online" id="file-online" disabled="" %}
                 {% else %}
                     {% input_field type="radio" name="how_to_file" value="Online" id="file-online" %}
@@ -110,7 +110,7 @@
                 </ul>
             </div>
             <div class="radio"><label>
-                {% if initial_filing_submitted %}
+                {% if initial_filing_submitted == 'True' %}
                     {% input_field type="radio" name="how_to_file" value="In-person" id="file-in-person" disabled="" %}
                 {% else %}
                     {% input_field type="radio" name="how_to_file" value="In-person" id="file-in-person" %}
@@ -132,7 +132,7 @@
         <div class="question-well" id="signing-location-together" hidden>
             <h3>Select where you would like to {% include "partials/tooltips/swear_affirm.html" %} your affidavit(s):</h3>
             <div class="radio"><label>
-                {% if initial_filing_submitted %}
+                {% if initial_filing_submitted == 'True' %}
                     {% input_field type="radio" name="signing_location" value="In-person" id="sign-in-person-both" disabled="" %}
                 {% else %}
                     {% input_field type="radio" name="signing_location" value="In-person" id="sign-in-person-both" %}
@@ -140,7 +140,7 @@
                 We will sign with a lawyer, notary or other {% include "partials/tooltips/commissioner.html" with hover=True %} for taking affidavits
             </label></div>
             <div class="radio"><label>
-                {% if initial_filing_submitted %}
+                {% if initial_filing_submitted == 'True' %}
                     {% input_field type="radio" name="signing_location" value="Virtual" id="sign-virtual-both" disabled="" %}
                 {% else %}
                     {% input_field type="radio" name="signing_location" value="Virtual" id="sign-virtual-both" %}
@@ -152,7 +152,7 @@
         <div class="question-well" id="signing-location-separately" hidden>
             <h3>Select where you would like to {% include "partials/tooltips/swear_affirm.html" %} your affidavit(s):</h3>
             <div class="radio"><label>
-                {% if initial_filing_submitted %}
+                {% if initial_filing_submitted == 'True' %}
                     {% input_field type="radio" name="signing_location_you" value="In-person" id="sign-in-person-you" disabled="" %}
                 {% else %}
                     {% input_field type="radio" name="signing_location_you" value="In-person" id="sign-in-person-you" %}
@@ -160,7 +160,7 @@
                 I will sign with a lawyer, notary or other {% include "partials/tooltips/commissioner.html" with hover=True %} for taking affidavits
             </label></div>
             <div class="radio"><label>
-                {% if initial_filing_submitted %}
+                {% if initial_filing_submitted == 'True' %}
                     {% input_field type="radio" name="signing_location_you" value="Virtual" id="sign-virtual-you" disabled="" %}
                 {% else %}
                     {% input_field type="radio" name="signing_location_you" value="Virtual" id="sign-virtual-you" %}
