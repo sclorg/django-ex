@@ -152,6 +152,12 @@ def _after_submit_files(request, initial=False):
     else:
         base_url = settings.PROXY_BASE_URL
 
+    # purge the attachments
+    Document.objects.filter(
+        bceid_user=user,
+        filing_type=('i' if initial else 'f')
+    ).delete()
+
     receipt_link = base_url + '/cso/filing/status/viewDocument.do?actionType=viewReceipt&packageNo=' + package_number
     _save_response(user, f'{prefix}_filing_receipt_link', receipt_link)
 
