@@ -36,7 +36,8 @@ class CreateDocumentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ('file', 'doc_type', 'party_code', 'filename', 'size', 'rotation', 'sort_order', 'file_url')
+        fields = ('file', 'doc_type', 'party_code', 'filename', 'size',
+                  'rotation', 'sort_order', 'file_url', 'filing_type')
 
     def create(self, validated_data):
         filename = validated_data['file'].name
@@ -61,6 +62,7 @@ class CreateDocumentSerializer(serializers.ModelSerializer):
 class DocumentMetadataSerializer(serializers.ModelSerializer):
     doc_type = serializers.CharField(read_only=True)
     party_code = serializers.IntegerField(read_only=True)
+    filing_type = serializers.CharField(read_only=True)
     filename = serializers.CharField(read_only=True)
     size = serializers.IntegerField(read_only=True)
     rotation = serializers.IntegerField(min_value=0, max_value=270, validators=[valid_rotation])
@@ -69,4 +71,5 @@ class DocumentMetadataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ('doc_type', 'party_code', 'filename', 'size', 'rotation', 'sort_order', 'file_url')
+        fields = ('doc_type', 'party_code', 'filename', 'size',
+                  'rotation', 'sort_order', 'file_url', 'filing_type')

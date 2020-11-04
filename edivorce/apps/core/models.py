@@ -126,6 +126,9 @@ class Document(models.Model):
     party_code = models.IntegerField(default=0)
     """ 1 = You, 2 = Your Spouse, 0 = Shared """
 
+    filing_type = models.CharField(max_length=1, default='i')
+    """ 'i'='initial' / 'f'=final """
+
     sort_order = models.IntegerField(default=1)
     """ File order (page number in the PDF) """
 
@@ -174,6 +177,8 @@ class Document(models.Model):
             self.sort_order = num_docs + 1
         if self.doc_type not in self.form_types:
             raise ValueError(f"Invalid doc_type '{self.doc_type}'")
+        if self.filing_type not in ['i', 'f']:
+            raise ValueError(f"Invalid filing_type '{self.filing_type}'")
 
         super(Document, self).save(*args, **kwargs)
 

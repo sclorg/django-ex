@@ -136,6 +136,7 @@
     props: {
       docType: String,
       party: { type: Number, default: 0 },
+      filingType: String,
     },
     data: function() {
       return {
@@ -163,6 +164,7 @@
         return {
           doc_type: this.docType,
           party_code: this.party,
+          filing_type: this.filingType,
         };
       },
       formDef() {
