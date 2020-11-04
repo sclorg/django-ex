@@ -173,7 +173,7 @@ class EFilingSubmission:
 
                 response = json.loads(response.text)
 
-                if response['details'] and len(response['details']) > 0:
+                if 'details' in response and len(response['details']) > 0:
                     return None, response['details'][0]
 
                 return None, f"{response['error']} - {response['message']}"
