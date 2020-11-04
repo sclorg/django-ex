@@ -17,14 +17,12 @@ $color-grey-lighter: #efefef;
 $color-grey-lightest: #f2f2f2;
 $color-green: #2e8540;
 $color-green-light: #d5e6d8;
-$color-green-darker: #246A33;
-$color-green-darkest: #1c5428;
+$color-green-dark: #1c5428;
 $color-gold-dark: #925E00;
 $color-gold-light: #FEEABA;
 $color-red-light: #F7D4D5;
 $color-red: #D8292F;
-$color-red-darker: #AC2025;
-$color-red-darkest: #9A1C21;
+$color-red-dark: #9A1C21;
 
 $font-custom: Myriad-Pro, Calibri, Arial, Sans Serif;
 $font-custom-bold: Myriad-Pro-Bold, Calibri, Arial, Sans Serif;
@@ -398,7 +396,7 @@ div.percent-suffix {
 	&.hard-stop {
 		background-color: $color-red-light;
         hr {
-            border-top: 1px solid $color-red-darkest;
+            border-top: 1px solid $color-red-dark;
         }
 
 		&:after {
@@ -409,7 +407,7 @@ div.percent-suffix {
 			text-decoration: inherit;
 			position: absolute;
 			font-size: 24px;
-			color: $color-red-darkest;
+			color: $color-red-dark;
 			top: 30px;
 			left: 27px;
 		}
@@ -729,7 +727,7 @@ i.fa.fa-question-circle {
 			transition: all 0.1s ease-in-out;
 
 			&:hover {
-				background-color: $color-green-darkest;
+				background-color: $color-green-dark;
 				-webkit-transition: all 0.1s ease-in-out;
 				transition: all 0.1s ease-in-out;
 			}
@@ -761,12 +759,12 @@ i.fa.fa-question-circle {
         text-decoration: inherit;
         position: absolute;
         font-size: 24px;
-        color: $color-red-darker;
+        color: $color-red-dark;
         top: 30px;
         left: 30px;
     }
     .warning, .progress-status i {
-        color: $color-red-darker;
+        color: $color-red-dark;
         font-weight: bolder;
         margin: 0 3px;
     }
@@ -1929,8 +1927,8 @@ textarea {
 		&.complete {
 			i,
 			span {
-				color: $color-green-darker;
-				border-color: $color-green-darker;
+				color: $color-green-dark;
+				border-color: $color-green-dark;
 			}
 		}
 
@@ -1938,6 +1936,11 @@ textarea {
 		&:hover {
 			background-color: $color-grey-light;
 			text-decoration: none;
+            .progress-status  i {
+                &.incomplete, &.skipped {
+                    color: $color-red-dark;
+                }
+            }
         }
 
 		&.active {
@@ -1957,7 +1960,7 @@ textarea {
                 color: $color-red;
             }
             &.complete {
-                color: $color-green-darker;
+                color: $color-green-dark;
             }
         }
     }
@@ -1967,16 +1970,16 @@ textarea {
 
 		li {
 			display:inline-block;
-    		padding: 5px 24px 5px 22px;
+    		padding: 5px 16px 5px 22px;
 			border-left:2px solid $brand-gold;
 			width: 100%;
 
             .progress-status i {
                 &.complete {
-                    color: $color-green-darkest;
+                    color: $color-green-dark;
                 }
                 &.incomplete, &.skipped {
-                    color: $color-red-darkest;
+                    color: $color-red-dark;
                 }
             }
 		}
@@ -2080,7 +2083,7 @@ textarea {
 			text-decoration: none;
 
             &.incomplete, &.skipped {
-                color: $color-red-darker;
+                color: $color-red-dark;
             }
 		}
 
@@ -2152,14 +2155,14 @@ textarea {
             }
 
             &.complete .progress-icon i {
-                border: solid 1px $color-green-darker;
-                background-color: $color-green-darker;
+                border: solid 1px $color-green-dark;
+                background-color: $color-green-dark;
                 color: $brand-gold;
             }
         }
         .progress-status {
             i.incomplete, i.skipped {
-                color: $color-red-darker;
+                color: $color-red-dark;
             }
         }
     }
