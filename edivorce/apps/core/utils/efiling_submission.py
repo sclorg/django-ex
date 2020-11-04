@@ -19,10 +19,11 @@ class EFilingSubmission:
         self.token_base_url = settings.EFILING_HUB_KEYCLOAK_BASE_URL
         self.token_realm = settings.EFILING_HUB_KEYCLOAK_REALM
         self.api_base_url = settings.EFILING_HUB_API_BASE_URL
-
-        self.submission_id = None
         self.initial_filing = initial_filing
         self.packaging = EFilingPackaging(initial_filing)
+        self.submission_id = None
+        self.access_token = None
+        self.refresh_token = None
 
     def _get_token(self, request):
         payload = f'client_id={self.client_id}&grant_type=client_credentials&client_secret={self.client_secret}'
@@ -35,21 +36,20 @@ class EFilingSubmission:
         if response.status_code == 200:
             response = json.loads(response.text)
 
-            # save in session .. lets just assume that current user is authenticated
+            # save token as object property..
             if 'access_token' in response:
-                request.session['access_token'] = response['access_token']
+                self.access_token = response['access_token']
                 if 'refresh_token' in response:
-                    request.session['refresh_token'] = response['refresh_token']
+                    self.refresh_token = response['refresh_token']
 
                 return True
         return False
 
     def _refresh_token(self, request):
-        refresh_token = request.session.get('refresh_token', None)
-        if not refresh_token:
+        if not self.refresh_token:
             return False
 
-        payload = f'client_id={self.client_id}&grant_type=refresh_token&client_secret={self.client_secret}&refresh_token={refresh_token}'
+        payload = f'client_id={self.client_id}&grant_type=refresh_token&client_secret={self.client_secret}&refresh_token={self.refresh_token}'
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
         url = f'{self.token_base_url}/auth/realms/{self.token_realm}/protocol/openid-connect/token'
@@ -61,25 +61,23 @@ class EFilingSubmission:
 
         # save in session .. lets just assume that current user is authenticated
         if 'access_token' in response:
-            request.session['access_token'] = response['access_token']
+            self.access_token = response['access_token']
             if 'refresh_token' in response:
-                request.session['refresh_token'] = response['refresh_token']
+                self.refresh_token = response['refresh_token']
 
             return True
         return False
 
     def _get_api(self, request, url, transaction_id, bce_id, headers, data=None, files=None):
-        # make sure we have a session
-        access_token = request.session.get('access_token', None)
-        if not access_token:
+        # make sure we have an access token
+        if not self.access_token:
             if not self._get_token(request):
                 raise Exception('EFH - Unable to get API Token')
 
-        access_token = request.session.get('access_token', None)
         headers.update({
             'X-Transaction-Id': transaction_id,
             'X-User-Id': bce_id,
-            'Authorization': f'Bearer {access_token}'
+            'Authorization': f'Bearer {self.access_token}'
         })
 
         if not data:
@@ -91,11 +89,10 @@ class EFilingSubmission:
         if response.status_code == 401:
             # not authorized .. try refreshing token
             if self._refresh_token(request):
-                access_token = request.session.get('access_token', None)
                 headers.update({
                     'X-Transaction-Id': transaction_id,
                     'X-User-Id': bce_id,
-                    'Authorization': f'Bearer {access_token}'
+                    'Authorization': f'Bearer {self.access_token}'
                 })
 
                 response = requests.post(url, headers=headers, data=data, files=files)
