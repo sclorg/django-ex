@@ -67,7 +67,7 @@
         {% endif %}
         <div>
             <p>
-                Here you will file file (?) completed documents to the court registry.
+                Here you will {% include "partials/tooltips/file.html" %} completed documents to the court registry.
             </p>
             <p>
                 <b>Missing a form required on this page?</b> Check the
@@ -126,42 +126,50 @@
                         <li>{% include "partials/tooltips/joint_family_claim_1.html" with text="Notice of Joint Family Claim Form (F1)" %}
                             signed by both you and your spouse
                         </li>
+                        {% if original_marriage_certificate == 'YES' %}
+                            <li>{% include "partials/tooltips/proof_of_marriage.html" %}</li>
+                            <li>{% include "partials/tooltips/affidavit_of_translation.html" %} sworn/affirmed by a translator
+                                <ul class="no-margin-bottom">
+                                    <li>
+                                        Required only if your marriage certificate is NOT in English
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        <li>{% include "partials/tooltips/joint_divorce_proceedings.html" %}</li>
                         <li>{% include "partials/tooltips/requisition_form_35.html" %} signed by both you and your spouse</li>
                         <li>{% include "partials/tooltips/draft_final_order_52.html" %} signed by both you and your spouse</li>
                         <li>{% include "partials/tooltips/certificate_of_pleading_36.html" %}</li>
                         {% if derived.has_children_of_marriage %}
-                            <li>{% include "partials/tooltips/form_child_support_37.html" %} sworn/affirmed by both you</li>
+                            <li>{% include "partials/tooltips/form_child_support_37.html" %} sworn/affirmed by both you and your spouse</li>
                         {% endif %}
                         <li>{% include "partials/tooltips/form_desk_order_38.html" with text="Affidavit Desk Order Divorce (F38)" %} sworn/affirmed by
-                            both you
+                            both you and your spouse
                         </li>
                         {% if derived.has_children_of_marriage %}
                             <li>{% include "partials/tooltips/agreement_to_annual_income_9.html" %}</li>
                         {% endif %}
-                    </ul>
-                    <p>Also ensure you bring the following additional documentation:</p>
-                    <ul>
-                        {% if original_marriage_certificate == 'YES' %}
-                            <li>{% include "partials/tooltips/proof_of_marriage.html" %}</li>
-                        {% endif %}
-                        <li>{% include "partials/tooltips/joint_divorce_proceedings.html" %}</li>
                         {% if derived.wants_other_orders and name_change_you == 'YES' %}
-                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} for You</li>
+                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} for you</li>
                         {% endif %}
                         {% if derived.wants_other_orders and name_change_spouse == 'YES' %}
-                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} for Your Spouse</li>
-                        {% endif %}
-                        {% if derived.has_children_of_marriage %}
-                            <li>{% include "partials/tooltips/agreement_to_annual_income_9.html" %}</li>
+                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} for your spouse</li>
                         {% endif %}
                     </ul>
                     <p>
                         If you have other court orders or a written separation agreement,
-                        they should also be attached to your Child Support Affidavit (F37).
+                        they should also be attached to your
+                        {% if derived.has_children_of_marriage %}
+                            Child Support Affidavit (F37)
+                        {% else %}
+                            Affidavit — Desk Order Divorce Form (F38)
+                        {% endif %}
+                        .
                     </p>
                     <p>
-                        If you are filing by mail, you’ll need to include a cheque made payable to BC Court Services
-                        in the amount of $x.xx to cover the filing costs of your divorce.
+                        If you are filing by mail, you’ll need to include a cheque made payable to BC Court Services.
+                        The cost of filing your divorce will be $210.
+                        Add $10 and a note to your filing if you would like the Registry to return stamped copies of your filing by mail.
                     </p>
                     <p>
                         You have indicated that you will file at the following court registry:
@@ -186,39 +194,47 @@
                         <li>{% include "partials/tooltips/joint_family_claim_1.html" with text="Notice of Joint Family Claim Form (F1)" %}
                             signed by both you and your spouse
                         </li>
+                        {% if original_marriage_certificate == 'YES' %}
+                            <li>{% include "partials/tooltips/proof_of_marriage.html" %}</li>
+                            <li>{% include "partials/tooltips/affidavit_of_translation.html" %} sworn/affirmed by a translator
+                                <ul class="no-margin-bottom">
+                                    <li>
+                                        Required only if your marriage certificate is NOT in English
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        <li>{% include "partials/tooltips/joint_divorce_proceedings.html" %}</li>
                         <li>{% include "partials/tooltips/requisition_form_35.html" %} signed by both you and your spouse</li>
                         <li>{% include "partials/tooltips/draft_final_order_52.html" %} signed by both you and your spouse</li>
                         <li>{% include "partials/tooltips/certificate_of_pleading_36.html" %}</li>
                         {% if derived.has_children_of_marriage %}
-                            <li>{% include "partials/tooltips/form_child_support_37.html" %} sworn/affirmed by both you</li>
+                            <li>{% include "partials/tooltips/form_child_support_37.html" %} sworn/affirmed by you</li>
                         {% endif %}
-                        <li>{% include "partials/tooltips/form_desk_order_38.html" with text="Affidavit Desk Order Divorce (F38)" %} sworn/affirmed by
-                            both you
+                        <li>{% include "partials/tooltips/form_desk_order_38.html" with text="Affidavit Desk Order Divorce (F38)" %}
+                            sworn/affirmed by you
                         </li>
                         {% if derived.has_children_of_marriage %}
                             <li>{% include "partials/tooltips/agreement_to_annual_income_9.html" %}</li>
                         {% endif %}
-                    </ul>
-                    <p>Also ensure you bring the following additional documentation:</p>
-                    <ul>
-                        {% if original_marriage_certificate == 'YES' %}
-                            <li>{% include "partials/tooltips/proof_of_marriage.html" %}</li>
-                        {% endif %}
-                        <li>{% include "partials/tooltips/joint_divorce_proceedings.html" %}</li>
                         {% if derived.wants_other_orders and name_change_you == 'YES' %}
-                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} for Claimant 1 ({% you_name %})</li>
-                        {% endif %}
-                        {% if derived.has_children_of_marriage %}
-                            <li>{% include "partials/tooltips/agreement_to_annual_income_9.html" %}</li>
+                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} for you</li>
                         {% endif %}
                     </ul>
                     <p>
                         If you have other court orders or a written separation agreement,
-                        they should also be attached to your Child Support Affidavit (F37).
+                        they should also be attached to your
+                        {% if derived.has_children_of_marriage %}
+                            Child Support Affidavit (F37)
+                        {% else %}
+                            Affidavit — Desk Order Divorce Form (F38)
+                        {% endif %}
+                        .
                     </p>
                     <p>
-                        If you are filing by mail, you’ll need to include a cheque made payable to BC Court Services
-                        in the amount of $x.xx to cover the filing costs of your divorce.
+                        If you are filing by mail, you’ll need to include a cheque made payable to BC Court Services.
+                        The cost of filing your divorce will be $210.
+                        Add $10 and a note to your filing if you would like the Registry to return stamped copies of your filing by mail.
                     </p>
                     <p>
                         You have indicated that you will file at the following court registry:
@@ -237,13 +253,18 @@
                         The following sworn/affirmed affidavits still remain to be filed:
                     </p>
                     <ul>
-                        <li>{% include "partials/tooltips/form_child_support_37.html" %} sworn/affirmed by your spouse</li>
-                        <li>{% include "partials/tooltips/form_desk_order_38.html" %} sworn/affirmed by your spouse</li>
-                        <li>{% include "partials/tooltips/identification_of_applicant.html" %} - for your Spouse</li>
+                        {% if derived.has_children_of_marriage %}
+                            <li>{% include "partials/tooltips/form_child_support_37.html" %} - sworn/affirmed by your spouse</li>
+                        {% endif %}
+                        <li>{% include "partials/tooltips/form_desk_order_38.html" %} - sworn/affirmed by your spouse</li>
+                        {% if derived.wants_other_orders and name_change_spouse == 'YES' %}
+                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} - for your spouse</li>
+                        {% endif %}
                     </ul>
                     <p>
-                        If you are filing by mail, you’ll need to include a cheque made payable to BC Court Services
-                        in the amount of $x.xx to cover the filing costs of your divorce.
+                        The cost of filing your spouse’s portion of the divorce is free.
+                        Include a cheque made payable to BC Court Services for $10 and a note to your filing
+                        if your spouse would like the Registry to return stamped copies of your filing by mail.
                         The documents must be filed using the {% include "partials/tooltips/court_file_number.html" %}
                         that you received via e-mail.
                         If you have not received a Court File Number then please check the
@@ -282,7 +303,7 @@
 {% block formbuttons %}
     <div class="form-buttons clearfix">
         <a class="btn btn-primary" href="{% url 'dashboard_nav' 'swear_forms' %}"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back</a>
-        {% if how_to_file == 'Online' and final_filing_submitted != 'True'%}
+        {% if how_to_file == 'Online' and final_filing_submitted != 'True' %}
             <a class="btn btn-success pull-right" href="{% url 'submit_final_files' %}" id="submitDocuments">
                 <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;
                 Submit Documents</a>

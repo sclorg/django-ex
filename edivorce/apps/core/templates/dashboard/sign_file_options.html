@@ -70,9 +70,9 @@
     </div>
     <h3>Filing Options</h3>
     {% if where_were_you_married_country == 'Canada' %}
-        <p>You can file (?) your application for divorce in different ways.</p>
+        <p>You can {% include "partials/tooltips/file.html" %} your application for divorce in different ways.</p>
     {% endif %}
-    <p>To file (?) your documents, you will need:</p>
+    <p>To {% include "partials/tooltips/file.html" %} your documents, you will need:</p>
 
     <ul>
         <li>a printer (or a print service)</li>
@@ -93,7 +93,7 @@
     </ul>
     {% if where_were_you_married_country == 'Canada' %}
         <div class="question-well">
-            <h3>Select how you would like to file (?) your documents:</h3>
+            <h3>Select how you would like to {% include "partials/tooltips/file.html" %} your documents:</h3>
             <div class="radio"><label>
                 {% if initial_filing_submitted == 'True' %}
                     {% input_field type="radio" name="how_to_file" value="Online" id="file-online" disabled="" %}
