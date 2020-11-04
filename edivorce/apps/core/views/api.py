@@ -1,4 +1,3 @@
-import json
 import re
 
 from django.http import Http404, HttpResponse, HttpResponseGone, HttpResponseNotFound
@@ -53,15 +52,6 @@ class UserResponseHandler(APIView):
             return Response(status=status.HTTP_500_INTERNAL_ERROR)
 
         return Response(status=status.HTTP_200_OK)
-
-
-def court_location(request, city):
-    data = {
-        'city': city,
-        'address': f'123 {city} St',
-        'postal_code': 'V0A 0A0',
-    }
-    return HttpResponse(content=json.dumps(data), status=status.HTTP_200_OK)
 
 
 class DocumentCreateView(CreateAPIView):

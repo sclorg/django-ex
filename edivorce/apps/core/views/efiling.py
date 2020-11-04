@@ -1,5 +1,6 @@
 import base64
 import random
+import re
 
 from django.conf import settings
 from django.contrib import messages
@@ -70,6 +71,8 @@ def _validate_and_submit_documents(request, responses, initial=False):
         court_file_number = responses.get('court_file_number')
         if not court_file_number:
             errors.append("You must input your Court File Number")
+        elif not re.search("^[0-9]{4,10}$", court_file_number):
+            errors.append("A Court File Number contains only digits and must be between 4 and 10 digits in length")
 
     uploaded, generated = forms_to_file(responses, initial)
     for form in uploaded:

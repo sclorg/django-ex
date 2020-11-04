@@ -1,8 +1,8 @@
 {% if court_registry_for_filing %}
     <ul class="no-bullets" id="court-registry-location">
         <li id="court-registry-city"><b>{{ court_registry_for_filing }}</b></li>
-        <li id="court-registry-address"></li>
-        <li id="court-registry-postal-code"></li>
+        <li id="court-registry-address">{{ court_registry_for_filing_address }}</li>
+        <li id="court-registry-postal-code">{{ court_registry_for_filing_postal_code }}</li>
     </ul>
 {% else %}
     <div class="review-warning">

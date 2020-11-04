@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load input_field %}
+{% load static %}
 
 {% block title %}{{ block.super }}: Overview{% endblock %}
 
@@ -172,7 +173,8 @@
             </div>
             <h3>Select where your spouse would like to {% include "partials/tooltips/swear_affirm.html" %} your affidavit(s):</h3>
             <div class="radio"><label>{% input_field type="radio" name="signing_location_spouse" value="In-person" id="sign-in-person-spouse" %}
-                My spouse will sign with a lawyer, notary or other {% include "partials/tooltips/commissioner.html" with hover=True %} for taking affidavits
+                My spouse will sign with a lawyer, notary or other {% include "partials/tooltips/commissioner.html" with hover=True %} for taking
+                affidavits
             </label></div>
             <div class="radio"><label>{% input_field type="radio" name="signing_location_spouse" value="Virtual" id="sign-virtual-spouse" %}
                 My spouse will sign in a {% include "partials/tooltips/virtual_session.html" with hover=True %} with the court registry</label>
@@ -242,4 +244,8 @@
         These steps will differ based on how you select to sign and file your documentation on this page.</p>
     <p>Once you've got your paperwork together, completed, signed and sworn, you can file it with
         the Court Registry.</p>
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'js/signing-filing.js' %}"></script>
 {% endblock %}

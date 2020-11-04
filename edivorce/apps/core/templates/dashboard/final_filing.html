@@ -88,7 +88,10 @@
                 </p>
                 <div>
                     <label>{% include "partials/tooltips/court_file_number.html" with text="Court File #" %}</label>
-                    {% input_field type="text" name="court_file_number" class="input-inline" %}
+                    {% input_field type="number" name="court_file_number" id="court-file-number" class="input-inline" %}
+                    <p class="error-text" hidden id="court-file-error">
+                        A Court File Number contains only digits and must be between 4 and 10 digits in length.
+                    </p>
                 </div>
             </div>
             <div class="upload-area">
