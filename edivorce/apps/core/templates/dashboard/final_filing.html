@@ -84,9 +84,9 @@
                     <a href="{% url 'dashboard_nav' 'wait_for_number' %}">Wait for Court File</a> step.
                     If you have not sworn / affirmed your affidavits, check the
                     <a href="{% url 'dashboard_nav' 'swear_forms' %}">Swear/Affirm Forms</a> step.
-                    Enter your Court File Number below:
                 </p>
-                <div>
+                <div class="form">
+                    <p><b>Enter your Court File Number:</b></p>
                     <p class="error-text" hidden id="court-file-error">
                         A Court File Number contains only digits and must be between 4 and 10 digits in length.
                     </p>

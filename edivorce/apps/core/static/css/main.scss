@@ -1542,7 +1542,7 @@ textarea {
 }
 
 /* Specific pages */
-.signing-filing {
+.dashboard-content {
     .question-well {
         margin-top: 15px;
         margin-bottom: 30px;
@@ -1551,42 +1551,48 @@ textarea {
             font-size: 24px;
         }
     }
-    .form-inline {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        align-items: center;
-        margin-bottom: 10px;
-        padding: 10px;
+    .form {
         background: $color-grey-lighter;
-        border-radius: 5px;
+        border: 1px solid $color-grey-light;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        padding: 15px;
 
-        label {
-            margin: 0 15px 0 5px;
-            text-align: right;
-        }
+        &-inline {
+            padding: 10px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            align-items: center;
 
-        &:before {
-            display: table;
-            content: " ";
-        }
+            label {
+                margin: 0 15px 0 5px;
+                text-align: right;
+            }
 
-        input {
-            margin-right: 5px;
-            -webkit-box-flex: 1;
-            -ms-flex: 1;
-            flex: 1;
-            width: 99%;
-            min-width: 200px;
+            &:before {
+                display: table;
+                content: " ";
+            }
+
+            input {
+                margin-right: 5px;
+                -webkit-box-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+                width: 99%;
+                min-width: 200px;
+            }
         }
     }
-}
 
-.dashboard-content {
     p {
         margin-bottom: 15px;
+        &.error-text {
+            margin-bottom: 0px;
+        }
     }
     ul {
         margin-bottom: 30px;
