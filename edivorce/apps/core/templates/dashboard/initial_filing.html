@@ -107,6 +107,12 @@
         <p>
             <b>You will need your Court File Number if you are filing any additional documentation.</b>
         </p>
+        {% if not court_registry_for_filing %}
+            <div class="review-warning">
+                <span>In order to proceed with your application, you must select a
+                    <a href="{% url 'question_steps' 'location' %}">filing location</a>.</span>
+            </div>
+        {% endif %}
     {% elif how_to_file == 'In-person' %}
         <p>
             You don't need to complete this step. Go to <a href="{% url 'dashboard_nav' 'swear_forms' %}">Swear Forms</a> for further instruction.
@@ -130,7 +136,8 @@
             <a class="btn btn-success pull-right" href="{% url 'dashboard_nav' 'wait_for_number' %}">Next&nbsp;&nbsp;&nbsp;<i
                     class="fa fa-arrow-circle-o-right"></i></a>
         {% elif how_to_file == 'Online' %}
-            <a class="btn btn-success pull-right" href="{% url 'submit_initial_files' %}" id="submitDocuments">
+            <a class="btn btn-success pull-right" href="{% url 'submit_initial_files' %}" id="submitDocuments"
+            {% if not court_registry_for_filing %}disabled{% endif %}>
                 <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;
                 Submit Documents</a>
         {% else %}
