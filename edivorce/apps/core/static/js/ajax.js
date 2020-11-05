@@ -2,6 +2,12 @@
 var ajaxOnChange = function () {
     var el = $(this);
 
+    // strip money fields down to 2 decimal places
+    if (el.hasClass('money')) {
+        var moneyValue = parseFloat(el.val());
+        el.val(moneyValue.toFixed(2));
+    }
+
     // show/hide additional information if needed
     reveal(el);
 

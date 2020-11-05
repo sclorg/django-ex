@@ -49,7 +49,7 @@ class UserResponseHandler(APIView):
             if question is None and not user_attribute_updated:
                 return Response(data="Question: '%s' does not exist" % question_key,
                                 status=status.HTTP_400_BAD_REQUEST)
-            return Response(status=status.HTTP_500_INTERNAL_ERROR)
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response(status=status.HTTP_200_OK)
 

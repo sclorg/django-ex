@@ -775,12 +775,6 @@ $(function () {
     showHideChildrenLiveWithOthers();
     $('input[name="has_children_under_19"], input[name="has_children_over_19"], input[name="children_financial_support"]').change(showHideChildrenLiveWithOthers);
 
-
-    $('.money').on('change', function() {
-        var value = parseFloat($(this).val());
-        $(this).val(value.toFixed(2));
-    });
-
     $('.positive-integer').on('keypress', function(e) {
         // keyCode [95-105] - number page
         // keyCode [48-57] - 0-9
