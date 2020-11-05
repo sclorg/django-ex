@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/documents/<doc_type>/<int:party_code>/<filename>x/<int:size>/', api.DocumentView.as_view(), name='document'),
 
     url(r'^signin$', main.after_login, name="signin"),
+    url(r'^logout$', main.after_logout, name="logout"),
     url(r'^register$', main.register, name="register"),
     url(r'^register_sc$', main.register_sc, name="register_sc"),
     url(r'^overview$', main.overview, name="overview"),

@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -118,6 +119,12 @@ def after_login(request):
     copy_session_to_db(request, request.user)
 
     return redirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1] + '/overview')
+
+
+def after_logout(request):
+    response = HttpResponseRedirect(settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME)
+    response.delete_cookie(key="SMSESSION", domain=".gov.bc.ca", path="/")
+    return response
 
 
 @login_required
