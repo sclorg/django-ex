@@ -899,7 +899,26 @@ var initializeChildRowControls = function(element) {
     element.find('#cancel_delete_child').on('click', function() {
         $('#delete_child_modal').modal('hide');
     });
+
+    $('form#logoutForm').submit(function(e) {
+        deleteCookie("SMSESSION", "/", ".gov.bc.ca");
+    });
 };
+
+var deleteCookie = function(name, path, domain) {
+    if( getCookie(name) ) {
+      document.cookie = name + "=" +
+        ((path) ? ";path="+path:"")+
+        ((domain)?";domain="+domain:"") +
+        ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+    }
+}
+
+var getCookie = function(name){
+    return document.cookie.split(';').some(c => {
+        return c.trim().startsWith(name + '=');
+    });
+}
 
 var populateChildInputFields = function(element) {
     $('.children-questions').show();
@@ -1312,3 +1331,4 @@ var updateChildSupportActQuestion = function (wantChildSupport) {
         }
     }
 };
+
