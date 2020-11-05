@@ -43,9 +43,10 @@
     </div>
     <div class="collapse" id="collapse_legal_name">
         <div>
-            <p>If either of you has had a legal name change since you were married, put that new name on
-                your form,
-                and bring along a copy of the change of name certificate when you file your documents.</p>
+            <p>
+                The name written here must match your spouses's name that is on your marriage certificate. If they have changed 
+                their legal name since you were married, add it to the section below titled &ldquo;Does your spouse go by any other names&rdquo;.
+            </p>
         </div>
     </div>
 
@@ -64,7 +65,7 @@
 </div>
 
 <div class="question-well {% if any_other_name_spouse_error %}error{% endif %}">
-    <h3>Does your spouse go by any other names?{% if any_other_name_spouse_error %}{% include 'partials/required.html' %}{% endif %}</h3>
+    <h3>Does your spouse go by any other names?{% include "partials/optional.html" %}</h3>
 
     <div class="btn-radio-group" data-toggle="buttons">
         <label class="btn btn-radio">
