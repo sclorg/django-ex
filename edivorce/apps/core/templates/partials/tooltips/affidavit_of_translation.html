@@ -1,10 +1,16 @@
-<span class="tooltip-link" data-toggle="{% if hover %}tooltip-hover{% else %}tooltip{% endif %}" data-placement="right"
-      data-html="true"
-      title="
-                <b>Affidavit of Translation</b>
-                <br /><br />
-                The Affidavit of Translation is an affidavit which is sworn by a translator before a notary,
-                lawyer or commissioner for taking Affidavits.
-                The original certificate of marriage should be exhibited to the Affidavit of Translation together
-                with the translation of the translator.">
-          Affidavit of Translation (F30)<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+{% extends "partials/tooltips/base.html" %}
+
+{% block title %}
+    Affidavit of Translation
+{% endblock %}
+
+{% block inner %}
+    The Affidavit of Translation is an affidavit which is sworn by a translator before a notary,
+    lawyer or commissioner for taking Affidavits.
+    The original certificate of marriage should be exhibited to the Affidavit of Translation together
+    with the translation of the translator.
+{% endblock %}
+
+{% block label %}
+    Affidavit of Translation (F30)
+{% endblock %}

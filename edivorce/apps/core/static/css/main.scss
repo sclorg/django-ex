@@ -111,7 +111,7 @@ h4 {
 
 a {
 	color: $brand-links;
-	text-decoration: none;
+	text-decoration: underline;
 	-webkit-transition: all 0.1s ease-in-out;
 	transition: all 0.1s ease-in-out;
 
@@ -528,10 +528,12 @@ div.percent-suffix {
 
 .tooltip-link {
 	color: $brand-links;
-	border-bottom: dotted 1px $brand-links;
 	cursor: pointer;
 
 	&:hover {
+        .content {
+	        border-bottom: dotted 1px $brand-links;
+        }
 		color: $brand-blue;
 		border-bottom-color: $brand-links;
 	}
@@ -690,10 +692,6 @@ i.fa {
 		padding: 10px;
 		border: solid 1px $brand-links;
 	}
-}
-
-i.fa.fa-question-circle {
-	margin-left: 5px;
 }
 
 .form-buttons {

@@ -1,7 +1,13 @@
-<span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-      data-html="true"
-      title="
-                <b>File</b>
-                <br /><br />
-                Need tooltip text still">
-          file<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+{% extends "partials/tooltips/base.html" %}
+
+{% block title %}
+    File
+{% endblock %}
+
+{% block inner %}
+    Need tooltip text still
+{% endblock %}
+
+{% block label %}
+    file
+{% endblock %}
