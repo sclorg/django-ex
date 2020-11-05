@@ -133,18 +133,18 @@ class StepCompletenessTestCase(TestCase):
 
         # Few required questions with one checking question with hidden question not shown
         self.create_response('lived_in_bc_you', '11/11/1111')
-        self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_completeness(step), False)
 
         # All required questions with one checking question with hidden question not shown
         self.create_response('last_name_born_you', 'Jackson')
-        self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_completeness(step), False)
 
         UserResponse.objects.filter(question_id='lived_in_bc_you').update(value="Moved to B.C. on")
         self.assertEqual(self.check_completeness(step), False)
 
         # All required questions with one checking question with hidden question
         self.create_response('moved_to_bc_date_you', '12/12/1212')
-        self.assertEqual(self.check_completeness(step), True)
+        self.assertEqual(self.check_completeness(step), False)
 
         # All required questions with two checking question with one hidden and one shown
         self.create_response('any_other_name_you', 'NO')
@@ -189,12 +189,12 @@ class StepCompletenessTestCase(TestCase):
         self.create_response('last_name_born_spouse', 'Jackson')
         self.assertEqual(self.check_completeness(step), False)
 
-        # All required questions with one checking question with hidden question
-        self.create_response('lived_in_bc_spouse', 'Since birth')
-        self.assertEqual(self.check_completeness(step), True)
-
         # All required questions with one checking question with hidden question missing
         UserResponse.objects.filter(question_id='any_other_name_spouse').update(value="YES")
+        self.assertEqual(self.check_completeness(step), False)
+
+        # All required questions with one checking question with hidden question
+        self.create_response('lived_in_bc_spouse', 'Since birth')
         self.assertEqual(self.check_completeness(step), False)
 
         # All required questions with two checking question with one hidden and one shown

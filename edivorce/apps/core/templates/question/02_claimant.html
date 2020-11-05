@@ -60,7 +60,7 @@
 </div>
 
 <div class="question-well {% if any_other_name_you_error %}error{% endif %}">
-    <h3>Do you go by any other names?{% include "partials/optional.html" %}</h3>
+    <h3>Do you go by any other names?{% if any_other_name_you_error %}{% include 'partials/required.html' %}{% endif %}</h3>
 
     <div class="btn-radio-group" data-toggle="buttons">
         <label class="btn btn-radio">

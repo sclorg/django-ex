@@ -242,7 +242,7 @@
         "name": "Do you go by any other names?",
         "description": "For step 2, Form 1 Claimant 1, Form 35 Claimant 1, Form 36 Claimant 1, Form 38 Claimant 1(sole), Form 38 Claimant 1, affidavit section(joint), Form 52 Claimant 1",
         "summary_order": 23,
-        "required": ""
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "any_other_name_you"
@@ -366,7 +366,7 @@
         "name": "Does your spouse go by any other names?",
         "description": "For step 3, Form 1 Claimant 2, Form 35 Claimant 2, Form 36 Claimant 2, Form 38 Claimant 2(sole), Form 38 Claimant 2, affidavit section(joint), Form 52 Claimant 2",
         "summary_order": 35,
-        "required": ""
+        "required": "Required"
     },
     "model": "core.question",
     "pk": "any_other_name_spouse"
