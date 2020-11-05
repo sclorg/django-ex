@@ -313,7 +313,7 @@ class EFilingPackaging:
     def _get_location(self, responses):
         location_name = responses.get('court_registry_for_filing', '')
         return list_of_registries.get(location_name,
-                                      {'location_id': None}).get('location_id', '0000')
+                                      {'location_id': '0000'}).get('location_id')
 
     def _get_file_number(self, responses):
         if not self.initial_filing:
