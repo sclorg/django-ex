@@ -151,11 +151,9 @@ def _is_question_required(question, questions_dict, responses_by_key):
             else:
                 return HIDDEN
         elif target in questions_dict:
-            target_question_requirement = _is_question_required(target, questions_dict, responses_by_key)
-            if target_question_requirement == REQUIRED:
-                target_response = responses_by_key.get(target)
-                if target_response and _condition_met(target_response, reveal_response):
-                    return REQUIRED
+            target_response = responses_by_key.get(target)
+            if target_response and _condition_met(target_response, reveal_response):
+                return REQUIRED
             return HIDDEN
         else:
             raise KeyError(f"Invalid conditional target '{target}' for question '{question}'")
