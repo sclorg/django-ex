@@ -14,13 +14,15 @@
             the next steps to complete your filing.
         </p>
         <p>
-            Please return to this page once you have completed the
-            <a href="{% url 'dashboard_nav' 'final_filing' %}">Final Filing</a> step.
+            <b>
+                Please return to this page once you have completed the
+                <a href="{% url 'dashboard_nav' 'final_filing' %}">Final Filing</a> step.
+            </b>
         </p>
     {% else %}
         {% if how_to_file == 'Online' %}
             <p>
-                You have successfully completed filing online.
+                <b>You have successfully completed filing online.</b>
             </p>
             <p>
                 <b>Your {% include "partials/tooltips/online_package_number.html" with with_cso=True %} is {{ final_filing_package_number }}</b>

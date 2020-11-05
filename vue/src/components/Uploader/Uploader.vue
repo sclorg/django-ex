@@ -11,8 +11,7 @@
       <span v-else-if="party === 0 && formDef.indicateWhenJoint"> - Joint</span>
     </h5>
     <p v-if="formDef.optional">
-      (<em><strong>Optional</strong></em
-      >: {{ formDef.optional }})
+      (<strong>Optional</strong>: {{ formDef.optional }})
     </p>
     <tooltip
       :text="formatHelpText(formDef.name, formDef.help, formDef.signature)"

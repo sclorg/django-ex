@@ -9,7 +9,7 @@
     <h1>Wait for Court File Number</h1>
     {% if initial_filing_submitted == 'True' %}
         <p>
-            You’ve successfully completed your initial filing with the Court Registry.
+            <b>You’ve successfully completed your initial filing with the Court Registry.</b>
         </p>
         <p>
             <b>Your {% include "partials/tooltips/online_package_number.html" with with_cso=True %} is {{ initial_filing_package_number }}</b>
@@ -42,8 +42,10 @@
             the next steps to complete your filing.
         </p>
         <p>
-            Please return to this page once you have completed the
-            <a href="{% url 'dashboard_nav' 'initial_filing' %}">Initial Filing</a> step.
+            <b>
+                Please return to this page once you have completed the
+                <a href="{% url 'dashboard_nav' 'initial_filing' %}">Initial Filing</a> step.
+            </b>
         </p>
     {% endif %}
 {% endblock %}

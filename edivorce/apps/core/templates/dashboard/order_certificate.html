@@ -3,18 +3,19 @@
 {% block title %}{{ block.super }}: Overview{% endblock %}
 
 {% block progress %}{% include "partials/dashnav.html" with active_page=active_page %}{% endblock %}
+{% block container_col %}dashboard-content{% endblock %}
 
 {% block content %}
     <h1>Order a Certificate of Divorce (Optional)</h1>
-    <p>$40 for each Certificate of Divorce (as of March 2013)</p>
     <p>
         Anytime after 31 days have passed and the divorce has become final, you can go back to the registry to ask for a Certificate of Divorce Form
         (F56).
     </p>
+    <p>There is a $40 charge for each Certificate of Divorce issued.</p>
     <p>
-        This step isn't mandatory. If you don't go to the court registry to get a Certificate of Divorce, your divorce will still be legal. If you
-        ever have to show legal proof of your divorce, you can use your divorce order. However, you may prefer just to show a certificate rather than
-        all the details in the order.
+        This step isn't mandatory. If you don't go to the court registry to get a Certificate of Divorce, your divorce will still be legal.
+        If you ever have to show legal proof of your divorce, you can use your divorce order.
+        However, you may prefer just to show a certificate rather than all the details in the order.
     </p>
     <p>
         For details on
