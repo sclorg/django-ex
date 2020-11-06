@@ -10,24 +10,9 @@
 {% block content %}
 
 <h1><small>Step 4: </small>Your Marriage</h1>
-<p class="intro">It is very important that you enter the information below as it appears on your <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
-   title="<b>Original Marriage Certificate</b><br /><br />The marriage certificate you received at the church —
-   or any other place where you were married — isn't acceptable in court. You can get a  marriage certificate
-   or a certified copy of the registration of marriage from
-   <a target='_blank' href='http://www2.gov.bc.ca/gov/content/life-events/marriages/marriage-certificates'>Vital Statistics</a>
-   (an office run by the provincial government).">official marriage
-    certificate
-    <i class="fa fa-question-circle" aria-hidden="true"></i></span>
-    or <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
-       title="<b>Registration Marriage Certificate</b><br /><br />The Registration of Marriage is the document issued by
-       Vital Statistics (an office run by the provincial government) along with the Marriage License. This document
-       would have been signed by you and your spouse, the person who married you (the officiant) and your wedding ceremony witnesses.
-       Within 48 hours of the wedding, the officiant would have submitted the registration to the Vital Statistics Agency
-       where the registration information becomes a permanent legal record. Vital Statistics cannot issue a marriage certificate
-       until the marriage is registered. <br/><br/> For more information, please refer to the
-       <a href=&quot;http://www2.gov.B.C..ca/gov/content/life-events/marriages/marriage-registration/certified-copies-and-certified-electronic-extracts-of-a-marriage-registration&quot;>Marriage Registration page</a>
-       on the  B.C. Government web site."> registration of marriage
-    <i class="fa fa-question-circle" aria-hidden="true"></i></span>. Not doing this can result in delays and
+<p class="intro">It is very important that you enter the information below as it appears on your
+    {% include "partials/tooltips/original_marriage_certificate.html" with text="official marriage certificate" %}
+    or {% include "partials/tooltips/registration_marriage_certificate.html" %}. Not doing this can result in delays and
     your divorce request being returned for correction.</p>
 
 <div id="when_married" class="question-well {% if when_were_you_married_error %}error{% endif %}">
