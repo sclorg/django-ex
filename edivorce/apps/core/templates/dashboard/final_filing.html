@@ -73,7 +73,7 @@
                 <b>Missing a form required on this page?</b> Check the
                 <a href="{% url 'dashboard_nav' 'print_form' %}">Review Forms</a> step.
             </p>
-            <p><a href="{% url 'dashboard_nav' 'help_scanning' %}">Need help with Scanning your documents?</a></p>
+            <p><a href="{% url 'dashboard_nav' 'help_scanning' %}?filing=final">Need help with Scanning your documents?</a></p>
         </div>
         {% if how_to_file == 'Online' %}
             <div class="add-bottom-margin">
