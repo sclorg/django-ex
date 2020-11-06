@@ -112,7 +112,7 @@ class EFilingSubmissionTests(TransactionTestCase):
         self.hub.access_token = 'aslkfjadskfjd'
 
         response = self.hub._get_api(
-            self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
+            self.request, 'https://somewhere.com', 'alksdjfa')
 
         self.assertTrue(response)
         self.assertEqual(response.status_code, 200)
@@ -132,7 +132,7 @@ class EFilingSubmissionTests(TransactionTestCase):
         ]
 
         response = self.hub._get_api(
-            self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
+            self.request, 'https://somewhere.com', 'alksdjfa')
 
         self.assertTrue(response)
         self.assertEqual(response.status_code, 200)
