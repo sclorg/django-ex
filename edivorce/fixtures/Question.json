@@ -1029,7 +1029,7 @@
 },
 {
     "fields": {
-        "name": "Supporting dependent child/children from another relationship.",
+        "name": "Supporting dependent child / children from another relationship.",
         "description": "For Step 6, Your children - Payor & fact sheets - Fact Sheet E - Undue hardship",
         "summary_order": 96,
         "required": ""
@@ -1765,7 +1765,7 @@
 },
 {
     "fields": {
-        "name": "Select how you would like to swear/affirm your affidavit(s)?",
+        "name": "Select how you would like to swear / affirm your affidavit(s)?",
         "description": "For stage 2, Signing and filing options",
         "summary_order": 161,
         "required": ""
@@ -1785,7 +1785,7 @@
 },
 {
     "fields": {
-        "name": "Select where you would like to swear/affirm your affidavit(s)",
+        "name": "Select where you would like to swear / affirm your affidavit(s)",
         "description": "For stage 2, Signing and filing options",
         "summary_order": 163,
         "required": ""
@@ -1795,7 +1795,7 @@
 },
 {
     "fields": {
-        "name": "Select where you would like to swear/affirm your affidavit(s)",
+        "name": "Select where you would like to swear / affirm your affidavit(s)",
         "description": "For stage 2, Signing and filing options",
         "summary_order": 164,
         "required": ""
@@ -1805,7 +1805,7 @@
 },
 {
     "fields": {
-        "name": "Select where your spouse would like to swear/affirm your affidavit(s)",
+        "name": "Select where your spouse would like to swear / affirm your affidavit(s)",
         "description": "For stage 2, Signing and filing options",
         "summary_order": 165,
         "required": ""

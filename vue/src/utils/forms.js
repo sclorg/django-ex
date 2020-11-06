@@ -9,11 +9,11 @@ export default {
   },
   AFDO: {
     name: "Affidavit - Desk Order Divorce Form (F38)",
-    preText: "Upload the sworn/affirmed and scanned",
+    preText: "Upload the sworn / affirmed and scanned",
     help:
       "This form sets out all the facts of your marriage and separation for the court and gives information about parenting time if you have children.",
     signature:
-      "- Required swearing/affirming and signatures by both you and your spouse in front of a commissioner.",
+      "- Required swearing / affirming and signatures by both you and your spouse in front of a commissioner.",
     indicateWhenJoint: true,
   },
   AFTL: {
@@ -25,11 +25,11 @@ export default {
   },
   CSA: {
     name: "Child Support Affidavit (F37)",
-    preText: "Upload the sworn/affirmed and scanned",
+    preText: "Upload the sworn / affirmed and scanned",
     help:
       "This form gives facts about your children and child support, including the order you're asking the court for. You must also attach your separation agreement or court orders about children to this form as exhibits.",
     signature:
-      "- Required swearing/affiming and signatures by both you and your spouse in front of a commissioner.",
+      "- Required swearing / affirming and signatures by both you and your spouse in front of a commissioner.",
     indicateWhenJoint: true,
   },
   EFSS1: {

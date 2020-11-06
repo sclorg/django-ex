@@ -83,7 +83,7 @@
                     If you have not received a Court File Number, check the
                     <a href="{% url 'dashboard_nav' 'wait_for_number' %}">Wait for Court File</a> step.
                     If you have not sworn / affirmed your affidavits, check the
-                    <a href="{% url 'dashboard_nav' 'swear_forms' %}">Swear/Affirm Forms</a> step.
+                    <a href="{% url 'dashboard_nav' 'swear_forms' %}">Swear / Affirm Forms</a> step.
                 </p>
                 <div class="form">
                     <p><b>Enter your Court File Number:</b></p>
@@ -132,7 +132,7 @@
                         </li>
                         {% if original_marriage_certificate == 'YES' %}
                             <li>{% include "partials/tooltips/forms/proof_of_marriage.html" %}</li>
-                            <li>{% include "partials/tooltips/forms/affidavit_of_translation.html" %} sworn/affirmed by a translator
+                            <li>{% include "partials/tooltips/forms/affidavit_of_translation.html" %} sworn / affirmed by a translator
                                 <ul class="no-margin-bottom">
                                     <li>
                                         Required only if your marriage certificate is NOT in English
@@ -145,9 +145,9 @@
                         <li>{% include "partials/tooltips/forms/draft_final_order_52.html" %} signed by both you and your spouse</li>
                         <li>{% include "partials/tooltips/forms/certificate_of_pleading_36.html" %}</li>
                         {% if derived.has_children_of_marriage %}
-                            <li>{% include "partials/tooltips/forms/child_support_37.html" %} sworn/affirmed by both you and your spouse</li>
+                            <li>{% include "partials/tooltips/forms/child_support_37.html" %} sworn / affirmed by both you and your spouse</li>
                         {% endif %}
-                        <li>{% include "partials/tooltips/forms/desk_order_38.html" with text="Affidavit Desk Order Divorce (F38)" %} sworn/affirmed by
+                        <li>{% include "partials/tooltips/forms/desk_order_38.html" with text="Affidavit Desk Order Divorce (F38)" %} sworn / affirmed by
                             both you and your spouse
                         </li>
                         {% if derived.has_children_of_marriage %}
@@ -200,7 +200,7 @@
                         </li>
                         {% if original_marriage_certificate == 'YES' %}
                             <li>{% include "partials/tooltips/forms/proof_of_marriage.html" %}</li>
-                            <li>{% include "partials/tooltips/forms/affidavit_of_translation.html" %} sworn/affirmed by a translator
+                            <li>{% include "partials/tooltips/forms/affidavit_of_translation.html" %} sworn / affirmed by a translator
                                 <ul class="no-margin-bottom">
                                     <li>
                                         Required only if your marriage certificate is NOT in English
@@ -213,10 +213,10 @@
                         <li>{% include "partials/tooltips/forms/draft_final_order_52.html" %} signed by both you and your spouse</li>
                         <li>{% include "partials/tooltips/forms/certificate_of_pleading_36.html" %}</li>
                         {% if derived.has_children_of_marriage %}
-                            <li>{% include "partials/tooltips/forms/child_support_37.html" %} sworn/affirmed by you</li>
+                            <li>{% include "partials/tooltips/forms/child_support_37.html" %} sworn / affirmed by you</li>
                         {% endif %}
                         <li>{% include "partials/tooltips/forms/desk_order_38.html" with text="Affidavit Desk Order Divorce (F38)" %}
-                            sworn/affirmed by you
+                            sworn / affirmed by you
                         </li>
                         {% if derived.has_children_of_marriage %}
                             <li>{% include "partials/tooltips/forms/agreement_to_annual_income_9.html" %}</li>
@@ -256,18 +256,18 @@
                         {% endif %}
                     </ul>
                     <p>
-                        Once sworn/affirmed and filed, you will receive a {% include "partials/tooltips/court_file_number.html" %}.
+                        Once sworn / affirmed and filed, you will receive a {% include "partials/tooltips/court_file_number.html" %}.
                         This number will be used if you need to file any additional documentation.
                     </p>
                     <h2>Spouse - Document Requirements</h2>
                     <p class="no-margin-bottom">
-                        The following sworn/affirmed affidavits still remain to be filed:
+                        The following sworn / affirmed affidavits still remain to be filed:
                     </p>
                     <ul>
                         {% if derived.has_children_of_marriage %}
-                            <li>{% include "partials/tooltips/forms/child_support_37.html" %} - sworn/affirmed by your spouse</li>
+                            <li>{% include "partials/tooltips/forms/child_support_37.html" %} - sworn / affirmed by your spouse</li>
                         {% endif %}
-                        <li>{% include "partials/tooltips/forms/desk_order_38.html" %} - sworn/affirmed by your spouse</li>
+                        <li>{% include "partials/tooltips/forms/desk_order_38.html" %} - sworn / affirmed by your spouse</li>
                         {% if derived.wants_other_orders and name_change_spouse == 'YES' %}
                             <li>{% include "partials/tooltips/forms/identification_of_applicant.html" %} - for your spouse</li>
                         {% endif %}
@@ -344,14 +344,14 @@
 {% block sidebarText %}
     <p>
         An application for divorce can be completed in one step or two steps depending on
-        how you are swearing/affirming your affidavit(s).
+        how you are swearing / affirming your affidavit(s).
         The two steps include an initial filing and a final filing.
         The initial filing is where you will start the proceeding for divorce
         by filing your Notice of Joint Family Claim.
     </p>
     <p>
         The final filing is the application asking the court to order the divorce
-        and includes your sworn/affirmed affidavit(s) and other supporting documents.
+        and includes your sworn / affirmed affidavit(s) and other supporting documents.
     </p>
 {% endblock %}
 
