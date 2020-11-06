@@ -455,53 +455,19 @@
         <ul>
             {% if original_marriage_certificate == 'YES' %}
                 <li>
-                <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-                      data-html="true"
-                      title="
-                <b>Proof of marriage</b>
-                <br /><br />
-                To get a divorce, you need an original marriage certificate or certified true copy of your registration of marriage to prove you are married.
-                There are other options described in this tool if you can't get a copy of your marriage certificate or registration of marriage.
-                <br /><br />
-                - Does not require signatures.
-                ">Proof of marriage<i class="fa fa-question-circle" aria-hidden="true"></i></span>.
+                {% include "partials/tooltips/forms/proof_of_marriage.html" %}
                     Original or certified Marriage Certificate or Registration of Divorce. If not in English, also provide
-                    <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-                          data-html="true"
-                          title="
-                <b>Affidavit of Translation</b>
-                <br /><br />
-                The Affidavit of Translation is an affidavit which is sworn by a translator before a notary, lawyer or commissioner for taking Affidavits.
-                The original certificate of marriage should be exhibited to the Affidavit of Translation together with the translation of the translator.
-                ">Affidavit of Translation<i class="fa fa-question-circle" aria-hidden="true"></i></span>
-                    and English translation.
+                    {% include "partials/tooltips/forms/affidavit_of_translation.html" with text="Affidavit of Translation"%}
+                    and the English translation.
                 </li>
             {% endif %}
             <li>
-                <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-                      data-html="true"
-                      title="
-                <b>Registration of Divorce form</b>
-                <br /><br />
-                This form is for a central divorce registry in Ottawa.
-                They use the form to check to make sure there is no other divorce proceeding pending in Canada.
-                They also keep track of all divorces in Canada.
-                <br /><br />
-                - Does not require signatures.
-                ">Completed Registration of Divorce form (Federal)<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                {% include "partials/tooltips/forms/registration_of_divorce.html" %}
             </li>
             {% if derived.wants_other_orders %}
                 {% if name_change_you == 'YES' or name_change_spouse == 'YES' %}
                     <li>
-                    <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-                          data-html="true"
-                          title="
-                    <b>Identification of Applicant (VSA 512)</b>
-                    <br /><br />
-                    This form is used by the Court to notify Vital Statistics of court-ordered legal changes of name.
-                    <br /><br />
-                    - Does not require signatures.
-                    ">Completed Identification of Applicant (VSA 512)<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        {% include "partials/tooltips/forms/identification_of_applicant.html" with text="Completed Identification of Applicant (VSA 512)" %}
                         for anyone requesting a name change
                         <ul>
                             {% if name_change_you == 'YES' %}
@@ -514,16 +480,7 @@
             {% endif %}
             {% if derived.has_children_of_marriage %}
                 <li>
-                <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-                      data-html="true"
-                      title="
-                <b>Agreement as to Annual Income (F9)</b>
-                <br /><br />
-                This form is used if both you and your spouse agree on the income of the person who will be paying child support.
-                It is used instead of a Financial Statement (F8) if you need to provide the court with proof of income.
-                <br /><br />
-                - Does not require signatures.
-                ">Completed Agreement as to Annual Income (F9)<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                {% include "partials/tooltips/forms/agreement_to_annual_income_9.html" with text="Completed Agreement as to Annual Income (F9)" %}
                 </li>
             {% endif %}
         </ul>
