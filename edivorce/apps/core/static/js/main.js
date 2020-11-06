@@ -694,14 +694,14 @@ $(function () {
     $('#check_order_selected').on('click', function (e) {
         var showAlert = $(this).data('show_alert');
         var childSupport = $('#order_child_support').prop('checked');
-        var eligible = false;
+        var childSupportEligible = false;
         if (!childSupport) {
-          var children = $('#unselected_child_support_alert').data('children-of-marriage');
-          var under19 = $('#unselected_child_support_alert').data('has-children-under-19');
-          var over19 = $('#unselected_child_support_alert').data('has-children-over-19');
-          var reasons = $('#unselected_child_support_alert').data('children-financial-support');
-          reasons = (reasons || []).filter(function(el){ return el !== 'NO'; }).length > 0;
-          eligible = children === 'YES' && (under19 || (over19 && reasons));
+          var hasChildren = $('#unselected_child_support_alert').data('children-of-marriage') === "YES";
+          var under19 = $('#unselected_child_support_alert').data('has-children-under-19') === "YES";
+          var over19 = $('#unselected_child_support_alert').data('has-children-over-19') === "YES";
+          var over19Reasons = $('#unselected_child_support_alert').data('children-financial-support');
+          var hasOver19Reasons = (over19Reasons || []).filter(function(el){ return el !== "NO"; }).length > 0;
+          childSupportEligible = hasChildren && (under19 || (over19 && hasOver19Reasons));
         }
         var proceedNext = $(this).data('proceed');
         var showPropertyAlert = false;
@@ -718,7 +718,7 @@ $(function () {
                 }
             });
         }
-        if ((showAlert || (!childSupport && eligible)) && !proceedNext) {
+        if ((showAlert || (!childSupport && childSupportEligible)) && !proceedNext) {
             $('#unselected_orders_alert').show();
             if (showPropertyAlert) {
                 $('#unselected_property_alert').show();
@@ -726,7 +726,7 @@ $(function () {
             if (showSpousalAlert) {
                 $('#unselected_spouse_alert').show();
             }
-            if (!childSupport && eligible) {
+            if (!childSupport && childSupportEligible) {
                 $('#unselected_child_support_alert').show();
             }
             e.preventDefault();
