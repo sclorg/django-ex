@@ -855,7 +855,7 @@ i.fa {
         height: 64px;
         border-radius: 32px;
         margin-top: -25.2px;
-        margin-left: -7.2px;
+        margin-left: -7px;
         border: 1px solid $color-grey-medium;
     }
 }
@@ -1875,6 +1875,10 @@ textarea {
 		font-size: 14px;
 		letter-spacing: 0.1em;
 	}
+
+    a {
+        text-decoration: none;
+    }
 
 	.progress-question {
         display: -webkit-box;
