@@ -19,26 +19,27 @@
 <div class="question-well">
 <h3>2. Register or Login</h3>
 <p>
-    You will need a <strong>Basic BCeID</strong> or <strong>BC Services Card</strong> account to access the Online Divorce Assistant.
+    You will need a <strong>Basic BCeID</strong><!-- or <strong>BC Services Card</strong>--> account to access the Online Divorce Assistant.
     This will also enable you to securely access multiple other online government services.
 </p>
 
 <div class="success-buttons">
-    <div class="flex-row" id="bcId">
+    <div class="flex-row" id="bcId" style="width:45%">
         <h3>Register for a Basic BCeID</h3>
         <p>Once you register, you’ll be taken back to this website.</p>
         <a class="btn btn-primary btn-lg btn-block" href="{% url 'register' %}">
             Register
         </a>
     </div>
+    <!--
     <div class="flex-row" id="scard">
         <h3>Set up your BC Services Card</h3>
         <p>Once you're set up, you’ll be taken back to this website.</p>
         <a class="btn btn-primary btn-lg btn-block" href="{% url 'register_sc' %}">
             Set Up
         </a>
-    </div>
-    <div class="flex-row" id="login">
+    </div> -->
+    <div class="flex-row" id="login" style="width:45%">
         <h3>Login with a BCeID or BC Services Card</h3>
         <p>Once you login, you’ll be taken back to this website.</p>
         <a class="btn btn-primary btn-lg btn-block" href="{% url 'oidc_authentication_init' %}">
