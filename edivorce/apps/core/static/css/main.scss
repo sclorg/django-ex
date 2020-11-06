@@ -20,7 +20,7 @@ $color-green-light: #d5e6d8;
 $color-green-dark: #1c5428;
 $color-gold-dark: #925E00;
 $color-gold-light: #FEEABA;
-$color-red-light: #F7D4D5;
+$color-red-light: #F8D8D9;
 $color-red: #D8292F;
 $color-red-dark: #9A1C21;
 
@@ -847,8 +847,8 @@ i.fa {
         width: 64px;
         height: 64px;
         border-radius: 32px;
-        margin-top: -25.2px;
-        margin-left: -7px;
+        margin-top: -24px;
+        margin-left: -6px;
         border: 1px solid $color-grey-medium;
     }
 }
@@ -933,8 +933,7 @@ input {
 	line-height: 1em;
 
 	&:focus {
-		outline: 0;
-		box-shadow: inset 0 1px 1px rgba($color-grey-dark,.075), 0 0 4px rgba($color-grey-medium,.5);
+		outline: none !important;
 	}
 
 	&+i.fa {
