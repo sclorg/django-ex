@@ -176,6 +176,6 @@ class EFilingSubmission:
                 return None, f"{response['error']} - {response['message']}"
 
         if response.status_code == 401:
-            return None, '401 - ' + response.headers.get('WWW-Authenticate', '')
+            return None, '401 - ' + str(response.headers.get('WWW-Authenticate', ''))
 
         return None, f'{response.status_code} - {response.text}'
