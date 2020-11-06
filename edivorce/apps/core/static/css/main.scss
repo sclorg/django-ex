@@ -666,18 +666,64 @@ div#other_names_fields {
 
 /* Buttons & Icons*/
 .btn {
-	line-height: initial;
-	padding: 12px 15px;
+    line-height: initial;
+    padding: 12px 15px;
     text-decoration: none;
-}
-
-.btn-primary {
-	background: $brand-buttons;
     font-weight: bold;
+    color: #ffffff;
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
 
-	&:hover {
-		background-color: darken($brand-buttons, 20%);
-	}
+    &:focus {
+        outline: none;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+
+        &:active {
+            outline: none;
+        }
+    }
+
+    &:hover {
+        -webkit-transition: all 0.1s ease-in-out;
+        transition: all 0.1s ease-in-out;
+    }
+
+    &[disabled] {
+        pointer-events: none;
+        cursor: default;
+    }
+
+    &.btn-primary {
+        background: $brand-buttons;
+
+        &:hover {
+            background-color: $color-blue-dark;
+        }
+    }
+
+    &.btn-danger {
+        background-color: $color-red;
+
+        &:hover {
+            background-color: $color-red-dark;
+        }
+    }
+
+    &.btn-success {
+        background-color: $color-green;
+
+        &:hover {
+            background-color: $color-green-dark;
+        }
+    }
+
+    i.fa {
+        color: #ffffff;
+    }
 }
 
 i.fa {
@@ -694,42 +740,12 @@ i.fa {
 	margin: 30px 0;
 
 	.btn {
-		font-size: 16px;
-		border: none;
-		border-radius: 4px;
-		padding: 16px;
-		background-color: $brand-buttons;
-		color: #ffffff;
 		margin-bottom: 12px;
-		-webkit-transition: all 0.1s ease-in-out;
-		transition: all 0.1s ease-in-out;
+        padding: 16px;
 
-		&:hover {
-			background-color: $brand-blue;
-			-webkit-transition: all 0.1s ease-in-out;
-			transition: all 0.1s ease-in-out;
-		}
-
-		i.fa {
-			color: #ffffff;
-		}
-
-		&.btn-success {
-			background-color: $color-green;
+        &.btn-success {
 			margin-left: 12px;
-			-webkit-transition: all 0.1s ease-in-out;
-			transition: all 0.1s ease-in-out;
-
-			&:hover {
-				background-color: $color-green-dark;
-				-webkit-transition: all 0.1s ease-in-out;
-				transition: all 0.1s ease-in-out;
-			}
 		}
-        &[disabled] {
-            pointer-events: none;
-            cursor: default;
-        }
 	}
 }
 
@@ -783,24 +799,6 @@ i.fa {
     .help-block {
         color: $color-red;
         font-weight: bolder;
-    }
-}
-
-.btn-danger {
-    background-color: $color-red;
-    border: 1px solid $color-red;
-    font-weight: bold;
-    &:hover {
-        background-color: lighten($color-red, 5%);
-    }
-}
-
-.btn-success {
-    background-color: $color-green;
-    border: 1px solid $color-green;
-    font-weight: bold;
-    &:hover {
-        background-color: lighten($color-green, 5%);
     }
 }
 

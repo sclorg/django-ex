@@ -1075,7 +1075,7 @@ var mirrorOnChange = function(e) {
 var deleteAddedField = function(e){
     var field = $('#' + e.data.field_name);
     var button = $('#' + e.data.button_name);
-    $(this).parent('div').remove();
+    $(this).parents('div').first().remove();
 
     //enable btn_add_other_names button
     if (button.prop('id') === "btn_add_other_names"){
