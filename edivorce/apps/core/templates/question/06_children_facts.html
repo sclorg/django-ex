@@ -28,16 +28,7 @@
         <span id="__name_you" hidden>{% you_name if_blank="You" %}</span>
         <span id="__name_spouse" hidden>{% spouse_name if_blank="Your spouse" %}</span>
 
-        <h3>Who is the
-            <span class="tooltip-link"
-                  data-toggle="tooltip" data-placement="right" data-html="true"
-                  title="
-                    <b>Payor</b>
-                    <p>The person who pays child support.</p>
-                    ">
-                    payor<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>
-            ?
+        <h3>Who is the {% include "partials/tooltips/children/payor.html" %}?
             {% if child_support_payor_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         {% if derived.show_fact_sheet_b %}

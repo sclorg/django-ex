@@ -24,10 +24,12 @@
             <td class="fact-sheet-question">
                 <p>
                     What is the monthly
-                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Child Support Guidelines" %}
+                    {% include "partials/tooltips/children/federal_guidelines.html" with link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" text="Child Support Guidelines" %}
                     amount for $150,000?
                 </p>
-                {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id="collapse_guideline_amount" %}
+                {% with 'collapse_guideline_amount_'|add:claimant_id as collapse_id %}
+                    {% include "partials/inline_question_determine_amount_to_pay.html" with collapse_target_id=collapse_id %}
+                {% endwith %}
             </td>
             <td class="fact-sheet-answer">
                 {% lookup_context 'child_support_amount_under_high_income_'|add:claimant_id|add:"_error" as question_error %}
@@ -39,7 +41,7 @@
         <tr>
             <td class="fact-sheet-question">
                 What is the % of income over $150,000 from the
-                {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Child Support Guidelines" %}
+                {% include "partials/tooltips/children/federal_guidelines.html" with link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" text="Child Support Guidelines" %}
                 ?
             </td>
             <td class="fact-sheet-answer">
@@ -58,14 +60,16 @@
                     What is the monthly child support amount to be paid on the portion of income over
                     $150,000?
                 </p>
+                {% with 'collapse_high_income_amounts_'|add:claimant_id as collapse_id %}
                 <div class="collapse-trigger collapsed" data-toggle="collapse" aria-expanded="false"
-                     data-target="#collapse_high_income_amounts"
-                     aria-controls="collapse_high_income_amounts">
+                     data-target="#{{ collapse_id }}"
+                     aria-controls="{{ collapse_id }}">
                     <div>
                         How can I determine this amount?
                     </div>
                 </div>
-                <div class="collapse" id="collapse_high_income_amounts">
+                <div class="collapse" id="{{ collapse_id }}">
+                    {% endwith %}
                     <div>
                         <p>
                             The child support tables only show an amount for the first $150,000 of income.
@@ -89,7 +93,7 @@
                         </ul>
                         <p>
                             Source:
-                            {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" link_text="Federal Child Support Guidelines" %}
+                            {% include "partials/tooltips/children/federal_guidelines.html" with link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h11" %}
                             , Department of Justice
                         </p>
                     </div>
@@ -151,8 +155,7 @@
         </h3>
         <p>
             Discuss the conditions, means, needs and other circumstances of the child, and the financial
-            ability of
-            each parent to support the child/children.
+            ability of each parent to support the child/children.
         </p>
         <div>
             {% input_field type="textarea" name="reason_child_support_amount_"|add:claimant_id class="fact-sheet-input form-control response-textarea" maxlength="1000" rows="6" %}

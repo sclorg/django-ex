@@ -539,11 +539,6 @@ div.percent-suffix {
 	}
 }
 
-.tooltip-no-link {
-	@extend .tooltip-link;
-	border-bottom: none;
-}
-
 .collapse-trigger {
 	& > div {
 		color: $color-blue;

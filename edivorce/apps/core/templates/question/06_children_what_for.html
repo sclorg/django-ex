@@ -12,19 +12,8 @@
 {% block content %}
 <h1><small>Step {% step_order step="children" %}:</small>Children - What are you asking for</h1>
     <div class="question-well {% if child_support_in_order_error or child_support_in_order_reason_error %}error{% endif %}">
-        <h3>What is the monthly child support amount
-                <span class="tooltip-link"
-                  data-toggle="tooltip" data-placement="right" data-html="true"
-                  title="
-                    <b>Proposed in the order</b>
-                    <p>When you file your completed divorce forms at the court registry they will include the &quot;order&quot;
-                    you want made. Basically you're asking the court (via a judge) to approve what you are asking for
-                    and/or have agreed upon (e.g. monthly child support amount).
-                    </p>
-                    ">
-                    proposed in the order<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>
-             to be paid by {% payorize %}?
+        <h3>What is the monthly child support amount {% include "partials/tooltips/children/proposed_in_order.html" %}
+            to be paid by {% payorize %}?
             {% if child_support_in_order_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         <div class="radio">
@@ -163,48 +152,20 @@
             <p><strong>Have a separation agreement?</strong></p>
             <p>
                 If you have a separation agreement you will need to attach the separation agreement as an
-                <span class="tooltip-link"
-                  data-toggle="tooltip" data-placement="right" data-html="true"
-                  title="
-                    <b>Exhibit</b>
-                    <p>A document, record, or object admitted as evidence in court or before a tribunal. A document
-                    attached to and made part of an affidavit.</p>
-                    ">
-                    exhibit<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>
-                to the Child Support Affidavit Form (F37).
+                {% include "partials/tooltips/children/exhibit.html" %} to the Child Support Affidavit Form (F37).
             </p>
             <p><strong>
                 How to file a separation agreement in order for it to be treated as a
-                <span class="tooltip-link"
-                  data-toggle="tooltip" data-placement="right" data-html="true"
-                  title="
-                    <b>Court order</b>
-                    <p>A record of a decision made by a judge or master that tells you or your
-                    spouse what you must do (or not do).  For example: The court has made an
-                    order that your spouse must pay you $900 on a monthly basis to help cover
-                    the costs of supporting the children. </p>
-                    ">
-                    court order<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>
-                </strong>
+                {% include "partials/tooltips/children/court_order.html" %}
+            </strong>
             </p>
             <p>
                 If you
                 <a href="https://familylaw.lss.bc.ca/guides/mini/fileAgreementSC.php" target="_blank">
                     wish to file your separation agreement
                 </a>, the parts of the agreement that deal
-                with parenting and support can be
-                <span class="tooltip-link"
-                  data-toggle="tooltip" data-placement="right" data-html="true"
-                  title="
-                    <b>Enforceable</b>
-                    <p>Enforcing an order means making sure that what the court ordered is done,
-                    or executed. Usually you want to collect money that is owing to you.</p>
-                    ">
-                    enforced<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span> as if they were in a court order. You will
-                need to fill out a requisition (Form
+                with parenting and support can be {% include "partials/tooltips/children/enforceable.html" %}
+                as if they were in a court order. You will need to fill out a requisition (Form
                 <a href="http://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/f17_1.pdf?forcedownload=true" target="_blank">F17.1</a>
                 or
                 <a href="http://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/f17_2.pdf?forcedownload=true" target="_blank">F17.2</a> )
@@ -218,17 +179,7 @@
 
     <div class="question-well {% if have_court_order_error %}error{% endif %}">
         <h3>Do you already have a child support
-            <span class="tooltip-link"
-              data-toggle="tooltip" data-placement="right" data-html="true"
-              title="
-                <b>Court order</b>
-                <p>A record of a decision made by a judge or master that tells you or your spouse what you must do
-                (or not do).  For example: The court has made an order that your spouse must pay you $900 on a monthly
-                 basis to help cover the costs of supporting the children.
-                 </p>
-                ">
-                 order <i class="fa fa-question-circle" aria-hidden="true"></i>
-            </span>in Provincial or Supreme Court?
+            {% include "partials/tooltips/children/court_order.html" %} in Provincial or Supreme Court?
             {% if have_court_order_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         <div class="btn-radio-group" data-toggle="buttons">
@@ -245,17 +196,7 @@
             <p>
                 Refer to that separation agreement or court order when filling out the documents for divorce.
                 You'll also need to attach a copy as an
-                <span class="tooltip-link"
-                  data-toggle="tooltip" data-placement="right" data-html="true"
-                  title="
-                    <b>Exhibit</b>
-                    <p>A document, record, or object admitted as evidence in court or before a tribunal. A document
-                    attached to and made part of an affidavit.
-                     </p>
-                    ">
-                    exhibit<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>
-                you file with the court.
+                {% include "partials/tooltips/children/exhibit.html" %} you file with the court.
             </p>
             <p>
                If you wish to file your separation agreement, the parts of the agreement that deal with parenting and
@@ -313,21 +254,7 @@
     </div>
 
     <div class="question-well {% if want_parenting_arrangements_error %}error{% endif %}">
-        <h3>Are you asking the court for an
-            <span class="tooltip-link"
-              data-toggle="tooltip" data-placement="right" data-html="true"
-              title="
-                <b>Order respecting parenting arrangements or contact</b>
-                <p>Under the Family Law Act (in either Provincial Court or Supreme Court), a court order dealing with
-                guardianship, parenting time, allocation of parenting responsibilities, or contact with a child. Under
-                 the Divorce Act in Supreme Court, a court order dealing with custody and access.
-                 </p>
-                 <p>
-                 &quot;Arrangements for parenting&quot; refers to who will be responsible for making decisions about the children and if and how they will spend time with each parent.
-                 </p>
-                ">
-                order about parenting arrangements or contact <i class="fa fa-question-circle" aria-hidden="true"></i>
-            </span> with a child?
+        <h3>Are you asking the court for an {% include "partials/tooltips/children/order_respecting_arrangements.html" %} with a child?
             {% if want_parenting_arrangements_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         <div class="btn-radio-group" data-toggle="buttons">
@@ -369,17 +296,7 @@
     </div>
     {% if derived.wants_child_support %}
         <div class="question-well {% if order_for_child_support_error %}error{% endif %}" id="child_support_description">
-        <h3>If you are asking for an
-                        <span class="tooltip-link"
-              data-toggle="tooltip" data-placement="right" data-html="true"
-              title="
-                <b>Child support</b>
-                <p>Parents have a duty under the law to support their children, even if one parent doesn't see or take
-                care of the children. The money one parent pays to the other parent to help provide for the daily
-                needs of the children is called child support or maintenance.</p>
-                ">
-                order for child support<i class="fa fa-question-circle" aria-hidden="true"></i>
-            </span>
+        <h3>If you are asking for an {% include "partials/tooltips/children/child_support.html" with text="order for child support" %}
             please describe what you are asking for.
             {% if order_for_child_support_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>

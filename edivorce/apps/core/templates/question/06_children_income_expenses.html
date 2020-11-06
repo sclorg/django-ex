@@ -99,7 +99,7 @@
                 </ul>
                 <p>
                     Source:
-                    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" link_text="Federal Child Support Guidelines Step-by-Step Guide" %}
+                    {% include "partials/tooltips/children/federal_guidelines.html" with link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/start-com.html#h12" text="Federal Child Support Guidelines Step-by-Step Guide" %}
                     , Department of Justice
                 </p>
             </div>
@@ -262,21 +262,8 @@
 
     <div class="question-well {% if special_extraordinary_expenses_error %}error{% endif %}">
         <h3>
-            Are you claiming any
-            <span class="tooltip-link"
-                  data-toggle="tooltip" data-placement="right" data-html="true"
-                  title="
-                    <b>Special and extraordinary expenses</b>
-                    <p>
-                        Special expenses are over and above the regular cost of living for a child,
-                        such as the cost of child care or post-secondary education. Extraordinary
-                        expenses are for education, programs, or extracurricular activities that meet
-                        the child's needs, such as for tutoring or private school, or for other
-                        activities at which the child excels.
-                     </p>
-                    ">
-                    special and extraordinary expenses<i class="fa fa-question-circle" aria-hidden="true"></i>
-            </span>?{% if special_extraordinary_expenses_error %}{% include 'partials/required.html' %}{% endif %}
+            Are you claiming any {% include "partials/tooltips/children/special_extra_expenses.html" %}
+            {% if special_extraordinary_expenses_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         <p>
             <strong>NOTE: If you have a Separation Agreement or Court Order that deals with special and extraordinary expenses, you may wish NOT to select this option.</strong>
@@ -353,15 +340,7 @@
 
             <tr>
                 <td class="fact-sheet-question">
-                <span class="tooltip-link"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-html="true"
-                      title="<b>Health related expenses</b><br />Includes orthodontic treatments, counselling, physiotherapy, occupational
-                      therapy, speech therapy, hearing therapy, prescription drugs, hearing aids, glasses,
-                      and contact lenses">
-                    Health related expenses<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>
+                    {% include "partials/tooltips/children/health_expenses.html" %}
                     that exceed insurance reimbursement by at least $100
                 </td>
                 <td class="fact-sheet-answer">
@@ -379,15 +358,7 @@
             <tr>
                 <td class="fact-sheet-question">
                     Extraordinary primary, secondary or other
-                    <span class="tooltip-link"
-                          data-toggle="tooltip"
-                          data-placement="right"
-                          data-html="true"
-                          title="<b>Educational expenses</b><br />
-                          <ul><li>Tutoring</li><li>Private school (if the child was
-                      attending private school before the separation and the parents can afford the expense</li></ul>">
-                educational expenses <i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>
+                    {% include "partials/tooltips/children/education_expenses.html" %}
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
@@ -416,19 +387,8 @@
             </tr>
 
             <tr>
-                <td class="fact-sheet-question">Extraordinary
-                    <span class="tooltip-link"
-                          data-toggle="tooltip"
-                          data-placement="right"
-                          data-html="true"
-                          title="<b>Extracurricular activities</b><br />
-                      Expenses for activities in which the child excels and is shown to be particularly gifted
-                      (for example, expenses for a child who is a gifted figure skater, but not expenses for
-                      general skating lessons)">
-                    extracurricular activities
-                    <i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>
-                    expenses
+                <td class="fact-sheet-question">
+                    Extraordinary {% include "partials/tooltips/children/extracurricular_expense.html" %} expenses
                 </td>
                 <td class="fact-sheet-answer">
                     <div class="dollar-prefix">
@@ -460,20 +420,7 @@
         </table>
 
         <br>
-        <p>Parties respective
-            <span class="tooltip-link"
-                  data-toggle="tooltip"
-                  data-placement="right"
-                  data-html="true"
-                  title="<b>Proportionate share</b><br />
-          Proportionate share means that the amount determined to be payable by each parent is calculated in
-          relation to their respective incomes. For example, if claimant 1 earns $65k and claimant 2 earns $35K,
-          claimant 1’s share is 65% and claimant 2’s share is 35%. To calculate your proportionate share, divide
-          your income by the total of both your incomes, then multiply this number (usually a decimal form, such as
-          0.65) by the actual cost of special or extraordinary expenses.">
-        proportionate shares
-        <i class="fa fa-question-circle" aria-hidden="true"></i>
-    </span>
+        <p>Parties respective {% include "partials/tooltips/children/proportionate_share.html" %}
             of the total net monthly Section 7 expenses referred to above:</p>
         <br>
 
@@ -569,7 +516,7 @@
     </p>
     <p>
         Source:
-        {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step5-etap5.html#h7" link_text="Federal Child Support Guidelines" %}
+        {% include "partials/tooltips/children/federal_guidelines.html" with link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step5-etap5.html#h7" %}
         , Department of Justice
     </p>
 

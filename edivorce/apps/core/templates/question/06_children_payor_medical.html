@@ -40,15 +40,7 @@
     </div>
 
     <div class="question-well {% if child_support_payments_in_arrears_error %}error{% endif %}">
-        <h3>Are there any child support payments (
-            <span class="tooltip-link"
-              data-toggle="tooltip" data-placement="right" data-html="true"
-              title="
-                <b>In arrears</b>
-                <p>Arrears are past support payments that haven't been paid.</p>
-                ">
-                in arrears <i class="fa fa-question-circle" aria-hidden="true"></i>
-            </span>
+        <h3>Are there any child support payments ({% include "partials/tooltips/children/in_arrears.html" %}
             ) that have not been paid (as of today's date) under an existing order or written agreement?
             {% if child_support_payments_in_arrears_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>

@@ -81,17 +81,7 @@
         </tr>
         <tr>
             <td class="fact-sheet-question">Annual income as per
-                <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-2.html#h-6" target="_blank">Federal Child Support
-                    Guidelines</a>
-                <span class="tooltip-link"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-html="true"
-                      title="<b>Federal Child Support Guidelines</b><br />
-                  This is a copy of an official work that is published by the Government of Canada and that this copy has
-                  not been produced in affiliation with, or with the endorsement of the Government of Canada."><i class="fa fa-question-circle"
-                                                                                                                  aria-hidden="true"></i>
-                        </span>
+                {% include "partials/tooltips/children/federal_guidelines.html" with link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-2.html#h-6" %}
             </td>
             <td class="fact-sheet-answer" readonly>
                 <div class="dollar-prefix">
@@ -134,13 +124,8 @@
                     <div>
                         <p>
                             To figure out how much child support the
-                            <span class="tooltip-link"
-                                  data-toggle="tooltip"
-                                  data-placement="right"
-                                  data-html="true"
-                                  title="<b>Payor</b><br />The person who pays child support.">
-                                        payor<i class="fa fa-question-circle" aria-hidden="true"></i>
-                                    </span> will be paying under the guidelines:
+                            {% include "partials/tooltips/children/payor.html" %}
+                            will be paying under the guidelines:
                         </p>
                         <ul>
                             <li>
@@ -149,17 +134,8 @@
                                 (effective from November 22, 2017) to calculate the correct amount of child support.
                             </li>
                             <li>
-                                Refer to the <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/index.html" target="_blank">
-                                Federal Child Support Tables</a>
-                                <span class="tooltip-link"
-                                      data-toggle="tooltip"
-                                      data-placement="right"
-                                      data-html="true"
-                                      title="<b>Federal Child Support Guidelines</b><br />
-                                  This is a copy of an official work that is published by the Government of Canada and that this copy has
-                                  not been produced in affiliation with, or with the endorsement of the Government of Canada."><i
-                                        class="fa fa-question-circle" aria-hidden="true"></i>
-                                        </span>.
+                                Refer to the
+                                {% include "partials/tooltips/children/federal_guidelines.html" with link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/index.html" text="Federal Child Support Tables" %}.
                                 Make sure you view the table pertaining to the province where the payor lives
                             </li>
                         </ul>
@@ -189,18 +165,8 @@
         <tr>
             <td class="fact-sheet-question">
                 Special or extraordinary expenses (as per
-                <a href="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/section-7.html" target="_blank">Section 7 of the Federal Child
-                    Support Guidelines</a>
-                <span class="tooltip-link"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-html="true"
-                      title="<b>Federal Child Support Guidelines</b><br />
-                  This is a copy of an official work that is published by the Government of Canada and that this copy has
-                  not been produced in affiliation with, or with the endorsement of the Government of Canada."><i class="fa fa-question-circle"
-                                                                                                                  aria-hidden="true"></i>
-                        </span>
-                ) to be paid monthly
+                {% include "partials/tooltips/children/federal_guidelines.html" with link="http://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/section-7.html" text="Section 7 of the Federal Child Support Guidelines" %})
+                to be paid monthly
             </td>
             <td class="fact-sheet-answer" readonly>
                 <div class="dollar-prefix">
