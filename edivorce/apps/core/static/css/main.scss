@@ -964,10 +964,20 @@ input {
 	}
 }
 
+.checkbox input[type=checkbox],
+.checkbox-inline input[type=checkbox],
+.radio input[type=radio],
+.radio-inline input[type=radio] {
+    width: 18px;
+    height: 18px;
+    margin: 2px 0 0 -30px;
+}
+
 .checkbox label,
 .radio label {
 	margin-bottom: 8px;
 	font-weight: 700;
+    padding-left: 30px;
 
 	&.tight-spacing {
 		margin-bottom: 2px;
