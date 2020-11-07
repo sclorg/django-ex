@@ -2,7 +2,6 @@
 {% load input_field %}
 {% load format_utils %}
 {% load step_order %}
-{% load load_json %}
 
 {% block title %}{{ block.super }}: Your Children{% endblock %}
 
@@ -41,7 +40,7 @@
     and <strong>are independent.</strong>
 </p>
 
-{% if 'Child support' not in want_which_orders|load_json %}
+{% if derived.wants_child_support %}
     <p><strong>Please note: Not asking for child support but have children</strong></p>
     <p>
         Even though you are not asking for an order for child support, you will still need to answer some questions
