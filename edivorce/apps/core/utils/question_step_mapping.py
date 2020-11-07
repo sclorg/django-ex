@@ -313,33 +313,184 @@ page_step_mapping = {
 
 """ List of court registries """
 list_of_registries = {
-    'Campbell River': '1031',
-    'Chilliwack': '3521',
-    'Courtenay': '1041',
-    'Cranbrook': '4711',
-    'Dawson Creek': '5731',
-    'Duncan': '1051',
-    'Fort Nelson': '5751',
-    'Fort St. John': '5771',
-    'Golden': '4741',
-    'Kamloops': '4781',
-    'Kelowna': '4801',
-    'Nanaimo': '1091',
-    'Nelson': '4871',
-    'New Westminster': '3581',
-    'Penticton': '4891',
-    'Port Alberni': '1121',
-    'Powell River': '1145',
-    'Prince George': '5891',
-    'Prince Rupert': '5901',
-    'Quesnel': '5921',
-    'Revelstoke': '4911',
-    'Rossland': '4921',
-    'Salmon Arm': '4941',
-    'Smithers': '5931',
-    'Terrace': '5951',
-    'Vancouver': '6011',
-    'Vernon': '4971',
-    'Victoria': '1201',
-    'Williams Lake': '5971'
+    'Abbotsford': {
+        'address_1': '32203 South Fraser Way',
+        'address_2': '',
+        'postal': 'V2T 1W6',
+        'location_id': '3561'
+    },    
+    'Campbell River': {
+        'address_1': '500 - 13th Avenue',
+        'address_2': '',
+        'postal': 'V9W 6P1',
+        'location_id': '1031'
+    },
+    'Chilliwack': {
+        'address_1': '46085 Yale Road',
+        'address_2': '',
+        'postal': 'V2P 2L8',
+        'location_id': '3521'
+    },
+    'Courtenay': {
+        'address_1': 'Room 100',
+        'address_2': '420 Cumberland Road',
+        'postal': 'V9N 2C4',
+        'location_id': '1041'
+    },
+    'Cranbrook': {
+        'address_1': 'Room 147',
+        'address_2': '102 - 11th Avenue South',
+        'postal': 'V1C 2P3',
+        'location_id': '4711'
+    },
+    'Dawson Creek': {
+        'address_1': '1201 - 103rd Avenue',
+        'address_2': '',
+        'postal': 'V1G 4J2',
+        'location_id': '5731'
+    },
+    'Duncan': {
+        'address_1': '238 Government Street',
+        'address_2': '',
+        'postal': 'V9L 1A5',
+        'location_id': '1051'
+    },
+    'Fort Nelson': {
+        'address_1': 'Bag 1000',
+        'address_2': '4604 Sunset Drive',
+        'postal': 'V0C 1R0',
+        'location_id': '5751'
+    },
+    'Fort St. John': {
+        'address_1': '10600 - 100 Street',
+        'address_2': '',
+        'postal': 'V1J 4L6',
+        'location_id': '5771'
+    },
+    'Golden': {
+        'address_1': '837 Park Drive',
+        'address_2': '',
+        'postal': 'V0A 1H0',
+        'location_id': '4741'
+    },
+    'Kamloops': {
+        'address_1': '223 - 455 Columbia Street',
+        'address_2': '',
+        'postal': 'V2C 6K4',
+        'location_id': '4781'
+    },
+    'Kelowna': {
+        'address_1': '1355 Water Street',
+        'address_2': '',
+        'postal': 'V1Y 9R3',
+        'location_id': '4801'
+    },
+    'Nanaimo': {
+        'address_1': '35 Front Street',
+        'address_2': '',
+        'postal': 'V9R 5J1',
+        'location_id': '1091'
+    },
+    'Nelson': {
+        'address_1': '320 Ward Street',
+        'address_2': '',
+        'postal': 'V1L 1S6',
+        'location_id': '4871'
+    },
+    'New Westminster': {
+        'address_1': 'Begbie Square',
+        'address_2': '651 Carnarvon Street',
+        'postal': 'V3M 1C9',
+        'location_id': '3581'
+    },
+    'Penticton': {
+        'address_1': '100 Main Street',
+        'address_2': '',
+        'postal': 'V2A 5A5',
+        'location_id': '4891'
+    },
+    'Port Alberni': {
+        'address_1': '2999 - 4th Avenue',
+        'address_2': '',
+        'postal': 'V9Y 8A5',
+        'location_id': '1121'
+    },
+    'Powell River': {
+        'address_1': '103 - 6953 Alberni Street',
+        'address_2': '',
+        'postal': 'V8A 2B8',
+        'location_id': '1145'
+    },
+    'Prince George': {
+        'address_1': 'J.O. Wilson Square',
+        'address_2': '250 George Street',
+        'postal': 'V2L 5S2',
+        'location_id': '5891'
+    },
+    'Prince Rupert': {
+        'address_1': '100 Market Place',
+        'address_2': '',
+        'postal': 'V8J 1B8',
+        'location_id': '5901'
+    },
+    'Quesnel': {
+        'address_1': '305 - 350 Barlow Avenue',
+        'address_2': '',
+        'postal': 'V2J 2C1',
+        'location_id': '5921'
+    },
+    'Revelstoke': {
+        'address_1': '1123 West 2nd Street',
+        'address_2': '',
+        'postal': 'V0E 2S0',
+        'location_id': '4911'
+    },
+    'Rossland': {
+        'address_1': 'P.O. Box 639',
+        'address_2': '2288 Columbia Avenue',
+        'postal': 'V0G 1Y0',
+        'location_id': '4921'
+    },
+    'Salmon Arm': {
+        'address_1': '550 - 2nd Avenue NE',
+        'address_2': 'PO Box 100, Station Main',
+        'postal': 'V1E 4S4',
+        'location_id': '4941'
+    },
+    'Smithers': {
+        'address_1': 'No. 40, Bag 5000',
+        'address_2': '3793 Alfred Avenue',
+        'postal': 'V0J 2N0',
+        'location_id': '5931'
+    },
+    'Terrace': {
+        'address_1': '3408 Kalum Street',
+        'address_2': '',
+        'postal': 'V8G 2N6',
+        'location_id': '5951'
+    },
+    'Vancouver': {
+        'address_1': '800 Smithe Street',
+        'address_2': '',
+        'postal': 'V6Z 2E1',
+        'location_id': '6011'
+    },
+    'Vernon': {
+        'address_1': '3001 - 27th Street',
+        'address_2': '',
+        'postal': 'V1T 4W5',
+        'location_id': '4971'
+    },
+    'Victoria': {
+        'address_1': '850 Burdett Avenue',
+        'address_2': '',
+        'postal': 'V8W 1B4',
+        'location_id': '1201'
+    },
+    'Williams Lake': {
+        'address_1': '540 Borland Street',
+        'address_2': '',
+        'postal': 'V2G lR8',
+        'location_id': '5971'
+    }
 }

@@ -678,14 +678,14 @@ $(function () {
     $('#check_order_selected').on('click', function (e) {
         var showAlert = $(this).data('show_alert');
         var childSupport = $('#order_child_support').prop('checked');
-        var eligible = false;
+        var childSupportEligible = false;
         if (!childSupport) {
-          var children = $('#unselected_child_support_alert').data('children-of-marriage');
-          var under19 = $('#unselected_child_support_alert').data('has-children-under-19');
-          var over19 = $('#unselected_child_support_alert').data('has-children-over-19');
-          var reasons = $('#unselected_child_support_alert').data('children-financial-support');
-          reasons = (reasons || []).filter(function(el){ return el !== 'NO'; }).length > 0;
-          eligible = children === 'YES' && (under19 || (over19 && reasons));
+          var hasChildren = $('#unselected_child_support_alert').data('children-of-marriage') === "YES";
+          var under19 = $('#unselected_child_support_alert').data('has-children-under-19') === "YES";
+          var over19 = $('#unselected_child_support_alert').data('has-children-over-19') === "YES";
+          var over19Reasons = $('#unselected_child_support_alert').data('children-financial-support');
+          var hasOver19Reasons = (over19Reasons || []).filter(function(el){ return el !== "NO"; }).length > 0;
+          childSupportEligible = hasChildren && (under19 || (over19 && hasOver19Reasons));
         }
         var proceedNext = $(this).data('proceed');
         var showPropertyAlert = false;
@@ -702,7 +702,7 @@ $(function () {
                 }
             });
         }
-        if ((showAlert || (!childSupport && eligible)) && !proceedNext) {
+        if ((showAlert || (!childSupport && childSupportEligible)) && !proceedNext) {
             $('#unselected_orders_alert').show();
             if (showPropertyAlert) {
                 $('#unselected_property_alert').show();
@@ -710,7 +710,7 @@ $(function () {
             if (showSpousalAlert) {
                 $('#unselected_spouse_alert').show();
             }
-            if (!childSupport && eligible) {
+            if (!childSupport && childSupportEligible) {
                 $('#unselected_child_support_alert').show();
             }
             e.preventDefault();
@@ -758,12 +758,6 @@ $(function () {
     }
     showHideChildrenLiveWithOthers();
     $('input[name="has_children_under_19"], input[name="has_children_over_19"], input[name="children_financial_support"]').change(showHideChildrenLiveWithOthers);
-
-
-    $('.money').on('change', function() {
-        var value = parseFloat($(this).val());
-        $(this).val(value.toFixed(2));
-    });
 
     $('.positive-integer').on('keypress', function(e) {
         // keyCode [95-105] - number page
@@ -885,26 +879,7 @@ var initializeChildRowControls = function(element) {
     element.find('#cancel_delete_child').on('click', function() {
         $('#delete_child_modal').modal('hide');
     });
-
-    $('form#logoutForm').submit(function(e) {
-        deleteCookie("SMSESSION", "/", ".gov.bc.ca");
-    });
 };
-
-var deleteCookie = function(name, path, domain) {
-    if( getCookie(name) ) {
-      document.cookie = name + "=" +
-        ((path) ? ";path="+path:"")+
-        ((domain)?";domain="+domain:"") +
-        ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
-    }
-}
-
-var getCookie = function(name){
-    return document.cookie.split(';').some(c => {
-        return c.trim().startsWith(name + '=');
-    });
-}
 
 var populateChildInputFields = function(element) {
     $('.children-questions').show();

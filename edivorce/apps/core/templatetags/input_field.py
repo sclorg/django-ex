@@ -56,7 +56,11 @@ def input_field(context, type, name='', value='', multiple='', ignore_error=Fals
     error = context.get(name + '_error', False)
     if error and not ignore_error:
         if 'class' in kwargs:
-            kwargs['class'] += ' error'
+            if 'alias-other-name' in kwargs.get('class', ''):  # DIV-1200
+                if not value:
+                    kwargs['class'] += ' error'
+            else:
+                kwargs['class'] += ' error'
         else:
             kwargs['class'] = 'error'
 

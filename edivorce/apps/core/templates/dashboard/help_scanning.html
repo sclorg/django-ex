@@ -27,12 +27,13 @@
                 <li>
                     <b>Microsoft Windows</b> - If you are using a Microsoft operating system such as Windows 10 there is
                     built-in software to allow you to scan documents.
-                    For more information see <a href="https://support.microsoft.com/en-ca/help/14088/windows-10-install-and-use-a-scanner" target="_blank">
-                    Microsoft’s help on Installing and Using a Scanner in Windows 10</a>.
+                    For more information see Microsoft’s help on 
+                    <a href="https://support.microsoft.com/en-ca/help/14088/windows-10-install-and-use-a-scanner" target="_blank">
+                        Installing and Using a Scanner in Windows 10</a>.
                 </li>
                 <li>
                     <b>Apple OS X</b> - If you are using a Macintosh computer there is built-in software to allow you to scan documents.
-                    For more information see Apple’s help.
+                    For more information see Apple’s help
                     <a href="https://support.apple.com/en-gb/guide/mac-help/mh28032/mac" target="_blank">
                         Scanning images or documents using your Mac</a>.
                 </li>
@@ -97,6 +98,14 @@
         </p>
     </div>
     </div>
+
+    <div class="form-buttons clearfix">
+        <a class="btn btn-primary" 
+            href="{% url 'dashboard_nav' '' %}{% if request.GET.filing == 'final' %}final_filing{% else %}initial_filing{% endif %}">
+            <i class="fa fa-arrow-circle-o-left"></i>&nbsp;&nbsp;&nbsp;Back
+        </a>
+    </div>
+    
 {% endblock %}
 
 {% block backToDashboard %}
