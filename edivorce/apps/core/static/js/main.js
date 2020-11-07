@@ -834,6 +834,8 @@ $(function () {
       e.preventDefault();
       window.history.back();
     });
+
+    $('.question-well.step-review.error span.table-error').parent('td').addClass('contains-error');
 });
 
 
