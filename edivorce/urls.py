@@ -12,7 +12,6 @@ urlpatterns = []
 if settings.ENVIRONMENT in ['localdev', 'dev', 'test']:
     import debug_toolbar
     urlpatterns.append(url(r'^__debug__/', include(debug_toolbar.urls)),)
-    urlpatterns.append(url(r'^poc/', include('edivorce.apps.poc.urls')))
     urlpatterns.append(path('api/graphql/', csrf_exempt(PrivateGraphQLView.as_view(graphiql=True, schema=graphql_schema)), name='graphql'))
 else:
     urlpatterns.append(path('api/graphql/', csrf_exempt(PrivateGraphQLView.as_view(graphiql=False, schema=graphql_schema)), name='graphql'))

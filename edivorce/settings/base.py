@@ -58,11 +58,6 @@ INSTALLED_APPS = (
     'graphene_django',
 )
 
-# add the POC app only if applicable
-if ENVIRONMENT in ['localdev', 'dev', 'test']:
-    INSTALLED_APPS += (
-        'edivorce.apps.poc',
-    )
 
 MIDDLEWARE = (
     'edivorce.apps.core.middleware.basicauth_middleware.BasicAuthMiddleware',
