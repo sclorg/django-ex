@@ -8,7 +8,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 
 NO_ANSWER = 'No answer'
-MISSING_RESPONSE = mark_safe('<div class="table-error"><span class="warning">MISSING REQUIRED FIELD</span></div>') # nosec
+MISSING_RESPONSE = mark_safe('<span class="table-error">MISSING REQUIRED FIELD</span>') # nosec
 
 register = template.Library()
 

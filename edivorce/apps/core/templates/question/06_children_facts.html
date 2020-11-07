@@ -28,16 +28,7 @@
         <span id="__name_you" hidden>{% you_name if_blank="You" %}</span>
         <span id="__name_spouse" hidden>{% spouse_name if_blank="Your spouse" %}</span>
 
-        <h3>Who is the
-            <span class="tooltip-link"
-                  data-toggle="tooltip" data-placement="right" data-html="true"
-                  title="
-                    <b>Payor</b>
-                    <p>The person who pays child support.</p>
-                    ">
-                    payor<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>
-            ?
+        <h3>Who is the {% include "partials/tooltips/children/payor.html" %}?
             {% if child_support_payor_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>
         {% if derived.show_fact_sheet_b %}
@@ -106,10 +97,10 @@
                     <li>Children over the age of majority who the payor still has a legal obligation to support.</li>
                 </ul>
                 <p>
-                    If one parent takes care of the child/children most of the time, the other parent would normally be the payor.
+                    If one parent takes care of the child / children most of the time, the other parent would normally be the payor.
                 </p>
                 <p>
-                    If the child/children spends an equal amount of time in the care of each of you, or if both parents
+                    If the child / children spends an equal amount of time in the care of each of you, or if both parents
                     are splitting custody of multiple children, the payor is likely the parent with the higher income.
                 </p>
             </div>

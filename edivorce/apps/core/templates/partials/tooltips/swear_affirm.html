@@ -1,14 +1,21 @@
-<span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-      data-html="true"
-      title="
-                <b>Swear/Affirm</b>
-                <br /><br />
-                An &quot;affidavit&quot; is a written document that contains facts that you must swear under oath (usually on a Bible or other religious book) or affirm
-        (non-religious promise) to be true. After you swear or affirm, the affidavit is evidence of the facts it sets out, just as if you took the
-        stand in a courtroom to provide those facts.
-        <br /><br />
-        To swear or affirm an affidavit, you must meet with a commissioner for taking oaths. The
-        commissioner (often a lawyer, notary public or registry clerk) will check your photo id to make sure you are who you say you are, ask you if
-        you understand the contents of your affidavit, then ask you to swear or affirm that the contents are true. The commissioner will then watch
-        you sign the document before signing it themselves.">
-    {% if text %}{{ text }}{% else %}swear/affirm{% endif %}<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+{% extends "partials/tooltips/base.html" %}
+
+{% block title %}
+    Swear / Affirm
+{% endblock %}
+
+{% block inner %}
+    An &quot;affidavit&quot; is a written document that contains facts that you must swear under oath (usually on a Bible or other religious book)
+    or affirm (non-religious promise) to be true.
+    After you swear or affirm, the affidavit is evidence of the facts it sets out,
+    just as if you took the stand in a courtroom to provide those facts.
+    <br/><br/>
+    To swear or affirm an affidavit, you must meet with a commissioner for taking oaths.
+    The commissioner (often a lawyer, notary public or registry clerk) will check your photo id to make sure you are who you say you are,
+    ask you if you understand the contents of your affidavit, then ask you to swear or affirm that the contents are true.
+    The commissioner will then watch you sign the document before signing it themselves.
+{% endblock %}
+
+{% block label %}
+    swear / affirm
+{% endblock %}

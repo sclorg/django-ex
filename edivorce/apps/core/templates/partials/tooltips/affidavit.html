@@ -1,8 +1,14 @@
-<span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-      data-html="true"
-      title="
-                <b>Affidavit</b>
-                <br /><br />
-                An affidavit is a written document that contains facts that you must swear under oath (usually on a Bible or other religious book)
-                or affirm (non-religious promise) to be true.">
-          {% if text %}{{ text }}{% else %}affidavit(s){% endif %}<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+{% extends "partials/tooltips/base.html" %}
+
+{% block title %}
+    Affidavit
+{% endblock %}
+
+{% block inner %}
+    An affidavit is a written document that contains facts that you must swear under oath (usually on a Bible or other religious book)
+    or affirm (non-religious promise) to be true.
+{% endblock %}
+
+{% block label %}
+    affidavit(s)
+{% endblock %}

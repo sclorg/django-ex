@@ -44,12 +44,6 @@ $(function () {
         placement:'auto right'
     });
 
-    $('[data-toggle="tooltip-hover"]').tooltip({
-        container: 'body',
-        trigger: 'hover',
-        placement: 'auto right'
-    });
-
     $('textarea').autogrow({onInitialize: true});
 
     // All elements tagged with the following sum related data attributes
@@ -191,16 +185,6 @@ $(function () {
             // hide any open popovers when the anywhere else in the body is clicked
             if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.tooltip').has(e.target).length === 0) {
                 if(!$(e.target).hasClass('keep-tooltip-open') && !$(this).hasClass('keep-tooltip-open')) {
-                    $(this).tooltip('hide');
-                }
-            }
-        });
-    });
-    $('[data-toggle=tooltip-hover]').hover(function (e) {
-        $('[data-toggle=tooltip]').each(function () {
-            // hide any open popovers when the anywhere else in the body is clicked
-            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.tooltip').has(e.target).length === 0) {
-                if (!$(e.target).hasClass('keep-tooltip-open') && !$(this).hasClass('keep-tooltip-open')) {
                     $(this).tooltip('hide');
                 }
             }
@@ -844,6 +828,8 @@ $(function () {
       e.preventDefault();
       window.history.back();
     });
+
+    $('.question-well.step-review.error span.table-error').parent('td').addClass('contains-error');
 });
 
 
@@ -1066,7 +1052,7 @@ var mirrorOnChange = function(e) {
 var deleteAddedField = function(e){
     var field = $('#' + e.data.field_name);
     var button = $('#' + e.data.button_name);
-    $(this).parent('div').remove();
+    $(this).parents('div').first().remove();
 
     //enable btn_add_other_names button
     if (button.prop('id') === "btn_add_other_names"){

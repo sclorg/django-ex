@@ -9,11 +9,11 @@
     <h1>Swear / Affirm Forms</h1>
     {% if how_to_file == 'In-person' %}
         <p>Now that you have reviewed and printed all of your forms, you’ll need to get your
-            affidavits {% include "partials/tooltips/swear_affirm.html" with text="sworn/affirmed" %}.</p>
+            affidavits {% include "partials/tooltips/swear_affirm.html" with text="sworn / affirmed" %}.</p>
     {% elif how_to_file == 'Online' %}
         <p>
             <b>You must have a Court File Number in order to proceed</b>
-            with {% include "partials/tooltips/swear_affirm.html" with text="swearing/affirming" %} your affidavits.
+            with {% include "partials/tooltips/swear_affirm.html" with text="swearing / affirming" %} your affidavits.
             If you do not have a {% include "partials/tooltips/court_file_number.html" %} return to the <a
                 href="{% url 'dashboard_nav' 'wait_for_number' %}">
             Wait for Court File Number</a> step.
@@ -26,13 +26,13 @@
     {% endif %}
     <p class="no-margin-bottom">
         You’ll need to have printed copies of the following form(s) with you
-        for {% include "partials/tooltips/swear_affirm.html" with text="swearing/affirming" %}:
+        for {% include "partials/tooltips/swear_affirm.html" with text="swearing / affirming" %}:
     </p>
     <ul>
         {% if derived.has_children_of_marriage %}
-            <li>{% include "partials/tooltips/form_child_support_37.html" %}</li>
+            <li>{% include "partials/tooltips/forms/child_support_37.html" %}</li>
         {% endif %}
-        <li>{% include "partials/tooltips/form_desk_order_38.html" %}</li>
+        <li>{% include "partials/tooltips/forms/desk_order_38.html" %}</li>
     </ul>
     {% if how_to_sign == 'Together' and signing_location == 'Virtual' %}
         <div>
@@ -85,15 +85,14 @@
                     {% include "partials/tooltips/commissioner.html" %}.</b>
             </p>
             <p class="no-margin-bottom">
-                Prepare for swearing/affirming and signing by ensuring you:
+                Prepare for swearing / affirming and signing by ensuring you:
             </p>
             <ul>
                 <li>Have print outs with you of all of your affidavits ready to sign</li>
                 <li>Have your photo ID ready to show.</li>
             </ul>
             <p class="no-margin-bottom">
-                If you are planning to {% include "partials/tooltips/swear_affirm.html" %}
-                at the court registry then you should also:
+                If you are planning to swear / affirm and sign at the court registry then you should also:
             </p>
             <ul>
                 <li>Have print outs of all your completed documentation with you</li>
@@ -103,8 +102,7 @@
             </p>
             {% include "partials/filing_location.html" %}
             <p>
-                If you are planning to {% include "partials/tooltips/swear_affirm.html" %} with a lawyer, notary or other commissioner please contact
-                them directly.
+                If you are planning to swear / affirm with a lawyer, notary or other commissioner please contact them directly.
             </p>
         </div>
     {% elif how_to_sign == 'Separately' and signing_location_you == 'In-person' and signing_location_spouse == 'In-person' %}
@@ -114,18 +112,18 @@
                     a {% include "partials/tooltips/commissioner.html" %}.</b>
             </p>
             <p class="no-margin-bottom">
-                Prepare for swear/affirm and signing by ensuring you:
+                Prepare for swear / affirm and signing by ensuring you:
             </p>
             <ul>
                 <li>Have print outs with you of all of your affidavits ready to sign</li>
                 <li>Have photo ID ready to show.</li>
             </ul>
             <p class="no-margin-bottom">
-                If you are planning to {% include "partials/tooltips/swear_affirm.html" %}
-                at the court registry then you should also have print outs of all your completed documents with you.
+                If you are planning to swear / affirm at the court registry then you should also have print outs of all your
+                completed documents with you.
             </p>
             <p>
-                Once you have filed, your spouse will be able to sign/swear and file their affidavits at the court registry.
+                Once you have filed, your spouse will be able to sign / swear and file their affidavits at the court registry.
                 Your spouse will require the {% include "partials/tooltips/court_file_number.html" %} provided to you at the time of your filing.
             </p>
             <p>
@@ -133,7 +131,7 @@
             </p>
             {% include "partials/filing_location.html" %}
             <p>
-                If you are planning to {% include "partials/tooltips/swear_affirm.html" %} with a lawyer, notary or other commissioner please contact
+                If you are planning to swear / affirm with a lawyer, notary or other commissioner please contact
                 them directly.
             </p>
         </div>
@@ -162,18 +160,17 @@
                     {% include "partials/tooltips/commissioner.html" %}.</b>
             </p>
             <p class="no-margin-bottom">
-                Have your spouse prepare for their swearing/affirming and signing the affidavit(s) by ensuring they:
+                Have your spouse prepare for their swearing / affirming and signing the affidavit(s) by ensuring they:
             </p>
             <ul>
                 <li>Have print outs with them of all of their affidavits ready to sign</li>
                 <li>Have photo ID ready to show.</li>
             </ul>
             <p class="no-margin-bottom">
-                If they are planning to {% include "partials/tooltips/swear_affirm.html" with text="swear/affirm and sign" %}
-                at the court registry then they should also:
+                If they are planning to swear / affirm and sign at the court registry then they should also:
             </p>
             <ul>
-                <li>Have your {% include "partials/tooltips/court_file_number.html" %} ready
+                <li>Have the {% include "partials/tooltips/court_file_number.html" %} ready
                     (received when your initial filing is reviewed by the Court Registry)
                 </li>
                 <li>Have print outs of all completed documents with them</li>
@@ -183,7 +180,7 @@
             </p>
             {% include "partials/filing_location.html" %}
             <p>
-                If they are planning to {% include "partials/tooltips/swear_affirm.html" %} with a lawyer, notary or other commissioner please contact
+                If they are planning to swear / affirm with a lawyer, notary or other commissioner please contact
                 them directly.
             </p>
         </div>
@@ -200,8 +197,7 @@
                 <li>Have your photo ID ready to show.</li>
             </ul>
             <p class="no-margin-bottom">
-                If you are planning to {% include "partials/tooltips/swear_affirm.html" %}
-                at the court registry then you should also:
+                If you are planning to swear / affirm at the court registry then you should also:
             </p>
             <ul>
                 <li>Have print outs of all your completed documentation with you</li>
@@ -211,14 +207,12 @@
             </p>
             {% include "partials/filing_location.html" %}
             <p>
-                If you are planning to {% include "partials/tooltips/swear_affirm.html" %} with a lawyer, notary or other commissioner please contact
-                them directly.
+                If you are planning to swear / affirm with a lawyer, notary or other commissioner please contact them directly.
             </p>
             <hr/>
             <p>
                 <b>Your spouse will {% include "partials/tooltips/swear_affirm.html" %} in a {% include "partials/tooltips/virtual_session.html" %}
-                    with the
-                    court registry.</b>
+                    with the court registry.</b>
             </p>
             <p class="no-margin-bottom">
                 The process for a virtual session is as follows:
@@ -240,12 +234,12 @@
             Once Swearing Is Complete
         </h2>
         <p>
-            When you have completed the swearing/affirming process you can click the Next button on this page to proceed to the Final Filing step
+            When you have completed the swearing / affirming process you can click the Next button on this page to proceed to the Final Filing step
             where you can learn more about how to submit the remaining documents to the court registry.
         </p>
         <div class="bg-danger">
             <span>
-                Please note: <b>sworn/affirmed affidavits must be filed within 30 days of swearing/affirming them.</b>
+                Please note: <b>sworn / affirmed affidavits must be filed within 30 days of swearing / affirming them.</b>
             </span>
         </div>
     </div>
@@ -267,7 +261,7 @@
 {% block sidebarText %}
     <h3>What is swearing / affirming?</h3>
     <p>
-        Affidavits you file with the court must be sworn/affirmed with a commissioner for taking affidavits.
+        Affidavits you file with the court must be sworn / affirmed with a commissioner for taking affidavits.
         To swear or affirm an affidavit, you must meet with a commissioner for taking affidavits.
         The commissioner (often a lawyer, notary public or registry clerk) will check your photo id to make
         sure you are who you say you are, ask you if you understand the contents of your affidavit,
@@ -276,18 +270,18 @@
         themselves.
     </p>
     <p>
-        There are two ways to swear/affirm your affidavits: with a commissioner at the court registry
+        There are two ways to swear / affirm your affidavits: with a commissioner at the court registry
         or with a notary or lawyer of your choosing.
     </p>
     <p>
         Based on your choices on the Signing and Filing Options step of this tool, this page will give you
-        instructions on how you can swear or/and affirm your affidavits.
+        instructions on how you can swear or / and affirm your affidavits.
     </p>
     <p>
         Also based on your choices on the Signing and Filing Options step of this tool, you and your spouse
         may sign your affidavits together or separately.
     </p>
     <p>
-        <i> Once your affidavits are sworn/affirmed they must be filed with the court within 30 days.</i>
+        <i> Once your affidavits are sworn / affirmed they must be filed with the court within 30 days.</i>
     </p>
 {% endblock %}

@@ -6,16 +6,16 @@
 
 {% block progress %}{% include "partials/dashnav.html" with active_page=active_page %}{% endblock %}
 
-{% block container_col %}signing-filing{% endblock %}
+{% block container_col %}dashboard-content{% endblock %}
 
 {% block content %}
     <h1>Signing and Filing Options</h1>
     <h3>Signing Options</h3>
     <p>
         To complete your application for divorce, you must
-        {% include "partials/tooltips/swear_affirm.html" with text="swear/affirm and sign" %}
-        your {% include "partials/tooltips/affidavit.html" %}. The affidavit(s) must be sworn/affirmed and
-        signed by both you and your spouse. You have a choice on how you will both swear/affirm and sign.
+        {% include "partials/tooltips/swear_affirm.html" with text="swear / affirm and sign" %}
+        your {% include "partials/tooltips/affidavit.html" %}. The affidavit(s) must be sworn / affirmed and
+        signed by both you and your spouse. You have a choice on how you will both swear / affirm and sign.
     </p>
     <div class="question-well">
         <h3>Select how you would like to {% include "partials/tooltips/swear_affirm.html" %}
@@ -26,19 +26,19 @@
             {% else %}
                 {% input_field type="radio" name="how_to_sign" value="Together" id="sign-together" %}
             {% endif %}
-            We will swear/affirm and sign Together using the same affidavit(s)</label></div>
+            We will swear / affirm and sign Together using the same affidavit(s)</label></div>
         <div class="list-item-description">
-            <p>You must both go together to the registry or to a commissioner for taking affidavits to swear/affirm and sign the affidavit(s).
+            <p>You must both go together to the registry or to a commissioner for taking affidavits to swear / affirm and sign the affidavit(s).
                 This option costs less (less filing fees) and is typically faster and easier for both of you.</p>
-            <p>There are strict rules for when you can swear/affirm and sign your {% include "partials/tooltips/form_desk_order_38.html" %}.
+            <p>There are strict rules for when you can swear / affirm and sign your {% include "partials/tooltips/forms/desk_order_38.html" %}.
                 You must do it:</p>
             <ul>
-                <li>At the same time as you are filing your {% include "partials/tooltips/joint_family_claim_1.html" %}
-                    (You can file the Notice and swear/affirm and sign your affidavit at
+                <li>At the same time as you are filing your {% include "partials/tooltips/forms/joint_family_claim_1.html" %}
+                    (You can file the Notice and swear / affirm and sign your affidavit at
                     the registry (or virtually with the registry) at the same time.)
                 </li>
                 <p style="margin-top: 20px">OR</p>
-                <li>After you've filed your {% include "partials/tooltips/joint_family_claim_1.html" %}.
+                <li>After you've filed your {% include "partials/tooltips/forms/joint_family_claim_1.html" %}.
                     (You can file the Notice first, and then come back into this tool or go to the registry to file your affidavit(s).)
                 </li>
             </ul>
@@ -49,21 +49,21 @@
             {% else %}
                 {% input_field type="radio" name="how_to_sign" value="Separately" id="sign-separately" %}
             {% endif %}
-            We will swear/affirm and sign Separately our own affidavit(s)</label></div>
+            We will swear / affirm and sign Separately our own affidavit(s)</label></div>
         <div class="list-item-description">
-            <p>You can each swear/affirm and sign your own version of the affidavit (you can go separately to the registry or a commissioner for
-                taking affidavits to swear/affirm and sign the affidavit(s)).</p>
-            <p>There are strict rules for when you can swear/affirm and sign your {% include "partials/tooltips/form_desk_order_38.html" %}.
+            <p>You can each swear / affirm and sign your own version of the affidavit (you can go separately to the registry or a commissioner for
+                taking affidavits to swear / affirm and sign the affidavit(s)).</p>
+            <p>There are strict rules for when you can swear / affirm and sign your {% include "partials/tooltips/forms/desk_order_38.html" %}.
                 You must:</p>
             <ul>
                 <li>Swear/affirm and sign one person’s affidavit(s) at the same time as you are filing
-                    your {% include "partials/tooltips/joint_family_claim_1.html" %} (You can file the
+                    your {% include "partials/tooltips/forms/joint_family_claim_1.html" %} (You can file the
                     Notice and swear your affidavit at the registry (or virtually with the registry) at the same time.)
-                    This would allow one party to swear/affirm and sign their affidavit(s) before the Notice has been filed.
+                    This would allow one party to swear / affirm and sign their affidavit(s) before the Notice has been filed.
                 </li>
                 <p style="margin-top: 20px">OR</p>
                 <li>Swear/affirm and sign both parties’ affidavit(s) after you've filed
-                    your {% include "partials/tooltips/joint_family_claim_1.html" %}. (You can file the Notice first,
+                    your {% include "partials/tooltips/forms/joint_family_claim_1.html" %}. (You can file the Notice first,
                     and then come back into this tool or go to the registry to file your affidavit(s).)
                 </li>
             </ul>
@@ -79,17 +79,9 @@
         <li>a printer (or a print service)</li>
         <li>payment for filing fees (see More Information sidebar for more information)</li>
         <li>a copy of your marriage certificate (from any jurisdiction)</li>
-        <li><span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-                  data-html="true"
-                  title="
-                <b>Registration of Joint Divorce Proceedings (JUS280)</b>
-                <br /><br />
-                This form is for a central divorce registry in Ottawa. They use the form to check to make sure there is no other divorce proceeding pending in Canada. They also keep track of all divorces in Canada.
-                <br />- Does not require signatures.">
-          Registration of Divorce Proceedings<i class="fa fa-question-circle" aria-hidden="true"></i></span> form
-        </li>
+        <li>{% include "partials/tooltips/forms/joint_divorce_proceedings.html" with text="Registration of Divorce Proceedings" %} form</li>
         <li>Both you and your spouse to sign some of the same documents</li>
-        <li>You will need to have your affidavit(s) sworn/affirmed (see above)</li>
+        <li>You will need to have your affidavit(s) sworn / affirmed (see above)</li>
         <li>Photo ID</li>
     </ul>
     {% if where_were_you_married_country == 'Canada' %}
@@ -129,7 +121,7 @@
         </div>
     {% endif %}
     {% if virtual_swearing_enabled %}
-        <h3 id="signing-location" hidden>Swear/Affirm and Signing Location</h3>
+        <h3 id="signing-location" hidden>Swear / Affirm and Signing Location</h3>
         <div class="question-well" id="signing-location-together" hidden>
             <h3>Select where you would like to {% include "partials/tooltips/swear_affirm.html" %} your affidavit(s):</h3>
             <div class="radio"><label>

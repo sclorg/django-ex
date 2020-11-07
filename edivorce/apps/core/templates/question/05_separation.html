@@ -33,11 +33,8 @@
 <div class="question-well {% if no_collusion_error %}error{% endif %}">
     <p>
         We are legally required to ask whether or not you and {% spouse_name %}
-         have agreed to deceive the court. This is called &ldquo;<span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
-           title="<b>Collusion</b><br /><br />Basically this statement confirms that you and your spouse haven’t lied or tried to deceive the court
-           in any way (for example, saying that you’ve been separated for longer than you have been). It is a legal requirement that you confirm you
-           are providing accurate and complete information.">collusion<i class="fa fa-question-circle" aria-hidden="true"></i></span>
-        &rdquo;. An example of collusion is when a couple agrees to lie about the date of separation to speed up the divorce process.
+        have agreed to deceive the court. This is called &ldquo;{% include "partials/tooltips/collusion.html" %}&rdquo;.
+        An example of collusion is when a couple agrees to lie about the date of separation to speed up the divorce process.
         {% if no_collusion_error %}{% include 'partials/required.html' with inline=True %}{% endif %}
     </p>
     {% if no_collusion_error %}

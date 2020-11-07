@@ -31,36 +31,12 @@
 
     <div class="radio"><label>
         {% input_field type="radio" name="married_marriage_like" value="Legally married" class="keep-tooltip-open" data_target_id="cannot_divorce_common_law" data_reveal_target="false" data_target_class="not-disqualified" data_reveal_class="true" %}
-        Legally married<i class="fa fa-question-circle"
-                          data-toggle="tooltip"
-                          data-placement="right"
-                          data-html="true"
-                          title="
-                          <b>LEGALLY MARRIED</b>
-                          <br /><br />
-                          Legally married is defined as: when two people agree
-                          to live together in a partnership made legally
-                          binding by a religous or legal ceremony.
-                          <br /><br />
-                          To prove you were legally married you will need to
-                          provide a marriage certificate issued in the country
-                          where you were married."
-                          aria-hidden="true"></i>
+        {% include "partials/tooltips/legally_married.html" %}
     </label></div>
 
     <div class="radio"><label>
         {% input_field type="radio"  name="married_marriage_like" value="Living together in a marriage like relationship" class="keep-tooltip-open" data_target_id="cannot_divorce_common_law" data_reveal_target="true" data_target_class="not-disqualified" data_reveal_class="false" %}
-        Living together in a
-        <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-              data-html="true"
-              title="
-                <b>MARRIAGE LIKE RELATIONSHIP</b>
-                <br /><br />
-                The term &quot;common-law relationship&quot; is often used to
-                refer to a marriage-like relationship that has lasted a certain
-                length of time, usually one or two years.">
-          marriage like<i class="fa fa-question-circle" aria-hidden="true"></i>
-        </span>
+        Living together in a {% include "partials/tooltips/marriage_like.html" %}
         (also known as common law) relationship
     </label></div>
 
@@ -120,30 +96,10 @@
 {% endblock %}
 
 {% block sidebarText %}
-    <p>This tool is for those seeking
-        <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-          data-html="true"
-          title="
-            <b>Joint divorce</b>
-            <br /><br />
-            Joint divorce means making an application for a divorce together with your spouse.
-             It means that you and your spouse agree about getting a divorce and that you
-             agree about all of the family law issues relevant to your situation, such as spousal
-             support, and the division of family property and debts.">
-            joint divorce<i class="fa fa-question-circle" aria-hidden="true"></i></span>.
-        If you are seeking a
-        <span class="tooltip-link" data-toggle="tooltip" data-placement="right"
-              data-html="true"
-              title="
-                <b>Sole divorce</b>
-                <br /><br />
-                You're filing for divorce but your spouse isn't involved in the application process.
-                Only you will provide the information on the forms and sign them.<br />
-                If you are seeking a sole divorce you can find the required forms on the using
-                <a href=&quot;https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/sup-family-forms&quot;
-                target=&quot;_blank&quot;>Supreme Court of B.C. website</a>">
-                sole divorce<i class="fa fa-question-circle" aria-hidden="true"></i></span> you can find the required forms
-        on the using <a href="https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/sup-family-forms"
-                target="_blank">Supreme Court of B.C. website</a>
+    <p>This tool is for those seeking {% include "partials/tooltips/joint_divorce.html" %}.
+        If you are seeking a {% include "partials/tooltips/sole_divoroce.html" %}.
+        you can find the required forms on the using
+        <a href="https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/sup-family-forms" target="_blank">
+            Supreme Court of B.C. website</a>
     </p>
 {% endblock %}

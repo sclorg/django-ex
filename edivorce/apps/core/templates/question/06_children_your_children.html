@@ -15,21 +15,7 @@
 </h1>
 <p>
     Please enter the names of the
-    <span class="tooltip-link"
-                          data-toggle="tooltip"
-                          data-placement="right"
-                          data-html="true"
-                          title="<b>Children of the marriage</b><br /><br />
-              Child of the marriage means a child of two spouses or former spouses who, at the material time,<br />
-              <ul>
-                <li>is under the age of majority and who has not withdrawn from their charge, or</li>
-                <li>is the age of majority or over and under their charge but unable, by reason of illness,
-                disability or other cause, to withdraw from their charge or to obtain the necessaries of life; (enfant à charge)?</li>
-              </ul>
-              More details on the definition of <a href=&quot;http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step2-etap2.html#h4&quot; target=&quot;_blank&quot;>&quot;child of marriage&quot; </a>can be found on the Department of Justice website.
-">
-        children of the marriage.<i class="fa fa-question-circle" aria-hidden="true"></i>
-    </span>
+    {% include "partials/tooltips/children/children_of_marriage.html" %}
     This includes:
 </p>
 <ul>
@@ -332,7 +318,7 @@
     </p>
     <p>
     Source: The
-    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step3-etap3.html" link_text="Federal Child Support Guidelines: Step-by-Step" %}
+    {% include "partials/tooltips/children/federal_guidelines.html" with link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step3-etap3.html" text="Federal Child Support Guidelines: Step-by-Step" %}
     </p>
 
     <p><strong>Split Custody Example</strong></p>
@@ -354,7 +340,7 @@
     </p>
     <p>
     Source: The
-    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step3-etap3.html" link_text="Federal Child Support Guidelines: Step-by-Step" %}
+    {% include "partials/tooltips/children/federal_guidelines.html" with link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step3-etap3.html" text="Federal Child Support Guidelines: Step-by-Step" %}
     </p>
 
     <p><strong>Shared Custody Example</strong></p>
@@ -382,6 +368,6 @@
     </p>
     <p>
     Source: The
-    {% include "partials/tooltip_link_federal_child_support_guidelines.html" with reference_link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step3-etap3.html" link_text="Federal Child Support Guidelines: Step-by-Step" %}
+    {% include "partials/tooltips/children/federal_guidelines.html" with link="http://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/step3-etap3.html" text="Federal Child Support Guidelines: Step-by-Step" %}
     </p>
 {% endblock %}

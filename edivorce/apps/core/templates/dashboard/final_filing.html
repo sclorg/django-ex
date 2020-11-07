@@ -83,14 +83,14 @@
                     If you have not received a Court File Number, check the
                     <a href="{% url 'dashboard_nav' 'wait_for_number' %}">Wait for Court File</a> step.
                     If you have not sworn / affirmed your affidavits, check the
-                    <a href="{% url 'dashboard_nav' 'swear_forms' %}">Swear/Affirm Forms</a> step.
-                    Enter your Court File Number below:
+                    <a href="{% url 'dashboard_nav' 'swear_forms' %}">Swear / Affirm Forms</a> step.
                 </p>
-                <div>
+                <div class="form">
+                    <p><b>Enter your Court File Number:</b></p>
                     <p class="error-text" hidden id="court-file-error">
                         A Court File Number contains only digits and must be between 4 and 10 digits in length.
                     </p>
-                    <label>{% include "partials/tooltips/court_file_number.html" with text="Court File #" %}</label>
+                    <label>{% include "partials/tooltips/court_file_number.html" %}</label>
                     {% input_field type="number" name="court_file_number" id="court-file-number" class="input-inline" %}
                 </div>
             </div>
@@ -104,10 +104,10 @@
                     </p>
                     <ul>
                         <li>
-                            {% include "partials/tooltips/requisition_form_35.html" %}
+                            {% include "partials/tooltips/forms/requisition_form_35.html" %}
                         </li>
                         <li>
-                            {% include "partials/tooltips/certificate_of_pleading_36.html" %}
+                            {% include "partials/tooltips/forms/certificate_of_pleading_36.html" %}
                         </li>
                     </ul>
                 {% endif %}
@@ -127,12 +127,12 @@
                         in the following order:
                     </p>
                     <ul>
-                        <li>{% include "partials/tooltips/joint_family_claim_1.html" with text="Notice of Joint Family Claim Form (F1)" %}
+                        <li>{% include "partials/tooltips/forms/joint_family_claim_1.html" with text="Notice of Joint Family Claim Form (F1)" %}
                             signed by both you and your spouse
                         </li>
                         {% if original_marriage_certificate == 'YES' %}
-                            <li>{% include "partials/tooltips/proof_of_marriage.html" %}</li>
-                            <li>{% include "partials/tooltips/affidavit_of_translation.html" %} sworn/affirmed by a translator
+                            <li>{% include "partials/tooltips/forms/proof_of_marriage.html" %}</li>
+                            <li>{% include "partials/tooltips/forms/affidavit_of_translation.html" %} sworn / affirmed by a translator
                                 <ul class="no-margin-bottom">
                                     <li>
                                         Required only if your marriage certificate is NOT in English
@@ -140,24 +140,24 @@
                                 </ul>
                             </li>
                         {% endif %}
-                        <li>{% include "partials/tooltips/joint_divorce_proceedings.html" %}</li>
-                        <li>{% include "partials/tooltips/requisition_form_35.html" %} signed by both you and your spouse</li>
-                        <li>{% include "partials/tooltips/draft_final_order_52.html" %} signed by both you and your spouse</li>
-                        <li>{% include "partials/tooltips/certificate_of_pleading_36.html" %}</li>
+                        <li>{% include "partials/tooltips/forms/joint_divorce_proceedings.html" %}</li>
+                        <li>{% include "partials/tooltips/forms/requisition_form_35.html" %} signed by both you and your spouse</li>
+                        <li>{% include "partials/tooltips/forms/draft_final_order_52.html" %} signed by both you and your spouse</li>
+                        <li>{% include "partials/tooltips/forms/certificate_of_pleading_36.html" %}</li>
                         {% if derived.has_children_of_marriage %}
-                            <li>{% include "partials/tooltips/form_child_support_37.html" %} sworn/affirmed by both you and your spouse</li>
+                            <li>{% include "partials/tooltips/forms/child_support_37.html" %} sworn / affirmed by both you and your spouse</li>
                         {% endif %}
-                        <li>{% include "partials/tooltips/form_desk_order_38.html" with text="Affidavit Desk Order Divorce (F38)" %} sworn/affirmed by
+                        <li>{% include "partials/tooltips/forms/desk_order_38.html" with text="Affidavit Desk Order Divorce (F38)" %} sworn / affirmed by
                             both you and your spouse
                         </li>
                         {% if derived.has_children_of_marriage %}
-                            <li>{% include "partials/tooltips/agreement_to_annual_income_9.html" %}</li>
+                            <li>{% include "partials/tooltips/forms/agreement_to_annual_income_9.html" %}</li>
                         {% endif %}
                         {% if derived.wants_other_orders and name_change_you == 'YES' %}
-                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} for you</li>
+                            <li>{% include "partials/tooltips/forms/identification_of_applicant.html" %} for you</li>
                         {% endif %}
                         {% if derived.wants_other_orders and name_change_spouse == 'YES' %}
-                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} for your spouse</li>
+                            <li>{% include "partials/tooltips/forms/identification_of_applicant.html" %} for your spouse</li>
                         {% endif %}
                     </ul>
                     <p>
@@ -195,12 +195,12 @@
                         in the following order:
                     </p>
                     <ul>
-                        <li>{% include "partials/tooltips/joint_family_claim_1.html" with text="Notice of Joint Family Claim Form (F1)" %}
+                        <li>{% include "partials/tooltips/forms/joint_family_claim_1.html" with text="Notice of Joint Family Claim Form (F1)" %}
                             signed by both you and your spouse
                         </li>
                         {% if original_marriage_certificate == 'YES' %}
-                            <li>{% include "partials/tooltips/proof_of_marriage.html" %}</li>
-                            <li>{% include "partials/tooltips/affidavit_of_translation.html" %} sworn/affirmed by a translator
+                            <li>{% include "partials/tooltips/forms/proof_of_marriage.html" %}</li>
+                            <li>{% include "partials/tooltips/forms/affidavit_of_translation.html" %} sworn / affirmed by a translator
                                 <ul class="no-margin-bottom">
                                     <li>
                                         Required only if your marriage certificate is NOT in English
@@ -208,21 +208,21 @@
                                 </ul>
                             </li>
                         {% endif %}
-                        <li>{% include "partials/tooltips/joint_divorce_proceedings.html" %}</li>
-                        <li>{% include "partials/tooltips/requisition_form_35.html" %} signed by both you and your spouse</li>
-                        <li>{% include "partials/tooltips/draft_final_order_52.html" %} signed by both you and your spouse</li>
-                        <li>{% include "partials/tooltips/certificate_of_pleading_36.html" %}</li>
+                        <li>{% include "partials/tooltips/forms/joint_divorce_proceedings.html" %}</li>
+                        <li>{% include "partials/tooltips/forms/requisition_form_35.html" %} signed by both you and your spouse</li>
+                        <li>{% include "partials/tooltips/forms/draft_final_order_52.html" %} signed by both you and your spouse</li>
+                        <li>{% include "partials/tooltips/forms/certificate_of_pleading_36.html" %}</li>
                         {% if derived.has_children_of_marriage %}
-                            <li>{% include "partials/tooltips/form_child_support_37.html" %} sworn/affirmed by you</li>
+                            <li>{% include "partials/tooltips/forms/child_support_37.html" %} sworn / affirmed by you</li>
                         {% endif %}
-                        <li>{% include "partials/tooltips/form_desk_order_38.html" with text="Affidavit Desk Order Divorce (F38)" %}
-                            sworn/affirmed by you
+                        <li>{% include "partials/tooltips/forms/desk_order_38.html" with text="Affidavit Desk Order Divorce (F38)" %}
+                            sworn / affirmed by you
                         </li>
                         {% if derived.has_children_of_marriage %}
-                            <li>{% include "partials/tooltips/agreement_to_annual_income_9.html" %}</li>
+                            <li>{% include "partials/tooltips/forms/agreement_to_annual_income_9.html" %}</li>
                         {% endif %}
                         {% if derived.wants_other_orders and name_change_you == 'YES' %}
-                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} for you</li>
+                            <li>{% include "partials/tooltips/forms/identification_of_applicant.html" %} for you</li>
                         {% endif %}
                     </ul>
                     <p>
@@ -256,20 +256,20 @@
                         {% endif %}
                     </ul>
                     <p>
-                        Once sworn/affirmed and filed, you will receive a {% include "partials/tooltips/court_file_number.html" %}.
+                        Once sworn / affirmed and filed, you will receive a {% include "partials/tooltips/court_file_number.html" %}.
                         This number will be used if you need to file any additional documentation.
                     </p>
                     <h2>Spouse - Document Requirements</h2>
                     <p class="no-margin-bottom">
-                        The following sworn/affirmed affidavits still remain to be filed:
+                        The following sworn / affirmed affidavits still remain to be filed:
                     </p>
                     <ul>
                         {% if derived.has_children_of_marriage %}
-                            <li>{% include "partials/tooltips/form_child_support_37.html" %} - sworn/affirmed by your spouse</li>
+                            <li>{% include "partials/tooltips/forms/child_support_37.html" %} - sworn / affirmed by your spouse</li>
                         {% endif %}
-                        <li>{% include "partials/tooltips/form_desk_order_38.html" %} - sworn/affirmed by your spouse</li>
+                        <li>{% include "partials/tooltips/forms/desk_order_38.html" %} - sworn / affirmed by your spouse</li>
                         {% if derived.wants_other_orders and name_change_spouse == 'YES' %}
-                            <li>{% include "partials/tooltips/identification_of_applicant.html" %} - for your spouse</li>
+                            <li>{% include "partials/tooltips/forms/identification_of_applicant.html" %} - for your spouse</li>
                         {% endif %}
                     </ul>
                     <p>
@@ -344,14 +344,14 @@
 {% block sidebarText %}
     <p>
         An application for divorce can be completed in one step or two steps depending on
-        how you are swearing/affirming your affidavit(s).
+        how you are swearing / affirming your affidavit(s).
         The two steps include an initial filing and a final filing.
         The initial filing is where you will start the proceeding for divorce
         by filing your Notice of Joint Family Claim.
     </p>
     <p>
         The final filing is the application asking the court to order the divorce
-        and includes your sworn/affirmed affidavit(s) and other supporting documents.
+        and includes your sworn / affirmed affidavit(s) and other supporting documents.
     </p>
 {% endblock %}
 

@@ -12,15 +12,7 @@
 
 <h1>
     {% if not intercepted %}<small>Step 1:</small>{% endif %}
-    What are you asking for
-    (<span class="tooltip-link" data-toggle="tooltip" data-placement="auto" data-html="true" data-trigger="click" title="
-          <p><b>Orders</b></p>
-          <p>A record of a decision made by a judge or master that tells you or
-          your spouse what you must do (or not do).  For example: The court has
-          made an order that your spouse must pay you $250 on a monthly basis
-          to help pay off your combined debt.
-          ">Orders<i class="fa fa-question-circle" aria-hidden="true"></i>
-</span>)?
+    What are you asking for ({% include "partials/tooltips/order.html" with text="Orders" %})?
 </h1>
 
 <p class="intro">Please select what you are asking for. Later on you will be asked to provide details for each request.</p>
@@ -110,16 +102,7 @@
             <p>
                 If you and your spouse have already agreed on spousal support
                 (which could be in the form of a
-                <span class="tooltip-link" data-toggle="tooltip" data-placement="auto"
-                      data-html="true" data-trigger="click"
-                      title="
-                      <p>A document that sets out how you and your spouse have
-                      agreed to deal with things like parenting support
-                      and property after you separate (Provincial family law
-                      calls it an agreement). There's no official form to use
-                      for drafting up a separation agreement.</p>
-                      ">separation agreement
-                <i class="fa fa-question-circle" aria-hidden="true"></i></span>)
+                {% include "partials/tooltips/forms/separation_agreement.html" %})
                 then you do not need to ask for an <em>Order for Spousal
                 Support</em>. However, if you <b>do not have a separation
                 agreement</b> that deals with spousal support, then you may
@@ -130,7 +113,7 @@
                 filed at the registry, which then becomes an order, or you can
                 ask for the order (spousal support) from the court. Either one
                 will be enforceable (require the other party to do
-                something/adhere to what has been agreed).
+                something / adhere to what has been agreed).
             </p>
         </div>
     </div>
@@ -161,7 +144,7 @@
                 You can enforce either a separation agreement that has been filed
                 at the registry, which then becomes an order, or you can ask for
                 the order (property and debts) from the court. Either one will be
-                enforceable (require the other party to do something/adhere to
+                enforceable (require the other party to do something / adhere to
                 what has been agreed).
             </p>
         </div>
@@ -191,36 +174,10 @@
                 </label>
             </div>
 
-            <p>This may include
-                <span class="tooltip-link" data-toggle="tooltip" data-placement="auto"
-                      data-html="true" data-trigger="click"
-                      title="Child support<br>
-                      <p>Parents have a duty under the law to support their children,
-                      even if one parent doesn't see or take care of the children.
-                      The money one parent pays to the other parent to help provide
-                      for the daily needs of the children is called child support or
-                      maintenance.</p>
-                      ">child support<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>,
-                <span class="tooltip-link" data-toggle="tooltip" data-placement="auto"
-                      data-html="true" data-trigger="click"
-                      title="Parental responsibilities<br>
-                      <p>The responsibilities guardians have for the children in their care, including decisions about daily care, education, religious upbringing, extracurricular activities, etc. After separation or divorce, guardians can share parental responsibilities in whatever way that's in the child's best interests, as decided by agreement or court order.</p>
-                      <p>When a child's parents live together, both parents are the child's guardians (have guardianship). When the parents separate, both parents continue to be guardians unless they agree to change this or a court orders a change. A court can give guardianship of a child to a non-parent. Guardians are responsible for making all decisions about their child, including about daily care and supervision, education, health care, cultural or religious upbringing, and where the child will live.</p>
-                      ">parental responsibilities<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>(guardianship),
-                <span class="tooltip-link" data-toggle="tooltip" data-placement="auto"
-                      data-html="true" data-trigger="click"
-                      title="Parenting time<br>
-                      <p>The time that a guardian spends with a child and is responsible for the care and supervision of the child.</p>
-                      ">parenting time<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span> (access, contact with a child) and
-                <span class="tooltip-link" data-toggle="tooltip" data-placement="auto"
-                      data-html="true" data-trigger="click"
-                      title="Custody<br>
-                      <p>Under the Divorce Act, where and with whom a child lives, and the guardian's rights and responsibilities for the child. Under the BC Child, Family and Community Service Act, custody is similar.</p>
-                      ">custody<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>.
+            <p>This may include {% include "partials/tooltips/children/child_support.html" %},
+                {% include "partials/tooltips/children/parental_responsibilities.html" %}(guardianship),
+                {% include "partials/tooltips/children/parenting_time.html" %}
+                (access, contact with a child) and {% include "partials/tooltips/children/custody.html" %}.
             </p>
             <p>
                 <b>NOTE:</b> Just because you have children does not mean you have to select this option. Only select if you want a Judge to make
@@ -298,23 +255,8 @@
                         <a href="https://www2.gov.bc.ca/gov/content/justice/about-bcs-justice-system/legislation-policy/legislation-updates/family-law-act"
                            target="_blank">Family Law Act</a>.
                         If you choose to go with the Family Law Act, you can get court orders or enforce an agreement in either
-                        <span class="tooltip-link"
-                              data-toggle="tooltip" data-placement="right" data-html="true"
-                              title="
-                              <b>Provincial Court</b>
-                              <p>The lower level trial court which deals with small claims, family,
-                              youth criminal offenders, criminal and traffic matters.</p>
-                              ">
-                        Provincial Court<i class="fa fa-question-circle" aria-hidden="true"></i></span>
-                        or
-                        <span class="tooltip-link"
-                              data-toggle="tooltip" data-placement="right" data-html="true"
-                              title="
-                              <b>Supreme Court</b>
-                              <p>The higher level trial court. This court also hears appeals from
-                              the Provincial Court, and sometimes reviews the decisions of certain
-                              provincial tribunals and public decision-making bodies.</p>">
-                        Supreme Court<i class="fa fa-question-circle" aria-hidden="true"></i></span>,
+                        {% include "partials/tooltips/provincial_court.html" %}
+                        or {% include "partials/tooltips/supreme_court.html" %},
                         but if you go with the Divorce Act, you can only do this in Supreme Court.
                     </p>
                     <p>
@@ -323,7 +265,7 @@
                         apply to the Supreme Court to settle your other family law issues,
                         such as support and
                         <a href="http://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart"
-                           target="_blank">parenting arrangements</a> , under the Divorce Act or
+                           target="_blank">parenting arrangements</a>, under the Divorce Act or
                         under the provincial Family Law Act. The Family Law Act is usually
                         better for settling these issues because it is tailored to respond
                         to the needs of families.
@@ -341,7 +283,7 @@
 <div class="information-message bg-danger add-top-margin" id="unselected_orders_alert" hidden>
     <p>
         We've noticed that at this point in time you are not applying for
-        spousal support and/or division of property, debt, or a pension. If you
+        spousal support and / or division of property, debt, or a pension. If you
         decide to request these items in the future there are some time limits.
     </p>
 
@@ -437,34 +379,9 @@
     registry. In Supreme Court, the parties involved in a case (or their
     lawyers) are responsible for telling the court the order(s) they want.
     This is done by putting the details in writing in their
-    <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
-          title="
-           <p><b>Application</b></p>
-           <p>An application is a request to the court for an order or judgment
-           which occurs during the course of a court proceeding. What this means
-           is an application is what you are seeking from the court and the
-           draft order is the outcome of what is being sought. The draft order
-           includes the full details (e.g. child support to be paid by payor or
-           payee, by when, how, etc). of what you want the court to grant.</p>
-           ">application<i class="fa fa-question-circle" aria-hidden="true"></i></span>
-    and in a
-    <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
-          title="
-          <p><b>Draft of the order</b></p>
-          <p>A draft final order sets out what orders (decisions) you want the
-          court to make (what you want the judge to approve).  The draft final
-          order is reviewed by a judge or master. If the judge or master makes
-          the order you ask for, they'll sign the <b>draft order</b> you filed
-          and it becomes your <b>final court order</b>.</p>
-          ">draft of the order<i class="fa fa-question-circle" aria-hidden="true"></i></span>
-    to be signed by the judge or
-    <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true"
-       title="
-       <p><b>Master</b></p>
-       <p>A master is a judicial officer of the Supreme Court who can hear and
-       decide certain applications, including interim applications for
-       parenting or support orders.</p>
-       ">master<i class="fa fa-question-circle" aria-hidden="true"></i></span>.
+    {% include "partials/tooltips/application.html" %}
+    and in a {% include "partials/tooltips/draft_of_order.html" %} to be signed by the judge or
+    {% include "partials/tooltips/master.html" %}.
     The judge or master who reviews the application will sign the order, if
     they approve it.
 </p>

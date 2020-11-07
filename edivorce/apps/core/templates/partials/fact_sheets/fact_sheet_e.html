@@ -4,24 +4,7 @@
     <p>
         The Child Support Guidelines tables contain the base amounts for child support. If you our your spouse feel
         that the child support amount will not leave enough money, you can claim that you will suffer
-        <span class="tooltip-link"
-              data-toggle="tooltip" data-placement="right" data-html="true"
-              title="
-                    <b>Undue hardship</b>
-                    <p>
-                        Circumstances that show the amount of child support under the child support guidelines is too
-                        high or low. Must create &quot;undue&quot; (exceptional, excessive or disproportionate) difficulty
-                        for the person making the claim.
-                     </p>
-                     <p>
-                     A term used by the Child Support Guidelines to describe circumstances when payment of the table
-                     amount of child support would cause financial difficulty for the payor or the recipient, potentially
-                     justifying an award of support in an amount different than the table amount. See &quot;child support,&quot;
-                     &quot;Child Support Guidelines&quot; and &quot;table amount.&quot;
-                     </p>
-                    ">
-                    undue hardship<i class="fa fa-question-circle" aria-hidden="true"></i>.
-            </span>
+        {% include "partials/tooltips/children/undue_hardship.html" %}
     </p>
 
     <div class="btn-radio-group" data-toggle="buttons">
@@ -76,15 +59,7 @@
             <tr class="list-builder-header">
                 <th class="table-bordered">Debt name</th>
                 <th class="table-bordered">What are the
-                    <span class="tooltip-link"
-                          data-toggle="tooltip" data-placement="right" data-html="true"
-                          title="
-                                    <b>Terms of this Debt</b>
-                                    <p>For example, how much is owed, what is the rate of interest,
-                                    when it must be repaid.</p>
-                                    ">
-                                terms of this debt<i class="fa fa-question-circle" aria-hidden="true"></i>
-                            </span>?
+                    {% include "partials/tooltips/children/terms_of_debt.html" %}?
                 </th>
                 <th class="table-bordered">Monthly amount</th>
                 <th></th>
@@ -176,7 +151,7 @@
             </tbody>
         </table>
 
-        <p><strong>Supporting dependent child/children from another relationship.</strong></p>
+        <p><strong>Supporting dependent child / children from another relationship.</strong></p>
         <p>
             List the names of any other children for whom you have a legal duty to make support payments to.
             Do not include the names of any children for whom you are asking for support for as a part of this
@@ -252,21 +227,7 @@
         <p>
             Enter the name (s) and income for any other persons in your household (e.g. co-parent, step parent)
             who have a
-            <span class="tooltip-link"
-                  data-toggle="tooltip"
-                  data-placement="right"
-                  data-html="true"
-                  title="<b>Duty to support</b><br />
-                          Parents and guardians have a responsibility (duty) under the law to financially support their
-                          children, whether or not they see or take care of the children.  A parent, for the purposes
-                          of child support, may include a stepparent if they were living together, in a relationship,
-                          with the child’s parent and the child during the child’s life.  The duty of a stepparent or
-                          non-parent guardian to provide support is secondary to that of the child’s parents.">
-                    duty to support<i class="fa fa-question-circle" aria-hidden="true"></i>
-                </span>
-
-
-            a child.
+            {% include "partials/tooltips/children/duty_to_support.html" %} a child.
         </p>
         <table id="income_others" class="list-builder list-builder-compact">
             <thead>
