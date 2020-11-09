@@ -126,6 +126,11 @@ var showHideTargetId = function(el, id, relatedId, revealControlGroup) {
         if (id === "#marriage_certificate") {
             reveal($("input[name=provide_certificate_later]:checked"));
         }
+
+        // reveal nested question as well
+        if (id === "#has_children") {
+            reveal($("input[name=has_children_over_19]:checked"));
+        }
     } else if (revealControlGroup !== undefined) {
         if ($(revealControlGroup).is(':checked').length === 0) {
             $(id).hide();
