@@ -3,8 +3,8 @@ from django.shortcuts import redirect
 from django.urls import reverse
 
 from edivorce.apps.core.utils.question_step_mapping import pre_qual_step_question_mapping
-from edivorce.apps.core.utils.step_completeness import get_missed_question_keys, is_complete
-from edivorce.apps.core.utils.user_response import get_data_for_user, get_step_responses, questions_dict_for_step
+from edivorce.apps.core.utils.step_completeness import is_complete
+from edivorce.apps.core.utils.user_response import get_data_for_user, questions_dict_for_step
 
 base_url = settings.PROXY_BASE_URL + settings.FORCE_SCRIPT_NAME[:-1]
 

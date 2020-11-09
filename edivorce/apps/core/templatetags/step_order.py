@@ -3,8 +3,12 @@ import json
 
 from django.urls import reverse
 
-from ..utils.template_step_order import template_step_order, template_sub_step_order, get_step_name, \
-    get_step_or_sub_step_name
+from ..utils.template_step_order import (
+    template_step_order,
+    template_sub_step_order,
+    get_step_name,
+    get_step_or_sub_step_name,
+)
 
 register = template.Library()
 

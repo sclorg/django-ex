@@ -175,16 +175,6 @@ def child_or_children(value):
     return '%d children'
 
 
-@register.filter
-def integer(value):
-    """ Return value as an int or nothing """
-
-    try:
-        return int(float(value))
-    except ValueError:
-        return ''
-
-
 @register.simple_tag()
 def lookup(obj, property):
     """ Return the value of a dynamic property within an object"""

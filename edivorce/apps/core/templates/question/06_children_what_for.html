@@ -2,7 +2,6 @@
 {% load static %}
 {% load input_field %}
 {% load step_order %}
-{% load load_json %}
 {% load format_utils %}
 
 {% block title %}{{ block.super }}: Your Children {% endblock %}
@@ -18,7 +17,7 @@
         </h3>
         <div class="radio">
             <label class="radio-with-textbox">
-                {% if 'Child support' in want_which_orders|load_json %}
+                {% if derived.wants_child_support %}
                     {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="MATCH" data_target_id="child_support_in_order_detail" data_reveal_target="false" data_target_class="support-amount-match" data_reveal_class="false" %}
                 {% else %}
                     {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="MATCH" data_target_id="child_support_in_order_detail" data_reveal_target="false" data_target_class="support-amount-match" data_reveal_class="false" disabled="" %}
@@ -44,13 +43,13 @@
         </div>
         <div class="radio">
             <label class="radio-with-textbox">
-                {% if 'Child support' in want_which_orders|load_json %}
+                {% if derived.wants_child_support %}
                     {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="DIFF" data_target_class="support-amount-match" data_reveal_class="true" data_target_id="child_support_in_order_detail" data_reveal_target="false" %}
                 {% else %}
                     {% input_field type="radio" class="radio-centered radio-with-other radio_with_textbox" name="child_support_in_order" value="DIFF" data_target_class="support-amount-match" data_reveal_class="true" data_target_id="child_support_in_order_detail" data_reveal_target="false" disabled="" %}
                 {% endif %}
 
-                {% if 'Child support' in want_which_orders|load_json %}
+                {% if derived.wants_child_support %}
                     {% if child_support_in_order == 'DIFF' %}
                         <div class="dollar-prefix">
                             {% money_input_field name="order_monthly_child_support_amount" class="money positive-float form-block response-textbox children-input-block child-support-amount" data_ajax_only_radio_selected="true" %}
@@ -73,8 +72,8 @@
             </label>
         </div>
         <div class="radio">
-            
-            {% if 'Child support' in want_which_orders|load_json %}
+
+            {% if derived.wants_child_support %}
                 <label>{% input_field type="radio" class="radio-with-other radio_with_textbox" name="child_support_in_order" value="NO" data_target_id="child_support_in_order_detail" data_reveal_target="true" data_target_class="support-amount-match" data_reveal_class="false" %}
                     We are not asking for child support to be included in the order</label>
             {% else %}
@@ -332,7 +331,7 @@
     {% endif %}
 
     {# DIV-963: Show/hide logic and text update will be handled by JavaScript function updateChildSupportActQuestion() #}
-    <div class="question-well {% if child_support_act_error %}error{% endif %}" id="child_support_act" {% if 'Child support' in want_which_orders|load_json %}data-want_child_order="true"{% endif %}>
+    <div class="question-well {% if child_support_act_error %}error{% endif %}" id="child_support_act" {% if derived.wants_child_support %}data-want_child_order="true"{% endif %}>
         <h3><span id="child_support_act_question">Please indicate which act(s) you are asking for child support under.</span>
             {% if child_support_act_error %}{% include 'partials/required.html' %}{% endif %}
         </h3>

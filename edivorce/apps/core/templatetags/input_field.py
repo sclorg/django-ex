@@ -135,17 +135,6 @@ def additional_attributes(**kwargs):
 
 
 @register.simple_tag
-def check_list(source, value):
-    """
-    Check if given value is in the given source
-    """
-    try:
-        return value in json.loads(source)
-    except:
-        return False
-
-
-@register.simple_tag
 def multiple_values_to_list(source):
     try:
         return json.loads(source)
