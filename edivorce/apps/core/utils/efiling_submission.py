@@ -171,11 +171,14 @@ class EFilingSubmission:
                 response = json.loads(response.text)
 
                 if 'details' in response and len(response['details']) > 0:
-                    return None, response['details'][0]
+                    message = f"<p>{response['message']}</p>"
+                    details = f"<ul><li>{'</li><li>'.join(response['details'])}</li></ul>"
+                    return None, message + details
 
                 return None, f"{response['error']} - {response['message']}"
 
         if response.status_code == 401:
-            return None, '401 - ' + str(response.headers.get('WWW-Authenticate', ''))
+            print(response.headers.get('WWW-Authenticate', ''))
+            return None, '401 - Authentication Failed'
 
         return None, f'{response.status_code} - {response.text}'
