@@ -78,7 +78,9 @@
     <ul>
         <li>a printer (or a print service)</li>
         <li>payment for filing fees (see More Information sidebar for more information)</li>
-        <li>a copy of your marriage certificate (from any jurisdiction)</li>
+        {% if original_marriage_certificate == 'YES' %}
+            <li>a copy of your marriage certificate (from any jurisdiction)</li>
+        {% endif %}
         <li>{% include "partials/tooltips/forms/joint_divorce_proceedings.html" with text="Registration of Divorce Proceedings" %} form</li>
         <li>Both you and your spouse to sign some of the same documents</li>
         <li>You will need to have your affidavit(s) sworn / affirmed (see above)</li>
