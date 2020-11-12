@@ -167,7 +167,14 @@
             </div>
         </footer>
 
-        <div id="progress-overlay" style="display: none"><div id="progress-overlay-spinner"></div></div>
+        <div id="progress-overlay" style="display: none">
+            <div id="progress-overlay-spinner"></div>
+            <div id="progress-overlay-message" style="display: none">
+                <div>
+                    Please wait.  Submission may take several minutes.
+                </div>
+            </div>
+        </div>
 
 {% if request.user.is_authenticated and not request.user.has_accepted_terms and request.path != '/current' %}
         <div id="terms_modal" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
