@@ -171,9 +171,11 @@ class EFilingSubmission:
                 response = json.loads(response.text)
 
                 if 'details' in response and len(response['details']) > 0:
-                    message = f"<p>{response['message']}</p>"
-                    details = f"<ul><li>{'</li><li>'.join(response['details'])}</li></ul>"
-                    return None, message + details
+                    details = ' '.join(response['details'])
+                    # clean up the message to make it presentable
+                    details = details.replace('[', '').replace(']', '').replace(
+                        'FileNumber', 'File number')
+                    return None, details
 
                 return None, f"{response['error']} - {response['message']}"
 
