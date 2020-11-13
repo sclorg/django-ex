@@ -285,5 +285,6 @@ def intercept_page(request):
     template = 'question/%02d_%s.html' % (template_step_order['orders'], 'orders')
     responses_dict = get_data_for_user(request.user)
     responses_dict['intercepted'] = True
+    responses_dict['derived'] = get_derived_data(responses_dict)
 
     return render(request, template_name=template, context=responses_dict)
