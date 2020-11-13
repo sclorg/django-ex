@@ -97,12 +97,12 @@ def _validate_and_submit_documents(request, responses, initial=False):
 
     msg, redirect_url = _package_and_submit(request, uploaded, generated, responses, initial)
 
+    if redirect_url:
+        return None, redirect_url
+
     if msg != 'success':
         errors.append(msg)
         return errors, None
-
-    if redirect_url:
-        return None, redirect_url
 
     return None, None
 
