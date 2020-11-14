@@ -1385,7 +1385,7 @@ textarea {
 		display: inline-block;
 		width: 100%;
 		@media (min-width: 991px) {
-			width: initial;
+			width: calc(100% - 240px);
 		}
 
 		& > div {
