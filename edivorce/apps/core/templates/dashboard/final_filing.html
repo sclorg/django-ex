@@ -58,7 +58,7 @@
         <div class="review-warning" id="error-message-box" {% if not messages %}hidden{% endif %}>
             <ul id="error-messages" class="{% if messages|length == 1 %}no-bullets no-padding-left {% endif %}no-margin-bottom">
                 {% for message in messages %}
-                    <li>{{ message|safe }}</li>
+                    <li>{{ message }}</li>
                 {% endfor %}
             </ul>
         </div>
