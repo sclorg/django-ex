@@ -11,5 +11,5 @@
 {% endblock %}
 
 {% block label %}
-    Supreme Court
+    {% if text %}{{ text }}{% else %}Supreme Court{% endif %}
 {% endblock %}

@@ -13,5 +13,5 @@
 {% endblock %}
 
 {% block label %}
-    draft of the order
+    {% if text %}{{ text }}{% else %}draft of the order{% endif %}
 {% endblock %}

@@ -11,5 +11,5 @@
 {% endblock %}
 
 {% block label %}
-    Court order
+    {% if text %}{{ text }}{% else %}Court order{% endif %}
 {% endblock %}

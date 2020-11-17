@@ -9,5 +9,5 @@
 {% endblock %}
 
 {% block label %}
-    in arrears
+    {% if text %}{{ text }}{% else %}in arrears{% endif %}
 {% endblock %}

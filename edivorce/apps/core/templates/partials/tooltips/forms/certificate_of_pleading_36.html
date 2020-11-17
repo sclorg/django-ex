@@ -12,5 +12,5 @@
 {% endblock %}
 
 {% block label %}
-    Certificate of Pleadings Form (F36)
+    {% if text %}{{ text }}{% else %}Certificate of Pleadings Form (F36){% endif %}
 {% endblock %}

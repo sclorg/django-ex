@@ -13,5 +13,5 @@
 {% endblock %}
 
 {% block label %}
-    Completed Registration of Divorce form (Federal)
+    {% if text %}{{ text }}{% else %}Completed Registration of Divorce form (Federal){% endif %}
 {% endblock %}

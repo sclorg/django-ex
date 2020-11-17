@@ -9,5 +9,5 @@
 {% endblock %}
 
 {% block label %}
-    Provincial Court
+    {% if text %}{{ text }}{% else %}Provincial Court{% endif %}
 {% endblock %}

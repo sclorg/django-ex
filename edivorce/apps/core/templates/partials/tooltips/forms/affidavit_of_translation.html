@@ -12,5 +12,5 @@
 {% endblock %}
 
 {% block label %}
-    Affidavit of Translation (F30)
+    {% if text %}{{ text }}{% else %}Affidavit of Translation (F30){% endif %}
 {% endblock %}

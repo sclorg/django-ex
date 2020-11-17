@@ -10,5 +10,5 @@
 {% endblock %}
 
 {% block label %}
-    exhibit
+    {% if text %}{{ text }}{% else %}exhibit{% endif %}
 {% endblock %}

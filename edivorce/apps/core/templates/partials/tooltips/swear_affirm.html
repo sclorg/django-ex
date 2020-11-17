@@ -17,5 +17,5 @@
 {% endblock %}
 
 {% block label %}
-    swear / affirm
+    {% if text %}{{ text }}{% else %}swear / affirm{% endif %}
 {% endblock %}

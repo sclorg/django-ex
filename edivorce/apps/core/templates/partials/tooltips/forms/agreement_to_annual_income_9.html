@@ -12,5 +12,5 @@
 {% endblock %}
 
 {% block label %}
-    Agreement as to Annual Income (F9)
+    {% if text %}{{ text }}{% else %}Agreement as to Annual Income (F9){% endif %}
 {% endblock %}

@@ -12,5 +12,5 @@
 {% endblock %}
 
 {% block label %}
-    Child Support Affidavit (F37)
+    {% if text %}{{ text }}{% else %}Child Support Affidavit (F37){% endif %}
 {% endblock %}

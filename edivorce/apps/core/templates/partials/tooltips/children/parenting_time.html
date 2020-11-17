@@ -9,5 +9,5 @@
 {% endblock %}
 
 {% block label %}
-    parenting time
+    {% if text %}{{ text }}{% else %}parenting time{% endif %}
 {% endblock %}

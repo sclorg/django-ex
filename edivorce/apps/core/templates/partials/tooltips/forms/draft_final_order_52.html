@@ -12,5 +12,5 @@
 {% endblock %}
 
 {% block label %}
-    Draft Final Order Form (F52)
+    {% if text %}{{ text }}{% else %}Draft Final Order Form (F52){% endif %}
 {% endblock %}

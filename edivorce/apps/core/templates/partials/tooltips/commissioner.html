@@ -14,5 +14,5 @@
 {% endblock %}
 
 {% block label %}
-    commissioner
+    {% if text %}{{ text }}{% else %}commissioner{% endif %}
 {% endblock %}

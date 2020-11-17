@@ -10,5 +10,5 @@
 {% endblock %}
 
 {% block label %}
-    Court File Number
+    {% if text %}{{ text }}{% else %}Court File Number{% endif %}
 {% endblock %}

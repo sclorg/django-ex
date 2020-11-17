@@ -12,5 +12,5 @@
 {% endblock %}
 
 {% block label %}
-    Requisition Form (F35)
+    {% if text %}{{ text }}{% else %}Requisition Form (F35){% endif %}
 {% endblock %}

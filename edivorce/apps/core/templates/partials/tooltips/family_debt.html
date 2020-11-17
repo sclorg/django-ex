@@ -12,5 +12,5 @@
 {% endblock %}
 
 {% block label %}
-    family debt
+    {% if text %}{{ text }}{% else %}family debt{% endif %}
 {% endblock %}

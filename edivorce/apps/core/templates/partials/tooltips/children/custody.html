@@ -10,5 +10,5 @@
 {% endblock %}
 
 {% block label %}
-    custody
+    {% if text %}{{ text }}{% else %}custody{% endif %}
 {% endblock %}

@@ -9,5 +9,5 @@
 {% endblock %}
 
 {% block label %}
-    payor
+    {% if text %}{{ text }}{% else %}payor{% endif %}
 {% endblock %}

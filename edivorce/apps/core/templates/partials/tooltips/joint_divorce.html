@@ -12,5 +12,5 @@
 {% endblock %}
 
 {% block label %}
-    joint divorce
+    {% if text %}{{ text }}{% else %}joint divorce{% endif %}
 {% endblock %}

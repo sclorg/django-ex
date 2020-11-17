@@ -27,5 +27,5 @@
 {% endblock %}
 
 {% block label %}
-    children of the marriage
+    {% if text %}{{ text }}{% else %}children of the marriage{% endif %}
 {% endblock %}

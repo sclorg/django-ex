@@ -13,5 +13,5 @@
 {% endblock %}
 
 {% block label %}
-    proportionate shares
+    {% if text %}{{ text }}{% else %}proportionate shares{% endif %}
 {% endblock %}

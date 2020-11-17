@@ -10,5 +10,5 @@
 {% endblock %}
 
 {% block label %}
-    affidavit(s)
+    {% if text %}{{ text }}{% else %}affidavit(s){% endif %}
 {% endblock %}

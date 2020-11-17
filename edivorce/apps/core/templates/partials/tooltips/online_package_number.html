@@ -10,5 +10,9 @@
 {% endblock %}
 
 {% block label %}
-    {% if with_cso %}CSO {% endif %}Online Package #
+    {% if text %}
+        {{ text }}
+    {% else %}
+        {% if with_cso %}CSO {% endif %}Online Package #
+    {% endif %}
 {% endblock %}

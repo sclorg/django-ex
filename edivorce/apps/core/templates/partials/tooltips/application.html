@@ -14,5 +14,5 @@
 {% endblock %}
 
 {% block label %}
-    application
+    {% if text %}{{ text }}{% else %}application{% endif %}
 {% endblock %}

@@ -10,4 +10,6 @@
     It is a legal requirement that you confirm you are providing accurate and complete information.
 {% endblock %}
 
-{% block label %}collusion{% endblock %}
+{% block label %}
+    {% if text %}{{ text }}{% else %}collusion{% endif %}
+{% endblock %}

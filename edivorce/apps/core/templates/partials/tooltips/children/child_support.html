@@ -13,5 +13,5 @@
 {% endblock %}
 
 {% block label %}
-    child support
+{% if text %}{{ text }}{% else %}child support{% endif %}
 {% endblock %}

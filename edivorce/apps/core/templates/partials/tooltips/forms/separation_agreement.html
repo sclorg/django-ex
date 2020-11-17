@@ -11,5 +11,5 @@
 {% endblock %}
 
 {% block label %}
-    Separation agreement
+    {% if text %}{{ text }}{% else %}Separation agreement{% endif %}
 {% endblock %}

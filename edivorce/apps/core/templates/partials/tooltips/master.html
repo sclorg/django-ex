@@ -11,5 +11,5 @@
 {% endblock %}
 
 {% block label %}
-    master
+    {% if text %}{{ text }}{% else %}master{% endif %}
 {% endblock %}

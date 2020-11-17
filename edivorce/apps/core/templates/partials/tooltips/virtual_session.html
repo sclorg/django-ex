@@ -14,5 +14,5 @@
 {% endblock %}
 
 {% block label %}
-    virtual session
+    {% if text %}{{ text }}{% else %}virtual session{% endif %}
 {% endblock %}

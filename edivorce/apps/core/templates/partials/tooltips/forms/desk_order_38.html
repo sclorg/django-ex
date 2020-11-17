@@ -11,5 +11,5 @@
 {% endblock %}
 
 {% block label %}
-    Affidavit — Desk Order Divorce Form (F38)
+    {% if text %}{{ text }}{% else %}Affidavit — Desk Order Divorce Form (F38){% endif %}
 {% endblock %}

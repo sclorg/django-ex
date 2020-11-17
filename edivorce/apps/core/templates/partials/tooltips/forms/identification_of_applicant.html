@@ -11,5 +11,5 @@
 {% endblock %}
 
 {% block label %}
-    Identification of Applicant (VSA 512)
+    {% if text %}{{ text }}{% else %}Identification of Applicant (VSA 512){% endif %}
 {% endblock %}

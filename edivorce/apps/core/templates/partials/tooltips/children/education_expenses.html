@@ -14,5 +14,5 @@
 {% endblock %}
 
 {% block label %}
-    educational expenses
+    {% if text %}{{ text }}{% else %}educational expenses{% endif %}
 {% endblock %}

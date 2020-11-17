@@ -29,5 +29,5 @@
 {% endblock %}
 
 {% block label %}
-    ordinary residence
+    {% if text %}{{ text }}{% else %}ordinary residence{% endif %}
 {% endblock %}

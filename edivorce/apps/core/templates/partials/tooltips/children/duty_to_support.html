@@ -13,5 +13,5 @@
 {% endblock %}
 
 {% block label %}
-    duty to support
+    {% if text %}{{ text }}{% else %}duty to support{% endif %}
 {% endblock %}

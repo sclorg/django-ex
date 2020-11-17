@@ -16,5 +16,5 @@
 {% endblock %}
 
 {% block label %}
-    undue hardship
+    {% if text %}{{ text }}{% else %}undue hardship{% endif %}
 {% endblock %}

@@ -11,5 +11,5 @@
 {% endblock %}
 
 {% block label %}
-    proposed in the order
+    {% if text %}{{ text }}{% else %}proposed in the order{% endif %}
 {% endblock %}

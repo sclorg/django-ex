@@ -9,5 +9,5 @@
 {% endblock %}
 
 {% block label %}
-    file
+    {% if text %}{{ text }}{% else %}file{% endif %}
 {% endblock %}

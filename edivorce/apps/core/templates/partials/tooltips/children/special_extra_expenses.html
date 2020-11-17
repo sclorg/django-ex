@@ -13,5 +13,5 @@
 {% endblock %}
 
 {% block label %}
-    special and extraordinary expenses
+    {% if text %}{{ text }}{% else %}special and extraordinary expenses{% endif %}
 {% endblock %}

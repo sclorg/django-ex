@@ -10,5 +10,5 @@
 {% endblock %}
 
 {% block label %}
-    terms of this debt
+    {% if text %}{{ text }}{% else %}terms of this debt{% endif %}
 {% endblock %}

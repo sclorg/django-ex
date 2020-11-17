@@ -13,5 +13,5 @@
 {% endblock %}
 
 {% block label %}
-    family property
+    {% if text %}{{ text }}{% else %}family property{% endif %}
 {% endblock %}

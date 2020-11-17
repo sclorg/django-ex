@@ -14,5 +14,5 @@
 {% endblock %}
 
 {% block label %}
-    order about parenting arrangements or contact
+    {% if text %}{{ text }}{% else %}order about parenting arrangements or contact{% endif %}
 {% endblock %}

@@ -13,5 +13,5 @@
 {% endblock %}
 
 {% block label %}
-    sole divorce
+    {% if text %}{{ text }}{% else %}sole divorce{% endif %}
 {% endblock %}

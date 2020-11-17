@@ -10,5 +10,5 @@
 {% endblock %}
 
 {% block label %}
-    registry
+    {% if text %}{{ text }}{% else %}registry{% endif %}
 {% endblock %}

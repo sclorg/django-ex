@@ -12,5 +12,5 @@
 {% endblock %}
 
 {% block label %}
-    Proof of marriage
+    {% if text %}{{ text }}{% else %}Proof of marriage{% endif %}
 {% endblock %}

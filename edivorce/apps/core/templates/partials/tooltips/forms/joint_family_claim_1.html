@@ -12,5 +12,5 @@
 {% endblock %}
 
 {% block label %}
-    Notice of Joint Family Claim
+    {% if text %}{{ text }}{% else %}Notice of Joint Family Claim{% endif %}
 {% endblock %}

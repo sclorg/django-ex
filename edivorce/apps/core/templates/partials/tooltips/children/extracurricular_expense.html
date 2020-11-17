@@ -11,5 +11,5 @@
 {% endblock %}
 
 {% block label %}
-    extracurricular activities
+    {% if text %}{{ text }}{% else %}extracurricular activities{% endif %}
 {% endblock %}

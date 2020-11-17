@@ -13,5 +13,5 @@
 {% endblock %}
 
 {% block label %}
-    Registration of Joint Divorce Proceedings (JUS280)
+    {% if text %}{{ text }}{% else %}Registration of Joint Divorce Proceedings (JUS280){% endif %}
 {% endblock %}

@@ -20,5 +20,5 @@
 {% endblock %}
 
 {% block label %}
-    Court Registry
+    {% if text %}{{ text }}{% else %}Court Registry{% endif %}
 {% endblock %}

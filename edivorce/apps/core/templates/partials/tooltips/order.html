@@ -8,4 +8,6 @@
     A type of court ruling a judge or master makes that sets out what you must do or not do.
 {% endblock %}
 
-{% block label %}order{% endblock %}
+{% block label %}
+    {% if text %}{{ text }}{% else %}order{% endif %}
+{% endblock %}

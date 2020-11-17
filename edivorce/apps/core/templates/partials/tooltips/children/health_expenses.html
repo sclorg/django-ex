@@ -11,5 +11,5 @@
 {% endblock %}
 
 {% block label %}
-    Health related expenses
+    {% if text %}{{ text }}{% else %}Health related expenses{% endif %}
 {% endblock %}

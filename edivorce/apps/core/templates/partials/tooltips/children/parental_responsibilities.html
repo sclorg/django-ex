@@ -17,5 +17,5 @@
 {% endblock %}
 
 {% block label %}
-    parental responsibilities
+    {% if text %}{{ text }}{% else %}parental responsibilities{% endif %}
 {% endblock %}

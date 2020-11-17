@@ -10,5 +10,5 @@
 {% endblock %}
 
 {% block label %}
-    enforced
+    {% if text %}{{ text }}{% else %}enforced{% endif %}
 {% endblock %}
