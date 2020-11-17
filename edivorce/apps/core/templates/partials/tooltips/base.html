@@ -1,5 +1,7 @@
 <span class="tooltip-link" data-toggle="tooltip" data-placement="right" data-html="true" title="
     <b>{% block title %}{% endblock %}</b>
     <br /><br />
-    {% block inner %}{% endblock %}"><span class=" content">{% if text %}{{ text }}{% else %}{% block label %}{% endblock %}{% endif %}
-</span><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+    {% block inner %}{% endblock %}">
+    <span class=" content">{% block label %}{% endblock %}</span>
+    <i class="fa fa-question-circle" aria-hidden="true"></i>
+</span>

@@ -15,5 +15,5 @@
 {% endblock %}
 
 {% block label %}
-    Legally married
+    {% if text %}{{ text }}{% else %}Legally married{% endif %}
 {% endblock %}

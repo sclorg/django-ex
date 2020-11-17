@@ -11,5 +11,5 @@
 {% endblock %}
 
 {% block label %}
-    marriage like
+    {% if text %}{{ text }}{% else %}marriage like{% endif %}
 {% endblock %}
