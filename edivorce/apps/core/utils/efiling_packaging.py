@@ -24,7 +24,7 @@ PACKAGE_DOCUMENT_FORMAT = {
 
 PACKAGE_PARTY_FORMAT = {
     "partyType": "IND",
-    "roleType": "CLA",
+    "roleType": "CLA1",
     "firstName": "FirstName",
     "middleName": "",
     "lastName": "LastName",
@@ -293,6 +293,7 @@ class EFilingPackaging:
         parties = []
 
         party1 = PACKAGE_PARTY_FORMAT.copy()
+        party1['roleType'] = "CLA1"
         party1['firstName'] = responses.get('given_name_1_you', '')
         party1['middleName'] = (responses.get('given_name_2_you', '') +
                                 ' ' +
@@ -301,6 +302,7 @@ class EFilingPackaging:
         parties.append(party1)
 
         party2 = PACKAGE_PARTY_FORMAT.copy()
+        party2['roleType'] = "CLA2"
         party2['firstName'] = responses.get('given_name_1_spouse', '')
         party2['middleName'] = (responses.get('given_name_2_spouse', '') +
                                 ' ' +
