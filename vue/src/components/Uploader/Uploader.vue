@@ -128,7 +128,6 @@
   import FormDefinitions from "../../utils/forms";
   import rotateFix from "../../utils/rotation";
   import axios from "axios";
-  import graphQLStringify from "stringify-object";
   import Compressor from "compressorjs";
 
   export default {
@@ -435,10 +434,8 @@
           partyCode: this.party,
           files: allFiles,
         };
-        const graphQLData = graphQLStringify(data, {
-          singleQuotes: false,
-          inlineCharacterLimit: 99999,
-        });
+        const json = JSON.stringify(data);
+        const graphQLData = json.replace(/"([^"]+)":/g, '$1:');
         const url = `${this.$parent.proxyRootPath}api/graphql/`;
         axios
           .post(url, {

@@ -18,7 +18,7 @@ $(window).ready(function () {
         $('div#app').children().each(function (i, child) {
             if ($(child).find("div.placeholder.required").length > 0) {
                 var formName = $(child).find("h5 a").text();
-                errors.push(`Missing documents for ${formName}`);
+                errors.push('Missing documents for ' + formName);
             }
         })
         var errorBox = $('#error-message-box');
@@ -27,7 +27,7 @@ $(window).ready(function () {
             e.preventDefault();
             messageList.empty();
             errors.forEach(function (message) {
-                messageList.append(`<li>${message}</li>`);
+                messageList.append('<li>' + message + '</li>');
             });
             errorBox.show();
             window.scrollTo(0, 0);
