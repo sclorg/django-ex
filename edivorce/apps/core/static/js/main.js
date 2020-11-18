@@ -1212,7 +1212,6 @@ var date_picker = function (selector, showOnFocus) {
         endDate: endDate,
         autoclose: true,
         todayHighlight: true,
-        immediateUpdates: true,
         showOnFocus: showOnFocus,
         startView: 'decade',
         clearBtn: true
