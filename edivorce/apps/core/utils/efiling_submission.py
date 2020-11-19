@@ -6,7 +6,6 @@ import uuid
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 
-from .efiling_packaging import EFilingPackaging
 from .efiling_hub_api import EFilingHubApi
 
 logger = logging.getLogger(__name__)
@@ -14,9 +13,9 @@ logger = logging.getLogger(__name__)
 
 class EFilingSubmission(EFilingHubApi):
 
-    def __init__(self, initial_filing):
+    def __init__(self, initial_filing, packaging):
         self.initial_filing = initial_filing
-        self.packaging = EFilingPackaging(initial_filing)
+        self.packaging = packaging
         self.submission_id = None
         self.access_token = None
         self.refresh_token = None
@@ -33,6 +32,30 @@ class EFilingSubmission(EFilingHubApi):
             guid = str(uuid.uuid4())
             request.session['transaction_id'] = guid
         return guid
+
+    def _get_api(self, request, url, bceid_guid, headers={}, data=None, transaction_id=None, files=None):
+        # make sure we have an access token
+        if not self.access_token:
+            if not self._get_token(request):
+                raise Exception('EFH - Unable to get API Token')
+
+        headers = self._set_headers(headers, bceid_guid, self.access_token, transaction_id)
+
+        if not data:
+            data = {}
+
+        response = requests.post(url, headers=headers, data=data, files=files)
+        logging.debug(f'EFH - Get API {response.status_code} {response.text}')
+
+        if response.status_code == 401:
+            # not authorized .. try refreshing token
+            if self._refresh_token(request):
+                headers = self._set_headers(headers, bceid_guid, self.access_token, transaction_id)
+
+                response = requests.post(url, headers=headers, data=data, files=files)
+                logging.debug(f'EFH - Get API Retry {response.status_code} {response.text}')
+
+        return response
 
     def upload(self, request, responses, files, documents=None, parties=None):
         """
@@ -55,10 +78,15 @@ class EFilingSubmission(EFilingHubApi):
         url = f'{self.api_base_url}/submission/documents'
         print('DEBUG: ' + url)
         try:
-            response = self._get_api(request, url, transaction_id,
-                                     bceid_guid, headers={}, files=files)
+            response = self._get_api(request, url, bceid_guid, headers={},
+                                     transaction_id=transaction_id, files=files)
         except:
-            return settings.FORCE_SCRIPT_NAME + "dashboard/initial_filing?no_connection=1", None
+            if self.initial_filing:
+                error_route = 'initial_filing'
+            else:
+                error_route = 'final_filing'
+
+            return settings.FORCE_SCRIPT_NAME + f"dashboard/{error_route}?no_connection=1", None
 
         if response.status_code == 200:
             response = json.loads(response.text)

@@ -6,8 +6,6 @@ import uuid
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 
-from .efiling_packaging import EFilingPackaging
-
 logger = logging.getLogger(__name__)
 
 
@@ -65,38 +63,6 @@ class EFilingHubApi:
             return True
         return False
 
-    def _get_api(self, request, url, bceid_guid, headers={}, data=None, transaction_id=None, files=None):
-        # make sure we have an access token
-        if not self.access_token:
-            if not self._get_token(request):
-                raise Exception('EFH - Unable to get API Token')
-
-        headers.update({
-            'X-Transaction-Id': transaction_id,
-            'X-User-Id': bceid_guid,
-            'Authorization': f'Bearer {self.access_token}'
-        })
-
-        if not data:
-            data = {}
-
-        response = requests.post(url, headers=headers, data=data, files=files)
-        logging.debug(f'EFH - Get API {response.status_code} {response.text}')
-
-        if response.status_code == 401:
-            # not authorized .. try refreshing token
-            if self._refresh_token(request):
-                headers.update({
-                    'X-Transaction-Id': transaction_id,
-                    'X-User-Id': bceid_guid,
-                    'Authorization': f'Bearer {self.access_token}'
-                })
-
-                response = requests.post(url, headers=headers, data=data, files=files)
-                logging.debug(f'EFH - Get API Retry {response.status_code} {response.text}')
-
-        return response
-
     def _get_bceid(self, request):
 
         def _get_raw_bceid(request):
@@ -112,3 +78,17 @@ class EFilingHubApi:
         if guid:
             return str(uuid.UUID(guid))
         return guid
+
+    def _set_headers(self, headers, bceid_guid, access_token, transaction_id=None):
+        if transaction_id:
+            headers.update({
+                'X-User-Id': bceid_guid,
+                'Authorization': f'Bearer {self.access_token}',
+                'X-Transaction-Id': transaction_id
+            })
+        else:
+            headers.update({
+                'X-User-Id': bceid_guid,
+                'Authorization': f'Bearer {self.access_token}'
+            })
+        return headers

@@ -17,7 +17,8 @@ class EFilingPackagingTests(TransactionTestCase):
         middleware.process_request(self.request)
         self.request.session.save()
 
-        self.packaging = EFilingPackaging(initial_filing=True)
+        self.packaging = EFilingPackaging(initial_filing=True,
+                                          court_locations={"Vancouver": {"location_id": "6011"}})
 
     def test_format_package(self):
         files = []
@@ -49,18 +50,18 @@ class EFilingPackagingTests(TransactionTestCase):
         responses = {
             "court_registry_for_filing": "Vancouver"
         }
-        location = self.packaging._get_location(responses)
+        location = self.packaging._get_location(None, responses)
         self.assertEqual(location, '6011')
 
     def test_get_location_fail(self):
         responses = {
             "court_registry_for_filing": "Tokyo"
         }
-        location = self.packaging._get_location(responses)
+        location = self.packaging._get_location(None, responses)
         self.assertEqual(location, '0000')
 
         responses = {}
-        location = self.packaging._get_location(responses)
+        location = self.packaging._get_location(None, responses)
         self.assertEqual(location, '0000')
 
     def test_get_json_data_signing_location(self):

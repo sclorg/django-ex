@@ -46,8 +46,8 @@ class EFilingSubmissionTests(TransactionTestCase):
         middleware.process_request(self.request)
         self.request.session.save()
 
-        self.hub = EFilingSubmission(initial_filing=True)
         self.packaging = EFilingPackaging(initial_filing=True)
+        self.hub = EFilingSubmission(initial_filing=True, packaging=self.packaging)
 
     def _mock_response(self, status=200, text="Text", json_data=None, raise_for_status=None):
         mock_resp = mock.Mock()
