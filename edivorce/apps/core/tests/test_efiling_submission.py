@@ -180,7 +180,7 @@ class EFilingSubmissionTests(TransactionTestCase):
                 self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE)),
                 self._mock_response(text=json.dumps(GENERATE_URL_RESPONSE))
             ]
-            mock_get_location.side_effect = "0000"
+            mock_get_location.return_value = "0000"
 
             redirect, msg = self.hub.upload(self.request, {}, {})
 
@@ -209,7 +209,7 @@ class EFilingSubmissionTests(TransactionTestCase):
                 self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE)),
                 self._mock_response(text=json.dumps(GENERATE_URL_RESPONSE_ERROR), status=403)
             ]
-            mock_get_location.side_effect = "0000"
+            mock_get_location.return_value = "0000"
 
             redirect, msg = self.hub.upload(self.request, {}, {})
 
