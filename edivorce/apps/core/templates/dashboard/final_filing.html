@@ -178,11 +178,14 @@
                     <p>
                         You have indicated that you will file at the following court registry:
                     </p>
+                    {% if court_registry_for_filing %}
                     <ul class="no-bullets">
-                        <li>{{ court_registry_for_filing }}</li>
-                        <li>{{ court_registry_for_filing_address }}</li>
-                        <li>{{ court_registry_for_filing_postal_code }}</li>
+                        <li>{{ court_registry_for_filing }} Law Courts</li>
+                        <li>{{ court_registry_for_filing_address|safe }}</li>
+                        <li>{{ court_registry_for_filing }}, B.C.</li>
+                        <li>{{ court_registry_for_filing_postal_code|safe }}</li>
                     </ul>
+                    {% endif %}
                     <p>
                         Once filed, you will receive a {% include "partials/tooltips/court_file_number.html" %}.
                         This number will be used if you need to file any additional documents.
@@ -245,9 +248,10 @@
                     </p>
                     <ul class="no-bullets">
                         {% if court_registry_for_filing %}
-                            <li>{{ court_registry_for_filing }}</li>
-                            <li>{{ court_registry_for_filing_address }}</li>
-                            <li>{{ court_registry_for_filing_postal_code }}</li>
+                            <li>{{ court_registry_for_filing }} Law Courts</li>
+                            <li>{{ court_registry_for_filing_address|safe }}</li>
+                            <li>{{ court_registry_for_filing }}, B.C.</li>
+                            <li>{{ court_registry_for_filing_postal_code|safe }}</li>
                         {% else %}
                             <p class="error-text">
                                 Go back to the questionnaire to choose a

@@ -5,24 +5,23 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import TransactionTestCase
 from django.test.client import RequestFactory
 
-
 from edivorce.apps.core.utils.efiling_court_locations import EFilingCourtLocations
 
 SAMPLE_COURTS_RESPONSE = {"courts": [{
     "id": 19227.0734,
     "identifierCode": "5871",
     "name": "100 Mile House Law Courts",
-            "code": "OMH",
-            "isSupremeCourt": False,
-            "address": {
-                "addressLine1": "160 Cedar Avenue South",
-                "addressLine2": "Box 1060",
-                "addressLine3": None,
-                "postalCode": "V0K2E0",
-                "cityName": "100 Mile House",
-                "provinceName": "British Columbia",
-                "countryName": "Canada"
-            }
+    "code": "OMH",
+    "isSupremeCourt": False,
+    "address": {
+        "addressLine1": "160 Cedar Avenue South",
+        "addressLine2": "Box 1060",
+        "addressLine3": None,
+        "postalCode": "V0K2E0",
+        "cityName": "100 Mile House",
+        "provinceName": "British Columbia",
+        "countryName": "Canada"
+    }
 }]}
 
 

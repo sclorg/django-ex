@@ -165,7 +165,7 @@ def dashboard_nav(request, nav_step):
     responses_dict['active_page'] = nav_step
     template_name = 'dashboard/%s.html' % nav_step
     if nav_step in ('print_form', 'swear_forms', 'next_steps', 'final_filing') and responses_dict.get('court_registry_for_filing'):
-        _add_court_registry_address(responses_dict)
+        _add_court_registry_address(request, responses_dict)
     if nav_step in ('print_form', 'initial_filing', 'final_filing'):
         _add_question_errors(responses_dict)
     if nav_step in ('initial_filing', 'final_filing'):
@@ -176,9 +176,33 @@ def dashboard_nav(request, nav_step):
     return render(request, template_name=template_name, context=responses_dict)
 
 
-def _add_court_registry_address(responses_dict):
-    responses_dict['court_registry_for_filing_address'] = f"123 {responses_dict.get('court_registry_for_filing')} St"
-    responses_dict['court_registry_for_filing_postal_code'] = 'V0A 1A1'
+def _add_court_registry_address(request, responses_dict):
+
+    filing_registry = responses_dict.get('court_registry_for_filing', '')
+
+    if not filing_registry:
+        return
+
+    locations = EFilingCourtLocations().courts(request)
+
+    if not filing_registry in locations.keys():
+        return
+
+    location = locations[filing_registry]
+
+    def addr(key):
+        val = location.get(key, '')
+        strVal = '' if val is None else str(val)
+        return strVal + "<br>" if strVal else ''
+
+    address = addr('address_1') + addr('address_2') + addr('address_3')
+    responses_dict['court_registry_for_filing_address'] = address.strip()
+    postal = addr('postal')
+    if len(postal) >= 10:
+        postal = postal[0:3] + ' ' + postal[-7:]
+        responses_dict['court_registry_for_filing_postal_code'] = postal
+    else:
+        responses_dict['court_registry_for_filing_postal_code'] = postal
 
 
 def _add_question_errors(responses_dict):
