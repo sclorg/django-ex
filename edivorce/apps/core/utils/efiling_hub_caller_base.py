@@ -9,7 +9,7 @@ from django.core.exceptions import PermissionDenied
 logger = logging.getLogger(__name__)
 
 
-class EFilingHubApi:
+class EFilingHubCallerBase:
 
     def __init__(self):
         self.client_id = settings.EFILING_HUB_KEYCLOAK_CLIENT_ID

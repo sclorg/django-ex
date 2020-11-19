@@ -7,8 +7,8 @@ from django.contrib.auth.decorators import login_required
 
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import intercept, prequal_completed
+from ..utils.efiling_court_locations import EFilingCourtLocations
 from ..utils.efiling_documents import forms_to_file
-from ..utils.court_locations import CourtLocations
 from ..utils.step_completeness import get_error_dict, get_missed_question_keys, get_step_completeness, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
 from ..utils.user_response import (
@@ -232,7 +232,7 @@ def question(request, step, sub_step=None):
     responses_dict['active_page'] = step
     # If page is filing location page, add registries dictionary for list of court registries
     if step == "location":
-        courts = CourtLocations().courts(request)
+        courts = EFilingCourtLocations().courts(request)
         responses_dict['registries'] = sorted(courts.keys())
 
     responses_dict['sub_step'] = sub_step

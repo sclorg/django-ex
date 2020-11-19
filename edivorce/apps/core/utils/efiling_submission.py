@@ -6,12 +6,12 @@ import uuid
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 
-from .efiling_hub_api import EFilingHubApi
+from .efiling_hub_caller_base import EFilingHubCallerBase
 
 logger = logging.getLogger(__name__)
 
 
-class EFilingSubmission(EFilingHubApi):
+class EFilingSubmission(EFilingHubCallerBase):
 
     def __init__(self, initial_filing, packaging):
         self.initial_filing = initial_filing
@@ -19,7 +19,7 @@ class EFilingSubmission(EFilingHubApi):
         self.submission_id = None
         self.access_token = None
         self.refresh_token = None
-        EFilingHubApi.__init__(self)
+        EFilingHubCallerBase.__init__(self)
 
     def _get_transaction(self, request):
         """

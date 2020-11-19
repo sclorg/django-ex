@@ -9,7 +9,7 @@ from django.urls import reverse
 
 from ..models import Document
 from ..views.pdf import images_to_pdf, pdf_form
-from .court_locations import CourtLocations
+from .efiling_court_locations import EFilingCourtLocations
 
 logger = logging.getLogger(__name__)
 
@@ -316,7 +316,7 @@ class EFilingPackaging:
     def _get_location(self, request, responses):
         location_name = responses.get('court_registry_for_filing', '')
         if not self.court_locations:
-            self.court_locations = CourtLocations().courts(request)
+            self.court_locations = EFilingCourtLocations().courts(request)
         return self.court_locations.get(location_name,
                                         {'location_id': '0000'}).get('location_id')
 

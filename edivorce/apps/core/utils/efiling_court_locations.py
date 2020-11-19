@@ -7,17 +7,17 @@ from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 
-from .efiling_hub_api import EFilingHubApi
+from .efiling_hub_caller_base import EFilingHubCallerBase
 
 logger = logging.getLogger(__name__)
 
 
-class CourtLocations(EFilingHubApi):
+class EFilingCourtLocations(EFilingHubCallerBase):
 
     def __init__(self):
         self.access_token = None
         self.refresh_token = None
-        EFilingHubApi.__init__(self)
+        EFilingHubCallerBase.__init__(self)
 
     def _get_api(self, request, url, bceid_guid, headers={}):
         # make sure we have an access token

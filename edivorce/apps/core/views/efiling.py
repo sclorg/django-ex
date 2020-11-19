@@ -10,10 +10,10 @@ from django.contrib.auth.decorators import login_required
 
 from ..decorators import prequal_completed
 from ..models import Document, UserResponse
+from ..utils.efiling_court_locations import EFilingCourtLocations
 from ..utils.efiling_documents import forms_to_file
 from ..utils.efiling_packaging import EFilingPackaging
 from ..utils.efiling_submission import EFilingSubmission
-from ..utils.court_locations import CourtLocations
 from ..utils.user_response import get_data_for_user
 
 MAX_MEGABYTES = 10
