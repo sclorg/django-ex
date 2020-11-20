@@ -46,8 +46,8 @@ class EFilingSubmissionTests(TransactionTestCase):
         middleware.process_request(self.request)
         self.request.session.save()
 
-        self.hub = EFilingSubmission(initial_filing=True)
         self.packaging = EFilingPackaging(initial_filing=True)
+        self.hub = EFilingSubmission(initial_filing=True, packaging=self.packaging)
 
     def _mock_response(self, status=200, text="Text", json_data=None, raise_for_status=None):
         mock_resp = mock.Mock()
@@ -112,7 +112,7 @@ class EFilingSubmissionTests(TransactionTestCase):
         self.hub.access_token = 'aslkfjadskfjd'
 
         response = self.hub._get_api(
-            self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
+            self.request, 'https://somewhere.com', 'alksdjfa')
 
         self.assertTrue(response)
         self.assertEqual(response.status_code, 200)
@@ -132,7 +132,7 @@ class EFilingSubmissionTests(TransactionTestCase):
         ]
 
         response = self.hub._get_api(
-            self.request, 'https://somewhere.com', 'alksdjfa', 'kasdkfd', {})
+            self.request, 'https://somewhere.com', 'alksdjfa')
 
         self.assertTrue(response)
         self.assertEqual(response.status_code, 200)
@@ -171,14 +171,17 @@ class EFilingSubmissionTests(TransactionTestCase):
             bceid = self.hub._get_bceid(self.request)
             self.assertFalse(bceid)
 
+    @mock.patch('edivorce.apps.core.utils.efiling_packaging.EFilingPackaging._get_location')
     @mock.patch('edivorce.apps.core.utils.efiling_submission.EFilingSubmission._get_api')
-    def test_upload_success(self, mock_get_api):
+    def test_upload_success(self, mock_get_api, mock_get_location):
         self.request.session['bcgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
         with self.settings(DEPLOYMENT_TYPE='prod'):
             mock_get_api.side_effect = [
                 self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE)),
                 self._mock_response(text=json.dumps(GENERATE_URL_RESPONSE))
             ]
+            mock_get_location.return_value = "0000"
+
             redirect, msg = self.hub.upload(self.request, {}, {})
 
             self.assertTrue(redirect)
@@ -197,14 +200,17 @@ class EFilingSubmissionTests(TransactionTestCase):
 
             self.assertFalse(redirect)
 
+    @mock.patch('edivorce.apps.core.utils.efiling_packaging.EFilingPackaging._get_location')
     @mock.patch('edivorce.apps.core.utils.efiling_submission.EFilingSubmission._get_api')
-    def test_upload_failed_generate_url(self, mock_get_api):
+    def test_upload_failed_generate_url(self, mock_get_api, mock_get_location):
         self.request.session['bcgov_userguid'] = '70fc9ce1-0cd6-4170-b842-bbabb88452a9'
         with self.settings(DEPLOYMENT_TYPE='prod'):
             mock_get_api.side_effect = [
                 self._mock_response(text=json.dumps(INITIAL_DOC_UPLOAD_RESPONSE)),
                 self._mock_response(text=json.dumps(GENERATE_URL_RESPONSE_ERROR), status=403)
             ]
+            mock_get_location.return_value = "0000"
+
             redirect, msg = self.hub.upload(self.request, {}, {})
 
             self.assertFalse(redirect)

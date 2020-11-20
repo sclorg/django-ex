@@ -7,9 +7,9 @@ import re
 from django.conf import settings
 from django.urls import reverse
 
-from edivorce.apps.core.models import Document
-from edivorce.apps.core.utils.question_step_mapping import list_of_registries
-from edivorce.apps.core.views.pdf import images_to_pdf, pdf_form
+from ..models import Document
+from ..views.pdf import images_to_pdf, pdf_form
+from .efiling_court_locations import EFilingCourtLocations
 
 logger = logging.getLogger(__name__)
 
@@ -108,7 +108,7 @@ class EFilingPackaging:
     def format_package(self, request, responses, files, documents):
         package = PACKAGE_FORMAT.copy()
         package['filingPackage']['documents'] = documents
-        package['filingPackage']['court']['location'] = self._get_location(responses)
+        package['filingPackage']['court']['location'] = self._get_location(request, responses)
         package['filingPackage']['parties'] = self._get_parties(responses)
         file_number = self._get_file_number(responses)
         if file_number:
@@ -312,10 +312,11 @@ class EFilingPackaging:
 
         return parties
 
-    def _get_location(self, responses):
+    def _get_location(self, request, responses):
         location_name = responses.get('court_registry_for_filing', '')
-        return list_of_registries.get(location_name,
-                                      {'location_id': '0000'}).get('location_id')
+        court_locations = EFilingCourtLocations().courts(request)
+        return court_locations.get(location_name,
+                                   {'location_id': '0000'}).get('location_id')
 
     def _get_file_number(self, responses):
         if not self.initial_filing:

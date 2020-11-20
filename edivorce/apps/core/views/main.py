@@ -7,8 +7,8 @@ from django.contrib.auth.decorators import login_required
 
 from edivorce.apps.core.utils.derived import get_derived_data
 from ..decorators import intercept, prequal_completed
+from ..utils.efiling_court_locations import EFilingCourtLocations
 from ..utils.efiling_documents import forms_to_file
-from ..utils.question_step_mapping import list_of_registries
 from ..utils.step_completeness import get_error_dict, get_missed_question_keys, get_step_completeness, is_complete, get_formatted_incomplete_list
 from ..utils.template_step_order import template_step_order
 from ..utils.user_response import (
@@ -165,7 +165,7 @@ def dashboard_nav(request, nav_step):
     responses_dict['active_page'] = nav_step
     template_name = 'dashboard/%s.html' % nav_step
     if nav_step in ('print_form', 'swear_forms', 'next_steps', 'final_filing') and responses_dict.get('court_registry_for_filing'):
-        _add_court_registry_address(responses_dict)
+        _add_court_registry_address(request, responses_dict)
     if nav_step in ('print_form', 'initial_filing', 'final_filing'):
         _add_question_errors(responses_dict)
     if nav_step in ('initial_filing', 'final_filing'):
@@ -176,9 +176,33 @@ def dashboard_nav(request, nav_step):
     return render(request, template_name=template_name, context=responses_dict)
 
 
-def _add_court_registry_address(responses_dict):
-    responses_dict['court_registry_for_filing_address'] = f"123 {responses_dict.get('court_registry_for_filing')} St"
-    responses_dict['court_registry_for_filing_postal_code'] = 'V0A 1A1'
+def _add_court_registry_address(request, responses_dict):
+
+    filing_registry = responses_dict.get('court_registry_for_filing', '')
+
+    if not filing_registry:
+        return
+
+    locations = EFilingCourtLocations().courts(request)
+
+    if not filing_registry in locations.keys():
+        return
+
+    location = locations[filing_registry]
+
+    def addr(key):
+        val = location.get(key, '')
+        strVal = '' if val is None else str(val)
+        return strVal + "<br>" if strVal else ''
+
+    address = addr('address_1') + addr('address_2') + addr('address_3')
+    responses_dict['court_registry_for_filing_address'] = address.strip()
+    postal = addr('postal')
+    if len(postal) >= 10:
+        postal = postal[0:3] + ' ' + postal[-7:]
+        responses_dict['court_registry_for_filing_postal_code'] = postal
+    else:
+        responses_dict['court_registry_for_filing_postal_code'] = postal
 
 
 def _add_question_errors(responses_dict):
@@ -232,7 +256,8 @@ def question(request, step, sub_step=None):
     responses_dict['active_page'] = step
     # If page is filing location page, add registries dictionary for list of court registries
     if step == "location":
-        responses_dict['registries'] = sorted(list_of_registries.keys())
+        courts = EFilingCourtLocations().courts(request)
+        responses_dict['registries'] = sorted(courts.keys())
 
     responses_dict['sub_step'] = sub_step
     responses_dict['derived'] = derived

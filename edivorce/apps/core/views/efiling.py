@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 from ..decorators import prequal_completed
 from ..models import Document, UserResponse
+from ..utils.efiling_court_locations import EFilingCourtLocations
 from ..utils.efiling_documents import forms_to_file
 from ..utils.efiling_packaging import EFilingPackaging
 from ..utils.efiling_submission import EFilingSubmission
@@ -109,8 +110,8 @@ def _validate_and_submit_documents(request, responses, initial=False):
 
 def _package_and_submit(request, uploaded, generated, responses, initial):
     """ Build the efiling package and submit it to the efiling hub """
-    hub = EFilingSubmission(initial_filing=initial)
-    packaging = EFilingPackaging(initial_filing=initial)
+    packaging = EFilingPackaging(initial)
+    hub = EFilingSubmission(initial, packaging)
     post_files, documents = packaging.get_files(request, responses, uploaded, generated)
     redirect_url, msg = hub.upload(request, responses, post_files, documents)
     return msg, redirect_url
