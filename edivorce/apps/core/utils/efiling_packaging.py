@@ -102,9 +102,8 @@ NJF_JSON_FORMAT = {
 
 class EFilingPackaging:
 
-    def __init__(self, initial_filing, court_locations=None):
+    def __init__(self, initial_filing):
         self.initial_filing = initial_filing
-        self.court_locations = court_locations
 
     def format_package(self, request, responses, files, documents):
         package = PACKAGE_FORMAT.copy()
@@ -315,10 +314,9 @@ class EFilingPackaging:
 
     def _get_location(self, request, responses):
         location_name = responses.get('court_registry_for_filing', '')
-        if not self.court_locations:
-            self.court_locations = EFilingCourtLocations().courts(request)
-        return self.court_locations.get(location_name,
-                                        {'location_id': '0000'}).get('location_id')
+        court_locations = EFilingCourtLocations().courts(request)
+        return court_locations.get(location_name,
+                                   {'location_id': '0000'}).get('location_id')
 
     def _get_file_number(self, responses):
         if not self.initial_filing:

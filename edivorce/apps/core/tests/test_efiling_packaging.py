@@ -1,3 +1,6 @@
+import json
+from unittest import mock
+
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import TransactionTestCase
 from django.test.client import RequestFactory
@@ -17,8 +20,8 @@ class EFilingPackagingTests(TransactionTestCase):
         middleware.process_request(self.request)
         self.request.session.save()
 
-        self.packaging = EFilingPackaging(initial_filing=True,
-                                          court_locations={"Vancouver": {"location_id": "6011"}})
+        self.packaging = EFilingPackaging(initial_filing=True)
+        # court_locations={"Vancouver": {"location_id": "6011"}}
 
     def test_format_package(self):
         files = []
@@ -46,14 +49,18 @@ class EFilingPackagingTests(TransactionTestCase):
         self.assertEqual(package['filingPackage']['parties'][0]['firstName'], 'Party 0')
         self.assertEqual(package['filingPackage']['parties'][1]['firstName'], 'Party 1')
 
-    def test_get_location_success(self):
+    @mock.patch('edivorce.apps.core.utils.efiling_court_locations.EFilingCourtLocations.courts')
+    def test_get_location_success(self, mock_courts):
+        mock_courts.return_value = {"Vancouver": {"location_id": "6011"}}
         responses = {
             "court_registry_for_filing": "Vancouver"
         }
         location = self.packaging._get_location(None, responses)
         self.assertEqual(location, '6011')
 
-    def test_get_location_fail(self):
+    @mock.patch('edivorce.apps.core.utils.efiling_court_locations.EFilingCourtLocations.courts')
+    def test_get_location_fail(self, mock_courts):
+        mock_courts.return_value = {"Vancouver": {"location_id": "6011"}}
         responses = {
             "court_registry_for_filing": "Tokyo"
         }
