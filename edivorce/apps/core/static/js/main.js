@@ -830,6 +830,7 @@ $(function () {
     });
 
     $('.question-well.step-review.error span.table-error').parent('td').addClass('contains-error');
+    $('.question-well.step-review.error span.table-error').closest('tr').addClass('row-contains-error');
 });
 
 
