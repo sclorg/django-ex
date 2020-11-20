@@ -64,7 +64,7 @@ if DEPLOYMENT_TYPE == 'test':
     REGISTER_BCSC_URL = 'https://logontest7.gov.bc.ca/clp-cgi/fed/fedLaunch.cgi?partner=fed38&partnerList=fed38&flags=0001:0,7&TARGET=http://test.justice.gov.bc.ca/divorce/oidc/authenticate'
     EDIVORCE_KEYCLOAK_BASE_URL = 'https://test.oidc.gov.bc.ca'
     EFILING_HUB_API_BASE_URL = 'https://efiling-api-nginx-proxy-qzaydf-test.pathfinder.gov.bc.ca/api'
-    EFILING_HUB_KEYCLOAK_BASE_URL = 'https://sso-test.pathfinder.gov.bc.ca'
+    EFILING_HUB_KEYCLOAK_BASE_URL = 'https://test.oidc.gov.bc.ca'
 
 if DEPLOYMENT_TYPE == 'prod':
     REGISTER_BCEID_URL = 'https://www.bceid.ca/directories/bluepages/details.aspx?serviceID=5203'
