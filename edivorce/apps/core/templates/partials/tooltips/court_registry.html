@@ -9,11 +9,10 @@
     <br/>
     <br/>
     {% if court_registry_for_filing %}
-        {{ court_registry_for_filing }}
-        <br/>
-        {{ court_registry_for_filing_address }}
-        <br/>
-        {{ court_registry_for_filing_postal_code }}
+        {{ court_registry_for_filing }} Law Courts<br>
+        {{ court_registry_for_filing_address|safe }}
+        {{ court_registry_for_filing }}, B.C.<br>
+        {{ court_registry_for_filing_postal_code|safe }}
     {% else %}
         No Court Registry was chosen
     {% endif %}

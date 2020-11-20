@@ -290,9 +290,10 @@
                     </p>
                     <ul class="no-bullets">
                         {% if court_registry_for_filing %}
-                            <li>{{ court_registry_for_filing }}</li>
-                            <li>{{ court_registry_for_filing_address }}</li>
-                            <li>{{ court_registry_for_filing_postal_code }}</li>
+                            <li>{{ court_registry_for_filing }} Law Courts</li>
+                            <li>{{ court_registry_for_filing_address|safe }}</li>
+                            <li>{{ court_registry_for_filing }}, B.C.</li>
+                            <li>{{ court_registry_for_filing_postal_code|safe }}</li>
                         {% else %}
                             <p class="error-text">
                                 Go back to the questionnaire to choose a
