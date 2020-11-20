@@ -75,12 +75,12 @@ class EFilingCourtLocations(EFilingHubCallerBase):
         if response.status_code == 401:
             print(response.headers.get('WWW-Authenticate', ''))
             return {
-                "Error calling court locations API": {"status_code": "401", "text": "authentication failed"},
+                "Authentication error calling court locations API": {},
                 "Vancouver": {"address_1": "API Error", "postal": "APIERR", "location_id": "6011"}
             }
 
         print(str(response.status_code) + " - " + response.text)
         return {
-            "Error calling court locations API": {"status_code": str(response.status_code), "text": response.text},
+            "Error calling court locations API": {},
             "Vancouver": {"address_1": "API Error", "postal": "APIERR", "location_id": "6011"}
         }
