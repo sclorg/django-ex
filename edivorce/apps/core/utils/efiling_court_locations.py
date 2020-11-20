@@ -79,6 +79,7 @@ class EFilingCourtLocations(EFilingHubCallerBase):
                 "Vancouver": {"address_1": "API Error", "postal": "APIERR", "location_id": "6011"}
             }
 
+        print(str(response.status_code) + " - " + response.text)
         return {
             "Error calling court locations API": {"status_code": str(response.status_code), "text": response.text},
             "Vancouver": {"address_1": "API Error", "postal": "APIERR", "location_id": "6011"}
