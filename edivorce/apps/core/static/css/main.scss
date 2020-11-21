@@ -598,6 +598,18 @@ select.form-control {
 	height: 42px;
 }
 
+input.form-control, input {
+	&[readonly] {
+		box-shadow: none;
+		cursor: default;
+		border-color: #ccc;
+
+		&:focus {
+			border-color: #ccc;
+		}
+	}
+}
+
 .form-group input.form-control,
 .input-group input.form-control:first-child {
 	margin-top: 12px;
