@@ -543,7 +543,7 @@ div.percent-suffix {
 	& > div {
 		color: $color-blue;
 		border-bottom: solid 1px $color-blue;
-		display: inline;
+		display: inline-block;
 		cursor: pointer;
 
 		.tooltip-link {
@@ -1510,49 +1510,70 @@ textarea {
 
 	table {
 		margin-bottom: 0;
-        border-collapse: separate !important;
-        border: none;
+		border-collapse: separate !important;
+		border: none;
 
-        thead th {
-            color: #fff;
-            border-bottom: 1px solid $color-grey-light;
-            border-top: 1px solid $color-grey-light;
-            background-color: $color-blue-dark;
-            &:first-child {
-                border-top-left-radius: 8px;
-            }
-            &:last-child {
-                border-top-right-radius: 8px;
-                border-left: 0;
-            }
-        }
-        tbody {
-            td {
-                border-top: none;
-                &.value-column {
-                    width: 30%;
-                    min-width: 192px;
-                    border-left: none;
-                    vertical-align: middle;
-                    &.contains-error {
-                        border: 2px solid $color-red;
-                    }
-                }
-            }
-            tr:last-child {
-                :first-child {
-                    border-bottom-left-radius: 8px;
-                }
-                :last-child {
-                    border-bottom-right-radius: 8px;
-                }
-            }
-        }
+		thead th {
+			color: #fff;
+			border: none;
+			border-bottom: 1px solid $color-grey-light;
+			background-color: $color-blue-dark;
 
-        thead {
-            -moz-border-radius-topleft: 8px;
-            -moz-border-radius-topright: 8px;
-        }
+			&:first-child {
+				border-top-left-radius: 8px;
+			}
+
+			&:last-child {
+				border-top-right-radius: 8px;
+				border-left: 1px solid $color-grey-light;
+			}
+
+			&:not(:first-child, :last-child) {
+				border: 1px solid $color-grey-light;
+			}
+		}
+
+		tbody {
+			td {
+				border-top: none;
+
+				&.value-column {
+					width: 30%;
+					min-width: 192px;
+					border-left: none;
+					vertical-align: middle;
+
+					&.contains-error {
+						border: 2px solid $color-red;
+					}
+				}
+			}
+
+			tr {
+				&.row-contains-error {
+					& + tr.row-contains-error {
+						td.contains-error {
+							border-top: none;
+						}
+					}
+				}
+
+				&:last-child {
+					:first-child {
+						border-bottom-left-radius: 8px;
+					}
+
+					:last-child {
+						border-bottom-right-radius: 8px;
+					}
+				}
+			}
+		}
+
+		thead {
+			-moz-border-radius-topleft: 8px;
+			-moz-border-radius-topright: 8px;
+		}
 	}
 
 	.collapse > div,
