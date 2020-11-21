@@ -1016,27 +1016,45 @@ textarea {
 #top_banner {
 	background-color: $brand-blue;
 	border-bottom: 2px solid $brand-gold;
-	padding: 5px 20px 10px;
+	padding: 0;
 
-	.top_banner-logo img {
-		width: 148px;
-		height: auto;
-		float: left;
+	& > .container-fluid > .row {
+		display: flex;
+		align-items: center;
+		height: 65px;
 	}
 
-	p {
-		color: #ffffff;
-		font-size: 16px;
-		line-height: 1em;
-		margin-top: 20px;
-		margin-left: 35px;
-		float: left;
+	.top_banner-logo {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		padding-left: 15px;
+
+		a.top_banner-logo__link {
+			display: inline-block;
+
+			img {
+				width: 175px;
+				height: auto;
+				float: left;
+			}
+		}
+
+		p {
+			color: #ffffff;
+			margin: auto 0;
+			padding: 0px 4px;
+			font-size: 16px;
+			line-height: 1em;
+		}
 
 		.beta {
+			color: #ffffff;
 			border: solid 1px #ffffff;
 			padding: 4px 8px 3px;
 			margin-left: 10px;
 			font-size: 12px;
+			height: 30px;
 			text-transform: uppercase;
 
 			&.environment-type {
@@ -1049,7 +1067,7 @@ textarea {
 		color: #fff;
 		font-size: 14px;
 		float: right;
-		margin-top: 16px;
+		padding-right: 15px;
 
 		input[type=submit] {
 			color: #ffffff;
@@ -1074,7 +1092,6 @@ textarea {
 
 	.mid_banner-dash {
 		float: left;
-		margin-left: -20px;
 	}
 
 	.mid_banner-dash a,
@@ -1082,7 +1099,6 @@ textarea {
 	.more_information-link a {
 		padding: 15px 16px;
 		float: right;
-		margin-left: 6px;
 
 		&.active,
 		&:hover {
@@ -1108,10 +1124,6 @@ textarea {
             text-decoration: none;
         }
     }
-
-        .mid_banner-dash a {
-		margin-left: 24px;
-	}
 
 	i {
 		color: #ffffff;
@@ -1751,16 +1763,6 @@ textarea {
         @media (min-width: 1920px) {
             font-size: 16px;
             line-height: 1.5;
-        }
-
-        .more_information-close {
-            float: right;
-            font-size: 24px;
-            margin-top: 3px;
-
-            i.fa {
-                color: $brand-blue;
-            }
         }
 
         h2 {

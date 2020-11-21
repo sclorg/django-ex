@@ -1243,12 +1243,6 @@ $(".more_information-link a").click(function () {
         $(contentColumn).removeClass("no-margin-right").addClass("margin-right");
     }
 });
-$("a.more_information-close").click(function () {
-    var moreInfo = $(".more_information-column");
-    $(moreInfo).removeClass("on-canvas").addClass("off-canvas");
-    $(moreInfoLink).removeClass("active");
-    $(contentColumn).removeClass("no-margin-right").addClass("margin-right");
-});
 
 // Change border color on well when child has focus
 
