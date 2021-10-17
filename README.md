@@ -1,4 +1,4 @@
-# Openshift quickstart: Django
+# Openshift quickstart: django :
 
 This is a [Django](http://www.djangoproject.com) project that you can use as the starting point to develop your own and deploy it on an [OpenShift](https://github.com/openshift/origin) cluster.
 
@@ -6,7 +6,7 @@ This is a [Django](http://www.djangoproject.com) project that you can use as the
 
 The steps in this document assume that you have access to an OpenShift deployment that you can deploy applications on.
 
-## What has been done for you
+## What has been done for you :
 
 This is a minimal Django 1.11 project. It was created with these steps:
 
@@ -24,7 +24,7 @@ From this initial state you can:
 * update settings to suit your needs
 * install more Python libraries and add them to the `requirements.txt` file
 
-## Special files in this repository
+## Special files in this repository :
 
 Apart from the regular files created by Django (`project/*`, `welcome/*`, `manage.py`), this repository contains:
 
@@ -36,19 +36,19 @@ openshift/         - OpenShift-specific files
 requirements.txt   - list of dependencies
 ```
 
-## Warnings
+## Warnings :
 
 Please be sure to read the following warnings and considerations before running this code on your local workstation, shared systems, or production environments.
 
-### Database configuration
+### Database configuration :
 
 The sample application code and templates in this repository contain database connection settings and credentials that rely on being able to use sqlite.
 
-### Automatic test execution
+### Automatic test execution :
 
 The sample application code and templates in this repository contain scripts that automatically execute tests via the postCommit hook.  These tests assume that they are being executed against a local test sqlite database. If alternate database credentials are supplied to the build, the tests could make undesirable changes to that database.
 
-## Local development
+## Local development :
 
 To run this project in your development machine, follow these steps:
 
@@ -78,12 +78,12 @@ To run this project in your development machine, follow these steps:
 7. Open your browser and go to http://127.0.0.1:8000, you will be greeted with a welcome page.
 
 
-## Deploying to OpenShift
+## Deploying to OpenShift :
 
 To follow the next steps, you need to be logged in to an OpenShift cluster and have an OpenShift project where you can work on.
 
 
-### Using an application template
+### Using an application template :
 
 The directory `openshift/templates/` contains OpenShift application templates that you can add to your OpenShift project with:
 
@@ -116,7 +116,7 @@ In the web console, the overview tab shows you a service, by default called "dja
     oc get svc
 
 
-### Without an application template
+### Without an application template :
 
 Templates give you full control of each component of your application.
 Sometimes your application is simple enough and you don't want to bother with templates. In that case, you can let OpenShift inspect your source code and create the required components automatically for you:
@@ -135,7 +135,7 @@ Service "django-ex" created at 172.30.16.213 with port mappings 8080.
 You can access your application by browsing to the service's IP address and port.
 
 
-## Logs
+## Logs :
 
 By default your Django application is served with gunicorn and configured to output its access log to stderr.
 You can look at the combined stdout and stderr of a given pod with this command:
@@ -146,18 +146,18 @@ You can look at the combined stdout and stderr of a given pod with this command:
 This can be useful to observe the correct functioning of your application.
 
 
-## Special environment variables
+## Special environment variables :
 
-### APP_CONFIG
+### APP_CONFIG :
 
 You can fine tune the gunicorn configuration through the environment variable `APP_CONFIG` that, when set, should point to a config file as documented [here](http://docs.gunicorn.org/en/latest/settings.html).
 
-### DJANGO_SECRET_KEY
+### DJANGO_SECRET_KEY :
 
 When using one of the templates provided in this repository, this environment variable has its value automatically generated. For security purposes, make sure to set this to a random string as documented [here](https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-SECRET_KEY).
 
 
-## One-off command execution
+## One-off command execution :
 
 At times you might want to manually execute some command in the context of a running application in OpenShift.
 You can drop into a Python shell for debugging, create a new user for the Django Admin interface, or perform any other task.
@@ -207,7 +207,7 @@ Or both together:
     POD_NAME=django-example POD_INDEX=2 ./run-in-container.sh ./manage.py shell
 
 
-## Data persistence
+## Data persistence :
 
 You can deploy this application without a configured database in your OpenShift project, in which case Django will use a temporary SQLite database that will live inside your application's container, and persist only until you redeploy your application.
 
@@ -218,11 +218,11 @@ To do that, you should add a properly configured database server or ask your Ope
 Redeploy your application to have your changes applied, and open the welcome page again to make sure your application is successfully connected to the database server.
 
 
-## Looking for help
+## Looking for help :
 
 If you get stuck at some point, or think that this document needs further details or clarification, you can give feedback and look for help using the channels mentioned in [the OKD repo](https://github.com/openshift/origin), or by filing an issue.
 
 
-## License
+## License :
 
 This code is dedicated to the public domain to the maximum extent permitted by applicable law, pursuant to [CC0](http://creativecommons.org/publicdomain/zero/1.0/).
