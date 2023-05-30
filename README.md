@@ -2,7 +2,7 @@
 
 This is a [Django](http://www.djangoproject.com) project that you can use as the starting point to develop your own and deploy it on an [OpenShift](https://github.com/openshift/origin) cluster.
 
-**NOTE:** This version contains obsolete Django 1.11.x LTS which works with RHEL/Centos 7 and Python 2. Consider switching to RHEL/Centos 8 and Python 3 with Django 2.2.x LTS in [branch 2.2.x](https://github.com/sclorg/django-ex/tree/2.2.x) or 3.2.x LTS in [branch 3.2.x](https://github.com/sclorg/django-ex/tree/3.2.x).
+**NOTE:** This is the oldest example of Django application for specific Django LTS version. If you want a newer version, check the alternative branches.
 
 The steps in this document assume that you have access to an OpenShift deployment that you can deploy applications on.
 
@@ -59,9 +59,9 @@ To run this project in your development machine, follow these steps:
   - Ubuntu: `sudo apt-get install libpq-dev`
   - [Others](https://stackoverflow.com/a/12037133/8122577)
 
-3. Fork this repo and clone your fork:
+**Note:** pg_config is not needed. You can use sqlite instead.
 
-    `git clone https://github.com/sclorg/django-ex.git`
+3. Fork this repo and clone your fork. Make sure that you are in the right branch.
 
 4. Install dependencies:
 
