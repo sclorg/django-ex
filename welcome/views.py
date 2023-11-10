@@ -9,6 +9,7 @@ from .models import PageView
 # Create your views here.
 
 def index(request):
+    """Takes an request object as a parameter and creates an pageview object then responds by rendering the index view."""
     hostname = os.getenv('HOSTNAME', 'unknown')
     PageView.objects.create(hostname=hostname)
 
@@ -19,4 +20,5 @@ def index(request):
     })
 
 def health(request):
+    """Takes an request as a parameter and gives the count of pageview objects as reponse"""
     return HttpResponse(PageView.objects.count())

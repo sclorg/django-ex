@@ -2,7 +2,7 @@
 
 This is a [Django](http://www.djangoproject.com) project that you can use as the starting point to develop your own and deploy it on an [OpenShift](https://github.com/openshift/origin) cluster.
 
-**NOTE:** This is the latest version of this example with Django 2.2 LTS which works with RHEL/Centos 8 only. If you are looking for the version for RHEL/Centos 7, it's in the [master branch](https://github.com/sclorg/django-ex/tree/master).
+**NOTE:** This is an example Django application for specific Django LTS version. If you want an older or newer version, check the alternative branches.
 
 The steps in this document assume that you have access to an OpenShift deployment that you can deploy applications on.
 
@@ -56,9 +56,9 @@ To run this project in your development machine, follow these steps:
 
 2. Ensure that the executable `pg_config` is available on your machine. You can check this using `which pg_config`. Otherwise, sqlite will be used.
 
-3. Fork this repo and clone your fork:
+**Note:** pg_config is not needed. You can use sqlite instead.
 
-    `git clone https://github.com/sclorg/django-ex.git`
+3. Fork this repo and clone your fork. Make sure that you are in the right branch.
 
 4. Install dependencies:
 
