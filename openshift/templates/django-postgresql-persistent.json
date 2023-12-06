@@ -307,7 +307,7 @@
         "replicas": 1,
         "selector": {
           "matchLabels":{
-            "name": "${NAME}"
+            "name": "${DATABASE_SERVICE_NAME}"
           }
         },
         "template": {
