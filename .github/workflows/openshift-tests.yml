@@ -1,0 +1,30 @@
+on:
+  issue_comment:
+    types:
+      - created
+jobs:
+  openshift-tests:
+    # This job only runs for '[test] pull request comments by owner, member
+    name: "RHEL8 tests: imagestream ${{ matrix.version }}"
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [ "2.7-ubi8", "3.6-ubi8", "3.9-ubi8", "3.11-ubi8", "3.9-ubi9", "3.11-ubi9" ]
+
+    if: |
+      github.event.issue.pull_request
+      && contains(github.event.comment.body, '[test]')
+      && contains(fromJson('["OWNER", "MEMBER"]'), github.event.comment.author_association)
+    steps:
+      - uses: sclorg/testing-farm-as-github-action@main
+        with:
+          api_key: ${{ secrets.TF_INTERNAL_API_KEY }}
+          compose: "RHEL-8.8.0-Nightly"
+          git_url: "https://gitlab.cee.redhat.com/platform-eng-core-services/sclorg-tmt-plans"
+          git_ref: "master"
+          tf_scope: "private"
+          tmt_plan_regex: "rhel8-openshift-4"
+          update_pull_request_status: true
+          pull_request_status_name: "RHEL8-OpenShift-4 - imagestream test ${{ matrix.version }}"
+          variables: "REPO_URL=${{ github.server_url }}/${{ github.repository }};REPO_NAME=${{ github.repository }};PR_NUMBER=${{ github.event.issue.number }};OS=rhel8;SINGLE_VERSION=${{ matrix.version }};TEST_NAME=test-openshift-4"
