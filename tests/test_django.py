@@ -11,7 +11,7 @@ VERSION=os.getenv("SINGLE_VERSION")
 if not VERSION:
     VERSION="3.11-ubi8"
 
-class TestDancerAppExTemplate:
+class TestDjangoAppExTemplate:
 
     def setup_method(self):
         self.oc_api = OpenShiftAPI(pod_name_prefix="django-example")
