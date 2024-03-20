@@ -26,6 +26,8 @@ class TestDancerAppExTemplate:
     def test_template_inside_cluster(self):
         if VERSION == "3.11-ubi8" or VERSION == "3.11-ubi9":
             branch_to_test = "4.2.x"
+        elif VERSION == "3.9-ubi9":
+            branch_to_test = "2.2.x"
         else:
             branch_to_test = "master"
         expected_output = "Welcome to your Django application"
@@ -44,6 +46,8 @@ class TestDancerAppExTemplate:
     def test_template_by_request(self):
         if VERSION == "3.11-ubi8" or VERSION == "3.11-ubi9":
             branch_to_test = "4.2.x"
+        elif VERSION == "3.9-ubi9":
+            branch_to_test = "2.2.x"
         else:
             branch_to_test = "master"
         expected_output = "Welcome to your Django application"
