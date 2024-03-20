@@ -48,7 +48,7 @@ class TestDancerAppExTemplate:
             branch_to_test = "master"
         expected_output = "Welcome to your Django application"
         template_json = self.oc_api.get_raw_url_for_json(
-            container="django-ex", dir="openshift/templates", filename="dancer.json"
+            container="django-ex", dir="openshift/templates", filename="django.json"
         )
         assert self.oc_api.deploy_template(
             template=template_json, name_in_template="django-example", expected_output=expected_output,
