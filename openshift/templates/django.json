@@ -169,7 +169,7 @@
             "containers": [
               {
                 "name": "django-example",
-                "image": " ",
+                "image": "${NAME}:latest",
                 "ports": [
                   {
                     "containerPort": 8080
