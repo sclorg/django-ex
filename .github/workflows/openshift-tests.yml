@@ -5,8 +5,8 @@ on:
 jobs:
   openshift-tests:
     # This job only runs for '[test] pull request comments by owner, member
-    name: "RHEL8 tests: imagestream ${{ matrix.version }}"
-    runs-on: ubuntu-20.04
+    name: "RHEL9 tests: imagestream ${{ matrix.version }}"
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
