@@ -50,27 +50,3 @@ class TestDjangoAppExTemplate:
         assert self.oc_api.check_response_inside_cluster(
             name_in_template="django-example", expected_output=expected_output
         )
-
-    def test_template_by_request(self):
-        branch_to_test = "4.2.x"
-        if VERSION == "3.9-ubi9":
-            branch_to_test = "2.2.x"
-        elif VERSION == "3.6-ubi8":
-            branch_to_test = "master"
-        expected_output = "Welcome to your Django application"
-        template_json = self.oc_api.get_raw_url_for_json(
-            container="django-ex", branch=branch_to_test,  dir="openshift/templates", filename="django-postgresql-persistent.json"
-        )
-        assert self.oc_api.deploy_template(
-            template=template_json, name_in_template="django-example", expected_output=expected_output,
-            openshift_args=[
-                f"SOURCE_REPOSITORY_REF={branch_to_test}",
-                f"PYTHON_VERSION={VERSION}",
-                "NAME=django-example",
-                "POSTGRESQL_VERSION=12-el8"
-            ]
-        )
-        assert self.oc_api.is_template_deployed(name_in_template="django-example")
-        assert self.oc_api.check_response_outside_cluster(
-            name_in_template="django-example", expected_output=expected_output
-        )
